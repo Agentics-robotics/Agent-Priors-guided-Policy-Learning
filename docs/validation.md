@@ -7,6 +7,8 @@ they do not constitute a new training run or a rerun of the paper's experiments.
 
 Both independent Pixi environments were installed from their unchanged scientific
 dependency locks in a separate checkout. Both lock consistency checks passed.
+CI and local validation use Pixi 0.80.0, and both manifests declare that minimum
+version so an incompatible installer fails with an explicit requirement.
 The root environment's test task passed 288 tests with two optional platform
 checks skipped (CUDA compilation and an opt-in simulator interface check).
 Upstream Matplotlib emitted 14 deprecation warnings.

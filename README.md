@@ -7,7 +7,8 @@ ablations. Agent+VLA and real-robot software are outside this release.
 
 ## Start with the released results
 
-Use Python 3.11 and [Pixi](https://pixi.sh). From this checkout:
+Use Python 3.11 and [Pixi](https://pixi.sh) **0.80.0 or newer**. CI uses 0.80.0;
+older Pixi versions may not support the checked-in v7 lockfiles. From this checkout:
 
 ```bash
 pixi install --locked
