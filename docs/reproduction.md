@@ -13,8 +13,8 @@ Generated CSV/JSON/Markdown files can be compared with `results/tables/`.
 
 ## Run released policies
 
-Install the data/checkpoint bundle, verify its hashes, and use the experiment
-guide: [Exp1](../experiments/experiment1/README.md) or
+Follow the [asset installation guide](assets.md) to download and verify the
+data/checkpoint bundle, then use the experiment guide: [Exp1](../experiments/experiment1/README.md) or
 [Exp2](../experiments/exp2/README.md). Choose the device and a fresh output
 directory explicitly. Exp1 policy inference and the non-agent Exp2 baselines
 need no model API. APPL's fresh runtime composition requires a configured

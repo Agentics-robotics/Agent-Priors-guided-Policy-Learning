@@ -4,8 +4,10 @@
 optional download bundle. A null bundle means the file is included in Git.
 The two asset bundles contain the original trained checkpoints, demonstrations,
 Cut segments and their referenced image frames. The Exp2 bundle also contains
-complete per-episode result and invocation evidence. Bundle URLs have deliberately
-not been configured: no artifact was uploaded during repository organization.
+complete per-episode result and invocation evidence. Both bundles are published on
+[Hugging Face](https://huggingface.co/datasets/Oscattt/APPL-assets/tree/b840e01bc5b355f4f40842db6fe01002e2e6ac60);
+their manifest URLs pin the verified `v0.1.0` asset commit. See
+[download and installation](../docs/assets.md) for the commands and direct links.
 
 The layout is independent of the original research workstation:
 

@@ -39,20 +39,20 @@ task-goal input, so they are included only in motion OOD. See
 ## Data and trained policies
 
 Policy source, contracts, provenance, evaluation cases, and compact results are
-versioned here. Demonstrations and 222 trained checkpoints are separate asset
-bundles, totaling approximately 36 GiB of checkpoint data. Obtain the matching
-`exp1`/`exp2` release assets and install them with their manifest checksums:
+versioned here. Demonstrations and 222 trained checkpoints are available in two
+public [Hugging Face asset bundles](https://huggingface.co/datasets/Oscattt/APPL-assets/tree/b840e01bc5b355f4f40842db6fe01002e2e6ac60)
+(approximately 38.4 GiB in total). Download and install the matching assets:
 
 ```bash
-pixi run --locked python -m appl_release fetch --bundle exp1 --source PATH_TO_EXP1_ARCHIVE
-pixi run --locked python -m appl_release fetch --bundle exp2 --source PATH_TO_EXP2_ARCHIVE
+pixi run --locked python -m appl_release fetch --bundle exp1
+pixi run --locked python -m appl_release fetch --bundle exp2
 pixi run --locked python -m appl_release verify --assets
 ```
 
-An HTTPS asset URL can be supplied instead of a local archive. The manifest does
-not invent download endpoints: where `url` is unset, supply the actual asset file
-or URL. Asset publication is separate from code checkout. See
-[asset installation](docs/assets.md).
+No Hugging Face account or token is required. The manifest pins the `v0.1.0`
+assets to an immutable commit, and the installer checks archive and file
+checksums. See [asset installation](docs/assets.md) for direct download links,
+disk requirements, and installing a local archive with `--source`.
 
 ## Environments and API configuration
 

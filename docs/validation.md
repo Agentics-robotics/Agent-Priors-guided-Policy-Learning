@@ -65,6 +65,19 @@ private endpoints and common credential formats. Checkpoint metadata was also
 inspected during export. This is a scoped audit, not a guarantee that arbitrary
 future changes cannot introduce sensitive content.
 
+## Hosted asset verification
+
+The public Hugging Face asset version `v0.1.0` was verified at commit
+`b840e01bc5b355f4f40842db6fe01002e2e6ac60` on 2026-10-01. The service-reported
+SHA256 and byte size of each of the three archives matched the local release
+checksums and sizes. Anonymous downloads of the first 1,024 bytes of each archive
+matched the local bytes; the complete `README.md`, `README.txt` and `SHA256SUMS`
+files also matched. The version tag resolved to the same commit.
+
+The manifest uses that exact commit's download URLs. This publication check
+tested remote metadata and download access without downloading all 41 GB again;
+the complete local archive and extraction checks are recorded above.
+
 ## Repeat the checks
 
 ```bash
