@@ -1,0 +1,55 @@
+{
+  "task_id": "assembly",
+  "n_demos": 2,
+  "policy_id": "B0_vanilla_dp",
+  "instance_id": "assembly__N2__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/assembly/n2/B0_vanilla_dp/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/assembly/n2/B0_vanilla_dp/model.pt",
+    "sha256": "c1d9c18e26e0bbaacfbfaea2896f5b323e7a6791d1af6b78a200f5598331c1cd",
+    "source_sha256": "c1d9c18e26e0bbaacfbfaea2896f5b323e7a6791d1af6b78a200f5598331c1cd",
+    "size_bytes": 75786883,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/assembly/n2/B0_vanilla_dp/normalizer.json",
+  "config": "policies/exp1/assembly/n2/B0_vanilla_dp/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/assembly/n2/B0_vanilla_dp/complete.json",
+      "sha256": "a4afca8f9e4cedc032443b9ccfd076e18281f0b6b362614f193883750b41146e",
+      "source_sha256": "a4afca8f9e4cedc032443b9ccfd076e18281f0b6b362614f193883750b41146e",
+      "size_bytes": 1350,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n2/B0_vanilla_dp/config.json",
+      "sha256": "834273b77bbb495b727c325a03c4f0ab4266fb9a8a87f8c5912aa5eeace8d7f2",
+      "source_sha256": "834273b77bbb495b727c325a03c4f0ab4266fb9a8a87f8c5912aa5eeace8d7f2",
+      "size_bytes": 8210,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n2/B0_vanilla_dp/identity.json",
+      "sha256": "7006920db2f925ef494641f605550c5929c933724741b0f08b7eb46d05480314",
+      "source_sha256": "7006920db2f925ef494641f605550c5929c933724741b0f08b7eb46d05480314",
+      "size_bytes": 820,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n2/B0_vanilla_dp/latency.json",
+      "sha256": "fe0dc8bf21bce247e4a528936aa0d0c660f1f53a903c0d4dad5edf4035d53883",
+      "source_sha256": "fe0dc8bf21bce247e4a528936aa0d0c660f1f53a903c0d4dad5edf4035d53883",
+      "size_bytes": 773,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n2/B0_vanilla_dp/normalizer.json",
+      "sha256": "301dacffc50228d4616e46e8ea688a7fdefb80565d825b47ad9b2819b4de5cfc",
+      "source_sha256": "301dacffc50228d4616e46e8ea688a7fdefb80565d825b47ad9b2819b4de5cfc",
+      "size_bytes": 2399,
+      "transformation": "none"
+    }
+  ]
+}

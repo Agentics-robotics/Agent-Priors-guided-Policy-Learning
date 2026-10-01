@@ -1,0 +1,14 @@
+{
+  "policy_id": "place_red__h03",
+  "entry_conditions": "Blue is low over or supported in its goal, red is observable, and measured TCP, qpos/qvel and scene poses are finite. Moderate variation in release timing or TCP configuration is acceptable; gross instability or unreachable geometry is not.",
+  "exit_conditions": "The unchanged terminal success is red_at_goal AND blue_at_goal. Demonstrated open fingers and high retreat are useful guidance but are not additional required predicates.",
+  "overlap_role": "The full 230-240 action shared prefix is supervised. It learns local corrections for final blue lower/open, retreat, transit, red approach/closure and initial lift across earlier and later demonstrated entries.",
+  "successor_readiness": "No successor skill exists. The high-level agent evaluates the supplied goal predicates and may continue/replan if false; neither a small residual nor gripper sign proves completion.",
+  "failure_signatures": "Repeated local targets make no progress, IK residuals or limits persist, blue is displaced, red fails to lift or slips, release lacks full containment, or retreat contacts an object.",
+  "continuation_guidance": "Replan from fresh two-frame observations while mismatch remains moderate. Switch preference to h01 for large red source displacement or h02 for a shifted destination after lift. Do not assume the residual mechanism recovers an unseen contact failure.",
+  "limitations": "Residual feedback only recenters Cartesian targets. It has no contact truth, recovery script or obstacle model, can accumulate transport error, and does not guarantee feasibility or success outside demonstrated relational phases.",
+  "evidence": [
+    {"trajectory_id":"demo10100","indices":[620,640,660,680,700,720,740,760,780,800,820,840,860,900,940,960,980,1000,1020,1040]},
+    {"trajectory_id":"demo10104","indices":[610,620,630,650,680,700,720,740,760,780,800,820,840,850,900,940,960,980,1020,1056]}
+  ]
+}

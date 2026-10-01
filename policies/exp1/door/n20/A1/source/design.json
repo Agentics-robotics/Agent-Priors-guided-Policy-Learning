@@ -1,0 +1,33 @@
+{
+  "title": "Cabinet-canonical diffusion with explicit world-context retention",
+  "coverage_gap": "The exact 20-episode support contains ten LL and ten HH layouts, not the LH/HL cross-combinations or cabinet yaws of magnitude 33-37 degrees. Raw absolute handle/goal coordinates can encode the door_x/yaw correlation. Narrow-support standardization of cosine yaw would also magnify extrapolation. This design tests a deterministic geometry representation rather than an additional learned bottleneck.",
+  "reusable_regularity": "Approach/contact errors and the opening displacement should largely co-rotate with the cabinet. Rotate relative positions, pose axes, one-step displacements and action translations by the observed cabinet yaw. Use fixed physical scales rather than support z-scores for geometry and trigonometric channels. Supply both whole causal observations; native embedded previous state supplies one further displacement estimate. The U-Net alone learns the action distribution and stages.",
+  "dependencies_preserved": [
+    "Absolute world hand, handle and goal positions remain explicit (meters divided by 0.5), preserving reach, table/world and robot workspace dependence rather than asserting full task equivariance.",
+    "Cabinet sine/cosine yaw remains explicit, preserving its relation to fixed world-oriented fingers, world action saturation and the robot.",
+    "Current and previous object quaternions xyzw are represented by two rotation-matrix columns in cabinet coordinates; this is sign-invariant and preserves the physical door orientation relative to its fixed cabinet.",
+    "Current/previous aperture and hand/handle displacements preserve contact and motion dependence. Only declared absent object2 zero channels are omitted.",
+    "Native action4 order and gripper semantics are unchanged. A single chunk-start Rz(yaw) is used for all sixteen action vectors. Encode is Rz(yaw)^T on xyz; decode is its inverse, no translation, scale change or candidate clipping. Gripper is never rotated. The host alone clips in the native world cube and executes four actions."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "door__N20__rep0, exactly the listed twenty support episodes and no development states."},
+    {"path": "task_materials.json", "detail": "State41 schema, fixed native end-effector orientation, handle geom center, observed cabinet sine/cosine, LL/HH training and C/E gaps."},
+    {"path": "support_summary.json", "detail": "cell_counts HH=10, LL=10; initial interaction-to-goal distance is approximately 0.56054 m in the displayed demo_00 through demo_03 summaries despite differing world directions."},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Robot, cabinet and handle sit in a shared world/table scene; no image-derived runtime channel is introduced."},
+    {"path": "images/frame_01_demo_01_step_040.png", "detail": "Elevated hand near the closed-door handle supports retaining vertical contact error."},
+    {"path": "images/frame_02_demo_02_step_070.png", "detail": "Door has rotated during pulling, motivating retention of dynamic object orientation separately from cabinet yaw."},
+    {"path": "trajectories/demo_00.json", "detail": "Inspected obs rows 0-2, 35-40, 60-64 and actions 44-51: fixed initial handle followed by curved motion, descending approach, and changing action direction."},
+    {"path": "PUBLIC_CONTRACT.md", "scope": "public", "detail": "Frozen condition/action hooks and common mask/loss/control semantics."}
+  ],
+  "expected_failure_signature": [
+    "If geometry canonicalization is insufficient, E failures should concentrate at contact or world reach limits despite an approximately correct co-rotated approach.",
+    "The fixed finger orientation and axis-aligned native saturation break exact yaw equivariance. At large yaw the retained world context may still require unsupported interactions, causing glancing contact or loss of the handle.",
+    "No explicit stage supervision is used; a failure mode is premature pulling during descent or continued approach after contact. These are hypotheses, not observed evaluations."
+  ],
+  "required_runtime_fields": {"source": "causal_context.raw_history[B,2,41] and raw_current[B,41], same public observations as B0", "fields": ["current.hand_xyz[0:3]", "current.gripper[3:4]", "current.object_xyz[4:7]", "current.object_quaternion_xyzw[7:11]", "previous.hand_xyz[18:21]", "previous.gripper[21:22]", "previous.object_xyz[22:25]", "previous.object_quaternion_xyzw[25:29]", "goal_xyz[36:39]", "cabinet_sin_cos_yaw[39:41]"], "not_required": ["images at deployment", "episode time or ID", "reward or success flags", "simulator state", "future labels"]},
+  "training_only_targets": [],
+  "support_fit": "None. All feature scales are preregistered physical units, not statistics from another dataset. Common host normalization remains untouched but this representation uses the permitted raw causal context.",
+  "architecture": "condition[B,2,44], one unchanged common action4 U-Net, no added learned modules, no extra loss; public masked action epsilon loss weight 1 and denominator mask.sum()*4.",
+  "parents": [],
+  "change_summary": [{"version": "initial implementation", "change": "New deterministic static-frame design. No parent, pretraining, performance feedback, learned action residual, auxiliary labels or optimizer changes."}]
+}

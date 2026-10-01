@@ -1,0 +1,180 @@
+{
+  "cut_plan_sha256": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "priors": [
+    {
+      "applicability": "Prefer when the square-hole fixture or its pose has moved relative to the demonstrations, while hole_pose is observed reliably, the peg remains closed-grasped, and the current arm configuration can reach a correspondingly transformed lift/transport/staging path. This policy covers the whole assigned slice, with its strongest intended benefit from transport through hole-relative alignment, descent, and outgoing insertion overlap.",
+      "evidence": [
+        {
+          "indices": [
+            1120,
+            1240,
+            1380,
+            1400,
+            1460,
+            1480
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            1120,
+            1240,
+            1380,
+            1400,
+            1460,
+            1480
+          ],
+          "trajectory_id": "demo12205"
+        },
+        {
+          "indices": [
+            1120,
+            1220,
+            1360,
+            1380,
+            1440,
+            1480
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Use only when fingers are closed and two causal observations show the peg moving with the TCP from the low retrieval state or a later still-grasped state. The observed demonstrations enter at index 1120 with peg z 0.028-0.040 m; this is evidence, not a hard success threshold.",
+        "exit_conditions": "Hand off after the peg is approximately aligned with the hole axis, centered near the observed hole y/z, and descending or moving along +x into the outgoing overlap. Keep the framework's original stop and success definition unchanged.",
+        "failure_signatures": "Peg/TCP relative transform changes abruptly, gripper opens, peg remains below wall clearance, hole pose is unreliable, transformed TCP targets are unreachable, lateral/alignment error grows, or the fixture is approached before alignment. There is no demonstrated drop, collision, or bad-grasp recovery.",
+        "overlap_role": "All actions [1120,1500) remain supervised. This includes 150 incoming actions [1120,1270) shared with retrieve_peg_from_box and 120 outgoing actions [1380,1500) shared with align_and_insert_peg, so either neighbor can own multiple 8-action chunks.",
+        "successor_readiness": "align_and_insert_peg is ready once the stable grasp, near-identity peg orientation, hole-relative lateral centering, and descent toward z about 0.10 m are observable; the shared region permits residual correction rather than requiring one exact boundary."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{},\"required\":[]},\"parameter_semantics\":\"No high-level numeric parameters. The caller supplies an empty object and selects this policy only under the documented applicability conditions. The adapter resolves the current observed world-frame hole_pose at every 8-step replan; it is never a fixed demonstration coordinate.\"}",
+      "limitations": "Destination-frame equivariance does not prove reachability, collision avoidance, stable contact, or recovery. It assumes the semantic hole pose is correct and that the moved geometry remains reachable with the measured Panda joints. It may be weak for a displaced pickup/peg with an unchanged hole, for a slipping grasp, or for motions where box/lid obstacles are not transformed with the hole. Prefer the peg-anchor prior for a displaced but stably held peg and the local-twist prior for unusual intermediate phase states.",
+      "pipeline_implications": "Expose this as the first choice for observed hole/fixture displacement and reliable destination pose. Re-evaluate hole_pose on each policy replan, retain two-frame history across switches, execute only slots 1-8, and inspect IK diagnostics. Switch to the outgoing insertion skill in the existing [1380,1500) overlap when readiness is observed; do not interpret policy selection as a recovery guarantee.",
+      "rationale": "Observed evidence shows a long world-spanning path despite an essentially fixed hole in training: in demo12200 the peg rises from z 0.032 at 1120 to z 0.428 at 1240, reaches the hole neighborhood near index 1380, and descends to about z 0.10 before +x insertion. Demo12205 still has peg y about 0.160 at 1380, while demo12208 is nearly centered, showing handoff timing variation but not hole-position variation. The likely deployment failure is memorizing the demonstrated hole location. Learning every commanded TCP target as a position plus 6D rotation in the current hole frame, and decoding by composing with the replan-time hole pose, makes the relevant transport endpoint, alignment, descent, and overlap move with hole displacement by construction. Relative observations support that transform while qpos/qvel retain robot configuration and reachability dependence. Expected benefit under moved holes is a hypothesis; demonstrations do not establish it.",
+      "statement": "Destination-frame SE(3) prior: condition on two-frame hole-relative peg/TCP/goal geometry plus measured robot state, and diffuse absolute commanded TCP targets represented in the observed hole frame. Compose each prediction with the chunk's freshly observed hole pose before shared IK. This directly targets fixture displacement and precise staging while retaining configuration dependence.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift-turn-stage supervision, including incoming [1120,1270) and outgoing [1380,1500) action overlap.\"},{\"trajectory_id\":\"demo12201\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift-turn-stage supervision, including both handoff overlaps.\"},{\"trajectory_id\":\"demo12202\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift-turn-stage supervision, including both handoff overlaps.\"},{\"trajectory_id\":\"demo12203\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift-turn-stage supervision, including both handoff overlaps.\"},{\"trajectory_id\":\"demo12204\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift-turn-stage supervision, including both handoff overlaps.\"},{\"trajectory_id\":\"demo12205\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift-turn-stage supervision; retains the laterally offset outgoing-overlap case.\"},{\"trajectory_id\":\"demo12206\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift-turn-stage supervision, including both handoff overlaps.\"},{\"trajectory_id\":\"demo12207\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift-turn-stage supervision, including both handoff overlaps.\"},{\"trajectory_id\":\"demo12208\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift-turn-stage supervision; retains the earlier-aligned outgoing-overlap case.\"},{\"trajectory_id\":\"demo12209\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift-turn-stage supervision, including both handoff overlaps.\"},{\"trajectory_id\":\"demo12210\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift-turn-stage supervision, including both handoff overlaps.\"},{\"trajectory_id\":\"demo12211\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift-turn-stage supervision, including both handoff overlaps.\"}]"
+    },
+    {
+      "applicability": "Prefer when the held peg and TCP enter displaced together from the retrieval skill, the two-frame peg-to-TCP transform is stable, and the observed hole remains within reachable transport range. This policy is intended for source/held-object displacement and modest orientation variation under a valid grasp, especially during lift and high-clearance reorientation.",
+      "evidence": [
+        {
+          "indices": [
+            1120,
+            1180,
+            1220,
+            1240,
+            1270,
+            1300,
+            1360
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            1120,
+            1180,
+            1220,
+            1240,
+            1270,
+            1300,
+            1360
+          ],
+          "trajectory_id": "demo12205"
+        },
+        {
+          "indices": [
+            1120,
+            1180,
+            1220,
+            1240,
+            1270,
+            1300,
+            1360
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Require closed fingers and a peg/TCP relative transform that is approximately stable over the two causal frames; use after retrieval has coupled the peg to the TCP. Entry may be at the nominal low lift or later in incoming overlap, but stable observed geometry is only a proxy for grasp, not contact truth.",
+        "exit_conditions": "Continue through reorientation and transport; hand off once peg-to-hole geometry indicates near axis alignment and lateral centering above the hole, or later during the demonstrated descent/early-insertion overlap.",
+        "failure_signatures": "Peg motion is not coupled to TCP motion, peg-to-TCP offset drifts, fingers open, source displacement creates an unreachable route, box/lid clearance is lost, or hole-relative error does not shrink. No demonstrated labels support reacquisition after a drop or collision recovery.",
+        "overlap_role": "The full [1120,1500) labels are retained, including [1120,1270) with retrieval and [1380,1500) with alignment/insertion. The peg anchor is re-resolved at each replan, preserving action-supervised overlap rather than trimming it.",
+        "successor_readiness": "Prefer align_and_insert_peg when the peg is stably held, approximately identity-oriented, and centered above the hole with descent underway. If the destination itself is displaced substantially, the hole-frame prior is the stronger continuation."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{},\"required\":[]},\"parameter_semantics\":\"No high-level numeric parameters. The caller supplies an empty object. The adapter resolves the semantic peg_pose from the newest causal observation at every replan and uses it only when high-level selection has judged the peg to be held stably.\"}",
+      "limitations": "The construction assumes the observed peg pose is a meaningful, stably held anchor. It cannot infer contact truth and is unsafe as a dropped-peg recovery policy. If the peg alone moves while the hole is fixed, the required endpoint changes in peg coordinates and must still be inferred from the observed hole-to-peg relation; large changes remain out of support. Peg-frame rotation also changes obstacle geometry. Use the hole-frame prior for destination displacement and the current-TCP local prior when peg pose is unreliable but the TCP state is trustworthy.",
+      "pipeline_implications": "Select using two-frame peg/TCP coupling, not gripper closure alone. Refresh the peg anchor every 8-step replan, preserve causal history over switches, keep gripper closure learned from the demonstrations, and reject/interrupt on obvious anchor drift or failed IK diagnostics. Use the incoming overlap for robust takeover from retrieval and the outgoing overlap for transfer to insertion.",
+      "rationale": "At index 1120 the observed peg centers vary from about x -0.610 to -0.622 and z 0.028-0.040, with matching TCP variation; all inspected commands keep gripper -1. The demonstrations then lift above the 0.05 m wall and turn while the peg remains offset from the TCP, reaching high-clearance z about 0.43-0.48 around 1240-1270 before transport. Deployment may deliver a similarly grasped peg at a shifted source or intermediate pose. Representing the complete 16-slot commanded TCP sequence in the newest observed peg frame makes the learned lift/reorientation/transport targets transform with a rigid displacement of the held peg by construction. Conditioning on two-frame peg-to-TCP geometry, hole-in-peg geometry, qpos, and qvel retains grasp configuration, destination, and reachability dependence. The expected benefit applies only to stable-grasp displacements and is not demonstrated recovery.",
+      "statement": "Held-peg anchor prior: diffuse future commanded TCP poses as position plus 6D rotation relative to the currently observed peg pose, with two-frame attachment geometry and robot state as condition. Compose predictions with the replan-time peg pose before shared IK, giving rigid source/held-object displacement equivariance under a stable grasp.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned supervision with incoming retrieval and outgoing insertion overlap; peg anchor comes from causal context.\"},{\"trajectory_id\":\"demo12201\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned supervision with both action overlaps and causal peg anchoring.\"},{\"trajectory_id\":\"demo12202\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned supervision with both action overlaps and causal peg anchoring.\"},{\"trajectory_id\":\"demo12203\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned supervision with both action overlaps and causal peg anchoring.\"},{\"trajectory_id\":\"demo12204\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned supervision with both action overlaps and causal peg anchoring.\"},{\"trajectory_id\":\"demo12205\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned supervision including the offset outgoing-overlap state.\"},{\"trajectory_id\":\"demo12206\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned supervision with both action overlaps and causal peg anchoring.\"},{\"trajectory_id\":\"demo12207\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned supervision with both action overlaps and causal peg anchoring.\"},{\"trajectory_id\":\"demo12208\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned supervision including the earlier high-clearance/alignment timing.\"},{\"trajectory_id\":\"demo12209\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned supervision with both action overlaps and causal peg anchoring.\"},{\"trajectory_id\":\"demo12210\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned supervision with both action overlaps and causal peg anchoring.\"},{\"trajectory_id\":\"demo12211\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned supervision with both action overlaps and causal peg anchoring.\"}]"
+    },
+    {
+      "applicability": "Prefer for a still-grasped but off-timing intermediate state produced by a neighboring skill, when the current measured TCP pose is reliable and scene displacement is modest. It is designed for receding-horizon local correction across lift, turn, transport, alignment, and descent without relying on a memorized absolute phase clock.",
+      "evidence": [
+        {
+          "indices": [
+            1120,
+            1140,
+            1200,
+            1240,
+            1280,
+            1320,
+            1360,
+            1380,
+            1400,
+            1420,
+            1440,
+            1460,
+            1480
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            1120,
+            1220,
+            1270,
+            1340,
+            1380,
+            1400,
+            1420,
+            1440,
+            1460,
+            1480
+          ],
+          "trajectory_id": "demo12205"
+        },
+        {
+          "indices": [
+            1120,
+            1180,
+            1220,
+            1270,
+            1300,
+            1340,
+            1360,
+            1380,
+            1400,
+            1420,
+            1440,
+            1460,
+            1480
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Use after closed-grasp retrieval or at an intermediate shared state when the two causal frames provide TCP/peg motion direction and peg-to-hole geometry. The policy does not require the nominal index-1120 phase, but its training support contains only successful-path intermediate states.",
+        "exit_conditions": "Terminate or hand off when observed peg/hole relations show near-axis alignment and y/z centering with descent to the insertion height, using the shared [1380,1500) region for a multi-chunk transition.",
+        "failure_signatures": "Local chunks oscillate or fail to reduce geometric error, TCP-relative targets accumulate drift, peg/TCP coupling is lost, clearance decreases near the box, a large scene displacement requires a globally different route, or IK is unconverged/at limits. Successful demonstrations do not establish recovery from these errors.",
+        "overlap_role": "Supervise every action in [1120,1500), preserving 7.5 s incoming and 6.0 s outgoing overlap. Replanning after each 8 executed actions reanchors local displacements while the framework retains the two-frame history across switches.",
+        "successor_readiness": "The insertion successor is ready when the peg is held, aligned, centered and at/descending toward hole height. If intermediate state is sound but the hole itself moved, prefer the destination-frame prior before or during outgoing overlap."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{},\"required\":[]},\"parameter_semantics\":\"No high-level numeric parameters. The caller supplies an empty object and chooses this policy for off-timing but still valid intermediate states. Each replan anchors actions to the newest measured tcp_pose; the anchor remains fixed for that sampled 8-action execution chunk.\"}",
+      "limitations": "TCP-relative chunks are locally well conditioned but not globally translation invariant to a moved destination; long-range corrections still depend on observed relative geometry learned from narrow successful demonstrations. Reanchoring cannot repair a lost grasp, dropped peg, collision, or unreachable state. A fixed anchor within each chunk may accumulate execution/model error. Use the hole-frame policy for fixture displacement and the peg-frame policy for a reliably held but displaced source.",
+      "pipeline_implications": "Use as the phase/handoff-robust alternative when causal motion and geometry are reliable but nominal progress is not. Recompute the TCP anchor after every 8 executed slots, never advance state during denoising, keep slots 1-8 only, preserve incoming/outgoing action overlap, and monitor peg coupling and IK residuals before continuing.",
+      "rationale": "The demonstrations traverse qualitatively different phases inside one long slice: low lift at 1120, clearance/high lift around 1220-1270, simultaneous transport and turning around 1270-1380, and aligned descent/early insertion around 1380-1500. Timing differs: demo12205 still has peg y about 0.160 at 1380, whereas demo12208 is nearly centered at y 0.180 and begins descent earlier; end x also ranges about -0.252 to -0.185. A policy keyed mainly to absolute trajectories can issue the wrong phase after a neighboring policy hands off at a different successful intermediate state. Diffusing chunk-start-TCP-relative translation and rotation-vector targets, while conditioning on two-frame relative geometry, geometric clearance/alignment/progress cues, qpos and qvel, emphasizes the correction from the actual causal state. Reanchoring each execution chunk limits accumulated frame error. Expected robustness is to valid off-timing states represented by demonstrations, not unseen-error recovery.",
+      "statement": "Receding local-twist prior: diffuse each commanded TCP target as a chunk-start TCP-frame translation and exponential-coordinate rotation plus gripper, conditioned on two-frame robot/object state and explicit geometric phase cues. Reanchor at each 8-action replan to target handoff timing and intermediate-state ambiguity.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with incoming [1120,1270) and outgoing [1380,1500) overlap.\"},{\"trajectory_id\":\"demo12201\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12202\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12203\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12204\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12205\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full supervision retaining the late-centering phase variant in outgoing overlap.\"},{\"trajectory_id\":\"demo12206\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12207\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12208\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full supervision retaining the earlier-centering/descent phase variant.\"},{\"trajectory_id\":\"demo12209\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12210\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12211\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"}]"
+    }
+  ],
+  "skill_id": "reorient_and_stage_peg"
+}

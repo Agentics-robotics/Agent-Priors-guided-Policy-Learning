@@ -1,0 +1,154 @@
+{
+  "container_pose": [
+    -0.26009395718574524,
+    0.2250121682882309,
+    0.39948415756225586,
+    0.9999998807907104,
+    3.175938400090672e-05,
+    0.0004490464925765991,
+    -1.1077254384872504e-05
+  ],
+  "contract": {
+    "bowl_center": [
+      -0.26,
+      0.18
+    ],
+    "bowl_floor_top": 0.012,
+    "bowl_inner_half_xy": [
+      0.13,
+      0.12
+    ],
+    "bowl_wall_top": 0.08,
+    "contact_tolerance_m": 0.0003,
+    "container_bound_half_xy": [
+      0.078,
+      0.03
+    ],
+    "container_grasp_local": [
+      -0.07,
+      0,
+      0.052
+    ],
+    "container_half_xy": [
+      0.035,
+      0.03
+    ],
+    "container_handle_half": [
+      0.008,
+      0.012,
+      0.025
+    ],
+    "container_handle_local": [
+      -0.07,
+      0,
+      0.052
+    ],
+    "container_height": 0.085,
+    "container_over_bowl_definition": "container origin xy inside bowl_center +/- bowl_inner_half_xy and its z above bowl_wall_top",
+    "control_hz": 20,
+    "description": "Lift the particle-filled container, pour at least ten of twelve rigid particles into the bowl, then return the source container upright to its marked region.",
+    "minimum_particles_in_bowl": 10,
+    "no_particles_in_bowl_definition": "particles_in_bowl (the task measure) equals 0",
+    "particle_count": 12,
+    "particle_radius": 0.0055,
+    "predicates": [
+      "enough_poured",
+      "container_at_return",
+      "container_upright"
+    ],
+    "return_half_xy": [
+      0.12,
+      0.075
+    ],
+    "return_target": [
+      -0.46,
+      -0.28,
+      0.0
+    ],
+    "return_z_tolerance": 0.015,
+    "robot": "panda",
+    "schema": "appl.cartesian_ik.task_goals.v1",
+    "success_expression": "enough_poured AND container_at_return AND container_upright",
+    "task_id": "granular_pour_return",
+    "upright_cosine": 0.97,
+    "wall_thickness": 0.005
+  },
+  "demo": "demo12303",
+  "expert_goals": {
+    "container_at_return": true,
+    "container_upright": true,
+    "enough_poured": true,
+    "particles_in_bowl": 12,
+    "success": true
+  },
+  "expert_success": true,
+  "goal": "standard",
+  "id": "U-S1",
+  "initial_goals": {
+    "container_at_return": false,
+    "container_upright": true,
+    "enough_poured": false,
+    "particles_in_bowl": 0,
+    "success": false
+  },
+  "initial_sha256": "b5ebcc8760298c520c60baf562b3892ff9c23180ab292f6f545f9372bc8f6387",
+  "kind": "start",
+  "name": "filled_container_in_hand_over_bowl",
+  "particle_positions": [
+    -0.26566973328590393,
+    0.23400965332984924,
+    0.4149899482727051,
+    -0.2545003592967987,
+    0.23457375168800354,
+    0.4149802327156067,
+    -0.24287576973438263,
+    0.2359301745891571,
+    0.4149695336818695,
+    -0.28456535935401917,
+    0.24450437724590302,
+    0.41500765085220337,
+    -0.27294570207595825,
+    0.24449680745601654,
+    0.4149973690509796,
+    -0.23593910038471222,
+    0.24451056122779846,
+    0.4149642586708069,
+    -0.2845403552055359,
+    0.22383074462413788,
+    0.4150066077709198,
+    -0.2722616493701935,
+    0.22514313459396362,
+    0.4149952530860901,
+    -0.23562680184841156,
+    0.22765815258026123,
+    0.41496267914772034,
+    -0.28079521656036377,
+    0.2341741919517517,
+    0.4150034487247467,
+    -0.26179927587509155,
+    0.2445105016231537,
+    0.41498738527297974,
+    -0.2497672438621521,
+    0.24451005458831787,
+    0.4149765074253082
+  ],
+  "phase": "tilt_and_pour",
+  "prepared": 1790299925.99217,
+  "robot_qpos": [
+    0.20442289113998413,
+    -0.011260912753641605,
+    0.21000121533870697,
+    -1.750309944152832,
+    -0.0022280977573245764,
+    1.7318625450134277,
+    1.205721139907837,
+    0.010400236584246159,
+    0.010364229790866375
+  ],
+  "seed": 24093300,
+  "stages": [
+    "pour",
+    "return"
+  ],
+  "task": "granular_pour_return"
+}

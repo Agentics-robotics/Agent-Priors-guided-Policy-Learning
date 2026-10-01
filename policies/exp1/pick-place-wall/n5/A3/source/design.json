@@ -1,0 +1,48 @@
+{
+  "title": "Typed relational message passing with joint future-relation diffusion",
+  "coverage_gap": "Only LL and HH object/goal pairs appear in D5. A small set of action sequences need not teach independent grasp and transport dependencies, especially when most lateral transport errors are nearly zero. The visible demonstrations contain richer object-hand attachment and goal-progress dynamics than action imitation alone explicitly supervises.",
+  "reusable_regularity": "Encode hand, manipulated object, goal and finite wall as four typed entities. Shared directed-edge networks process relative positions and velocities, with two shared message/update rounds, so interaction computations are reused rather than assigning unrelated networks to individual coordinate slots. A 32-channel geometric skip avoids forcing precise control geometry through a learned bottleneck. Jointly diffuse future object-minus-hand, goal-minus-object and aperture to encourage consistent attachment and progress trajectories alongside actions. These are sampled latent outputs at deployment, never known future conditioning. There is no stage schedule, fixed grasp gate, or action rotation in this design.",
+  "dependencies_preserved": [
+    "Node order and type indicators distinguish hand, object, goal and obstacle; graph averaging is over incoming messages, not over interchangeable final entity outputs.",
+    "Node positions relative to the wall, world heights, wall half sizes and skip wall world center preserve finite obstacle geometry and absolute workspace/gravity dependence. All directed pair positions and causal velocities are supplied. The wall is not reduced to a point-only obstacle because all half sizes remain node attributes and skip features.",
+    "Object xyzw orientation and its native-previous difference, current aperture and native-previous aperture change, and hand/object motion are included. Static goal and wall velocities are zero by declared task semantics; absent object2 channels are not modeled.",
+    "The two complete causal observations are encoded independently and concatenated by the frozen DP. All learned encoder and update parameters participate in the common and auxiliary joint training loss."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Identifies exact D5 and excludes extra demonstrations or development/test states."},
+    {"path": "task_materials.json", "use": "Shared source fields, object2 absence, native object point, wall dimensions and identity world action4 semantics."},
+    {"path": "support_summary.json", "use": "Diagonal-only cell coverage, small initial lateral goal-object differences and substantial variation in hand/object height and aperture motivate relational supervision."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 24:30; actions 20:36", "use": "Observed closure, near-constant hand/object offset at lift onset, and changing object motion motivate predicting future attachment relations rather than an oracle grasp bit."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 50:54; actions 45:65", "use": "Hand and object rise together then translate; future goal-object displacement can supervise transport progress through the same demonstration labels."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Inspected actual frame establishes distinct physical hand/object, goal marker and finite wall roles."},
+    {"path": "images/frame_05_demo_01_step_059.png", "use": "Inspected actual lifted-object transport frame."},
+    {"path": "images/frame_15_demo_04_step_085.png", "use": "Inspected actual late goal-side frame."},
+    {"path": "learning.py", "scope": "public", "use": "Joint diffusion extension retains encoded native action4 first; action epsilon denominator is fixed and auxiliary mask normalization is separate. Runtime context contains no targets."}
+  ],
+  "expected_failure_signature": [
+    "Joint state/action denoising may spend scarce capacity fitting future state channels without improving control; this would show reasonable IID attachment behavior but no improvement in mixed-sign goal progress.",
+    "With only five trajectories the learned graph may still entangle goal and object identity or suppress edge signs. Persistent lateral goal error after successful lift in LH/HL would falsify the intended reusable relation bias.",
+    "Future relations can describe an internally plausible carry even after a real missed grasp. Closed-loop object-hand separation and stalled real goal progress would expose that mismatch.",
+    "No explicit causal stage gate or collision constraint is imposed. Premature transport or wall contact remains a risk, particularly near finite wall edges."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,45] only for conditioning; normalized history is unused",
+    "slices": {"hand": [0,3], "aperture": [3,4], "object": [4,7], "object_xyzw_world": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_object": [22,25], "previous_object_xyzw_world": [25,29], "goal": [36,39], "wall_center": [39,42], "wall_half_size": [42,45]},
+    "action_frame": "Encoded and decoded first four channels are identity native world_dx, world_dy, world_dz, gripper. Native xyz scale remains 0.01 m. The host alone clips native actions and executes four of sixteen. Appended channels are not decoded as actions.",
+    "condition_dim_per_observation": 128,
+    "diffusion_channels": "11 = native action4 followed by seven generated future-relation channels",
+    "encoder_details": "22 -> 64 -> 24 typed node encoder, (24+24+7) -> 64 -> 24 edge encoder, (24+24) -> 64 -> 24 residual node update; SiLU hidden nonlinearities; two rounds share edge/update weights; ordered four-node flatten plus 32 direct geometry features."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_relations",
+      "shape": "[number_of_support_windows,16,7]",
+      "source": "For support window at (episode,t) and valid j in 0:16, take observation t+j+1 from that exact episode: channels 0:3=(object[4:7]-hand[0:3])/0.1 m, 3:6=(goal[36:39]-object[4:7])/0.1 m, 6=2*aperture[3]-1. Validity requires t+j < len(actions). Invalid tail values are zero and excluded by the common window mask.",
+      "loss": "0.25 * sum(mask * squared auxiliary epsilon error)/(7*mask.sum()), denominator floor 1 only for an entirely invalid mask. This finite nonnegative auxiliary term is separate from the untouched weight-1 action4 epsilon term with denominator 4*mask.sum(). No additional action reconstruction objective or action reweighting.",
+      "inference": "No target arrays, masks or future truth are consulted by condition, denoise or decode. The host initializes all eleven channels as noise, jointly samples them with the one common DP, and discards generated auxiliary channels before native action decoding."
+    }
+  ],
+  "support_fit": "No fitted inference statistics or cached support labels; deployment state is empty. Future targets are produced only by training_targets on the exact D5. Learned modules are created only by build_modules and trained from scratch with the frozen common optimizer budget.",
+  "parents": [],
+  "change_summary": "Initial A3: learned typed relational message passing and seven joint future-outcome diffusion channels, unlike the fixed relations of A1 and the causal phase/action-frame bias of A2. No structural repairs at authorship."
+}

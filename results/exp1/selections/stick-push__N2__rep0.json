@@ -1,0 +1,41 @@
+{
+  "instance": "stick-push__N2__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A2",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A2",
+      "feedback_hash": "93597e2bfeed2b55c60f041f72d42566e2bb8d1049046327cfff5d1cf67a8ac7",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: all A1–A3 are valid completed candidates. Under equal subcondition weights, 0.5*C+0.5*E is A1=0.80, A2=1.00, A3=0.45. A2 is the unique maximizer (C: 10/10 in each of LH and HL; E: 5/5 in each of LL, LH, HL, HH). No latency/parameter/ID tie-break is needed. IID and training loss were not used for selection. A2's perfect finite development sample is not a guarantee of population success.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A2",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A2",
+      "feedback_hash": "6926c022562be4af04c89fb7b91fdaeed78f03762a7d360b87ab2c1b86b3eb7e",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: all four candidates are valid and completed the fixed training budget. Equal-subcondition-weighted scores 0.5*dev_C_success+0.5*dev_E_success are A1=0.80, A2=1.00, A3=0.45, A4=1.00. A2 and A4 tie at the maximum, each with C=20/20 and E=20/20 and success in every C/E cell. Apply the first frozen tie-break: A2 fixed-method inference latency is 0.10788568950374611 s, lower than A4's 0.10859380500187399 s. Therefore select A2. A4's fewer parameters (4,995,055 versus 5,346,303) cannot override the latency tie-break; its compression preserved observed success but did not improve measured latency. IID, training losses, and hidden test were not used for selection. No additional design, edit, checkpoint choice, check or training is requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "90e01a9986f45efd65fe202e282fc171a62b862110b94abe5df7aaddc443c81a",
+    "A2": "6763f26a3dcbc019ecaf9e6f78e667af2ca8f0ce35c87ea3e20a74103eac4ff2",
+    "A3": "2c1a915d2f01dac66e5f14dc2dabacf250b1837d9ff7d5801c98546c12e15bb7",
+    "A4": "2d5c043847fbe2960a9f88a23651d67d456323176c3cd5b613f47768539f9a43"
+  },
+  "feedback_hashes": {
+    "initial": "58d7eed881d1895066d1edceb45bae1dafadae258e9ce2a0cd32a7837003fcb6",
+    "final": "c80364ca033eb6d993e0704644df8093af3f0332c3204077a57ec838acb03291"
+  }
+}

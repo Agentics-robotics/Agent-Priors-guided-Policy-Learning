@@ -1,0 +1,166 @@
+{
+  "cut_plan_sha256": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+  "priors": [
+    {
+      "applicability": "Prefer when the source container is upright and observable but its table pose is displaced from the narrow demonstrated initial range, especially before handle acquisition. Replan every execution chunk so the source anchor and source-to-bowl relation are current. The source and requested bowl must remain within Panda reach and the observed geometry must still identify the same handle layout.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            80,
+            120,
+            140,
+            148,
+            160,
+            180,
+            220,
+            280,
+            320,
+            340,
+            359
+          ],
+          "trajectory_id": "demo12300"
+        },
+        {
+          "indices": [
+            0,
+            120,
+            132,
+            136,
+            140,
+            160,
+            180,
+            220,
+            280,
+            320,
+            340,
+            359
+          ],
+          "trajectory_id": "demo12303"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Container upright on the table, gripper open, container selected as source and bowl selected as destination; the current container pose, TCP pose, and measured Panda joints must be finite and reachable. It may also continue after closure when container/TCP co-motion is visible.",
+        "exit_conditions": "Closed fingers, source/TCP co-motion, source clear of the table and staged near the observed bowl-relative high pose with only the demonstrated small initial tilt.",
+        "failure_signatures": "Open fingers after attempted closure, TCP not at the handle relationship, source not following TCP, particles moving independently, IK nonconvergence or joint-limit contact. A successful demonstration does not establish recovery from an unseen miss or slip.",
+        "overlap_role": "All actions [180,360) remain supervised and overlap controlled_pour_and_right: closed-gripper lift, upright carry, bowl staging, and the first small tilt.",
+        "successor_readiness": "Nominally switch to controlled_pour_and_right after upright staging above the bowl; shared supervision permits switching any time after a clearly closed, co-moving and lifted source."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"container\"]},\"destination_object\":{\"type\":\"string\",\"enum\":[\"bowl\"]}},\"required\":[\"source_object\",\"destination_object\"]},\"parameter_semantics\":\"source_object names the currently observed manipulated source pose used as the per-chunk Cartesian action frame; destination_object names the currently observed bowl pose used to condition source-to-destination transport. Both arguments are semantic observation selectors, not actuator commands.\"}",
+      "limitations": "The invariant directly covers handle approach and grasp motion under source-pose displacement, and each 0.4 s carry replan is source anchored; it does not make reachability, collision clearance, grasp contact, or a fixed bowl destination translation invariant. The twelve demonstrations vary initial source center only about 15 mm in x and 12 mm in y, contain no failed grasps/slips, and use one bowl pose. Large source rotations, occlusion, large mid-chunk slip, or unreachable placements remain unsupported. The TCP-delta prior better covers local intermediate-state error; the phase-aware bowl prior better covers ambiguous already-grasped carry states.",
+      "pipeline_implications": "The high-level agent should select this policy for displaced-source acquisition while monitoring finger closure plus container/TCP co-motion. It must not infer contact from closure alone. Resolve source and destination poses at every replan, preserve two-frame history across switches, execute slots 1..8, and reject or escalate explicit IK failures rather than silently treating them as success.",
+      "rationale": "Observed demonstrations place the source only at x=-0.443 to -0.458 m and y=-0.202 to -0.214 m. At demo12300 indices 120-160 the commanded TCP settles at the handle while the source remains table-supported, action 148 commands closure, and by 180 the source has lifted. Expressing every commanded TCP target in the current chunk-start source frame removes memorization of the demonstrated source world position from handle acquisition. Conditioning on the current bowl pose and source-to-bowl transform retains the non-invariant transport dependency. Rotation is represented continuously in 6D; the standard DP backbone is unchanged.",
+      "statement": "Chunk-start source-frame Cartesian targets for displacement-equivariant handle acquisition and source-conditioned transport.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12301\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12302\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12303\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized occurrence including earlier closure; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12304\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12305\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12306\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized occurrence including earlier closure and higher index-180 lift; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12307\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12308\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12309\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12310\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12311\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"}]"
+    },
+    {
+      "applicability": "Prefer for intermediate entries or local TCP configuration errors while the source/handle geometry is still near the observed relational support: late approach, just-closed grasp, or already-lifted continuation. The one-step body-frame target is recomputed against each freshly measured TCP and is intended to reduce dependence on the nominal robot path.",
+      "evidence": [
+        {
+          "indices": [
+            80,
+            120,
+            136,
+            140,
+            148,
+            152,
+            156,
+            160,
+            180,
+            220,
+            280,
+            320,
+            359
+          ],
+          "trajectory_id": "demo12300"
+        },
+        {
+          "indices": [
+            120,
+            128,
+            132,
+            136,
+            140,
+            148,
+            160,
+            180,
+            220,
+            280,
+            320,
+            340,
+            359
+          ],
+          "trajectory_id": "demo12303"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Finite two-frame observations with the TCP locally near a demonstrated approach, grasp, lift, or carry relationship; source is either upright and not yet grasped, or is visibly co-moving with closed fingers. Current measured joints must admit the decoded local target.",
+        "exit_conditions": "Closed fingers and source/TCP co-motion, followed by table clearance and upright staging above the bowl near the demonstrated handoff relation.",
+        "failure_signatures": "Repeated local motions without reducing handle error, open fingers at lift, source/TCP motion disagreement, particle separation before secure lift, or IK nonconvergence/limit contact. No demonstrated miss/slip recovery is claimed.",
+        "overlap_role": "Actions [180,360) are retained as action supervision, giving the local controller the same lift, carry, staging and first-tilt behavior as controlled_pour_and_right.",
+        "successor_readiness": "Switch once closed-gripper co-motion and lift are observable; nominally wait for high bowl staging. The overlap supports earlier continuation by the successor."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"container\"]},\"destination_object\":{\"type\":\"string\",\"enum\":[\"bowl\"]}},\"required\":[\"source_object\",\"destination_object\"]},\"parameter_semantics\":\"source_object and destination_object select the observed source and bowl poses used to form causal relative-error features. Learned actions are local SE(3) targets relative to the freshly measured TCP and do not expose actuator parameters.\"}",
+      "limitations": "Small local target transforms improve feedback around changed intermediate TCP states but do not guarantee convergence from large spatial errors and can compound diffusion error over many replans. Training has no deliberately perturbed entries, failed grasps, or slips. Large object displacement or source rotation can remain out of input support and is better handled by the source-frame prior; ambiguous grasp/lift phase is better handled by the phase-aware prior. IK reachability and collisions remain configuration dependent.",
+      "pipeline_implications": "Use as a local continuation/correction option rather than a recovery guarantee. Preserve causal history across switches so container/TCP relative motion is visible. Every represented slot is composed with the fresh measured TCP, solved from fresh measured joints, and emits explicit IK diagnostics. The agent should stop or change responsibility if co-motion is absent after closure.",
+      "rationale": "The same semantic stage occurs at different observed states: demo12300 is still table-supported around indices 148-160 and reaches source z=0.029 m at 180, while demo12303 closes earlier and reaches z=0.056 m at 180. A TCP-body-frame one-step pose target makes the learned output a local correction from the actual state rather than an absolute replay. Two-frame relational inputs retain source/TCP co-motion, finger state and Panda configuration. This favors intermediate-state robustness but intentionally differs from the source-frame absolute and bowl-frame phase-aware priors.",
+      "statement": "Fresh-TCP body-frame incremental Cartesian targets for local feedback from nonnominal intermediate robot states.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; local targets retain [180,360) overlap.\"},{\"trajectory_id\":\"demo12301\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; local targets retain [180,360) overlap.\"},{\"trajectory_id\":\"demo12302\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; local targets retain [180,360) overlap.\"},{\"trajectory_id\":\"demo12303\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized earlier-closure occurrence; local targets retain [180,360) overlap.\"},{\"trajectory_id\":\"demo12304\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; local targets retain [180,360) overlap.\"},{\"trajectory_id\":\"demo12305\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; local targets retain [180,360) overlap.\"},{\"trajectory_id\":\"demo12306\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized earlier/higher-lift occurrence; local targets retain [180,360) overlap.\"},{\"trajectory_id\":\"demo12307\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; local targets retain [180,360) overlap.\"},{\"trajectory_id\":\"demo12308\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; local targets retain [180,360) overlap.\"},{\"trajectory_id\":\"demo12309\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; local targets retain [180,360) overlap.\"},{\"trajectory_id\":\"demo12310\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; local targets retain [180,360) overlap.\"},{\"trajectory_id\":\"demo12311\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; local targets retain [180,360) overlap.\"}]"
+    },
+    {
+      "applicability": "Prefer when phase is the dominant uncertainty: closure timing differs, the skill is invoked after a predecessor at a just-closed or already-lifted state, or the source is already secured and bowl-relative staging is more important than displaced-source acquisition. Requires reliable finger width, container elevation and two-frame co-motion cues.",
+      "evidence": [
+        {
+          "indices": [
+            120,
+            136,
+            140,
+            148,
+            160,
+            180,
+            220,
+            280,
+            320,
+            340,
+            359,
+            360
+          ],
+          "trajectory_id": "demo12300"
+        },
+        {
+          "indices": [
+            120,
+            128,
+            132,
+            136,
+            140,
+            148,
+            160,
+            180,
+            220,
+            280,
+            320,
+            340,
+            359,
+            360
+          ],
+          "trajectory_id": "demo12303"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Observed container and bowl poses are finite; gripper may be open near approach or closed with plausible source/TCP co-motion. Prefer closed/already-lifted entries or ambiguous closure timing over a strongly displaced ungrasped source.",
+        "exit_conditions": "Auxiliary phase evidence and physical observations agree that fingers are closed, source and TCP co-move, the source is clear, and the bowl-frame stage pose is reached with only a small tilt.",
+        "failure_signatures": "Phase prediction disagrees with physical finger/elevation/co-motion evidence, closed fingers without source motion, source drop, early particle escape, or IK failure/limit contact. The phase head is not contact truth.",
+        "overlap_role": "The complete [180,360) lift/carry/stage interval is duplicated as action supervision and aligns the bowl-frame output with controlled_pour_and_right, including the small initial tilt.",
+        "successor_readiness": "Use observed closure, co-motion and clearance\u2014not the auxiliary class alone\u2014to admit controlled_pour_and_right; nominal readiness is the demonstrated high bowl-relative stage."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"container\"]},\"destination_object\":{\"type\":\"string\",\"enum\":[\"bowl\"]}},\"required\":[\"source_object\",\"destination_object\"]},\"parameter_semantics\":\"source_object selects the observed manipulated container used in phase/co-motion features; destination_object selects the observed bowl whose pose is the learned Cartesian action frame. These are semantic references, not phase labels or actuator inputs.\"}",
+      "limitations": "The three-class auxiliary target is a causal proxy derived from demonstrated finger width and source elevation, not force/contact truth; it cannot certify a grasp or recover a slip. Bowl-frame absolute targets favor secured carry/staging but do not make pregrasp actions invariant to source-only displacement, which is covered by the source-frame prior. The demonstrations have only successful nominal ordering and one bowl pose, so unseen reordering, large bowl rotations, source displacement, and unreachable bowl locations remain unsupported.",
+      "pipeline_implications": "The auxiliary cross-entropy shares the trainable condition encoder with diffusion and is masked, but inference remains causal and uses no future labels. The agent should prefer this policy for already-grasped or phase-ambiguous entries, cross-check inferred phase against finger and co-motion observations, and use source-frame acquisition when the ungrasped source is displaced. Every bowl-frame target is decoded through shared IK from current joints.",
+      "rationale": "Observed closure timing varies: demo12300 first commands closure at index 148, whereas demo12303 commands closure by 136 and has closed fingers by 140. Their index-180 source heights differ (about 0.029 versus 0.056 m), yet both converge to the bowl-relative high stage around indices 320-360. A registered condition encoder and masked auxiliary head classify causal approach/open, closed-low, and closed-lifted state while the main DDPM predicts bowl-frame Cartesian targets. The auxiliary gradient shapes the same condition features used by the unchanged standard backbone, targeting phase ambiguity without replacing action diffusion.",
+      "statement": "Bowl-frame absolute Cartesian targets with a shared causal phase auxiliary objective for closure/lift ambiguity and robust successor staging.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized supervision with phase labels; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12301\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized supervision with phase labels; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12302\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized supervision with phase labels; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12303\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Earlier-closure variation supplies phase distinction; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12304\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized supervision with phase labels; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12305\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized supervision with phase labels; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12306\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Earlier/higher lift supplies phase distinction; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12307\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized supervision with phase labels; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12308\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized supervision with phase labels; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12309\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized supervision with phase labels; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12310\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized supervision with phase labels; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12311\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized supervision with phase labels; [180,360) preserves successor overlap.\"}]"
+    }
+  ],
+  "skill_id": "grasp_lift_stage"
+}

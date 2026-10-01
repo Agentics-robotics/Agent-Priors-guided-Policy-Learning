@@ -1,0 +1,10 @@
+{
+  "policy_id": "blue_insert__h02",
+  "skill_id": "blue_insert",
+  "heuristic_index": 2,
+  "prior_summary": "World-aligned Cartesian targets translated to the causal blue_goal make final approach, lowering, release and retreat move exactly with the calibrated drawer destination.",
+  "applicable_conditions": "Prefer with drawer_position > 0.26 m after closed-finger blue/TCP co-motion suggests the blue block is being carried and changed drawer-goal alignment is the main risk. It still covers the whole release-to-pick overlap. destination_field must be blue_goal.",
+  "termination_guidance": "Use only the unchanged simultaneous drawer-open, red-on-pad and blue-inside evaluator expression. Release and high retreat remain demonstrated context rather than new requirements.",
+  "limitations": "A point goal omits wall/lip geometry and route planning; translated goals can be unreachable; world orientation is not invariant to drawer rotation; source pickup displacement is conditioned but not invariant; no collision or recovery examples exist.",
+  "config": {"action_frame": "world_aligned_blue_goal_origin", "rotation": "world_6d", "input_scaling": "fixed_physical", "augmentation": "none", "backbone": "standard"}
+}

@@ -1,0 +1,45 @@
+{
+  "title": "Phase-conditioned approach-to-transport bearing frame",
+  "coverage_gap": "A2 largely closes the compositional gap but leaves an asymmetric extrapolation gap: E LL and LH each succeed 5/5, whereas E HH is 1/5 and E HL is 0/5. Thus high object_x, not simply goal_x sign or opposite-side pairing, marks its remaining weak cells. Feedback contains only native truncation/success categories, so it does not establish whether the failure is grasp, lift, wall crossing or final placement. A4 tests the specific hypothesis that extrapolated positive hand-to-object approach geometry is insufficiently canonicalized by A2's goal-only frame.",
+  "reusable_regularity": "Retain A2's successful causal phase encoders and gravity-preserving local action representation. Extend the chunk-start yaw frame so that, far from a grasp, forward tends toward the measured hand-to-object horizontal bearing; near alignment or a held-like configuration it returns toward the object-to-goal bearing. The same rotation is applied to all local condition vectors and action xyz. This shares approach direction computations across left/right object offsets while preserving the transport prior. The blend is continuous in horizontal distance and uses a shortest-angle interpolation to avoid cancellation of opposite vectors. It is a coordinate mapping only, not a servo, plan, waypoint generator or action override.",
+  "dependencies_preserved": [
+    "As in A2, hand and wall world positions, wall half sizes and world-axis face coordinates remain in the core. Frame yaw remains explicit. No global rotation or translation symmetry is asserted for the finite wall, robot workspace or native action cube.",
+    "Object current/previous world xyzw quaternions, aperture/change, hand/object native-previous displacements, grasp proximity, height above the wall and far-side relation are retained. Absent object2 zero fields are still omitted.",
+    "Goal displacement enters the transport branch; goal bearing and current/past hand-object bearing determine the frame. Goal dependence is not removed from early approach, and obstacle dependence is not gated away.",
+    "The action frame and added mixing coefficient use only raw_current plus its native-previous slices. Both history observations are expressed in that one chunk-start frame, which is fixed throughout sixteen-step encoding/decoding. Initial repeated history is naturally supported."
+  ],
+  "evidence_refs": [
+    {"source": "revision user message: development_feedback", "feedback_hash": "d60f35a7b7adfba982c084e4b7e9ae55d0e197caad2d62c52ea893a6f75aff8d", "use": "A2 C=0.95, E=0.55, frozen score=0.75; E HH=0.2, HL=0, LH=1, LL=1. A1/A3 each score 0.25. A2 is q3's unique maximizer. The same feedback only labels failures native_truncated, so the approach-stage explanation remains a hypothesis, not an observed failure diagnosis."},
+    {"path": "bundle.json", "use": "Same exact D5; no development observations or extra demonstrations are added."},
+    {"path": "task_materials.json", "use": "Object_x extrapolation, fixed gravity/world action semantics, causal native-previous fields and finite wall geometry."},
+    {"path": "support_summary.json", "use": "Initial positive-object demonstrations have hand-to-object vectors approximately (0.014,0.035,-0.180) and (0.020,0.041,-0.180) m; the first negative-object example has approximately (-0.029,0.003,-0.180) m. These mix x and y differently and motivate approach-bearing rather than purely goal-bearing canonicalization."},
+    {"path": "trajectories/demo_00.json", "rows": "actions 0:6 and 20:36; obs 0:6 and 24:30", "use": "Initial lateral action points predominantly negative x, then closure/lift occurs at small hand-object separation. This motivates fading approach yaw near alignment instead of normalizing a nearly zero vector."},
+    {"path": "trajectories/demo_01.json", "rows": "actions 0:6 and 45:65; obs 50:54", "use": "Initial lateral action is mostly positive y with a smaller positive x component, while later motion switches from vertical lift to forward transport. This supplies both distinct interaction bearings within the same exact support."},
+    {"path": "images/frame_03_demo_01_step_003.png", "use": "Newly inspected actual HH approach frame; hand is displaced above the object and the goal is across the finite wall."},
+    {"path": "images/frame_05_demo_01_step_059.png", "use": "Previously inspected actual HH transport frame supporting retention of A2's carry representation."},
+    {"path": "contracts.py", "scope": "public", "use": "Causal chunk-start frame inverse, one common DP and support-state restoration requirements."}
+  ],
+  "expected_failure_signature": [
+    "If high-object E failure was mainly approach-direction extrapolation, A4 should improve E HH/HL while keeping much of A2's C and low-object E performance. Continued high-object failures with no gain would reject that sufficiency hypothesis.",
+    "If the actual bottleneck is wall crossing, grasp-point asymmetry, or transport-stage dropout, changing only the approach frame may not help. No claim that those failure stages were measured in feedback is made.",
+    "As horizontal approach error falls through the 0.02 m crossover, yaw changes more quickly. An unfavorable outcome is contact-time dithering or a regression of already-successful LL/LH approaches despite preserving the carry limit.",
+    "The shortest-angle interpolation has an antiparallel branch cut and averaging two native-previous errors introduces slight lag. Unexpected backward approach or overshoot can therefore remain unstable; the frame gives no collision or grasp guarantee."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,45] and raw_current [B,45]; normalized history unused",
+    "slices": {"hand": [0,3], "aperture": [3,4], "object": [4,7], "object_xyzw_world": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_object": [22,25], "previous_object_xyzw_world": [25,29], "goal": [36,39], "wall_center": [39,42], "wall_half_size": [42,45]},
+    "frame_definition": "Let g be normalized goal_xy-object_xy (fallback (0,1) below 1e-6 m), a the arithmetic mean of current and native-previous object_xy-hand_xy, and d=norm(a). Let held equal A2's product of aperture-closure and 3D-proximity sigmoids. Set mix=(1-held)*d^4/(d^4+0.02^4). Yaw angle measured from world +y toward +x is atan2(g_x,g_y) + mix*atan2(a_x*g_y-a_y*g_x, a_x*g_x+a_y*g_y). Then f=(sin(yaw),cos(yaw)), right=(f_y,-f_x). At zero approach error mix is zero, so the goal-bearing frame remains; angles do not define control targets.",
+    "action_frame": "Encode xyz as [right dot world_dxy, f dot world_dxy, world_dz], append unchanged gripper, and decode by the orthonormal inverse using the identical causal frame. No offsets, scaling, clipping or action correction is added. Native xyz still means 0.01 m per unit; the host alone clips action4 and executes four of sixteen.",
+    "condition_dim_per_observation": 100,
+    "encoder_details": "A2's 48 core channels plus the chunk-start mix scalar, three unchanged 16-dimensional gated embeddings, and three unchanged phase gates. Same 21/22/25 -> 64 -> 16 SiLU branch encoders; no new learned head."
+  },
+  "training_only_targets": [],
+  "support_fit": {
+    "scope": "Exactly the original D5 episodes supplied to fit_support. No development statistics enter fitting.",
+    "statistic": "Unchanged from A2: median across episodes of object_z-wall_top at the first support action with world_dy>0.5, gripper>0.5, object_z>0.05 m. Only obs[0:T] and matching actions are used.",
+    "deployment": "Save/restore only transfer_margin_m and fit_episode_count. No support trajectories, fitted action controller, labels or environment state are retained. All other gate thresholds and the new 0.02 m yaw-blend distance are frozen config constants."
+  },
+  "feedback_interpretation": "Selection and revision are distinct. q3=A2 by the frozen equal-C/E rule, not by IID or training loss. A1 and A2 final action losses are both about 0.0025-0.0027 but their development scores differ sharply, so more updates are not justified or permitted. A3's graph/joint-outcome design does not improve this development score and has higher measured latency; this single A4 revision therefore does not add its auxiliary machinery. Those confounded comparisons are not proofs about individual components.",
+  "parents": ["A2"],
+  "change_summary": "One new post-feedback A4 training slot, initialized from scratch rather than a selected or warm-started checkpoint. Relative to A2, replace goal-only yaw with causal approach-to-goal shortest-angle interpolation, using averaged current/native-previous approach error and the existing held affinity; append the interpolation scalar to the condition (99 -> 100). Branch architectures, physical scales, phase thresholds, support-fit clearance statistic, native clipping semantics and action-only loss are otherwise unchanged. A1-A3 remain immutable. No structural repairs at authorship."
+}

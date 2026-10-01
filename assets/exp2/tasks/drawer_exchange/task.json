@@ -1,0 +1,12 @@
+{
+  "schema": "appl.frozen_scene_descriptor.v1",
+  "task_id": "drawer_exchange",
+  "environment_id": "APPLDrawerExchange-v2",
+  "configuration_mode": "fixed_in_code",
+  "scene_implementation": "src/appl/envs/native.py",
+  "task_specification_required": false,
+  "description": "The drawer geometry and reset are defined by the fixed environment implementation. Unlike the other four tasks, there is no separate parameterized scene-specification JSON. This descriptor is informational and is not passed as environment configuration.",
+  "completion_contract": "assets/exp2/tasks/drawer_exchange/completion_contract.json",
+  "public_context": "assets/exp2/tasks/drawer_exchange/public_context.json",
+  "original_scene_source_sha256": "c207d4ab4807a012e636cde140b474f29e268bea675e879a739db0f72424724c"
+}

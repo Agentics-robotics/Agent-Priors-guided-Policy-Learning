@@ -1,0 +1,49 @@
+{
+  "title": "Contact-conditioned factorized reach/lift/carry encoder",
+  "coverage_gap": "The support pairs object and goal x signs. Reaching for the object and transporting toward the goal therefore do not require disentangling these factors in support. The same end-effector height can also occur during descent and ascent, so a height-only stage prior could confuse them. This model tests a learned, causal behavioral-regime factorization rather than relying on a single unstructured state embedding.",
+  "reusable_regularity": "Separate reach, lift and carry MLPs represent distinct relations. Reach sees no goal coordinates; lift sees contact motion and wall clearance but no goal coordinates; carry sees independent goal-hand/object/wall edges. A small learned gate uses aperture, hand-object separation, vertical/y motion, object/hand/goal height, wall-relative y and top clearance, plus horizontal goal distance. It sees no signed absolute object_x or goal_x. Its soft probabilities modulate separate 32-dimensional branches, with a 0.05 floor preserving access when uncertain. Gates are predictions from observations, never teacher-forced stages. The common single four-action DP consumes the 142-dimensional per-observation representation. This is not an expert controller or a mixture of multiple DPs.",
+  "dependencies_preserved": [
+    "The reach relation and the goal-object relation have separate direct gated linear skips in addition to learned encoders. The positive gate floor avoids discarding goal or grasp geometry based on a predicted stage.",
+    "Absolute hand and wall centers preserve robot/world position; both object xyzw quaternions, current/previous aperture and native-previous hand/object increments preserve pose and temporal information.",
+    "Wall center, all half-sizes, signed six-face distances for hand/object and top clearances preserve the finite obstacle. Goal z remains present both in carry relations and the gate.",
+    "World axes and fixed gripper orientation are retained. No rotation/translation symmetry is imposed on the robot. Only declared absent object2 fields are unused.",
+    "Branch and gate parameters are all registered in build_modules and participate in the same joint optimizer loss as the untouched common U-Net."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Only current D10 support; no feedback or other task data."},
+    {"path": "task_materials.json", "use": "Missing cross-sign cells, causal history, fixed world-axis action/gripper semantics and available obstacle geometry."},
+    {"path": "support_summary.json", "use": "LL/HH balance and small support goal-object x offsets motivate factor separation, not ID-specific behavior."},
+    {"path": "images/frame_02_demo_01_step_029.png", "use": "Actual low grasp posture inspected."},
+    {"path": "images/frame_01_demo_00_step_055.png", "use": "Actual raised grasp before crossing inspected."},
+    {"path": "images/frame_03_demo_01_step_084.png", "use": "Actual carry outcome near the elevated goal inspected."},
+    {"path": "images/frame_08_demo_05_step_019.png", "use": "Another actual pre-lift interaction posture inspected."},
+    {"path": "images/frame_09_demo_05_step_073.png", "use": "Another actual raised transport posture with a lower goal inspected."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 26:32 and 54:59; actions 23:37 and 48:72", "use": "Aperture falls during grasp, hand-object offset stabilizes, action z=1/y=0 lift transitions to z=0/y=1 transport. These motivate training-only behavioral phase labels and causal velocity inputs."},
+    {"path": "trajectories/demo_05.json", "rows": "obs 18:22", "use": "Gripper aperture decreases during descent while object remains near table height, so height alone is not a reliable grasp state."},
+    {"path": "learning.py", "scope": "public", "use": "Separate training-only target and loss hooks, per-start valid masks, no labels in causal conditioning or deployment."}
+  ],
+  "expected_failure_signature": [
+    "If the phase gate learns demonstration timing indirectly rather than contact, a stalled closure or atypical aperture will trigger lift too early or leave the policy oscillating between reach and lift.",
+    "If phase isolation solves reaching but not goal extrapolation, C/E should show intact grasp and vertical lift yet systematic lateral transport undershoot. No claimed measurements are available.",
+    "The three regimes are coarse behavioral pseudo-labels, not contact truth; transitions or simultaneous lateral/vertical recovery actions may be assigned poorly. A low phase classification loss need not imply task success.",
+    "Goal height is visible but the support largely lifts high before transport. Low-goal arrivals may retain an unnecessarily high lift or descend at the wrong wall-relative y."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,45] from shared state observations. No stateful phase counter or time input.",
+    "slices": {"hand_xyz": [0,3], "gripper": [3,4], "object_xyz": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_object_xyz": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal_xyz": [36,39], "wall_center_xyz": [39,42], "wall_half_size_xyz": [42,45]},
+    "scaling": "Relations/clearance use 0.1 m; native-previous position increments use 0.01 m; world hand/wall centers use 0.5 m. No support variance amplification of goal-object x.",
+    "action_frame": "Identity encode/decode of native world delta xyz and independent gripper. Scale is 0.01 m for xyz, gripper controls [g,-g], native orientation remains fixed. Only host clips after decoding and executes four of sixteen."
+  },
+  "training_only_targets": [
+    {
+      "name": "phase_labels",
+      "source_fields": "For each D_N window start t and its causal-history partner max(0,t-1): support actions[step,1:3] and obs[step,5:7], wall center[40:42], wall half-size[43:45].",
+      "definition": "Label 1 when native action_z>0.5 and abs(action_y)<0.2; otherwise label 2 when object_z exceeds wall top or object_y exceeds far wall face; otherwise label 0. These are coarse lift/carry/reach pseudo-labels derived from the supplied support, not oracle contact/success labels.",
+      "loss": "0.1 times cross entropy on the two causal-history stage logits. Each window contributes mask[:,0] to each of its two labels; denominator is max(1,2*sum(mask[:,0])). This is separate from the unchanged weight-1 action epsilon MSE with denominator mask.sum()*4.",
+      "inference_isolation": "Only predicted logits/probabilities computed in condition are used in the action DP. No true stage label is supplied to condition, denoise or action mappings. Labels are not stored in deployment state."
+    }
+  ],
+  "support_fit": "No nonlearned fitted statistics. training_targets constructs labels only for the supplied exact D_N windows.",
+  "parents": [],
+  "change_summary": "Initial distinct scientific design: three learned causal relation branches plus an auxiliary-supervised causal gate, positive gating floor and raw geometric skip features. No joint future diffusion channels, no action remapping. Not derived from performance feedback. No structural repairs as authored."
+}

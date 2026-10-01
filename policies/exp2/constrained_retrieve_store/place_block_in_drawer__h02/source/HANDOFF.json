@@ -1,0 +1,15 @@
+{
+  "policy_id": "place_block_in_drawer__h02",
+  "entry_conditions": "Drawer is open and stable; target_pose is available; the block is plausibly held or is already over the cavity; the measured arm state admits a feasible approach in the assigned placement responsibility.",
+  "exit_conditions": "The block rests inside the cavity at drawer-floor height and is detached; the TCP has retreated above the cavity and reached the fixture-relative handle approach for close_drawer.",
+  "overlap_role": "All actions 680:1160 remain supervised. The 680:840 overlap with retrieval covers convergence into destination coordinates; the 900:1160 overlap with closing covers opening, settling, retreat, reorientation and handle approach/grasp.",
+  "successor_readiness": "close_drawer may take over in 900:1160 only when two causal frames support a stationary floor-height block detached from the TCP. A late handoff occurs with the free gripper at the handle.",
+  "failure_signatures": "target_pose jumps or is unavailable; object stops following the closed TCP before release; descent is outside the cavity; object remains suspended after opening; or IK residual/limit diagnostics show the shifted fixture target is unreachable.",
+  "continuation_guidance": "Use place_block_in_drawer__h01 first if the attached entry block is far outside demonstrated destination-relative support. Use place_block_in_drawer__h03 for local release/retreat ambiguity. Otherwise retain this destination frame through the fixture-anchored transition and hand close_drawer only a settled object.",
+  "limitations": "Destination displacement equivariance is a converter property, not observed rollout success. The goal pose must represent the drawer rigidly. Demonstrations do not include premature-drop recovery, and relative coordinates do not remove robot reachability or collision constraints.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[820,840,860,880,900,920,940,960,1080,1159]},
+    {"trajectory_id":"demo12102","indices":[820,840,860,880,900,905,920,940,960,1080,1159]},
+    {"trajectory_id":"demo12104","indices":[840,860,880,895,900,920,940,960,1080,1159]}
+  ]
+}

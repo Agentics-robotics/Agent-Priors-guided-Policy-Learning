@@ -1,0 +1,44 @@
+{
+  "action_dimension": 10,
+  "call_args_schema": {
+    "additionalProperties": false,
+    "properties": {},
+    "required": [],
+    "type": "object"
+  },
+  "conversion_check": {
+    "description": "Shared damped least-squares IK; converged tolerance 1e-4 m and 1e-3 rad.",
+    "mode": "task_space",
+    "tolerance": 0.005
+  },
+  "cut_relation": "No segmentation; complete original trajectories.",
+  "input_shapes": {
+    "features": [
+      2,
+      55
+    ]
+  },
+  "observation_dependencies": [
+    "hole_pose",
+    "lid_pose",
+    "lid_position",
+    "lid_velocity",
+    "peg_pose",
+    "qpos",
+    "qvel",
+    "target_pose",
+    "tcp_pose"
+  ],
+  "output_semantics": "Per slot: world TCP position xyz in metres (3), first and second columns of the world TCP rotation matrix (6), native gripper scalar (1). Labels are FK of the demonstrated seven-joint command. Decoding orthonormalizes the 6D rotation and applies the shared panda_kinematics.solve_ik from the measured joints; residuals are reported.",
+  "parameter_semantics": "No runtime semantic parameters; full-task ordinary Cartesian DP.",
+  "policy_id": "cartesian_dp",
+  "skill_id": "full_task",
+  "temporal": {
+    "control_hz": 20,
+    "execution_steps": 8,
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1
+  },
+  "version": "appl.flexible.sol.v1"
+}

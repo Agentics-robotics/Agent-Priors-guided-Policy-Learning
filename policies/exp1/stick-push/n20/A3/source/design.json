@@ -1,0 +1,49 @@
+{
+  "title": "Stick-frame joint action and interaction-motion diffusion",
+  "coverage_gap": "LL/HH-only supervision can entangle layout with action timing, and behavior cloning may imitate hand motion without representing whether the stick or pushed object actually follows. This design tests object-centric frame consistency and joint action/motion supervision rather than a phase classifier. It uses no extra transitions beyond this exact D20.",
+  "reusable_regularity": "A rigid tool's local geometric relations and observed hand/tool/object co-motion are reusable across layouts. One diffusion model jointly denoises actions and cumulative physical displacements, encouraging a learned representation of tool acquisition and delayed pushing effects. The stick orientation supplies a reversible local action basis; world anchors and vertical features deliberately retain non-equivariant robot/table dependencies.",
+  "dependencies_preserved": [
+    "Both outer observations and their native previous blocks are represented in one chunk-start stick rotation basis. Positions are never transformed in a future or per-predicted-step frame.",
+    "Each instantaneous block retains the world hand anchor, local hand-stick, observed object2-stick and goal-object2 relations, aperture, relative stick rotation, object2 xyzw channels and world heights. Appending the world chunk rotation recovers absolute orientation as well as world positions. Stick orientation features are sign invariant under q -> -q.",
+    "object_xyz is the stick COM, not its tip. Both the declared object2 point and the derived insertion site are included. The latter is exactly object2_xyz-[0,.09,0], as specified in task_materials, with the world offset subtracted before rotating. There is no assumed tool length or inferred unprovided collision geometry.",
+    "All current-minus-native-previous hand/stick/object2 motions and aperture change are retained. Absent object2 quaternion channels remain raw zero channels rather than fabricated measurements.",
+    "World hand/height/rotation anchors preserve access to gravity, the fixed table and robot workspace. This is partial geometric factorization, not a claim of unrestricted SE(3) symmetry or a collision-free path model."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact D20 episode provenance and evidence boundary."},
+    {"path": "task_materials.json", "use": "Stick COM, object2 insertion-site offset, xyzw quaternion ordering, native world action semantics and correlated/extrapolated layouts."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Tabletop tool/object configuration with elevated hand."},
+    {"path": "images/frame_01_demo_01_step_023.png", "use": "Lowered interaction pose before the raised configuration."},
+    {"path": "images/frame_02_demo_02_step_049.png", "use": "Tool use involves an elevated interaction configuration, so world vertical is not safely removable."},
+    {"path": "images/frame_03_demo_03_step_072.png", "use": "Late pushed-object displacement while robot/table remain fixed."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 0:8,20:32,45:53,65:73", "use": "Stick quaternion departs modestly from identity during acquisition. Hand/stick lift together while object2 is stationary, and object2 begins moving later. These distinct co-motion regimes motivate joint displacement targets."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 25:33", "use": "A second support cell exhibits tool motion and orientation changes during closure/lift."},
+    {"path": "trajectories/demo_00.json", "rows": "actions 0:60", "use": "Distinct lowering, lifting and driving commands have observable physical consequences; no handcrafted execution schedule is implemented."}
+  ],
+  "expected_failure_signature": [
+    "If the added displacement channels overfit demonstration dynamics or dilute useful finite-budget learning, grasp timing or push onset may worsen despite geometrically coherent conditioning. Additional diffusion channels are a hypothesis, not measured improvement.",
+    "The observed stick rotations are small. Large off-support rotations or a dropped tool may still fail; a valid coordinate transform does not imply the learned policy has seen the necessary recovery behavior.",
+    "If the latent joint model predicts tool/object motion too optimistically after a missed contact, actions can continue transporting or pushing without the object following. No planner, online dynamics verifier or rollout correction is provided.",
+    "If world-fixed y/z alignment dominates stick-frame regularity, the local frame can add nuisance variability; anchors expose this dependency but the network must learn it."
+  ],
+  "required_runtime_fields": [
+    "context.raw_history[B,2,39] with current and native-previous hand/aperture/stick/object2 poses and goal.",
+    "context.raw_current[:,7:11] is the sole action-frame source: the current observed stick xyzw quaternion, normalized to a proper rotation. A degenerate zero quaternion has a deterministic identity fallback, not an oracle.",
+    "The host supplies the usual diffusion sample/timestep and causal conditioning. There is no future-state input, external contact signal, trajectory cache, episode time or environment handle."
+  ],
+  "training_only_targets": [
+    {
+      "name": "motion_world",
+      "shape": "[number_of_windows,16,9]",
+      "source": "Exact D20 support obs[t+k+1] and obs[t], using hand0:3, stick4:7 and object2 11:14; k=0..15 only where t+k<T.",
+      "definition": "Cumulative xyz displacements of hand, stick COM and the observed object2 point relative to each entity at chunk start. Padded entries are zero. diffusion_targets rotates each three-vector into the same causal chunk-start stick frame and divides by .1m, then appends them after encoded action4.",
+      "loss": "Auxiliary epsilon squared error on channels4:13, weighted .2, multiplied by the common valid mask and separately divided by mask.sum()*9 (clamped only for an all-zero denominator). The action4 epsilon loss remains weight1 and denominator mask.sum()*4.",
+      "inference_use": "Targets are absent at inference. Nine auxiliary channels start from host-owned diffusion noise and are denoised jointly; only the first four action channels are decoded/executed. Generated motion channels are not a planner, action correction or ground-truth conditioner."
+    }
+  ],
+  "action_frame_semantics": "Let R_t have the current observed stick's local axes as world columns. For row vectors encode xyz_world @ R_t; decode xyz_local @ R_t^T. R_t is fixed for all16 commands at chunk start. The .01 m native magnitude and80 Hz rate are unchanged. Gripper is concatenated unchanged and never rotated/translated. Neither local actions nor predicted-clean actions are clipped by the candidate; only the host clips decoded world action4 to the native cube. Execution remains prefix4.",
+  "architecture": "One common DP factory call with per-observation condition_dim83 and diffusion_action_dim13. Two32D geometric instantaneous blocks,9D local translational motion,1D aperture change and9D world-frame orientation. The frozen U-Net is used without modification other than allowed factory dimensions. There is no separate encoder/head; every learned parameter participates in the joint epsilon loss.",
+  "support_fit_statistics": "None. Target construction reads only exact support episodes. Displacement scales are fixed physical units, not statistics from evaluation or external datasets. Deployment state is empty.",
+  "parents": [],
+  "change_summary": ["Initial independent design: reversible tool-frame action coding, explicit observed-point/insertion-site distinction, sign-invariant stick rotation features and joint future-motion diffusion supervision. No pre-feedback performance search, inherited checkpoint, or interface repair at creation."]
+}

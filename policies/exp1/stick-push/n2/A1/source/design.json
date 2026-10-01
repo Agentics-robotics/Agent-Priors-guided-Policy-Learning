@@ -1,0 +1,32 @@
+{
+  "title": "World-axis metric interaction chain",
+  "coverage_gap": "D_2 has one LL and one HH episode, not independently varied stick_x and target_y. Absolute-coordinate, per-channel standardization can let target_y identify an entire demonstrated reach/lift/push sequence; the unobserved LH/HL and extrapolated cells need these relations recombined.",
+  "reusable_regularity": "Represent the manipulation as three directed metric edges: hand to stick COM, stick COM to the observed pushed-object point, and pushed-object point to goal. Separate near-grasp and long-tool scales expose small contact errors without amplifying nearly constant world coordinates. Duplicate this invertible representation for the native current and previous states and expose one-step displacements. All edge components stay in world axes, with a weak but lossless world hand anchor. No learned extra encoder or stage clock is used.",
+  "dependencies_preserved": {
+    "robot": "Absolute hand xyz and aperture remain available at both native time slices; one-step hand and aperture changes retain motion and closure information. End-effector orientation and native cube are not assumed rotation-invariant.",
+    "objects": "Both observed positions and xyzw quaternions remain recoverable from the anchor and chain. Object2 is the declared insertion-site-plus-offset point, not an inferred body COM.",
+    "goal": "Goal is explicitly relative to the pushed-object observation, not used as a demo identifier or replaced by an average.",
+    "world_and_obstacles": "World axes and absolute hand anchor retain workspace/table dependence, while both object poses retain the visible tool/fixture dependence. There is no extra obstacle channel, assumed collision-free route, planner or simulator state. Gravity-relative heights are recoverable."
+  },
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exact two-episode current support identities; no development or test states."},
+    {"path": "task_materials.json", "detail": "World action4, fixed orientation, object2 point semantics, LL/HH-only training and independent C/E factors."},
+    {"path": "support_summary.json", "detail": "One LL and one HH; goal_y differs between the two episodes; total 148 transitions; pushed-object y variance is only about 0.00027 m. These motivate metric rather than tiny marginal-variance scales."},
+    {"path": "trajectories/demo_00.json", "detail": "Read obs 0:7, 20:35, 43:51 and actions 0:16, 25:45, 45:57. Aperture closes and stick height rises before the long positive-world-x motion; hand and stick move together with nonzero offset."},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Actual initial frame shows tool and raised pushed-object/fixture near the robot in a tabletop workspace."},
+    {"path": "images/frame_03_demo_00_step_030.png", "detail": "Actual frame at grasp/lift transition; hand/tool position relative to fixture matters."},
+    {"path": "images/frame_05_demo_00_step_050.png", "detail": "Actual later frame after the observed lift."},
+    {"path": "images/frame_07_demo_00_step_070.png", "detail": "Actual late frame shows interaction with the pushed assembly; not an independent hand-to-goal reach."},
+    {"path": "PUBLIC_CONTRACT.md", "scope": "public", "detail": "One frozen DP, two observations, action4 loss and native decode/execution requirements."}
+  ],
+  "expected_failure_signature": "If geometric edges alone do not identify grasp/lift readiness, the policy will reverse vertical motion too early or too late, miss the grasp, or push before attaining contact height. A competing falsifier is successful reaching but x-directed pushing insensitive to target_y: the representation exposes target error but does not impose its correct causal use. World-anchor shortcuts can still survive with only two demonstrations. No performance claim is made.",
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history [B,2,39] from shared deployment observations.",
+    "fields": ["current.hand_xyz[0:3]", "current.gripper[3:4]", "current.object_xyz[4:7]", "current.object_quaternion[7:11]", "current.object2_xyz[11:14]", "current.object2_quaternion[14:18]", "previous native pose/aperture/quaternions[18:36]", "goal_xyz[36:39]"],
+    "condition": "52 channels per observation: 21 current-chain, 21 previous-chain, 10 one-step change channels. Fixed physical scales, no support-fit or external statistics.",
+    "action_frame": "Identity encode/decode: world_dx/world_dy/world_dz retain native 0.01 m scaling and gripper remains an independent actuator scalar. No candidate clipping. The executor alone clips in the native cube and executes four of sixteen commands."
+  },
+  "training_only_targets": [],
+  "parents": [],
+  "change_summary": "Initial scientific candidate: deterministic metric chain with lossless world anchor and explicit causal finite differences. Uses the unchanged factory U-Net and common action epsilon loss only. No structural repairs or prior models."
+}

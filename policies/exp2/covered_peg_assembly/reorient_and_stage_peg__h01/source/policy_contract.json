@@ -1,0 +1,31 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "reorient_and_stage_peg__h01",
+  "skill_id": "reorient_and_stage_peg",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {},
+    "required": []
+  },
+  "parameter_semantics": "No high-level numeric parameters. The caller passes an empty object. At each replan, the adapter resolves the newest observed hole_pose as the SE(3) reference; positions are world metres and observed quaternions are wxyz.",
+  "observation_dependencies": ["hole_pose", "lid_pose", "lid_position", "lid_velocity", "peg_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 57]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an unnormalized Cartesian TCP target [p_hole(3 metres), R_hole_tcp first-two rotation-matrix columns(6), gripper(1)] relative to the newest causal hole_pose fixed for the sampled chunk. Slots denote t-1 through t+14 and the host executes slots 1 through 8. Decoding Gram-Schmidt projects the 6D orientation to SO(3), composes T_world_hole*T_hole_tcp, and calls panda_kinematics.solve_ik from freshly measured qpos. A deterministic orthogonal fallback is used only for a degenerate sampled 6D pair. The gripper scalar is passed through and the executor applies its declared binary sign rule.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "For valid demonstration labels, compare decoded IK FK against the commanded TCP pose in metres/radians and compare the unchanged gripper scalar; the maximum must be at most 0.005. Rotation 6D projection is exact on encoded labels, while nonunique joints are allowed. IK convergence, residuals, iterations and limit contacts are reported."
+  },
+  "cut_relation": "Uses every assigned action in all twelve [1120,1500) slices, including incoming [1120,1270) and outgoing [1380,1500) overlap. The implementation changes only coordinates: labels are FK TCP commands expressed in the causal hole frame, not trimmed or relabeled native actions."
+}

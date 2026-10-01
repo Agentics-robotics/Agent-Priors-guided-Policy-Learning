@@ -1,0 +1,31 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "retrieve_peg_from_box__h02",
+  "skill_id": "retrieve_peg_from_box",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "No high-level parameters. Each represented target is relative to the measured TCP immediately before its action; decoding resolves the fresh measured TCP and joints. Two causal frames are oldest first, with only initial-episode duplication allowed.",
+  "observation_dependencies": ["peg_pose", "lid_pose", "lid_position", "lid_velocity", "qpos", "qvel", "tcp_pose"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 56]
+  },
+  "action_dimension": 7,
+  "output_semantics": "Each slot is [current-TCP-frame translation xyz in metres, current-TCP-frame rotation vector xyz in radians, native gripper scalar]. Training uses inverse(T_world_tcp_before_action) times the demonstrated commanded TCP pose. Decode left-composes the relative transform with the fresh measured world TCP pose, then calls panda_kinematics.solve_ik from fresh qpos. Slots are t-1 through t+14; execution uses slots 1 through 8. Gripper >=0 opens and <0 closes.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Round-trip each demonstrated commanded TCP through the current-TCP relative SE(3) transform, then compare decoded-joint FK position and rotation and the gripper scalar. IK residual and limit diagnostics remain visible."
+  },
+  "cut_relation": "Every assigned [740,1270) action remains supervised in all twelve occurrences, including incoming [740,950) and outgoing [1120,1270) overlaps. The local Cartesian representation changes coordinates, not responsibility, labels, timing, or success criteria."
+}

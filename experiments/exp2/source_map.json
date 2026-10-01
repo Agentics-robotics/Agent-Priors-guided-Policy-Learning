@@ -1,0 +1,383 @@
+{
+  "schema": "appl.source_migration.v1",
+  "files": [
+    {
+      "published": "src/appl/__init__.py",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "src/appl/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "published": "src/appl/__main__.py",
+      "published_sha256": "81e99f32b4d926d904f9df58059aa802c698f19dea2a52671c3c128eda8dd0ff"
+    },
+    {
+      "published": "src/appl/agent.py",
+      "published_sha256": "637ebc88ad4032ca6fc36a0d090ba96caef59c09b3198d3ec5538337c0f9cc99",
+      "source": "src/appl/agent.py",
+      "source_sha256": "035826c10ba6ebf1d4d54144dadea5719c6a971f387713cd466091e8fa6171d9"
+    },
+    {
+      "published": "src/appl/api.py",
+      "published_sha256": "265da51835f75bbe807f2b4ea2e879b4239666415b0bc31e5608d54a3d0417f3"
+    },
+    {
+      "published": "src/appl/benchmark/__init__.py",
+      "published_sha256": "08b6538de7c7c9d3053701f4d24b48da92d3c160ecbc4d0c02b0790397c40d13"
+    },
+    {
+      "published": "src/appl/benchmark/artifacts.py",
+      "published_sha256": "05ed8a96d7d69d3f687744b9fbf52231a7b181d7486eff52322c3ca1a99b8d40"
+    },
+    {
+      "published": "src/appl/benchmark/blinding.py",
+      "published_sha256": "205654994e4c921d647d9daf9b91b846e68d3e2a29a3f3a6d50a17c114f5069c",
+      "source": "experiments/exp2/six_tasks/cartesian_ik_ablation/design.py",
+      "source_sha256": "205654994e4c921d647d9daf9b91b846e68d3e2a29a3f3a6d50a17c114f5069c"
+    },
+    {
+      "published": "src/appl/benchmark/deployment.py",
+      "published_sha256": "e28f5f7270300043364cf6848114aad36959004257853f1256e06a8a419505a2",
+      "source": "experiments/exp2/six_tasks/flexible/deploy.py",
+      "source_sha256": "3c75d5f2c371a40d536ca97db6e49ee6e19bbe990f59019e7dc2be8953d175d7",
+      "symbols": [
+        "DeploymentTools"
+      ]
+    },
+    {
+      "published": "src/appl/benchmark/feedback.py",
+      "published_sha256": "894553cd840b7f1c856753b7ddfa2863647d8e79c2e1dc4dde94738617bacabc",
+      "source": "src/appl/prior_policies/feedback.py",
+      "source_sha256": "5530bb494f650ad0568c657b5fc2332c5988158cb58a2f1497878fe4260836e9"
+    },
+    {
+      "published": "src/appl/benchmark/generic_feedback.py",
+      "published_sha256": "d5fb03fe0ef7400814506d3571c0d748cd5ecbed454699321f778236ecce5dc0",
+      "source": "experiments/exp2/six_tasks/flexible/feedback.py",
+      "source_sha256": "96e0ff56ba90e42f84867522cee8dc89bb0af45a8e436595decd8ae707eef27c"
+    },
+    {
+      "published": "src/appl/benchmark/registry.py",
+      "published_sha256": "1c3213720954aad6a6af533db48fd86df10a4ac9e89bf31fa2c8c93910ff0ccf"
+    },
+    {
+      "published": "src/appl/benchmark/rules.py",
+      "published_sha256": "8f223defdafe402a00d45bfdafae706980326acba50829dbae72f20f5f81ba64",
+      "source": "experiments/exp2/six_tasks/cartesian_ik_rule/evaluate.py",
+      "source_sha256": "ea1982591068d4b4b9547632702a3cab878f0040fddd8c446b216612381139d6",
+      "symbols": [
+        "region",
+        "bindings",
+        "variants",
+        "subgoals"
+      ],
+      "sources": [
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_rule/evaluate.py",
+          "sha256": "ea1982591068d4b4b9547632702a3cab878f0040fddd8c446b216612381139d6"
+        },
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_new_rule/evaluate.py",
+          "sha256": "678657285d01e35684cfd1407e9935536f56bdffe614d6691db2b361bc530aae"
+        },
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_peg_rule/evaluate.py",
+          "sha256": "18db3ec54bdd0b88d690a93d8c407016bef78dc7fbe461089f850743cc7f35da"
+        },
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_pour_rule/evaluate.py",
+          "sha256": "8c4c7ddcbb1b76754926746cefd4b23328a440de7358a50f68c02af20f119707"
+        }
+      ]
+    },
+    {
+      "published": "src/appl/benchmark/runner.py",
+      "published_sha256": "bdd935d74d24eab697dc9f646e01cd49c94d6638e7880361ac04d521376eb644",
+      "sources": [
+        {
+          "path": "experiments/exp2/six_tasks/flexible/deploy.py",
+          "sha256": "3c75d5f2c371a40d536ca97db6e49ee6e19bbe990f59019e7dc2be8953d175d7"
+        },
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_task/evaluate.py",
+          "sha256": "86e68be98b710cbbadce9a958636f9a9f3bbc7bd520574cda747b1736eca375f"
+        },
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_rule/evaluate.py",
+          "sha256": "ea1982591068d4b4b9547632702a3cab878f0040fddd8c446b216612381139d6"
+        }
+      ]
+    },
+    {
+      "published": "src/appl/cli.py",
+      "published_sha256": "c5da0a29e6579dfedad400fc28687863b37a1692aa81024694b22a7137fe2a05",
+      "source": "src/appl/cli.py",
+      "source_sha256": "467b65867edfd96777d8e80b8c2dba758b4ae9cba6ed6bc9145f2002c50f36a9"
+    },
+    {
+      "published": "src/appl/envs/__init__.py",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "src/appl/envs/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "published": "src/appl/envs/adapter.py",
+      "published_sha256": "b5fc2328d154b61912f81fd15c0ec1b11b062fd80f74ef971a5a7f7850df30f8",
+      "source": "src/appl/envs/adapter.py",
+      "source_sha256": "b5fc2328d154b61912f81fd15c0ec1b11b062fd80f74ef971a5a7f7850df30f8"
+    },
+    {
+      "published": "src/appl/envs/evaluator.py",
+      "published_sha256": "7aeed4d2fba05b096b042611e823376a6765a01903b9140488d8ed6fcf61275a",
+      "source": "src/appl/envs/evaluator.py",
+      "source_sha256": "ec92ec41ac2ebf4dcd247a293c0296c8812c58941ab3587fa0b1b70f5a0cfa92"
+    },
+    {
+      "published": "src/appl/envs/native.py",
+      "published_sha256": "c207d4ab4807a012e636cde140b474f29e268bea675e879a739db0f72424724c",
+      "source": "src/appl/envs/native.py",
+      "source_sha256": "c207d4ab4807a012e636cde140b474f29e268bea675e879a739db0f72424724c"
+    },
+    {
+      "published": "src/appl/envs/scene.py",
+      "published_sha256": "8fecc775ea9354cb02fa5b7992a3864812af23a47ea5041f5713d3a4c1c68efb",
+      "source": "src/appl/envs/scene.py",
+      "source_sha256": "8fecc775ea9354cb02fa5b7992a3864812af23a47ea5041f5713d3a4c1c68efb"
+    },
+    {
+      "published": "src/appl/gpu.py",
+      "published_sha256": "eac55ec59dbece4d76c5826b6ba9c42410189b43085d2ebb4272377ed1eaed5c",
+      "source": "src/appl/gpu.py",
+      "source_sha256": "18f31b1275a2a8d67a7ac0047b2f67f9b7b5279969962ef41b6b3bca8a547a1d"
+    },
+    {
+      "published": "src/appl/io.py",
+      "published_sha256": "ac082024cc4389b608e838a757a007f251d5734fbcee95dac4e8c771313e473d",
+      "source": "src/appl/io.py",
+      "source_sha256": "8d552f621646f9f9fae18316e9a3596a078320579a451336aca37c2a6f1542f8"
+    },
+    {
+      "published": "src/appl/journal.py",
+      "published_sha256": "98cb887bf9b032638e05d8f486c331450a651f868fab864f9a21a8396c6e46be",
+      "source": "src/appl/journal.py",
+      "source_sha256": "98cb887bf9b032638e05d8f486c331450a651f868fab864f9a21a8396c6e46be"
+    },
+    {
+      "published": "src/appl/kernel.py",
+      "published_sha256": "d7a08e00b9b0c2726ee1b93af7709f3c131fb692aa4dd11e209188dad51b449f",
+      "source": "src/appl/kernel.py",
+      "source_sha256": "d7a08e00b9b0c2726ee1b93af7709f3c131fb692aa4dd11e209188dad51b449f"
+    },
+    {
+      "published": "src/appl/policy/__init__.py",
+      "published_sha256": "08b6538de7c7c9d3053701f4d24b48da92d3c160ecbc4d0c02b0790397c40d13"
+    },
+    {
+      "published": "src/appl/policy/compatibility.py",
+      "published_sha256": "f806cfafdcdfbce299cb3a6dc91e469f8cfb9212449d51b726ce141ab378652d"
+    },
+    {
+      "published": "src/appl/policy/contract.py",
+      "published_sha256": "25acc76b18aa5bbb8a76bdd3675f71b28b605ed89668374c952a78830c81c3b5",
+      "source": "experiments/exp2/six_tasks/flexible/contract.py",
+      "source_sha256": "763d517560e110961d3f3157dbf39a9b2898ee823f12fd78f3105a7e7ffc18db"
+    },
+    {
+      "published": "src/appl/policy/data.py",
+      "published_sha256": "8418e55b15a8ad9ba1c34c4c17cd3cdac277d5f6c18010cbb445a0e573dfc68c",
+      "source": "experiments/exp2/six_tasks/flexible/data.py",
+      "source_sha256": "8418e55b15a8ad9ba1c34c4c17cd3cdac277d5f6c18010cbb445a0e573dfc68c"
+    },
+    {
+      "published": "src/appl/policy/engine.py",
+      "published_sha256": "59de064d72d2d80ae6ffc47147a405143ca5b1bc7f4618e71707563e9e52fcdb",
+      "source": "experiments/exp2/six_tasks/flexible/engine.py",
+      "source_sha256": "dc7d55f35e2b4780e6c5a1d358d2e94f3cc74552f1316c4beb29ad9d0fc7b689"
+    },
+    {
+      "published": "src/appl/policy/kinematics.py",
+      "published_sha256": "25b4618e3903952da194f578dc0bfce59162e889acef81ab74b2be68feab5d9c",
+      "source": "experiments/exp2/six_tasks/flexible/kinematics.py",
+      "source_sha256": "25b4618e3903952da194f578dc0bfce59162e889acef81ab74b2be68feab5d9c"
+    },
+    {
+      "published": "src/appl/policy/numerics.py",
+      "published_sha256": "5152cb85a472679b77160ec9f8382a62d392ff546fade9f83c4ce2f2676d7526",
+      "source": "src/appl/dp_baseline/train.py",
+      "source_sha256": "622fdf13248d96e4c96ba9ffea13fdc7c05d43fe014be5c9a9dde86534a2a840",
+      "symbols": [
+        "tensor_hash",
+        "save",
+        "deterministic_numerics"
+      ]
+    },
+    {
+      "published": "src/appl/policy/observation.py",
+      "published_sha256": "cc48caded0fbdbe89c022dedca432b53ff4fa02542b8b8d682653405e520e829",
+      "source": "src/appl/dp_baseline/data.py",
+      "source_sha256": "185ae9add8cf5603725e49cb9cd194618b1683562dd6d400f11f6dec22f0fe59"
+    },
+    {
+      "published": "src/appl/policy/probe.py",
+      "authorship": "RepositoryAgent",
+      "origin": "release_integration",
+      "published_sha256": "acee2f84b234567066d8914ef7e78b96341318f7487a267c365f4233b25cc8b0"
+    },
+    {
+      "published": "src/appl/policy/public.py",
+      "published_sha256": "c8019942220c72239a1e448290cfab8274f7c11fa50fdec05ebc8b31d975ab73",
+      "source": "experiments/exp2/six_tasks/flexible/public.py",
+      "source_sha256": "c8019942220c72239a1e448290cfab8274f7c11fa50fdec05ebc8b31d975ab73"
+    },
+    {
+      "published": "src/appl/policy/security.py",
+      "published_sha256": "e42b3656f4ee6ccd93c8a477e00a55c20470261edfbc30d8fbe85676bc2b1a76",
+      "source": "experiments/exp2/six_tasks/flexible/security.py",
+      "source_sha256": "9a8d7cdc67a2ac6e819319305af803f7510ac98ce3b9d640f719bd5514136e5d"
+    },
+    {
+      "published": "src/appl/policy/training.py",
+      "published_sha256": "50be41d4d8182e5e8b2c19815139fb003ca3f7dc7d95feab60364084042bbcb5"
+    },
+    {
+      "published": "src/appl/policy/worker.py",
+      "published_sha256": "b95b98c9bf7a2ac8dc74aa754e9e786aa92b0a837cedaee927fd57fb6027da70"
+    },
+    {
+      "published": "src/appl/public.py",
+      "published_sha256": "aa041f16ea68779140b7ff64d678a516bcfde0e7924fb3050530669ef4983131",
+      "source": "src/appl/public.py",
+      "source_sha256": "aa041f16ea68779140b7ff64d678a516bcfde0e7924fb3050530669ef4983131"
+    },
+    {
+      "published": "src/appl/tasks/__init__.py",
+      "published_sha256": "08b6538de7c7c9d3053701f4d24b48da92d3c160ecbc4d0c02b0790397c40d13"
+    },
+    {
+      "published": "src/appl/tasks/articulated_reset.py",
+      "published_sha256": "764d488d71781ffa1ab008aa6eb15c91510e54fecd902d8dca32edfaab6bdaad",
+      "source": "experiments/exp2/six_tasks/cartesian_ik_peg/articulated.py",
+      "source_sha256": "18d8cce76161abe09bcc1df8686b24be2c39cc9849d5277b78d84afd02716c77",
+      "symbols": [
+        "BODY",
+        "environment"
+      ]
+    },
+    {
+      "published": "src/appl/tasks/articulated_scenes.py",
+      "published_sha256": "b25f1dd17d509922408a8caa995c91559525dc99b03c5fadb75aacec967d4515",
+      "source": "experiments/exp2/six_tasks/articulated_scenes.py",
+      "source_sha256": "b25f1dd17d509922408a8caa995c91559525dc99b03c5fadb75aacec967d4515"
+    },
+    {
+      "published": "src/appl/tasks/constrained.py",
+      "published_sha256": "afd483f6625a857c12bc719d8114db2fe9576276aff9c9c9e433caab753c4ff3",
+      "source": "experiments/exp2/six_tasks/cartesian_ik_new_task/cases.py",
+      "source_sha256": "bd3749a389a551b6666490955d6bdca0b2ec6b41ffc47e1063aa124fbcad0bff",
+      "symbols": [
+        "measure",
+        "environment"
+      ]
+    },
+    {
+      "published": "src/appl/tasks/drawer.py",
+      "published_sha256": "7a331705bfd9beeb438338f8d83ff4c58ceea638c5775176f3d75e20b7d788ce",
+      "source": "experiments/exp2/six_tasks/cartesian_ik_task/cases.py",
+      "source_sha256": "515fa8590e22575a553ee61a0828abcd9e6797904589c54e08b4631ef3d7a71d",
+      "symbols": [
+        "measure",
+        "environment"
+      ]
+    },
+    {
+      "published": "src/appl/tasks/drawer_goals.py",
+      "published_sha256": "fd27a6f77920cd4f75be164fc1a4cedd04e3ac03f57839b1edd374a6145c57e3"
+    },
+    {
+      "published": "src/appl/tasks/environment.py",
+      "published_sha256": "cebcceaab1dd8697973fa1c24ddd45ab33ade8f7b411214e4b01313131d647b6"
+    },
+    {
+      "published": "src/appl/tasks/peg.py",
+      "published_sha256": "8fab0bc6f3140016b1de85e5c0e444ce671f249e7983599ff6d9b70b198c3de1",
+      "source": "experiments/exp2/six_tasks/cartesian_ik_peg_task/cases.py",
+      "source_sha256": "3301bcdec84e02e916f65c717d0da76bba1ce600710d23c456aa50a91dbfd32d",
+      "symbols": [
+        "measure",
+        "environment"
+      ]
+    },
+    {
+      "published": "src/appl/tasks/pour.py",
+      "published_sha256": "bbb8578ca0ea33c806b78f6ca05778b27a888f5ba34705a11b8dd634c3321c2d",
+      "source": "experiments/exp2/six_tasks/cartesian_ik_pour_task/cases.py",
+      "source_sha256": "3baeb6429a56f74c59f329e76e4eece7871a480e6eee65ca8ca419e4d1057caf",
+      "symbols": [
+        "measure",
+        "environment"
+      ]
+    },
+    {
+      "published": "src/appl/tasks/scenes.py",
+      "published_sha256": "2b72100e15a86512c5c503362416023db246d9219946b3c33a5eb89eeb391acc",
+      "source": "experiments/exp2/six_tasks/scenes.py",
+      "source_sha256": "2b72100e15a86512c5c503362416023db246d9219946b3c33a5eb89eeb391acc"
+    },
+    {
+      "published": "src/appl/tasks/tabletop.py",
+      "published_sha256": "511fc9c28f96c97a9b00fdb117eb6f9184a33fffaede96a23dfd8241aee6afd7",
+      "source": "src/appl/scaleup/environment.py",
+      "source_sha256": "66a552dfe96d941c6c45207318cf5fc82e2bfd519fca0ca289504aa35a9b192b"
+    },
+    {
+      "published": "src/appl/tasks/tabletop_contract.py",
+      "published_sha256": "f7e8c78f965956e3db5b00a7c04326424eee46ed68faaa9c24fe850fd4d95073",
+      "source": "src/appl/scaleup/tasks.py",
+      "source_sha256": "488ecf6e5a4dbaf28827851aa0e55e31a84d76b3b8481b74cea327008c47f76e"
+    },
+    {
+      "published": "src/appl/vendor/__init__.py",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "src/appl/vendor/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "published": "src/appl/vendor/diffusion_policy/LICENSE",
+      "published_sha256": "304e99a48271e10820f71a1b86ef395c06c100d7f68dd1d308790d1064fc4d41",
+      "source": "src/appl/vendor/diffusion_policy/LICENSE",
+      "source_sha256": "304e99a48271e10820f71a1b86ef395c06c100d7f68dd1d308790d1064fc4d41"
+    },
+    {
+      "published": "src/appl/vendor/diffusion_policy/PROVENANCE.md",
+      "published_sha256": "f7e2a4430471fadd6d5376a15f827abfddf998d27ecf202ecc457699f7e7c80c",
+      "source": "src/appl/vendor/diffusion_policy/PROVENANCE.md",
+      "source_sha256": "f7e2a4430471fadd6d5376a15f827abfddf998d27ecf202ecc457699f7e7c80c"
+    },
+    {
+      "published": "src/appl/vendor/diffusion_policy/__init__.py",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "src/appl/vendor/diffusion_policy/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "published": "src/appl/vendor/diffusion_policy/conditional_unet1d.py",
+      "published_sha256": "6a8aeebb2a10d850f632544df77c492562b609033e72d8c0be193803340e0aab",
+      "source": "src/appl/vendor/diffusion_policy/conditional_unet1d.py",
+      "source_sha256": "6a8aeebb2a10d850f632544df77c492562b609033e72d8c0be193803340e0aab"
+    },
+    {
+      "published": "src/appl/vendor/diffusion_policy/conv1d_components.py",
+      "published_sha256": "ea2aa10e297cf253bc1a1919ba47fe6ae32049b5eaaab292ed9cc145d8d2adc0",
+      "source": "src/appl/vendor/diffusion_policy/conv1d_components.py",
+      "source_sha256": "ea2aa10e297cf253bc1a1919ba47fe6ae32049b5eaaab292ed9cc145d8d2adc0"
+    },
+    {
+      "published": "src/appl/vendor/diffusion_policy/positional_embedding.py",
+      "published_sha256": "2266c75ecc9c9ac8ca126839d39a7bafbdd7af8800d6de903f66815e64cc366c",
+      "source": "src/appl/vendor/diffusion_policy/positional_embedding.py",
+      "source_sha256": "2266c75ecc9c9ac8ca126839d39a7bafbdd7af8800d6de903f66815e64cc366c"
+    }
+  ],
+  "description": "Original scientific framework components were relocated to semantic modules. Published integration code unifies loading, explicit API configuration, entry points, and receipt generation. API-authored policy sources are separately byte-preserved under policies/exp2.",
+  "construction_mapping": "construction_sources.json"
+}

@@ -1,0 +1,276 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/granular_pour_return/controlled_pour_and_right/dataset.json",
+    "dataset_sha256": "eb11d933a32058d138609f6e60013ce5a1fed9f69423409fdacd4fc3db595c4f",
+    "experiment_version": "APPL_v4_cartesian_new_task",
+    "heuristic": {
+      "applicability": "Prefer when the source remains securely and rigidly held but the observed container-to-TCP transform is unusual relative to nominal demonstrations, or the predecessor delivers a modestly displaced source/TCP entry state. Container, TCP and bowl poses must be reliable and the resulting source motion must remain reachable. Never use this compensation as evidence that a grasp exists.",
+      "evidence": [
+        {
+          "indices": [
+            180,
+            320,
+            360,
+            1460,
+            1600,
+            1680,
+            1740
+          ],
+          "trajectory_id": "demo12300"
+        },
+        {
+          "indices": [
+            180,
+            320,
+            360,
+            1460,
+            1600,
+            1680,
+            1740
+          ],
+          "trajectory_id": "demo12303"
+        },
+        {
+          "indices": [
+            180,
+            320,
+            360,
+            1460,
+            1600,
+            1680,
+            1740
+          ],
+          "trajectory_id": "demo12309"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "The source is closed in the gripper, visibly lifted and moving rigidly with the TCP. Entry can occur throughout the supervised [180,360) lift/carry overlap, including the observed start-height range, or at a later nominal pour/right state if the rigid transform is still trustworthy.",
+        "exit_conditions": "Particles are observed settled to the unchanged threshold, the source itself—not just the TCP—is approximately upright, the grasp remains rigid, and outbound motion is under way within the [1460,1740) overlap.",
+        "failure_signatures": "An open or slipping grasp, rapid change in the measured container-to-TCP transform, pose-estimation noise that creates implausible compensation, unreachable compensated TCP pose, bowl collision, spill, remaining particles during righting, or IK non-convergence. No demonstrated recovery supports continuing after these signatures.",
+        "overlap_role": "The complete [180,360) and [1460,1740) action intervals are supervised. Object-motion labels are derived without trimming those intervals, so grasp_lift_stage and return_place_release retain substantial shared commands despite the changed Cartesian representation.",
+        "successor_readiness": "return_place_release can take over after particle settlement and near-upright source orientation, nominally near 1680; keep this policy active longer only when its rigid-grasp compensation remains needed during outbound motion."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{},\"required\":[]},\"parameter_semantics\":\"No caller parameters. The executor supplies two causal observations. The learned action is a desired source-container SE(3) increment in the current observed container frame. Decoding composes that increment with the fresh container pose and fresh observed rigid container-to-TCP transform, then solves IK from fresh measured joints.\"}",
+      "limitations": "Compensation assumes the observed source-to-TCP transform is rigid over the action and cannot recover a lost or sliding grasp. Source-local increments are robust to modest displaced entries but are not an absolute destination anchor; use the bowl-frame prior for large bowl displacement. Particle timing ambiguity is handled more explicitly by the particle-set prior. The training grasp transforms are nominal and vary only modestly, so benefit for unusual secure grasps is expected rather than demonstrated.",
+      "pipeline_implications": "Use this as the grasp-geometry and displaced-entry specialist when a rigid but atypical source-to-TCP relation is observed. Its source-level motion preserves the intended container attitude and lip trajectory better than replaying a nominal TCP path. Route substantial destination displacement to the bowl-frame prior and partial-discharge/phase ambiguity to the particle-set residual prior. Abort rather than compensate when rigidity is doubtful.",
+      "rationale": "Pour success depends on source pose, not TCP pose alone. The observations provide both container and TCP poses, and the demonstrated gripper stays closed throughout all inspected entry, pour, righting and outbound points. For each label, the demonstrated commanded TCP pose and the observed rigid container-to-TCP transform define a desired source pose. Diffusing the desired source increment in the current container frame removes global source displacement from the learned action and, during decoding, reattaches that source motion through the freshly observed grasp transform. Thus an off-center but rigid grasp changes the required TCP target by construction. Measured qpos/qvel and source/bowl/target relations remain in the causal input because source invariance does not remove IK reachability or destination geometry. This uses the unchanged standard backbone and a representation distinct from both bowl-absolute TCP targets and current-TCP rotation-vector residuals.",
+      "statement": "Rigid-grasp source-motion prior: diffuse desired container-frame source increments with 6D orientation, reconstruct the corresponding world TCP target using the fresh observed source-to-TCP transform, and solve IK from measured joints.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12301\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12302\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12303\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12304\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12305\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12306\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12307\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12308\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12309\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12310\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12311\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"}]"
+    },
+    "heuristic_index": 3,
+    "normalization": {
+      "path": "provenance/relocated/b3141fbf4dee2e06",
+      "sha256": "52a649835b92c470fb6692de6991ba7c8ccd357aa4bb4ad2c6069c971f630101"
+    },
+    "observation_fields": {
+      "bowl_pose": [
+        0,
+        7
+      ],
+      "container_pose": [
+        7,
+        14
+      ],
+      "particle_positions": [
+        14,
+        50
+      ],
+      "qpos": [
+        50,
+        59
+      ],
+      "qvel": [
+        59,
+        68
+      ],
+      "target_pose": [
+        68,
+        75
+      ],
+      "tcp_pose": [
+        75,
+        82
+      ]
+    },
+    "plan_hash": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+    "policy_id": "controlled_pour_and_right__h03",
+    "prior_plan_path": "assets/exp2/prior_plans/granular_pour_return/controlled_pour_and_right.json",
+    "prior_plan_sha256": "3f37229577285c09d8f4a6bf34ca69f28ee3d5c1c15d40d40531e0ec45bdc526",
+    "skill_id": "controlled_pour_and_right",
+    "sources": {
+      "demo12300": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12300.json",
+        "sha256": "21e58673a2d41af543f449b6c1bac1ddbf07c90cd1b3768efebe3b218b3ee197"
+      },
+      "demo12301": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12301.json",
+        "sha256": "1c649d39da186987da23fd7a5747e0e55521fac9fd32b20ba073029707c89ef3"
+      },
+      "demo12302": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12302.json",
+        "sha256": "b7b05183c5c26cf55369fd8013ae041085f557a36ebf9a82c9b9916920766aa9"
+      },
+      "demo12303": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12303.json",
+        "sha256": "24c3aeca48398d027456f5e3577b77135dc1b2be53a9a2b3c57a78efc9b761e5"
+      },
+      "demo12304": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12304.json",
+        "sha256": "048c023f0839c4630bb8a8d104c6c149816d94ca47ce5cc79ee2ad30390a4268"
+      },
+      "demo12305": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12305.json",
+        "sha256": "1c4493143c0d144d4fd44267328d7599720c6f6dd95aec6149609f9c8ff44203"
+      },
+      "demo12306": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12306.json",
+        "sha256": "e6c8a2014257ee090527799729078620a59713086e606f831d45cfcba4b1c7a4"
+      },
+      "demo12307": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12307.json",
+        "sha256": "c5530ad3cb09b0118fc5b715af9e6f87caca9d776f81ba10adf224458278d793"
+      },
+      "demo12308": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12308.json",
+        "sha256": "c1945edb8ae947d2f27ea872462c6eca2419d48f993377584f907da7e121c69a"
+      },
+      "demo12309": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12309.json",
+        "sha256": "ead11ff403366336ff24d395ccc9f795108d9d8d23f34736fbba145119718243"
+      },
+      "demo12310": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12310.json",
+        "sha256": "907dd172d12814e6c2ad53331c17252a3b90cab83dfca74130dcca54109a5957"
+      },
+      "demo12311": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12311.json",
+        "sha256": "e9123001777c449f99e1b1e8a0f1d4e6244bd84c9ee1cfc0978e0b44e8eaf3a1"
+      }
+    },
+    "subgoal": "With the source continuously held, finish transport to a high bowl-centered pose, tilt it in the demonstrated controlled arc until at least ten of twelve particles are transferred into the bowl, then rotate it back toward upright and start moving away. Keep the gripper closed and the container above the bowl walls throughout. Approximate entry: securely grasped source, from early lift-off through staged upright pose. Approximate exit: emptied source approximately upright, still grasped, elevated and approaching the return region."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/f4aa5960c41c52b6",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "24a612c36c0e7e8535e8b8114cb24984cd7442a47df38cfeb8b6deab0d686e1a",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 3,
+      "physical_gpu": 1,
+      "uuid": "GPU-98220a3d-407e-9de2-bdc8-c061c57a041c"
+    },
+    "effective_action_targets": 4096,
+    "final_weights_sha256": "d63da53cf277be0c3493436846765f10c2b2c65d60b5e6c77daea63c9f6d81a5",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 3.9457340240478516,
+        "step": 1
+      },
+      {
+        "l2_norm": 1.5584932565689087,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "2be2a896fbf61955bbe9fe6d076dc74a7be1c98f0bf28bccae2ffdf95c845c0b",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 18720,
+        "duplicated_actions": 0,
+        "unique_actions": 18720
+      },
+      "contract": {
+        "action_dimension": 10,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "required": [],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "For each label reconstruct desired source pose and then TCP through the same observed rigid grasp transform, solve IK, and compare FK position, rotation and gripper scalar with the demonstrated commanded TCP target.",
+          "mode": "task_space",
+          "tolerance": 0.005
+        },
+        "cut_relation": "Source-motion relabeling covers every assigned [180,1740) action in all twelve trajectories. It retains full action-supervised incoming [180,360) and outgoing [1460,1740) overlaps without changing responsibility.",
+        "input_shapes": {
+          "features": [
+            2,
+            130
+          ]
+        },
+        "observation_dependencies": [
+          "bowl_pose",
+          "container_pose",
+          "particle_positions",
+          "qpos",
+          "qvel",
+          "target_pose",
+          "tcp_pose"
+        ],
+        "output_semantics": "Each slot is [desired source-container translation in metres in the current container frame, desired source increment orientation as 6D rotation columns, native gripper scalar]. Labels derive desired source pose from the commanded TCP and observed rigid container-to-TCP transform. At execution the source increment is composed with the fresh container pose and then with the fresh observed container-to-TCP transform to form a world TCP target. Safe Gram-Schmidt projects orientation, and solve_ik uses fresh measured joints. Slots are t-1 through t+14; slots 1-8 execute.",
+        "parameter_semantics": "No caller parameters. The executor supplies two causal observations. Container, TCP, bowl and target poses use world metres and wxyz quaternions. The observed container-to-TCP transform is treated as a measured rigid grasp relation, not as proof of grasp.",
+        "policy_id": "controlled_pour_and_right__h03",
+        "skill_id": "controlled_pour_and_right",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "92e62ab8300c5b18098baf10b6ab32bdd500e7e45616d2599bf3b6d44eb98351",
+      "PRIOR.md": "d291bc3d01b6da16db145c2724337fee8a138d64a8c113be238ea3b90dba1423",
+      "adapters.py": "26f478ef8b2d0248e7c1e1cc5647e31468c66f3b0de365200f8c661b9fc3b2d1",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "fd54c93fca664eb219285a7cf3bee55988e396f591e16855e3cb5503d79ce36e",
+      "policy.py": "923b795de1876a5c2b802b591e77e53884375cb70ae93e2f7bbad15325c1742c",
+      "policy_contract.json": "a78027e1ec3374ac2d7d92f449c0fada338251c71bbbe8222ec1fbf609a6a2c3",
+      "training_bindings.json": "4c89e6d2536aecea0790af3ca40165b04583c8e32c2128053bee4a5be6a8d04f"
+    },
+    "trainable_parameters": 18190090,
+    "training_elapsed_seconds": 3.9640067741274834,
+    "weight_l2_change": 0.21199803014467797
+  },
+  "files": {
+    "HANDOFF.json": "92e62ab8300c5b18098baf10b6ab32bdd500e7e45616d2599bf3b6d44eb98351",
+    "PRIOR.md": "d291bc3d01b6da16db145c2724337fee8a138d64a8c113be238ea3b90dba1423",
+    "adapters.py": "26f478ef8b2d0248e7c1e1cc5647e31468c66f3b0de365200f8c661b9fc3b2d1",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+    "pipeline.json": "fd54c93fca664eb219285a7cf3bee55988e396f591e16855e3cb5503d79ce36e",
+    "policy.py": "923b795de1876a5c2b802b591e77e53884375cb70ae93e2f7bbad15325c1742c",
+    "policy_contract.json": "a78027e1ec3374ac2d7d92f449c0fada338251c71bbbe8222ec1fbf609a6a2c3",
+    "training_bindings.json": "4c89e6d2536aecea0790af3ca40165b04583c8e32c2128053bee4a5be6a8d04f"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "v1": {
+    "files": {
+      "HANDOFF.json": "92e62ab8300c5b18098baf10b6ab32bdd500e7e45616d2599bf3b6d44eb98351",
+      "PRIOR.md": "d291bc3d01b6da16db145c2724337fee8a138d64a8c113be238ea3b90dba1423",
+      "adapters.py": "26f478ef8b2d0248e7c1e1cc5647e31468c66f3b0de365200f8c661b9fc3b2d1",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "fd54c93fca664eb219285a7cf3bee55988e396f591e16855e3cb5503d79ce36e",
+      "policy.py": "923b795de1876a5c2b802b591e77e53884375cb70ae93e2f7bbad15325c1742c",
+      "policy_contract.json": "a78027e1ec3374ac2d7d92f449c0fada338251c71bbbe8222ec1fbf609a6a2c3",
+      "training_bindings.json": "4c89e6d2536aecea0790af3ca40165b04583c8e32c2128053bee4a5be6a8d04f"
+    },
+    "folder": "provenance/relocated/c56954e81d0d9d94",
+    "version": "16b5d2685fc6ee81860c6f8d2f76a6210eb6bce57c0a67498183714c0a7dabe6"
+  },
+  "version": "d57412ed85e49dd932f949d1588dfa6fe1cbda164c2aec339b009d8b6297b866"
+}

@@ -1,0 +1,31 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "retrieve_peg_from_box__h04",
+  "skill_id": "retrieve_peg_from_box",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "No high-level arguments. The executor supplies two causal observations, oldest first. At every 8-action replan, the newest observed state selects and resolves a chunk-fixed world translation reference: the observed lid-handle point only while the peg is low, TCP-to-handle distance is at most 0.10 m, and finger width is below 0.07 m; otherwise the observed peg center. Only the initial episode observation may be duplicated for padding.",
+  "observation_dependencies": ["peg_pose", "lid_pose", "lid_position", "lid_velocity", "qpos", "qvel", "tcp_pose"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 73]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each prediction slot is [world-axis TCP position offset xyz in metres from the active reference point fixed at causal chunk start, world-frame TCP rotation as the first two rotation-matrix columns (6D), native gripper scalar]. Training subtracts the same chunk reference from FK of each demonstrated joint command in all 16 slots. Decode adds that fixed reference, projects 6D rotation by safe Gram-Schmidt, and calls panda_kinematics.solve_ik from freshly measured qpos. The lid-handle reference covers release; the peg-center reference makes post-release approach, grasp and lift translation-equivariant at each replan. Slots are t-1 through t+14 and execution uses slots 1 through 8. Gripper values >=0 open and values <0 close.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Add the stored chunk reference to each encoded position offset, reconstruct its world 6D orientation, solve IK, and compare FK against the demonstrated commanded TCP pose in metres/radians plus the gripper scalar. The fixed reference subtraction/addition is exactly invertible; IK convergence, residuals and limit contacts remain explicit."
+  },
+  "cut_relation": "All twelve assigned [740,1270) segments are unchanged. Every action remains supervised, preserving the 210-action incoming [740,950) and 150-action outgoing [1120,1270) overlaps. The object-selective coordinates refine representation without changing responsibility, timing, labels or success criteria."
+}

@@ -1,0 +1,275 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/granular_pour_return/controlled_pour_and_right/dataset.json",
+    "dataset_sha256": "eb11d933a32058d138609f6e60013ce5a1fed9f69423409fdacd4fc3db595c4f",
+    "experiment_version": "APPL_v4_cartesian_validation_round",
+    "heuristic": {
+      "applicability": "Prefer controlled_pour_and_right__h04 when the source is securely and approximately rigidly held, the bowl/container/TCP poses are reliable, the bowl may be displaced from its demonstrated pose, and retaining a direct source-orientation target through late righting is important. It is applicable from the supervised early lift/carry entry through the pour, righting and initial outbound carry. The high-level agent should favor it over h03 when absolute anchoring is more important than local source increments, and over h01 when an atypical but rigid container-to-TCP transform makes direct source-pose control useful. h02 remains preferable when the entry is an unusual ambiguous partial-discharge state and local correction is the main concern.",
+      "evidence": [
+        {
+          "indices": [
+            180,
+            320,
+            360,
+            700,
+            800,
+            900,
+            1000,
+            1100,
+            1200,
+            1460,
+            1600,
+            1680,
+            1740
+          ],
+          "trajectory_id": "demo12300"
+        },
+        {
+          "indices": [
+            180,
+            320,
+            360,
+            700,
+            800,
+            900,
+            1000,
+            1100,
+            1200,
+            1460,
+            1600,
+            1680,
+            1740
+          ],
+          "trajectory_id": "demo12303"
+        },
+        {
+          "indices": [
+            180,
+            320,
+            360,
+            700,
+            900,
+            1100,
+            1460,
+            1680,
+            1740
+          ],
+          "trajectory_id": "demo12309"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "The source container is securely closed in the gripper and lifted or lifting clear of support, with reliable bowl, container and TCP poses. Entry may be in the incoming supervised interval [180,360), including a low early lift or a staged high pose. A closed finger command alone is not proof of grasp contact.",
+        "exit_conditions": "At least ten of twelve particles have settled in the bowl, the source container itself is approximately upright with upright cosine above the unchanged 0.97 criterion, remains held, and has begun moving away from the bowl toward the return region.",
+        "failure_signatures": "Stop or switch if the observed container-to-TCP transform changes rapidly, the gripper is open or grasp is uncertain, source/bowl clearance is unsafe, particles spill outside the bowl, fewer than ten particles transfer, the source stays or returns tilted after discharge, or IK diagnostics show persistent residual/limit contact. Validation of the originals indicates that enough particles with container_upright=false is the most relevant terminal failure signature, but no h04 outcome is yet observed.",
+        "overlap_role": "All twelve action intervals [180,1740) are supervised without trimming. This preserves 180 incoming actions [180,360) per trajectory with grasp_lift_stage and 280 outgoing actions [1460,1740) per trajectory with return_place_release. The latter directly supervises tilted-to-upright source motion and initial departure rather than providing observation-only context.",
+        "successor_readiness": "return_place_release is ready once enough particles are settled, the source is observably approximately upright and still securely held, and outbound motion is under way. Nominal readiness is around action 1680, while the fully supervised [1460,1740) overlap allows takeover during late righting or later outbound carry."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false},\"parameter_semantics\":\"No high-level arguments are accepted. The executor supplies two causal physical observations. At every replan and decode, bowl_pose is the observed moving reference, container_pose is the manipulated source, tcp_pose and qpos provide the current rigid-grasp transform and IK seed, particle_positions provide transfer phase, and target_pose is the fixed return destination context. All positions are world metres and pose quaternions are wxyz.\"}",
+      "limitations": "The demonstrations and validation contain no displaced bowl, unusual-grasp, spill, slip, collision or recovery trial, so the claimed benefits are structural expectations. The mechanism assumes reliable object poses and an approximately rigid source-to-TCP transform; slip or pose noise directly corrupts grasp reattachment. Bowl-relative targets can be unreachable, and moving the bowl independently of the return target changes outbound geometry not varied in training. Particle pooling cannot infer hidden contact. The policy cannot establish grasp security, recover lost material, or guarantee correct phase for states outside successful nominal trajectories. Absolute anchoring does not eliminate diffusion sampling errors or long-segment multimodality.",
+      "pipeline_implications": "Add h04 as an independently trained library alternative, not a replacement for h01-h03. The caller passes an empty argument object and retains two-frame causal history across switches. Use observed source uprightness, particle settlement, grasp-transform stability and IK feasibility to select and terminate it. Because h04 directly targets absolute source pose in the bowl frame, it complements h03's local source increment and h02's fresh-TCP residual. The outgoing successor should not take over solely because particles are empty; it should also observe an upright held source. No success rule, temporal setting or numerical budget changes.",
+      "rationale": "All 36 original validation runs finished with twelve particles in the bowl, a continuously closed gripper and no reported unconverged IK step, while every failed run had container_upright=false. h03 even met the exit rule transiently and later failed it in three runs. The demonstrations directly supervise the source from a tilted pose near action 1460 to approximately upright near 1680 and outbound at 1740, with different outbound timing across trajectories. h04 therefore learns an absolute desired container pose rather than a TCP residual or source increment. For each slot, the demonstrated commanded TCP pose is converted through the observed rigid container-to-TCP transform into a desired container pose, then expressed in the observed bowl frame. At execution that target is moved with the fresh bowl pose and reattached through the fresh observed grasp transform before verified IK. This makes carry-to-bowl, pour and righting motion invariant to rigid bowl displacement by construction and anchors the manipulated object's terminal orientation directly. A registered shared particle-token encoder with mean/max pooling supplies permutation-invariant emptying-phase evidence; robot configuration, velocity, target relation, source/TCP relation and both causal frames remain in the condition. The standard diffusion backbone is unchanged. Expected improvement in terminal righting, displacement handling and rigid-grasp handling is unconfirmed until h04 is trained and validated.",
+      "statement": "Absolute bowl-frame desired-source-pose prior with fresh rigid-grasp reattachment and permutation-invariant particle conditioning. The learned 10D Cartesian action is desired container position (3 m) and orientation (6D rotation) in the current observed bowl frame plus the demonstrated gripper scalar. The decoder reconstructs a world desired container pose from the fresh bowl, maps it to a world TCP target using the fresh observed container-to-TCP transform, and calls the verified Panda IK. This directly covers bowl-relative carry, controlled tilt, righting and initial departure while retaining source geometry and terminal upright orientation.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full controlled pour/right supervision, including incoming [180,360), discharge timing, righting and outgoing [1460,1740) overlap.\"},{\"trajectory_id\":\"demo12301\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full source-pose trajectory and both action-supervised handoff overlaps.\"},{\"trajectory_id\":\"demo12302\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full nominal carry, pour, righting and initial outbound source targets.\"},{\"trajectory_id\":\"demo12303\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full supervision including earlier particle settlement and earlier outbound motion, useful for phase and handoff variation.\"},{\"trajectory_id\":\"demo12304\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full source trajectory with incoming and outgoing overlap preserved.\"},{\"trajectory_id\":\"demo12305\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full nominal pour/right sequence and initial return transport.\"},{\"trajectory_id\":\"demo12306\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full sequence from a relatively high early lift through source righting and departure.\"},{\"trajectory_id\":\"demo12307\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full particle-transfer and direct source-orientation supervision with both overlaps.\"},{\"trajectory_id\":\"demo12308\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full nominal pour/right sequence and outgoing handoff actions.\"},{\"trajectory_id\":\"demo12309\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full sequence with slightly different arm/source orientations and outbound timing.\"},{\"trajectory_id\":\"demo12310\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full controlled pour, source righting and return-directed initial travel.\"},{\"trajectory_id\":\"demo12311\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full source-pose sequence with all assigned responsibility and both handoff overlaps.\"}]"
+    },
+    "heuristic_index": 4,
+    "normalization": {
+      "path": "provenance/relocated/64f72aeeeae5a34c",
+      "sha256": "52a649835b92c470fb6692de6991ba7c8ccd357aa4bb4ad2c6069c971f630101"
+    },
+    "observation_fields": {
+      "bowl_pose": [
+        0,
+        7
+      ],
+      "container_pose": [
+        7,
+        14
+      ],
+      "particle_positions": [
+        14,
+        50
+      ],
+      "qpos": [
+        50,
+        59
+      ],
+      "qvel": [
+        59,
+        68
+      ],
+      "target_pose": [
+        68,
+        75
+      ],
+      "tcp_pose": [
+        75,
+        82
+      ]
+    },
+    "plan_hash": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+    "policy_id": "controlled_pour_and_right__h04",
+    "prior_plan_path": "provenance/relocated/f2b79cb326ca43d2",
+    "prior_plan_sha256": "7a8f2003f9cfc7e1789a464c1513c33e4519583f98788249019ed083d2254f2c",
+    "skill_id": "controlled_pour_and_right",
+    "sources": {
+      "demo12300": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12300.json",
+        "sha256": "21e58673a2d41af543f449b6c1bac1ddbf07c90cd1b3768efebe3b218b3ee197"
+      },
+      "demo12301": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12301.json",
+        "sha256": "1c649d39da186987da23fd7a5747e0e55521fac9fd32b20ba073029707c89ef3"
+      },
+      "demo12302": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12302.json",
+        "sha256": "b7b05183c5c26cf55369fd8013ae041085f557a36ebf9a82c9b9916920766aa9"
+      },
+      "demo12303": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12303.json",
+        "sha256": "24c3aeca48398d027456f5e3577b77135dc1b2be53a9a2b3c57a78efc9b761e5"
+      },
+      "demo12304": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12304.json",
+        "sha256": "048c023f0839c4630bb8a8d104c6c149816d94ca47ce5cc79ee2ad30390a4268"
+      },
+      "demo12305": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12305.json",
+        "sha256": "1c4493143c0d144d4fd44267328d7599720c6f6dd95aec6149609f9c8ff44203"
+      },
+      "demo12306": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12306.json",
+        "sha256": "e6c8a2014257ee090527799729078620a59713086e606f831d45cfcba4b1c7a4"
+      },
+      "demo12307": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12307.json",
+        "sha256": "c5530ad3cb09b0118fc5b715af9e6f87caca9d776f81ba10adf224458278d793"
+      },
+      "demo12308": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12308.json",
+        "sha256": "c1945edb8ae947d2f27ea872462c6eca2419d48f993377584f907da7e121c69a"
+      },
+      "demo12309": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12309.json",
+        "sha256": "ead11ff403366336ff24d395ccc9f795108d9d8d23f34736fbba145119718243"
+      },
+      "demo12310": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12310.json",
+        "sha256": "907dd172d12814e6c2ad53331c17252a3b90cab83dfca74130dcca54109a5957"
+      },
+      "demo12311": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12311.json",
+        "sha256": "e9123001777c449f99e1b1e8a0f1d4e6244bd84c9ee1cfc0978e0b44e8eaf3a1"
+      }
+    },
+    "subgoal": "With the source continuously held, finish transport to a high bowl-centered pose, tilt it in the demonstrated controlled arc until at least ten of twelve particles are transferred into the bowl, then rotate it back toward upright and start moving away. Keep the gripper closed and the container above the bowl walls throughout. Approximate entry: securely grasped source, from early lift-off through staged upright pose. Approximate exit: emptied source approximately upright, still grasped, elevated and approaching the return region."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/40141e1cd89702ce",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "ffe6b45c32b472514418a637f90e0944ae6c5ab42febb66dbfaba89a2cb5230a",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 3,
+      "physical_gpu": 1,
+      "uuid": "GPU-98220a3d-407e-9de2-bdc8-c061c57a041c"
+    },
+    "effective_action_targets": 4096,
+    "final_weights_sha256": "7a48475bbdaca3610dce0272758cf1b1245c40341190bdd52439f6213243baa6",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 4.358635425567627,
+        "step": 1
+      },
+      {
+        "l2_norm": 1.8853052854537964,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "88b6d4005b18b009fdd2f0ff2bc714839bb1c1e1678096aaec81f675436b1120",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 18720,
+        "duplicated_actions": 0,
+        "unique_actions": 18720
+      },
+      "contract": {
+        "action_dimension": 10,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "required": [],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "At the same observation, composing a valid bowl-frame desired source label with the bowl and observed rigid source-to-TCP transform reconstructs the demonstrated commanded world TCP target before numerical IK. Compare FK TCP position in metres, rotation angle in radians and gripper scalar after solve_ik; safe 6D projection is the only orientation projection.",
+          "mode": "task_space",
+          "tolerance": 0.005
+        },
+        "cut_relation": "Every assigned action in all twelve [180,1740) intervals is supervised under the same empty call contract. This preserves 180 incoming overlap actions [180,360) and 280 outgoing overlap actions [1460,1740) per trajectory, including direct source righting and initial outbound transport.",
+        "input_shapes": {
+          "particles": [
+            2,
+            12,
+            8
+          ],
+          "robot": [
+            2,
+            58
+          ]
+        },
+        "observation_dependencies": [
+          "bowl_pose",
+          "container_pose",
+          "particle_positions",
+          "qpos",
+          "qvel",
+          "target_pose",
+          "tcp_pose"
+        ],
+        "output_semantics": "Each prediction slot contains desired source-container position in metres (3) and orientation as the first two rotation-matrix columns (6), both expressed in the bowl pose observed immediately before the supervised action, followed by the demonstrated native gripper scalar (1). For labels, verified FK gives the commanded world TCP and the observed rigid container-to-TCP transform converts it to a desired container pose. At decode, safe Gram-Schmidt projects the 6D orientation; the desired source pose is composed with the fresh current bowl pose and then with the fresh observed container-to-TCP transform to produce a world TCP target. panda_kinematics.solve_ik uses freshly measured joints. Slots represent t-1 through t+14 and execution uses slots 1 through 8, beginning at current t.",
+        "parameter_semantics": "No high-level arguments are accepted. The executor supplies two causal physical observations. bowl_pose is the current moving reference, container_pose is the manipulated source, tcp_pose and qpos define the current rigid-grasp transform and IK seed, particle_positions provide transfer-phase evidence, and target_pose is the observed return destination context. Positions are metres in world coordinates and pose quaternions are wxyz.",
+        "policy_id": "controlled_pour_and_right__h04",
+        "skill_id": "controlled_pour_and_right",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "eebedc966c6a690d684129b9ada1eec753028ac4561539ee262211a248794350",
+      "PRIOR.md": "e830932757a8e763f5d1060372c931372319d6db3b42462ab5aca3f03d98493a",
+      "adapters.py": "340f7fc6bda36e3627c1120f3ae128c7f283e7e89b7ca7e66e4dd64a4b45f807",
+      "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "panda_posture.py": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+      "pipeline.json": "fe32e641656abefc608f9f35333cbc6a86bb3608217208e275410b6d5a77c7da",
+      "policy.py": "2e0f9bbc645698e8f167139a09e80827fdf44760a7bbcf45f48ca8923ffa4797",
+      "policy_contract.json": "954f06fc049b1dfc226444c5d5525a5ac5df1189ce2fed1eaefc5178a8963982",
+      "training_bindings.json": "993a5fda280e5e3b6031841abf6bbdfca227ae1a0e2883d5336e2078a30409a4"
+    },
+    "trainable_parameters": 19091594,
+    "training_elapsed_seconds": 4.2523914279881865,
+    "weight_l2_change": 0.21715608999489688
+  },
+  "files": {
+    "HANDOFF.json": "eebedc966c6a690d684129b9ada1eec753028ac4561539ee262211a248794350",
+    "PRIOR.md": "e830932757a8e763f5d1060372c931372319d6db3b42462ab5aca3f03d98493a",
+    "adapters.py": "340f7fc6bda36e3627c1120f3ae128c7f283e7e89b7ca7e66e4dd64a4b45f807",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+    "pipeline.json": "fe32e641656abefc608f9f35333cbc6a86bb3608217208e275410b6d5a77c7da",
+    "policy.py": "2e0f9bbc645698e8f167139a09e80827fdf44760a7bbcf45f48ca8923ffa4797",
+    "policy_contract.json": "954f06fc049b1dfc226444c5d5525a5ac5df1189ce2fed1eaefc5178a8963982",
+    "training_bindings.json": "993a5fda280e5e3b6031841abf6bbdfca227ae1a0e2883d5336e2078a30409a4"
+  },
+  "version": "5e5d77114c1196ef0b0dc88078eadc1e3c62142521501a246c02f3851bb210b3"
+}

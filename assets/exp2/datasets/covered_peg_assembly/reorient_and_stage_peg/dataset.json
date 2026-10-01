@@ -1,0 +1,235 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        1120,
+        1140,
+        1180,
+        1200,
+        1220,
+        1240,
+        1260,
+        1270,
+        1280,
+        1300,
+        1320,
+        1340,
+        1360,
+        1380,
+        1400,
+        1420,
+        1440,
+        1460,
+        1480,
+        1500
+      ],
+      "trajectory_id": "demo12200"
+    },
+    {
+      "indices": [
+        1120,
+        1250,
+        1270,
+        1290,
+        1360,
+        1380,
+        1400,
+        1480,
+        1500
+      ],
+      "trajectory_id": "demo12201"
+    },
+    {
+      "indices": [
+        1120,
+        1270,
+        1380,
+        1500
+      ],
+      "trajectory_id": "demo12202"
+    },
+    {
+      "indices": [
+        1120,
+        1270,
+        1380,
+        1500
+      ],
+      "trajectory_id": "demo12203"
+    },
+    {
+      "indices": [
+        1120,
+        1270,
+        1380,
+        1500
+      ],
+      "trajectory_id": "demo12204"
+    },
+    {
+      "indices": [
+        1120,
+        1270,
+        1380,
+        1500
+      ],
+      "trajectory_id": "demo12205"
+    },
+    {
+      "indices": [
+        1120,
+        1270,
+        1380,
+        1500
+      ],
+      "trajectory_id": "demo12206"
+    },
+    {
+      "indices": [
+        1120,
+        1270,
+        1380,
+        1500
+      ],
+      "trajectory_id": "demo12207"
+    },
+    {
+      "indices": [
+        1120,
+        1270,
+        1380,
+        1500
+      ],
+      "trajectory_id": "demo12208"
+    },
+    {
+      "indices": [
+        1120,
+        1270,
+        1380,
+        1500
+      ],
+      "trajectory_id": "demo12209"
+    },
+    {
+      "indices": [
+        1120,
+        1270,
+        1380,
+        1500
+      ],
+      "trajectory_id": "demo12210"
+    },
+    {
+      "indices": [
+        1120,
+        1270,
+        1380,
+        1500
+      ],
+      "trajectory_id": "demo12211"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Observable entry cue: the fingers are closed, peg_pose is attached to tcp_pose, and the peg has just begun lifting from the box (at index 1120 peg z is about 0.028-0.040 m across demonstrations). The responsibility requires maintaining the grasp, lifting to clearance, rotating the peg from its initial approximately [0.707,0,0,0.707] quaternion toward the hole-axis orientation, and transporting it above the target.",
+    "exit_conditions": "By the stop at 1500 the peg remains closed-grasped, is nearly identity-oriented, is at hole height near z 0.099 m and y about 0.177-0.179 m, and has begun motion along +x toward/into the square hole (center x ranges about -0.252 to -0.185 because occurrence timing varies). The outgoing overlap intentionally includes descent and initial insertion rather than ending at a brittle single pre-insert frame.",
+    "failure_signatures": "Peg does not remain coupled to the TCP; gripper opens; peg stays below box-wall clearance; orientation fails to converge toward the hole axis; lateral y or z remains far from hole center; or the peg approaches the fixture before alignment. No demonstrated recovery exists for a dropped peg, collision, or a bad grasp.",
+    "overlap_role": "Incoming overlap with retrieve_peg_from_box is [1120,1270), 150 actions/7.5 s per trajectory, covering the low closed-grasp state through high clearance and initial turning. Outgoing overlap with align_and_insert_peg is [1380,1500), 120 actions/6.0 s per trajectory, covering final orientation/lateral alignment, descent, and early insertion. The expected benefit is that either neighbor can own the shared transition for several execution chunks.",
+    "successor_readiness": "align_and_insert_peg can take over once the grasp is stable and the peg is approximately axis-aligned above the hole. The shared start at 1380 admits some remaining lateral correction (notably demo12205 has peg y about 0.160 m), while later states are centered near y 0.18 m and descend toward z 0.10 m."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Lift, turn, and stage peg at hole",
+  "original_demonstration_count": 12,
+  "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "This is the long grasp-maintenance and reorientation responsibility, distinct from both acquisition and contact-rich insertion. Across demonstrations the segment starts just after closure with the peg still low, lifts it to roughly 0.43-0.49 m, transports from the box toward positive y/x, and changes peg quaternion toward identity. In demo12200, z reaches 0.428 m at 1240; the peg travels and rotates through 1280-1380; then it is aligned above the hole and descends through 1400-1460. Actions through 1500 are retained as deliberate overlap with insertion. Expected benefit is robust staging under positional variation; successful nominal paths do not establish collision recovery.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Peg transport/reorientation in demo12200: begin during low lift, raise and rotate the grasped peg, move it over the square hole, descend, and bridge into early insertion (x about -0.233 at stop).",
+      "start": 1120,
+      "stop": 1500,
+      "trajectory_id": "demo12200"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Peg transport/reorientation in demo12201: lift from the box, turn toward identity orientation, center over the hole, descend, and begin +x insertion (x about -0.220 at stop).",
+      "start": 1120,
+      "stop": 1500,
+      "trajectory_id": "demo12201"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Peg transport/reorientation in demo12202: maintain the grasp while lifting, rotating, transporting, and staging at hole height, with insertion underway by x about -0.197.",
+      "start": 1120,
+      "stop": 1500,
+      "trajectory_id": "demo12202"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Peg transport/reorientation in demo12203: lift and turn the grasped peg, traverse to the fixture, align and descend, then enter the initial insertion region (x about -0.221).",
+      "start": 1120,
+      "stop": 1500,
+      "trajectory_id": "demo12203"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Peg transport/reorientation in demo12204: raise and reorient the peg, carry it to the hole, center and lower it, and overlap insertion through x about -0.199.",
+      "start": 1120,
+      "stop": 1500,
+      "trajectory_id": "demo12204"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Peg transport/reorientation in demo12205: lift, rotate, and transport the grasped peg from the box; finish lateral alignment and descend to early insertion near x -0.252.",
+      "start": 1120,
+      "stop": 1500,
+      "trajectory_id": "demo12205"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Peg transport/reorientation in demo12206: maintain closed grasp, lift and turn to hole-axis alignment, move above the target, descend, and bridge into insertion near x -0.197.",
+      "start": 1120,
+      "stop": 1500,
+      "trajectory_id": "demo12206"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Peg transport/reorientation in demo12207: lift clear, rotate and translate the peg to the hole, lower to slot height, and continue through early insertion near x -0.197.",
+      "start": 1120,
+      "stop": 1500,
+      "trajectory_id": "demo12207"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Peg transport/reorientation in demo12208: lift and align the offset peg, transport and descend over the hole, and overlap nearly complete insertion by x about -0.185.",
+      "start": 1120,
+      "stop": 1500,
+      "trajectory_id": "demo12208"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Peg transport/reorientation in demo12209: raise, rotate, and move the closed-grasp peg to the fixture, align and descend, and overlap insertion through x about -0.197.",
+      "start": 1120,
+      "stop": 1500,
+      "trajectory_id": "demo12209"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Peg transport/reorientation in demo12210: execute high-clearance transport and turning, establish hole-axis alignment, lower, and begin insertion to x about -0.197.",
+      "start": 1120,
+      "stop": 1500,
+      "trajectory_id": "demo12210"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Peg transport/reorientation in demo12211: lift and rotate the peg, travel to the hole, align and lower it, and overlap initial insertion to x about -0.200.",
+      "start": 1120,
+      "stop": 1500,
+      "trajectory_id": "demo12211"
+    }
+  ],
+  "skill_id": "reorient_and_stage_peg",
+  "subgoal": "Maintain the peg grasp while lifting to clearance, turning the peg into the square-hole axis, transporting it above the target, and staging it through descent and the first part of insertion."
+}

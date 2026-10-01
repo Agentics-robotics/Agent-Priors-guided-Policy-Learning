@@ -1,0 +1,5819 @@
+{
+  "counts": {
+    "C": 40,
+    "E": 40,
+    "IID": 20
+  },
+  "hidden_from_runtime_api": true,
+  "historical_novelty": "New declared seeds; task/support/layout semantics were historically exposed.",
+  "paired_across_n_and_systems": true,
+  "phase": "test",
+  "records": [
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_IID_000_420000000",
+      "factors": {
+        "a": -0.024601287750056614,
+        "b": -0.029500594837221544
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18885006490186804,
+          "unit_direction": [
+            -0.15454317259362108,
+            0.25728871191643976,
+            -0.9538967064232258
+          ],
+          "vector_world_m": [
+            -0.029185488174445932,
+            0.04858898994393768,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.29282480841194664,
+          "unit_direction": [
+            -0.01673118856880655,
+            0.71586655411161,
+            0.6980366351656943
+          ],
+          "vector_world_m": [
+            -0.00489930708716493,
+            0.20962348655625263,
+            0.20440244395691431
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.48167487331381464
+      },
+      "inference_seed": 520000000,
+      "initial_state_hash": "eaa3e603e3a720577b2c009809216f1f2c8e46acb9f19c137a2171d2b6e83083",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_000_420000000.npz",
+      "seed": 420000000,
+      "sha256": "808cedb9bb4fa306fd65b7eb3c21056b9bf3ac9810a48b5a78a48ca06db9963b",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.024601287750056614,
+          0.6499771035699271,
+          0.015,
+          -0.029500594837221544,
+          0.8596005901261797,
+          0.21940244395691433
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_IID_001_420000001",
+      "factors": {
+        "a": 0.019373619271727247,
+        "b": 0.028646313273711838
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18664431596872963,
+          "unit_direction": [
+            0.07923851723304418,
+            0.24933619327426093,
+            -0.9651697882291018
+          ],
+          "vector_world_m": [
+            0.014789418847337926,
+            0.0465371832399214,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.27953417099287114,
+          "unit_direction": [
+            0.03317195164029184,
+            0.8526896468942979,
+            0.5213635849420744
+          ],
+          "vector_world_m": [
+            0.009272694001984591,
+            0.2383558935588016,
+            0.1457389375026541
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4661784869616008
+      },
+      "inference_seed": 520000001,
+      "initial_state_hash": "47d6d9dd3fe7a5fa82ba146208778112ff04451111f8223779c3d52806032e74",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_001_420000001.npz",
+      "seed": 420000001,
+      "sha256": "6cb36efbce6fda94a022ddf1bbd67531e707bc32043a97abc10313e702b35da4",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.019373619271727247,
+          0.6479252968659108,
+          0.015,
+          0.028646313273711838,
+          0.8862811904247124,
+          0.1607389375026541
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_IID_002_420000002",
+      "factors": {
+        "a": -0.015401749353099705,
+        "b": -0.016249052553450993
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18337473785422267,
+          "unit_direction": [
+            -0.10898965697978119,
+            0.15183263168561087,
+            -0.9823787999681444
+          ],
+          "vector_world_m": [
+            -0.019985949777489027,
+            0.027842269033065636,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.27277192195365835,
+          "unit_direction": [
+            -0.003106269861951693,
+            0.9151376573475485,
+            0.4031295315304813
+          ],
+          "vector_world_m": [
+            -0.0008473032003512883,
+            0.24962385764685924,
+            0.1099624171118473
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.45614665980788105
+      },
+      "inference_seed": 520000002,
+      "initial_state_hash": "2d62973f3f1607f656652008a1e668a8d1c38fa42b042a5d2c2e298f16d36db4",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_002_420000002.npz",
+      "seed": 420000002,
+      "sha256": "4fda407637086beddddee5dbe4c91fc10a940cb8c29db1d8fcc4a49722bdb4e1",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.015401749353099705,
+          0.6292303826590551,
+          0.015,
+          -0.016249052553450993,
+          0.8788542403059143,
+          0.1249624171118473
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_IID_003_420000003",
+      "factors": {
+        "a": 0.02387358397660455,
+        "b": 0.026290954279585485
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18194347461727348,
+          "unit_direction": [
+            0.10601855105159085,
+            0.09191719744819048,
+            -0.9901067092218857
+          ],
+          "vector_world_m": [
+            0.019289383552215232,
+            0.016723734280805758,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.34139420284885835,
+          "unit_direction": [
+            0.00708087683624537,
+            0.7992277601761141,
+            0.6009865627009491
+          ],
+          "vector_world_m": [
+            0.002417370302980934,
+            0.272851724080003,
+            0.20517332849616593
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5233376774661318
+      },
+      "inference_seed": 520000003,
+      "initial_state_hash": "be5051842110abefd331f56d231020a91e4340a3b457528c7cb660e3b65956d1",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_003_420000003.npz",
+      "seed": 420000003,
+      "sha256": "c153615d9a9b3a833d61bdac1c3085536c8c76ecfa470a7f27aa00fc400908d1",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02387358397660455,
+          0.6181118479067952,
+          0.015,
+          0.026290954279585485,
+          0.8909635719867982,
+          0.22017332849616594
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_IID_004_420000004",
+      "factors": {
+        "a": -0.028706746624695786,
+        "b": -0.029129540195609045
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18691974218695462,
+          "unit_direction": [
+            -0.1781028941062199,
+            0.19867033512767437,
+            -0.9637476106591634
+          ],
+          "vector_world_m": [
+            -0.033290947049085105,
+            0.03713540782226077,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.28414344369845473,
+          "unit_direction": [
+            -0.0014879582136758558,
+            0.8670906323802134,
+            0.49814819202606375
+          ],
+          "vector_world_m": [
+            -0.0004227935709132588,
+            0.24637811828318468,
+            0.14154554275444486
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.47106318588540935
+      },
+      "inference_seed": 520000004,
+      "initial_state_hash": "98282703643848538383544b50a3f4bd76aa78ec3dd4cd03f21d3e17d1df4796",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_004_420000004.npz",
+      "seed": 420000004,
+      "sha256": "92126ceac999a11fe48894f7daad91a2029e66f0c425754b53c0e130fda011be",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.028706746624695786,
+          0.6385235214482502,
+          0.015,
+          -0.029129540195609045,
+          0.8849016397314349,
+          0.15654554275444488
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_IID_005_420000005",
+      "factors": {
+        "a": 0.018756219427082464,
+        "b": 0.016706424191324423
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18073282733273138,
+          "unit_direction": [
+            0.07841419409990351,
+            0.019042306545830074,
+            -0.9967389852539517
+          ],
+          "vector_world_m": [
+            0.014172019002693144,
+            0.0034415699009644474,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3189303086646935,
+          "unit_direction": [
+            -0.0064270945095816785,
+            0.8721632646439192,
+            0.4891727018771854
+          ],
+          "vector_world_m": [
+            -0.0020497952357580417,
+            0.27815929919889193,
+            0.15601200080003286
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4996631359974249
+      },
+      "inference_seed": 520000005,
+      "initial_state_hash": "ceb267ada36df675ec7ba26a44298c7d63b81b0dcf5b6f8f765bf5831ae006d5",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_005_420000005.npz",
+      "seed": 420000005,
+      "sha256": "4253989f2096241066f735587212f9152fb6700cbc79a32ebe5cf19b703d4b51",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.018756219427082464,
+          0.6048296835269539,
+          0.015,
+          0.016706424191324423,
+          0.8829889827258458,
+          0.17101200080003287
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_IID_006_420000006",
+      "factors": {
+        "a": -0.02663377511088756,
+        "b": -0.029793550900684557
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18338901147895914,
+          "unit_direction": [
+            -0.1702281684355915,
+            0.07813120707815625,
+            -0.9823023389728714
+          ],
+          "vector_world_m": [
+            -0.03121797553527688,
+            0.014328404831720931,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2735366877704876,
+          "unit_direction": [
+            -0.011551561202087165,
+            0.8996675301804214,
+            0.43642284148845223
+          ],
+          "vector_world_m": [
+            -0.0031597757897969952,
+            0.24609207630020768,
+            0.11937765852813577
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.45692569924944676
+      },
+      "inference_seed": 520000006,
+      "initial_state_hash": "48bfbab692648098632fc2991bc48ca7dd0230bbeae0b0891579cfb34c7ae1c4",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_006_420000006.npz",
+      "seed": 420000006,
+      "sha256": "9990be7f50a7cb927d1a6287d230cd8f94dcc19448c197f836cce577f8f1c017",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02663377511088756,
+          0.6157165184577104,
+          0.015,
+          -0.029793550900684557,
+          0.861808594757918,
+          0.13437765852813577
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_IID_007_420000007",
+      "factors": {
+        "a": 0.01760411763998913,
+        "b": 0.02205901583066259
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18526564853902708,
+          "unit_direction": [
+            0.0702770174518192,
+            0.22269351854621955,
+            -0.9723521674864419
+          ],
+          "vector_world_m": [
+            0.01301991721559981,
+            0.04125745913890322,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3148784331872351,
+          "unit_direction": [
+            0.01414799402290108,
+            0.7984423813958614,
+            0.6019049741080678
+          ],
+          "vector_world_m": [
+            0.0044548981906734585,
+            0.2514122860442136,
+            0.1895268951747517
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5001440817262621
+      },
+      "inference_seed": 520000007,
+      "initial_state_hash": "f11f3c64e2499f29d6fb0d0033926695f1529f9a954c614cd37d351832b8cbd6",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_007_420000007.npz",
+      "seed": 420000007,
+      "sha256": "346aa6929f9e9a59dfa1786946dcf7b975d1ad0f0299782edae1674d92e39948",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.01760411763998913,
+          0.6426455727648926,
+          0.015,
+          0.02205901583066259,
+          0.8940578588091063,
+          0.2045268951747517
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_IID_008_420000008",
+      "factors": {
+        "a": -0.029647442718764447,
+        "b": -0.015605370899161612
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18561233454063777,
+          "unit_direction": [
+            -0.18442547596781142,
+            0.15507125294701443,
+            -0.9705360118632844
+          ],
+          "vector_world_m": [
+            -0.034231643143153766,
+            0.028783137279637105,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3128582893641814,
+          "unit_direction": [
+            0.044883170102797625,
+            0.8078013800861296,
+            0.5877435081499988
+          ],
+          "vector_world_m": [
+            0.014042071819602835,
+            0.2527273579197714,
+            0.18388042854471143
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4984706239048192
+      },
+      "inference_seed": 520000008,
+      "initial_state_hash": "47ce4e201c0e55f963f5658e0ea57fbbe111a2f19c8ac754eef62d1d3d55c1ee",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_008_420000008.npz",
+      "seed": 420000008,
+      "sha256": "d2550c49d1a02c117450c1a6dad4174860cd847fc55ab707af2ce93b73ccc538",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.029647442718764447,
+          0.6301712509056265,
+          0.015,
+          -0.015605370899161612,
+          0.882898608825398,
+          0.19888042854471144
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_IID_009_420000009",
+      "factors": {
+        "a": 0.016097255249192106,
+        "b": 0.027407620058306485
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.184800904083372,
+          "unit_direction": [
+            0.06229977543621069,
+            0.21421628833353906,
+            -0.9747974762960766
+          ],
+          "vector_world_m": [
+            0.011513054824802785,
+            0.03958736375342231,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.33194741535082867,
+          "unit_direction": [
+            0.034072760582156296,
+            0.7317203865758451,
+            0.6807527619155185
+          ],
+          "vector_world_m": [
+            0.01131036480911438,
+            0.24289269108336098,
+            0.2259741198107944
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5167483194342006
+      },
+      "inference_seed": 520000009,
+      "initial_state_hash": "e6e162a67e72b16a066adaa30694dd950c0ce6a52830880946db063b9ca06d1a",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_009_420000009.npz",
+      "seed": 420000009,
+      "sha256": "4cb0e3078f31953edc10e2d62617346cf12c7ebe2c535bb32e59da7c52d40510",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.016097255249192106,
+          0.6409754773794117,
+          0.015,
+          0.027407620058306485,
+          0.8838681684627727,
+          0.24097411981079442
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_IID_010_420000010",
+      "factors": {
+        "a": -0.022324121353014485,
+        "b": -0.029943083763731542
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18528067358591138,
+          "unit_direction": [
+            -0.1452300515570335,
+            0.18328347146763127,
+            -0.9722733161058754
+          ],
+          "vector_world_m": [
+            -0.026908321777403807,
+            0.03395888505068689,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3030276618274512,
+          "unit_direction": [
+            -0.02514279509919928,
+            0.8050634831164966,
+            0.5926555728304039
+          ],
+          "vector_world_m": [
+            -0.0076189624107170575,
+            0.2439565049114557,
+            0.17959103250380604
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4883083354133626
+      },
+      "inference_seed": 520000010,
+      "initial_state_hash": "46bbed89007609e47ecaec6a537cc3f2f06734e3a95e1192cab7f389c53b3b91",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_010_420000010.npz",
+      "seed": 420000010,
+      "sha256": "f95b9437a73063b636078a7e0b3a2d9db9b867f6e4637128fb04cc097aabb089",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.022324121353014485,
+          0.6353469986766763,
+          0.015,
+          -0.029943083763731542,
+          0.879303503588132,
+          0.19459103250380605
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_IID_011_420000011",
+      "factors": {
+        "a": 0.018068303131541216,
+        "b": 0.019805940067565822
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1831638404511378,
+          "unit_direction": [
+            0.07361771119201346,
+            0.16519279871109832,
+            -0.9835099246336277
+          ],
+          "vector_world_m": [
+            0.013484102707151896,
+            0.030257347426796533,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.25742664650324687,
+          "unit_direction": [
+            0.006750027472399557,
+            0.8741930141668339,
+            0.4855316787924631
+          ],
+          "vector_world_m": [
+            0.0017376369360246058,
+            0.22504057603353345,
+            0.12498879184263541
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.44059048695438463
+      },
+      "inference_seed": 520000011,
+      "initial_state_hash": "1c115a68905742e756d3d3f522dc60ce07c72235af55b11ca397873dcef6b5b4",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_011_420000011.npz",
+      "seed": 420000011,
+      "sha256": "7172068f3bbd45e51b4ccecc0f366d4145e590492454c46b4d1868273eee84ab",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.018068303131541216,
+          0.631645461052786,
+          0.015,
+          0.019805940067565822,
+          0.8566860370863194,
+          0.1399887918426354
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_IID_012_420000012",
+      "factors": {
+        "a": -0.017396609398570878,
+        "b": -0.01722763559929668
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18696197070846857,
+          "unit_direction": [
+            -0.11756834686576484,
+            0.24039083595922428,
+            -0.9635299319699812
+          ],
+          "vector_world_m": [
+            -0.021980809822960197,
+            0.04494394443119276,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.30497888093975234,
+          "unit_direction": [
+            0.0005540508206782309,
+            0.7904123522673603,
+            0.6125748986131139
+          ],
+          "vector_world_m": [
+            0.00016897379927419826,
+            0.24105907467545684,
+            0.18682240707080972
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4919408516482209
+      },
+      "inference_seed": 520000012,
+      "initial_state_hash": "10dd2201e74a254212c132b35f144cbb2bfd22651995bd37b7d4820843cb8194",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_012_420000012.npz",
+      "seed": 420000012,
+      "sha256": "579bbdce0bdb4979ffc938fa16d540a58db25fa014979b7b7d9158f51ece3240",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.017396609398570878,
+          0.6463320580571822,
+          0.015,
+          -0.01722763559929668,
+          0.887391132732639,
+          0.20182240707080973
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_IID_013_420000013",
+      "factors": {
+        "a": 0.025464224732727213,
+        "b": 0.02459896539272137
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1822597107342651,
+          "unit_direction": [
+            0.11456193046844564,
+            0.09981565173336478,
+            -0.9883887897767692
+          ],
+          "vector_world_m": [
+            0.020880024308337894,
+            0.018192371811675212,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.26704842700771086,
+          "unit_direction": [
+            -0.0032400840165999526,
+            0.8786911593110315,
+            0.4773796690310564
+          ],
+          "vector_world_m": [
+            -0.0008652593400058431,
+            0.23465309191959283,
+            0.12748348970020523
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.449308137741976
+      },
+      "inference_seed": 520000013,
+      "initial_state_hash": "75db444891559d3888c7326d49be476008f4f94eafaaf3658694809b7bdead89",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_013_420000013.npz",
+      "seed": 420000013,
+      "sha256": "96ccc6b4087f06bcfd59a268685f3079754ab96432c73704b2d24d829b4ea199",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.025464224732727213,
+          0.6195804854376646,
+          0.015,
+          0.02459896539272137,
+          0.8542335773572575,
+          0.14248348970020522
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_IID_014_420000014",
+      "factors": {
+        "a": -0.015164987630254775,
+        "b": -0.01577624179477309
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18179658401364254,
+          "unit_direction": [
+            -0.10863343864130065,
+            0.07938934741991717,
+            -0.9909067097992658
+          ],
+          "vector_world_m": [
+            -0.019749188054644096,
+            0.014432712168013229,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.287465050507763,
+          "unit_direction": [
+            -0.0021263599294544817,
+            0.8698741609276595,
+            0.4932691179709622
+          ],
+          "vector_world_m": [
+            -0.000611254164518316,
+            0.2500584196064676,
+            0.14179763191144235
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.46926163452140557
+      },
+      "inference_seed": 520000014,
+      "initial_state_hash": "288444aea0d1f2fc0f44ba1f36b04514eb77ace1bd324c9a292180e352060392",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_014_420000014.npz",
+      "seed": 420000014,
+      "sha256": "f27d6dede6d537616e0ca285b5ae508fdc886ef0ee5dfa1885e2983b4362c55b",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.015164987630254775,
+          0.6158208257940027,
+          0.015,
+          -0.01577624179477309,
+          0.8658792454004702,
+          0.15679763191144233
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_IID_015_420000015",
+      "factors": {
+        "a": 0.017996583018694657,
+        "b": 0.029796831526945376
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1829404814762513,
+          "unit_direction": [
+            0.0733155531573611,
+            0.1580177503670411,
+            -0.9847107292165399
+          ],
+          "vector_world_m": [
+            0.013412382594305336,
+            0.028907843333940586,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.24964041081417065,
+          "unit_direction": [
+            0.04726898369444955,
+            0.9046694770348552,
+            0.4234840971063439
+          ],
+          "vector_world_m": [
+            0.011800248508250719,
+            0.2258420598980222,
+            0.10571874397489582
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.43258089229042196
+      },
+      "inference_seed": 520000015,
+      "initial_state_hash": "60c50116b291a5d8264ef82306e555794c27894e19739c58693abdc79d26c37e",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_015_420000015.npz",
+      "seed": 420000015,
+      "sha256": "5e61cfd3eda8f1cc81858e9b74023cff3f919854e58f616f29e0509aa33d4386",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.017996583018694657,
+          0.63029595695993,
+          0.015,
+          0.029796831526945376,
+          0.8561380168579522,
+          0.12071874397489582
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_IID_016_420000016",
+      "factors": {
+        "a": -0.024414463760032902,
+        "b": -0.019030161152471078
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18403190757789542,
+          "unit_direction": [
+            -0.1575741107402689,
+            0.13031660270661216,
+            -0.9788707691434149
+          ],
+          "vector_world_m": [
+            -0.02899866418442222,
+            0.023982412985168566,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.31477461074990615,
+          "unit_direction": [
+            0.017105263333451456,
+            0.7900488705345903,
+            0.6128051828544789
+          ],
+          "vector_world_m": [
+            0.005384302607561824,
+            0.24868732569592866,
+            0.19289551289854368
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.49880651832780154
+      },
+      "inference_seed": 520000016,
+      "initial_state_hash": "db4c44728d52df159ac53a3ad5e82438f42e468ebaa1308bfa97779648977a01",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_016_420000016.npz",
+      "seed": 420000016,
+      "sha256": "4f213742c4821171da85ef235bd390d2a7c42557057a236aa8d9048bbbc98f4d",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.024414463760032902,
+          0.625370526611158,
+          0.015,
+          -0.019030161152471078,
+          0.8740578523070867,
+          0.2078955128985437
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_IID_017_420000017",
+      "factors": {
+        "a": 0.021367761428721745,
+        "b": 0.018282700996536328
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18307631580343203,
+          "unit_direction": [
+            0.09167521713924393,
+            0.15290121311168312,
+            -0.9839801184939908
+          ],
+          "vector_world_m": [
+            0.016783561004332426,
+            0.02799259077836236,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2592254174381186,
+          "unit_direction": [
+            -0.011901072289417265,
+            0.8975760452310062,
+            0.4406989987574608
+          ],
+          "vector_world_m": [
+            -0.0030850604321854165,
+            0.23267452500746322,
+            0.1142403819174637
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.44230173324155064
+      },
+      "inference_seed": 520000017,
+      "initial_state_hash": "d4da8a2285d25b5e3f99d81373d7f85b44a4612943ba0541de9d062f6cf2322e",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_017_420000017.npz",
+      "seed": 420000017,
+      "sha256": "ccc05c2b608b381ed40b007f9c789b438ae9233969691c521ee142e105273d16",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.021367761428721745,
+          0.6293807044043518,
+          0.015,
+          0.018282700996536328,
+          0.862055229411815,
+          0.1292403819174637
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_IID_018_420000018",
+      "factors": {
+        "a": -0.02412704356475334,
+        "b": -0.024351891700396526
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18570618267795466,
+          "unit_direction": [
+            -0.15460575181243547,
+            0.18737317025659203,
+            -0.9700455435568507
+          ],
+          "vector_world_m": [
+            -0.02871124398914266,
+            0.03479635618461818,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2821055522757686,
+          "unit_direction": [
+            -0.0007970354848719532,
+            0.8228759075862478,
+            0.568220560564773
+          ],
+          "vector_world_m": [
+            -0.00022484813564318737,
+            0.23213786236404277,
+            0.1602981750525721
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4678117349537233
+      },
+      "inference_seed": 520000018,
+      "initial_state_hash": "49b6640a39583be45de65130d1c95b46efb0a7c448796ad0477e3483d6ed65ec",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_018_420000018.npz",
+      "seed": 420000018,
+      "sha256": "89d683e3f3ab4d25da55870a662293965894b757477b05d18a59811c62b3389c",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02412704356475334,
+          0.6361844698106076,
+          0.015,
+          -0.024351891700396526,
+          0.8683223321746504,
+          0.1752981750525721
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_IID_019_420000019",
+      "factors": {
+        "a": 0.024033135604549262,
+        "b": 0.023095669905310614
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18658679376700057,
+          "unit_direction": [
+            0.10423532548850543,
+            0.23876309995122832,
+            -0.9654673371077788
+          ],
+          "vector_world_m": [
+            0.019448935180159943,
+            0.04455004128976958,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2496678402554877,
+          "unit_direction": [
+            -0.0037548516391992244,
+            0.8263491369323434,
+            0.5631456338997392
+          ],
+          "vector_world_m": [
+            -0.0009374656992386481,
+            0.2063128043148844,
+            0.14059935416505542
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.43625463402248826
+      },
+      "inference_seed": 520000019,
+      "initial_state_hash": "2ff421dda7f53f84a41ac4b081bec7a2a0cd93105baa8c2fb761d868b151bfca",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_IID_019_420000019.npz",
+      "seed": 420000019,
+      "sha256": "d42b43e851d02c6c5904f6dcc5a78dcb214385a3f839061e633e8e1bd003ebdb",
+      "split": "IID",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.024033135604549262,
+          0.645938154915759,
+          0.015,
+          0.023095669905310614,
+          0.8522509592306434,
+          0.15559935416505544
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_000_420001000",
+      "factors": {
+        "a": -0.02653008796444329,
+        "b": 0.01588286363719159
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18393481690607116,
+          "unit_direction": [
+            -0.16915931911206103,
+            0.11038708697085785,
+            -0.9793874696909453
+          ],
+          "vector_world_m": [
+            -0.03111428838883261,
+            0.02030402863077929,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.29405578496884144,
+          "unit_direction": [
+            0.14423437242062428,
+            0.9102497492662898,
+            0.3881260617030057
+          ],
+          "vector_world_m": [
+            0.042412951601634885,
+            0.26766420453818995,
+            0.11413071374094232
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4779906018749126
+      },
+      "inference_seed": 520001000,
+      "initial_state_hash": "ca5cc06a69724a8ff47859c8b295b97facf9dc255cfaa9e39af528859a12844c",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_000_420001000.npz",
+      "seed": 420001000,
+      "sha256": "0eed15153ecd17ee483d1228c95b4a65f861bec4672c4fb4c4a14fe6150dc36a",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02653008796444329,
+          0.6216921422567687,
+          0.015,
+          0.01588286363719159,
+          0.8893563467949587,
+          0.12913071374094232
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_001_420001001",
+      "factors": {
+        "a": 0.02509961974319684,
+        "b": -0.027026914055033904
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18216332152270087,
+          "unit_direction": [
+            0.1126210213303062,
+            0.09679872316394943,
+            -0.9889117820859189
+          ],
+          "vector_world_m": [
+            0.020515419318807522,
+            0.017633176930701433,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.26817430534488884,
+          "unit_direction": [
+            -0.19437557125837535,
+            0.871067179999855,
+            0.45106552209748924
+          ],
+          "vector_world_m": [
+            -0.05212653379823075,
+            0.23359783590519234,
+            0.12096418305352379
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4503376268675897
+      },
+      "inference_seed": 520001001,
+      "initial_state_hash": "331b97a2172b9b3343e7238f60e7c1e8ec573be7fe8330a89c8f1f74b58d6a2d",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_001_420001001.npz",
+      "seed": 420001001,
+      "sha256": "9ec8765db84f577c984028b69337007e7c52aba0fdb792653daec8df8ccdafef",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02509961974319684,
+          0.6190212905566909,
+          0.015,
+          -0.027026914055033904,
+          0.8526191264618832,
+          0.13596418305352378
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_002_420001002",
+      "factors": {
+        "a": -0.01928181271019835,
+        "b": 0.01797208514931172
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1820895807860016,
+          "unit_direction": [
+            -0.1310674286335795,
+            0.06389506153983714,
+            -0.989312261251321
+          ],
+          "vector_world_m": [
+            -0.023866013134587673,
+            0.011634624970084717,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.28752850625763,
+          "unit_direction": [
+            0.12956592841660716,
+            0.8839164984385253,
+            0.44933761692264207
+          ],
+          "vector_world_m": [
+            0.03725389785951007,
+            0.2541511904525039,
+            0.12919737379913043
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4696180870436316
+      },
+      "inference_seed": 520001002,
+      "initial_state_hash": "fec9a977796c7962c757cd44b3d1794e1f25582966b0df859eb3af54229c6d26",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_002_420001002.npz",
+      "seed": 420001002,
+      "sha256": "93b405b61dea7316e477c9ac822d73c0b2ea1e4ec8ea71975a48433247da2694",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.01928181271019835,
+          0.6130227385960741,
+          0.015,
+          0.01797208514931172,
+          0.867173929048578,
+          0.14419737379913045
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_003_420001003",
+      "factors": {
+        "a": 0.02274449680640264,
+        "b": -0.027781420787466295
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18195674052488828,
+          "unit_direction": [
+            0.09980557098146814,
+            0.09935034031666494,
+            -0.990034523579873
+          ],
+          "vector_world_m": [
+            0.018160296382013316,
+            0.01807746409405875,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3411897309512377,
+          "unit_direction": [
+            -0.14808745108770582,
+            0.8129292218561694,
+            0.5632194839338116
+          ],
+          "vector_world_m": [
+            -0.05052591759386893,
+            0.2773631024875055,
+            0.19216470418987214
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.523146471476126
+      },
+      "inference_seed": 520001003,
+      "initial_state_hash": "805c8688a07dcb8f70194393d0e4280f8f9ddb9567a709babfa80fbb438d6383",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_003_420001003.npz",
+      "seed": 420001003,
+      "sha256": "57acce0da29866efef43064ad27c48a8c2a542f44a221d5d62850f5829cda682",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02274449680640264,
+          0.6194655777200482,
+          0.015,
+          -0.027781420787466295,
+          0.8968286802075537,
+          0.20716470418987215
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_004_420001004",
+      "factors": {
+        "a": -0.02451543110129287,
+        "b": 0.028466229057288815
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18687094974387786,
+          "unit_direction": [
+            -0.1557204668011034,
+            0.21553790198821912,
+            -0.963999247419708
+          ],
+          "vector_world_m": [
+            -0.029099631525682193,
+            0.040277772450341365,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.28065037513052005,
+          "unit_direction": [
+            0.1887817186559679,
+            0.8446249749993653,
+            0.5009691750084233
+          ],
+          "vector_world_m": [
+            0.05298166015858169,
+            0.237044316078178,
+            0.14059718689494116
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4675213248743979
+      },
+      "inference_seed": 520001004,
+      "initial_state_hash": "05348757057766ac2ce8d4aff30e3cf011cf985e0ba17fa7cad7c3f6e5ea310f",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_004_420001004.npz",
+      "seed": 420001004,
+      "sha256": "8d0cda3ff0e5dd648d80f60e923fa4b3b1dbb22c66182533aea9742e98447070",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02451543110129287,
+          0.6416658860763308,
+          0.015,
+          0.028466229057288815,
+          0.8787102021545088,
+          0.15559718689494118
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_005_420001005",
+      "factors": {
+        "a": 0.02262164201535076,
+        "b": -0.027497302182613325
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18117385069813888,
+          "unit_direction": [
+            0.09955874714510736,
+            0.03782027872384642,
+            -0.9943126683212616
+          ],
+          "vector_world_m": [
+            0.01803744159096144,
+            0.00685204553087615,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.28559901894345036,
+          "unit_direction": [
+            -0.1754871021034138,
+            0.8886105257075376,
+            0.4237636258542253
+          ],
+          "vector_world_m": [
+            -0.05011894419796409,
+            0.2537862943648964,
+            0.1210264758078861
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.46677286964158926
+      },
+      "inference_seed": 520001005,
+      "initial_state_hash": "4799646f102c971bcc26dc9302997d7a3bcf0a4dc413102fb973ce68a3fad71a",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_005_420001005.npz",
+      "seed": 420001005,
+      "sha256": "dd1af28d414fcabb635a773c2a37e01a55f1f15d8db0d4f2fc9fc3ed9a66f7e8",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02262164201535076,
+          0.6082401591568656,
+          0.015,
+          -0.027497302182613325,
+          0.862026453521762,
+          0.1360264758078861
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_006_420001006",
+      "factors": {
+        "a": -0.019619838994911456,
+        "b": 0.01900902739708099
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18332402300098574,
+          "unit_direction": [
+            -0.13202873809490115,
+            0.13025466573569544,
+            -0.9826505657511984
+          ],
+          "vector_world_m": [
+            -0.024204039419300778,
+            0.023878809337316342,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2939292137589017,
+          "unit_direction": [
+            0.13142234450937618,
+            0.8955647739887632,
+            0.4250787020707038
+          ],
+          "vector_world_m": [
+            0.03862886639199245,
+            0.26323264988868567,
+            0.12494304868529639
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4772532367598874
+      },
+      "inference_seed": 520001006,
+      "initial_state_hash": "90f1ef0651c5c7b55b9f683c27adf7a475aec06d3f5e173c10be457d752ba1d9",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_006_420001006.npz",
+      "seed": 420001006,
+      "sha256": "c691c8600a5512985ef799c5089d717c5075cb1fadd640c129f258a04e1944e6",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.019619838994911456,
+          0.6252669229633058,
+          0.015,
+          0.01900902739708099,
+          0.8884995728519914,
+          0.1399430486852964
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_007_420001007",
+      "factors": {
+        "a": 0.02095696210709092,
+        "b": -0.021950964243093375
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1852307592595703,
+          "unit_direction": [
+            0.08839116002195875,
+            0.21531851456827567,
+            -0.9725353156127976
+          ],
+          "vector_world_m": [
+            0.016372761682701596,
+            0.03988361193612455,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.26104913139918995,
+          "unit_direction": [
+            -0.16436724428157756,
+            0.8972103551087551,
+            0.4098743559835155
+          ],
+          "vector_world_m": [
+            -0.0429079263501843,
+            0.2342159838834993,
+            0.1069973446122991
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4462798906587603
+      },
+      "inference_seed": 520001007,
+      "initial_state_hash": "52832c8d9e7df58f771f7d028557dc3c1d6b2809077385da8ee37bcfa680b466",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_007_420001007.npz",
+      "seed": 420001007,
+      "sha256": "41a5983aef5b1b35e0272aeca15714da65d53ada20ea34ba064e8e56a3b17714",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02095696210709092,
+          0.641271725562114,
+          0.015,
+          -0.021950964243093375,
+          0.8754877094456133,
+          0.1219973446122991
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_008_420001008",
+      "factors": {
+        "a": -0.02341766730038565,
+        "b": 0.027871007593434874
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18435482430120284,
+          "unit_direction": [
+            -0.151891157884889,
+            0.14864348701474958,
+            -0.9771561747870624
+          ],
+          "vector_world_m": [
+            -0.02800186772477497,
+            0.027403143932122287,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3160847323396513,
+          "unit_direction": [
+            0.16226242411072195,
+            0.7210835598284359,
+            0.6735795465027591
+          ],
+          "vector_world_m": [
+            0.051288674893820524,
+            0.22792350400289407,
+            0.2129082106657883
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5004395566408542
+      },
+      "inference_seed": 520001008,
+      "initial_state_hash": "71b3009236b362f0b85ee1fc2afd4e1e024bd9b1a302aad640bb10b614408a0f",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_008_420001008.npz",
+      "seed": 420001008,
+      "sha256": "19ac7eb6af2ee696c463cb5fabfcd77193afe0d0b4976c8ecaf2fe0be61d69ec",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02341766730038565,
+          0.6287912575581117,
+          0.015,
+          0.027871007593434874,
+          0.8567147615610058,
+          0.2279082106657883
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_009_420001009",
+      "factors": {
+        "a": 0.018173866515903206,
+        "b": -0.029381235954446767
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18659133290145483,
+          "unit_direction": [
+            0.07283117538310874,
+            0.2502274791187324,
+            -0.9654438505610771
+          ],
+          "vector_world_m": [
+            0.013589666091513885,
+            0.04669027885733523,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3038377873921791,
+          "unit_direction": [
+            -0.15651477348657805,
+            0.81503779346118,
+            0.5578678346260662
+          ],
+          "vector_world_m": [
+            -0.04755510247034997,
+            0.24763927980624878,
+            0.16950132853005
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.49042912029363395
+      },
+      "inference_seed": 520001009,
+      "initial_state_hash": "7a080a6921db0c46f023b37ead3d71a8c482c06a41ead5aadd8c8cc93682a6e9",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_009_420001009.npz",
+      "seed": 420001009,
+      "sha256": "22ed153dbb463c190cc8d4e85f16697fed7f546b39f6b74c581455d23a7c2fea",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.018173866515903206,
+          0.6480783924833247,
+          0.015,
+          -0.029381235954446767,
+          0.8957176722895734,
+          0.18450132853005
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_010_420001010",
+      "factors": {
+        "a": -0.019511480277351355,
+        "b": 0.02105783262958103
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.181782829760696,
+          "unit_direction": [
+            -0.1325520167854186,
+            0.019628119810234084,
+            -0.9909816848755749
+          ],
+          "vector_world_m": [
+            -0.024095680701740674,
+            0.0035680551619863277,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3355065890726563,
+          "unit_direction": [
+            0.1209195712640589,
+            0.7624298277173168,
+            0.6356722544615729
+          ],
+          "vector_world_m": [
+            0.04056931290693239,
+            0.25580023090468995,
+            0.21327222986252797
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5172894188333523
+      },
+      "inference_seed": 520001010,
+      "initial_state_hash": "56d9f5e007fd278740e629c0365fdc91d31a03096d8aa871ed2efdca4ec90367",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_010_420001010.npz",
+      "seed": 420001010,
+      "sha256": "ee6d20d020a15daa2bddcb0f59feac86f25c48df95ebfe420efdd0a5cb6c3262",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.019511480277351355,
+          0.6049561687879758,
+          0.015,
+          0.02105783262958103,
+          0.8607563996926657,
+          0.22827222986252796
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_011_420001011",
+      "factors": {
+        "a": 0.01541739026067615,
+        "b": -0.019292406336530725
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18090033795266797,
+          "unit_direction": [
+            0.059884851288234196,
+            0.06902358236745876,
+            -0.9958160219957043
+          ],
+          "vector_world_m": [
+            0.01083318983628683,
+            0.012486389376977103,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3674432051128245,
+          "unit_direction": [
+            -0.09446302480011606,
+            0.7682046598277943,
+            0.6331969184736101
+          ],
+          "vector_world_m": [
+            -0.034709796597206875,
+            0.2822715823897318,
+            0.23266390519150715
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5483435430654925
+      },
+      "inference_seed": 520001011,
+      "initial_state_hash": "46113e662f521adcbddb37f83dce5338cb54a510fb130bfc44dca7d1b2e40926",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_011_420001011.npz",
+      "seed": 420001011,
+      "sha256": "f623f680264dca2bdbce2c69c508f9b27b99aa6857bc0218334ef0f46aabb1ed",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.01541739026067615,
+          0.6138745030029665,
+          0.015,
+          -0.019292406336530725,
+          0.8961460853926984,
+          0.24766390519150716
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_012_420001012",
+      "factors": {
+        "a": -0.01660008518660309,
+        "b": 0.026634289001338032
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18341571297731873,
+          "unit_direction": [
+            -0.11549875017312214,
+            0.14840174157712976,
+            -0.9821593362613429
+          ],
+          "vector_world_m": [
+            -0.021184285610992414,
+            0.027219211238445062,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2797187861614099,
+          "unit_direction": [
+            0.1545637130106557,
+            0.8447082631376965,
+            0.5124236614435907
+          ],
+          "vector_world_m": [
+            0.04323437418794113,
+            0.23628077002538928,
+            0.14333452457938645
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4631344991387286
+      },
+      "inference_seed": 520001012,
+      "initial_state_hash": "66211280b65499a4db85fa2b1d1070829ea7d8b4cff9da4358e4dd248f78667d",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_012_420001012.npz",
+      "seed": 420001012,
+      "sha256": "9da2d57fa49e5ba0a653e6741aed148164f06ee6480904dd780ed2e8d222467c",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.01660008518660309,
+          0.6286073248644345,
+          0.015,
+          0.026634289001338032,
+          0.8648880948898238,
+          0.15833452457938643
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_013_420001013",
+      "factors": {
+        "a": 0.021880858115743217,
+        "b": -0.025704930247306485
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18120224753054953,
+          "unit_direction": [
+            0.09545498429006954,
+            0.05040348455554518,
+            -0.994156846135881
+          ],
+          "vector_world_m": [
+            0.017296657691353898,
+            0.009133224684836128,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.28652263915345316,
+          "unit_direction": [
+            -0.1660803785126527,
+            0.9147034113569316,
+            0.3684222809835014
+          ],
+          "vector_world_m": [
+            -0.047585788363049705,
+            0.26208323546465473,
+            0.1055613242703279
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4677248866840027
+      },
+      "inference_seed": 520001013,
+      "initial_state_hash": "886e36b8d29124fd130dd4fd534c501a6171e063522ed4c61501299ece6fb8c2",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_013_420001013.npz",
+      "seed": 420001013,
+      "sha256": "01ea393effc712b2957590992658e9695f0d4aae8fdf1aed7ae17d479de77f1d",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.021880858115743217,
+          0.6105213383108256,
+          0.015,
+          -0.025704930247306485,
+          0.8726045737754803,
+          0.1205613242703279
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_014_420001014",
+      "factors": {
+        "a": -0.016110447815835024,
+        "b": 0.018771448033194353
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18193956214926071,
+          "unit_direction": [
+            -0.11374463033634619,
+            0.08190666221041852,
+            -0.9901280006924339
+          ],
+          "vector_world_m": [
+            -0.020694648240224343,
+            0.014902062259670945,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.306055390480406,
+          "unit_direction": [
+            0.11397249299963745,
+            0.8167990273133938,
+            0.5655524907728205
+          ],
+          "vector_world_m": [
+            0.03488189584902938,
+            0.24998574524841655,
+            0.17309038840064178
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4879949526296667
+      },
+      "inference_seed": 520001014,
+      "initial_state_hash": "6cb283b0b03f9f9296f22ed811214cf403fcba695de7cf469b2b657f94bd83ae",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_014_420001014.npz",
+      "seed": 420001014,
+      "sha256": "b8a2eadd1cf7b584542d3123a290c284943c66c98f98d1f8b2a6accfd8cd4899",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.016110447815835024,
+          0.6162901758856604,
+          0.015,
+          0.018771448033194353,
+          0.8662759211340769,
+          0.1880903884006418
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_015_420001015",
+      "factors": {
+        "a": 0.01975351201529526,
+        "b": -0.023808765476657695
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18176030152771908,
+          "unit_direction": [
+            0.08345778183357913,
+            0.10366602751054457,
+            -0.9911045118410075
+          ],
+          "vector_world_m": [
+            0.015169311590905938,
+            0.0188423684184974,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.35739450472311685,
+          "unit_direction": [
+            -0.12188849273354616,
+            0.7584969172053844,
+            0.6401762428652538
+          ],
+          "vector_world_m": [
+            -0.043562277491952954,
+            0.2710826300586293,
+            0.22879547125433314
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5391548062508359
+      },
+      "inference_seed": 520001015,
+      "initial_state_hash": "64cfcc01e24a58cf1c365f9295bec4c0f19e9424ac2927aefafeb921e2b37b20",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_015_420001015.npz",
+      "seed": 420001015,
+      "sha256": "429e8dd8c012a510a29ef391c45e73ceb50e185665d86df397e330ef574d25bd",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.01975351201529526,
+          0.6202304820444868,
+          0.015,
+          -0.023808765476657695,
+          0.8913131121031161,
+          0.24379547125433315
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_016_420001016",
+      "factors": {
+        "a": -0.027683436004908663,
+        "b": 0.02714921924778668
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1868065732525311,
+          "unit_direction": [
+            -0.17273287479920504,
+            0.2005696773169429,
+            -0.9643314567640007
+          ],
+          "vector_world_m": [
+            -0.03226763642929798,
+            0.03746773411794402,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2709753454477829,
+          "unit_direction": [
+            0.2023529305298427,
+            0.8291624753383847,
+            0.5210977652962132
+          ],
+          "vector_world_m": [
+            0.054832655252695345,
+            0.22468258818715758,
+            0.14120464696320906
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.45778191870031404
+      },
+      "inference_seed": 520001016,
+      "initial_state_hash": "139f783e9dcf867eb8ae133d3d5bed7d386d404bb51249c2e8a8c71f9cf7d863",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_016_420001016.npz",
+      "seed": 420001016,
+      "sha256": "6ced2b23a8ebfd578e7b3cd26f06e3090055bc14031d63c3aa7c6348cab08dc8",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.027683436004908663,
+          0.6388558477439334,
+          0.015,
+          0.02714921924778668,
+          0.863538435931091,
+          0.15620464696320907
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_017_420001017",
+      "factors": {
+        "a": 0.029518287983002843,
+        "b": -0.018302915274627254
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18494116493300466,
+          "unit_direction": [
+            0.1348217286705529,
+            0.18175191685980224,
+            -0.9740581821411242
+          ],
+          "vector_world_m": [
+            0.024934087558613524,
+            0.03361341123285844,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.28307076400136305,
+          "unit_direction": [
+            -0.16893727413474544,
+            0.7692352437986473,
+            0.616228315728803
+          ],
+          "vector_world_m": [
+            -0.0478212032576301,
+            0.21774800815885786,
+            0.17443622013262544
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4680119289343677
+      },
+      "inference_seed": 520001017,
+      "initial_state_hash": "c67eb27b83e5f3d6fe98aabd17b6f460128cedd14c0d9e8d54df909bf8132a73",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_017_420001017.npz",
+      "seed": 420001017,
+      "sha256": "b5a921d99d9cc7aeb051fbbbd642ac9205aad92859f36d2510c425e34e9e78e2",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.029518287983002843,
+          0.6350015248588479,
+          0.015,
+          -0.018302915274627254,
+          0.8527495330177057,
+          0.18943622013262545
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_018_420001018",
+      "factors": {
+        "a": -0.01931749523695101,
+        "b": 0.022055658233370745
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18190509283340464,
+          "unit_direction": [
+            -0.13139651721148005,
+            0.04483220564900597,
+            -0.9903156206994508
+          ],
+          "vector_world_m": [
+            -0.02390169566134033,
+            0.008155206530508718,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3114208540761789,
+          "unit_direction": [
+            0.13285286752248507,
+            0.9135308969587501,
+            0.38446250258353465
+          ],
+          "vector_world_m": [
+            0.04137315347032176,
+            0.28449257215587176,
+            0.1197296409148295
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.49332594690958353
+      },
+      "inference_seed": 520001018,
+      "initial_state_hash": "ab9ce4d0a74a692e0d59aa65478cb4047ac29d9dd4764e736e5cd68b36d2283a",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_018_420001018.npz",
+      "seed": 420001018,
+      "sha256": "9a5a3a0d56e584ee3b59ef7c227ebf7f86ce2abdcd74a16e4091cd98da3e195c",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.01931749523695101,
+          0.6095433201564981,
+          0.015,
+          0.022055658233370745,
+          0.8940358923123699,
+          0.1347296409148295
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_019_420001019",
+      "factors": {
+        "a": 0.01671675953482643,
+        "b": -0.024974077972717463
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1810829113485247,
+          "unit_direction": [
+            0.06700002236592026,
+            0.07655104724822466,
+            -0.9948120094611677
+          ],
+          "vector_world_m": [
+            0.01213255911043711,
+            0.013862086502486992,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.356282200886982,
+          "unit_direction": [
+            -0.11701633537614989,
+            0.7678717553434617,
+            0.6298254874176553
+          ],
+          "vector_world_m": [
+            -0.04169083750754389,
+            0.27357903899271874,
+            0.22439561083187842
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5373651122355066
+      },
+      "inference_seed": 520001019,
+      "initial_state_hash": "31d998a6924d668f0a4234a061d9031a7759bb0cd990aeeef0d155852c175e3a",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_019_420001019.npz",
+      "seed": 420001019,
+      "sha256": "26105d54173fc56cf7c3a3788c1ea280df129216b74ce9efd4d3125a256862b7",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.01671675953482643,
+          0.6152502001284764,
+          0.015,
+          -0.024974077972717463,
+          0.8888292391211952,
+          0.23939561083187844
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_020_420001020",
+      "factors": {
+        "a": -0.028225325674727277,
+        "b": 0.029372200087432805
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18392302633871777,
+          "unit_direction": [
+            -0.17838726750120815,
+            0.09410197744892718,
+            -0.9794502542925057
+          ],
+          "vector_world_m": [
+            -0.032809526099116595,
+            0.017307520476864457,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3280135378450829,
+          "unit_direction": [
+            0.17559496519732898,
+            0.8252231431600076,
+            0.5368176340159353
+          ],
+          "vector_world_m": [
+            0.05759752576216008,
+            0.2706843626995534,
+            0.17608345131119385
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5119365641838007
+      },
+      "inference_seed": 520001020,
+      "initial_state_hash": "107d84f5608fa772400d80e5d5416ba2fd206affd721f590c7e453c3c31f89dd",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_020_420001020.npz",
+      "seed": 420001020,
+      "sha256": "06ae37704e9729b2844ef72d2b7d1cc7fc79a100edc6837a9f43eca4391ed37c",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.028225325674727277,
+          0.6186956341028539,
+          0.015,
+          0.029372200087432805,
+          0.8893799968024073,
+          0.19108345131119384
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_021_420001021",
+      "factors": {
+        "a": 0.0280846948785649,
+        "b": -0.019304718395492547
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1825482339574959,
+          "unit_direction": [
+            0.1287358083105169,
+            0.09798128914597981,
+            -0.9868266102188012
+          ],
+          "vector_world_m": [
+            0.023500494454175583,
+            0.017886311294477375,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3249725629183458,
+          "unit_direction": [
+            -0.14582589018742712,
+            0.7186486406845225,
+            0.6799109801976524
+          ],
+          "vector_world_m": [
+            -0.04738941327405745,
+            0.23354109060103467,
+            0.22095241379115577
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5075207968758417
+      },
+      "inference_seed": 520001021,
+      "initial_state_hash": "6b3b74223b76dbf809a04f6548b38375a3a207678ac982373badc5afb01380a4",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_021_420001021.npz",
+      "seed": 420001021,
+      "sha256": "0c20736c5499de87ab2ec7337d0665944b5fbe43077269cca662228625ec5945",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.0280846948785649,
+          0.6192744249204668,
+          0.015,
+          -0.019304718395492547,
+          0.8528155155215015,
+          0.23595241379115578
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_022_420001022",
+      "factors": {
+        "a": -0.015643269710534723,
+        "b": 0.02742892774384276
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1824382500917642,
+          "unit_direction": [
+            -0.11087296729030163,
+            0.11272053638700695,
+            -0.9874215238695525
+          ],
+          "vector_world_m": [
+            -0.02022747013492404,
+            0.02056453740785058,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.33608566188196776,
+          "unit_direction": [
+            0.12815839037341709,
+            0.7531794374494268,
+            0.6452101688444313
+          ],
+          "vector_world_m": [
+            0.04307219745437749,
+            0.25313280975107877,
+            0.21684588664905685
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5185239119737319
+      },
+      "inference_seed": 520001022,
+      "initial_state_hash": "cc8cc13f3954d4b495e01b3746c8ab0f596c1159dad34f9e7f3350ee87456a35",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_022_420001022.npz",
+      "seed": 420001022,
+      "sha256": "87ea3ea2631ba3851855cb9a8286d309dd43ef6157e73e8dd4be5e57cdc67ba5",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.015643269710534723,
+          0.62195265103384,
+          0.015,
+          0.02742892774384276,
+          0.8750854607849188,
+          0.23184588664905686
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_023_420001023",
+      "factors": {
+        "a": 0.021133670415334566,
+        "b": -0.024568673847968906
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1846562118015103,
+          "unit_direction": [
+            0.08962314253871144,
+            0.20061862568136848,
+            -0.9755613047631629
+          ],
+          "vector_world_m": [
+            0.016549469990945247,
+            0.03704547543514669,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2523395650340521,
+          "unit_direction": [
+            -0.18111446081448282,
+            0.8872609374335791,
+            0.4242235035784387
+          ],
+          "vector_world_m": [
+            -0.04570234426330347,
+            0.22389103902369467,
+            0.10704837437020485
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.43699577683556234
+      },
+      "inference_seed": 520001023,
+      "initial_state_hash": "a986c3b1ed8d20bca816749d52207a28c9dc926c6e6c7c1aeb5a93ff8455ede3",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_023_420001023.npz",
+      "seed": 420001023,
+      "sha256": "3be12352068b252fd9db77f2b5c3bf3033586924bbe8f8bbf9f2357e313fecfe",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.021133670415334566,
+          0.6384335890611361,
+          0.015,
+          -0.024568673847968906,
+          0.8623246280848308,
+          0.12204837437020485
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_024_420001024",
+      "factors": {
+        "a": -0.018901278647342798,
+        "b": 0.02252788605117439
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1877997103514208,
+          "unit_direction": [
+            -0.12505599198095058,
+            0.25344692818304365,
+            -0.9592318038223293
+          ],
+          "vector_world_m": [
+            -0.023485479071732117,
+            0.04759725970223294,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.28083305398879144,
+          "unit_direction": [
+            0.14752239492496033,
+            0.8775280823358498,
+            0.45626922721959917
+          ],
+          "vector_world_m": [
+            0.04142916469851719,
+            0.24643889132330432,
+            0.12813548052118584
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4686327643402122
+      },
+      "inference_seed": 520001024,
+      "initial_state_hash": "9c2eb9c9590f4eda1ff3b64ba5da913bc650199f7befed41ca7d71b8825988a4",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_024_420001024.npz",
+      "seed": 420001024,
+      "sha256": "fbd0f42e776af09e918152085b0a97c038cda9356dbeb9fd0511ad59ec4a6063",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.018901278647342798,
+          0.6489853733282224,
+          0.015,
+          0.02252788605117439,
+          0.8954242646515267,
+          0.14313548052118583
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_025_420001025",
+      "factors": {
+        "a": 0.021825556187867086,
+        "b": -0.025652878416415975
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18356556561903967,
+          "unit_direction": [
+            0.09392478216344444,
+            0.16767671801463627,
+            -0.9813575564142712
+          ],
+          "vector_world_m": [
+            0.017241355763477767,
+            0.030779671583500923,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3406358456386065,
+          "unit_direction": [
+            -0.13938179205794665,
+            0.7473463662802439,
+            0.6496507714537334
+          ],
+          "vector_world_m": [
+            -0.04747843460428306,
+            0.2545729614628106,
+            0.22129433990391556
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5242014112576462
+      },
+      "inference_seed": 520001025,
+      "initial_state_hash": "77fe06dbbd6197c36247b4936fd2208b7b020e29855c438496e4b59c1c947bab",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_025_420001025.npz",
+      "seed": 420001025,
+      "sha256": "4e515dfa1b0c7e9f5c1f7c323ff2dfd3569cd4376cbd3012a84c2ada668bf5c4",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.021825556187867086,
+          0.6321677852094904,
+          0.015,
+          -0.025652878416415975,
+          0.886740746672301,
+          0.23629433990391555
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_026_420001026",
+      "factors": {
+        "a": -0.02941338171114992,
+        "b": 0.01693814863794779
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1833303022882608,
+          "unit_direction": [
+            -0.18544442305060338,
+            0.008624184932634059,
+            -0.9826169087664209
+          ],
+          "vector_world_m": [
+            -0.03399758213553924,
+            0.0015810744306896662,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.33207739200816266,
+          "unit_direction": [
+            0.1395805058236496,
+            0.7691965222681726,
+            0.6235815844976204
+          ],
+          "vector_world_m": [
+            0.04635153034909771,
+            0.25543277505656337,
+            0.20707734628428748
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5154076942964234
+      },
+      "inference_seed": 520001026,
+      "initial_state_hash": "312cc971de0b9143e59a6962102abaef8833eda67d0c3d03a78d9bedaf783afe",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_026_420001026.npz",
+      "seed": 420001026,
+      "sha256": "39f7a9ad89fbec53304b13a99f9e046030f110c4c0655a518a43aaea853b7bff",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02941338171114992,
+          0.6029691880566791,
+          0.015,
+          0.01693814863794779,
+          0.8584019631132425,
+          0.22207734628428746
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_027_420001027",
+      "factors": {
+        "a": 0.017469684201657617,
+        "b": -0.020025965088928302
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18492392387465173,
+          "unit_direction": [
+            0.06967991759683054,
+            0.21489169647337097,
+            -0.9741489967507516
+          ],
+          "vector_world_m": [
+            0.012885483777268296,
+            0.03973861571993642,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.29101844067731086,
+          "unit_direction": [
+            -0.12884286371447545,
+            0.8439955942260547,
+            0.5206447477857254
+          ],
+          "vector_world_m": [
+            -0.03749564929058592,
+            0.24561828177018685,
+            0.1515172226474336
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4759423645519626
+      },
+      "inference_seed": 520001027,
+      "initial_state_hash": "b263a8e961bd9f4e567de040192af3f3d3dbfff8125843b694df9dbca61c11e2",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_027_420001027.npz",
+      "seed": 420001027,
+      "sha256": "b8b8add8077a9e0316318f302524d4e2632347d98fc4bd3160f086e948be53fc",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.017469684201657617,
+          0.6411267293459258,
+          0.015,
+          -0.020025965088928302,
+          0.8867450111161127,
+          0.16651722264743363
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_028_420001028",
+      "factors": {
+        "a": -0.01599655887944116,
+        "b": 0.017694757359979576
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18325988537336427,
+          "unit_direction": [
+            -0.11230367879964728,
+            0.14529192924743886,
+            -0.9829944755814363
+          ],
+          "vector_world_m": [
+            -0.02058075930383048,
+            0.026626182299560597,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.31272153262465385,
+          "unit_direction": [
+            0.10773583755698385,
+            0.8619825384309643,
+            0.4953575403140707
+          ],
+          "vector_world_m": [
+            0.03369131623942073,
+            0.26956050051382074,
+            0.15490896920419495
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4959814179980181
+      },
+      "inference_seed": 520001028,
+      "initial_state_hash": "1c67c99ac300a22293c0f076979973c95ed27b30229a1e5721c6844070d5252a",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_028_420001028.npz",
+      "seed": 420001028,
+      "sha256": "5e7723a0d83eefcadfb5ef40592358dea22aaa0ff93207287e7a87eec5d82a88",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.01599655887944116,
+          0.62801429592555,
+          0.015,
+          0.017694757359979576,
+          0.8975747964393708,
+          0.16990896920419493
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_029_420001029",
+      "factors": {
+        "a": 0.019462917223898955,
+        "b": -0.02795372069630341
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1807864247250386,
+          "unit_direction": [
+            0.08229996705858278,
+            0.018085866398149693,
+            -0.9964434840264573
+          ],
+          "vector_world_m": [
+            0.014878716799509634,
+            0.0032696791241761947,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3447061938380021,
+          "unit_direction": [
+            -0.13755667512747466,
+            0.7278240230136405,
+            0.6718261327546841
+          ],
+          "vector_world_m": [
+            -0.04741663792020236,
+            0.25088544875689445,
+            0.23158262914277145
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5254926185630407
+      },
+      "inference_seed": 520001029,
+      "initial_state_hash": "4fdcd5dea08eb31c3e9afd41c7e6ba0d654b51afe4247850a9f8e85ca175d0a9",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_029_420001029.npz",
+      "seed": 420001029,
+      "sha256": "36252ba3ada54b211f7cb8526f24981a5b88f1565c4b46f96854fee84d8b7121",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.019462917223898955,
+          0.6046577927501656,
+          0.015,
+          -0.02795372069630341,
+          0.8555432415070601,
+          0.24658262914277146
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_030_420001030",
+      "factors": {
+        "a": -0.019565451550958256,
+        "b": 0.028873215284609163
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18373456560725612,
+          "unit_direction": [
+            -0.13143771775077387,
+            0.14639780697478208,
+            -0.9804548987411111
+          ],
+          "vector_world_m": [
+            -0.024149651975347575,
+            0.026898337470366518,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.32677393012418776,
+          "unit_direction": [
+            0.14823295976260623,
+            0.7249708759148508,
+            0.6726397391734089
+          ],
+          "vector_world_m": [
+            0.04843866683556742,
+            0.23690158234827063,
+            0.2198011311274034
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5105084957314439
+      },
+      "inference_seed": 520001030,
+      "initial_state_hash": "caebddf72553de4af2b89a87e46cb5a802eeecbb4391bd5a6f11999aab021b18",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_030_420001030.npz",
+      "seed": 420001030,
+      "sha256": "127b65ef2a5ee8c6800dab9110dd4840e727f27a55fbc117e5be24cc26ed46cd",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.019565451550958256,
+          0.628286451096356,
+          0.015,
+          0.028873215284609163,
+          0.8651880334446266,
+          0.23480113112740342
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_031_420001031",
+      "factors": {
+        "a": 0.018827856017981846,
+        "b": -0.01922485604042605
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1820054755615014,
+          "unit_direction": [
+            0.07825948944475276,
+            0.11929768389297307,
+            -0.9897694251337626
+          ],
+          "vector_world_m": [
+            0.014243655593592525,
+            0.02171283169032623,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2782207240193891,
+          "unit_direction": [
+            -0.13677166642609992,
+            0.8963858511313313,
+            0.4216466733588521
+          ],
+          "vector_world_m": [
+            -0.03805271205840789,
+            0.2493931205024953,
+            0.11731084274226668
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4602261995808905
+      },
+      "inference_seed": 520001031,
+      "initial_state_hash": "cec901dd38e1e1eacf489b323f955852626e6f6b725d7e7eb37cd69221976e45",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_031_420001031.npz",
+      "seed": 420001031,
+      "sha256": "ea61a8c26d30d95db4493b94fb9c6ec5d2cd4d132b2bca09dd65a5353cfbea23",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.018827856017981846,
+          0.6231009453163157,
+          0.015,
+          -0.01922485604042605,
+          0.872494065818811,
+          0.13231084274226668
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_032_420001032",
+      "factors": {
+        "a": -0.026896424415127594,
+        "b": 0.023576636260382644
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18813272337079434,
+          "unit_direction": [
+            -0.1673319998534819,
+            0.23479541570793191,
+            -0.9575338712482049
+          ],
+          "vector_world_m": [
+            -0.03148062483951691,
+            0.044172700992111014,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3465990444095526,
+          "unit_direction": [
+            0.14562377331851395,
+            0.7287308946498513,
+            0.6691375044243935
+          ],
+          "vector_world_m": [
+            0.05047306067551024,
+            0.2525774317173568,
+            0.23192241961208754
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5347317677803469
+      },
+      "inference_seed": 520001032,
+      "initial_state_hash": "2712f7b91a0c052429ef08602f50369787bba1a5d6fec4f7153a006f902d96d8",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_032_420001032.npz",
+      "seed": 420001032,
+      "sha256": "9a4fbe446bf35a723442e9286b2699bddc25b4f6df1e35f524bb906ca734f9b2",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.026896424415127594,
+          0.6455608146181004,
+          0.015,
+          0.023576636260382644,
+          0.8981382463354572,
+          0.24692241961208755
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_033_420001033",
+      "factors": {
+        "a": 0.02124260830603939,
+        "b": -0.02408643381058701
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18190674565944515,
+          "unit_direction": [
+            0.09157663626634792,
+            0.10443425191603163,
+            -0.990306622575493
+          ],
+          "vector_world_m": [
+            0.016658407881650072,
+            0.01899729490142399,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.33122985974283425,
+          "unit_direction": [
+            -0.13685071192500495,
+            0.7869196104145039,
+            0.6016887977939301
+          ],
+          "vector_world_m": [
+            -0.0453290421166264,
+            0.2606512721864819,
+            0.19929729610211805
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5131366054022795
+      },
+      "inference_seed": 520001033,
+      "initial_state_hash": "f74eba90fbf89aa81bda48812e8fe85b85bcaf4214f73d1eb6e4d2f682ad3dd3",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_033_420001033.npz",
+      "seed": 420001033,
+      "sha256": "d732f0b87ee41b9e76d5a4ca136b99019dde8bc76b46fd275050f02b94d74a4a",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02124260830603939,
+          0.6203854085274134,
+          0.015,
+          -0.02408643381058701,
+          0.8810366807138953,
+          0.21429729610211803
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_034_420001034",
+      "factors": {
+        "a": -0.02417340252072517,
+        "b": 0.023061241326038043
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18727892088496326,
+          "unit_direction": [
+            -0.15355493725200903,
+            0.2262094161241955,
+            -0.961899257356134
+          ],
+          "vector_world_m": [
+            -0.028757602945114494,
+            0.04236425534575694,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3097986166518437,
+          "unit_direction": [
+            0.1524688662501234,
+            0.7409115716370182,
+            0.6540667304172914
+          ],
+          "vector_world_m": [
+            0.047234643846763215,
+            0.22953337995449163,
+            0.20262896828127125
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.49707753753680695
+      },
+      "inference_seed": 520001034,
+      "initial_state_hash": "5dd33b3213954b9a92b608ebc4c8282a313830befc9dc816f88d272af109c8c8",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_034_420001034.npz",
+      "seed": 420001034,
+      "sha256": "f24fd4207b83edde871a65f632da8c67e88a2df8dc2da9a15c7fe2c44660fdb2",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02417340252072517,
+          0.6437523689717464,
+          0.015,
+          0.023061241326038043,
+          0.873285748926238,
+          0.21762896828127126
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_035_420001035",
+      "factors": {
+        "a": 0.026360215786806238,
+        "b": -0.021425675389709048
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18726482099024808,
+          "unit_direction": [
+            0.11628460298771714,
+            0.24716062228940106,
+            -0.9619716824821327
+          ],
+          "vector_world_m": [
+            0.02177601536241692,
+            0.046284489688863006,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.25322644927413357,
+          "unit_direction": [
+            -0.1887081357950253,
+            0.8057909729612631,
+            0.5613289119392545
+          ],
+          "vector_world_m": [
+            -0.047785891176515286,
+            0.20404758694013003,
+            0.14214332724529022
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4404912702643816
+      },
+      "inference_seed": 520001035,
+      "initial_state_hash": "5a00731f66d56b0b837462c0ed13386715a72d96e50f0ef2199fd9a55c627c28",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_035_420001035.npz",
+      "seed": 420001035,
+      "sha256": "4e05835e232f8b3394342ef2b1c4a8545b82bbac4ed68f6a1ee1b4ba1432be38",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.026360215786806238,
+          0.6476726033148524,
+          0.015,
+          -0.021425675389709048,
+          0.8517201902549825,
+          0.1571433272452902
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_036_420001036",
+      "factors": {
+        "a": -0.022652760439262933,
+        "b": 0.018874162754540458
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18504961168530976,
+          "unit_direction": [
+            -0.14718734406193013,
+            0.17509505291966246,
+            -0.973487343621403
+          ],
+          "vector_world_m": [
+            -0.02723696086365225,
+            0.0324012715508023,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3231319856955413,
+          "unit_direction": [
+            0.1285138117924684,
+            0.8121902268951625,
+            0.5690617150314669
+          ],
+          "vector_world_m": [
+            0.04152692319380339,
+            0.2624446407791461,
+            0.18388204196142816
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.508181597380851
+      },
+      "inference_seed": 520001036,
+      "initial_state_hash": "7e570ff545832edd6c4e69bd73c05ab61d0796b52d2345f48e3f539273e272d4",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_036_420001036.npz",
+      "seed": 420001036,
+      "sha256": "a0d6250f465466a4b713da9b06b18b1a15bdb61404d5f1e09c2fbab8aa295e41",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.022652760439262933,
+          0.6337893851767917,
+          0.015,
+          0.018874162754540458,
+          0.8962340259559378,
+          0.19888204196142817
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_037_420001037",
+      "factors": {
+        "a": 0.02519605302482427,
+        "b": -0.021645415250356004
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18393488318800405,
+          "unit_direction": [
+            0.11206059581078542,
+            0.16805742585345146,
+            -0.979387116763358
+          ],
+          "vector_world_m": [
+            0.02061185260043495,
+            0.030911622993231247,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.35059761884800145,
+          "unit_direction": [
+            -0.1336046389279329,
+            0.7462226657093713,
+            0.6521514652582915
+          ],
+          "vector_world_m": [
+            -0.04684146827518028,
+            0.2616238897281138,
+            0.22864275084779212
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5345325020360054
+      },
+      "inference_seed": 520001037,
+      "initial_state_hash": "1ab1c932901eb403bf3e25173ba0c405b795e1dfcbc8d774a24d7790d6d5064c",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_037_420001037.npz",
+      "seed": 420001037,
+      "sha256": "414bcd4153476f1d6c47348acca0dfa60cd0ce70a0db59936c4bc0a29c088866",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02519605302482427,
+          0.6322997366192207,
+          0.015,
+          -0.021645415250356004,
+          0.8939236263473345,
+          0.24364275084779213
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_C_038_420001038",
+      "factors": {
+        "a": -0.027639464858485948,
+        "b": 0.0238919789131348
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18497263362177718,
+          "unit_direction": [
+            -0.17420774442107265,
+            0.14555109052203832,
+            -0.9738924693371274
+          ],
+          "vector_world_m": [
+            -0.03222366528287527,
+            0.02692296854038312,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.27105015024087653,
+          "unit_direction": [
+            0.19011774657134795,
+            0.8475838227574809,
+            0.4954360764401877
+          ],
+          "vector_world_m": [
+            0.05153144377162075,
+            0.22973772250015168,
+            0.13428802295386327
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4560227838626537
+      },
+      "inference_seed": 520001038,
+      "initial_state_hash": "bf2b5fc8605e147371adf4833506bbcde2704f3c6caaefdebadedef6a1b03733",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_038_420001038.npz",
+      "seed": 420001038,
+      "sha256": "86a68768984ce652f859c3e0d466138f16dbbe407be23687224a650b8ca53e4d",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.027639464858485948,
+          0.6283110821663725,
+          0.015,
+          0.0238919789131348,
+          0.8580488046665242,
+          0.1492880229538633
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_C_039_420001039",
+      "factors": {
+        "a": 0.015471493316703134,
+        "b": -0.020251846010639576
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18061589196457217,
+          "unit_direction": [
+            0.060278709552586636,
+            0.03988779176114535,
+            -0.9973842996774586
+          ],
+          "vector_world_m": [
+            0.010887292892313813,
+            0.00720436908743638,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.32561727413647273,
+          "unit_direction": [
+            -0.10970959517451873,
+            0.7419427277749565,
+            0.661426332578693
+          ],
+          "vector_world_m": [
+            -0.03572333932734271,
+            0.24158936858346036,
+            0.21537183945635807
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5062331661010449
+      },
+      "inference_seed": 520001039,
+      "initial_state_hash": "a6a788708c28ea900e3f35da99e71c0636521932cff83269bea2c68b7d154153",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_C_039_420001039.npz",
+      "seed": 420001039,
+      "sha256": "dde466420ed527371a3b168172edb9994f817e9df034cf8fa5042283902b000c",
+      "split": "C",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.015471493316703134,
+          0.6085924827134258,
+          0.015,
+          -0.020251846010639576,
+          0.8501818512968862,
+          0.23037183945635809
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_E_000_420002000",
+      "factors": {
+        "a": -0.041610457233557406,
+        "b": -0.04130772164088357
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18833809191264517,
+          "unit_direction": [
+            -0.24527517077837177,
+            0.15801089830738013,
+            -0.9564897524886168
+          ],
+          "vector_world_m": [
+            -0.046194657657946725,
+            0.029759471088614986,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.339339908323273,
+          "unit_direction": [
+            0.0008921308259016714,
+            0.773568627212863,
+            0.6337119085945885
+          ],
+          "vector_world_m": [
+            0.000302735592673839,
+            0.2625027070401731,
+            0.215043740965854
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5276780002359182
+      },
+      "inference_seed": 520002000,
+      "initial_state_hash": "2920de10260321fac4009ae350aa3a37b267758ac436f0bec3eb681cb4a28e56",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_000_420002000.npz",
+      "seed": 420002000,
+      "sha256": "f7d80bc61dfb52e072eee585bf834925af9e96f1e1b743a0c370a30eab207473",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.041610457233557406,
+          0.6311475847146044,
+          0.015,
+          -0.04130772164088357,
+          0.8936502917547775,
+          0.230043740965854
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_E_001_420002001",
+      "factors": {
+        "a": -0.04775101321664489,
+        "b": 0.04233711811929909
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1887891296397794,
+          "unit_direction": [
+            -0.2772151857519171,
+            0.11245146679047938,
+            -0.9542045946259115
+          ],
+          "vector_world_m": [
+            -0.05233521364103421,
+            0.021229614542091158,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2986709710445045,
+          "unit_direction": [
+            0.3016300212266698,
+            0.8068777713652122,
+            0.5079051017380185
+          ],
+          "vector_world_m": [
+            0.09008813133594398,
+            0.24099096748787363,
+            0.15169650993455186
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4874601006842839
+      },
+      "inference_seed": 520002001,
+      "initial_state_hash": "098cdb5b8e7113f0e53259197d3ac742749f46ee65949516cba5c40702bc2431",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_001_420002001.npz",
+      "seed": 420002001,
+      "sha256": "a1194f7178696cc295e0eca8fa74ffe98c9ab5f5717f8cdd6aaac1e5181f9d66",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04775101321664489,
+          0.6226177281680806,
+          0.015,
+          0.04233711811929909,
+          0.8636086956559542,
+          0.16669650993455185
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_E_002_420002002",
+      "factors": {
+        "a": 0.04384125984982112,
+        "b": -0.04983657032028434
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18493451782701206,
+          "unit_direction": [
+            0.21227545774960677,
+            0.0779844978014259,
+            -0.9740931927386899
+          ],
+          "vector_world_m": [
+            0.0392570594254318,
+            0.01442202549888838,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2966639064753009,
+          "unit_direction": [
+            -0.315770904803024,
+            0.8142822569498742,
+            0.48706584944594356
+          ],
+          "vector_world_m": [
+            -0.09367783017010545,
+            0.24156815532027442,
+            0.14449485760734437
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4815984243023129
+      },
+      "inference_seed": 520002002,
+      "initial_state_hash": "fdc0d999ed5c3923ceaef2bd42e055598ca0d32924d7c78964575463c208d0eb",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_002_420002002.npz",
+      "seed": 420002002,
+      "sha256": "0f8decb3d4a630094cb3632a918bdf06848635b7d3302ef798825bd65c88c406",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.04384125984982112,
+          0.6158101391248778,
+          0.015,
+          -0.04983657032028434,
+          0.8573782944451522,
+          0.1594948576073444
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_E_003_420002003",
+      "factors": {
+        "a": 0.047266427172885477,
+        "b": 0.041201701689827994
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1901127976933659,
+          "unit_direction": [
+            0.2245100133518554,
+            0.2274281917360171,
+            -0.9475609064901502
+          ],
+          "vector_world_m": [
+            0.04268222674849616,
+            0.04323700980527745,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3193839271420136,
+          "unit_direction": [
+            -0.018988824945974227,
+            0.7666230784227621,
+            0.6418165471197969
+          ],
+          "vector_world_m": [
+            -0.006064725483057483,
+            0.24484708942436162,
+            0.20498588932384793
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5094967248353794
+      },
+      "inference_seed": 520002003,
+      "initial_state_hash": "545ea6f59ed4ab58e91bc9be9632822cd898a412a3022e97d92890e0379e1ed1",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_003_420002003.npz",
+      "seed": 420002003,
+      "sha256": "4a682fc7eb4776c5ccd2b0903059fb838082b64da937b9f267b5dee73e9299f9",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.047266427172885477,
+          0.6446251234312669,
+          0.015,
+          0.041201701689827994,
+          0.8894722128556285,
+          0.21998588932384794
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_E_004_420002004",
+      "factors": {
+        "a": -0.04940213576569396,
+        "b": -0.04981267307166864
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1888735363123173,
+          "unit_direction": [
+            -0.2858332471776915,
+            0.09277158189132846,
+            -0.9537781651942119
+          ],
+          "vector_world_m": [
+            -0.05398633619008328,
+            0.017522096741102944,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3316460197650268,
+          "unit_direction": [
+            -0.001237877982873266,
+            0.7086622626321083,
+            0.7055467845431941
+          ],
+          "vector_world_m": [
+            -0.00041053730597467863,
+            0.2350250187596168,
+            0.23399178285176325
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5205195560773441
+      },
+      "inference_seed": 520002004,
+      "initial_state_hash": "06a186d7bc270f3db2d0c409f02ac4d9d3566de58d12a8560baee148aaf2a15b",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_004_420002004.npz",
+      "seed": 420002004,
+      "sha256": "c2129b716be610dabc4002a514c5a81444522c0f9a52e96cf52465f2957bc5ca",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04940213576569396,
+          0.6189102103670924,
+          0.015,
+          -0.04981267307166864,
+          0.8539352291267092,
+          0.24899178285176327
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_E_005_420002005",
+      "factors": {
+        "a": -0.040494003150743835,
+        "b": 0.04906180436097439
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18705741229256703,
+          "unit_direction": [
+            -0.24098592524432347,
+            0.1203452948423561,
+            -0.963038313798285
+          ],
+          "vector_world_m": [
+            -0.045078203575133154,
+            0.022511479434797144,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.29781419355853517,
+          "unit_direction": [
+            0.3007103403690399,
+            0.8446488859464255,
+            0.4428787087505997
+          ],
+          "vector_world_m": [
+            0.08955580751171822,
+            0.25154842680824985,
+            0.13189556549080522
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4848716058511022
+      },
+      "inference_seed": 520002005,
+      "initial_state_hash": "048c743313ba977d8e9ecab38ce9ad26c08ef37df147e3f3de81c7b716563a80",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_005_420002005.npz",
+      "seed": 420002005,
+      "sha256": "bfb7edf1cdfdf30383f46f0912cbc7ddc5f55c1c0eb500692e384b3c51df5afe",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.040494003150743835,
+          0.6238995930607866,
+          0.015,
+          0.04906180436097439,
+          0.8754480198690364,
+          0.14689556549080524
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_E_006_420002006",
+      "factors": {
+        "a": 0.04137871065705654,
+        "b": -0.04000018480564948
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18414440525428818,
+          "unit_direction": [
+            0.19981334856118516,
+            0.05529050256652556,
+            -0.978272756475773
+          ],
+          "vector_world_m": [
+            0.03679451023266722,
+            0.010181436711323544,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3360183276318866,
+          "unit_direction": [
+            -0.2421858832410412,
+            0.8363687821443065,
+            0.4917654504061934
+          ],
+          "vector_world_m": [
+            -0.08137889546270602,
+            0.2810352394596476,
+            0.16524220423263059
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5201627328861748
+      },
+      "inference_seed": 520002006,
+      "initial_state_hash": "ee35ca3021641636353142f8e48260c5f718ab12903f71dc0462abc99e75239a",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_006_420002006.npz",
+      "seed": 420002006,
+      "sha256": "12bccf02929d088d83bf44292c563b89764e7ae7557df0bd63bf27a98a94cb4b",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.04137871065705654,
+          0.611569550337313,
+          0.015,
+          -0.04000018480564948,
+          0.8926047897969606,
+          0.1802422042326306
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_E_007_420002007",
+      "factors": {
+        "a": 0.04285389042419287,
+        "b": 0.043804670406712695
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18749715231090844,
+          "unit_direction": [
+            0.20410811326000627,
+            0.1877292603109028,
+            -0.960779684904173
+          ],
+          "vector_world_m": [
+            0.03826968999980355,
+            0.03519870171372752,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.315881429948694,
+          "unit_direction": [
+            0.0030099268028331246,
+            0.758964954857819,
+            0.6511245177677695
+          ],
+          "vector_world_m": [
+            0.0009507799825198282,
+            0.23974293522143386,
+            0.20567814374713683
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5033785822596024
+      },
+      "inference_seed": 520002007,
+      "initial_state_hash": "fb3263ccc0e5cb07a61bb74c799c23bfbaf0ae62d97283253172984f51df5be3",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_007_420002007.npz",
+      "seed": 420002007,
+      "sha256": "033434e066299434e98152d24d601beff8c4beb3f73fddbf75eb1aa54acefe38",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.04285389042419287,
+          0.636586815339717,
+          0.015,
+          0.043804670406712695,
+          0.8763297505611508,
+          0.22067814374713685
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_E_008_420002008",
+      "factors": {
+        "a": -0.04373660152696879,
+        "b": -0.040325486514588976
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18699911221305346,
+          "unit_direction": [
+            -0.25840123720108804,
+            0.07216387759590914,
+            -0.9633385569898414
+          ],
+          "vector_world_m": [
+            -0.04832080195135811,
+            0.013494581044286469,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.33724020997768717,
+          "unit_direction": [
+            0.010114793288159504,
+            0.7274156619771368,
+            0.6861225442055533
+          ],
+          "vector_world_m": [
+            0.0034111150123798117,
+            0.24531381058622792,
+            0.23138811087830574
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5242393221907407
+      },
+      "inference_seed": 520002008,
+      "initial_state_hash": "a349b8f5e527f9d743ad3000b0ae5acb32a9d1e138c429ee030683cd5d774ef0",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_008_420002008.npz",
+      "seed": 420002008,
+      "sha256": "9d8034e9546cd64631c27a50502143d25e55010e719f9cc795fc15aa5ecf6c79",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04373660152696879,
+          0.6148826946702759,
+          0.015,
+          -0.040325486514588976,
+          0.8601965052565038,
+          0.24638811087830573
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_E_009_420002009",
+      "factors": {
+        "a": -0.04853321152591945,
+        "b": 0.045289465076255926
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18836779872058565,
+          "unit_direction": [
+            -0.28198775115007946,
+            0.07680365472911634,
+            -0.9563389079304322
+          ],
+          "vector_world_m": [
+            -0.053117411950308766,
+            0.014467335375019541,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3178469715433896,
+          "unit_direction": [
+            0.2951819114292475,
+            0.8286140470782969,
+            0.4756746789030313
+          ],
+          "vector_world_m": [
+            0.09382267660217537,
+            0.2633724654421483,
+            0.15119175612920277
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5062147702639752
+      },
+      "inference_seed": 520002009,
+      "initial_state_hash": "d465eca73be4347ae02563283dfd02f5ee132f689d9982fa7507215fed6ae318",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_009_420002009.npz",
+      "seed": 420002009,
+      "sha256": "5b18f8736cee6b3864322a63ee6b8a0f7d42a93a86a380a28a7436a9a7b6500c",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04853321152591945,
+          0.615855449001009,
+          0.015,
+          0.045289465076255926,
+          0.8792279144431573,
+          0.16619175612920278
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_E_010_420002010",
+      "factors": {
+        "a": 0.04789592019597153,
+        "b": -0.04332578709696411
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18557499031391428,
+          "unit_direction": [
+            0.23339200879556632,
+            0.05664696521484821,
+            -0.9707313179053811
+          ],
+          "vector_world_m": [
+            0.04331171977158221,
+            0.010512260021058095,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.36828731272775567,
+          "unit_direction": [
+            -0.24769169108024172,
+            0.7594678997868441,
+            0.6015457882515427
+          ],
+          "vector_world_m": [
+            -0.09122170729293563,
+            0.2797023919154893,
+            0.22154168183786022
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.55386230304167
+      },
+      "inference_seed": 520002010,
+      "initial_state_hash": "36b777a89306f90189cc3440ab1e19cdffc77425b345e7c4f022c485522a0c81",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_010_420002010.npz",
+      "seed": 420002010,
+      "sha256": "efb012ae12cf0a94a5c9921e4048343db78f28647a5a6c7c153e2f004cb8d69d",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.04789592019597153,
+          0.6119003736470475,
+          0.015,
+          -0.04332578709696411,
+          0.8916027655625368,
+          0.23654168183786023
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_E_011_420002011",
+      "factors": {
+        "a": 0.049561493369269974,
+        "b": 0.04208186449507041
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18568101182740024,
+          "unit_direction": [
+            0.242228822981045,
+            0.00903899168658162,
+            -0.9701770425785737
+          ],
+          "vector_world_m": [
+            0.044977292944880655,
+            0.001678369122263934,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.34957896922414833,
+          "unit_direction": [
+            -0.021396106552976475,
+            0.8405131410837343,
+            0.5413685124662573
+          ],
+          "vector_world_m": [
+            -0.007479628874199562,
+            0.293825717479403,
+            0.18925104655836472
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5352599810515486
+      },
+      "inference_seed": 520002011,
+      "initial_state_hash": "4f1f067d22683bd6d37b3b1d917664de3bf6f90c4ddb901a2f0a78a35bcf497e",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_011_420002011.npz",
+      "seed": 420002011,
+      "sha256": "6b52af0ecbbe1dcae7ab7bb073283ff34bed53e647d656e4a627d0cf47b31881",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.049561493369269974,
+          0.6030664827482534,
+          0.015,
+          0.04208186449507041,
+          0.8968922002276564,
+          0.20425104655836473
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_E_012_420002012",
+      "factors": {
+        "a": -0.046164537877107344,
+        "b": -0.04495924818693284
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18715549123388783,
+          "unit_direction": [
+            -0.2711581582080115,
+            -0.0015028424007495417,
+            -0.9625336330237804
+          ],
+          "vector_world_m": [
+            -0.05074873830149666,
+            -0.0002812652077593958,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3143133836380907,
+          "unit_direction": [
+            0.0038346750501795706,
+            0.8056766715406738,
+            0.5923431405886295
+          ],
+          "vector_world_m": [
+            0.001205289690174506,
+            0.2532349607502238,
+            0.18618137679322538
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5014688748719786
+      },
+      "inference_seed": 520002012,
+      "initial_state_hash": "8e7b7a42a8e8a824c8f6ca9dda374b2e6b9759e6f9a46323cd993a5a34c4ed93",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_012_420002012.npz",
+      "seed": 420002012,
+      "sha256": "4ffc5013b9e383e61ab9c5644895f27b6ab4609a19ecfb481ec84c1971bffa1f",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.046164537877107344,
+          0.60110684841823,
+          0.015,
+          -0.04495924818693284,
+          0.8543418091684538,
+          0.20118137679322537
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_E_013_420002013",
+      "factors": {
+        "a": -0.04496774107030572,
+        "b": 0.040293185349333675
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18803804578316122,
+          "unit_direction": [
+            -0.2635208278639344,
+            0.11296961021883344,
+            -0.9580159917500917
+          ],
+          "vector_world_m": [
+            -0.04955194149469504,
+            0.021242584738434878,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.28731592013090007,
+          "unit_direction": [
+            0.29674974634470247,
+            0.8177481687324748,
+            0.49318102211970655
+          ],
+          "vector_world_m": [
+            0.0852609264196394,
+            0.23495206753472953,
+            0.14169875916142127
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4753539659140613
+      },
+      "inference_seed": 520002013,
+      "initial_state_hash": "f4c4458723ae968bc8628b8a109b0eecb84743776a08e48c61767246b1f537b2",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_013_420002013.npz",
+      "seed": 420002013,
+      "sha256": "979600544ca8a48eaf8c77c62f1a089931aea9646d9ee348f3c797e916db8aca",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04496774107030572,
+          0.6226306983644243,
+          0.015,
+          0.040293185349333675,
+          0.8575827658991538,
+          0.15669875916142129
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_E_014_420002014",
+      "factors": {
+        "a": 0.04871957952439199,
+        "b": -0.04268811623466621
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18684349368738137,
+          "unit_direction": [
+            0.2362157666236327,
+            0.12097284305061795,
+            -0.9641409040397882
+          ],
+          "vector_world_m": [
+            0.04413537910000267,
+            0.022602988636872712,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.32655502256431257,
+          "unit_direction": [
+            -0.2799151427568569,
+            0.6921069891930919,
+            0.6653085211880889
+          ],
+          "vector_world_m": [
+            -0.09140769575905819,
+            0.22601101347286856,
+            0.2172598391488058
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.513398516251694
+      },
+      "inference_seed": 520002014,
+      "initial_state_hash": "3afee69a4da50ebe7c3e25855a9ca1b60505d272fef2e7e6bc93254e1e0ad5fc",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_014_420002014.npz",
+      "seed": 420002014,
+      "sha256": "b3ea46261583def421b4f0a0d7f30c4c4e6e0040066bbe13a006b773a854ba37",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.04871957952439199,
+          0.6239911022628621,
+          0.015,
+          -0.04268811623466621,
+          0.8500021157357307,
+          0.2322598391488058
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_E_015_420002015",
+      "factors": {
+        "a": 0.04533435342438224,
+        "b": 0.0403424162124701
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1858566086213024,
+          "unit_direction": [
+            0.21925587312864722,
+            0.11162928064653828,
+            -0.9692604220749607
+          ],
+          "vector_world_m": [
+            0.04075015299999292,
+            0.020747039523801192,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.26943059217684173,
+          "unit_direction": [
+            -0.018527729800763157,
+            0.9106837275714925,
+            0.4126885890897899
+          ],
+          "vector_world_m": [
+            -0.0049919372119121355,
+            0.24536605600540085,
+            0.1111909309430874
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4552872007981441
+      },
+      "inference_seed": 520002015,
+      "initial_state_hash": "e7fcee39daae044132eac2e750e573c609baaa6b60a5a04e0c3e0ae2ab775314",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_015_420002015.npz",
+      "seed": 420002015,
+      "sha256": "4dd21a8aac30123fe79f66766f5b8dfb77ba688344b9920004fe0ff1afef27d6",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.04533435342438224,
+          0.6221351531497906,
+          0.015,
+          0.0403424162124701,
+          0.8675012091551915,
+          0.1261909309430874
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_E_016_420002016",
+      "factors": {
+        "a": -0.049886973215567086,
+        "b": -0.048914953244873965
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18819876152045767,
+          "unit_direction": [
+            -0.2894342832008236,
+            0.0001436062644671659,
+            -0.9571978766614907
+          ],
+          "vector_world_m": [
+            -0.054471173639956405,
+            2.702652111929993e-05,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3102393298144941,
+          "unit_direction": [
+            0.003133129417454372,
+            0.9087394863266423,
+            0.4173520450301446
+          ],
+          "vector_world_m": [
+            0.0009720199706931207,
+            0.2819267292139451,
+            0.12947901874686063
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.49843809133495176
+      },
+      "inference_seed": 520002016,
+      "initial_state_hash": "1867d383b06c91bc3067faf48335756a0bce27683f32e46b3f6df8325fa9dc25",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_016_420002016.npz",
+      "seed": 420002016,
+      "sha256": "5072e52bb22fb5519173a1583b4766aad4e4f42cb86768b8b89181fefd3ea5e1",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.049886973215567086,
+          0.6014151401471087,
+          0.015,
+          -0.048914953244873965,
+          0.8833418693610539,
+          0.14447901874686064
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_E_017_420002017",
+      "factors": {
+        "a": -0.042655602771740644,
+        "b": 0.04498561231010352
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18952191683357472,
+          "unit_direction": [
+            -0.24925773222108527,
+            0.1854494955305112,
+            -0.9505151590245581
+          ],
+          "vector_world_m": [
+            -0.04723980319612996,
+            0.03514674386876193,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3077223331772298,
+          "unit_direction": [
+            0.28480615682634913,
+            0.7887162475241988,
+            0.5448046750213803
+          ],
+          "vector_world_m": [
+            0.08764121508184416,
+            0.24270560390293594,
+            0.1676485657234416
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4972442500108045
+      },
+      "inference_seed": 520002017,
+      "initial_state_hash": "96acf7afb3b1726ef676e2c923519d62f81d5e68bd111d9384c11a8496587ef5",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_017_420002017.npz",
+      "seed": 420002017,
+      "sha256": "e251a5cf8e5157e10de0824f2ad8ad3c0e38a622dc7915f2f9acb49fa61107c2",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.042655602771740644,
+          0.6365348574947514,
+          0.015,
+          0.04498561231010352,
+          0.8792404613976873,
+          0.1826485657234416
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_E_018_420002018",
+      "factors": {
+        "a": 0.04834113995649129,
+        "b": -0.041672372482274914
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18556055017067954,
+          "unit_direction": [
+            0.23580949448497598,
+            0.04390813458974865,
+            -0.970806859281283
+          ],
+          "vector_world_m": [
+            0.04375693953210197,
+            0.008147617611442004,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3300767221035277,
+          "unit_direction": [
+            -0.27270481803480134,
+            0.8032613054926258,
+            0.5295312618900688
+          ],
+          "vector_world_m": [
+            -0.09001351243876621,
+            0.26513785870960627,
+            0.1747859431760186
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5156372722742072
+      },
+      "inference_seed": 520002018,
+      "initial_state_hash": "b5a79ca5b28ed9f4ea588a670884ad56059d4d5a9e465221c6d8903ad2736d49",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_018_420002018.npz",
+      "seed": 420002018,
+      "sha256": "33fd5857cd8c2e6037e382774d223021fc8ecf90728c79fb5d3335d311e1d821",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.04834113995649129,
+          0.6095357312374314,
+          0.015,
+          -0.041672372482274914,
+          0.8746735899470377,
+          0.1897859431760186
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_E_019_420002019",
+      "factors": {
+        "a": 0.04067397743225348,
+        "b": 0.042545716209845985
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18379565782758261,
+          "unit_direction": [
+            0.19635815902527862,
+            0.02811779278821363,
+            -0.9801290033015667
+          ],
+          "vector_world_m": [
+            0.036089777007864164,
+            0.005167928222169382,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3130278495270406,
+          "unit_direction": [
+            0.005979464065004266,
+            0.9289404665574612,
+            0.37018084175373206
+          ],
+          "vector_world_m": [
+            0.001871738777592502,
+            0.29078423658512786,
+            0.11587691283028047
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4968235073546232
+      },
+      "inference_seed": 520002019,
+      "initial_state_hash": "94198124b235afa62cf437de7543696d3b50c6f8fa8448aa28216267f2deb324",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_019_420002019.npz",
+      "seed": 420002019,
+      "sha256": "2bc7f4754240973c33d5d91c3fe12c3d33079ed82b14f8a44ff441967ac0b32a",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.04067397743225348,
+          0.6065560418481588,
+          0.015,
+          0.042545716209845985,
+          0.8973402784332867,
+          0.13087691283028047
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_E_020_420002020",
+      "factors": {
+        "a": -0.044894374882231726,
+        "b": -0.048233659515046816
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18683267966392622,
+          "unit_direction": [
+            -0.2648282698488449,
+            0.013809174657949477,
+            -0.9641967092788348
+          ],
+          "vector_world_m": [
+            -0.049478575306621045,
+            0.0025800051052918826,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3330201115628256,
+          "unit_direction": [
+            -0.010027276182042598,
+            0.762705024024078,
+            0.6466687715212476
+          ],
+          "vector_world_m": [
+            -0.00333928463281509,
+            0.25399611219002605,
+            0.21535370643620128
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5198527912267519
+      },
+      "inference_seed": 520002020,
+      "initial_state_hash": "38aeb5622f1e649449742d6f23211352fa6a37d808b19b3fe40ffceef4a549a2",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_020_420002020.npz",
+      "seed": 420002020,
+      "sha256": "7129007a5d6f3a344f708c53ff5184c4e716e2aebe07fffcb196c6ca8ba63677",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.044894374882231726,
+          0.6039681187312813,
+          0.015,
+          -0.048233659515046816,
+          0.8579642309213074,
+          0.2303537064362013
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_E_021_420002021",
+      "factors": {
+        "a": -0.047077433593230064,
+        "b": 0.046222825179649485
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18806371222188828,
+          "unit_direction": [
+            -0.27470283026566045,
+            0.08363141680663769,
+            -0.9578852442578653
+          ],
+          "vector_world_m": [
+            -0.05166163401761938,
+            0.0157280347030323,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3107352509609927,
+          "unit_direction": [
+            0.30025643529124973,
+            0.7866059852085034,
+            0.5395341482245136
+          ],
+          "vector_world_m": [
+            0.09330025877287955,
+            0.24442620822118322,
+            0.16765227895056967
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.49879896318288097
+      },
+      "inference_seed": 520002021,
+      "initial_state_hash": "44107f9026a75a3385731c944eb323f3fd2d925d27097dfc865d7d37066f2d26",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_021_420002021.npz",
+      "seed": 420002021,
+      "sha256": "e2642a0e56ec8c1a6ad3f13cd2d1121fe06813a6f2a8fc37140ac4cae7fffd14",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.047077433593230064,
+          0.6171161483290217,
+          0.015,
+          0.046222825179649485,
+          0.861542356550205,
+          0.18265227895056968
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_E_022_420002022",
+      "factors": {
+        "a": 0.049975694918342556,
+        "b": -0.048454521233896534
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18607290114246275,
+          "unit_direction": [
+            0.24394468090332083,
+            0.05663957464960043,
+            -0.9681337465673271
+          ],
+          "vector_world_m": [
+            0.04539149449395324,
+            0.010539089974526239,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3580548399093123,
+          "unit_direction": [
+            -0.27490262714272873,
+            0.7221577491422481,
+            0.6347572220493655
+          ],
+          "vector_world_m": [
+            -0.0984302161522391,
+            0.2585720772583969,
+            0.22727789552216537
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5441277410517751
+      },
+      "inference_seed": 520002022,
+      "initial_state_hash": "47526896005220df674663468127aacc3f1539396e878a28233509cfd67417fb",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_022_420002022.npz",
+      "seed": 420002022,
+      "sha256": "59719ea410f0ff0b063c5e6c45d8da685cfc62ff9b4ccac5ee95d2e88c96184a",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.049975694918342556,
+          0.6119272036005157,
+          0.015,
+          -0.048454521233896534,
+          0.8704992808589126,
+          0.2422778955221654
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_E_023_420002023",
+      "factors": {
+        "a": 0.04563769549100003,
+        "b": 0.04332471290514106
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18484349792621657,
+          "unit_direction": [
+            0.22209867010306153,
+            0.02966373540836161,
+            -0.9745728518382165
+          ],
+          "vector_world_m": [
+            0.04105349506661071,
+            0.005483148614439326,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.31073127512183224,
+          "unit_direction": [
+            -0.00744367487615172,
+            0.8919361121511851,
+            0.45210016981302575
+          ],
+          "vector_world_m": [
+            -0.0023129825858589706,
+            0.2771524454559473,
+            0.14048166224879838
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4955747730480488
+      },
+      "inference_seed": 520002023,
+      "initial_state_hash": "93efab9ce58180b5f72e764f5935b939c2fee8f23ad038d95bc975a1f99b1565",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_023_420002023.npz",
+      "seed": 420002023,
+      "sha256": "9f0433a4275490cd8a71aab68acdc8096ae8c90879dc5cf55048f75c2f999617",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.04563769549100003,
+          0.6068712622404288,
+          0.015,
+          0.04332471290514106,
+          0.8840237076963761,
+          0.1554816622487984
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_E_024_420002024",
+      "factors": {
+        "a": -0.041413190615916154,
+        "b": -0.04465760297609827
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18628925926885567,
+          "unit_direction": [
+            -0.24691381146092428,
+            0.06266173433584662,
+            -0.9670093467799901
+          ],
+          "vector_world_m": [
+            -0.04599739104030547,
+            0.011673208073926689,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3022166536121822,
+          "unit_direction": [
+            -0.010735385761849806,
+            0.8229969903045474,
+            0.5679442802266795
+          ],
+          "vector_world_m": [
+            -0.0032444123601821154,
+            0.24872339634273788,
+            0.17164221980828653
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.48850591288103784
+      },
+      "inference_seed": 520002024,
+      "initial_state_hash": "3471856a358183d066c03e2e69184edf931b86d44784bed10965d5e8e4a01c32",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_024_420002024.npz",
+      "seed": 420002024,
+      "sha256": "68178f7ef5ff0468dd9f91c4890acc37e1b961a5057f8c5d3be9fe873361ade3",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.041413190615916154,
+          0.6130613216999161,
+          0.015,
+          -0.04465760297609827,
+          0.861784718042654,
+          0.18664221980828655
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_E_025_420002025",
+      "factors": {
+        "a": -0.043943340837526594,
+        "b": 0.043701748180960634
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18816181304886895,
+          "unit_direction": [
+            -0.2579032401718645,
+            0.12999337448030682,
+            -0.9573858372151096
+          ],
+          "vector_world_m": [
+            -0.04852754126191591,
+            0.0244597890265551,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.29857720288506484,
+          "unit_direction": [
+            0.29354246798348355,
+            0.8814890644656465,
+            0.3698781538799566
+          ],
+          "vector_world_m": [
+            0.08764508901848722,
+            0.2631925392419253,
+            0.11043718459376904
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.48673901593393376
+      },
+      "inference_seed": 520002025,
+      "initial_state_hash": "403b958baf1c45881eb3dd949b9776040ac6778205398272af8422b2a8e15ad5",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_025_420002025.npz",
+      "seed": 420002025,
+      "sha256": "c46682aa53c309f6027a118050edc678aff2d8287af4f04c1f0075dc62f4a0be",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.043943340837526594,
+          0.6258479026525445,
+          0.015,
+          0.043701748180960634,
+          0.8890404418944698,
+          0.12543718459376904
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_E_026_420002026",
+      "factors": {
+        "a": 0.044850279997659934,
+        "b": -0.041889550591419945
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18727552076694987,
+          "unit_direction": [
+            0.21500983902417597,
+            0.16878089461684886,
+            -0.9619167213096642
+          ],
+          "vector_world_m": [
+            0.040266079573270615,
+            0.03160852993488206,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.33117107681384406,
+          "unit_direction": [
+            -0.26191849669842265,
+            0.7750058877284351,
+            0.5751213568226262
+          ],
+          "vector_world_m": [
+            -0.08673983058907989,
+            0.256659534376095,
+            0.19046355903758816
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5184465975807939
+      },
+      "inference_seed": 520002026,
+      "initial_state_hash": "ce0998b29f842ceafee85d508344b4fec2d0c99ce55334f7cddf02ad27c31cbe",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_026_420002026.npz",
+      "seed": 420002026,
+      "sha256": "f78896da0170005155f2de664deb14ca581c10c4651beda2d6b3017828c0f95e",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.044850279997659934,
+          0.6329966435608715,
+          0.015,
+          -0.041889550591419945,
+          0.8896561779369665,
+          0.20546355903758817
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_E_027_420002027",
+      "factors": {
+        "a": 0.04020323697486012,
+        "b": 0.04383819520348692
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18363447017172585,
+          "unit_direction": [
+            0.19396705050615848,
+            -0.006060346316332015,
+            -0.9809893248758967
+          ],
+          "vector_world_m": [
+            0.0356190365504708,
+            -0.0011128884848568,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3268430933870515,
+          "unit_direction": [
+            0.011121416674153912,
+            0.8449646852280711,
+            0.5347064566737404
+          ],
+          "vector_world_m": [
+            0.0036349582286267987,
+            0.276170871522759,
+            0.17476511235327474
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5104775635587773
+      },
+      "inference_seed": 520002027,
+      "initial_state_hash": "1a48e893caf22272a5e8bc13fc77a4993317f0fa86678ad854d21c30a28880a6",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_027_420002027.npz",
+      "seed": 420002027,
+      "sha256": "cd997f584baf6e036be81e30e5c1703e30f56b0a7857357d6f2fc05c9b64e915",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.04020323697486012,
+          0.6002752251411326,
+          0.015,
+          0.04383819520348692,
+          0.8764460966638916,
+          0.18976511235327473
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_E_028_420002028",
+      "factors": {
+        "a": -0.04586333923705795,
+        "b": -0.048330030844634865
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18957831262161895,
+          "unit_direction": [
+            -0.26610395969783723,
+            0.16200947303178348,
+            -0.9502323996165862
+          ],
+          "vector_world_m": [
+            -0.05044753966144727,
+            0.03071348252608319,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.30054300954756674,
+          "unit_direction": [
+            -0.008207449613585209,
+            0.7442051597700519,
+            0.6679006796990643
+          ],
+          "vector_world_m": [
+            -0.0024666916075769124,
+            0.22366565843811914,
+            0.2007328803556222
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4901213221691857
+      },
+      "inference_seed": 520002028,
+      "initial_state_hash": "7e7b2ec36041986bbfeb36bed941f441207fc7f78869263b74d18ba7815373e3",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_028_420002028.npz",
+      "seed": 420002028,
+      "sha256": "dd67101a68371adf489ba96d65412d55140b10569c1cae073eaa969735bb3b72",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04586333923705795,
+          0.6321015961520726,
+          0.015,
+          -0.048330030844634865,
+          0.8557672545901918,
+          0.21573288035562221
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_E_029_420002029",
+      "factors": {
+        "a": -0.0470421909988329,
+        "b": 0.04268803872025774
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18833110007573775,
+          "unit_direction": [
+            -0.2741256829193933,
+            0.0995717447765777,
+            -0.9565252623982936
+          ],
+          "vector_world_m": [
+            -0.05162639142322222,
+            0.018752456230233472,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3298528087222342,
+          "unit_direction": [
+            0.2720311222047273,
+            0.7011001216380319,
+            0.6591340440238036
+          ],
+          "vector_world_m": [
+            0.08973022971909064,
+            0.23125984431780489,
+            0.2174172157456964
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5181839087979719
+      },
+      "inference_seed": 520002029,
+      "initial_state_hash": "99e4510a6508f537b6ef92c381624de51487e4c766fa4484e56153ebdfc771f0",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_029_420002029.npz",
+      "seed": 420002029,
+      "sha256": "97b699e38d19681b8fd827357e90414767a5c054552706c809d2a4b52d7bc950",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.0470421909988329,
+          0.6201405698562229,
+          0.015,
+          0.04268803872025774,
+          0.8514004141740278,
+          0.2324172157456964
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_E_030_420002030",
+      "factors": {
+        "a": 0.046678069226125905,
+        "b": -0.043111941406603994
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18540446037967526,
+          "unit_direction": [
+            0.22703805893092244,
+            0.06633394459021795,
+            -0.9716241699299072
+          ],
+          "vector_world_m": [
+            0.042093868801736586,
+            0.012298609201604638,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.31558699811290614,
+          "unit_direction": [
+            -0.28451745848099275,
+            0.8705444320102407,
+            0.4014999473418197
+          ],
+          "vector_world_m": [
+            -0.0897900106327299,
+            0.27473250402201677,
+            0.12670816312409477
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5009914584925814
+      },
+      "inference_seed": 520002030,
+      "initial_state_hash": "8fbc0b37ad372239a56135613185e61ac660f5dcf513581acbbec7ee0a661a10",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_030_420002030.npz",
+      "seed": 420002030,
+      "sha256": "a2302ad4f141a215fd2c73f842176e0e5e57960f20f5f77f30a102e726e89b79",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.046678069226125905,
+          0.6136867228275941,
+          0.015,
+          -0.043111941406603994,
+          0.8884192268496108,
+          0.14170816312409476
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_E_031_420002031",
+      "factors": {
+        "a": 0.049373895878182444,
+        "b": 0.048624792640119
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18842356907358615,
+          "unit_direction": [
+            0.23770749951297837,
+            0.17161690525878,
+            -0.9560558469591024
+          ],
+          "vector_world_m": [
+            0.044789695453793126,
+            0.03233666980222283,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.28415909633178077,
+          "unit_direction": [
+            -0.002636210657105979,
+            0.7987512897033757,
+            0.601655572225975
+          ],
+          "vector_world_m": [
+            -0.0007491032380634449,
+            0.22697244467595568,
+            0.1709659037067135
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4725826654053669
+      },
+      "inference_seed": 520002031,
+      "initial_state_hash": "3268e910b7d965a29c2860e30bdaa7011751456b98a32bfddedfe051e75a1d83",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_031_420002031.npz",
+      "seed": 420002031,
+      "sha256": "a2dc7219a7f2027d5cf57aa09dfd094a3f3841cec92e1cbbf10150b80afa5ccb",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.049373895878182444,
+          0.6337247834282123,
+          0.015,
+          0.048624792640119,
+          0.8606972281041679,
+          0.1859659037067135
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_E_032_420002032",
+      "factors": {
+        "a": -0.04009440498929928,
+        "b": -0.0400506001761102
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1866979575995399,
+          "unit_direction": [
+            -0.23930955639869683,
+            0.1082286579666516,
+            -0.9648924778497325
+          ],
+          "vector_world_m": [
+            -0.0446786054136886,
+            0.020206069396113024,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.309356415615759,
+          "unit_direction": [
+            0.00014159982136426253,
+            0.8323600390516668,
+            0.5542352797678964
+          ],
+          "vector_world_m": [
+            4.380481318908003e-05,
+            0.2574959181828168,
+            0.17145623955679384
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4960543732152989
+      },
+      "inference_seed": 520002032,
+      "initial_state_hash": "27b4db66bd0f71e34da1de463f3ce9b8ffebf2670715242a268efcc492ff81b9",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_032_420002032.npz",
+      "seed": 420002032,
+      "sha256": "d9d7836f0a2c2f525aafc1854b6aa51205fe14813d792badbb408dd719d5284f",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04009440498929928,
+          0.6215941830221025,
+          0.015,
+          -0.0400506001761102,
+          0.8790901012049193,
+          0.18645623955679386
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_E_033_420002033",
+      "factors": {
+        "a": -0.04560354593621534,
+        "b": 0.048167606257643374
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18702396550622152,
+          "unit_direction": [
+            -0.26834927932770797,
+            0.01463279840484242,
+            -0.9632105405855684
+          ],
+          "vector_world_m": [
+            -0.050187746360604656,
+            0.002736683984126742,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.32427603945233163,
+          "unit_direction": [
+            0.28917077053311857,
+            0.8235457392445519,
+            0.4880088942236881
+          ],
+          "vector_world_m": [
+            0.0937711521938587,
+            0.26705615063006594,
+            0.1582495914363694
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5113000049585532
+      },
+      "inference_seed": 520002033,
+      "initial_state_hash": "51d3b1ae0c57093d83ce763f7a170fc54ec0d601254e36b9358fa0c4940ceb5b",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_033_420002033.npz",
+      "seed": 420002033,
+      "sha256": "65160e9378aecda9b86db7e4a651f0be274dcbffc929e7c90e97926f1028d26b",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04560354593621534,
+          0.6041247976101162,
+          0.015,
+          0.048167606257643374,
+          0.8711809482401821,
+          0.17324959143636942
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_E_034_420002034",
+      "factors": {
+        "a": 0.04243749041142358,
+        "b": -0.04629684329945088
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18993755366897158,
+          "unit_direction": [
+            0.1992933427636223,
+            0.2464810391895509,
+            -0.9484351642838537
+          ],
+          "vector_world_m": [
+            0.03785328998703426,
+            0.04681600560944921,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3014078742802766,
+          "unit_direction": [
+            -0.294399520658711,
+            0.7483095459391053,
+            0.594442382146774
+          ],
+          "vector_world_m": [
+            -0.08873433371087446,
+            0.22554638954514472,
+            0.17916961478496302
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4913454279492482
+      },
+      "inference_seed": 520002034,
+      "initial_state_hash": "156554d55d71a1f50b029adaef5a9acc671bd06ace2622d2cf7f16a8a8d507ff",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_034_420002034.npz",
+      "seed": 420002034,
+      "sha256": "32d7f77fa2c695f11921d7e62a772b1d40cb77a9fb2b25f8165db1a0d8b796a9",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.04243749041142358,
+          0.6482041192354386,
+          0.015,
+          -0.04629684329945088,
+          0.8737505087805834,
+          0.194169614784963
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_E_035_420002035",
+      "factors": {
+        "a": 0.04471375310833448,
+        "b": 0.043057712076886946
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18994799062223217,
+          "unit_direction": [
+            0.21126600261728834,
+            0.23650848676927388,
+            -0.9483830512109651
+          ],
+          "vector_world_m": [
+            0.04012955268394516,
+            0.044924311826928354,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2722114372126348,
+          "unit_direction": [
+            -0.006083657058663331,
+            0.8006904538968472,
+            0.5990473989220331
+          ],
+          "vector_world_m": [
+            -0.001656041031447536,
+            0.21795709921769768,
+            0.1630675534190572
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.46215942783486696
+      },
+      "inference_seed": 520002035,
+      "initial_state_hash": "f6e743d446f2dd825697447575893ce5257c61217cf41a3a97257bf74ef888d8",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_035_420002035.npz",
+      "seed": 420002035,
+      "sha256": "d2cbde1c90a9a55fd53a9f1856e3efc7855940e7ad6a10b4a98edb15fb942b2b",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.04471375310833448,
+          0.6463124254529178,
+          0.015,
+          0.043057712076886946,
+          0.8642695246706155,
+          0.17806755341905722
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_pick-place-wall_test_E_036_420002036",
+      "factors": {
+        "a": -0.045903065119771755,
+        "b": -0.049810851488073814
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18803874306400212,
+          "unit_direction": [
+            -0.2684939535411428,
+            0.10061393113917888,
+            -0.9580124392577413
+          ],
+          "vector_world_m": [
+            -0.050487265544161074,
+            0.01891931714613926,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.28801448689180564,
+          "unit_direction": [
+            -0.013568020173131228,
+            0.9030073376240759,
+            0.42941082546398346
+          ],
+          "vector_world_m": [
+            -0.003907786368302059,
+            0.2600791950053337,
+            0.1236765385617959
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4760532299558078
+      },
+      "inference_seed": 520002036,
+      "initial_state_hash": "e745534a47e84f363b94a9368665a8012a7e5b91836ccdd916733fc5d3520311",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_036_420002036.npz",
+      "seed": 420002036,
+      "sha256": "950ad44057ee60c53da640ecdf10178841f0a4e5f9c6e05f8d750a90660590f8",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.045903065119771755,
+          0.6203074307721287,
+          0.015,
+          -0.049810851488073814,
+          0.8803866257774624,
+          0.1386765385617959
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_pick-place-wall_test_E_037_420002037",
+      "factors": {
+        "a": -0.04768840728482273,
+        "b": 0.045110009880579116
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18831850821237067,
+          "unit_direction": [
+            -0.2775755192913017,
+            0.088819451201005,
+            -0.9565892201872842
+          ],
+          "vector_world_m": [
+            -0.05227260770921205,
+            0.016726346550414717,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2783226927368572,
+          "unit_direction": [
+            0.3334202333732772,
+            0.8580230825376274,
+            0.39067548913380434
+          ],
+          "vector_world_m": [
+            0.09279841716540185,
+            0.23880729476225115,
+            0.10873385412200923
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4666412009492279
+      },
+      "inference_seed": 520002037,
+      "initial_state_hash": "d6d8090417bac8e86f7fadcd210b84a095d6ead90f8c87ef9331d42bbc897ef2",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_037_420002037.npz",
+      "seed": 420002037,
+      "sha256": "f2d822421d7f12954332ad39101228a10872ed84a2e20349ff0070e5b289623f",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04768840728482273,
+          0.6181144601764041,
+          0.015,
+          0.045110009880579116,
+          0.8569217549386553,
+          0.12373385412200923
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_pick-place-wall_test_E_038_420002038",
+      "factors": {
+        "a": 0.046679983517217506,
+        "b": -0.04883985724035164
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1859114596219758,
+          "unit_direction": [
+            0.22642920010645876,
+            0.09908746904430685,
+            -0.9689744531294635
+          ],
+          "vector_world_m": [
+            0.04209578309282819,
+            0.01842149600027443,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.28121214684995266,
+          "unit_direction": [
+            -0.33967181655398404,
+            0.8352890292644667,
+            0.43233701510435324
+          ],
+          "vector_world_m": [
+            -0.09551984075756914,
+            0.2348934211596736,
+            0.12157842018019559
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.46712360647192847
+      },
+      "inference_seed": 520002038,
+      "initial_state_hash": "0d075c3c766204b2468a50caac079b404ca7c54898a71d11df074e4e2896a80a",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_038_420002038.npz",
+      "seed": 420002038,
+      "sha256": "d479903de3e3b7a446d0f6d008977f843fda10872585e95f98ea68cfad527f50",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.046679983517217506,
+          0.6198096096262639,
+          0.015,
+          -0.04883985724035164,
+          0.8547030307859375,
+          0.1365784201801956
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_pick-place-wall_test_E_039_420002039",
+      "factors": {
+        "a": 0.044045280435240135,
+        "b": 0.04092786838881992
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18708623851998538,
+          "unit_direction": [
+            0.21092454647130773,
+            0.16838592698119859,
+            -0.9628899289589417
+          ],
+          "vector_world_m": [
+            0.039461080010850816,
+            0.03150268969861336,
+            -0.18014345491770434
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2926036737062267,
+          "unit_direction": [
+            -0.010654042742983767,
+            0.7783321483899337,
+            0.6277623420976612
+          ],
+          "vector_world_m": [
+            -0.003117412046420215,
+            0.22774284598255456,
+            0.18368556751220072
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.47968991222621205
+      },
+      "inference_seed": 520002039,
+      "initial_state_hash": "7d173afb9d9da94d3c63571409ecc4763f419e13cd41f179afee313c135321ba",
+      "path": "assets/exp1/evaluation/test/pick-place-wall/e1_pick-place-wall_test_E_039_420002039.npz",
+      "seed": 420002039,
+      "sha256": "39d7a7495d6681ce51e8264bf7a5aae8866fd67e4a39fdf394f3d1d194aeceea",
+      "split": "E",
+      "stage": "test",
+      "task": "pick-place-wall",
+      "task_name": "pick-place-wall-v3",
+      "task_params": {
+        "rand_vec": [
+          0.044045280435240135,
+          0.6328908033246028,
+          0.015,
+          0.04092786838881992,
+          0.8606336493071574,
+          0.19868556751220073
+        ]
+      }
+    }
+  ],
+  "sampling": "predeclared PCG64 independent uniform factors and nuisance variables; no rejection or score selection",
+  "schema_version": "experiment1.evaluation.v1",
+  "seed_base": 420000000,
+  "task": "pick-place-wall",
+  "original_manifest_sha256": "f31ef14dcd26d6385ce20d9546a1bfc9fc7190534089e66794000870f868b1a8",
+  "hash": "876fe066b437d797434c73268a51b4419707da3f865cf4ccaf60ab7cbb247512"
+}

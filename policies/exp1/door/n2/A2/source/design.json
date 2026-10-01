@@ -1,0 +1,44 @@
+{
+  "title": "Support-fitted articulation coordinates with soft causal approach/descent/opening experts",
+  "coverage_gap": "Only two cabinet layouts are supported, and their translation and yaw are correlated. The images and observations contain a substantial within-episode change in door orientation, but almost no independent across-layout variation. A Cartesian trajectory learner may confound opening angle, interaction stage and cabinet pose.",
+  "reusable_regularity": "A rigid revolute door constrains its handle to an approximately planar circle. Fit the circle in goal-relative cabinet coordinates from this exact D_N, then express hand-handle errors, motion and native action translation in instantaneous radial/tangential coordinates. Opening angle becomes an observed geometric quantity rather than elapsed demonstration time. Three learned feature experts are smoothly mixed from causal alignment, height and departure from the closed radial direction, distinguishing approach, descent and opening without selecting a hard action program.",
+  "dependencies_preserved": [
+    "The fitted center is a representation estimate from support observations, never a simulator hinge channel. Runtime center is goal + R(cabinet_yaw) * fitted_offset; goal, cabinet translation and rotation remain coupled correctly.",
+    "The radial frame is not treated as a complete symmetry: world hand and goal coordinates, cabinet and radial world orientations, cabinet-relative contact and handle-goal vectors all bypass the phase experts into DP.",
+    "Current and native-previous hand and handle positions, apertures, and both full quaternion orientations as first/third rotation columns are represented. Both whole causal observations are used. World z is not rotated away.",
+    "The fixed cabinet obstacle is represented by goal anchoring, cabinet yaw and contact/cabinet relations; there is no collision-free planner. The gripper's world-fixed orientation and native clipping cube remain relevant through the bypass and native execution."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact two complete demonstrations; support fitting restricted to them."},
+    {"path": "task_materials.json", "use": "Articulated door task, handle center and xyzw orientation, observed cabinet yaw, goal field, native action semantics and LL/HH split."},
+    {"path": "support_summary.json", "use": "Handle height is constant in these episodes and initial handle-goal length is identical despite translation/yaw change; supports testing a planar rigid-geometry prior rather than memorized world trajectories."},
+    {"path": "images/frame_02_demo_00_step_029.png", "use": "Above-handle alignment stage."},
+    {"path": "images/frame_04_demo_00_step_059.png", "use": "Door begins rotating while the hand stays at the handle."},
+    {"path": "images/frame_07_demo_00_step_103.png", "use": "Large final opening about a cabinet-fixed hinge; motivates a moving radial frame."},
+    {"path": "images/frame_11_demo_01_step_056.png", "use": "Similar low interaction configuration in the other layout, at a different demonstration time."},
+    {"path": "images/frame_15_demo_01_step_115.png", "use": "Corresponding open-door geometry in HH."},
+    {"path": "trajectories/demo_00.json", "rows_read": "obs 0:4,29:32,44:48,74:77; actions 38:46", "use": "Stationary handle during approach, then changing planar position and quaternion; action transition around the low hand configuration motivates soft geometric stages."},
+    {"path": "trajectories/demo_01.json", "rows_read": "obs 56:59", "use": "Hand-height/contact relations are observable without episode time or stage labels."}
+  ],
+  "expected_failure_signature": [
+    "If a goal-anchored common circle offset is not stable across extrapolated resets, the polar frame should be systematically misaligned even while the observed hand-handle error is small; late opening should drift or stall.",
+    "Phase gates use metric heuristic widths, not observed contact force. Premature low-height activation can cause pulling before a secure hook, while strong opening evidence can keep the opening expert active after contact is lost.",
+    "At large yaw the fixed gripper and anisotropic world action cube can violate approximate radial/tangential regularity; the world bypass may not learn enough correction from N=2.",
+    "A fixed chunk-start radial frame lags a rapidly turning door later in the 16-step prediction; frequent four-step replanning reduces but does not remove this error."
+  ],
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history [B,2,41] and raw_current [B,41], plus the serialized D_N-fitted geometric constants; normalized input history is accepted but metric raw geometry is used.",
+    "slices": {"hand": [0,3], "gripper": [3,4], "handle": [4,7], "handle_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_gripper": [21,22], "previous_handle": [22,25], "previous_handle_quaternion_xyzw": [25,29], "goal": [36,39], "cabinet_sin_cos_yaw": [39,41]},
+    "action_frame": "At chunk start compute estimated center from goal and cabinet yaw; ex is the normalized horizontal center-to-observed-handle vector, ey is its counterclockwise tangent and ez is world vertical. Encode xyz by the transpose of this orthonormal basis and decode by the same frozen basis for every horizon index. Degenerate radial norm uses cabinet axes. Gripper is unchanged. No action gain, planner, native clipping or future-frame update is introduced; host clips after decode and executes four of sixteen.",
+    "conditioning": "37 intrinsic features, 16 world/cabinet bypass features, three soft phase weights and a 24-dimensional weighted learned phase embedding, totaling 80 per observation. No elapsed-time counter or persistent rollout stage state."
+  },
+  "training_only_targets": [],
+  "support_fit": {
+    "source": "Each exact D_N episode obs[0:T], not terminal obs[T]; native actions are not used to fit geometry.",
+    "algorithm": "Transform handle-goal xy by observed cabinet yaw inverse. Per episode solve least squares [2*x,2*y,1] beta = x*x+y*y; center=(beta0,beta1), radius=sqrt(beta2+center dot center). Equal-average per-episode centers and radii. Fit closed radial direction from each episode's first observed handle, normalize the averaged direction. Center z is the goal plane, not an inferred hinge height.",
+    "deployment": "JSON stores only center offset, radius, closed radial unit vector, support counts and fit scope. build_modules registers corresponding float32 buffers; fresh load restores before module construction. No trajectories or action table are stored."
+  },
+  "architecture": "Three 37->64->24 SiLU MLPs, mixed by deterministic positive soft phase gates; one unchanged common factory DP, condition_dim=80 and action_dim=4. All encoder parameters are trained only through the common epsilon action loss, weight 1 and denominator mask.sum()*4. No auxiliary loss. Complete system is subject to the public 3x B0 cap.",
+  "parents": [],
+  "change_summary": ["Initial independent scientific design: support-fitted articulation model, moving polar action coordinates, and softly stage-specialized learned representation. Unlike cabinet-only A1, this imposes a circle prior and explicit phase structure. No performance feedback or post-training edits."]
+}

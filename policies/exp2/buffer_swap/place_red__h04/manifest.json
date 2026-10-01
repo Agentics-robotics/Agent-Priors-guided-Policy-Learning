@@ -1,0 +1,151 @@
+{
+  "task_id": "buffer_swap",
+  "policy_id": "place_red__h04",
+  "skill_id": "place_red",
+  "source": "policies/exp2/buffer_swap/place_red__h04/source",
+  "manifest": "policies/exp2/buffer_swap/place_red__h04/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4"
+  ],
+  "assignment": "policies/exp2/buffer_swap/place_red__h04/assignment.json",
+  "training_spec": "policies/exp2/buffer_swap/place_red__h04/training/spec.json",
+  "dataset": "assets/exp2/datasets/buffer_swap/place_red/dataset.json",
+  "normalization": "assets/exp2/tasks/buffer_swap/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/buffer_swap/place_red__h04/model.pt",
+    "sha256": "5d1f8b5a5f43f7ba322c4acbb128dc687428ed57a3dc098c1bd8119471db9699",
+    "source_sha256": "5d1f8b5a5f43f7ba322c4acbb128dc687428ed57a3dc098c1bd8119471db9699",
+    "size_bytes": 347165510,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 12,
+    "demos": 12,
+    "in_distribution_success": "12/12",
+    "exit_rule": "standard task success at the final state (both blocks at their goals)",
+    "guidance": "Observed reliability: 12/12 final-state successes (100%) from its own in-distribution replay entries; first success ranged from rollout step 282 to 575, making completion timing more variable than h02/h03. Every run had three gripper changes and zero unconverged IK steps. Use when blue is descending to or stable in blue_goal and red is observable, table-supported in the central buffer; the documented strongest case is after blue stabilizes and before red pickup, with red outside the 0.12 m horizontal red_goal switch radius and a conventional lift. Its phase-local anchors are designed for reachable translated red sources while switching to destination anchoring after lift, but source-translation generalization was not validated. Avoid an already-near-goal source, unusual low carry, slip, pose noise near anchor thresholds, changed nearest-object ordering, yaw-dominant variation, unstable blue, obstacles, or unreachable IK. Recognize failure through motion tied to blue/red/red_goal in the wrong phase, missed pickup, red remaining in the buffer, a low/slipping red causing the wrong switch, release outside full containment, more/oscillatory gripper changes versus the three seen in validation, blue displacement, or nonzero IK residuals/limit contacts. Terminal handoff: no successor; stop only when both goal predicates are observed, not on anchor identity, object height, closure, opening, or retreat alone."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/assignment.json",
+      "sha256": "fead1dbb94e09eee5f244a225fa9d223a71da5b53382dfc9ac97b3f4157a9133",
+      "source_sha256": "dee252ac51355b85524ab58a204eaa15bb5f129f4f811a8986a5d42c86f7e01a",
+      "size_bytes": 13009,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/handoff_evidence.json",
+      "sha256": "3d444b76d7d5d2de1cb0a46eb943afb2755e788bef94201904cd156e2916f207",
+      "source_sha256": "3d444b76d7d5d2de1cb0a46eb943afb2755e788bef94201904cd156e2916f207",
+      "size_bytes": 98495,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/source/HANDOFF.json",
+      "sha256": "74e80a64e6b16fce327341cb46f06425a0f3f5c4dc039be567b8dbae50300ba6",
+      "source_sha256": "74e80a64e6b16fce327341cb46f06425a0f3f5c4dc039be567b8dbae50300ba6",
+      "size_bytes": 2381,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/source/PRIOR.md",
+      "sha256": "787f82cebecf56287c0f2c62cdf70aaf4735d3eba029e62fa527ac390d245762",
+      "source_sha256": "787f82cebecf56287c0f2c62cdf70aaf4735d3eba029e62fa527ac390d245762",
+      "size_bytes": 6066,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/source/adapters.py",
+      "sha256": "7d8033c8902af248426a49405daa7825ceaf9de73252c7eead55673fa7b21e2c",
+      "source_sha256": "7d8033c8902af248426a49405daa7825ceaf9de73252c7eead55673fa7b21e2c",
+      "size_bytes": 6890,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/source/panda_posture.py",
+      "sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+      "source_sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+      "size_bytes": 715015,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/source/pipeline.json",
+      "sha256": "034c9e731aaab4befa7c7953d616b07163e751562b98d8c4d83bcf4c54ba9c79",
+      "source_sha256": "034c9e731aaab4befa7c7953d616b07163e751562b98d8c4d83bcf4c54ba9c79",
+      "size_bytes": 1688,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/source/policy.py",
+      "sha256": "d8c7f19445c32817c71c5858055dcf41e9b3d34fce9f2bf74afb0a5fb2338be1",
+      "source_sha256": "d8c7f19445c32817c71c5858055dcf41e9b3d34fce9f2bf74afb0a5fb2338be1",
+      "size_bytes": 900,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/source/policy_contract.json",
+      "sha256": "831b91324caa3e4043078066f90680267585628e885ce0e272eea4d48ee552fc",
+      "source_sha256": "831b91324caa3e4043078066f90680267585628e885ce0e272eea4d48ee552fc",
+      "size_bytes": 2621,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/source/training_bindings.json",
+      "sha256": "9658a81fdba38be16430d928a32609c73f9750522f376a88be8a8619e125e1f6",
+      "source_sha256": "9658a81fdba38be16430d928a32609c73f9750522f376a88be8a8619e125e1f6",
+      "size_bytes": 3211,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/submission.json",
+      "sha256": "10207d3f56602ee688d7bf4f46ed4c8d68f455094017e6113a38f40c3f438cb5",
+      "source_sha256": "f24c373d09f6dfe94d82b17739e64ecf59a5bd938df06f52e1c68fd2ebe85263",
+      "size_bytes": 19459,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/training/adapter_checks.json",
+      "sha256": "d70bc77b074fe47aa524165d4af63f4f8a9ef02c674cdead796518e0dbdf14ac",
+      "source_sha256": "d70bc77b074fe47aa524165d4af63f4f8a9ef02c674cdead796518e0dbdf14ac",
+      "size_bytes": 194,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/training/result.json",
+      "sha256": "774aa7ed1fbebd5e19f2d929a3d89140dc2baaf5949876dd33f1e5070a54eaa9",
+      "source_sha256": "85bdc8489efdc7bb190b72ab9d3d3fcd6d6d174916db43753b10dedd26859aa6",
+      "size_bytes": 5321,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/training/spec.json",
+      "sha256": "c7fb87a0534cae01eae45c0aea3e92d5ecf8816f59ee7d3f58e62ef2e71791e1",
+      "source_sha256": "c7fb87a0534cae01eae45c0aea3e92d5ecf8816f59ee7d3f58e62ef2e71791e1",
+      "size_bytes": 16914,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_red__h04/prior_plan.json",
+      "sha256": "a7ffe2a7df9f6b763125f3a4199fe36791638849570a19eee7dea64cf7a835e7",
+      "source_sha256": "a7ffe2a7df9f6b763125f3a4199fe36791638849570a19eee7dea64cf7a835e7",
+      "size_bytes": 9875,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/buffer_swap/task.json",
+  "completion_contract": "assets/exp2/tasks/buffer_swap/completion_contract.json",
+  "public_context": "assets/exp2/tasks/buffer_swap/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/buffer_swap/prompts/hl.md",
+  "prior_plan": "policies/exp2/buffer_swap/place_red__h04/prior_plan.json"
+}

@@ -1,0 +1,50 @@
+{
+  "title": "Dual-frame relational charts for joint action-and-consequence diffusion",
+  "coverage_gap": "Pre-feedback designs all achieved C=1.0, but their E rates differ: A1=.25, A2=.40, A3=.75. A3, the q3 winner, succeeds in all five E-HH, E-HL and E-LL episodes yet fails all five E-LH episodes. Its .875 development score is not evidence of full generalization. The remaining negative-cabinet-x/positive-yaw combination is a reason to revisit robot/world contact dependence, not to add a cell-specific controller.",
+  "reusable_regularity": "Cabinet-relative geometry is useful for drawer translation, while fixed-orientation gripper interaction is naturally expressed in world-aligned relative coordinates. Supply both charts explicitly and reuse the same small relation encoder across both. This lets the common denoiser combine cabinet-axis action regularity with world-aligned approach/contact relations without first learning inverse rotation or subtracting weak absolute-position features from only five correlated layouts.",
+  "dependencies_preserved": [
+    "Retains every A3 runtime dependency: cabinet-frame hand-handle, goal-handle and goal-hand vectors and their one-step changes; direct edge bypass and shared embeddings; world current/previous hand/handle positions, goal, both quaternions, yaw and aperture history.",
+    "Adds the same three role-ordered relations and motions in the native world basis at .1 m relation and .01 m motion scales. World orientation is a genuine dependency because end-effector rotation is fixed; the two charts are not forced to produce identical learned responses.",
+    "Absolute world anchors and heights remain available for robot reach and table/cabinet dependence. The revision does not erase robot context to obtain a false whole-system symmetry.",
+    "No new raw information, obstacle oracle, joint state, planner, future inference truth or support retrieval is introduced. Only the declared absent object2 fields are omitted, as in A3."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "The exact five support episodes remain the sole data source for training targets. No additional demonstrations are added after feedback."},
+    {"path": "task_materials.json", "use": "States fixed native end-effector orientation but varied cabinet yaw, plus world xyz actions, yaw-corrected handle, current/previous pose fields and matched raw observation access."},
+    {"path": "support_summary.json", "use": "Three LL and two HH demonstrations cannot independently separate cabinet x and yaw, while the goal-handle axis rotates and initial distance is approximately .128 m."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Robot and cabinet occupy a common finite workspace; rotating the cabinet does not rotate the entire robot or gripper."},
+    {"path": "images/frame_14_demo_04_step_058.png", "use": "Hand-handle alignment is a local contact relation rather than just an absolute cabinet position."},
+    {"path": "images/frame_15_demo_04_step_088.png", "use": "End-of-demonstration relation of the world-oriented fingers and translated drawer handle."},
+    {"path": "trajectories/demo_04.json", "field": "obs", "rows_inclusive": [65,72], "use": "Hand motion precedes actual handle translation, motivating preservation of both relation and motion edges."},
+    {"path": "trajectories/demo_01.json", "field": "obs", "rows_inclusive": [70,75], "use": "Another yaw sign has hand and handle moving in world x and y; explicit dual charts are computed only from these same causal fields."},
+    {"source": "revision user message: development_feedback", "feedback_hash_from_record_selection": "3874f04bd5b286a9fff8c62670891e9675a9475e3388a25e1fbb753bd72453d6", "use": "A1 score=.625, A2=.700, A3=.875 under equal-cell C/E weights. A3 E rates: HH=1, HL=1, LH=0, LL=1 with five episodes per cell. A3 aggregate failures are three joint violations and two native truncations. No development trajectories or frames were supplied, so these categories do not identify the contact mechanism."},
+    {"source": "submitted A3 implementation in this session", "submission_hash": "544b937da1136335bb57588f5cd2d9179870c10ef54d419d06358b92bfbc383b", "use": "Actual parent: shared local edge encoder, joint ten-channel diffusion, action rotation, target definitions and loss normalization are retained; only the conditioning representation is extended."},
+    {"path": "learning.py", "scope": "public", "use": "One common denoiser, causal context isolation, independent native action4 epsilon denominator and permitted joint channels remain unchanged."}
+  ],
+  "expected_failure_signature": [
+    "The specific revision hypothesis predicts an E-LH gain without losing A3's E-HH/HL/LL or C successes. These are predictions for the one new slot, not measured A4 results.",
+    "If E-LH remains at zero, merely exposing world-aligned relative geometry was insufficient; a physical engagement or recovery limitation is still possible but cannot be diagnosed from the current aggregate feedback.",
+    "Duplicating coordinate charts could encourage shortcut learning of correlated world geometry. A drop in the previously successful E cells or C is an explicit falsification/risk, not a reason to repair after training.",
+    "Joint violations may persist because hand-position observations do not contain actual joint margins. This design is not a safety shield, simulator model or altered success rule. Additional condition channels may also increase fixed-method latency and parameter count."
+  ],
+  "required_runtime_fields": {
+    "source": "Shared causal_context.raw_history[B,2,41] and chunk-start raw_current[B,41], exactly as A3",
+    "slices": {"hand": [0,3], "gripper": [3,4], "handle": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_gripper": [21,22], "previous_handle": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal": [36,39], "cabinet_sin_cos": [39,41]},
+    "condition": "160 features per each of two whole observations: A3's 18 local metric edge components, 48 local shared embeddings, 28 world/pose/aperture side components, plus 18 world metric edges and 48 world shared embeddings. Each edge is its relative vector followed by observed change. The same 6->64->16 encoder processes all six ordered edge/chart combinations.",
+    "action_frame": "Unchanged from A3: native action xyz is rotated by Rz(yaw_at_chunk_start)^T and decoded with its inverse for the entire sixteen-step chunk. Gripper is unchanged. No learned offset, rescaling, local cube clamp, phase-based action override or future frame. Host alone clips native actions, applies .01 m/native-unit control and executes four actions.",
+    "inference_auxiliary_channels": "Six relation channels are generated jointly with action4 by host-owned DDIM noise/sampling. They are not ground-truth conditioning, do not choose a basis, and are never searched or executed as a plan."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_relations",
+      "shape": "[number_of_windows,16,6] float32",
+      "source_fields": "Exact D_5 obs[t+k+1,0:3] and [4:7] for each valid transition t+k<T; goal obs[t,36:39] and yaw obs[t,39:41] anchor the whole window.",
+      "definition": "Unchanged A3 targets: first auxiliary xyz is R_start^T*(handle_next-hand_next)/.1 m, second is R_start^T*(goal_start-handle_next)/.1 m. Terminal next observation for the final real action is valid; invalid padded steps have zero targets and no direct auxiliary loss.",
+      "loss": "Unchanged A3 joint target order: encoded native action4 then six relation channels. Public action epsilon weight stays 1 with mask.sum()*4 denominator. Additional nonnegative relation epsilon loss weight .25 with its own mask.sum()*6 denominator and zero-mask guard. No motor-phase loss, extra target channel or future inference observation is added."
+    }
+  ],
+  "architecture": "Exactly one unmodified common conditional U-Net DP with condition_dim increased from 94 to 160 and diffusion_action_dim unchanged at 10. The single shared edge encoder remains 6->64->16 with SiLU. Its world-chart invocation reuses weights rather than creating a second encoder. All learned parameters enter the joint loss. Optimizer, seeds, update budget, DDIM schedule, control and splits are frozen.",
+  "support_fit": "No empirical support-fit state, retained training cache or pretrained weights. All fixed scales and the .25 auxiliary weight are exactly those of A3. Future labels exist only in the host training dataset. The host raw normalizer is unmodified; conditioning uses the same raw fields available to all methods.",
+  "parents": ["A3"],
+  "change_summary": "One feedback-driven revision of the q3 winner: add an explicit world-aligned relation/motion chart with raw and weight-shared learned features; condition_dim 94->160. Keep cabinet action frame, shared encoder architecture, joint ten-channel target, all physical scales and auxiliary weight unchanged. This tests a world-contact representation hypothesis, not a causal attribution of A3's advantage over the other non-ablated initial designs. New seeded training slot, not a new checkpoint or edit of A3. First implementation, with no interface repair or A4 performance feedback."
+}

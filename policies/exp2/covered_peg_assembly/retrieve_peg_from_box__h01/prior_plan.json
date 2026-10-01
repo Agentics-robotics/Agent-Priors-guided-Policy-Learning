@@ -1,0 +1,188 @@
+{
+  "cut_plan_sha256": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "priors": [
+    {
+      "applicability": "Prefer after the lid has been released and the open hand is clearing toward the peg, especially when observed peg_pose x/y differs from the narrow demonstrated in-box range. It also applies through descent, closure, and lift while peg_pose remains reliable. It can execute the early shared lid-release actions, but that phase is not the invariant it is designed for.",
+      "evidence": [
+        {
+          "indices": [
+            950,
+            990,
+            1020,
+            1040,
+            1060,
+            1080,
+            1100,
+            1120,
+            1140,
+            1180,
+            1200,
+            1220,
+            1240,
+            1270
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            950,
+            990,
+            1020,
+            1040,
+            1060,
+            1080,
+            1100,
+            1120,
+            1140,
+            1180,
+            1200,
+            1220,
+            1240,
+            1270
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "The peg is still in the box and is observed. Preferred entry is after the lid fingers have opened and the TCP is no longer coupled to the handle; early entry at index 740 remains supervised for incoming overlap.",
+        "exit_conditions": "Exit when closed fingers carry the peg above the box rim, peg_pose and tcp_pose co-move over the two causal frames, and the successor can continue the shared lift/initial turn.",
+        "failure_signatures": "TCP does not follow a displaced peg; fingers close with a large peg-relative offset; peg stays near z=0.026 m during lift; peg/TCP relative pose changes abruptly; box-wall contact is suggested by stalled or lateral object motion; IK reports persistent residual or limit contact.",
+        "overlap_role": "Preserves all [740,950) incoming lid-release/clearance actions and all [1120,1270) outgoing grasp-consolidation/lift actions. Its main constructed invariant begins once the peg is the active approach reference.",
+        "successor_readiness": "reorient_and_stage_peg is ready during the shared lift once fingers are closed, peg z is above the wall top with margin, and recent peg/TCP displacement is consistent."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false},\"parameter_semantics\":\"No high-level parameters. The executor supplies two causal observations; peg_pose is resolved afresh for every decoded action. History is oldest-to-newest and only the episode's first observation may be duplicated.\"}",
+      "limitations": "Peg-relative commands do not make robot reachability, lid/box clearance, contact, or grasp acquisition invariant. A large peg displacement can make the demonstrated approach corridor unreachable or collide with a wall. The demonstrations contain successful pickups only, so this policy is not evidence of regrasp/drop recovery. Early lid release is represented relative to the peg even though lid geometry, not peg displacement, governs that phase; prefer the phase-observable world policy there or the local-increment policy when entry geometry is perturbed.",
+      "pipeline_implications": "This is the displacement specialist. The high-level agent should switch to it after observable lid release/clearance, and may keep it through closed-grasp lift. Route early still-held-lid entries to the phase-observable world policy, and route locally perturbed or off-trajectory TCP entries to the current-TCP increment policy. Do not switch solely on a closed gripper; require object motion evidence for successor readiness.",
+      "rationale": "Observed support: peg starts vary only about 12 mm in x and 11 mm in y across the twelve boundaries. In demo12200 versus demo12208, the index-990 commanded TCP x shifts from -0.6039 to -0.6158 as peg x shifts from -0.6038 to -0.6157, with similar peg-relative descent and lift structure through indices 1080-1240. Mechanism: learn each commanded Cartesian TCP pose as inverse(current observed peg pose) times commanded world TCP pose, encoded as 3-D translation, 6-D rotation, and the native gripper scalar. Decode composes the represented pose with the freshly observed peg pose, then calls the verified IK from freshly measured joints. Causal inputs emphasize TCP-in-peg, lid-in-peg, peg motion, finger state, qpos, and qvel. Thus approach, grasp alignment, and carried lift translate/rotate with the peg by construction; early lid release remains merely learned. Expected benefit is improved peg-displacement transfer, not observed deployment success.",
+      "statement": "Peg-frame Cartesian target prior for displacement-invariant approach, grasp alignment, and lift.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full assigned responsibility, including [740,950) incoming and [1120,1270) outgoing action-supervised overlaps.\"},{\"trajectory_id\":\"demo12201\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full assigned responsibility and both overlaps; same peg-frame semantics.\"},{\"trajectory_id\":\"demo12202\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full assigned responsibility and both overlaps; same peg-frame semantics.\"},{\"trajectory_id\":\"demo12203\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full assigned responsibility and both overlaps; same peg-frame semantics.\"},{\"trajectory_id\":\"demo12204\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full assigned responsibility and both overlaps; same peg-frame semantics.\"},{\"trajectory_id\":\"demo12205\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full assigned responsibility and both overlaps; same peg-frame semantics.\"},{\"trajectory_id\":\"demo12206\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full assigned responsibility and both overlaps; same peg-frame semantics.\"},{\"trajectory_id\":\"demo12207\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full assigned responsibility and both overlaps; same peg-frame semantics.\"},{\"trajectory_id\":\"demo12208\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full assigned responsibility and both overlaps; includes the most offset inspected peg.\"},{\"trajectory_id\":\"demo12209\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full assigned responsibility and both overlaps; same peg-frame semantics.\"},{\"trajectory_id\":\"demo12210\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full assigned responsibility and both overlaps; same peg-frame semantics.\"},{\"trajectory_id\":\"demo12211\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full assigned responsibility and both overlaps; same peg-frame semantics.\"}]"
+    },
+    {
+      "applicability": "Prefer when the policy is entered at an intermediate state whose TCP pose or arm configuration differs from the nominal demonstrated timing, while the required motion is still release/clear, approach, close, or lift. Local increments are intended for small-to-moderate execution-state errors, not arbitrary recovery.",
+      "evidence": [
+        {
+          "indices": [
+            740,
+            760,
+            770,
+            800,
+            850,
+            900,
+            950,
+            990,
+            1020,
+            1040,
+            1060,
+            1080,
+            1100,
+            1120,
+            1140,
+            1180,
+            1200,
+            1220,
+            1240,
+            1270
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            740,
+            770,
+            950,
+            990,
+            1020,
+            1060,
+            1080,
+            1100,
+            1120,
+            1180,
+            1220,
+            1270
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Peg remains in the box or is already securely moving with the closed gripper. Use for an early or late incoming switch when two causal frames expose current TCP, joints, fingers, lid, and peg state.",
+        "exit_conditions": "Exit after a sequence of local lifts has put the co-moving peg above the wall; initial transport/turn may be underway within outgoing overlap.",
+        "failure_signatures": "Local increments oscillate or accumulate drift; peg-relative alignment does not improve; closure occurs while offset; peg fails to rise with TCP; a large object displacement requires local motions outside demonstrated support; IK repeatedly fails or touches limits.",
+        "overlap_role": "All 210 incoming overlap actions and 150 outgoing overlap actions per trajectory are supervised. Current-TCP-relative targets allow the shared behavior to continue from the actual hand pose rather than assuming the exact boundary configuration.",
+        "successor_readiness": "Switch to reorient_and_stage_peg once peg/TCP co-motion and closed fingers persist and peg height has cleared the walls; the outgoing [1120,1270) lift gives substantial shared supervision."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false},\"parameter_semantics\":\"No high-level parameters. Each represented action is a Cartesian displacement from the action-time measured TCP; deployment decoding uses the fresh measured TCP and joints. History is two causal frames, oldest first.\"}",
+      "limitations": "The per-step local transform is feedback-like but does not prove stability and is not a recovery controller. Demonstrations do not contain misses, drops, regrasp, or blocked-lid failures. Large sampled increments can be infeasible; IK diagnostics remain explicit. Object displacement is only observed/conditioned, not canceled by this action representation, so the peg-frame policy covers that failure better. Repeated 8-step chunks can accumulate positional or orientation error.",
+      "pipeline_implications": "Use as the entry-state and local-correction specialist when current TCP/qpos differs from nominal but the scene remains reachable. Replan every 8 actions with fresh two-frame state. Prefer the peg-frame policy for clear peg displacement, and the explicit phase/world policy when active-object ambiguity at lid release or grasp closure dominates. Handoff requires object motion, not gripper sign alone.",
+      "rationale": "The assigned segment admits switches throughout a long 530-action behavior. Demonstrated TCP changes sharply from lid release near (-0.390,-0.199,0.228) at index 770, through clearance and approach, to grasp near z=0.029 at 1080-1100 and lift above z=0.43 by 1240. Deployment can enter between these nominal states. Mechanism: encode each commanded target as translation and rotation-vector displacement from that action's measured TCP, plus gripper scalar; decode the displacement from the fresh current TCP and solve IK from fresh qpos. Inputs retain world/object geometry, qpos/qvel, and two-frame relative motion. This cancels current hand-pose offset in the action conversion and should reduce open-loop dependence on exact incoming arm state. It differs from peg anchoring: it handles local state mismatch but has no constructed peg-displacement invariance.",
+      "statement": "Current-TCP incremental Cartesian prior for perturbed hand configurations and intermediate-state handoffs.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12201\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12202\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12203\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12204\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12205\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12206\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12207\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12208\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; inspected offset occurrence.\"},{\"trajectory_id\":\"demo12209\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12210\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12211\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"}]"
+    },
+    {
+      "applicability": "Prefer for the full early-to-late skill when uncertainty is chiefly which demonstrated phase is active: still holding/releasing the lid, open approach, near-peg closure, or carrying lift. Observable two-frame geometry and motion must remain within successful-demonstration support.",
+      "evidence": [
+        {
+          "indices": [
+            740,
+            750,
+            760,
+            770,
+            800,
+            850,
+            900,
+            950,
+            990,
+            1020,
+            1040,
+            1060,
+            1080,
+            1100,
+            1120,
+            1140,
+            1180,
+            1200,
+            1220,
+            1240,
+            1270
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            740,
+            770,
+            850,
+            950,
+            990,
+            1020,
+            1040,
+            1060,
+            1080,
+            1100,
+            1120,
+            1140,
+            1180,
+            1200,
+            1220,
+            1240,
+            1270
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Either the fingers are still coupled to the observed lid handle near the open-lid boundary, or the lid is released and the peg remains in the box. Two causal frames must be available across the switch.",
+        "exit_conditions": "Closed fingers, peg above the box rim, and peg/TCP co-motion indicate readiness; this policy may continue into initial turn through index 1270.",
+        "failure_signatures": "The inferred phase is inconsistent with geometry (for example, returning to lid while open near peg); premature close; descent while still near the lid handle; stationary peg under lift; changing peg/TCP offset; wall-stalled motion; or persistent IK residual/limits.",
+        "overlap_role": "Explicit phase observables are trained on every action in [740,950) and [1120,1270), preserving robust early and late switches rather than narrowing to the central grasp.",
+        "successor_readiness": "The successor is ready when explicit causal features agree: fingers are closed, peg is above the wall, and the last two frames show peg/TCP co-motion. This remains guidance because no contact truth is available."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false},\"parameter_semantics\":\"No high-level parameters. The policy infers phase only from the two causal public observations. The first episode frame may be duplicated by the framework; no future, contact truth, or hidden phase state is supplied.\"}",
+      "limitations": "World-absolute targets preserve demonstrated robot/world geometry and can extrapolate poorly when peg position moves beyond support; the peg-frame prior is the displacement specialist. Deterministic phase cues are not contact truth and successful demonstrations provide no failed-grasp negatives. Co-motion over two frames can be ambiguous while stationary. This policy cannot establish grasp success, recover a drop, or guarantee lid/box collision avoidance. Absolute Cartesian targets may be unreachable from substantially changed qpos; the current-TCP policy better addresses modest hand-state offsets.",
+      "pipeline_implications": "Use as the broad phase-disambiguation/default policy, particularly for early lid-held entries. Prefer the peg-frame policy once the lid is observably released and peg displacement dominates, or the local-increment policy when hand configuration mismatch dominates. Terminate only on combined closed-finger, height, and co-motion cues; do not equate a phase feature or negative gripper command with contact.",
+      "rationale": "The demonstrations include a discrete active-object and gripper transition: demo12200 holds the lid at 740-750, opens at 760-770, clears at 800-950, descends at 990-1080, closes at 1100, and lifts at 1120-1240. The same ordering occurs in demo12208 despite a shifted peg and different lift timing. Mechanism: retain a world-absolute Cartesian target (position, 6-D rotation, gripper), but construct causal inputs around explicit transferable phase observables: TCP relative to peg, TCP relative to the kinematically computed lid handle, finger width/opening change, peg height above box wall, two-frame peg/TCP relative-pose change, lid angle/velocity, and qpos/qvel. The unchanged diffusion backbone sees these cues plus world poses. This should reduce aliasing between visually/geometrically similar portions while retaining world reachability context. It targets phase errors rather than displacement or local-state errors.",
+      "statement": "Phase-observable world-Cartesian prior for active-object and grasp/lift ambiguity.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12201\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12202\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12203\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12204\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12205\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12206\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12207\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12208\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps; inspected shifted-peg timing.\"},{\"trajectory_id\":\"demo12209\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12210\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12211\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"}]"
+    }
+  ],
+  "skill_id": "retrieve_peg_from_box"
+}

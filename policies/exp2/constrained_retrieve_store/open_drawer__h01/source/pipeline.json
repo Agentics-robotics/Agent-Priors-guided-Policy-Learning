@@ -1,0 +1,17 @@
+{
+  "policy_id": "open_drawer__h01",
+  "skill_id": "open_drawer",
+  "heuristic_index": 1,
+  "prior_summary": "Diffuse absolute TCP targets in the observed rigid drawer frame so handle approach, pull, release and clearance translate/rotate with target_pose while retaining robot configuration and world reachability features.",
+  "applicable_conditions": "Prefer when target_pose is reliable and the drawer fixture is displaced relative to demonstrations, from the normal closed/open-finger entry or a nominal demonstrated pull phase.",
+  "termination_guidance": "Terminate or hand off only after drawer position is near open_stop_m, drawer velocity is near zero, fingers are open, TCP has cleared the drawer and the block remains undisturbed.",
+  "limitations": "Drawer-relative departure does not independently follow a displaced tunnel block. Relative labels do not establish missed-handle recovery, collision safety or IK reachability under large displacement.",
+  "config": {
+    "action_frame": "fresh target_pose",
+    "action_layout": "relative position 3 + relative rotation 6D + gripper 1",
+    "input_feature_dimension_per_frame": 47,
+    "position_scales_m": {"target_world": 0.6, "tcp_relative": 0.6, "object_relative": 0.8},
+    "standard_backbone_unchanged": true,
+    "augmentation": "none"
+  }
+}

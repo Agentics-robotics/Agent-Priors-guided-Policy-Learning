@@ -1,0 +1,37 @@
+{
+  "title": "World-anchored interaction chain with physical-unit conditioning",
+  "coverage_gap": "The exact D20 contains ten LL and ten HH episodes and no crossed layouts. Raw stick_x and target_y can serve as correlated layout identifiers. E also changes both factor magnitudes beyond their narrow training intervals. A direct relational representation reduces the subtraction and extrapolation burden without claiming complete translation invariance.",
+  "reusable_regularity": "Tool manipulation can be represented as hand-to-tool, tool-to-pushed-object, and pushed-object-to-goal relations. Fine local distances, coarser transport distances, causal motion, and explicit world heights give the shared U-Net separate coordinates for approach, acquisition and pushing. Fixed metric scales, rather than division by tiny support variance, keep extrapolated y and near-constant quaternion channels moderate.",
+  "dependencies_preserved": [
+    "For each native current/previous block, the hand world xyz anchor plus stick-hand, object2-stick and goal-object2 reconstruct all four world positions. Absolute workspace and world vertical are not discarded.",
+    "Both native gripper apertures and both objects' xyzw quaternion channels remain available, with an invertible constant gain on quaternion vector components. The absent object2 orientation stays zeros, not an invented orientation measurement.",
+    "The outer two-observation history and the native previous18 fields are both used. Motion features are current-minus-native-previous, never future differences.",
+    "object_xyz is the stick COM; object2_xyz remains exactly insertion site+[0,.09,0]. No unobserved stick tip, obstacle pose, contact flag, reward, or collision-free route is assumed. World anchors retain dependence on the fixed table and robot workspace. There is no extra variable obstacle channel in this schema."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact stick-push__N20__rep0 support scope and episode list."},
+    {"path": "task_materials.json", "use": "LL/HH-only train cells, C/E factor intervals, observation point definitions, world action4 semantics."},
+    {"path": "support_summary.json", "use": "Ten LL and ten HH; small y action spread and substantially larger x/z action spread motivate anisotropic but fixed metric scales."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Initial tabletop layout and hand above the interaction region."},
+    {"path": "images/frame_01_demo_01_step_023.png", "use": "Hand lowered near the tool/handle region."},
+    {"path": "images/frame_02_demo_02_step_049.png", "use": "Raised tool interaction configuration."},
+    {"path": "images/frame_03_demo_03_step_072.png", "use": "Late pushed-object configuration on the same table."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 0:8,20:32,45:53,65:73; actions 0:60", "use": "Stick initially stationary, then lifted with the closed hand, while object2 only moves late. These are observations, not measured candidate performance."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 25:33", "use": "A second factor cell shows the same acquisition/co-motion structure."}
+  ],
+  "expected_failure_signature": [
+    "If explicit geometry alone is insufficient to identify the phase, errors should concentrate at the close/lift and lift/push transitions, despite plausible approach directions.",
+    "If fixed table contacts or robot kinematics dominate, crossed/extrapolated layouts may still fail even though all positions remain recoverable; world anchors are available but not hard-coded constraints.",
+    "Quaternions with a sign convention different from the support can produce a discontinuity in the direct quaternion conditioning. This candidate does not impose rotation equivariance."
+  ],
+  "required_runtime_fields": [
+    "context.raw_history[B,2,39] from shared native observations; slices 0:18 current hand/aperture/stick/pushed pose,18:36 native previous equivalents,36:39 goal_xyz.",
+    "The host's normalized history argument is accepted but not used; all metric feature scales are declared in config.json. No episode identity, step number, support lookup, future state or environment handle is required."
+  ],
+  "training_only_targets": [],
+  "action_frame_semantics": "Identity encode/decode. First three channels remain native world dx,dy,dz in units of .01 m per unit command at 80 Hz, gripper unchanged. No candidate clipping; only the common executor clips after decoding. Horizon16 and execute4 are unchanged.",
+  "support_fit_statistics": "None. Fixed physical scales are architectural choices; there are no support-derived hidden tables or externally fitted weights. Host normalization and optimizer are unchanged.",
+  "architecture": "Exactly one common DP factory call with per-observation condition_dim=62 and diffusion_action_dim=4. Two 26D instantaneous relation blocks plus 9D translational motion and 1D aperture motion. No learned encoder or auxiliary loss; all learned parameters are in the frozen common U-Net.",
+  "parents": [],
+  "change_summary": ["Initial independent design: analytic world-anchored relation chain rather than normalized raw coordinates. No interface repairs or feedback-driven revisions at creation."]
+}

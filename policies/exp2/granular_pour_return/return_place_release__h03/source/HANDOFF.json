@@ -1,0 +1,15 @@
+{
+  "policy_id": "return_place_release__h03",
+  "entry_conditions": "The emptied source is securely grasped and particles are already settled. Preference is strongest when the upright source is near the nominal return region or descending, and two-frame geometry can distinguish elevated, supported, open, and retreat phases.",
+  "exit_conditions": "The source remains upright and stationary at table height inside the return bounds, fingers are open, and the TCP is clear near the demonstrated terminal height of 0.28 m.",
+  "overlap_role": "All [1460,1740) actions are supervised despite the setdown emphasis, preserving the same 280-action late-righting/outbound overlap with controlled_pour_and_right. This is not a shortened release-only policy.",
+  "successor_readiness": "This is terminal. Only physical observations of stable upright placement, opening, and clearance indicate readiness for evaluation; auxiliary logits do not.",
+  "failure_signatures": "Opening while elevated, outside the return region, tilted, or moving; fingers staying closed after stable setdown; source movement after opening; retreat recontact; or IK non-convergence and limit contacts.",
+  "continuation_guidance": "Near nominal support, continue with repeated causal replans through settling, opening, and upward retreat. Prefer the destination-frame policy for a displaced target and the fresh-TCP policy for a strongly tilted or off-trajectory handoff. Never treat the auxiliary head as a scripted release gate.",
+  "limitations": "No force/contact truth or failed recovery is present. The auxiliary target is the future demonstrated gripper sign under the framework mask, not support truth, and world-frame output is not displacement invariant.",
+  "evidence": [
+    {"trajectory_id":"demo12300","indices":[1740,1760,1780,1800,1820,1840,1850,1860,1870,1880,1900,1920,1940,1952]},
+    {"trajectory_id":"demo12303","indices":[1740,1760,1780,1800,1820,1830,1840,1850,1860,1870,1880,1900,1920,1934]},
+    {"trajectory_id":"demo12308","indices":[1740,1780,1800,1820,1830,1840,1850,1860,1880,1900,1920,1943]}
+  ]
+}

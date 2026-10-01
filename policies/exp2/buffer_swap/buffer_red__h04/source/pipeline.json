@@ -1,0 +1,10 @@
+{
+  "policy_id": "buffer_red__h04",
+  "skill_id": "buffer_red",
+  "heuristic_index": 4,
+  "prior_summary": "A deterministic causal phase rule chooses red, supplied-buffer, or blue as the chunk-frozen Cartesian position anchor; a learned two-frame encoder shared with a four-class phase head conditions 7D diffusion with TCP-relative orientation.",
+  "applicable_conditions": "Prefer when the phase-relevant red, buffer, or overlap-blue position is displaced but the observed state still clearly matches a demonstrated acquisition, transport/release, or overlap phase and remains reachable. Prefer buffer_red__h02 when phase or contact status is ambiguous.",
+  "termination_guidance": "Require observed red stability at the supplied buffer and open/clear fingers for core handoff. A later switch after closed fingers around blue and visible blue lift is action-supervised. Anchor mode and auxiliary phase are not grasp or release proof.",
+  "limitations": "Only selected-anchor TCP position is equivariant to displacement. Deterministic thresholds can choose the wrong anchor after misses, drops or unusual entries; orientation, posture, reachability, collisions and contact are not invariant. No recovery or out-of-distribution success is established.",
+  "config": {"position_frames": ["observed_red", "supplied_buffer", "observed_blue"], "orientation_frame": "chunk_start_tcp_world_residual", "rotation_representation": "rotation_vector", "feature_dimension": 66, "condition_dimension": 256, "phase_classes": 4, "phase_loss_weight": 0.1}
+}

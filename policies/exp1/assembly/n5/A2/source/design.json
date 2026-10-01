@@ -1,0 +1,39 @@
+{
+  "title": "Learned typed-edge attention in a regularized transport action frame",
+  "coverage_gap": "With only the five LL/HH demonstrations, the range of ring-to-peg lateral displacement is narrow relative to the unobserved LH/HL and extrapolated cells. Learning only world-axis lateral commands could bind transport to the layout's absolute x. Distinct grasp and insertion geometry also have to be reused at different causal stages.",
+  "reusable_regularity": "Use a causal yaw basis biased toward the measured ring-to-goal horizontal direction, keep gravity vertical, and diffuse actions in that same basis. A shared learned edge encoder processes typed hand-to-handle, ring-to-goal and handle-to-ring edges. World/contact context learns soft attention over these relations. Unpooled edge embeddings and direct signed metric vectors remain available, so attention does not erase an unattended relation. This is a learned relational and action-frame prior, not an analytic controller or trajectory planner.",
+  "dependencies_preserved": [
+    "The ring center is not substituted for the handle grasp site. Three distinct typed edges explicitly represent grasp, assembly alignment and rigid handle/ring linkage.",
+    "The frame is only a reparameterization: current hand world xyz, basis components, absolute heights, both current and previous object orientations, hand/handle finite differences and aperture history enter the encoder. Thus robot reach, fixed world gripper orientation, table and peg clearance are not treated as invariant under arbitrary rotation or translation.",
+    "The full signed goal-ring vector is retained even when the frame's forward-y term uses a nonnegative regularizer. The frame does not remove backward error or prescribe motion.",
+    "All input information comes from the common deployment observation, including goal position as peg geometry. Object2 is declared absent and omitted. No additional obstacle pose, grasp success flag, task phase, collision query or environment state is requested."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "exact assembly__N5__rep0 D5 identities; evidence contains no development states or scores"},
+    {"path": "task_materials.json", "detail": "signed nut-x and peg-goal-x shifts, fixed native rotation, ring-center and handle-site distinction, world action cube after decoding"},
+    {"path": "support_summary.json", "detail": "only LL=3 and HH=2; goal y about .783-.810 in this support, initial ring y .6, much greater forward than lateral transport coverage"},
+    {"path": "trajectories/demo_00.json", "detail": "obs 0-7 show .13 m handle/ring displacement; obs 58-62 show ring moving toward a goal near (-.045,.794,.1); obs 83-87 show small residual planar alignment at descent, where an unregularized target-direction frame would be ill-conditioned"},
+    {"path": "trajectories/demo_01.json", "detail": "obs 44-46: grasped nut lifting, handle around (.148,.598,.113) versus ring (.018,.595,.115), goal (.038,.803,.1); world x location differs while relations retain meaning"},
+    {"path": "images/frame_04_demo_01_step_032.png", "detail": "HH support grasp at handle, with peg distinct in the scene"},
+    {"path": "images/frame_05_demo_01_step_062.png", "detail": "HH support raised transport stage"},
+    {"path": "images/frame_06_demo_01_step_092.png", "detail": "near-goal assembly, motivating a nonsingular frame at small planar error"},
+    {"path": "contracts.py", "detail": "learned modules only in build_modules; causal chunk-start frame shared by action encode/decode"},
+    {"path": "learning.py", "detail": "single common factory and native-action roundtrip, joint-gradient and deployment checks"}
+  ],
+  "expected_failure_signature": [
+    "If D5 cannot identify the role sharing, learned attention may focus on the grasp edge after pickup, yielding a stable grip but little lateral correction in crossed layouts.",
+    "The 8 cm forward anchor intentionally sacrifices exact target-direction alignment near the peg to avoid singular angle changes. Large negative-y errors or sideways extrapolated starts may therefore remain far from the trained local-action distribution.",
+    "A rotated command cube is not the native cube. Predictions outside the rotated native support can clip after decoding, reducing path speed or skewing direction at large yaw. The candidate never clips local commands to hide this.",
+    "World-context embeddings can still learn coordinate shortcuts or overfit the small support; the proposed representation is not a guarantee of equivariance."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,42] for features; raw_current [B,42] alone for the fixed chunk frame",
+    "slices": {"hand": [0,3], "aperture": [3,4], "handle": [4,7], "object_quaternion_wxyz": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_handle": [22,25], "previous_object_quaternion_wxyz": [25,29], "goal": [36,39], "ring_center": [39,42]},
+    "action_frame": "Let d=goal_xy-ring_xy at chunk start. f=normalize([d_x,max(d_y,0)+0.08 m]); e_x=[f_y,-f_x,0], e_y=[f_x,f_y,0], e_z=world z. Encoding maps native xyz to dot products with these three axes; decoding applies the transpose/inverse. Gripper is copied unchanged. The one basis is used for both history entries and all sixteen actions, with no future observation or predicted-stage update. Native xyz scale remains .01 m per unit. Only the host clips world action4 and executes four steps."
+  },
+  "training_only_targets": [],
+  "support_fit": "None; fixed physical scales (.1 m relation scale, .01 m finite-difference scale, .3 m workspace scale), and an .08 m nonsingularity anchor. All learned parameters are trained only by the fixed D5 action loss.",
+  "parents": [],
+  "change_summary": "Initial independent design: shared 17-to-16 typed edge encoder, 28-to-16 world encoder, learned three-edge attention, direct geometric bypass, 92 conditioning channels, and orthonormal causal action reparameterization. No auxiliary training labels or performance-driven changes.",
+  "loss_and_capacity": "One unchanged common U-Net DP. Edge, world and attention modules all receive gradients from the common action4 epsilon loss, whose weight remains 1 and denominator mask.sum()*4. No extra loss, inference planner, or extra denoiser. Complete capacity is checked against 3x B0."
+}

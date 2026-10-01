@@ -1,0 +1,214 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        260,
+        620,
+        640,
+        860
+      ],
+      "trajectory_id": "demo10100"
+    },
+    {
+      "indices": [
+        270,
+        620,
+        640,
+        850
+      ],
+      "trajectory_id": "demo10101"
+    },
+    {
+      "indices": [
+        260,
+        620,
+        640,
+        850
+      ],
+      "trajectory_id": "demo10102"
+    },
+    {
+      "indices": [
+        260,
+        620,
+        640,
+        850
+      ],
+      "trajectory_id": "demo10103"
+    },
+    {
+      "indices": [
+        260,
+        610,
+        630,
+        850
+      ],
+      "trajectory_id": "demo10104"
+    },
+    {
+      "indices": [
+        250,
+        610,
+        630,
+        850
+      ],
+      "trajectory_id": "demo10105"
+    },
+    {
+      "indices": [
+        260,
+        620,
+        640,
+        850
+      ],
+      "trajectory_id": "demo10106"
+    },
+    {
+      "indices": [
+        260,
+        630,
+        650,
+        860
+      ],
+      "trajectory_id": "demo10107"
+    },
+    {
+      "indices": [
+        260,
+        620,
+        640,
+        850
+      ],
+      "trajectory_id": "demo10108"
+    },
+    {
+      "indices": [
+        260,
+        620,
+        640,
+        850
+      ],
+      "trajectory_id": "demo10109"
+    },
+    {
+      "indices": [
+        260,
+        620,
+        640,
+        850
+      ],
+      "trajectory_id": "demo10110"
+    },
+    {
+      "indices": [
+        260,
+        620,
+        640,
+        850
+      ],
+      "trajectory_id": "demo10111"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Red is descending to or settled at the central buffer, commonly z=0.02-0.05; gripper may still be closed or already opening. Blue remains on the +y initially red region. The nearby red is the object being released, while blue is the intended object for this skill.",
+    "exit_conditions": "Core cue: blue is stationary near (-0.352,-0.200,0.020) inside the blue goal, gripper open, and TCP retreating. Overlap-supported segment cue: blue remains fixed at goal while the gripper has closed on buffered red and red is rising above the table.",
+    "failure_signatures": "Red is mistaken for the intended blue pickup at entry; red is knocked out of the buffer; blue is released outside the blue goal or remains attached; switch occurs while blue is still high; buffered red cannot be aligned or secured. Successful demonstrations do not demonstrate recovery from unseen failures.",
+    "overlap_role": "At entry, predecessor overlap supplies the last red lowering/release, retreat, complete blue approach, contact, and lift. At exit, successor overlap supplies blue lowering/release, retreat, motion to buffered red, red contact/closure, and initial lift. Observation context identifies the prior object being released; actions in the listed shared ranges are the supervised overlap.",
+    "successor_readiness": "Switch to the red-goal skill once blue is visibly settled in the blue target and the gripper is open/clear. A later switch through red approach, closure, and lift is also represented. Expected benefit: reduced sensitivity to release/retreat timing and varied successor entry states."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Move blue block to blue goal",
+  "original_demonstration_count": 12,
+  "plan_hash": "6ff90d860db25d097efcfc9bbe61fa3421abe180b8b3d234811997a8e283064a",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "Blue relocation has different source/target geometry and must preserve the temporary red placement, so it is independently trained. Entry observations place red at or just above the central table during release (for example demo10100:260 and demo10105:250); this red is context, not the intended pickup. Core exit is blue settled near (-0.352,-0.200,0.020), within its goal, with the gripper opening. Segment exit is later with blue still fixed at goal and buffered red securely lifted to approximately z=0.21-0.28 (for example demo10101:850, demo10104:850, demo10107:860).",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Begin during red lowering/release at the buffer; move blue from the +y initial region to the -y blue goal; continue through initial red-buffer pickup.",
+      "start": 260,
+      "stop": 860,
+      "trajectory_id": "demo10100"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Begin as buffered red opens/settles; relocate blue to its goal; retain successor red grasp and lift.",
+      "start": 270,
+      "stop": 850,
+      "trajectory_id": "demo10101"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Begin during final red placement; relocate blue to the blue goal; continue through buffered-red lift.",
+      "start": 260,
+      "stop": 850,
+      "trajectory_id": "demo10102"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Begin during final red placement; relocate blue; retain transition actions into red pickup.",
+      "start": 260,
+      "stop": 850,
+      "trajectory_id": "demo10103"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Begin with red low over the buffer; relocate blue to its goal; continue through a high, secured red lift.",
+      "start": 260,
+      "stop": 850,
+      "trajectory_id": "demo10104"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Begin slightly earlier while red descends below 0.05 m at the buffer; relocate blue and retain buffered-red acquisition.",
+      "start": 250,
+      "stop": 850,
+      "trajectory_id": "demo10105"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Begin during red release context; relocate blue to the blue goal; retain red grasp and lift.",
+      "start": 260,
+      "stop": 850,
+      "trajectory_id": "demo10106"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Begin during red release; relocate blue; the later stop retains this occurrence through a clearly lifted buffered red.",
+      "start": 260,
+      "stop": 860,
+      "trajectory_id": "demo10107"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Begin while red is low and being released; relocate blue; continue through initial red lift.",
+      "start": 260,
+      "stop": 850,
+      "trajectory_id": "demo10108"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Begin during the red buffer handoff; relocate blue to goal; retain successor red pickup/lift.",
+      "start": 260,
+      "stop": 850,
+      "trajectory_id": "demo10109"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Begin during red release; relocate blue to its goal; retain transition through lifted red.",
+      "start": 260,
+      "stop": 850,
+      "trajectory_id": "demo10110"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Begin during red release at center; relocate blue; continue through buffered-red grasp and lift.",
+      "start": 260,
+      "stop": 850,
+      "trajectory_id": "demo10111"
+    }
+  ],
+  "skill_id": "place_blue",
+  "subgoal": "Accept the scene while red is finishing its buffer release, retreat from red, approach the blue block in the initially red region, close from above, lift and carry blue to the blue goal near (-0.35,-0.20), lower and release it, then retreat. The core responsibility is blue-to-blue-goal relocation. The tail is extended through approach, grasp, and initial lift of buffered red."
+}

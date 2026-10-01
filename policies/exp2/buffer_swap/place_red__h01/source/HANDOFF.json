@@ -1,0 +1,14 @@
+{
+  "policy_id": "place_red__h01",
+  "entry_conditions": "Blue is descending to or settled in the blue goal, red is observable in the central free area, and object poses plus Panda state are finite. At an early handoff the TCP should be nearer blue, causing the blue reference; displaced red must remain reachable.",
+  "exit_conditions": "The unchanged terminal condition is red_at_goal AND blue_at_goal. Demonstrations finish with both blocks supported in opposite goals, open gripper and a high retreated TCP, but those latter properties do not alter the supplied success predicate.",
+  "overlap_role": "Every assigned action is supervised. The roughly 230-240 shared actions cover final blue lower/open, blue-relative retreat, reference transition, red approach/closure and initial red lift, providing substantial action-supervised handoff robustness.",
+  "successor_readiness": "There is no successor manipulation skill. Stop when the framework observes its unchanged success expression; a reference bit or gripper sign alone is not success evidence.",
+  "failure_signatures": "Blue is unstable or outside its goal; the reference selector oscillates; IK residuals persist; red fails to rise after closure, separates during transport, or is released without full containment; retreat disturbs either block.",
+  "continuation_guidance": "Replan from the two causal frames and fresh object poses while conditions remain applicable. Prefer the destination-anchored prior for dominant goal displacement and the fresh-TCP residual prior for moderate tracking-state mismatch; do not treat a successful demonstration as unseen-error recovery evidence.",
+  "limitations": "No contact truth, obstacle model or scripted recovery is available. Equivariance cannot make noisy poses, unreachable targets, wrong attachment, slips or collisions physically feasible, and the nearest-object switch is intentionally deterministic.",
+  "evidence": [
+    {"trajectory_id":"demo10100","indices":[620,640,700,740,800,820,860,900,960,980,1040,1063]},
+    {"trajectory_id":"demo10104","indices":[610,630,680,740,800,820,850,900,960,980,1020,1056]}
+  ]
+}

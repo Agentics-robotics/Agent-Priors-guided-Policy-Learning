@@ -1,0 +1,551 @@
+{
+  "schema_version": 1,
+  "policies": [
+    {
+      "task": "drawer_exchange",
+      "policy_id": "dp",
+      "passed": 5,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/dp/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "single_prior",
+      "passed": 5,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/single_prior/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "blue_insert__h01",
+      "passed": 10,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/blue_insert__h01/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "blue_insert__h02",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/blue_insert__h02/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "blue_insert__h03",
+      "passed": 10,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/blue_insert__h03/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "open_drawer__h01",
+      "passed": 3,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/open_drawer__h01/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "open_drawer__h02",
+      "passed": 6,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/open_drawer__h02/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "open_drawer__h03",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/open_drawer__h03/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "red_transfer__h01",
+      "passed": 4,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/red_transfer__h01/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "red_transfer__h02",
+      "passed": 10,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/red_transfer__h02/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "red_transfer__h03",
+      "passed": 9,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/red_transfer__h03/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "blue_insert__h04",
+      "passed": 11,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/blue_insert__h04/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "open_drawer__h04",
+      "passed": 2,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/open_drawer__h04/summary.json"
+    },
+    {
+      "task": "drawer_exchange",
+      "policy_id": "red_transfer__h04",
+      "passed": 10,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/drawer_exchange/red_transfer__h04/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "dp",
+      "passed": 1,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/dp/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "single_prior",
+      "passed": 0,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/single_prior/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "buffer_red__h01",
+      "passed": 5,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/buffer_red__h01/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "buffer_red__h02",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/buffer_red__h02/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "buffer_red__h03",
+      "passed": 0,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/buffer_red__h03/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "place_blue__h01",
+      "passed": 7,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/place_blue__h01/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "place_blue__h02",
+      "passed": 1,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/place_blue__h02/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "place_blue__h03",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/place_blue__h03/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "place_red__h01",
+      "passed": 3,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/place_red__h01/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "place_red__h02",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/place_red__h02/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "place_red__h03",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/place_red__h03/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "buffer_red__h04",
+      "passed": 8,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/buffer_red__h04/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "place_blue__h04",
+      "passed": 4,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/place_blue__h04/summary.json"
+    },
+    {
+      "task": "buffer_swap",
+      "policy_id": "place_red__h04",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/buffer_swap/place_red__h04/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "dp",
+      "passed": 1,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/dp/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "single_prior",
+      "passed": 1,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/single_prior/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "close_drawer__h01",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/close_drawer__h01/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "close_drawer__h02",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/close_drawer__h02/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "close_drawer__h03",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/close_drawer__h03/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "open_drawer__h01",
+      "passed": 6,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/open_drawer__h01/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "open_drawer__h02",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/open_drawer__h02/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "open_drawer__h03",
+      "passed": 10,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/open_drawer__h03/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "place_block_in_drawer__h01",
+      "passed": 5,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/place_block_in_drawer__h01/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "place_block_in_drawer__h02",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/place_block_in_drawer__h02/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "place_block_in_drawer__h03",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/place_block_in_drawer__h03/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "retrieve_tunnel_block__h01",
+      "passed": 5,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/retrieve_tunnel_block__h01/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "retrieve_tunnel_block__h02",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/retrieve_tunnel_block__h02/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "retrieve_tunnel_block__h03",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/retrieve_tunnel_block__h03/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "close_drawer__h04",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/close_drawer__h04/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "open_drawer__h04",
+      "passed": 7,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/open_drawer__h04/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "place_block_in_drawer__h04",
+      "passed": 5,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/place_block_in_drawer__h04/summary.json"
+    },
+    {
+      "task": "constrained_retrieve_store",
+      "policy_id": "retrieve_tunnel_block__h04",
+      "passed": 4,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/constrained_retrieve_store/retrieve_tunnel_block__h04/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "dp",
+      "passed": 4,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/dp/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "single_prior",
+      "passed": 4,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/single_prior/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "align_and_insert_peg__h01",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/align_and_insert_peg__h01/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "align_and_insert_peg__h02",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/align_and_insert_peg__h02/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "align_and_insert_peg__h03",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/align_and_insert_peg__h03/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "open_hinged_lid__h01",
+      "passed": 7,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/open_hinged_lid__h01/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "open_hinged_lid__h02",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/open_hinged_lid__h02/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "open_hinged_lid__h03",
+      "passed": 10,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/open_hinged_lid__h03/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "reorient_and_stage_peg__h01",
+      "passed": 5,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/reorient_and_stage_peg__h01/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "reorient_and_stage_peg__h02",
+      "passed": 8,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/reorient_and_stage_peg__h02/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "reorient_and_stage_peg__h03",
+      "passed": 0,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/reorient_and_stage_peg__h03/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "retrieve_peg_from_box__h01",
+      "passed": 0,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/retrieve_peg_from_box__h01/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "retrieve_peg_from_box__h02",
+      "passed": 4,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/retrieve_peg_from_box__h02/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "retrieve_peg_from_box__h03",
+      "passed": 8,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/retrieve_peg_from_box__h03/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "align_and_insert_peg__h04",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/align_and_insert_peg__h04/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "open_hinged_lid__h04",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/open_hinged_lid__h04/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "reorient_and_stage_peg__h04",
+      "passed": 2,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/reorient_and_stage_peg__h04/summary.json"
+    },
+    {
+      "task": "covered_peg_assembly",
+      "policy_id": "retrieve_peg_from_box__h04",
+      "passed": 3,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/covered_peg_assembly/retrieve_peg_from_box__h04/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "dp",
+      "passed": 2,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/dp/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "single_prior",
+      "passed": 0,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/single_prior/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "controlled_pour_and_right__h01",
+      "passed": 8,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/controlled_pour_and_right__h01/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "controlled_pour_and_right__h02",
+      "passed": 9,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/controlled_pour_and_right__h02/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "controlled_pour_and_right__h03",
+      "passed": 6,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/controlled_pour_and_right__h03/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "grasp_lift_stage__h01",
+      "passed": 2,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/grasp_lift_stage__h01/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "grasp_lift_stage__h02",
+      "passed": 0,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/grasp_lift_stage__h02/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "grasp_lift_stage__h03",
+      "passed": 7,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/grasp_lift_stage__h03/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "return_place_release__h01",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/return_place_release__h01/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "return_place_release__h02",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/return_place_release__h02/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "return_place_release__h03",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/return_place_release__h03/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "controlled_pour_and_right__h04",
+      "passed": 12,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/controlled_pour_and_right__h04/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "grasp_lift_stage__h04",
+      "passed": 11,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/grasp_lift_stage__h04/summary.json"
+    },
+    {
+      "task": "granular_pour_return",
+      "policy_id": "return_place_release__h04",
+      "passed": 3,
+      "demos": 12,
+      "summary_path": "results/exp2/validation/granular_pour_return/return_place_release__h04/summary.json"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "dataset": "assets/exp2/datasets/granular_pour_return/controlled_pour_and_right/dataset.json",
+  "dataset_sha256": "eb11d933a32058d138609f6e60013ce5a1fed9f69423409fdacd4fc3db595c4f",
+  "experiment_version": "APPL_v4_cartesian_new_task",
+  "heuristic": {
+    "applicability": "Prefer when the source remains securely and rigidly held but the observed container-to-TCP transform is unusual relative to nominal demonstrations, or the predecessor delivers a modestly displaced source/TCP entry state. Container, TCP and bowl poses must be reliable and the resulting source motion must remain reachable. Never use this compensation as evidence that a grasp exists.",
+    "evidence": [
+      {
+        "indices": [
+          180,
+          320,
+          360,
+          1460,
+          1600,
+          1680,
+          1740
+        ],
+        "trajectory_id": "demo12300"
+      },
+      {
+        "indices": [
+          180,
+          320,
+          360,
+          1460,
+          1600,
+          1680,
+          1740
+        ],
+        "trajectory_id": "demo12303"
+      },
+      {
+        "indices": [
+          180,
+          320,
+          360,
+          1460,
+          1600,
+          1680,
+          1740
+        ],
+        "trajectory_id": "demo12309"
+      }
+    ],
+    "handoff": {
+      "entry_conditions": "The source is closed in the gripper, visibly lifted and moving rigidly with the TCP. Entry can occur throughout the supervised [180,360) lift/carry overlap, including the observed start-height range, or at a later nominal pour/right state if the rigid transform is still trustworthy.",
+      "exit_conditions": "Particles are observed settled to the unchanged threshold, the source itself—not just the TCP—is approximately upright, the grasp remains rigid, and outbound motion is under way within the [1460,1740) overlap.",
+      "failure_signatures": "An open or slipping grasp, rapid change in the measured container-to-TCP transform, pose-estimation noise that creates implausible compensation, unreachable compensated TCP pose, bowl collision, spill, remaining particles during righting, or IK non-convergence. No demonstrated recovery supports continuing after these signatures.",
+      "overlap_role": "The complete [180,360) and [1460,1740) action intervals are supervised. Object-motion labels are derived without trimming those intervals, so grasp_lift_stage and return_place_release retain substantial shared commands despite the changed Cartesian representation.",
+      "successor_readiness": "return_place_release can take over after particle settlement and near-upright source orientation, nominally near 1680; keep this policy active longer only when its rigid-grasp compensation remains needed during outbound motion."
+    },
+    "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{},\"required\":[]},\"parameter_semantics\":\"No caller parameters. The executor supplies two causal observations. The learned action is a desired source-container SE(3) increment in the current observed container frame. Decoding composes that increment with the fresh container pose and fresh observed rigid container-to-TCP transform, then solves IK from fresh measured joints.\"}",
+    "limitations": "Compensation assumes the observed source-to-TCP transform is rigid over the action and cannot recover a lost or sliding grasp. Source-local increments are robust to modest displaced entries but are not an absolute destination anchor; use the bowl-frame prior for large bowl displacement. Particle timing ambiguity is handled more explicitly by the particle-set prior. The training grasp transforms are nominal and vary only modestly, so benefit for unusual secure grasps is expected rather than demonstrated.",
+    "pipeline_implications": "Use this as the grasp-geometry and displaced-entry specialist when a rigid but atypical source-to-TCP relation is observed. Its source-level motion preserves the intended container attitude and lip trajectory better than replaying a nominal TCP path. Route substantial destination displacement to the bowl-frame prior and partial-discharge/phase ambiguity to the particle-set residual prior. Abort rather than compensate when rigidity is doubtful.",
+    "rationale": "Pour success depends on source pose, not TCP pose alone. The observations provide both container and TCP poses, and the demonstrated gripper stays closed throughout all inspected entry, pour, righting and outbound points. For each label, the demonstrated commanded TCP pose and the observed rigid container-to-TCP transform define a desired source pose. Diffusing the desired source increment in the current container frame removes global source displacement from the learned action and, during decoding, reattaches that source motion through the freshly observed grasp transform. Thus an off-center but rigid grasp changes the required TCP target by construction. Measured qpos/qvel and source/bowl/target relations remain in the causal input because source invariance does not remove IK reachability or destination geometry. This uses the unchanged standard backbone and a representation distinct from both bowl-absolute TCP targets and current-TCP rotation-vector residuals.",
+    "statement": "Rigid-grasp source-motion prior: diffuse desired container-frame source increments with 6D orientation, reconstruct the corresponding world TCP target using the fresh observed source-to-TCP transform, and solve IK from measured joints.",
+    "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12301\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12302\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12303\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12304\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12305\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12306\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12307\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12308\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12309\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12310\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"},{\"trajectory_id\":\"demo12311\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned source-motion supervision; incoming [180,360) and outgoing [1460,1740) overlaps are retained.\"}]"
+  },
+  "heuristic_index": 3,
+  "normalization": {
+    "path": "provenance/relocated/b3141fbf4dee2e06",
+    "sha256": "52a649835b92c470fb6692de6991ba7c8ccd357aa4bb4ad2c6069c971f630101"
+  },
+  "observation_fields": {
+    "bowl_pose": [
+      0,
+      7
+    ],
+    "container_pose": [
+      7,
+      14
+    ],
+    "particle_positions": [
+      14,
+      50
+    ],
+    "qpos": [
+      50,
+      59
+    ],
+    "qvel": [
+      59,
+      68
+    ],
+    "target_pose": [
+      68,
+      75
+    ],
+    "tcp_pose": [
+      75,
+      82
+    ]
+  },
+  "plan_hash": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+  "policy_id": "controlled_pour_and_right__h03",
+  "prior_plan_path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/prior_plan.json",
+  "prior_plan_sha256": "3f37229577285c09d8f4a6bf34ca69f28ee3d5c1c15d40d40531e0ec45bdc526",
+  "skill_id": "controlled_pour_and_right",
+  "sources": {
+    "demo12300": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12300.json",
+      "sha256": "21e58673a2d41af543f449b6c1bac1ddbf07c90cd1b3768efebe3b218b3ee197"
+    },
+    "demo12301": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12301.json",
+      "sha256": "1c649d39da186987da23fd7a5747e0e55521fac9fd32b20ba073029707c89ef3"
+    },
+    "demo12302": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12302.json",
+      "sha256": "b7b05183c5c26cf55369fd8013ae041085f557a36ebf9a82c9b9916920766aa9"
+    },
+    "demo12303": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12303.json",
+      "sha256": "24c3aeca48398d027456f5e3577b77135dc1b2be53a9a2b3c57a78efc9b761e5"
+    },
+    "demo12304": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12304.json",
+      "sha256": "048c023f0839c4630bb8a8d104c6c149816d94ca47ce5cc79ee2ad30390a4268"
+    },
+    "demo12305": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12305.json",
+      "sha256": "1c4493143c0d144d4fd44267328d7599720c6f6dd95aec6149609f9c8ff44203"
+    },
+    "demo12306": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12306.json",
+      "sha256": "e6c8a2014257ee090527799729078620a59713086e606f831d45cfcba4b1c7a4"
+    },
+    "demo12307": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12307.json",
+      "sha256": "c5530ad3cb09b0118fc5b715af9e6f87caca9d776f81ba10adf224458278d793"
+    },
+    "demo12308": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12308.json",
+      "sha256": "c1945edb8ae947d2f27ea872462c6eca2419d48f993377584f907da7e121c69a"
+    },
+    "demo12309": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12309.json",
+      "sha256": "ead11ff403366336ff24d395ccc9f795108d9d8d23f34736fbba145119718243"
+    },
+    "demo12310": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12310.json",
+      "sha256": "907dd172d12814e6c2ad53331c17252a3b90cab83dfca74130dcca54109a5957"
+    },
+    "demo12311": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12311.json",
+      "sha256": "e9123001777c449f99e1b1e8a0f1d4e6244bd84c9ee1cfc0978e0b44e8eaf3a1"
+    }
+  },
+  "subgoal": "With the source continuously held, finish transport to a high bowl-centered pose, tilt it in the demonstrated controlled arc until at least ten of twelve particles are transferred into the bowl, then rotate it back toward upright and start moving away. Keep the gripper closed and the container above the bowl walls throughout. Approximate entry: securely grasped source, from early lift-off through staged upright pose. Approximate exit: emptied source approximately upright, still grasped, elevated and approaching the return region.",
+  "prior_plan_original_sha256": "3f37229577285c09d8f4a6bf34ca69f28ee3d5c1c15d40d40531e0ec45bdc526"
+}

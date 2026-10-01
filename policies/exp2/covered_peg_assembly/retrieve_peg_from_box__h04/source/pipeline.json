@@ -1,0 +1,21 @@
+{
+  "policy_id": "retrieve_peg_from_box__h04",
+  "skill_id": "retrieve_peg_from_box",
+  "heuristic_index": 4,
+  "prior_summary": "A causal object selector anchors each chunk's world-axis TCP positions to the lid handle during release and to the peg center afterward; explicit phase features and world orientation retain robot and scene dependencies.",
+  "applicable_conditions": "Prefer when peg translation beyond the narrow demonstrated range is the main concern but invocation may still occur during lid release. The observed reference must be valid, the selector's release geometry must be unambiguous, and the translated trajectory must remain reachable with box and lid clearance.",
+  "termination_guidance": "Replan every 8 actions. Continue through the outgoing lift overlap and exit only when fingers are closed, the peg is above the wall with margin, and two causal frames show peg/TCP co-motion with an approximately stable relative pose. Also require the cover to remain open for the unchanged exit rule.",
+  "limitations": "The hard selector can be wrong in unseen intermediate states. Translation equivariance does not ensure rotational transfer, IK reachability, collision avoidance, grasp success, or cover retention. No demonstrations cover miss, drop, regrasp, blocked lift, or lid reopening after release.",
+  "config": {
+    "action_reference": "chunk_fixed_lid_handle_or_peg_center",
+    "selector_handle_distance_m": 0.1,
+    "selector_open_width_m": 0.07,
+    "selector_low_peg_margin_m": 0.04,
+    "action_translation_axes": "world",
+    "action_rotation": "world_6d",
+    "action_dimension": 10,
+    "input_feature_dimension_per_frame": 73,
+    "backbone": "standard_diffusion_backbone",
+    "auxiliary_loss": false
+  }
+}

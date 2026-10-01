@@ -1,0 +1,24 @@
+{
+  "policy_id": "controlled_pour_and_right__h04",
+  "entry_conditions": "The source container is securely closed in the gripper and lifted or lifting clear of support, with reliable bowl, container and TCP poses and an approximately rigid source-to-TCP relation. Entry may occur throughout the supervised incoming [180,360) overlap, from low early lift to the staged high pose. Closed fingers alone do not prove grasp contact.",
+  "exit_conditions": "At least ten of twelve particles have settled in the bowl, the source container itself is approximately upright under the unchanged upright criterion, remains securely held, and has begun moving away from the bowl toward the return region.",
+  "overlap_role": "Every trajectory supervises all actions [180,1740). The incoming [180,360) overlap contributes 180 early lift/carry actions with grasp_lift_stage. The outgoing [1460,1740) overlap contributes 280 direct source-righting and initial outbound actions with return_place_release; it is action supervision, not observation-only context.",
+  "successor_readiness": "return_place_release is nominally ready near action 1680 once enough particles are settled, the source is observably approximately upright and still held, and outbound motion is under way. The full [1460,1740) overlap allows takeover during late righting or later departure, but emptiness without uprightness is not sufficient.",
+  "failure_signatures": "Stop or switch on an open or uncertain grasp, rapid change in the observed container-to-TCP transform, unsafe source/bowl clearance, particles outside the bowl or fewer than ten transferred, a source that stays or returns tilted after discharge, or persistent IK residuals/limit contact. The relevant expected terminal signature is enough particles with container_upright false, sometimes while still over the bowl.",
+  "continuation_guidance": "Continue while the grasp relation is stable and the source progresses from bowl-centered staging through controlled tilt, discharge and righting. Once particles are settled, monitor the source orientation rather than TCP orientation alone; prefer continued righting until the source is upright, then hand off during the supervised outbound overlap. If source-to-TCP rigidity is violated, do not use fresh-grasp reattachment as slip recovery.",
+  "limitations": "The demonstrations are nominal successes and provide no spill, slip, collision, grasp-loss or unseen-error recovery. Displaced-bowl and atypical-grasp benefits are structural expectations, not observed outcomes. Reliable poses, rigid holding and reachable Cartesian targets are required. Moving the bowl independently of the fixed return target changes outbound geometry beyond demonstrated support.",
+  "evidence": [
+    {
+      "trajectory_id": "demo12300",
+      "indices": [180, 320, 360, 700, 800, 900, 1000, 1100, 1200, 1460, 1600, 1680, 1740]
+    },
+    {
+      "trajectory_id": "demo12303",
+      "indices": [180, 320, 360, 700, 800, 900, 1000, 1100, 1200, 1460, 1600, 1680, 1740]
+    },
+    {
+      "trajectory_id": "demo12309",
+      "indices": [180, 320, 360, 700, 900, 1100, 1460, 1680, 1740]
+    }
+  ]
+}

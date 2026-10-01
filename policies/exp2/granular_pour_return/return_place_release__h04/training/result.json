@@ -1,0 +1,115 @@
+{
+  "checkpoint": "weights/exp2/granular_pour_return/return_place_release__h04/model.pt",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "4125f19a023fef158bea79baf36edbd45663f21d4bbb20850a0f58c4b57adbe9",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 2,
+    "physical_gpu": 0,
+    "uuid": "GPU-3a21dde0-fd97-6ab3-4abb-5c98696a4bc3"
+  },
+  "effective_action_targets": 40399946,
+  "final_weights_sha256": "c81c2f9cba8c10d5aac884653d757da6ebe4fca608176572a468f8b4921ffaa0",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.8747401237487793,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.663172960281372,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.605177164077759,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.309928834438324,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "cefb720ce27cd64420bebed94f3578d3537eca35e417ff351808946227fe800e",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5836,
+      "duplicated_actions": 0,
+      "unique_actions": 5836
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination": {
+            "enum": [
+              "target_pose"
+            ],
+            "type": "string"
+          },
+          "source_object": {
+            "enum": [
+              "container"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_object",
+          "destination"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Compose the represented source-relative pose with the corresponding observed source pose and compare that world target with FK of the IK joint result, using the maximum TCP position error in metres, rotation error in radians, and unchanged gripper scalar error. The 6D rotation is projected to SO(3) by Gram-Schmidt; demonstrated rotations are valid.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "All actions in every frozen [start,stop) binding remain supervised, including the full 280-action [1460,1740) overlap with controlled_pour_and_right, placement, opening, retreat, and terminal hold. Only causal features and the Cartesian action reference frame change; the assigned responsibility and success definition are unchanged.",
+      "input_shapes": {
+        "features": [
+          2,
+          63
+        ]
+      },
+      "observation_dependencies": [
+        "container_pose",
+        "target_pose",
+        "bowl_pose",
+        "tcp_pose",
+        "qpos",
+        "qvel"
+      ],
+      "output_semantics": "Each slot is an absolute Cartesian TCP pose represented in the source container frame observed immediately before that slot: 3 source-frame position coordinates in metres, the first two columns of the source-relative rotation matrix (6D), and the native gripper scalar. Demonstration labels use the observed container pose immediately before each action. Prediction slots are t-1 through t+14 and execution uses slots 1 through 8. For every executed slot, decode_action left-multiplies the represented transform by the fresh current container world pose, projects the 6D rotation to SO(3), and calls panda_kinematics.solve_ik from freshly measured qpos. It does not accumulate predicted poses or add a scripted trajectory or release gate.",
+      "parameter_semantics": "source_object selects the observed container_pose used as the fresh Cartesian reference for every executed slot; destination selects target_pose for causal goal-relative conditioning. Both are symbolic scene identities resolved from physical observations. Positions are world metres and orientations are wxyz before deterministic matrix conversion.",
+      "policy_id": "return_place_release__h04",
+      "skill_id": "return_place_release",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "cd4a8ff55219ce7e8f0fd308144c95b7531e45b1fa7e95e40c09e0b443587261",
+    "PRIOR.md": "054cfbeed6a2edc8104e9e1bc3d13fcd148e2f6998920c4bcd4981be778973f9",
+    "adapters.py": "69aa27f3ae246bcae7a5cacd1cdd538d264352e862ebf6f667a5fc4c7a7e0a58",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+    "pipeline.json": "d1ce6ccd75857a333731a08ab7149387cc3aea6b3d130a030e14c8dbfd9e5fff",
+    "policy.py": "b5c217748fb1aee001c728354de199105383b72db4f55d074cf5d336bca95d62",
+    "policy_contract.json": "6de230abe0f4061bf07e22cd52946dfba56613ca305446e6e07df19b7fce29b6",
+    "training_bindings.json": "7828e529b262bc018201a10bbe4f6f94cc3f43727a108716d532a88a0712455a"
+  },
+  "trainable_parameters": 17229578,
+  "training_elapsed_seconds": 516.7990474330727,
+  "weight_l2_change": 32.36234827371754
+}

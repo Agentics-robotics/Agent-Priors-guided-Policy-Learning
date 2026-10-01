@@ -1,0 +1,101 @@
+{
+  "checkpoint": "provenance/relocated/e0d2aeb3aec5f938",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "e4a404ef1490f5024a1101b01f61aa8f513254cd8418299a16f30f834b20ef51",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 1,
+    "physical_gpu": 2,
+    "uuid": "GPU-7a6705f2-1132-637d-000e-c94d37e2f0a2"
+  },
+  "effective_action_targets": 40245853,
+  "final_weights_sha256": "d5f0c9d992450259343f794349294de9372b2f74b101702a51032a52d60d8b49",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.523609161376953,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.5365700721740723,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.2824056148529053,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.12255524098873138,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "cbddbf2b46fc8de0676f932ab234f82b79a86cf6872c7dc58d57df3c1793ce2d",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 4560,
+      "duplicated_actions": 0,
+      "unique_actions": 4560
+    },
+    "contract": {
+      "action_dimension": 7,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Encode/decode demonstration targets through the chunk TCP frame and exponential coordinates; decoded IK FK must match commanded TCP position/rotation and unchanged gripper within maximum error 0.005. Nonunique IK is permitted and explicit solver diagnostics are returned.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Preserves every action in each assigned [1120,1500) segment, including incoming [1120,1270) and outgoing [1380,1500) overlap. Reanchoring occurs only at the framework's replan boundary; temporal slots and masks are unchanged.",
+      "input_shapes": {
+        "features": [
+          2,
+          73
+        ]
+      },
+      "observation_dependencies": [
+        "hole_pose",
+        "lid_pose",
+        "lid_position",
+        "lid_velocity",
+        "peg_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is an unnormalized Cartesian target [translation(3 metres), rotation vector(3 radians), gripper(1)] for T_chunk_start_tcp^-1*T_command. The chunk anchor is the newest causal tcp_pose and is fixed during the sampled chunk. Slots are t-1 through t+14 and execution uses slots 1-8. Decoding applies the SO(3) exponential map, composes with the anchor, and calls panda_kinematics.solve_ik from freshly measured qpos. Gripper is passed through unchanged.",
+      "parameter_semantics": "No high-level numeric parameters. The caller passes an empty object and selects this policy for a valid but off-timing intermediate state. At every replan, the newest measured tcp_pose is the chunk action anchor.",
+      "policy_id": "reorient_and_stage_peg__h03",
+      "skill_id": "reorient_and_stage_peg",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "36612a1cb42d3a7f6186c5a0750d2c414682eb2c2d95d0a17781ef0cc8eaf3d4",
+    "PRIOR.md": "c077b8a3b94f7667837ef194c9e36810e92972349c563234fec5f1cf974a4898",
+    "adapters.py": "3ea8294a7dc61589356387653fb5ee3bd7dfacc91300c6ba0c5194a1683f85f7",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "e4ca78a6dc4c90880bbcda789901798f267a5bb7f08b56f654b3d41bd560e458",
+    "policy.py": "59744197548d59bee4b2313bec8d21c682b5b558ce0a287701de7864c58db6d6",
+    "policy_contract.json": "724c4c07e55f4ababe0deb4bc7ec1ed1d49e6fedd23c64bd197bbb4f6a7cb9fc",
+    "training_bindings.json": "5d57610a1d48cc802d909dcd78cdea115db4c41f0c0b24eb349cb1e4cb593631"
+  },
+  "trainable_parameters": 17370247,
+  "training_elapsed_seconds": 500.88822787301615,
+  "weight_l2_change": 25.845993751498412
+}

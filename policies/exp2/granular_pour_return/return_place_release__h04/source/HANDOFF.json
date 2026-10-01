@@ -1,0 +1,15 @@
+{
+  "policy_id": "return_place_release__h04",
+  "entry_conditions": "Particles are already settled in the bowl and the emptied source remains securely grasped. Entry may be the demonstrated moderate tilt near index 1460 or an upright/outbound state within the shared interval, including a translated or rotated but reachable source pose whose container/TCP relation remains consistent with a grasp.",
+  "exit_conditions": "The source is observed upright and stationary on the table inside the marked return region, the fingers are open, and the TCP has retreated clear without moving or recontacting the source.",
+  "overlap_role": "Every action in [1460,1740) remains supervised for all twelve occurrences, preserving 280 actions of substantial overlap with controlled_pour_and_right and training source-relative late righting and outbound travel at multiple handoff phases.",
+  "successor_readiness": "This is terminal. Evaluation is ready only after physical observations show upright in-bounds support, open fingers, source stationarity, and TCP clearance; a predicted source-relative target or gripper sign is not readiness.",
+  "failure_signatures": "Stop or switch on increasing source/TCP separation, source motion inconsistent with TCP motion while fingers are closed, oscillating source-relative targets, no destination progress, repeated IK non-convergence or limit contact, opening while elevated/tilted/out of bounds, source motion after opening, or retreat recontact. A lost source must not be chased.",
+  "continuation_guidance": "Resolve the source pose freshly for every executed slot, use fresh measured joints for IK, and replan after eight actions. Prefer h01 after righting when destination displacement dominates, h02 when TCP-local correction is safer than trusting source pose, and h03 near nominal support when release phase is the main ambiguity.",
+  "limitations": "Demonstrations and validation cover successful nominal entries only. There is no contact truth or failed-grasp, collision, failed-support, regrasp, corrective-repour, or release-recovery supervision. Source anchoring assumes accurate source pose and a secure grasp until release.",
+  "evidence": [
+    {"trajectory_id":"demo12300","indices":[1460,1580,1640,1680,1720,1740,1800,1820,1830,1840,1850,1860,1880,1900,1920]},
+    {"trajectory_id":"demo12303","indices":[1460,1680,1740,1800,1820,1830,1840,1850,1860,1880,1900,1934]},
+    {"trajectory_id":"demo12308","indices":[1460,1680,1740,1820,1840,1860,1900]}
+  ]
+}

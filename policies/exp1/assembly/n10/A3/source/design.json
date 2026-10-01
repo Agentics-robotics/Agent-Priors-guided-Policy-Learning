@@ -1,0 +1,45 @@
+{
+  "title": "Gravity-preserving transport frame with joint hand/ring motion diffusion",
+  "coverage_gap": "Diagonal-only training provides mostly forward transport with a limited range of lateral ring-to-peg errors. C and especially E change horizontal transport direction and length independently of pickup position. Action-only imitation can also model hand commands without representing whether the ring actually moves with the hand.",
+  "reusable_regularity": "Express horizontal relationships and actions in a chunk-start frame tilted toward the observed ring-to-peg direction. Keep vertical actions and scalar gripper semantics unchanged. Jointly diffuse native-equivalent action4 with future hand and ring displacements to make learned contact/transport dynamics part of the denoising problem. The auxiliary future channels are generated at inference rather than used as ground-truth conditions. Relative future displacements are translation-independent and expose the coupled motion after grasp, unlike absolute future positions. The world-y bias regularizes the frame near seating; this is a soft directional prior, not a claim that the robot is exactly yaw-invariant.",
+  "dependencies_preserved": [
+    "The frame is yaw-only: gravity, peg/table heights and native fixed end-effector orientation remain meaningful. Current and previous object quaternions stay in their declared world wxyz convention.",
+    "World hand position relative to a fixed world origin is represented in the local frame, and the frame's cos/sin are explicitly conditioned. Together these retain robot workspace, world-axis actuation asymmetry and orientation dependencies rather than discarding them.",
+    "Hand-to-handle, ring-to-handle and goal-to-ring relations are all included. The .13 m handle/ring lever arm is not mistaken for a ring-to-peg positioning error.",
+    "Recent native hand/handle increments, aperture/change and previous quaternion preserve contact and motion dependencies. The core plus frame permits reconstruction of all non-absent raw fields. Object2 is omitted only because it is declared absent. The declared goal carries peg position; no additional simulator geometry is accessed.",
+    "The frame for both history observations, all sixteen encoded actions and all motion targets is computed from the same raw_current chunk-start observation. It never changes within a predicted chunk."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Only the ten listed exact D_N trajectories may supply auxiliary future targets"},
+    {"path": "task_materials.json", "detail": "Nut_x and peg_goal_x are separately varied factors; goal_y exceeds initial nut_y, z is physically privileged, and control is world delta xyz plus scalar gripper"},
+    {"path": "support_summary.json", "detail": "Five LL and five HH trajectories; the inspected demo_00/01 action and geometry summaries show limited same-cell lateral transport coverage"},
+    {"path": "trajectories/demo_00.json", "detail": "Read obs 38:43: hand and ring rise together by about .01 m per step; read obs 0:3 and 25:29 for pregrasp stationary ring and changing hand/aperture. Read actions 26:31 for the upward-action transition."},
+    {"path": "trajectories/demo_01.json", "detail": "Read obs 59:62: hand and ring translate forward together while elevated. Read obs 86:90: coupled descent with ring near peg xy and nonzero handle offset."},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Inspected table, upright peg and initial separated ring/hand"},
+    {"path": "images/frame_01_demo_00_step_060.png", "detail": "Inspected elevated transport"},
+    {"path": "images/frame_13_demo_08_step_059.png", "detail": "Inspected another raised ring configuration"},
+    {"path": "images/frame_09_demo_05_step_085.png", "detail": "Inspected another ring-over-peg configuration"},
+    {"path": "contracts.py", "detail": "Joint diffusion can append auxiliary channels but must keep encoded action4 first; frame must be causal chunk-start"},
+    {"path": "learning.py", "detail": "Inference jointly samples all configured channels, passes only generated first four to decode, and never supplies future support targets"}
+  ],
+  "expected_failure_signature": "Falsifiable: if horizontal directional coverage is the main limitation, C/E transport errors should become less tied to the world sign of nut_x-goal_x, without altering vertical grasp/lower semantics. Failures may instead come from atypical hand reach in the rotated frame, inaccurate generated ring motion after a failed grasp, or rapid heading changes near an overshot goal. Joint motion supervision could distract from action denoising with only ten trajectories. The +.05 m world-y regularization has a fallback discontinuity only near goal-minus-ring=(0,-.05) m; episodes approaching that overshoot can expose frame jitter. No success rate or superiority is asserted.",
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,42] and raw_current [B,42] only; metric transforms replace host-normalized inputs",
+    "slices": {"hand": [0,3], "aperture": [3,4], "handle": [4,7], "quaternion_wxyz": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_handle": [22,25], "previous_quaternion_wxyz": [25,29], "peg_goal": [36,39], "ring_center": [39,42]},
+    "action_frame": "Let v=(goal_x-ring_x, goal_y-ring_y+.05) at chunk start and (cs,sn)=v/||v||. If ||v||<1e-6, use (cs,sn)=(0,1). Local basis is e1=(cs,sn,0), e2=(-sn,cs,0), e3=(0,0,1). Encode xyz by dot products with these axes; decode by the exact transpose inverse. Native xyz scale remains .01 m, scalar gripper is copied unchanged, and no encoded or native candidate clipping occurs. The host alone clips the decoded world action cube and executes four of sixteen steps.",
+    "inference_auxiliary_semantics": "The six motion channels are sampled by the common diffusion generator and jointly denoised; only generated action4 is decoded/executed. No action optimization, rollouts, candidate random source or planning over generated motions is performed."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_displacement_world",
+      "shape": "[number_of_windows,16,6]",
+      "source": "Exact support obs[t+j+1,0:3]-obs[t,0:3] and obs[t+j+1,39:42]-obs[t,39:42], j=0..15 when t+j<T. Initialized zeros for padded positions; no data beyond each episode.",
+      "diffusion_mapping": "Rotate each displacement in the same causal chunk-start frame and divide by .1 m. Append hand3 then ring3 after unchanged encoded action4.",
+      "loss": "Weight .1 times auxiliary epsilon squared error over channels 4:10, multiplied by the common valid action-position mask and divided separately by 6*mask.sum() (floor 1). The host's action epsilon objective remains weight 1, denominator 4*mask.sum(). Future targets are never concatenated into condition or read by denoise/decode."
+    }
+  ],
+  "support_fit_statistics": "None. Frame bias and metric scales are explicit design constants; future targets are computed from this exact D_N only and are not deployment state.",
+  "architecture": "One frozen common DP with condition_dim=42 and diffusion_action_dim=10. Forty-two deterministic causal features: relative geometry9, robot position3, aperture1, current/previous world quaternions8, hand/handle increments6, aperture change1, heights4, planar distances2, heading2, fine-scale relations6. Auxiliary channels change only the permitted common-factory input/output dimensionality; no additional learned modules.",
+  "parents": [],
+  "change_summary": "Initial scientific design: causal yaw-frame action/observation mapping plus joint future motion diffusion, distinct from A1's world-coordinate deterministic features and A2's learned phase encoder. No performance feedback or structural repairs at creation."
+}

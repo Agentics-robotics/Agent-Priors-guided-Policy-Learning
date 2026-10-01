@@ -1,0 +1,33 @@
+{
+  "title": "World-axis metric relation DP with explicit wall surfaces",
+  "coverage_gap": "D_2 has one LL and one HH episode (163 transitions total). Initial goal-minus-object x is about -0.00151 m and +0.00463 m, respectively, so separate goal/object x effects and sizable lateral transport are not identified. Goal_y varies only about 0.00327 m between demonstrations. Marginal standardization could amplify those accidental correlations under C and E layouts.",
+  "reusable_regularity": "Expose hand-to-object, object-to-goal, hand-to-goal and wall-relative vectors directly, in fixed metric units shared across axes rather than dividing by tiny D_2 marginal variances. Give the unchanged U-Net explicit contact distance, motion increments, wall face offsets and signed top clearance. This is a relational representation, not a controller or a path construction; stages and action sequences remain learned by the single common DP.",
+  "dependencies_preserved": [
+    "World axes, native vertical direction and absolute wall center remain available. Current hand/object/goal positions can be reconstructed from their wall-relative vectors and the wall center.",
+    "Wall half sizes, signed coordinate-wise box surface offsets, and top clearances retain obstacle dependence, including its asymmetric x placement; global translation/rotation invariance is not imposed.",
+    "Current and previous gripper, hand/object increments, and both object xyzw quaternions preserve causal contact and motion information. The outer history contains two complete observations.",
+    "Only object2 pose channels are omitted, because task_materials declares object2 absent and those channels are zeros. No goal/object x tying or replacement by a demonstration goal occurs."
+  ],
+  "evidence_refs": [
+    "bundle.json: exact two-episode evidence membership",
+    "task_materials.json: raw observation slices, object2_present=false, native world action semantics and LL/HH versus C/E factors",
+    "support_summary.json: 79 and 84 transitions; initial interaction_to_goal vectors; observation_std for goal_y",
+    "trajectories/demo_00.json: obs rows 0-7 and 23-30, actions rows 0-78; grasp closing followed by pure lift then transport",
+    "trajectories/demo_01.json: obs rows 47-52; object lifting with approximately 0.039 m hand-object vertical separation",
+    "images/frame_00_demo_00_step_000.png",
+    "images/frame_03_demo_00_step_033.png",
+    "images/frame_04_demo_00_step_044.png",
+    "images/frame_06_demo_00_step_066.png",
+    "images/frame_15_demo_01_step_084.png",
+    "PUBLIC_CONTRACT.md, contracts.py, learning.py, language_policy.json and training_recipe.json"
+  ],
+  "expected_failure_signature": "If geometry alone does not overcome the demonstrated lateral-action gap, the policy should grasp/lift plausibly yet retain the object's initial x or move toward the correlated training-side goal in LH/HL. E errors may grow with lateral object-goal separation. With no stage supervision, an early lift or premature transport near the wall is another falsifiable failure; no performance is claimed.",
+  "required_runtime_fields": {
+    "input": "causal_context.raw_history [B,2,45], using current hand 0:3, gripper 3:4, object 4:7, quaternion 7:11, previous hand 18:21, gripper 21:22, object 22:25, quaternion 25:29, goal 36:39, wall center 39:42 and half sizes 42:45",
+    "normalization": "54-dimensional deterministic metric features; fixed scales are design priors, not fitted statistics. No support-fit state. Common raw normalizer is unmodified but its output is not used.",
+    "action_frame": "Identity encode/decode: action[0:3] are world displacements in native 0.01 m/action units and action[3] is the untouched native gripper scalar. Only the host clips in the native cube and executes four of sixteen predictions."
+  },
+  "training_only_targets": [],
+  "parents": [],
+  "change_summary": "Initial pre-feedback design. Replaces raw normalized conditioning by 54 explicit world-axis geometric/dynamic features; preserves the single factory U-Net, native action4, common epsilon loss and all optimizer/update settings. No added learned modules, auxiliary loss, support fitting, planner, runtime memory or rule action generation."
+}

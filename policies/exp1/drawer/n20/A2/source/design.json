@@ -1,0 +1,43 @@
+{
+  "title": "Causal action-mode mixture encoder with native world-frame diffusion",
+  "coverage_gap": "Correlated LL/HH support can make layout identity a surrogate for progress or lateral control. Unseen combinations and longer lateral reaches change when the robot is ready to descend and pull. A phase inferred from geometry should transfer better than a demonstration clock, while native world action modeling can retain fixed-gripper and per-world-axis control asymmetries.",
+  "reusable_regularity": "Inspected support exhibits three distinct action regimes: elevated reach with positive z, descent with negative z and positive cabinet-y approach, then outward pull with negative cabinet-y. A small causal gate operating only on cabinet-local relational geometry softly combines three learned encoders. It is trained to recognize current demonstrator action mode, but no labels, absolute time or future ground truth enter inference. There is one common denoiser, not three policies or an external stage controller.",
+  "dependencies_preserved": [
+    "The gate sees hand/handle offsets, remaining handle-goal travel, their causal displacements, aperture and distance magnitudes, excluding absolute cabinet x or yaw as standalone stage shortcuts.",
+    "The common DP additionally sees uncensored world hand, handle and goal position, world approach/travel vectors and motion deltas, cabinet sin/cos and current/previous object quaternions. Thus robot/world, cabinet/table and fixed-orientation-gripper dependencies are retained even when the task-centric gate disagrees.",
+    "Both whole history observations are processed, including each observation's embedded previous state. No temporal state is cached and no elapsed-step heuristic is used.",
+    "Object2 is omitted only because it is declared absent. Aperture is an input, while the gripper output is still learned as a native scalar."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Current D20 support scope; no development evidence."},
+    {"path": "task_materials.json", "use": "Position/yaw coverage gap, raw slices and fixed native world control with nonrotating gripper."},
+    {"path": "support_summary.json", "use": "Ten LL and ten HH episodes; inspected action extrema include upward, downward and outward commands."},
+    {"path": "trajectories/demo_00.json", "rows": "actions 0-19, 56-69 and 78-87; obs 32-41 and 63-66", "use": "Positive z reach, slow descent before row 65, then outward command with cabinet-y well below -0.2. Later outward pull remains below -0.2 even when z becomes positive; therefore outward mode has priority over z sign."},
+    {"path": "trajectories/demo_01.json", "rows": "actions 20-33; obs 78-80", "use": "Action z switches from positive to negative at row 24 during approach; later handle and hand move together during pull."},
+    {"path": "images/frame_01_demo_01_step_031.png", "use": "Hand above the closed cabinet during approach/descent."},
+    {"path": "images/frame_08_demo_10_step_057.png", "use": "Near-handle configuration without substantial opening."},
+    {"path": "images/frame_15_demo_19_step_090.png", "use": "Open drawer with hand in front; geometry-defined manipulation regime rather than a gripper-close event."},
+    {"path": "contracts.py", "use": "Separate causal conditioning and training-only targets/loss hooks."},
+    {"path": "learning.py", "use": "One common action epsilon loss, per-window target alignment and causal inference context isolation."}
+  ],
+  "expected_failure_signature": [
+    "If a causal geometric gate cannot disambiguate approach from descending states using the short motion history, behavior should pause or oscillate around the height transition.",
+    "Action-mode labels are coarse command regimes, not simulator contact truth. Premature outward motion with a stationary handle would falsify their adequacy as contact proxies.",
+    "Because actions remain world-frame, E may get stages right but under-rotate the pull direction, especially at roughly 35 degree yaw. This intentionally tests a different inductive bias from action-frame equivariance.",
+    "Strong absolute-world shortcuts in the final DP may still lead to C lateral errors. No success or accuracy has been measured."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history only for conditioning; no runtime training targets or oracle fields",
+    "slices": {"hand": [0,3], "aperture": [3,4], "handle": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_handle": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal": [36,39], "cabinet_sin_cos_yaw": [39,41]},
+    "condition_dimensions": 102,
+    "condition_layout": "20 physical cabinet-local features, 31 physical world/context features, 48 soft-mixture learned features, 3 causal stage logits; all per observation",
+    "architecture": "20->64->3 SiLU gate; three independent 20->96->48 SiLU expert encoders. Softmax gates their embeddings, not actions. All modules are registered in build_modules and jointly optimized with one factory DP.",
+    "action_frame": "Identity encode/decode: [world_dx,world_dy,world_dz,gripper] with native xyz units 0.01 m. No translation of action origins, candidate clipping, analytic action controller or candidate action averaging.",
+    "scales": "Relative position /0.1 m, observed step delta /0.01 m, world position centered at [0,0.6,0] /0.5 m. Yaw/quaternion and aperture remain physical unstandardized inputs. No support-fit normalization beyond the unmodified common host normalizer."
+  },
+  "training_only_targets": [
+    {"name": "current_action_mode", "source": "Exact D_N episode.actions[t] and episode.obs[t,39:41] for each window start t", "definition": "Rotate action xy to cabinet frame for labeling only: if cabinet_y < -0.2, class 2 outward; otherwise if world_z > 0, class 0 elevated approach; otherwise class 1 descent. These are action-derived labels, not claimed contact or success labels.", "shape": "[number_of_windows], int64; no saved training labels in deployment state", "loss": "0.05 times cross entropy on the current observation's gate logits, weighted by batch.mask[:,0] and divided by sum of those current-element masks. Common action4 epsilon loss retains weight 1 and mask.sum()*4 denominator. Labels are used only in training_loss; conditioning always predicts its gate from causal raw fields."}
+  ],
+  "parents": [],
+  "change_summary": "Initial standalone learned-stage candidate: soft mixture-of-encoders plus training-only current command-mode supervision and identity world action coordinates. Unlike the geometric-only local-action design, it changes the learned condition architecture and adds a causal stage auxiliary objective. No learned modules outside the common joint loss, no support-fit state, and no performance feedback used."
+}

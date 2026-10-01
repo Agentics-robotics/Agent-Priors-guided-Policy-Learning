@@ -1,0 +1,99 @@
+{
+  "checkpoint": "provenance/relocated/f14e2ed542e2031f",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "c5abc0db760d8e76ad10f47d7fb7016bda7555aaa5cec634672df90702ad9d1f",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 2,
+    "physical_gpu": 0,
+    "uuid": "GPU-3a21dde0-fd97-6ab3-4abb-5c98696a4bc3"
+  },
+  "effective_action_targets": 122273481,
+  "final_weights_sha256": "2564718c631fe6efa02cb741cea0a37c8f85a21fdbefa03b8ec258a423b1d536",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 2.8503334522247314,
+      "step": 1
+    },
+    {
+      "l2_norm": 2.8409006595611572,
+      "step": 2
+    },
+    {
+      "l2_norm": 2.905203104019165,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.11976415663957596,
+      "step": 60000
+    }
+  ],
+  "initial_weights_sha256": "7f36e064256be8dd70cdb477f4f7ff5cc325fa2d82a375dff41981b063f8ff0a",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 60000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 16104,
+      "duplicated_actions": 0,
+      "unique_actions": 16104
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For encoded demonstrated targets, decode reconstructs the FK-commanded world TCP pose from the same causal reference, then shared IK is compared by maximum world position error in metres, rotation angle in radians, and gripper scalar error. Rotation is the continuous 6D projection; IK may choose a nonunique joint solution. The 0.01 bound accommodates independent IK while its nominal solver tolerances remain 1e-4 m and 1e-3 rad.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "One model owns every action in all twelve complete demonstrations, with one call_args={} binding per trajectory and no segmentation, stage input, policy selection, or overlap with another runtime policy.",
+      "input_shapes": {
+        "features": [
+          2,
+          60
+        ]
+      },
+      "observation_dependencies": [
+        "drawer_position",
+        "drawer_velocity",
+        "object_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each prediction slot contains [dx,dy,dz,r1x,r1y,r1z,r2x,r2y,r2z,g]. Position is metres relative to a causal smooth reference: a soft nearest-anchor blend of current object position and a drawer-handle anchor target_pose.xyz+[-0.270,0,0.065] m. The weight is sigmoid((distance(TCP,drawer_anchor)-distance(TCP,object))/0.040 m). The six rotation values are the first two columns of an absolute world-frame TCP rotation and are projected by Gram-Schmidt; g is the demonstrated native gripper scalar (nonnegative opens, negative closes). Slot 0 denotes t-1 and slots 1..8 denote executable targets t..t+7. At every executed slot, decode recomputes the reference from the fresh observation, adds the learned offset, projects rotation, and calls panda_kinematics.solve_ik from freshly measured joints. No Cartesian clipping or scripted completion is applied.",
+      "parameter_semantics": "No caller parameters are accepted: the sole binding call_args={} means execute the complete retrieve-store-close behavior. All intent is fixed by the task; observed object_pose and target_pose are world-frame metre/wxyz poses, and the policy resolves them causally at every chunk and decode.",
+      "policy_id": "single_prior_cartesian",
+      "skill_id": "full_task",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 7680000,
+  "source_hashes": {
+    "HANDOFF.json": "f3be2f90e7ddc801dda07c09e63ac34f976bb55752eba1642e24cfc56a2b6e33",
+    "PRIOR.md": "817cdc51ac3a28fbdeb278216867d452c0205e956cfbb8f7d9db44679c45b2c6",
+    "adapters.py": "fd981a97395e1cd27030cf9ef30c8f215dcfc07073f17d70f7bdf48c9feb2682",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "81c4bbca5d2938a5972893689cf3687a34f84c62e877494f2934ae9739fec6b1",
+    "policy.py": "323f45350e901d98e137ea229ded8e8bcf27ad00c1baef7f81dd5d8039a9fd31",
+    "policy_contract.json": "392da644838249be7705c05aca346eff1db8ddc8fb01b2974088435da702c5b0",
+    "training_bindings.json": "6d47e5da942ad1d8d537efa64d74ebd24ff8662eabd53a04b8d2c8a61c23de64"
+  },
+  "trainable_parameters": 17186570,
+  "training_elapsed_seconds": 1677.8035764221568,
+  "weight_l2_change": 51.752518698668965
+}

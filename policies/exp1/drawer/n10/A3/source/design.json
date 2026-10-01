@@ -1,0 +1,44 @@
+{
+  "title": "Typed relational encoder and joint action-motion diffusion",
+  "coverage_gap": "Successful support trajectories occupy only LL/HH layouts and couple hand motion with handle motion only after engagement. Action imitation alone can exploit correlated absolute layouts or treat a pull command as evidence that the drawer actually moved. The C/E gap motivates a shared geometric representation and an additional learned motion consequence model.",
+  "reusable_regularity": "Use the same learned edge encoder for hand-to-handle, handle-to-goal and hand-to-goal relations, with explicit role tags and causal changes. Jointly denoise cabinet-frame action4 and six future displacement coordinates (hand and handle). The auxiliary trajectory is a learned random variable in the same diffusion process, not an inference oracle. It encourages the denoiser to represent both free hand approach and subsequent coupled hand/handle movement without discrete phase rules.",
+  "dependencies_preserved": [
+    "Relations retain full signed 3D direction, not only distances, and include native-previous geometry and causal changes. Typed edges distinguish robot reach from object-goal progress.",
+    "An explicit world-context bypass keeps hand and goal positions, hand/handle world displacements, yaw, current/previous object xyzw quaternions, hand/handle heights and both gripper apertures. Thus analytical yaw canonicalization does not assert that robot reachability or fixed world gripper contact is rotation-invariant.",
+    "The local current-edge bypass preserves fine alignment even if the learned compression loses it. All present declared state dependencies are retained; absent object2 zeros are omitted.",
+    "Cabinet/front and table dependencies are represented by handle-goal-yaw geometry and world heights. No extra obstacle poses, collision distances or simulator state are available or queried."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exact drawer__N10__rep0 support scope with ten episodes; no other task, N, development or hidden-test data"},
+    {"path": "task_materials.json", "detail": "Common observation supplies current and previous hand/handle positions, goal, yaw and quaternion; fixed world end-effector orientation and native action4"},
+    {"path": "support_summary.json", "detail": "LL/HH only, five episodes each; initial handle-to-goal direction follows yaw with approximately 0.128 m travel"},
+    {"path": "trajectories/demo_00.json", "detail": "obs 30-33 and 58-64: hand descends while handle is stationary. obs 74-78: both hand and handle move outward; these distinguish hand motion from object progress"},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Actual initial robot/cabinet/goal frame establishes the three physical entities"},
+    {"path": "images/frame_01_demo_00_step_060.png", "detail": "Actual near-handle frame before appreciable opening"},
+    {"path": "images/frame_12_demo_07_step_090.png", "detail": "Actual extended-drawer frame motivates modeling handle motion as well as hand motion"}
+  ],
+  "expected_failure_signature": [
+    "If joint consequences regularize transfer, policies with similar alignment should distinguish stationary-handle approach from actual opening rather than keying on layout sign. This is an unmeasured hypothesis.",
+    "The demonstrations contain successful coupling but little slip/recovery coverage. A3 may hallucinate handle displacement under an ineffective pull; expected physical signature is continued hand travel while the handle remains stationary.",
+    "The auxiliary diffusion variables increase denoising complexity under the same update budget and can compete with action learning. Degraded action precision or noisy near-contact switching would falsify the usefulness of this particular joint prior.",
+    "At large E yaw, fixed-gripper interaction geometry may not generalize even if the learned local motion looks plausible. No joint-prediction consistency is enforced through an external dynamics model or planner."
+  ],
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history [B,2,41] and raw_current [B,41], host-owned diffusion samples/timesteps and learned weights",
+    "slices": {"hand_xyz": [0,3], "gripper": [3,4], "handle_xyz": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_handle_xyz": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal_xyz": [36,39], "cabinet_sin_cos_yaw": [39,41]},
+    "conditioning": "Three 12-feature edges (local current xyz, previous xyz, causal xyz change, role one-hot) share a 12-64-24 SiLU map. Their concatenation feeds a 72-48 SiLU fusion. 48 learned features + 9 current-edge coordinates + 26 world-context values yield [B,2,83]. Fixed physical scales are specified in config; common host normalization/optimizer remain untouched.",
+    "action_semantics": "Action4 occupies diffusion channels 0:4. Encode dimensionless native xyz by observed chunk-start yaw R_z^T and decode with R_z. Gripper is copied unchanged. One fixed frame for all 16 steps; no scaling of action magnitude, recentering, clipping or controller. The host alone clips in the native world cube and executes four actions at 80 Hz with 0.01 m xyz scale.",
+    "joint_inference": "Diffusion dimension 10. All ten channels start from host-owned noise and are denoised by the one common U-Net. Channels 4:10 are discarded for execution; no future observation, label, mask, target or imagined-state rollout is used as conditioning."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_displacement",
+      "shape": "[number_of_windows,16,6]",
+      "source": "For exact-D_N window (episode,t), valid step j uses obs[t+j+1,0:3]-obs[t,0:3] and obs[t+j+1,4:7]-obs[t,4:7]. Both are rotated by normalized obs[t,39:41] into the single chunk-start cabinet frame and divided by 0.1 m. Pad nonexistent targets with zeros; no future frame or anchor is used.",
+      "use": "Append after unmodified encoded action4 in diffusion_targets. Auxiliary epsilon squared error over six channels uses mask[...,None], denominator mask.sum()*6 and weight 0.2. Padded elements contribute nothing. The public action epsilon loss remains separate at fixed weight 1 and denominator mask.sum()*4."
+    }
+  ],
+  "support_fit": "No additional fitted statistics or persistent target caches. Empty deployment state; all encoder and common DP parameters are initialized in build_modules and optimized only by the common budget.",
+  "parents": [],
+  "change_summary": "Initial independent scientific design: typed weight-shared relational features and joint action/future-displacement diffusion. Shares the basic causal yaw transform with the geometric design but adds a distinct learned relational architecture and generative auxiliary modeling objective; no stage classifier or performance feedback."
+}

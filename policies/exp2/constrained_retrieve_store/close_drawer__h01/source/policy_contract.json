@@ -1,0 +1,29 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "close_drawer__h01",
+  "skill_id": "close_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "No high-level arguments. target_pose is the observed moving drawer-attached frame in world metres with a wxyz quaternion. The executor supplies two causal observations and a fresh observation for each decoded slot.",
+  "observation_dependencies": ["drawer_position", "drawer_velocity", "object_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {"features": [2, 41]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [target-frame xyz metres, target-frame relative rotation 6D, native gripper scalar]. The frame is target_pose from that slot's action observation for labels and from the freshly measured current observation for decoding. The 6D pair is projected by Gram-Schmidt to SO(3), composed with target_pose to a world TCP target, and passed to panda_kinematics.solve_ik from fresh measured joints. Gripper >=0 opens and <0 closes. Slots represent t-1 through t+14; execution uses slots 1 through 8.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Compare FK of decoded IK joints with the demonstrated commanded TCP target in metres/radians and compare the unmodified gripper scalar. Rotation 6D is deterministically projected to SO(3); unconverged IK is returned with diagnostics rather than replaced."
+  },
+  "cut_relation": "Uses every assigned action in [900,1330) for all 12 trajectories. The full [900,1160) action-supervised overlap with place_block_in_drawer is preserved; only Cartesian representation and causal coordinates are changed."
+}

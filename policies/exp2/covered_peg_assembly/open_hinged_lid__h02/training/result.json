@@ -1,0 +1,114 @@
+{
+  "checkpoint": "provenance/relocated/b6153f7ae8f0dc25",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "ce20eb4ead4846c544a8d4453c247bb0c42f909555bb1b267e2d6601af53d50d",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 7,
+    "physical_gpu": 5,
+    "uuid": "GPU-13ce441a-9b9f-d327-08cf-e7e9f728b580"
+  },
+  "effective_action_targets": 40674455,
+  "final_weights_sha256": "7c03d7469b0ae2dc282953fe4fefe3eee675207b2f83efdeeb7b31bb257729e7",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.197900772094727,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.230323791503906,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.335747241973877,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.1021362766623497,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "953e8c23d0e3e1bca86d7a36ecd91217385f14f0e578303c283605a20189d43a",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 11400,
+      "duplicated_actions": 0,
+      "unique_actions": 11400
+    },
+    "contract": {
+      "action_dimension": 7,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "lid_pose_field": {
+            "enum": [
+              "lid_pose"
+            ],
+            "type": "string"
+          },
+          "max_open_angle_rad": {
+            "exclusiveMinimum": 0.0,
+            "maximum": 3.141592653589793,
+            "type": "number"
+          }
+        },
+        "required": [
+          "lid_pose_field",
+          "max_open_angle_rad"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "With the matching pre-action measured TCP, relative-pose encode/decode reconstructs each demonstration commanded TCP target. Shared IK followed by public FK must reproduce position in metres and rotation in radians, while preserving the gripper scalar, with maximum error no more than 0.005.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Uses every action in all twelve [0,950) skill segments. The local correction representation preserves approach, grasp, full hinge pull, release and retreat, including all action-supervised [740,950) overlap actions shared with retrieve_peg_from_box.",
+      "input_shapes": {
+        "features": [
+          2,
+          36
+        ]
+      },
+      "observation_dependencies": [
+        "lid_pose",
+        "lid_position",
+        "lid_velocity",
+        "peg_pose",
+        "tcp_pose",
+        "qpos",
+        "qvel"
+      ],
+      "output_semantics": "Each slot is [translation xyz in metres in the current measured TCP frame, rotation vector xyz in radians for a right-multiplied current-TCP-frame correction, native gripper scalar]. Training computes inverse(T_world_tcp_measured_before_action) * T_world_tcp_command. During execution each of slots 1..8 is re-anchored independently to that control step's fresh measured TCP, rather than accumulated from the chunk start: T_world_target = T_world_tcp_current * ExpSE3(slot). The target is sent only to panda_kinematics.solve_ik from fresh qpos. The gripper scalar is unchanged; >=0 opens and <0 closes.",
+      "parameter_semantics": "lid_pose_field selects the observed moving lid world pose used to compute lid/handle geometry. max_open_angle_rad is the physical hinge travel scale in radians (1.85 in this task), used to nondimensionalize observed lid position and supplied as a condition; it is not an actuator command.",
+      "policy_id": "open_hinged_lid__h02",
+      "skill_id": "open_hinged_lid",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "753ac7ebe84f12f4f62a2e9541055d465a4b73147cbd39d815daee08ce3d56f8",
+    "PRIOR.md": "c130755b629d9bd2f8abcf70b7178a9bc5f431cdc721179f4cb244eee0484886",
+    "adapters.py": "acd42c6fd43743b2c1e571cdf8f4600a715f0e6d1a13a317d20e5b70ab125dfd",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "25b3d3383546961b9dd86f7888ab85a483f90f41c1844f4adcbf46ba45a25606",
+    "policy.py": "826c54481b4f6cd97eddd857f8a74456b9998ce3dcae34f87e16fc95698ad603",
+    "policy_contract.json": "35f826028d1a22b321eeb8d74e14e3cac981544b8b48dac3db548c58cc79b827",
+    "training_bindings.json": "9759ec8eabf991ce054a83270e3d582dfa380cf3f60ff8583ec8441967252382"
+  },
+  "trainable_parameters": 16839815,
+  "training_elapsed_seconds": 670.044958725106,
+  "weight_l2_change": 27.882647050682728
+}

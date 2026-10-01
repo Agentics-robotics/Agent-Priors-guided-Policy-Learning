@@ -1,0 +1,15 @@
+{
+  "policy_id": "reorient_and_stage_peg__h03",
+  "entry_conditions": "Use after closed-grasp retrieval or at an intermediate shared state when two causal frames provide TCP/peg motion and peg-to-hole geometry. It does not require nominal index-1120 timing, but support contains only successful-path states.",
+  "exit_conditions": "Hand off when peg/hole relations show near-axis alignment, y/z centering and descent toward insertion height, using the shared [1380,1500) interval for a multi-chunk transition.",
+  "overlap_role": "All [1120,1500) actions remain supervised: 7.5 seconds [1120,1270) overlap retrieval and 6.0 seconds [1380,1500) overlap alignment/insertion. The TCP frame is reanchored only after each 8 executed actions.",
+  "successor_readiness": "align_and_insert_peg is ready when the peg remains held, is aligned and centered, and is at or descending toward hole height. If the hole itself moved, prefer the destination-frame policy.",
+  "failure_signatures": "Local chunks oscillate or stop reducing geometric error, peg/TCP coupling is lost, clearance falls near the box, accumulated anchor error grows, a large scene shift needs a different global route, or IK is unconverged/at limits.",
+  "continuation_guidance": "Preserve both causal frames across switches, recompute the TCP anchor at every replan, execute only slots 1-8, and never advance phase state during denoising. Monitor coupling and solver diagnostics before continuing.",
+  "limitations": "This is not unseen-error recovery. It cannot repair a dropped peg, collision or bad grasp. TCP-relative labels improve local conditioning but are not by themselves invariant to a moved destination, and fixed anchors may accumulate model/execution error within a chunk.",
+  "evidence": [
+    {"trajectory_id":"demo12200","indices":[1120,1140,1200,1240,1280,1320,1360,1380,1400,1420,1440,1460,1480]},
+    {"trajectory_id":"demo12205","indices":[1120,1220,1270,1340,1380,1400,1420,1440,1460,1480]},
+    {"trajectory_id":"demo12208","indices":[1120,1180,1220,1270,1300,1340,1360,1380,1400,1420,1440,1460,1480]}
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "task_id": "drawer",
+  "n_demos": 5,
+  "policy_id": "B1_rule_prior",
+  "instance_id": "drawer__N5__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/drawer/n5/B1_rule_prior/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/drawer/n5/B1_rule_prior/model.pt",
+    "sha256": "131e7293152ac0949dbd85c6b80a0a4d4d4dcaf27e7940616fc4408d2ad9d78f",
+    "source_sha256": "131e7293152ac0949dbd85c6b80a0a4d4d4dcaf27e7940616fc4408d2ad9d78f",
+    "size_bytes": 79374507,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/drawer/n5/B1_rule_prior/normalizer.json",
+  "config": "policies/exp1/drawer/n5/B1_rule_prior/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/drawer/n5/B1_rule_prior/complete.json",
+      "sha256": "8d133fce66f066e0cf9fe82ee0ea834c8e50804f2ab8cac17e1ce2f1a0fb8f92",
+      "source_sha256": "8d133fce66f066e0cf9fe82ee0ea834c8e50804f2ab8cac17e1ce2f1a0fb8f92",
+      "size_bytes": 1794,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n5/B1_rule_prior/config.json",
+      "sha256": "97f871f54519f2affd7bfae1281c9017e18bccb91a667bc426a2aa24e66aa2c3",
+      "source_sha256": "97f871f54519f2affd7bfae1281c9017e18bccb91a667bc426a2aa24e66aa2c3",
+      "size_bytes": 7992,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n5/B1_rule_prior/identity.json",
+      "sha256": "85a4949dd9343456a7d77ce021b09db1e45903bbd067235ff6733251e49f7fa9",
+      "source_sha256": "85a4949dd9343456a7d77ce021b09db1e45903bbd067235ff6733251e49f7fa9",
+      "size_bytes": 1252,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n5/B1_rule_prior/latency.json",
+      "sha256": "ea6d9d76f4035f8f45595ba33f93d96d47d7ebec8d6d522598ae4b2b1575d7a0",
+      "source_sha256": "ea6d9d76f4035f8f45595ba33f93d96d47d7ebec8d6d522598ae4b2b1575d7a0",
+      "size_bytes": 776,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n5/B1_rule_prior/normalizer.json",
+      "sha256": "f2cc7d305bd9989ec378db42f519a6e0651e9ef15a9e1536302693f3833d2411",
+      "source_sha256": "f2cc7d305bd9989ec378db42f519a6e0651e9ef15a9e1536302693f3833d2411",
+      "size_bytes": 2713,
+      "transformation": "none"
+    }
+  ]
+}

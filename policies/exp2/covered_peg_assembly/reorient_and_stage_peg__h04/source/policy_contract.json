@@ -1,0 +1,41 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "reorient_and_stage_peg__h04",
+  "skill_id": "reorient_and_stage_peg",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {},
+    "required": []
+  },
+  "parameter_semantics": "No high-level numeric parameters. The caller passes an empty object. At each replan the adapter resolves the newest observed hole_pose as the destination frame and the newest causal rigid grasp transform T_tcp^-1*T_peg. Invocation assumes the peg is stably held for the next eight actions.",
+  "observation_dependencies": [
+    "hole_pose",
+    "lid_pose",
+    "lid_position",
+    "lid_velocity",
+    "peg_pose",
+    "qpos",
+    "qvel",
+    "target_pose",
+    "tcp_pose"
+  ],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 76]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each unnormalized slot is a desired PEG pose in the newest causal hole frame plus gripper: [p_hole_peg(3 metres), R_hole_peg first two rotation-matrix columns(6), gripper scalar(1)]. Slots denote t-1 through t+14 and slots 1-8 execute. The hole pose and causal T_tcp^-1*T_peg grasp transform are fixed for the sampled chunk. Decoding projects 6D orientation to SO(3), composes the desired world peg pose, right-multiplies by inverse(T_tcp^-1*T_peg) to obtain a world TCP target, and calls panda_kinematics.solve_ik from fresh measured qpos. The demonstrated gripper scalar is passed through. Only degenerate sampled 6D vectors receive a deterministic orthogonal fallback.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "For demonstration labels, desired_peg = commanded_tcp*T_tcp^-1*T_peg and decode multiplies by its exact inverse, so the reconstructed world TCP target equals the demonstrated command before IK. Independent FK comparison must preserve TCP position, rotation and gripper within maximum error 0.005; joint nonuniqueness is allowed and solver diagnostics are exposed."
+  },
+  "cut_relation": "All twelve assigned [1120,1500) ranges are retained without trimming, including 150 incoming overlap actions [1120,1270) and 120 outgoing overlap actions [1380,1500). The change is only a causal invertible Cartesian label factorization through desired peg pose and grasp transform."
+}

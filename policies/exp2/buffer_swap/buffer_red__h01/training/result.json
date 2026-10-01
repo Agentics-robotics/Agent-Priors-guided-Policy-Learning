@@ -1,0 +1,122 @@
+{
+  "checkpoint": "provenance/relocated/51a0139a1c72ca78",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "47145682b84f589801b903d25c01caac9e6bbe84a82eab512dcf9847930f24ce",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 7,
+    "physical_gpu": 5,
+    "uuid": "GPU-13ce441a-9b9f-d327-08cf-e7e9f728b580"
+  },
+  "effective_action_targets": 40396732,
+  "final_weights_sha256": "2e6009f28bd93260e28f1106e6515dbf7a89c7c7d061351af77ea7c3b1e39bf9",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.8488457202911377,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.798365831375122,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.9584691524505615,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.20489682257175446,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "7f36e064256be8dd70cdb477f4f7ff5cc325fa2d82a375dff41981b063f8ff0a",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5770,
+      "duplicated_actions": 0,
+      "unique_actions": 5770
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "buffer_pose_world": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 7,
+            "minItems": 7,
+            "type": "array"
+          },
+          "successor_object": {
+            "enum": [
+              "blue"
+            ],
+            "type": "string"
+          },
+          "target_object": {
+            "enum": [
+              "red"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "target_object",
+          "successor_object",
+          "buffer_pose_world"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "FK command poses are encoded relative to chunk-start red and decoded by the inverse composition. The check compares world TCP position, rotation and gripper; nonunique IK is allowed, and safe 6D projection only handles degenerate sampled rotations.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "All actions in each assigned [0,stop) segment are supervised, including 210-230 actions shared with place_blue from final red lowering/release through retreat, blue closure and initial lift. No cut is trimmed or reassigned.",
+      "input_shapes": {
+        "features": [
+          2,
+          60
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "red_pose",
+        "blue_pose"
+      ],
+      "output_semantics": "Each prediction slot is [p_x,p_y,p_z,r6_0..r6_5,gripper], where p is metres and r6 is the first two rotation-matrix columns of the commanded TCP pose expressed in the red pose observed at chunk start. The red anchor is fixed for the sampled chunk. Safe Gram-Schmidt projects r6 to SO(3); exact training labels are unchanged. The local pose is composed to world, then panda_kinematics.solve_ik uses freshly measured qpos. Gripper scalar preserves native sign semantics. Slots represent t-1..t+14 and execution uses slots 1..8.",
+      "parameter_semantics": "target_object selects current red_pose as the chunk action frame; successor_object selects blue_pose for overlap conditioning; buffer_pose_world is [x,y,z,qw,qx,qy,qz] in world metres and wxyz and identifies the free destination. Training binds [-0.181,0,0.02,1,0,0,0]. Object poses refresh at every replan.",
+      "policy_id": "buffer_red__h01",
+      "skill_id": "buffer_red",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "287a71a71ca00052ac07fa4c217616ea1b0ffcbe0039e1215bc0b4e16fb42e21",
+    "PRIOR.md": "4f0c49379c5b5beac63e5dd056162cc546b1ea66af3910e03ccef162c5ae8348",
+    "adapters.py": "e09e384ca4e6f852003b7eb09dddd3d2ebb9706b0b5fc006fcc8f7bfc9f25e2c",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "c6610d8299e63a8c00f2d8e96638eb0673441a4ea3236b12b2910b9029517c6b",
+    "policy.py": "84cc1c749a05e0df35f0abc9d63566e19b32dc0357bddb1c690342669e9a0c84",
+    "policy_contract.json": "b543ffeaa02525d478e8fd69af5f089f78e1ede62c22844733126227dcdc540e",
+    "training_bindings.json": "cf6af76301d26aa41b467cddb31025973d2bc1718cb01675012cf7280046062c"
+  },
+  "trainable_parameters": 17186570,
+  "training_elapsed_seconds": 664.8380016118754,
+  "weight_l2_change": 40.127462110204824
+}

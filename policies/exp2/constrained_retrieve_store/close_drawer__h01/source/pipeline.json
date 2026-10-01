@@ -1,0 +1,16 @@
+{
+  "policy_id": "close_drawer__h01",
+  "skill_id": "close_drawer",
+  "heuristic_index": 1,
+  "prior_summary": "Express commanded Cartesian targets and causal object/TCP geometry in the freshly observed moving target_pose frame, while retaining Panda joint state for reachability.",
+  "applicable_conditions": "Prefer when the drawer, handle and placed block may be displaced together relative to demonstrations, target_pose remains a valid drawer-attached frame, and the required poses remain reachable. Valid entry ranges from completing release over the cavity to an already partly closed drawer.",
+  "termination_guidance": "Terminate only from observed task state: drawer_position below 0.025 and nearly stationary, block still inside near the drawer floor, fingers open, and TCP retreated high and clear.",
+  "limitations": "Assumes rigid handle geometry relative to target_pose. It does not establish recovery from a missed handle, jam, object outside the cavity, changed geometry, collision, or unreachable displaced pose; successful demonstrations contain no such recoveries.",
+  "config": {
+    "action_frame": "fresh target_pose",
+    "action_representation": "relative xyz plus rotation 6D plus gripper",
+    "feature_dimension_per_frame": 41,
+    "auxiliary_loss": "none",
+    "ik": "panda_kinematics.solve_ik"
+  }
+}

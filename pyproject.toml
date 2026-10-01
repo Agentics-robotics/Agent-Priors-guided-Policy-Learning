@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-priors-policy-learning"
+version = "0.1.0"
+description = "Agent Priors-guided Policy Learning: reproducible skill learning and composition experiments"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+authors = [{name = "APPL authors"}]
+keywords = ["robotics", "imitation-learning", "diffusion-policy", "skill-composition"]
+classifiers = ["Programming Language :: Python :: 3.11", "Operating System :: POSIX :: Linux", "Topic :: Scientific/Engineering :: Artificial Intelligence"]
+# Offline release tools use the standard library. Install scientific dependencies
+# from the experiment's independently locked Pixi environment.
+dependencies = []
+
+[project.scripts]
+appl-release = "appl_release.__main__:main"
+appl-exp1 = "experiment1.release:main"
+appl-exp2 = "appl.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["LICENSE", "PROVENANCE.md", "*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["simulation: requires the matching simulator environment", "gpu: requires an explicitly selected GPU"]

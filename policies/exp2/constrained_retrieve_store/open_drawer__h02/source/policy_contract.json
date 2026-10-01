@@ -1,0 +1,21 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "open_drawer__h02",
+  "skill_id": "open_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "open_stop_m": {"type": "number", "minimum": 0.25, "maximum": 0.35}
+    },
+    "required": ["open_stop_m"]
+  },
+  "parameter_semantics": "open_stop_m is the intended drawer travel/open stop in metres, bound to 0.300 m for every authorized occurrence and used to normalize observed progress. TCP corrections are expressed in the fresh measured TCP body frame; observed poses use world metres and wxyz quaternions.",
+  "observation_dependencies": ["drawer_position", "drawer_velocity", "object_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 47]},
+  "action_dimension": 7,
+  "output_semantics": "Each slot is [dx,dy,dz,rx,ry,rz,g], a local SE(3) correction from the fresh measured TCP: body-frame translation in metres, right-multiplied body rotation vector in radians, and native gripper scalar. The decoder resolves every executed slot against the newly measured TCP, does not accumulate predictions, constructs a world target, and solves IK from newly measured joints. Slots represent t-1 through t+14 and execution uses slots 1 through 8. Gripper sign preserves nonnegative-open/negative-close semantics.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "For labels, inverse(measured TCP) times demonstrated FK command is recomposed with the same measured TCP, then passed through verified Panda IK. World TCP position, rotation angle and gripper scalar are compared; nonunique IK is allowed."},
+  "cut_relation": "Preserves all actions 0:440 for all twelve assigned occurrences and the 300:440 action-supervised successor overlap. The cut is refined into per-slot fresh-state corrections without trimming phases or adding scripted recovery."
+}

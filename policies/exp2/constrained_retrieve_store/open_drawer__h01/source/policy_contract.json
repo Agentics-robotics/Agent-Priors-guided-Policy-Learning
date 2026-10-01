@@ -1,0 +1,21 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "open_drawer__h01",
+  "skill_id": "open_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "open_stop_m": {"type": "number", "minimum": 0.25, "maximum": 0.35}
+    },
+    "required": ["open_stop_m"]
+  },
+  "parameter_semantics": "open_stop_m is the intended drawer travel/open stop in metres, bound to 0.300 m in every authorized demonstration. It normalizes causal drawer progress. target_pose is the observed world-frame rigid drawer reference, object_pose is the tunnel block, and pose quaternions are wxyz.",
+  "observation_dependencies": ["drawer_position", "drawer_velocity", "object_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 47]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [px,py,pz,r1x,r1y,r1z,r2x,r2y,r2z,g]: an absolute commanded TCP pose expressed in the freshly observed target_pose frame, with position in metres, the first two rotation-matrix columns as 6D rotation, and native gripper scalar g. At each physical slot the decoder Gram-Schmidt projects the 6D value to SO(3), composes target_pose_world * represented_pose, and solves IK from freshly measured joints. Slots represent t-1 through t+14; execution uses slots 1 through 8. The gripper sign retains the common nonnegative-open/negative-close rule.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "FK command poses are transformed into the observed drawer frame and exactly recomposed before verified Panda IK. The check compares world TCP position in metres, rotation angle in radians and gripper scalar; only 6D Gram-Schmidt projection and nonunique IK are applied."},
+  "cut_relation": "Preserves actions 0:440 for all twelve assigned occurrences, including the complete action-supervised 300:440 overlap with retrieve_tunnel_block. It refines the invocation contract only by making every Cartesian label drawer-frame relative; no action or phase is removed."
+}

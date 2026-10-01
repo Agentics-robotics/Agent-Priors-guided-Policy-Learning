@@ -1,0 +1,181 @@
+{
+  "api_authored_policy_sources_modified": false,
+  "files": [
+    {
+      "author": "Repository framework",
+      "published": "src/appl/construction/__init__.py",
+      "published_sha256": "456e54e8793e72691dbe1749b96cfc8e72741585cb8d4ae747ee99acf0161b5f",
+      "purpose": "New release orchestration, path resolution and integrity accounting; no API policy content authored."
+    },
+    {
+      "author": "Repository framework",
+      "published": "src/appl/construction/__main__.py",
+      "published_sha256": "b259269c33c907b59b28aaeacc4063a2c314aae66ec2163e79f60ceeef318a3d",
+      "purpose": "New release orchestration, path resolution and integrity accounting; no API policy content authored."
+    },
+    {
+      "published": "src/appl/construction/cartesian.py",
+      "published_sha256": "7b0850141f05791d02b0f559d947d11bde86a5cd5acef545fd6a6b06260dc2be",
+      "sources": [
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik/design.py",
+          "sha256": "7863cf33b2c965b284d943ad62753f40fc4851b48e81571350ace95b0e7a31af"
+        },
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_val/revise.py",
+          "sha256": "b7f8c321a8968af018bfff06516b109c461663831c2b2932b2aadec53942bc55"
+        }
+      ],
+      "transformation": "Extracted executed tools or numerical logic; public imports, standard API transport, portable inputs and independent stage execution."
+    },
+    {
+      "author": "Repository framework",
+      "published": "src/appl/construction/configuration.py",
+      "published_sha256": "e20f350335c18110762e8cea7250f60176d1bd282b7968aa0909139135071f8a",
+      "purpose": "New release orchestration, path resolution and integrity accounting; no API policy content authored."
+    },
+    {
+      "published": "src/appl/construction/cut.py",
+      "published_sha256": "bc6368dce48957fe880b052a538543c5b117ccf2e9093bcf3736fd93d187a371",
+      "sources": [
+        {
+          "path": "experiments/exp2/six_tasks/v3/cut.py",
+          "sha256": "33848214d7c04398757931ee30a52ff7d11e8fb7ce243759806394a7dd2bceca"
+        }
+      ],
+      "transformation": "Extracted executed tools or numerical logic; public imports, standard API transport, portable inputs and independent stage execution."
+    },
+    {
+      "published": "src/appl/construction/demonstrations.py",
+      "published_sha256": "ec55e85c0cf8d99925bc306847cd281d98d6c287558cc5c0c95f62741b98bfba",
+      "sources": [
+        {
+          "path": "src/appl/demonstrations/decouple.py",
+          "sha256": "b8112574af2e9ff53586aea7a25d825da02d40bafb7d12a268502706ddc8253c"
+        }
+      ],
+      "transformation": "Extracted executed tools or numerical logic; public imports, standard API transport, portable inputs and independent stage execution."
+    },
+    {
+      "published": "src/appl/construction/design.py",
+      "published_sha256": "48301c03d3f01cf54dc0554b0ebbda92c9332d6540e1448e08d9eb45b21490c1",
+      "sources": [
+        {
+          "path": "experiments/exp2/six_tasks/v3/design.py",
+          "sha256": "245357a7b0e60ce93a383276f1dbb6967d1fdc41ac243d27f38705b29fcd8000"
+        },
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik/design.py",
+          "sha256": "7863cf33b2c965b284d943ad62753f40fc4851b48e81571350ace95b0e7a31af"
+        },
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_new/design.py",
+          "sha256": "c5554f7268763a93488974479d14b71c7e8f9088071dbe94659df687d4805f47"
+        }
+      ],
+      "transformation": "Extracted executed tools or numerical logic; public imports, standard API transport, portable inputs and independent stage execution."
+    },
+    {
+      "published": "src/appl/construction/evidence.py",
+      "published_sha256": "0fe8be0726778b64499ad9b1e3368b4d236998f543d8eca4a35e8ae24684aa63",
+      "sources": [
+        {
+          "path": "src/appl/prior_policies/data.py",
+          "sha256": "2bdc265dac4968db702dafe19cc49218dae15ae13b0226955811e2e30f35c78e"
+        },
+        {
+          "path": "experiments/exp2/six_tasks/flexible/evidence.py",
+          "sha256": "061259d9f78b1a80027acd3633c85242dc1d13ebbe3d29b1a1ec79827549480d"
+        }
+      ],
+      "transformation": "Extracted executed tools or numerical logic; public imports, standard API transport, portable inputs and independent stage execution."
+    },
+    {
+      "author": "Repository framework",
+      "published": "src/appl/construction/jobs.py",
+      "published_sha256": "d71db42077c7efb2eda9d72438cc49139fbf893504cae10a15d004682044410b",
+      "purpose": "New release orchestration, path resolution and integrity accounting; no API policy content authored."
+    },
+    {
+      "published": "src/appl/construction/journal_tools.py",
+      "published_sha256": "45b18b9bf73c4ecc19091988a8b43926f20d7661c1146ee45b30f98021a35d97",
+      "sources": [
+        {
+          "path": "src/appl/prior_policies/design.py",
+          "sha256": "8104a9a10c3b27f91967685f622cd1853fd0815e505e47fa90206e43432d0445"
+        }
+      ],
+      "transformation": "Extracted executed tools or numerical logic; public imports, standard API transport, portable inputs and independent stage execution."
+    },
+    {
+      "author": "Repository framework",
+      "published": "src/appl/construction/pipeline.py",
+      "published_sha256": "01f792c98c75879441eaca3ff511184832c19f009e3940547e934c1b9a1657ec",
+      "purpose": "New release orchestration, path resolution and integrity accounting; no API policy content authored."
+    },
+    {
+      "published": "src/appl/construction/policy_tools.py",
+      "published_sha256": "185afb4cd3c4ab3a8f262b96fe6c68b15be738e99c03765d3f88cc688b18e360",
+      "sources": [
+        {
+          "path": "experiments/exp2/six_tasks/flexible/design.py",
+          "sha256": "8c368ec157438b52c67321a916739126aa34a254dd4ad683c4b9b9445864663c"
+        }
+      ],
+      "transformation": "Extracted executed tools or numerical logic; public imports, standard API transport, portable inputs and independent stage execution."
+    },
+    {
+      "published": "src/appl/construction/prompts.py",
+      "published_sha256": "e916cd51db533d8cd5e65f1f0094c56a8180e90a79b8a06f9167a9f06ad0da34",
+      "sources": [
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_val/prompts.py",
+          "sha256": "02fbe55f8e57f85d08cf178372a74ea74d0d15a0ac7e3136990f60f384cfe7a7"
+        }
+      ],
+      "transformation": "SKILL_REVISION and FINAL string literals preserved verbatim; cancelled single-policy revision omitted."
+    },
+    {
+      "published": "src/appl/construction/refinement.py",
+      "published_sha256": "adaa340c69b2741c5b39482f3d6eb5fb258ab40a9d6f9e0ebea29d81dbff901c",
+      "sources": [
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_val/revise.py",
+          "sha256": "b7f8c321a8968af018bfff06516b109c461663831c2b2932b2aadec53942bc55"
+        }
+      ],
+      "transformation": "Extracted executed tools or numerical logic; public imports, standard API transport, portable inputs and independent stage execution."
+    },
+    {
+      "published": "src/appl/construction/verification.py",
+      "published_sha256": "e48f60c7da81cca97e4d4f20a19d7c8498dbe636556d735ede49db72225238d7",
+      "sources": [
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_val/validate.py",
+          "sha256": "04ed7c3c6dd9e5d1c2670beab836eeafa4e2c078aad21e7e3dbbb55777a64b5d"
+        },
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_more_val/validate.py",
+          "sha256": "c54282a970fa1aa60d4600d21afaa15c6824b521e72dc833e5a3447cd0750430"
+        },
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_v2/verify.py",
+          "sha256": "b5c40296accef5ed98265b996a2d3c5bcfeb45d7a99be94e5e8abcee6fb04b7b"
+        },
+        {
+          "path": "experiments/exp2/six_tasks/cartesian_ik_more_v2/verify.py",
+          "sha256": "b0316923502a05e7c5de16298c2f2db5e444a4c99f661bd301ac80df292d5119"
+        }
+      ],
+      "transformation": "Extracted executed tools or numerical logic; public imports, standard API transport, portable inputs and independent stage execution."
+    }
+  ],
+  "original_source_unchanged": true,
+  "published_framework_has_new_hashes": true,
+  "release_protocol_notes": [
+    "The paper skill IDs, final exit rules and twelve-demo support are preregistered before a new Cut.",
+    "Initial design has three priors and refinement has exactly one h04; all new outputs are separate from published artifacts.",
+    "The original scientific prompt texts remain unchanged. New public module names and fixed skill vocabulary are supplied in the protocol context."
+  ],
+  "schema": "appl.construction.source_migration.v1"
+}

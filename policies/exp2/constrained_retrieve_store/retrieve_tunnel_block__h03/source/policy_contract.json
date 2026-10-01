@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "retrieve_tunnel_block__h03",
+  "skill_id": "retrieve_tunnel_block",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "object_pose_field": {"type": "string", "enum": ["object_pose"]},
+      "destination_pose_field": {"type": "string", "enum": ["target_pose"]},
+      "tunnel_clearance_m": {"type": "number", "minimum": 0.16, "maximum": 0.16}
+    },
+    "required": ["object_pose_field", "destination_pose_field", "tunnel_clearance_m"]
+  },
+  "parameter_semantics": "object_pose_field selects the observed manipulated block used for proximity, motion and clearance features; destination_pose_field selects the observed SE(3) frame for learned targets; tunnel_clearance_m is world z=0.16 m and enters both features and the conservative decoder guard. Bindings use object_pose, target_pose and 0.16.",
+  "observation_dependencies": ["drawer_position", "drawer_velocity", "object_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 70]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [destination-frame TCP x,y,z metres, destination-frame TCP rotation 6D as first two columns, gripper scalar]. decode composes the represented pose with the freshly observed target_pose. If and only if observed fingers are closed, TCP is within 0.06 m of the block and block z is below tunnel_clearance_m, a deterministic projection caps premature +world-x transfer to object_x+0.03 m and keeps y inside the object-centre tunnel lane while the block is inside tunnel x. Rotation is unchanged. The resulting world TCP pose goes through panda_kinematics.solve_ik from fresh joints. Gripper >=0 opens and <0 closes. Slots are t-1..t+14; execution uses 1..8.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "Destination-frame encode/decode must recover demonstrated FK TCP and gripper within 0.01 maximum metres/radians/scalar. The declared guard is inactive on valid demonstrated targets; any projection and all IK residuals are reported."},
+  "cut_relation": "Keeps all [300,840) actions for each trajectory, including [300,440) predecessor and [680,840) successor overlap. The only nonlearned refinement is the declared low-clearance projection; it does not add task waypoints."
+}

@@ -1,0 +1,107 @@
+{
+  "checkpoint": "provenance/relocated/a6edfe01c44f7c0d",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "fdd8ac76e56ed3c0fba8bf90c1a9965edf4f8fcaa225e76d879c3b27fd4a0722",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 6,
+    "physical_gpu": 4,
+    "uuid": "GPU-29557089-826b-ddb5-4d55-d03f2009a879"
+  },
+  "effective_action_targets": 40346523,
+  "final_weights_sha256": "60184141c349469e68f56b94ea42266cb86b6accd5ffb36947925653787bedd9",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.9191198348999023,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.844823122024536,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.783498525619507,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.21092893183231354,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "cb7a32c175954b52c8768b517e7be56bf820d92053d6e9063865c0d5cb2c1731",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5280,
+      "duplicated_actions": 0,
+      "unique_actions": 5280
+    },
+    "contract": {
+      "action_dimension": 7,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "open_stop_m": {
+            "maximum": 0.35,
+            "minimum": 0.25,
+            "type": "number"
+          }
+        },
+        "required": [
+          "open_stop_m"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For labels, inverse(measured TCP) times demonstrated FK command is recomposed with the same measured TCP, then passed through verified Panda IK. World TCP position, rotation angle and gripper scalar are compared; nonunique IK is allowed.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "Preserves all actions 0:440 for all twelve assigned occurrences and the 300:440 action-supervised successor overlap. The cut is refined into per-slot fresh-state corrections without trimming phases or adding scripted recovery.",
+      "input_shapes": {
+        "features": [
+          2,
+          47
+        ]
+      },
+      "observation_dependencies": [
+        "drawer_position",
+        "drawer_velocity",
+        "object_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is [dx,dy,dz,rx,ry,rz,g], a local SE(3) correction from the fresh measured TCP: body-frame translation in metres, right-multiplied body rotation vector in radians, and native gripper scalar. The decoder resolves every executed slot against the newly measured TCP, does not accumulate predictions, constructs a world target, and solves IK from newly measured joints. Slots represent t-1 through t+14 and execution uses slots 1 through 8. Gripper sign preserves nonnegative-open/negative-close semantics.",
+      "parameter_semantics": "open_stop_m is the intended drawer travel/open stop in metres, bound to 0.300 m for every authorized occurrence and used to normalize observed progress. TCP corrections are expressed in the fresh measured TCP body frame; observed poses use world metres and wxyz quaternions.",
+      "policy_id": "open_drawer__h02",
+      "skill_id": "open_drawer",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "7e96ae6c0ccccf2fc85435623a297999d11b0276a35661a4eb1d33087a3f77db",
+    "PRIOR.md": "6d80cc1cea34901e9cfd098fb7e198e05f786aa39455d077488340046af08ab7",
+    "adapters.py": "9e2dc0c471168724ca3ba73cee8806ac73145b871c1bedea67adc644ff84bbec",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "a13294e65e30936bdbd36216512c6f94e861be0e6f44e8ebf98699d7814c7a27",
+    "policy.py": "3e1827faefc8cfe2ecd6f91ccffa3dcab43d2b43320b91d1cf324cb4e6f0a613",
+    "policy_contract.json": "4d98972c4200c97ebfac69c1b004ec2d858f385c7d3e6f22c63881bff457e2c4",
+    "training_bindings.json": "a5da0257028e485c6c4d9dcf80b79b02ea68fa87f30445345a744db62b6fc11f"
+  },
+  "trainable_parameters": 16997511,
+  "training_elapsed_seconds": 672.9566123909317,
+  "weight_l2_change": 27.264664446376283
+}

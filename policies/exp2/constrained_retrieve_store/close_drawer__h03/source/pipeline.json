@@ -1,0 +1,18 @@
+{
+  "policy_id": "close_drawer__h03",
+  "skill_id": "close_drawer",
+  "heuristic_index": 3,
+  "prior_summary": "Anchor translations to a fixed closed-drawer destination and train a shared condition encoder to predict the demonstrated eight-step drawer response, emphasizing closure progress and stopping while keeping diffusion primary.",
+  "applicable_conditions": "Prefer when the drawer is already partly closed or closure progress/stopping near the 0.025 threshold is the main uncertainty, and target_pose plus drawer_position consistently define a reachable prismatic closed destination. Early release remains supervised but is not the intended advantage.",
+  "termination_guidance": "Use only observed state: drawer_position below 0.025 and near-zero velocity, block still inside, fingers open and TCP high/clear. The auxiliary prediction is not contact or success.",
+  "limitations": "Assumes prismatic motion along target local x and accurate target/drawer observations. The auxiliary reflects successful demonstrated response and cannot detect or recover from jams, missed contact, obstruction, changed handle geometry, block interference, collision or infeasible reach.",
+  "config": {
+    "action_translation_frame": "fresh fixed closed destination",
+    "action_orientation_frame": "world rotation 6D",
+    "condition_encoder_dimension": 256,
+    "closure_auxiliary_horizon_slots": [1, 8],
+    "closure_auxiliary_scale_m": 0.1,
+    "closure_auxiliary_weight": 0.05,
+    "ik": "panda_kinematics.solve_ik"
+  }
+}

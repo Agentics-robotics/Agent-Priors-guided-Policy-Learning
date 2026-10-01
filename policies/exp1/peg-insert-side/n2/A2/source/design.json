@@ -1,0 +1,44 @@
+{
+  "title": "Locally routed manipulation-mode encoders with causal deployment",
+  "coverage_gap": "Only two LL/HH support executions cover correlated source and destination positions. They share a recognizable open-hand approach, closure near the resting peg, then lifted movement to the side opening. The transition between downward contact and upward transport is sharp even when hand and peg positions change little. A purely continuous monolithic conditioning representation can entangle these modes with the two absolute layout identities.",
+  "reusable_regularity": "Three small learned relation encoders specialize in reach, grasp/contact, and carry/alignment. A soft three-way router is computed only from causal local hand/peg/gripper state, so absolute goal_y cannot act as a mode label. Training-only supervision encourages prediction of open-command, closed-command with peg still near rest, and closed-command with impending elevated peg. The four-step lookahead matches the fixed execution prefix but is never read at inference. Soft weights have a 0.1 floor and an ungated scene skip retains all present geometry; this is not a hard-coded controller, state machine, or separate diffusion expert ensemble.",
+  "dependencies_preserved": [
+    "All three specialist features remain world-axis metric relations; the action frame is unchanged. Goal-to-head and goal-to-hand relations enter the carry expert, and goal-to-head enters the ungated scene skip at every stage to preserve the box dependency even during approach.",
+    "Low-gain absolute hand workspace position, hand/grasp/head/goal heights, and the directed head-minus-grasp shaft offset are always supplied. Goal, peg and head world positions can be reconstructed from these and the signed relations.",
+    "Native previous hand/grasp positions, aperture and quaternion are retained as differences; current quaternion is raw xyzw. The current history slot also receives causal pegHead displacement from the older supplied whole observation.",
+    "Router inputs include aperture and its change, relative hand/peg displacement, relative and separate motion, height above fitted resting grasp height, hand-grasp vertical separation, and shaft vertical offset. They include neither environment phase flags nor timestamps nor goal coordinates.",
+    "The common observation declares object2 absent zeros; no extra obstacle pose, contact force, success flag, planner or simulator state is assumed."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Current support is exactly demo_00 and demo_01; no evaluation observations are available."},
+    {"path": "task_materials.json", "detail": "C/E factor crossing, two-whole-observation history, aperture and physical pegHead fields, four native actions."},
+    {"path": "support_summary.json", "detail": "One LL and one HH; 77 and 91 transitions; gripper command extrema -1 and +0.6."},
+    {"path": "trajectories/demo_00.json", "detail": "Read actions 0-76 and observations 31-34,48-53,64-68. Closure commands begin before aperture is fully closed; at 50-52 the aperture is roughly 0.37 to 0.33 and the policy switches from pressing down to lifted transfer. Later head height approaches goal height."},
+    {"path": "trajectories/demo_01.json", "detail": "Read observations 50-53 and 86-91: corresponding closure state and later elevated peg with aperture near 0.30 in the different layout."},
+    {"path": "images/frame_02_demo_00_step_023.png", "detail": "Open hand over resting peg."},
+    {"path": "images/frame_04_demo_00_step_045.png", "detail": "Near-table gripper approach/closure geometry."},
+    {"path": "images/frame_06_demo_00_step_068.png", "detail": "Held peg elevated at box opening."},
+    {"path": "images/frame_10_demo_01_step_035.png", "detail": "Second-layout approach to the peg, before transfer to the box."},
+    {"path": "images/frame_13_demo_01_step_068.png", "detail": "Second-layout lifted transfer configuration."}
+  ],
+  "expected_failure_signature": [
+    "Misclassified closure versus transport should appear as repeated down/up switching, lifting before secure grasp, or staying at the table with a closed aperture. Soft routing reduces but does not eliminate that risk.",
+    "The impending-lift label is only a kinematic proxy, not measured grasp contact. A dropped peg or unusual gripper contact could receive an incorrect mode probability.",
+    "Even correct mode routing may leave a same-sign lateral transfer bias because neither demonstration teaches a positive goal_y-minus-head_y carry. That would cause failures concentrated after a successful pickup in crossed/extreme layouts.",
+    "Three encoders and a supervised router may overfit 168 support transitions; mode confidence could be high away from the demonstrated relative distances."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,42] from shared deployment observations",
+    "slices": {"hand": [0,3], "aperture": [3,4], "pegGrasp": [4,7], "peg_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_pegGrasp": [22,25], "previous_peg_quaternion_xyzw": [25,29], "goal": [36,39], "pegHead": [39,42]},
+    "fitted_state": "One float rest_grasp_z restored before module construction. Raw metric features bypass common normalized values without modifying the common normalizer. No other runtime state or cache."
+  },
+  "training_only_targets": [
+    {"name": "mode_label", "source": "Exact D_N actions[t,3] and obs[min(t+4,T),6]. Class0 if current native gripper command <=0; otherwise class1 if future pegGrasp_z <= fitted rest_grasp_z+0.025 m, class2 otherwise.", "inference": "Unavailable and unused. Only the learned causal mode logits condition the U-Net."},
+    {"name": "mode_valid", "source": "Exact episode action length; 1 only when t+4<=T.", "mask": "Auxiliary CE uses mode_valid * common mask[:,0] and divides by its sum clamped to at least1. No terminal extrapolated label contributes."}
+  ],
+  "support_fit": "Median of pegGrasp_z in obs[0:min(10,T)] over each of the exact two supplied episodes; no final observation, action optimization, or data outside D_N. Only this scalar is saved in deployment state. It is also used by training-only mode labels.",
+  "action_frame_semantics": "Identity native world dx,dy,dz and gripper encode/decode. Native translation scale0.01 m; gripper stays scalar. Public executor is sole clipper; fixed horizon16 and executed prefix4.",
+  "loss_and_capacity": "One frozen common DP with 110 conditioning channels (three 24-dimensional gated encodings, 35 ungated scene features, three logits). Specialist MLP hidden width64, router width48; all registered during build_modules and trained jointly. Common action epsilon loss is unchanged with weight1/denominator mask.sum()*4. Extra nonnegative masked mode CE has weight0.1; no joint diffusion channels or action-loss reweighting.",
+  "parents": [],
+  "change_summary": ["Independent initial design: supervised causal mode routing with separate relation encoders, distinct from an ungated deterministic representation or joint motion diffusion.", "No performance feedback or training used in design. No structural repairs before first check."]
+}

@@ -1,0 +1,46 @@
+{
+  "title": "Predictive interaction-edge encoder with native world-action diffusion",
+  "coverage_gap": "With only one LL and one HH trajectory, an unrestricted raw-state model can conflate cabinet side with yaw and memorize the timing of the raised approach. The support contains almost no independent layout variation or off-trajectory contact recovery.",
+  "reusable_regularity": "Share a learned edge operator across hand-to-handle, handle-to-goal, and hand-to-goal relations. Each edge sees its displacement in world and cabinet coordinates, observed relative increment, distance, and a fixed role tag. A small fused latent is trained both by action diffusion and by predicting future hand/handle relations. The forecast objective asks the encoder to capture reach, descent and actual drawer response rather than merely identify a layout. Unlike analytical action canonicalization, native world axes are retained at the denoiser output to accommodate the fixed robot, gripper and native cube.",
+  "dependencies_preserved": [
+    "The 36-dimensional direct physical bypass includes world and local hand-handle and goal-handle vectors, world hand/handle increments, world hand and goal coordinates, yaw, current/previous quaternions, aperture and aperture change. Learned compression cannot erase these explicit dependencies.",
+    "The shared edge MLP has role tags, so reaching the handle is not confused with pulling it to the goal; no permutation-invariance assumption erases the hand/object/goal roles.",
+    "Absolute hand and goal, drawer relations and yaw retain the task-varying cabinet geometry and robot workspace. The fixed end-effector frame is respected by native world action encoding. There is no obstacle planner or extra geometry source.",
+    "Native previous fields and two whole histories retain observed motion. Absent object2 zeros are omitted, not treated as an obstacle."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exact two-episode support and sixteen-frame capability; no other layouts or feedback available."},
+    {"path": "task_materials.json", "detail": "Fixed native orientation, state-only policy, shared handle/goal/yaw fields, 16-step prediction and four-step execution specified by the public contract."},
+    {"path": "support_summary.json", "detail": "One LL and one HH; comparable 0.128 m initial pull lengths despite opposite horizontal directions; gripper action is -1 throughout the two supports, but this is not hard-coded."},
+    {"path": "images/frame_02_demo_00_step_024.png", "detail": "Raised approach motivates learning the response beyond instantaneous distance alone."},
+    {"path": "images/frame_04_demo_00_step_048.png", "detail": "Hand descends along the cabinet face before pulling."},
+    {"path": "images/frame_06_demo_00_step_072.png", "detail": "Interaction stage near the low handle."},
+    {"path": "images/frame_09_demo_01_step_018.png", "detail": "Same broad raised-approach structure in the other signed layout."},
+    {"path": "images/frame_13_demo_01_step_066.png", "detail": "Hand near the handle immediately before/at pulling in demo 01."},
+    {"path": "trajectories/demo_00.json", "detail": "Actions 0:28 and 40:72 and observations 62:70 show a sharp action-stage change while the handle is initially static."},
+    {"path": "trajectories/demo_01.json", "detail": "Observations 63:68 show a similarly small hand-handle gap and static handle at the onset of pull."},
+    {"path": "PUBLIC_CONTRACT.md", "scope": "public", "detail": "Two histories, 16 native actions, four executed, auxiliary objectives must be separately mask-normalized."}
+  ],
+  "expected_failure_signature": [
+    "Forecast supervision should reduce phase ambiguity if the future relation is predictable from causal geometry. If it instead memorizes support timing, the policy will lower/pull at the wrong location when approach duration changes.",
+    "The world-action model must learn yaw-dependent action components; extreme-yaw failure with decent crossed-cell behavior would falsify the sufficiency of dual-coordinate edge encoding without output equivariance.",
+    "A training-only forecast can become good on support without helping actual contact. The resulting signature would be repeated commanded pulling while the observed drawer fails to move; no predicted state is treated as a runtime observation."
+  ],
+  "required_runtime_fields": [
+    {"source": "context.raw_history", "shape": "[B,2,41]", "fields": "0:11 current hand/aperture/handle/quaternion; 18:29 native previous equivalents; 36:39 goal; 39:41 cabinet yaw sine/cosine"}
+  ],
+  "action_frame_semantics": "Identity encode/decode of all four native action channels. XYZ remain world displacement commands with native 0.01 m scale; gripper remains its separate signed actuator command. Only the public executor clips native [-1,1] and executes four of sixteen actions. Yaw rotation is used for features and auxiliary targets only, never as an undisclosed action transform.",
+  "training_only_targets": [
+    {
+      "name": "future_relations",
+      "shape": "[windows,16,6]",
+      "source_fields": "For valid t+k<T, obs[t+k+1,0:3] minus obs[t+k+1,4:7], and obs[t+k+1,4:7] minus obs[t,4:7]. Both rotated by the causal start yaw obs[t,39:41], then divided by 0.1 m. Only the exact supplied support episodes are used.",
+      "loss": "Forecast head maps both causal conditioning rows to 16x6 labels. Squared error multiplied by batch.mask[...,None], divided by mask.sum()*6 (clamped denominator for an all-zero mask), weight 0.1. Padded labels are zero and masked. Common action4 epsilon loss remains weight 1 with denominator mask.sum()*4.",
+      "inference_exclusion": "The forecast head is called only in training_loss. No labels, masks, future observation, episode identity or time index enter condition, denoise, or action encode/decode. No forecast is supplied as future truth at deployment."
+    }
+  ],
+  "support_fit_statistics": "None. Metric scaling is fixed in code/config, common normalization and all frozen trainer settings remain unchanged. No support cache is retained on the design.",
+  "architecture": "Shared 13->64->32 SiLU edge encoder, concatenated three edges plus 36 physical features ->128->48 latent. Condition is 48 latent + 36 physical =84 per observation. One unchanged common action4 DP. Training-only (2*84)->128->96 forecast head. All modules registered during build_modules and trained by the joint loss; no extra updates or pretraining.",
+  "parents": [],
+  "change_summary": ["Initial design, not a performance revision: native world action diffusion with shared learned relational representation and a separately normalized training-only future-geometry loss. No checks or results from training/evaluation used."]
+}

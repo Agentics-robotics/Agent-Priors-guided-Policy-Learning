@@ -1,0 +1,102 @@
+{
+  "checkpoint": "weights/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/model.pt",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "1a4bb6288c04fc8e09f53237c68be58305912c77655c8b087237bdd763ac5995",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 6,
+    "physical_gpu": 4,
+    "uuid": "GPU-29557089-826b-ddb5-4d55-d03f2009a879"
+  },
+  "effective_action_targets": 40245853,
+  "final_weights_sha256": "08357d737e364a02d45037e7135321cea2d62390ac423a2753ef394eaddbc0b5",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.692604064941406,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.826120376586914,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.808305263519287,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.2949216961860657,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "d8c477b12f29c74d2af01878bf1683ae714bba86ef26eda06e36d00402fbf276",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 4560,
+      "duplicated_actions": 0,
+      "unique_actions": 4560
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For demonstration labels, desired_peg = commanded_tcp*T_tcp^-1*T_peg and decode multiplies by its exact inverse, so the reconstructed world TCP target equals the demonstrated command before IK. Independent FK comparison must preserve TCP position, rotation and gripper within maximum error 0.005; joint nonuniqueness is allowed and solver diagnostics are exposed.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "All twelve assigned [1120,1500) ranges are retained without trimming, including 150 incoming overlap actions [1120,1270) and 120 outgoing overlap actions [1380,1500). The change is only a causal invertible Cartesian label factorization through desired peg pose and grasp transform.",
+      "input_shapes": {
+        "features": [
+          2,
+          76
+        ]
+      },
+      "observation_dependencies": [
+        "hole_pose",
+        "lid_pose",
+        "lid_position",
+        "lid_velocity",
+        "peg_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each unnormalized slot is a desired PEG pose in the newest causal hole frame plus gripper: [p_hole_peg(3 metres), R_hole_peg first two rotation-matrix columns(6), gripper scalar(1)]. Slots denote t-1 through t+14 and slots 1-8 execute. The hole pose and causal T_tcp^-1*T_peg grasp transform are fixed for the sampled chunk. Decoding projects 6D orientation to SO(3), composes the desired world peg pose, right-multiplies by inverse(T_tcp^-1*T_peg) to obtain a world TCP target, and calls panda_kinematics.solve_ik from fresh measured qpos. The demonstrated gripper scalar is passed through. Only degenerate sampled 6D vectors receive a deterministic orthogonal fallback.",
+      "parameter_semantics": "No high-level numeric parameters. The caller passes an empty object. At each replan the adapter resolves the newest observed hole_pose as the destination frame and the newest causal rigid grasp transform T_tcp^-1*T_peg. Invocation assumes the peg is stably held for the next eight actions.",
+      "policy_id": "reorient_and_stage_peg__h04",
+      "skill_id": "reorient_and_stage_peg",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "61aaf0858d5d7a38ec1313ce7545373fac97fb2c5911cc8706207c5257f0a957",
+    "PRIOR.md": "b01355e61e26076e2939b9ccdae4ec98729f7e04396479943f0d5c09b4d0c238",
+    "adapters.py": "04f451c5e671763cda88b411ed57fe3f8a20fce391b1807ee9780429057a4ef5",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "pipeline.json": "3bc92f8cd93c82627a59fa3792c6441e3fa0e66c09e1800ef0ff54e162792151",
+    "policy.py": "d142f4f9c986b6b671e7e874d2a90a19aff804589559f9345e2f9a4e8a4c6166",
+    "policy_contract.json": "65f49f41d04e60b11ff0cc879891c0308fd2ac9957b0d437b77632bdc2f8f47e",
+    "training_bindings.json": "ea198a35c708573855b2913321c063f9b487a753553456c9ef4ce3b573980489"
+  },
+  "trainable_parameters": 17415946,
+  "training_elapsed_seconds": 533.0139154649805,
+  "weight_l2_change": 25.261241754385424
+}

@@ -1,0 +1,10 @@
+{
+  "policy_id": "open_drawer__h01",
+  "skill_id": "open_drawer",
+  "heuristic_index": 1,
+  "prior_summary": "Track absolute Cartesian targets in a fresh articulated drawer frame so approach, pull, release and retreat transform with a supplied reachable drawer displacement.",
+  "applicable_conditions": "Prefer with a reliable current drawer origin/orientation and drawer_position, especially for a reachable cabinet-anchor displacement or an entry after partial opening. TCP must be free/high or plausibly near the drawer front.",
+  "termination_guidance": "Switch after drawer_position is safely above 0.26 m and stable. The nominal robust handoff also observes released front contact, closed fingers around red, and red/TCP upward co-motion; these cues do not alter task success.",
+  "limitations": "Does not prove contact or recover a missed handle. Large shifts can violate reachability/collision constraints. Independent red displacement, bad drawer calibration, alternative drawer orientation dynamics, failed pulls and drops are outside demonstrated support.",
+  "config": {"action_frame":"fresh_drawer","rotation_representation":"6d","action_dimension":10,"feature_dimension_per_frame":39,"auxiliary_loss":false}
+}

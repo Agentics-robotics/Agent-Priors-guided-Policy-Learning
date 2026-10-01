@@ -1,0 +1,55 @@
+{
+  "task_id": "pick-place-wall",
+  "n_demos": 5,
+  "policy_id": "B1_rule_prior",
+  "instance_id": "pick-place-wall__N5__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/pick-place-wall/n5/B1_rule_prior/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/pick-place-wall/n5/B1_rule_prior/model.pt",
+    "sha256": "263158a6c44209c70b3c2e38afdcdbb1dda6a5985485cfd7dde525d8b264197f",
+    "source_sha256": "263158a6c44209c70b3c2e38afdcdbb1dda6a5985485cfd7dde525d8b264197f",
+    "size_bytes": 79833515,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/pick-place-wall/n5/B1_rule_prior/normalizer.json",
+  "config": "policies/exp1/pick-place-wall/n5/B1_rule_prior/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/pick-place-wall/n5/B1_rule_prior/complete.json",
+      "sha256": "878a1d51efcb1db1f57a15c52e8eb5b9f66961ceb9aae54989431ba5427cc7d9",
+      "source_sha256": "878a1d51efcb1db1f57a15c52e8eb5b9f66961ceb9aae54989431ba5427cc7d9",
+      "size_bytes": 1901,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n5/B1_rule_prior/config.json",
+      "sha256": "a27cc728a3c59c92ec42a208b03046339f6ade19467c624de86e28bdb5eebc1b",
+      "source_sha256": "a27cc728a3c59c92ec42a208b03046339f6ade19467c624de86e28bdb5eebc1b",
+      "size_bytes": 8303,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n5/B1_rule_prior/identity.json",
+      "sha256": "377fa172d3fbbe27531256b1306143ac5499b3dc977870d7764f6700dc1cb3ef",
+      "source_sha256": "377fa172d3fbbe27531256b1306143ac5499b3dc977870d7764f6700dc1cb3ef",
+      "size_bytes": 1360,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n5/B1_rule_prior/latency.json",
+      "sha256": "e932b6c72d06303916127851a9a83f6d10bebdf0a5bb9654916f411991d0dae5",
+      "source_sha256": "e932b6c72d06303916127851a9a83f6d10bebdf0a5bb9654916f411991d0dae5",
+      "size_bytes": 767,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n5/B1_rule_prior/normalizer.json",
+      "sha256": "ed8a0286840fc032442744001fced91af67649500c76453d4c6bcd8d7c00f822",
+      "source_sha256": "ed8a0286840fc032442744001fced91af67649500c76453d4c6bcd8d7c00f822",
+      "size_bytes": 3091,
+      "transformation": "none"
+    }
+  ]
+}

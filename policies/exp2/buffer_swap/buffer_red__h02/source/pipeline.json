@@ -1,0 +1,10 @@
+{
+  "policy_id": "buffer_red__h02",
+  "skill_id": "buffer_red",
+  "heuristic_index": 2,
+  "prior_summary": "A trainable two-frame causal encoder conditions TCP-residual diffusion and shares gradients with a four-class geometric phase head, targeting mid-skill entries and release-versus-acquisition ambiguity.",
+  "applicable_conditions": "Prefer when TCP or Panda posture differs from home, invocation occurs in a supervised intermediate phase, or red is already near the buffer and handoff timing is uncertain.",
+  "termination_guidance": "Require observed red stability at buffer and open/clear gripper for core handoff; do not treat the auxiliary phase prediction as grasp, release or successor-readiness proof.",
+  "limitations": "The residual action is not invariant to target displacement. Phase labels are coarse geometry/finger supervision without contact truth and can be wrong after unseen misses. Large residuals and failures are unsupported.",
+  "config": {"action_frame": "chunk_start_tcp_world_residual", "rotation_representation": "rotation_vector", "feature_dimension": 54, "condition_dimension": 256, "phase_classes": 4, "phase_loss_weight": 0.1}
+}

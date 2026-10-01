@@ -1,0 +1,43 @@
+{
+  "title": "Chunk-start transport frame with soft causal interaction-phase encoders",
+  "coverage_gap": "Five diagonal LL/HH layouts scarcely vary the lateral direction of transport. The grasp-lift-carry sequence is represented, but mixed-sign object/goal pairs and larger transverse errors are not. A world-axis policy may memorize forward-y transport rather than the changing goal direction.",
+  "reusable_regularity": "Use a horizontal orthonormal frame aligned to the current object-to-goal bearing while leaving gravity vertical. Approach, lift and transport get separate small learned encoders, softly weighted by aperture/proximity and object height or far-side position. Only the transport branch receives direct goal displacement vectors. This aims to reuse a mostly forward carry in new lateral layouts and reduce goal leakage into grasping. Phase weights are conditioning features, not action selection, control commands, plans, or an oracle. The single common diffusion model still generates the entire action chunk.",
+  "dependencies_preserved": [
+    "Frame yaw is provided explicitly and all wall face distances remain world-axis quantities. Hand and wall world positions and all wall half sizes preserve robot workspace, finite wall x edges, and axis-dependent native clipping rather than assuming full rotational symmetry.",
+    "All relative position and velocity vectors used in local coordinates are rotated by the same chunk-start basis as action xyz. Object current/previous xyzw quaternions remain explicitly labeled world-frame channels. Gripper is never rotated.",
+    "Hand/object positions, aperture and its change, object orientation and native-previous motion remain visible in the core. Goal distances enter the soft transport branch and goal bearing also defines the action frame; this is not a claim of strict goal independence before grasp.",
+    "Both history observations use the one current chunk-start frame; phase weights use each observation's causal measured state. No cached episode clock, future state, environment handle, or runtime grasp label is needed."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact five support episodes only."},
+    {"path": "task_materials.json", "use": "Factor definitions, gravity-preserving native world translation action and finite axis-aligned wall fields."},
+    {"path": "support_summary.json", "use": "Small initial lateral transport error versus roughly 0.25-0.28 m forward transport; aperture and lifted-object height ranges motivate causal rather than time-based phase features."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 24:30; actions 20:36", "use": "Observed close hand-object separation and aperture closing followed by a vertical lift, without needing an oracle grasp state."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 50:54; actions 45:65", "use": "World-y carry starts around step 52, following a vertical lift: object z approximately 0.213 m and wall top 0.12 m. This motivates fitting a transfer clearance statistic from current D5, not hard-coding a step index."},
+    {"path": "images/frame_01_demo_00_step_028.png", "use": "Inspected actual near-grasp frame."},
+    {"path": "images/frame_05_demo_01_step_059.png", "use": "Inspected actual HH lifted transport frame with goal beyond the finite wall."},
+    {"path": "images/frame_15_demo_04_step_085.png", "use": "Inspected actual late LL frame: low goal-side transport should not be relabeled as pre-wall lift solely due to height."},
+    {"path": "contracts.py", "scope": "public", "use": "One common DP, chunk-start encode/decode inverse, and support-state restoration."}
+  ],
+  "expected_failure_signature": [
+    "Near a missed or slipping grasp, closed aperture plus short distance may falsely activate carry; the falsifiable signature is premature y transport with a stationary or falling object.",
+    "For low goals or a wall-side stall, soft phase features may still mix lift and carry, producing unnecessary relifting or dithering near wall clearance.",
+    "A fixed frame over sixteen actions can be inaccurate when the object-to-goal bearing changes rapidly near the goal, or after lateral overshoot. Larger cross-bearing residual and unstable late commands would oppose the intended reuse advantage.",
+    "With only D5, the branch bottlenecks may underfit. The frame preserves finite obstacle geometry but guarantees neither clearance nor collision avoidance."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,45] and raw_current [B,45]; no normalized raw history features are used",
+    "slices": {"hand": [0,3], "aperture": [3,4], "object": [4,7], "object_xyzw_world": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_object": [22,25], "previous_object_xyzw_world": [25,29], "goal": [36,39], "wall_center": [39,42], "wall_half_size": [42,45]},
+    "action_frame": "At chunk start f=(goal_xy-object_xy)/norm, right=(f_y,-f_x), up=world_z. Encoded action is [right dot world_dxy, f dot world_dxy, world_dz, gripper]; decoding is its orthonormal inverse, with no rescaling or offset. When horizontal norm <=1e-6 m, f=(0,1). One frame is reused for all sixteen actions and both history observations. Decoded native xyz uses the public 0.01 m scale; only the host clips native action4 and executes the fixed prefix of four.",
+    "condition_dim_per_observation": 99,
+    "encoder_details": "48 core channels + three 16-dimensional gated embeddings + three gates; 21/22/25 -> 64 -> 16 SiLU MLPs registered during build_modules."
+  },
+  "training_only_targets": [],
+  "support_fit": {
+    "scope": "Only obs[0:T] and actions[0:T] of the exact five complete D_N episodes supplied to fit_support.",
+    "statistic": "Per episode, find first action with world_dy>0.5, gripper>0.5 and object_z>0.05 m; record object_z-wall_center_z-wall_half_size_z at that causal observation. Median of those margins is the transfer height offset. No model is fit to actions, no rollouts or optimizer steps occur in fitting, and no per-episode trajectory is retained.",
+    "deployment": "Save and restore only transfer_margin_m and fit_episode_count as JSON. The config fallback is used only if no support transition matches; the runtime gate consumes the fitted margin, never a future label."
+  },
+  "parents": [],
+  "change_summary": "Initial A2: geometric yaw action/condition frame plus causal soft branch factorization and one support-fitted clearance scalar. Distinct from ungated world-relational A1; no auxiliary diffusion channels or losses. No structural repairs at authorship."
+}

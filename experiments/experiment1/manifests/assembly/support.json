@@ -1,0 +1,1258 @@
+{
+  "cell_counts": {
+    "10": {
+      "HH": 5,
+      "LL": 5
+    },
+    "2": {
+      "HH": 1,
+      "LL": 1
+    },
+    "20": {
+      "HH": 10,
+      "LL": 10
+    },
+    "5": {
+      "HH": 2,
+      "LL": 3
+    }
+  },
+  "hash": "856d6230574378d98fb9ac9de3e5fe293dab6b02cdda35f12296d3c661002e56",
+  "phase": "support",
+  "records": [
+    {
+      "cell": "LL",
+      "episode_id": "r3_assembly_train_IID_000_31100000",
+      "factors": {
+        "a": -0.022186142340742957,
+        "b": -0.045066924313074685
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20335343480110168,
+          "unit_direction": [
+            0.5076366066932678,
+            -0.00682620657607913,
+            -0.8615442514419556
+          ],
+          "vector_world_m": [
+            0.10322964191436768,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.25934159755706787,
+          "unit_direction": [
+            -0.5894957184791565,
+            0.7464643716812134,
+            0.30868372321128845
+          ],
+          "vector_world_m": [
+            -0.15288075804710388,
+            0.19358927011489868,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.46269503235816956
+      },
+      "inference_seed": 201100000,
+      "initial_state_hash": "0ecb7f3fb0f74238616cdac81b8ad4502634c2200cb84435515da739d4c52b70",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_000_31100000.npz",
+      "seed": 31100000,
+      "sha256": "4faef0a991b1411d6c667c9a13b0f5a1fc24ce7c50dc19150da24e428619f110",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.022186142340742957,
+          0.6,
+          0.02,
+          -0.045066924313074685,
+          0.7935893185913984,
+          0.1
+        ]
+      },
+      "transitions": 87
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_assembly_train_IID_001_31100100",
+      "factors": {
+        "a": 0.024403492435674665,
+        "b": 0.03778032557035087
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2305256575345993,
+          "unit_direction": [
+            0.649902880191803,
+            -0.00602159695699811,
+            -0.7599934339523315
+          ],
+          "vector_world_m": [
+            0.1498192846775055,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.24782995879650116,
+          "unit_direction": [
+            -0.47057726979255676,
+            0.8211053013801575,
+            0.3230220079421997
+          ],
+          "vector_world_m": [
+            -0.11662314832210541,
+            0.20349448919296265,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.47835561633110046
+      },
+      "inference_seed": 201100100,
+      "initial_state_hash": "edae5d39a211b33b2354fe4dafb4f8d2744acce80e222263d331f54e6ae7111d",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_001_31100100.npz",
+      "seed": 31100100,
+      "sha256": "21705066dc57315c61cdcc7ecfc5c325ce76efedd256bba14dff329cff51f121",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.024403492435674665,
+          0.6,
+          0.02,
+          0.03778032557035087,
+          0.8034944964041041,
+          0.1
+        ]
+      },
+      "transitions": 92
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_assembly_train_IID_002_31100200",
+      "factors": {
+        "a": -0.037628507013954246,
+        "b": -0.038776885353165196
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19596649706363678,
+          "unit_direction": [
+            0.44797083735466003,
+            -0.0070835198275744915,
+            -0.8940200805664062
+          ],
+          "vector_world_m": [
+            0.08778727799654007,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23861968517303467,
+          "unit_direction": [
+            -0.5496125221252441,
+            0.7650963664054871,
+            0.33549004793167114
+          ],
+          "vector_world_m": [
+            -0.13114836812019348,
+            0.1825670599937439,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.43458618223667145
+      },
+      "inference_seed": 201100200,
+      "initial_state_hash": "3e2ce1729e9c495ea87af0eb911ea8ad384b1665c8d5636cece0a4849e4b0f71",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_002_31100200.npz",
+      "seed": 31100200,
+      "sha256": "7230686cb43b619583b1e87ae18f39df0ff068728f6dafe660a78beabc41430e",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.037628507013954246,
+          0.6,
+          0.02,
+          -0.038776885353165196,
+          0.7825671113514737,
+          0.1
+        ]
+      },
+      "transitions": 85
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_assembly_train_IID_003_31100300",
+      "factors": {
+        "a": 0.029424829615859134,
+        "b": 0.03632876288274963
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23382018506526947,
+          "unit_direction": [
+            0.6622208952903748,
+            -0.005936752539128065,
+            -0.7492851614952087
+          ],
+          "vector_world_m": [
+            0.1548406183719635,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2564026713371277,
+          "unit_direction": [
+            -0.4800888001918793,
+            0.8197757005691528,
+            0.312221884727478
+          ],
+          "vector_world_m": [
+            -0.1230960488319397,
+            0.21019268035888672,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.49022285640239716
+      },
+      "inference_seed": 201100300,
+      "initial_state_hash": "ba97715804ad50caef85bdccd9db675d49f2b0b9b8ccbf518cd13ea699143818",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_003_31100300.npz",
+      "seed": 31100300,
+      "sha256": "0a20d9cc6dbf4f47ff539d0c5f5169efefcee13fd173e1006cab4dd3d9b40a22",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.029424829615859134,
+          0.6,
+          0.02,
+          0.03632876288274963,
+          0.8101927141249227,
+          0.1
+        ]
+      },
+      "transitions": 94
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_assembly_train_IID_004_31100400",
+      "factors": {
+        "a": -0.022719126795825367,
+        "b": -0.030940777945268495
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20308339595794678,
+          "unit_direction": [
+            0.5056871771812439,
+            -0.006835283245891333,
+            -0.8626898527145386
+          ],
+          "vector_world_m": [
+            0.10269666463136673,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2573516368865967,
+          "unit_direction": [
+            -0.5370925664901733,
+            0.7840706706047058,
+            0.31107059121131897
+          ],
+          "vector_world_m": [
+            -0.1382216513156891,
+            0.20178186893463135,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.46043503284454346
+      },
+      "inference_seed": 201100400,
+      "initial_state_hash": "5284fb60b8828aebe1e7a03cd8baa08f1bb81c2705a420f5e49c328468922270",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_004_31100400.npz",
+      "seed": 31100400,
+      "sha256": "9b6d58de3aad5011d9a775985a3989fc1169f4b35a0e0078e95b1302a01b2380",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.022719126795825367,
+          0.6,
+          0.02,
+          -0.030940777945268495,
+          0.8017818667657582,
+          0.1
+        ]
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_assembly_train_IID_005_31100500",
+      "factors": {
+        "a": 0.021940614179504873,
+        "b": 0.030762667715362468
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2289326786994934,
+          "unit_direction": [
+            0.6436669826507568,
+            -0.006063496693968773,
+            -0.7652816772460938
+          ],
+          "vector_world_m": [
+            0.14735640585422516,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.22807767987251282,
+          "unit_direction": [
+            -0.5313011407852173,
+            0.7710514664649963,
+            0.3509967625141144
+          ],
+          "vector_world_m": [
+            -0.12117793411016464,
+            0.17585963010787964,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4570103585720062
+      },
+      "inference_seed": 201100500,
+      "initial_state_hash": "500d277f4fcb139af510c960f05d4d0fcb75d65d00dca0133966cb9055080273",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_005_31100500.npz",
+      "seed": 31100500,
+      "sha256": "a72d7aecf032412fce5d65d8a65c3c47818ccde494e99c98c5db3506ca265e5e",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.021940614179504873,
+          0.6,
+          0.02,
+          0.030762667715362468,
+          0.7758596691699344,
+          0.1
+        ]
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_assembly_train_IID_006_31100600",
+      "factors": {
+        "a": -0.02141306342640349,
+        "b": -0.046471905221954775
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2037469744682312,
+          "unit_direction": [
+            0.5104503631591797,
+            -0.006813021842390299,
+            -0.8598802089691162
+          ],
+          "vector_world_m": [
+            0.10400272160768509,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2471591681241989,
+          "unit_direction": [
+            -0.6273642778396606,
+            0.7081692814826965,
+            0.32389867305755615
+          ],
+          "vector_world_m": [
+            -0.1550588309764862,
+            0.17503052949905396,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4509061425924301
+      },
+      "inference_seed": 201100600,
+      "initial_state_hash": "5812ff396c2280626763d727caeed7d230309f5db7380fc05262dfcffdb7c3fe",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_006_31100600.npz",
+      "seed": 31100600,
+      "sha256": "d407b7ff05a093094bc8750084c4836f35c57ff43980df800b3d36f424163d82",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02141306342640349,
+          0.6,
+          0.02,
+          -0.046471905221954775,
+          0.7750305734713093,
+          0.1
+        ]
+      },
+      "transitions": 85
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_assembly_train_IID_007_31100700",
+      "factors": {
+        "a": 0.021789717905437954,
+        "b": 0.03407535517937618
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2288355976343155,
+          "unit_direction": [
+            0.6432806849479675,
+            -0.006066069006919861,
+            -0.7656063437461853
+          ],
+          "vector_world_m": [
+            0.14720551669597626,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23158176243305206,
+          "unit_direction": [
+            -0.5083057880401611,
+            0.7887499332427979,
+            0.34568580985069275
+          ],
+          "vector_world_m": [
+            -0.11771435290575027,
+            0.18266010284423828,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.46041736006736755
+      },
+      "inference_seed": 201100700,
+      "initial_state_hash": "8cc6973127b693bfb538e0518a429b2919f90cbe8ae81fc4a97fcd1890b70fa6",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_007_31100700.npz",
+      "seed": 31100700,
+      "sha256": "a385bbabe37a79914c1844e91b8ff8ae0a705a400de1183ad2f60027eeb30ef4",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.021789717905437954,
+          0.6,
+          0.02,
+          0.03407535517937618,
+          0.7826601410162002,
+          0.1
+        ]
+      },
+      "transitions": 89
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_assembly_train_IID_008_31100800",
+      "factors": {
+        "a": -0.021089643116421777,
+        "b": -0.032123170589379746
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20391225814819336,
+          "unit_direction": [
+            0.5116227269172668,
+            -0.006807499565184116,
+            -0.8591831922531128
+          ],
+          "vector_world_m": [
+            0.10432614386081696,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23877353966236115,
+          "unit_direction": [
+            -0.5906580686569214,
+            0.7339717745780945,
+            0.3352738618850708
+          ],
+          "vector_world_m": [
+            -0.14103351533412933,
+            0.1752530336380005,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4426857978105545
+      },
+      "inference_seed": 201100800,
+      "initial_state_hash": "55f55cffd45a24ac13f9886f2a1ad7584ee9cc313fbd6480dcc1bd06672ac249",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_008_31100800.npz",
+      "seed": 31100800,
+      "sha256": "4af6c6077e3d3ffff5abd8cbdb3a322cc994896fead4b09694d3837aa0239581",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.021089643116421777,
+          0.6,
+          0.02,
+          -0.032123170589379746,
+          0.7752530677561598,
+          0.1
+        ]
+      },
+      "transitions": 86
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_assembly_train_IID_009_31100900",
+      "factors": {
+        "a": 0.03427714684525276,
+        "b": 0.04776820040633167
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23706138134002686,
+          "unit_direction": [
+            0.6736354231834412,
+            -0.005855583120137453,
+            -0.7390406131744385
+          ],
+          "vector_world_m": [
+            0.1596929430961609,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2366517186164856,
+          "unit_direction": [
+            -0.4923223555088043,
+            0.8019883632659912,
+            0.33827993273735046
+          ],
+          "vector_world_m": [
+            -0.11650893092155457,
+            0.18979191780090332,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.47371309995651245
+      },
+      "inference_seed": 201100900,
+      "initial_state_hash": "403e8965bf0da43545ebe8bb7bd8ad2f9ec4db416c61a36aca1bfaf5852203f8",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_009_31100900.npz",
+      "seed": 31100900,
+      "sha256": "81ff649204d237e00ae6e8b823c1ee0581fab386014c6377278df6bd4bcd97e2",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.03427714684525276,
+          0.6,
+          0.02,
+          0.04776820040633167,
+          0.7897919291057478,
+          0.1
+        ]
+      },
+      "transitions": 91
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_assembly_train_IID_010_31101000",
+      "factors": {
+        "a": -0.03819238880855176,
+        "b": -0.042251720603856076
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1957145482301712,
+          "unit_direction": [
+            0.4456663727760315,
+            -0.007092638872563839,
+            -0.8951709866523743
+          ],
+          "vector_world_m": [
+            0.08722339570522308,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2555166780948639,
+          "unit_direction": [
+            -0.5246597528457642,
+            0.7915633320808411,
+            0.31330451369285583
+          ],
+          "vector_world_m": [
+            -0.13405930995941162,
+            0.20225763320922852,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4512312263250351
+      },
+      "inference_seed": 201101000,
+      "initial_state_hash": "38e5b8bcf19adfec146e4dfde834c0fa1083d1631ea871686efcf7cd0ab4610e",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_010_31101000.npz",
+      "seed": 31101000,
+      "sha256": "38ff0d86f418312fddebe963122a7cd9bdf1b346f7d136a604766cac3f9cd38f",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.03819238880855176,
+          0.6,
+          0.02,
+          -0.042251720603856076,
+          0.8022576847917788,
+          0.1
+        ]
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_assembly_train_IID_011_31101100",
+      "factors": {
+        "a": 0.029944656487709463,
+        "b": 0.030249454521301157
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2341647446155548,
+          "unit_direction": [
+            0.6634663939476013,
+            -0.005928016733378172,
+            -0.7481825947761536
+          ],
+          "vector_world_m": [
+            0.15536044538021088,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23504756391048431,
+          "unit_direction": [
+            -0.5517826676368713,
+            0.7612721920013428,
+            0.34058862924575806
+          ],
+          "vector_world_m": [
+            -0.12969517707824707,
+            0.17893517017364502,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4692123085260391
+      },
+      "inference_seed": 201101100,
+      "initial_state_hash": "c3f59f981af117fb5a8f83ea85104a402742d182d61524c16d4b61b32574d554",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_011_31101100.npz",
+      "seed": 31101100,
+      "sha256": "dddd29ab652971723478a1de094b8f1678452efdbfb1ae2b13922b70a3aa0ac1",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.029944656487709463,
+          0.6,
+          0.02,
+          0.030249454521301157,
+          0.7789352071413375,
+          0.1
+        ]
+      },
+      "transitions": 89
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_assembly_train_IID_012_31101200",
+      "factors": {
+        "a": -0.0361114631793091,
+        "b": -0.048305206310586345
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19665077328681946,
+          "unit_direction": [
+            0.4541265070438385,
+            -0.007058871444314718,
+            -0.8909092545509338
+          ],
+          "vector_world_m": [
+            0.08930432796478271,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2463902086019516,
+          "unit_direction": [
+            -0.5771079063415527,
+            0.7492531538009644,
+            0.3249095380306244
+          ],
+          "vector_world_m": [
+            -0.1421937346458435,
+            0.18460863828659058,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.44304098188877106
+      },
+      "inference_seed": 201101200,
+      "initial_state_hash": "303ee1c7dc9c1aecb5c526a98a172d35f938548b332fe9838c8694e7b63d3729",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_012_31101200.npz",
+      "seed": 31101200,
+      "sha256": "6598bd377204f38bd8df9002e2d9f0cd2fc7ff069bc710adb681d57f7c446e45",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.0361114631793091,
+          0.6,
+          0.02,
+          -0.048305206310586345,
+          0.7846086530293446,
+          0.1
+        ]
+      },
+      "transitions": 86
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_assembly_train_IID_013_31101300",
+      "factors": {
+        "a": 0.030189923962462624,
+        "b": 0.03605612420004396
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2343275547027588,
+          "unit_direction": [
+            0.6640521287918091,
+            -0.005923897959291935,
+            -0.7476627826690674
+          ],
+          "vector_world_m": [
+            0.1556057184934616,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2576409578323364,
+          "unit_direction": [
+            -0.48180922865867615,
+            0.8193364143371582,
+            0.3107212781906128
+          ],
+          "vector_world_m": [
+            -0.12413378804922104,
+            0.21109461784362793,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4919685125350952
+      },
+      "inference_seed": 201101300,
+      "initial_state_hash": "da490de28cff834805e337c15cfc2c8f3a2abfb2ff16a3f85acf47fbc968a410",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_013_31101300.npz",
+      "seed": 31101300,
+      "sha256": "0971d9928b0c4d0b811353442c7a3c527da1cf1ac07843592a78e35ed912afe8",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.030189923962462624,
+          0.6,
+          0.02,
+          0.03605612420004396,
+          0.8110946578752988,
+          0.1
+        ]
+      },
+      "transitions": 94
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_assembly_train_IID_014_31101400",
+      "factors": {
+        "a": -0.024642653664542574,
+        "b": -0.04800957661059648
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20211751759052277,
+          "unit_direction": [
+            0.49858683347702026,
+            -0.006867947988212109,
+            -0.8668124675750732
+          ],
+          "vector_world_m": [
+            0.10077313333749771,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.27287590503692627,
+          "unit_direction": [
+            -0.5620390176773071,
+            0.7733331322669983,
+            0.29337337613105774
+          ],
+          "vector_world_m": [
+            -0.15336690843105316,
+            0.2110239863395691,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.47499342262744904
+      },
+      "inference_seed": 201101400,
+      "initial_state_hash": "3ac8066f24f1db484b77cdff2084f83e9feb9384e8082dc2d83722be501da19d",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_014_31101400.npz",
+      "seed": 31101400,
+      "sha256": "86df38a06c8a0ad22abf76c2b14ccd726e6e4483cf7507d7b06a088430f9be18",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.024642653664542574,
+          0.6,
+          0.02,
+          -0.04800957661059648,
+          0.8110240245447616,
+          0.1
+        ]
+      },
+      "transitions": 89
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_assembly_train_IID_015_31101500",
+      "factors": {
+        "a": 0.02811471284506893,
+        "b": 0.03459335564000405
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23295466601848602,
+          "unit_direction": [
+            0.6590574383735657,
+            -0.005958809982985258,
+            -0.7520689964294434
+          ],
+          "vector_world_m": [
+            0.15353050827980042,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.25397545099258423,
+          "unit_direction": [
+            -0.48635151982307434,
+            0.8149279952049255,
+            0.31520578265190125
+          ],
+          "vector_world_m": [
+            -0.1235213428735733,
+            0.20697170495986938,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.48693011701107025
+      },
+      "inference_seed": 201101500,
+      "initial_state_hash": "3477f33339c96f9ef919ea6c29b5f74cb634191cb09eafae8cc1bf633efe93a3",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_015_31101500.npz",
+      "seed": 31101500,
+      "sha256": "29cce5b3cdb3e8c83056e57f98cadf5903774599a3a8424e613458ca0d0a87e0",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02811471284506893,
+          0.6,
+          0.02,
+          0.03459335564000405,
+          0.8069717278734827,
+          0.1
+        ]
+      },
+      "transitions": 93
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_assembly_train_IID_016_31101600",
+      "factors": {
+        "a": -0.02862858074496964,
+        "b": -0.04056289733598326
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20015999674797058,
+          "unit_direction": [
+            0.48354920744895935,
+            -0.006935114972293377,
+            -0.8752897381782532
+          ],
+          "vector_world_m": [
+            0.09678720682859421,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.26198610663414,
+          "unit_direction": [
+            -0.5417627096176147,
+            0.7830206751823425,
+            0.30556783080101013
+          ],
+          "vector_world_m": [
+            -0.14193430542945862,
+            0.20514053106307983,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4621461033821106
+      },
+      "inference_seed": 201101600,
+      "initial_state_hash": "951a664b3f482a7b25c197ad4e7dc42a8a5a9cd8d5695659503dae6d5b505745",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_016_31101600.npz",
+      "seed": 31101600,
+      "sha256": "150d53cfe65fa17b69143d6983a8f747ee82bfda0a960ce1846ee6492a450d18",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02862858074496964,
+          0.6,
+          0.02,
+          -0.04056289733598326,
+          0.8051405839024864,
+          0.1
+        ]
+      },
+      "transitions": 89
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_assembly_train_IID_017_31101700",
+      "factors": {
+        "a": 0.0219815829352122,
+        "b": 0.04676404867005782
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.22895905375480652,
+          "unit_direction": [
+            0.6437718272209167,
+            -0.006062798202037811,
+            -0.765193521976471
+          ],
+          "vector_world_m": [
+            0.14739738404750824,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.24202491343021393,
+          "unit_direction": [
+            -0.434738427400589,
+            0.837611973285675,
+            0.33076977729797363
+          ],
+          "vector_world_m": [
+            -0.10521753132343292,
+            0.20272296667099,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.47098396718502045
+      },
+      "inference_seed": 201101700,
+      "initial_state_hash": "34d0068078db99ad4a83aaa144d361fa064436c21d78c7d6fa589b8511775ac9",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_017_31101700.npz",
+      "seed": 31101700,
+      "sha256": "91a28419bb6f8af92878df3f0369c252a1151de0c83ecdb3f78381d713bd3bb2",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.0219815829352122,
+          0.6,
+          0.02,
+          0.04676404867005782,
+          0.8027229874910056,
+          0.1
+        ]
+      },
+      "transitions": 92
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_assembly_train_IID_018_31101800",
+      "factors": {
+        "a": -0.028641407399238247,
+        "b": -0.03218386952411993
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20015379786491394,
+          "unit_direction": [
+            0.48350006341934204,
+            -0.006935329642146826,
+            -0.875316858291626
+          ],
+          "vector_world_m": [
+            0.0967743769288063,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23846256732940674,
+          "unit_direction": [
+            -0.5600143074989319,
+            0.7574179768562317,
+            0.3357110917568207
+          ],
+          "vector_world_m": [
+            -0.13354244828224182,
+            0.1806158423423767,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4386163651943207
+      },
+      "inference_seed": 201101800,
+      "initial_state_hash": "e66100c285e062418d42683ce608846840863bbe8b27fd7d2673d0c443a3df7c",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_018_31101800.npz",
+      "seed": 31101800,
+      "sha256": "eb31c85e1c345ad0a28b1d54b3ae3861440d004b0adf259c925160b8047d4507",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.028641407399238247,
+          0.6,
+          0.02,
+          -0.03218386952411993,
+          0.780615892573699,
+          0.1
+        ]
+      },
+      "transitions": 85
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_assembly_train_IID_019_31101900",
+      "factors": {
+        "a": 0.03924529386613467,
+        "b": 0.04768891572608334
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2404361367225647,
+          "unit_direction": [
+            0.6848433613777161,
+            -0.005773393902927637,
+            -0.7286674380302429
+          ],
+          "vector_world_m": [
+            0.16466109454631805,
+            -0.0013881325721740723,
+            -0.17519798874855042
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23398125171661377,
+          "unit_direction": [
+            -0.5195133090019226,
+            0.7829722762107849,
+            0.342140793800354
+          ],
+          "vector_world_m": [
+            -0.1215563714504242,
+            0.18320083618164062,
+            0.08005452901124954
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.47441738843917847
+      },
+      "inference_seed": 201101900,
+      "initial_state_hash": "d3fc4eb50b98edc64c14d618557758395a47143a251350f91a5cf91f4e6c867f",
+      "path": "assets/exp1/demonstrations/assembly/train20/r3_assembly_train_IID_019_31101900.npz",
+      "seed": 31101900,
+      "sha256": "a37875411f2ed2f7ae605860c047c0829d6cbf3e2aaa3c9879f55058787a619d",
+      "split": "IID",
+      "stage": "train",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.03924529386613467,
+          0.6,
+          0.02,
+          0.04768891572608334,
+          0.7832008624012409,
+          0.1
+        ]
+      },
+      "transitions": 91
+    }
+  ],
+  "schema_version": "experiment1.support.v1",
+  "source": {
+    "historical_exposure": "The support and task layouts were used in development; not unseen-task transfer.",
+    "published_from_sha256": "94e51b41186b2658221ec69ec3818c7a89ebbf92098892c5a00bacf7b8905658",
+    "reuse": "Original successful demonstrations; bytes, episode IDs, subsets, seeds and ordering unchanged."
+  },
+  "subsets": {
+    "10": [
+      "r3_assembly_train_IID_000_31100000",
+      "r3_assembly_train_IID_001_31100100",
+      "r3_assembly_train_IID_002_31100200",
+      "r3_assembly_train_IID_003_31100300",
+      "r3_assembly_train_IID_004_31100400",
+      "r3_assembly_train_IID_005_31100500",
+      "r3_assembly_train_IID_006_31100600",
+      "r3_assembly_train_IID_007_31100700",
+      "r3_assembly_train_IID_008_31100800",
+      "r3_assembly_train_IID_009_31100900"
+    ],
+    "2": [
+      "r3_assembly_train_IID_000_31100000",
+      "r3_assembly_train_IID_001_31100100"
+    ],
+    "20": [
+      "r3_assembly_train_IID_000_31100000",
+      "r3_assembly_train_IID_001_31100100",
+      "r3_assembly_train_IID_002_31100200",
+      "r3_assembly_train_IID_003_31100300",
+      "r3_assembly_train_IID_004_31100400",
+      "r3_assembly_train_IID_005_31100500",
+      "r3_assembly_train_IID_006_31100600",
+      "r3_assembly_train_IID_007_31100700",
+      "r3_assembly_train_IID_008_31100800",
+      "r3_assembly_train_IID_009_31100900",
+      "r3_assembly_train_IID_010_31101000",
+      "r3_assembly_train_IID_011_31101100",
+      "r3_assembly_train_IID_012_31101200",
+      "r3_assembly_train_IID_013_31101300",
+      "r3_assembly_train_IID_014_31101400",
+      "r3_assembly_train_IID_015_31101500",
+      "r3_assembly_train_IID_016_31101600",
+      "r3_assembly_train_IID_017_31101700",
+      "r3_assembly_train_IID_018_31101800",
+      "r3_assembly_train_IID_019_31101900"
+    ],
+    "5": [
+      "r3_assembly_train_IID_000_31100000",
+      "r3_assembly_train_IID_001_31100100",
+      "r3_assembly_train_IID_002_31100200",
+      "r3_assembly_train_IID_003_31100300",
+      "r3_assembly_train_IID_004_31100400"
+    ]
+  },
+  "task": "assembly"
+}

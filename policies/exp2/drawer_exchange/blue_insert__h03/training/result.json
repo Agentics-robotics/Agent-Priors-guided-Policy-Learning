@@ -1,0 +1,117 @@
+{
+  "checkpoint": "provenance/relocated/0bb0feaccbe9cd32",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "3b563753df8e4d5a5cf7301f945b3ad38c8f1579e9355f077b2e8ddfdf702d64",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 7,
+    "physical_gpu": 5,
+    "uuid": "GPU-13ce441a-9b9f-d327-08cf-e7e9f728b580"
+  },
+  "effective_action_targets": 40376986,
+  "final_weights_sha256": "05cf1bb81ef5ca84457e954b4ee915de66a890f8fe718c30494e20be83b6a0ca",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.0603878498077393,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.3620827198028564,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.092427968978882,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.2274572104215622,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "7c9807e4d95636e723dd16aa01ef3d8e6461ac5bad7757cd0cb8ba730dc7bef9",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5609,
+      "duplicated_actions": 0,
+      "unique_actions": 5609
+    },
+    "contract": {
+      "action_dimension": 7,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination_field": {
+            "enum": [
+              "blue_goal"
+            ],
+            "type": "string"
+          },
+          "source_object": {
+            "enum": [
+              "blue"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_object",
+          "destination_field"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For each label, inverse(current measured TCP) times demonstrated commanded TCP is re-composed with that same current TCP, then checked by decoded FK in position, rotation and gripper. Nonunique IK joints are allowed.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "All twelve assigned [600,stop) ranges are supervised. The complete [600,850) overlap with red_transfer remains action-labeled, including red release, retreat, transit, blue approach, closure and lift; the auxiliary phase does not alter the cut or success definition.",
+      "input_shapes": {
+        "features": [
+          2,
+          38
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "red_pose",
+        "blue_pose",
+        "drawer_position",
+        "drawer_velocity",
+        "red_goal",
+        "blue_goal"
+      ],
+      "output_semantics": "Each slot is a target transform from that slot's freshly measured pre-action TCP: local TCP-frame translation in metres (3), local rotation vector in radians (3), and demonstrated gripper scalar (1). Training uses each slot's action_observation TCP; execution composes each represented executed slot with the fresh current TCP supplied to decode_action. Slots represent t-1..t+14 and slots 1..8 execute at t..t+7. The resulting world target is passed to panda_kinematics.solve_ik from fresh measured joints.",
+      "parameter_semantics": "source_object selects observed blue_pose and destination_field selects calibrated blue_goal. Both enter causal relational features and the phase target; neither provides future state, code or actuator commands.",
+      "policy_id": "blue_insert__h03",
+      "skill_id": "blue_insert",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "552a51b1f05a1ba46e7e9fab264623690b809cbdba97af5734b137f289390bc9",
+    "PRIOR.md": "21e75e7a38313a6f69c1b17dd17940a1f5f80bd6ff1a11d497ebba5240a5a295",
+    "adapters.py": "4466d1262dbd5971d18266d8be925c5c4cf7969714b8325812df53f9ff72866d",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "32d60b6c7e4d2a617307aaa6476314f9f4a6b3e4149e0aeb699be1c3b9353e6f",
+    "policy.py": "5b58f1b1c69f9617a97b93d9d10e3e20a3a03f9ab2da0ff6ab3f139a11c062cc",
+    "policy_contract.json": "b9141297c5266ecc74fbdc56822b64c6d22332e72e9336336ed314e4383f5507",
+    "training_bindings.json": "488db8f8f2ab6b286c954753705e496ea993e5ea1e4704694dbe6c59880de656"
+  },
+  "trainable_parameters": 17268236,
+  "training_elapsed_seconds": 524.284841822926,
+  "weight_l2_change": 28.435640799504235
+}

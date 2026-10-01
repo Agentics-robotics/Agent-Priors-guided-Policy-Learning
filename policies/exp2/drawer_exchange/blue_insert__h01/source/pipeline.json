@@ -1,0 +1,10 @@
+{
+  "policy_id": "blue_insert__h01",
+  "skill_id": "blue_insert",
+  "heuristic_index": 1,
+  "prior_summary": "Blue-frame Cartesian pose targets make pickup, closure, lift and early carry transform with the causally observed blue pose while preserving robot and destination conditioning.",
+  "applicable_conditions": "Prefer with drawer_position > 0.26 m when blue is outside and displaced or rotated relative to the narrow demonstrated pickup region. Red may still be in the demonstrated pad-release overlap. source_object must be blue and destination_field blue_goal.",
+  "termination_guidance": "Terminate only under the unchanged simultaneous drawer-open, red-on-pad and blue-inside evaluator expression. Observed gripper release and high retreat are continuation context, not added success conditions.",
+  "limitations": "Does not create reachability or collision invariance, freezes the observed blue frame for one chunk, and has no demonstrated failed-grasp, drop, lip-impact or recovery behavior. Prefer the destination-frame policy once drawer alignment dominates.",
+  "config": {"action_frame": "causal_chunk_blue_pose", "rotation": "6d", "input_scaling": "fixed_physical", "augmentation": "none", "backbone": "standard"}
+}

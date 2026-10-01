@@ -1,0 +1,14 @@
+{
+  "policy_id": "retrieve_tunnel_block__h04",
+  "entry_conditions": "Drawer_position is above 0.26 and stable, target_pose denotes the open drawer destination, object_pose is finite and low in or near the tunnel, and the gripper is open and free of the handle at normal entry. A mid-skill entry should have object/TCP/finger geometry consistent with approach, extraction or lift; closed fingers alone do not prove a grasp.",
+  "exit_conditions": "The observed block is outside the tunnel footprint with its bottom above the 0.16 m roof, fingers remain closed, object and TCP motion remain coupled, and destination-directed transfer has begun while the drawer remains open.",
+  "overlap_role": "Every action in [300,840) is supervised. The [300,440) predecessor overlap supplies 140 actions for post-open retreat and approach starts; [680,840) supplies 160 actions shared with placement for final lift, reorientation and early transfer.",
+  "successor_readiness": "Hand off to placement during [680,840) after block-bottom clearance is positive, the destination blend weight is high, closed-finger object/TCP coupling persists, and motion has turned toward target_pose. A high blend weight or closed fingers alone is insufficient.",
+  "failure_signatures": "Large disagreement between reconstructed object and destination candidates, destination-directed motion while the block remains below the roof, closed fingers without object/TCP coupling, failure to extract or lift, a dropped block, drawer movement below the open threshold, or persistent IK nonconvergence/limit contact.",
+  "continuation_guidance": "Continue block-anchored approach, grasp, negative-x extraction and lift while the block bottom is below the roof; then allow the analytic blend to move control toward the destination branch. Prefer existing h02 for a major valid TCP/configuration mismatch with a near-nominal block, and h03 when its conservative low-clearance transfer guard is required.",
+  "limitations": "The displacement benefit and branch blend have no out-of-distribution validation. Object height and target_pose must be reliable. No contact truth or failed-grasp examples support retry, and the representation cannot guarantee collision freedom, reachability or stable grasping.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[300,420,520,540,560,600,620,640,660,680,700,780,820,839]},
+    {"trajectory_id":"demo12101","indices":[300,420,520,540,560,600,640,660,680,700,780,820,839]}
+  ]
+}

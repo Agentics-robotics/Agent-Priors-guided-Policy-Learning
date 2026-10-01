@@ -1,0 +1,5819 @@
+{
+  "counts": {
+    "C": 40,
+    "E": 40,
+    "IID": 20
+  },
+  "hidden_from_runtime_api": true,
+  "historical_novelty": "New declared seeds; task/support/layout semantics were historically exposed.",
+  "paired_across_n_and_systems": true,
+  "phase": "test",
+  "records": [
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_IID_000_420100000",
+      "factors": {
+        "a": -0.023267596726205857,
+        "b": -0.046394328866429115
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20280659040112797,
+          "unit_direction": [
+            0.503672939224899,
+            -0.006844637149327972,
+            -0.8638673053396831
+          ],
+          "vector_world_m": [
+            0.1021481914815163,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2835709340946355,
+          "unit_direction": [
+            -0.5399944151351922,
+            0.7929110058776146,
+            0.2823086402874543
+          ],
+          "vector_world_m": [
+            -0.15312672070577285,
+            0.2248465145906322,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4863775244957635
+      },
+      "inference_seed": 520100000,
+      "initial_state_hash": "c436340b877ad6e68d38a9c3ce028dcc0a33858b09d24a80b4cee24e85805b94",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_000_420100000.npz",
+      "seed": 420100000,
+      "sha256": "52ba05f680f068f273629ebfe2752e679246684314cdde6ad37f01ad38823971",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.023267596726205857,
+          0.6,
+          0.02,
+          -0.046394328866429115,
+          0.8248465147260368,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_IID_001_420100001",
+      "factors": {
+        "a": 0.03262945689615673,
+        "b": 0.03265755784362426
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2359545710240247,
+          "unit_direction": [
+            0.6698121779034611,
+            -0.005883071121545525,
+            -0.7425072631337697
+          ],
+          "vector_world_m": [
+            0.15804524510387888,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23465271477626262,
+          "unit_direction": [
+            -0.553890406688915,
+            0.7594827813196854,
+            0.3411617244898722
+          ],
+          "vector_world_m": [
+            -0.12997188761808207,
+            0.17821469646249077,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4706072858002873
+      },
+      "inference_seed": 520100001,
+      "initial_state_hash": "897eeabd1ffe16b6cc1981f6ae1930c19db675e506f67b7142d3759caf791fd4",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_001_420100001.npz",
+      "seed": 420100001,
+      "sha256": "2a1121b922df4e61870ecada12471dc430d1a135d44dfc2e857cb9b58ecbf033",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.03262945689615673,
+          0.6,
+          0.02,
+          0.03265755784362426,
+          0.7782146965978953,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_IID_002_420100002",
+      "factors": {
+        "a": -0.026133690688917285,
+        "b": -0.03437055058664007
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20137823858331827,
+          "unit_direction": [
+            0.49301303962755577,
+            -0.006893185343925698,
+            -0.8699946130597662
+          ],
+          "vector_world_m": [
+            0.09928209751880487,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.26715959420231167,
+          "unit_direction": [
+            -0.517431720451671,
+            0.8015447275370634,
+            0.2996505705450243
+          ],
+          "vector_world_m": [
+            -0.1382368484632724,
+            0.21414036414380433,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.46853783278562994
+      },
+      "inference_seed": 520100002,
+      "initial_state_hash": "910d46e408771667d4d966c2eee2ebf821292f94069820883b822baa085e4026",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_002_420100002.npz",
+      "seed": 420100002,
+      "sha256": "cbc529199364c27a05e15d6ad2f72b71382abbe4599892c6217c80d5df98a930",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.026133690688917285,
+          0.6,
+          0.02,
+          -0.03437055058664007,
+          0.8141403642792089,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_IID_003_420100003",
+      "factors": {
+        "a": 0.028543808334581446,
+        "b": 0.04770680094927647
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23323768446512944,
+          "unit_direction": [
+            0.66009743191959,
+            -0.005951600514176935,
+            -0.7511564143535497
+          ],
+          "vector_world_m": [
+            0.1539595965423036,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.24785588251930424,
+          "unit_direction": [
+            -0.44718323738885657,
+            0.8340897890680137,
+            0.32298819788174615
+          ],
+          "vector_world_m": [
+            -0.11083699595085457,
+            0.20673406076979284,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4810935669844337
+      },
+      "inference_seed": 520100003,
+      "initial_state_hash": "2582805ab617868eb0a1ab0bbaccf39a505cd529fbc6bc15ebf2a58c3134a120",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_003_420100003.npz",
+      "seed": 420100003,
+      "sha256": "87753b76890a243de661d9b1553b6a77201410e6777dde90d4838a95603f2353",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.028543808334581446,
+          0.6,
+          0.02,
+          0.04770680094927647,
+          0.8067340609051974,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_IID_004_420100004",
+      "factors": {
+        "a": -0.03137224586779688,
+        "b": -0.04112467115300915
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19884780095094765,
+          "unit_direction": [
+            0.47294233021527965,
+            -0.0069809045719873555,
+            -0.8810657292517388
+          ],
+          "vector_world_m": [
+            0.09404354233992528,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.274507735064813,
+          "unit_direction": [
+            -0.509101915899621,
+            0.8097947486394655,
+            0.2916293954718561
+          ],
+          "vector_world_m": [
+            -0.13975241385076187,
+            0.22229492231639925,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.47335553601576064
+      },
+      "inference_seed": 520100004,
+      "initial_state_hash": "a563a1883164e7c836f60f198b660f9f962bb99ef0127cf7e7a22c219e8bfcb6",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_004_420100004.npz",
+      "seed": 420100004,
+      "sha256": "f986ab740f2e5309ec7ca38af74ce1691d951fb6efe703020abbf50d7ae8ae22",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.03137224586779688,
+          0.6,
+          0.02,
+          -0.04112467115300915,
+          0.8222949224518038,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_IID_005_420100005",
+      "factors": {
+        "a": 0.03775765249514504,
+        "b": 0.030120391841993277
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23941978163468133,
+          "unit_direction": [
+            0.6815370041220962,
+            -0.005797923268120726,
+            -0.7317606822575634
+          ],
+          "vector_world_m": [
+            0.16317344070286718,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2386850247835009,
+          "unit_direction": [
+            -0.5766480295257113,
+            0.7449732246803129,
+            0.33539818805940286
+          ],
+          "vector_world_m": [
+            -0.13763724921870135,
+            0.17781395259586508,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4781048064181822
+      },
+      "inference_seed": 520100005,
+      "initial_state_hash": "2e480f63874cdce353cdffa239dc4dfb6c88fbc7170f3f3a387b38d87bca7049",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_005_420100005.npz",
+      "seed": 420100005,
+      "sha256": "f7ee9357e42f1686de1a115a6f238a597eb41b09b9a0c3566776931a04ddb51c",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.03775765249514504,
+          0.6,
+          0.02,
+          0.030120391841993277,
+          0.7778139527312696,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_IID_006_420100006",
+      "factors": {
+        "a": -0.03529874218055696,
+        "b": -0.0413020501357564
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19702117163352925,
+          "unit_direction": [
+            0.45739777750783106,
+            -0.007045626169405377,
+            -0.8892342954940377
+          ],
+          "vector_world_m": [
+            0.0901170460271652,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.27182212728018873,
+          "unit_direction": [
+            -0.5003393133648741,
+            0.8142014611969931,
+            0.2945106994427326
+          ],
+          "vector_world_m": [
+            -0.13600329652074905,
+            0.2213179732172047,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.468843298913718
+      },
+      "inference_seed": 520100006,
+      "initial_state_hash": "698d5ec8e2458d6817c710d86bb1b8a4c1a7469ad69100e0e0947ddec5373b0e",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_006_420100006.npz",
+      "seed": 420100006,
+      "sha256": "2067abc90f3102864cfe1ee6131e4e5ffddca4b2d64f2b37bfc6d469a47f4fec",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.03529874218055696,
+          0.6,
+          0.02,
+          -0.0413020501357564,
+          0.8213179733526093,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_IID_007_420100007",
+      "factors": {
+        "a": 0.027020252317444902,
+        "b": 0.04999289560082135
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2322348090579376,
+          "unit_direction": [
+            0.6563875637055663,
+            -0.00597730171639253,
+            -0.7544001843033062
+          ],
+          "vector_world_m": [
+            0.15243604052516704,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.25836973840623007,
+          "unit_direction": [
+            -0.41424102506113153,
+            0.8558040437510042,
+            0.309844818991269
+          ],
+          "vector_world_m": [
+            -0.10702734528217314,
+            0.22111386691094082,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4906045474641677
+      },
+      "inference_seed": 520100007,
+      "initial_state_hash": "21875af0c5605c58a293f60ebaffa7eb2a61d3018d48ed239bbe59ec066788ff",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_007_420100007.npz",
+      "seed": 420100007,
+      "sha256": "8bbb103d9f4f4c780e4eaf4bbf7ab7bdada8b1547b1eb8371341041afb39bdb9",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.027020252317444902,
+          0.6,
+          0.02,
+          0.04999289560082135,
+          0.8211138670463454,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_IID_008_420100008",
+      "factors": {
+        "a": -0.020945886432302982,
+        "b": -0.03461980980288054
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20398583397910774,
+          "unit_direction": [
+            0.5121429255039298,
+            -0.006805068252584027,
+            -0.8588732822147594
+          ],
+          "vector_world_m": [
+            0.10446990177541918,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.27826696585885796,
+          "unit_direction": [
+            -0.5163168092651039,
+            0.8066297912945194,
+            0.28768964574079187
+          ],
+          "vector_world_m": [
+            -0.14367391193612716,
+            0.22445842459488974,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4822527998379657
+      },
+      "inference_seed": 520100008,
+      "initial_state_hash": "dc628b4f29b1f3cc640b64ff96909b02d8a5b86bf4a4e7d4eba935f57a4d8221",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_008_420100008.npz",
+      "seed": 420100008,
+      "sha256": "b87dff05922bc0aa7a3d545fed7645386a8a3c40d3267c1b1b330007a7681903",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.020945886432302982,
+          0.6,
+          0.02,
+          -0.03461980980288054,
+          0.8244584247302943,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_IID_009_420100009",
+      "factors": {
+        "a": 0.03558195204376914,
+        "b": 0.04651425917857352
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2379422880727027,
+          "unit_direction": [
+            0.6766251663609237,
+            -0.005833925251504516,
+            -0.7363045223025675
+          ],
+          "vector_world_m": [
+            0.1609977402514913,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2326762042049718,
+          "unit_direction": [
+            -0.5117312354204246,
+            0.7872445661512094,
+            0.3440597851543827
+          ],
+          "vector_world_m": [
+            -0.11906768143074523,
+            0.18317307743305322,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4706184922776745
+      },
+      "inference_seed": 520100009,
+      "initial_state_hash": "b80f27f89a90428ea3a857f263adaf2ce230a149cfa735ccb30d2efb33107af4",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_009_420100009.npz",
+      "seed": 420100009,
+      "sha256": "adfc058e4bbe32c160fac9e6a4968bc381369e793e4ff050e55f87c9fe0e0738",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.03558195204376914,
+          0.6,
+          0.02,
+          0.04651425917857352,
+          0.7831730775684578,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_IID_010_420100010",
+      "factors": {
+        "a": -0.03255684384464032,
+        "b": -0.03617532862349327
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19829030141540535,
+          "unit_direction": [
+            0.4682979636434581,
+            -0.007000531608855865,
+            -0.8835428737783944
+          ],
+          "vector_world_m": [
+            0.09285894436308184,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.268319438385426,
+          "unit_direction": [
+            -0.4979828302728743,
+            0.8142464120334234,
+            0.2983552936418493
+          ],
+          "vector_world_m": [
+            -0.13361847334440255,
+            0.21847813998415633,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4666097398008313
+      },
+      "inference_seed": 520100010,
+      "initial_state_hash": "0e4c77daba606507c18a76b9ce0825e684f0ca732b52e2d9a21a050519ed1218",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_010_420100010.npz",
+      "seed": 420100010,
+      "sha256": "11fbc9b6dff5d6db16e33d0f229a1e66d1191c83b5e2b2dd307ddf65674c5919",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.03255684384464032,
+          0.6,
+          0.02,
+          -0.03617532862349327,
+          0.8184781401195609,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_IID_011_420100011",
+      "factors": {
+        "a": 0.03395581435505694,
+        "b": 0.04858259235203153
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23684502906038535,
+          "unit_direction": [
+            0.6728940151078541,
+            -0.005860952743214156,
+            -0.7397156843443115
+          ],
+          "vector_world_m": [
+            0.15937160256277907,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2380587255467237,
+          "unit_direction": [
+            -0.48464180551924674,
+            0.8074885113829765,
+            0.3362805738182766
+          ],
+          "vector_world_m": [
+            -0.115373210568575,
+            0.19222968591345246,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.47490375460710904
+      },
+      "inference_seed": 520100011,
+      "initial_state_hash": "31cc9921832e539314166a9b5d5ceefcb0635418367849997f1b291a1a0168e6",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_011_420100011.npz",
+      "seed": 420100011,
+      "sha256": "5c4524c06601ed07e2eca588025cff7d725b6b5f873408cc7d04a7da639d37d0",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.03395581435505694,
+          0.6,
+          0.02,
+          0.04858259235203153,
+          0.792229686048857,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_IID_012_420100012",
+      "factors": {
+        "a": -0.02298806047492589,
+        "b": -0.03802561471393046
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20294752892235524,
+          "unit_direction": [
+            0.5047005414487388,
+            -0.006839883836768386,
+            -0.8632673858373484
+          ],
+          "vector_world_m": [
+            0.10242772773279626,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.25732211385302634,
+          "unit_direction": [
+            -0.5636419685538363,
+            0.7651931884818782,
+            0.31110627699500515
+          ],
+          "vector_world_m": [
+            -0.14503754280455416,
+            0.1969011287660941,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.46026964277538157
+      },
+      "inference_seed": 520100012,
+      "initial_state_hash": "ecd9daf487034bb0b2d2f05a6d1d4ce39d9cc1d93b2b69896edde8b03f628d18",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_012_420100012.npz",
+      "seed": 420100012,
+      "sha256": "d414e082106af9c4196add1c049023256401b66b7e8adf7c4875fe7c002aac7d",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02298806047492589,
+          0.6,
+          0.02,
+          -0.03802561471393046,
+          0.7969011289014987,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_IID_013_420100013",
+      "factors": {
+        "a": 0.02910608248444703,
+        "b": 0.030836233934675907
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23360922201273185,
+          "unit_direction": [
+            0.6614544980751986,
+            -0.005942134950102474,
+            -0.749961757697232
+          ],
+          "vector_world_m": [
+            0.1545218706921692,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23247697859430025,
+          "unit_direction": [
+            -0.551752856953491,
+            0.7595977034118032,
+            0.3443546337936732
+          ],
+          "vector_world_m": [
+            -0.12826983711532072,
+            0.1765889790363454,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4660862006070321
+      },
+      "inference_seed": 520100013,
+      "initial_state_hash": "0ceb971b150a2c0a41a93a2d8850217e26e8eb3210328023bd99d5d20e5ae3b1",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_013_420100013.npz",
+      "seed": 420100013,
+      "sha256": "064ffc126c4c45db0aefa7f09d54c2eda1f6bda99878a74e48b94ec2474c348c",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02910608248444703,
+          0.6,
+          0.02,
+          0.030836233934675907,
+          0.77658897917175,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_IID_014_420100014",
+      "factors": {
+        "a": -0.028848015267489716,
+        "b": -0.046622772162369805
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20005397985999346,
+          "unit_direction": [
+            0.48270858199279415,
+            -0.006938814832674569,
+            -0.8757535485050709
+          ],
+          "vector_world_m": [
+            0.09656777294023244,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.24630863712575457,
+          "unit_direction": [
+            -0.5999576270846818,
+            0.7310367397589803,
+            0.325017123895771
+          ],
+          "vector_world_m": [
+            -0.14777474546042968,
+            0.18006066305888935,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.44636261698574803
+      },
+      "inference_seed": 520100014,
+      "initial_state_hash": "5fcd906a3a16347527df59dfc57306819b6078caa4557b4ae5db6d97c30e08be",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_014_420100014.npz",
+      "seed": 420100014,
+      "sha256": "7dab573ad0fe086682e792ea89814b6d422c62dd39ea579ebf38fe8449da181d",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.028848015267489716,
+          0.6,
+          0.02,
+          -0.046622772162369805,
+          0.7800606631942939,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_IID_015_420100015",
+      "factors": {
+        "a": 0.02979091000623326,
+        "b": 0.037804669539497876
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23406276777322832,
+          "unit_direction": [
+            0.6630986196161168,
+            -0.0059306208159214755,
+            -0.7485085493165312
+          ],
+          "vector_world_m": [
+            0.1552066982139554,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23338060639387073,
+          "unit_direction": [
+            -0.5226922275898616,
+            0.780467299653076,
+            0.3430213249775939
+          ],
+          "vector_world_m": [
+            -0.12198622903228498,
+            0.1821459316636217,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.467443374167099
+      },
+      "inference_seed": 520100015,
+      "initial_state_hash": "320ed94fde34d28a2595a73a74c1a001df1d40c184cccc374116fe1220241ccc",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_015_420100015.npz",
+      "seed": 420100015,
+      "sha256": "93ed9d0028352f10ef29b11be8945aaacca082681931851d94a96d2dbeafdb4c",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02979091000623326,
+          0.6,
+          0.02,
+          0.037804669539497876,
+          0.7821459317990263,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_IID_016_420100016",
+      "factors": {
+        "a": -0.029952169713648932,
+        "b": -0.03966683216224484
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19952333834208053,
+          "unit_direction": [
+            0.47845840635646303,
+            -0.006957268930655901,
+            -0.8780826554464335
+          ],
+          "vector_world_m": [
+            0.09546361849407323,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.27059209754584274,
+          "unit_direction": [
+            -0.5163293839003392,
+            0.8036647726296172,
+            0.2958494558982356
+          ],
+          "vector_world_m": [
+            -0.13971465101414549,
+            0.2174653365495509,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.47011543588792326
+      },
+      "inference_seed": 520100016,
+      "initial_state_hash": "d8ffff04acca2816e87a3e745e16977573cbaf96ba3518ccb57dab83acd8355d",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_016_420100016.npz",
+      "seed": 420100016,
+      "sha256": "d999bf581933fda7a398f3ea2be550525f5f6df04d10414989ca953e70c4c807",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.029952169713648932,
+          0.6,
+          0.02,
+          -0.03966683216224484,
+          0.8174653366849555,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_IID_017_420100017",
+      "factors": {
+        "a": 0.028620937400308813,
+        "b": 0.04500406228663807
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.233288604357843,
+          "unit_direction": [
+            0.6602839690007017,
+            -0.005950301458612305,
+            -0.7509924594782773
+          ],
+          "vector_world_m": [
+            0.15403672560803097,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2285711962764382,
+          "unit_direction": [
+            -0.49707428376850255,
+            0.7938827796916561,
+            0.3502389020726848
+          ],
+          "vector_world_m": [
+            -0.11361686367922035,
+            0.18145873665738588,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4618598006342812
+      },
+      "inference_seed": 520100017,
+      "initial_state_hash": "9b155da237afe0a01391015e80d797e90b1187591c9913080af62c263d6230bb",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_017_420100017.npz",
+      "seed": 420100017,
+      "sha256": "f76bf69a9028d349d1c8422181562620d5c6373d0cdf467794a664dd7233b8c8",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.028620937400308813,
+          0.6,
+          0.02,
+          0.04500406228663807,
+          0.7814587367927904,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_IID_018_420100018",
+      "factors": {
+        "a": -0.03544066860544548,
+        "b": -0.04408178870385665
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19695629523990943,
+          "unit_direction": [
+            0.45682784341916755,
+            -0.007047946962534166,
+            -0.8895272047107979
+          ],
+          "vector_world_m": [
+            0.08997511960227668,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2595055482171261,
+          "unit_direction": [
+            -0.5342510386250429,
+            0.7870264037000148,
+            0.3084886831102313
+          ],
+          "vector_world_m": [
+            -0.13864110866396076,
+            0.20423771835352555,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.45646184345703555
+      },
+      "inference_seed": 520100018,
+      "initial_state_hash": "730b6f10683bbe9263c5bbb7d683ac8aaa261ebea365a7f1fe565fcda637ea93",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_018_420100018.npz",
+      "seed": 420100018,
+      "sha256": "3f062f296a168b2b93fc408dc61be39f00391884323aa15902409e0fc99a4483",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.03544066860544548,
+          0.6,
+          0.02,
+          -0.04408178870385665,
+          0.8042377184889301,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_IID_019_420100019",
+      "factors": {
+        "a": 0.03636653589873028,
+        "b": 0.0355105862388488
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2384738570168051,
+          "unit_direction": [
+            0.6784069588602819,
+            -0.0058209211699472825,
+            -0.7346632664334573
+          ],
+          "vector_world_m": [
+            0.16178232410645244,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.25094366481297337,
+          "unit_direction": [
+            -0.5214554363145892,
+            0.7914002401613981,
+            0.31901393043320686
+          ],
+          "vector_world_m": [
+            -0.13085593822543107,
+            0.1985968765999685,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4894175218297785
+      },
+      "inference_seed": 520100019,
+      "initial_state_hash": "c5962feb4b73e3da797568addeca34da80dc6db5593a236938d91526436c504f",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_IID_019_420100019.npz",
+      "seed": 420100019,
+      "sha256": "7435916b989d861d94baebd107099e4629ce84f992f4edd25013a13be058d17f",
+      "split": "IID",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.03636653589873028,
+          0.6,
+          0.02,
+          0.0355105862388488,
+          0.798596876735373,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_000_420101000",
+      "factors": {
+        "a": -0.03781555753849068,
+        "b": 0.03556872325862843
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19588277234225815,
+          "unit_direction": [
+            0.447207427288047,
+            -0.00708657278120745,
+            -0.8944022011738472
+          ],
+          "vector_world_m": [
+            0.08760023066923148,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.20218291551190057,
+          "unit_direction": [
+            -0.28002221466184196,
+            0.8745343764930756,
+            0.39595098639572157
+          ],
+          "vector_world_m": [
+            -0.05661570776843048,
+            0.17681590995475216,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.39806568785415875
+      },
+      "inference_seed": 520101000,
+      "initial_state_hash": "febd3c546a3fcb19139f826087aa74977fe71689c7b99ce0ccf22b6af6ca248b",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_000_420101000.npz",
+      "seed": 420101000,
+      "sha256": "16163bebe15902f4ac5b71bba5f78b11083666299cef980f9a5f0436d75828e3",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.03781555753849068,
+          0.6,
+          0.02,
+          0.03556872325862843,
+          0.7768159100901567,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_001_420101001",
+      "factors": {
+        "a": 0.031491590400940954,
+        "b": -0.03847662344388944
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23519393178615117,
+          "unit_direction": [
+            0.6671404207457627,
+            -0.005902097525416849,
+            -0.7449086012739865
+          ],
+          "vector_world_m": [
+            0.1569073786086631,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.29005754065348405,
+          "unit_direction": [
+            -0.6894087357972573,
+            0.6697329141475838,
+            0.27599532371729185
+          ],
+          "vector_world_m": [
+            -0.19996820241038,
+            0.19426108197233916,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5252514724396352
+      },
+      "inference_seed": 520101001,
+      "initial_state_hash": "68eba652390bb4f45a7456e3422aa65b86cdc68ec569e650f5dc8f7ce57c1d57",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_001_420101001.npz",
+      "seed": 420101001,
+      "sha256": "20bbab5cd71e5476f2c966279712bce7b6820a03387d1945edb9be173d5c8c28",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.031491590400940954,
+          0.6,
+          0.02,
+          -0.03847662344388944,
+          0.7942610821077437,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_002_420101002",
+      "factors": {
+        "a": -0.038223803197847364,
+        "b": 0.049848136950023186
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19570054250601504,
+          "unit_direction": [
+            0.44553777875804745,
+            -0.007093171562084129,
+            -0.8952350387560443
+          ],
+          "vector_world_m": [
+            0.0871919850098748,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23510164787972893,
+          "unit_direction": [
+            -0.17834008734438217,
+            0.9231725578104261,
+            0.3405102667347249
+          ],
+          "vector_world_m": [
+            -0.04192804841767904,
+            0.2170393896185755,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.43080219038574397
+      },
+      "inference_seed": 520101002,
+      "initial_state_hash": "68b5bc465f486114b48fc3744c66c434d5f3e62f2b712be8e40e2272915ae51c",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_002_420101002.npz",
+      "seed": 420101002,
+      "sha256": "c3511029e08edf364af1d526f001e3702368fc774070181bd677ad1ef7421942",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.038223803197847364,
+          0.6,
+          0.02,
+          0.049848136950023186,
+          0.81703938975398,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_003_420101003",
+      "factors": {
+        "a": 0.02298681782451259,
+        "b": -0.04305189860426105
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.22960747715252014,
+          "unit_direction": [
+            0.6463317652920167,
+            -0.006045698249913749,
+            -0.7630325672651045
+          ],
+          "vector_world_m": [
+            0.14840260603223474,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.30604831992874576,
+          "unit_direction": [
+            -0.6405482148700081,
+            0.7219948850103431,
+            0.2615747893925318
+          ],
+          "vector_world_m": [
+            -0.19603870499432324,
+            0.2209653215545635,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5356557970812659
+      },
+      "inference_seed": 520101003,
+      "initial_state_hash": "3fb3a108ab79c6621666e374a55ac8cee65984ba39e11d6ed404a8b0364ab108",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_003_420101003.npz",
+      "seed": 420101003,
+      "sha256": "6cfe6b6d36d6db348018402e965f57bad368340fafe760e1c52a489c0051ca69",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02298681782451259,
+          0.6,
+          0.02,
+          -0.04305189860426105,
+          0.820965321689968,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_004_420101004",
+      "factors": {
+        "a": -0.029451791713512636,
+        "b": 0.04921114307032473
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19976323162766224,
+          "unit_direction": [
+            0.4803886867082545,
+            -0.006948914029261627,
+            -0.8770281764439113
+          ],
+          "vector_world_m": [
+            0.09596399649420952,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.24144584672872807,
+          "unit_direction": [
+            -0.21262347013734717,
+            0.9191611361828489,
+            0.3315630644052603
+          ],
+          "vector_world_m": [
+            -0.051337053781712216,
+            0.22192763880580768,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.44120907835639034
+      },
+      "inference_seed": 520101004,
+      "initial_state_hash": "ec163e1034c490acabc86375b8a3bfc90c55ec22a26ab79eaad2dd4636393ca5",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_004_420101004.npz",
+      "seed": 420101004,
+      "sha256": "abcd4f1a292bf19300db3dfa53388693e8bd6fe37e2f3551bc18baeb9bc2b8e4",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.029451791713512636,
+          0.6,
+          0.02,
+          0.04921114307032473,
+          0.8219276389412122,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_005_420101005",
+      "factors": {
+        "a": 0.03414813456391745,
+        "b": -0.04823720464135879
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2369744828825672,
+          "unit_direction": [
+            0.6733379933176669,
+            -0.005857751036747675,
+            -0.7393115943279458
+          ],
+          "vector_world_m": [
+            0.15956392277163958,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.29926998038591485,
+          "unit_direction": [
+            -0.7096780221556152,
+            0.6517677526014642,
+            0.26749934866860986
+          ],
+          "vector_world_m": [
+            -0.2123853277708258,
+            0.195054522537212,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5362444632684821
+      },
+      "inference_seed": 520101005,
+      "initial_state_hash": "764c0cef17829263606841c0868b93363661fda3bbcfa60bf9ee30dca267630f",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_005_420101005.npz",
+      "seed": 420101005,
+      "sha256": "5b45802b592b6afd7a59e92ee508da4efed160f04cd92628621b429b24f0fd50",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.03414813456391745,
+          0.6,
+          0.02,
+          -0.04823720464135879,
+          0.7950545226726166,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_006_420101006",
+      "factors": {
+        "a": -0.028230487533158568,
+        "b": 0.04410689565399254
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20035279572392223,
+          "unit_direction": [
+            0.485070848766597,
+            -0.006928465948141285,
+            -0.8744474072444028
+          ],
+          "vector_world_m": [
+            0.09718530067456359,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.20982325998406662,
+          "unit_direction": [
+            -0.27481512479968717,
+            0.8825582807848608,
+            0.3815331285739197
+          ],
+          "vector_world_m": [
+            -0.05766260537839848,
+            0.1851812556002127,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4101760557079889
+      },
+      "inference_seed": 520101006,
+      "initial_state_hash": "ea0ba9d0ce9033b0e81b83f5a20f25c6ab6711de5509ebd9644c831b2416f5b6",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_006_420101006.npz",
+      "seed": 420101006,
+      "sha256": "fccdac728b20645fa6db34f7df39b97109eb2f24be972cf693059f8486854236",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.028230487533158568,
+          0.6,
+          0.02,
+          0.04410689565399254,
+          0.7851812557356173,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_007_420101007",
+      "factors": {
+        "a": 0.021751995642799546,
+        "b": -0.04247162920012863
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.22881131241846467,
+          "unit_direction": [
+            0.6431840379525112,
+            -0.006066734673718352,
+            -0.7656875916805113
+          ],
+          "vector_world_m": [
+            0.14716778385052168,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2908411576105773,
+          "unit_direction": [
+            -0.6677996161345708,
+            0.691578029576575,
+            0.2752517060755518
+          ],
+          "vector_world_m": [
+            -0.19422361340847777,
+            0.20113935470009314,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.519652470029042
+      },
+      "inference_seed": 520101007,
+      "initial_state_hash": "7b2c7d82c20ef38f5994cdcfa9966ec5a0d18706324bc99a951ed1618bccb0b8",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_007_420101007.npz",
+      "seed": 420101007,
+      "sha256": "97b8263a9b714de265995c8502e02335f409f58b24f20d4def0e01ffacfd964d",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.021751995642799546,
+          0.6,
+          0.02,
+          -0.04247162920012863,
+          0.8011393548354977,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_008_420101008",
+      "factors": {
+        "a": -0.02887368008633335,
+        "b": 0.032420656243829005
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20004159249443176,
+          "unit_direction": [
+            0.48261017580169535,
+            -0.006939244511496985,
+            -0.8758077786239777
+          ],
+          "vector_world_m": [
+            0.09654210812138882,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.22047559382102483,
+          "unit_direction": [
+            -0.3116247519494622,
+            0.8780939253890354,
+            0.3630992593868944
+          ],
+          "vector_world_m": [
+            -0.06870565223538724,
+            0.19359827963078224,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4205171863154566
+      },
+      "inference_seed": 520101008,
+      "initial_state_hash": "bdf6f6f0b2a0624596cb78a20907a8344b8f12a0167b9563b7f70b63e2569347",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_008_420101008.npz",
+      "seed": 420101008,
+      "sha256": "b435a2a16b981b3188c554aed26a4fb0fbd7d969d4fe66fe3211e989ce873266",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02887368008633335,
+          0.6,
+          0.02,
+          0.032420656243829005,
+          0.7935982797661868,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_009_420101009",
+      "factors": {
+        "a": 0.03243684330754182,
+        "b": -0.03009310024246934
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23582559946596146,
+          "unit_direction": [
+            0.669361731180707,
+            -0.005886288536662716,
+            -0.74291333575191
+          ],
+          "vector_world_m": [
+            0.15785263151526396,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2835166081535746,
+          "unit_direction": [
+            -0.6790781442026549,
+            0.6775870129236446,
+            0.28236273476415225
+          ],
+          "vector_world_m": [
+            -0.19252993211556074,
+            0.19210717163302404,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5193422076195361
+      },
+      "inference_seed": 520101009,
+      "initial_state_hash": "000a68295b68fcf71564e2761673b6dfc0044a87473caceda912fd7945080dc9",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_009_420101009.npz",
+      "seed": 420101009,
+      "sha256": "a7b11d5418907c4bc2b6a9c3f24859fba7e52b174f9545ab1c1b98786865cdf8",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.03243684330754182,
+          0.6,
+          0.02,
+          -0.03009310024246934,
+          0.7921071717684286,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_010_420101010",
+      "factors": {
+        "a": -0.025931799002588192,
+        "b": 0.0487108186665999
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20147785038399033,
+          "unit_direction": [
+            0.4937713451653894,
+            -0.006889777313697234,
+            -0.8695644827510662
+          ],
+          "vector_world_m": [
+            0.09948398920513397,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.22051856754162488,
+          "unit_direction": [
+            -0.2510326976702871,
+            0.8973254107519035,
+            0.36302850014744836
+          ],
+          "vector_world_m": [
+            -0.0553573708963615,
+            0.19787691419770992,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4219964179256152
+      },
+      "inference_seed": 520101010,
+      "initial_state_hash": "c8c3664582f90a9f0168b5b0bd7a72452db0c7d914e441528b3be518ca4a2611",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_010_420101010.npz",
+      "seed": 420101010,
+      "sha256": "2d13b0cfa8d9e7520c64c2eaa4b2a845402dd96cc0c860e356b829bded32f71a",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.025931799002588192,
+          0.6,
+          0.02,
+          0.0487108186665999,
+          0.7978769143331145,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_011_420101011",
+      "factors": {
+        "a": 0.02862546606285658,
+        "b": -0.041791591086196525
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23329159458591614,
+          "unit_direction": [
+            0.6602949178001727,
+            -0.005950225190290264,
+            -0.7509828335903878
+          ],
+          "vector_world_m": [
+            0.15404125427057871,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.30708900923434157,
+          "unit_direction": [
+            -0.6526350331270344,
+            0.7114134533444312,
+            0.2606883425391814
+          ],
+          "vector_world_m": [
+            -0.20041704571460267,
+            0.21846725254352284,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5403806038202577
+      },
+      "inference_seed": 520101011,
+      "initial_state_hash": "1140860e00f7e4df789d024142af7e5b13f3d41d52a3848c9824b2e76317e8fe",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_011_420101011.npz",
+      "seed": 420101011,
+      "sha256": "b7ab2b96f662fb7c11ccd7db27edd50fd1c9008359f8f0f6d45e2941a9713b80",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02862546606285658,
+          0.6,
+          0.02,
+          -0.041791591086196525,
+          0.8184672526789274,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_012_420101012",
+      "factors": {
+        "a": -0.039258472092984296,
+        "b": 0.03292244253349893
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19524175579850034,
+          "unit_direction": [
+            0.44128529659227556,
+            -0.007109839373810653,
+            -0.8973386970344843
+          ],
+          "vector_world_m": [
+            0.08615731611473786,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2076982520025745,
+          "unit_direction": [
+            -0.27838016633067125,
+            0.8797403299843172,
+            0.38543668065298675
+          ],
+          "vector_world_m": [
+            -0.05781907393906636,
+            0.18272052875391076,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.40294000780107486
+      },
+      "inference_seed": 520101012,
+      "initial_state_hash": "118ac868cd83c75cc6eef6422c3a4e3ecc35c935d531bbe4be9249b50dc1bcfc",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_012_420101012.npz",
+      "seed": 420101012,
+      "sha256": "c34e44642a54b4df90acc2f3fd5bc9e556ed7f2c1319c9a7f90683fe10540fd1",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.039258472092984296,
+          0.6,
+          0.02,
+          0.03292244253349893,
+          0.7827205288893153,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_013_420101013",
+      "factors": {
+        "a": 0.033871119063621974,
+        "b": -0.0401525825041619
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.236788046394357,
+          "unit_direction": [
+            0.6726982619978242,
+            -0.005862363172152019,
+            -0.739893695744966
+          ],
+          "vector_world_m": [
+            0.15928690727134412,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.29803640287496846,
+          "unit_direction": [
+            -0.6845596315256999,
+            0.6776641066293693,
+            0.2686065328163424
+          ],
+          "vector_world_m": [
+            -0.20402369013333346,
+            0.2019685726972963,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5348244492693255
+      },
+      "inference_seed": 520101013,
+      "initial_state_hash": "befb4f33bef1e2ac8cde2cec7e31241058ed6548b8d7d741ebd10466404bda13",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_013_420101013.npz",
+      "seed": 420101013,
+      "sha256": "56ec97da0b3bf504e4f13536c26d56e78f362d806beba943ed36c2b4d11d56fc",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.033871119063621974,
+          0.6,
+          0.02,
+          -0.0401525825041619,
+          0.8019685728327008,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_014_420101014",
+      "factors": {
+        "a": -0.038403788600393056,
+        "b": 0.04219388321562167
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1956204185734511,
+          "unit_direction": [
+            0.4448001913187709,
+            -0.007096076845714791,
+            -0.8956017170015835
+          ],
+          "vector_world_m": [
+            0.0870119996073291,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.21052133594094072,
+          "unit_direction": [
+            -0.2346665554288241,
+            0.8946104544090556,
+            0.38026798790483746
+          ],
+          "vector_world_m": [
+            -0.04940231674953486,
+            0.18833458800892644,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.40614175451439183
+      },
+      "inference_seed": 520101014,
+      "initial_state_hash": "db374682104aef4c0d75b613359d97786932a02658082790a31bcab80b4b57f9",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_014_420101014.npz",
+      "seed": 420101014,
+      "sha256": "36dd5088a7e21dcb3661b3ffeaa86af50b40367ed79b1cdd62eb388689c828e2",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.038403788600393056,
+          0.6,
+          0.02,
+          0.04219388321562167,
+          0.788334588144331,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_015_420101015",
+      "factors": {
+        "a": 0.02110200581644372,
+        "b": -0.037189747971045316
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.22839379162511023,
+          "unit_direction": [
+            0.6415139088573076,
+            -0.006077825114732613,
+            -0.76708732539685
+          ],
+          "vector_world_m": [
+            0.14651779402416587,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2826936880746608,
+          "unit_direction": [
+            -0.6660627749966241,
+            0.690048411561208,
+            0.28318469143943914
+          ],
+          "vector_world_m": [
+            -0.18829174235303864,
+            0.19507233041429928,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.511087479699771
+      },
+      "inference_seed": 520101015,
+      "initial_state_hash": "aebce6638ff78955b8e08e51218f128060ec90f1cc851e2fa07ed1a808542e78",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_015_420101015.npz",
+      "seed": 420101015,
+      "sha256": "e1000de2d8e0dbf51ec24126a32d14eda6f300d101b3c8d6469b7ea505d05bf6",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02110200581644372,
+          0.6,
+          0.02,
+          -0.037189747971045316,
+          0.7950723305497038,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_016_420101016",
+      "factors": {
+        "a": -0.035198317582180096,
+        "b": 0.034410787119393924
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19706712585628514,
+          "unit_direction": [
+            0.4578007124909044,
+            -0.007043983194845127,
+            -0.889026934318399
+          ],
+          "vector_world_m": [
+            0.09021747062554207,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.21986273736521852,
+          "unit_direction": [
+            -0.274675393328061,
+            0.8899305202475816,
+            0.364111380530661
+          ],
+          "vector_world_m": [
+            -0.06039088386397558,
+            0.19566256024648632,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.41692986322150366
+      },
+      "inference_seed": 520101016,
+      "initial_state_hash": "caab3fea28d4f2327512345b7409ea356530f1b6e48050bd775955b4db4dcd06",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_016_420101016.npz",
+      "seed": 420101016,
+      "sha256": "c6ee1e53c97b81361246102d5807cf2b4d72dea08c3c574f507c6b255ea99aef",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.035198317582180096,
+          0.6,
+          0.02,
+          0.034410787119393924,
+          0.7956625603818909,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_017_420101017",
+      "factors": {
+        "a": 0.02036439003405829,
+        "b": -0.04490915586083581
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2279213032065929,
+          "unit_direction": [
+            0.6396075144833744,
+            -0.006090424647712126,
+            -0.7686775228559831
+          ],
+          "vector_world_m": [
+            0.14578017824178044,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2963721225611929,
+          "unit_direction": [
+            -0.6588795625341751,
+            0.7020795292981562,
+            0.2701148952117477
+          ],
+          "vector_world_m": [
+            -0.1952735344604437,
+            0.20807680030485776,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5242934257677858
+      },
+      "inference_seed": 520101017,
+      "initial_state_hash": "f088641c4fbcc9b4be02e4add8aa7252ec5db4a5dda98e19e109df7fc61cc51e",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_017_420101017.npz",
+      "seed": 420101017,
+      "sha256": "b0b5b53d39590bccb47b10ca9a7b0f38f667d7485de916739aae514377e1dea8",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02036439003405829,
+          0.6,
+          0.02,
+          -0.04490915586083581,
+          0.8080768004402623,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_018_420101018",
+      "factors": {
+        "a": -0.021307178425016674,
+        "b": 0.03456851478572842
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20380103708782743,
+          "unit_direction": [
+            0.5108345436821315,
+            -0.006811238758269363,
+            -0.8596520668314864
+          ],
+          "vector_world_m": [
+            0.10410860978270549,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23584582694549494,
+          "unit_direction": [
+            -0.3142913161314275,
+            0.8865688262006163,
+            0.33943583342604927
+          ],
+          "vector_world_m": [
+            -0.0741242953548045,
+            0.20909355795938112,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.43964686403332237
+      },
+      "inference_seed": 520101018,
+      "initial_state_hash": "e06fd39fabb15a33f9e94915bd4e3cffed05f519e09891d7dca29a1418ff295f",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_018_420101018.npz",
+      "seed": 420101018,
+      "sha256": "17d398931a3e2e4b532b8b5a077f0dbee2daa6c182499f5b168c9f2c2a25afc0",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.021307178425016674,
+          0.6,
+          0.02,
+          0.03456851478572842,
+          0.8090935580947857,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_019_420101019",
+      "factors": {
+        "a": 0.026460570512638996,
+        "b": -0.04735184477776607
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23186782533448275,
+          "unit_direction": [
+            0.6550126499926012,
+            -0.005986762159802178,
+            -0.7555941946762904
+          ],
+          "vector_world_m": [
+            0.15187635872036115,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.30326801991850805,
+          "unit_direction": [
+            -0.6720537296043336,
+            0.6918541152070489,
+            0.26397285427857353
+          ],
+          "vector_world_m": [
+            -0.20381240385595467,
+            0.20981722759131305,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5351358452529908
+      },
+      "inference_seed": 520101019,
+      "initial_state_hash": "a60fce50c13c2f28fa382d0b71e83be9e786084dea76bf7a6400bcb2848c0a66",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_019_420101019.npz",
+      "seed": 420101019,
+      "sha256": "6e4bd769df10584a568c067139b7d16a72ac1587c3b30120e56ee316d10fe872",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.026460570512638996,
+          0.6,
+          0.02,
+          -0.04735184477776607,
+          0.8098172277267176,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_020_420101020",
+      "factors": {
+        "a": -0.025707738308078286,
+        "b": 0.036100819981654736
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2015885792945033,
+          "unit_direction": [
+            0.4946116007592827,
+            -0.006885992885341756,
+            -0.8690868469240132
+          ],
+          "vector_world_m": [
+            0.09970804989964387,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2423914695581627,
+          "unit_direction": [
+            -0.28132768203484065,
+            0.9009865430709408,
+            0.33026956342657304
+          ],
+          "vector_world_m": [
+            -0.06819143027581656,
+            0.21839145222709422,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.443980048852666
+      },
+      "inference_seed": 520101020,
+      "initial_state_hash": "5a2ab305da82405230c6836be7dd344a05eb1516b11abfe8991cf94f87ddbc98",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_020_420101020.npz",
+      "seed": 420101020,
+      "sha256": "bb4a37b6330f13a3170496c69e908361ef429f308041059f6b13bb1d1e300d78",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.025707738308078286,
+          0.6,
+          0.02,
+          0.036100819981654736,
+          0.8183914523624988,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_021_420101021",
+      "factors": {
+        "a": 0.03041268474611855,
+        "b": -0.04355565692764446
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2344755276576049,
+          "unit_direction": [
+            0.664583099611959,
+            -0.0059201808250758815,
+            -0.7471909094529718
+          ],
+          "vector_world_m": [
+            0.1558284729538407,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.31205730868625786,
+          "unit_direction": [
+            -0.6536245893358715,
+            0.7120134865806175,
+            0.25653789416541634
+          ],
+          "vector_world_m": [
+            -0.2039683302393126,
+            0.22218901237066646,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5465328363438627
+      },
+      "inference_seed": 520101021,
+      "initial_state_hash": "f9ea7b3260e8179132092f2446fd55317ffb95da5dcb0e7798053e7dc7ef14f4",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_021_420101021.npz",
+      "seed": 420101021,
+      "sha256": "e189ab2982e3a0a2b867964e5cbc12b365e9c26780500cbd3697c8bfcaf3b061",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.03041268474611855,
+          0.6,
+          0.02,
+          -0.04355565692764446,
+          0.822189012506071,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_022_420101022",
+      "factors": {
+        "a": -0.037824083931704416,
+        "b": 0.04718380867639187
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1958789594243438,
+          "unit_direction": [
+            0.4471726035988522,
+            -0.007086710726193416,
+            -0.8944196113244091
+          ],
+          "vector_world_m": [
+            0.08759170427601774,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2034660778456945,
+          "unit_direction": [
+            -0.22112824129619588,
+            0.8923543679158212,
+            0.3934539146619417
+          ],
+          "vector_world_m": [
+            -0.04499209595745331,
+            0.181563843288306,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.39934503727003834
+      },
+      "inference_seed": 520101022,
+      "initial_state_hash": "172fe3c8488005f17c5e62adaa72be1fb3dcce50333d72e0f4ab514174f8156b",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_022_420101022.npz",
+      "seed": 420101022,
+      "sha256": "bd7660070f6ab4dba6bfc39001f4bc9d3409d0d9bb589f3491d72a91ce7c9307",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.037824083931704416,
+          0.6,
+          0.02,
+          0.04718380867639187,
+          0.7815638434237105,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_023_420101023",
+      "factors": {
+        "a": 0.03866540507940242,
+        "b": -0.04707861324535799
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2400393677664418,
+          "unit_direction": [
+            0.6835595128161456,
+            -0.005782957752741456,
+            -0.7298718722064742
+          ],
+          "vector_world_m": [
+            0.16408119328712456,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.29138445739578406,
+          "unit_direction": [
+            -0.7404101399865246,
+            0.6134424085543759,
+            0.2747384865506493
+          ],
+          "vector_world_m": [
+            -0.21574400689030998,
+            0.1787475833601797,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5314238251622259
+      },
+      "inference_seed": 520101023,
+      "initial_state_hash": "5a49187e4e9dca81556c15f0f42935e34ed7913870b2dac09ccd0fdd106d07e1",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_023_420101023.npz",
+      "seed": 420101023,
+      "sha256": "d4f47f9c8a0b01df539cf14e0dafcf040c122e5c00e27299774a1fd71b007e8b",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.03866540507940242,
+          0.6,
+          0.02,
+          -0.04707861324535799,
+          0.7787475834955843,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_024_420101024",
+      "factors": {
+        "a": -0.027333741354384863,
+        "b": 0.04097179135670437
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2007893124698788,
+          "unit_direction": [
+            0.4884824079869837,
+            -0.0069134034362329025,
+            -0.8725463551812969
+          ],
+          "vector_world_m": [
+            0.0980820468533373,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2031147449434178,
+          "unit_direction": [
+            -0.3037418867431153,
+            0.867409289876333,
+            0.3941344822189096
+          ],
+          "vector_world_m": [
+            -0.06169445585446036,
+            0.17618361667478255,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4039040574132966
+      },
+      "inference_seed": 520101024,
+      "initial_state_hash": "a21abb31f8110dd98858c0528a905bf02f0a883b0e15ccb1df2b18ea998825b1",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_024_420101024.npz",
+      "seed": 420101024,
+      "sha256": "ebaed4c9bc8598eea605c2d494dbd61ac1adaae57aaacd45484a69ff22eb31bd",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.027333741354384863,
+          0.6,
+          0.02,
+          0.04097179135670437,
+          0.7761836168101871,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_025_420101025",
+      "factors": {
+        "a": 0.0393862624382677,
+        "b": -0.04011534135746729
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2405326921320879,
+          "unit_direction": [
+            0.6851544760305981,
+            -0.005771097103198804,
+            -0.7283749298359067
+          ],
+          "vector_world_m": [
+            0.16480205064598985,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.30404950472219333,
+          "unit_direction": [
+            -0.6890377688748544,
+            0.6752059124936673,
+            0.26329437669186406
+          ],
+          "vector_world_m": [
+            -0.20950159236128457,
+            0.20529602327919616,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5445821968542812
+      },
+      "inference_seed": 520101025,
+      "initial_state_hash": "28249bb0495e12e2bfbee487f08d77aac2fa30bc69ffc5c48e02ebb6b1a9f675",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_025_420101025.npz",
+      "seed": 420101025,
+      "sha256": "77ccc37a5eda151f6e0e05bd684f532b807877a94ccbf9842261d45c19cdd80b",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.0393862624382677,
+          0.6,
+          0.02,
+          -0.04011534135746729,
+          0.8052960234146007,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_026_420101026",
+      "factors": {
+        "a": -0.02799943882368127,
+        "b": 0.03704547803072939
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20046497253759796,
+          "unit_direction": [
+            0.48595197530466366,
+            -0.006924588895587491,
+            -0.8739580812408124
+          ],
+          "vector_world_m": [
+            0.09741634938404088,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.24281935653484726,
+          "unit_direction": [
+            -0.26750368108243117,
+            0.9053992950461647,
+            0.32968757504227697
+          ],
+          "vector_world_m": [
+            -0.06495507171113893,
+            0.21984847423021403,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4432843290724452
+      },
+      "inference_seed": 520101026,
+      "initial_state_hash": "5fd83cd32f89f857d0cbdfaa52fc3f4159f6b5929c7f05475fb2e0bad7eb80c8",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_026_420101026.npz",
+      "seed": 420101026,
+      "sha256": "d58bb24b73b6c4d4a6ce34f9dfc68e97c1bc997a04f5d90fb62e41211692ad36",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02799943882368127,
+          0.6,
+          0.02,
+          0.03704547803072939,
+          0.8198484743656186,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_027_420101027",
+      "factors": {
+        "a": 0.027332078183135326,
+        "b": -0.036701972719275416
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2324396067242965,
+          "unit_direction": [
+            0.6571507693696808,
+            -0.005972035241113676,
+            -0.7537354981105212
+          ],
+          "vector_world_m": [
+            0.15274786639085747,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2806329896361195,
+          "unit_direction": [
+            -0.6914156447520764,
+            0.6637535566542702,
+            0.2852641271188463
+          ],
+          "vector_world_m": [
+            -0.19403403946796033,
+            0.18627114498549524,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.513072596360416
+      },
+      "inference_seed": 520101027,
+      "initial_state_hash": "e7be913e35cec42364138e9efb9379a6cd83e990ea0c1524ab8f6cf1f0c0e110",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_027_420101027.npz",
+      "seed": 420101027,
+      "sha256": "c40a777d52e2dc8c235aae6ee36f58a16ad021d01e04dae406b554c07c2e10ad",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.027332078183135326,
+          0.6,
+          0.02,
+          -0.036701972719275416,
+          0.7862711451208998,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_028_420101028",
+      "factors": {
+        "a": -0.02396654512950167,
+        "b": 0.03152745340962489
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20245544944093316,
+          "unit_direction": [
+            0.501094158533967,
+            -0.006856508563347387,
+            -0.8653656063037497
+          ],
+          "vector_world_m": [
+            0.1014492430782205,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.24710958835235042,
+          "unit_direction": [
+            -0.3015099111418772,
+            0.896738158713299,
+            0.3239636525764882
+          ],
+          "vector_world_m": [
+            -0.07450599002642302,
+            0.221592597259488,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4495650377932836
+      },
+      "inference_seed": 520101028,
+      "initial_state_hash": "f7895da5d71e620e810da1e0968e18c048f4dc674039ff424e505bf8cec80efc",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_028_420101028.npz",
+      "seed": 420101028,
+      "sha256": "966869960a162d0f98a180cc96f559e3ea3d611d0bfcf814882228eed7f69dcf",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02396654512950167,
+          0.6,
+          0.02,
+          0.03152745340962489,
+          0.8215925973948925,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_029_420101029",
+      "factors": {
+        "a": 0.02622228304360072,
+        "b": -0.04580792026730099
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2317118139845434,
+          "unit_direction": [
+            0.6544252908116202,
+            -0.005990793041224473,
+            -0.7561029355483706
+          ],
+          "vector_world_m": [
+            0.15163807125132286,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3126261665670453,
+          "unit_direction": [
+            -0.6462357073144236,
+            0.7188929022092455,
+            0.2560710950985976
+          ],
+          "vector_world_m": [
+            -0.2020301918764513,
+            0.22474473218993418,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5443379805515887
+      },
+      "inference_seed": 520101029,
+      "initial_state_hash": "8df89abaa8e2cd8d43ff3dcb1a7cb27f6ecb063f2346be63c3ef145260b0c660",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_029_420101029.npz",
+      "seed": 420101029,
+      "sha256": "17be96a055f2d0c8209bc7e17f814b689dec7055f623921979bd681e9f041081",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02622228304360072,
+          0.6,
+          0.02,
+          -0.04580792026730099,
+          0.8247447323253387,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_030_420101030",
+      "factors": {
+        "a": -0.02707458573810795,
+        "b": 0.032917242109685496
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2009160326861847,
+          "unit_direction": [
+            0.48946418638086275,
+            -0.00690904306753989,
+            -0.8719960294487646
+          ],
+          "vector_world_m": [
+            0.09834120246961421,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23650955061179116,
+          "unit_direction": [
+            -0.2960056392507724,
+            0.893201959824347,
+            0.33848326472321644
+          ],
+          "vector_world_m": [
+            -0.07000816071775615,
+            0.21125079412362746,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4374255832979759
+      },
+      "inference_seed": 520101030,
+      "initial_state_hash": "e7dbaad269afe274dbdbc812f0b5897477c988bd0e545adc89f8d556de9959cb",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_030_420101030.npz",
+      "seed": 420101030,
+      "sha256": "59f10eebc3bde1c5cce0266ddf1293d27bad39c299262ae8a189092044f203c3",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.02707458573810795,
+          0.6,
+          0.02,
+          0.032917242109685496,
+          0.811250794259032,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_031_420101031",
+      "factors": {
+        "a": 0.031323487021022875,
+        "b": -0.03559723464169367
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23508181657971478,
+          "unit_direction": [
+            0.6667435087460101,
+            -0.0059049123534290595,
+            -0.7452638630412435
+          ],
+          "vector_world_m": [
+            0.156739275228745,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.29282727613270926,
+          "unit_direction": [
+            -0.6724807635031298,
+            0.6877720382734497,
+            0.2733847949089933
+          ],
+          "vector_world_m": [
+            -0.19692071022826613,
+            0.20139841256785573,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.527909092712424
+      },
+      "inference_seed": 520101031,
+      "initial_state_hash": "c494ace830a1e50ff7c166920de9012d5e4fd017acb3aa7d91e05168bd70597d",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_031_420101031.npz",
+      "seed": 420101031,
+      "sha256": "a9fc91667e751aeabc8a6592a999fbc6d5607cf31b7b67fd2f8ca4f686fdeda7",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.031323487021022875,
+          0.6,
+          0.02,
+          -0.03559723464169367,
+          0.8013984127032603,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_032_420101032",
+      "factors": {
+        "a": -0.034730598660940956,
+        "b": 0.04883659588990655
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19728168615034192,
+          "unit_direction": [
+            0.45967363375875137,
+            -0.007036322275399897,
+            -0.8880600433505957
+          ],
+          "vector_world_m": [
+            0.0906851895467812,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.21475540268425197,
+          "unit_direction": [
+            -0.2162124604751888,
+            0.9023824946199538,
+            0.37277071416453017
+          ],
+          "vector_world_m": [
+            -0.046432794014702086,
+            0.19379151600732802,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4120370888345939
+      },
+      "inference_seed": 520101032,
+      "initial_state_hash": "cbc2504538fa7011562fe0bb77c4fe0969748a251924c1ad8b230d9257c31d6d",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_032_420101032.npz",
+      "seed": 420101032,
+      "sha256": "566769c97c3b655e85f535b89419e861a54c4403ca69128e581e9844e3bb4b0b",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.034730598660940956,
+          0.6,
+          0.02,
+          0.04883659588990655,
+          0.7937915161427326,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_033_420101033",
+      "factors": {
+        "a": 0.024378895129487467,
+        "b": -0.031321098684017765
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23050966843774964,
+          "unit_direction": [
+            0.649841216433238,
+            -0.0060220360048063495,
+            -0.760046135775274
+          ],
+          "vector_world_m": [
+            0.1497946833372096,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.26804618575522926,
+          "unit_direction": [
+            -0.6927909899401806,
+            0.6563864568307962,
+            0.2986594440944702
+          ],
+          "vector_world_m": [
+            -0.18569998237905483,
+            0.17594188613488437,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4985558541929789
+      },
+      "inference_seed": 520101033,
+      "initial_state_hash": "2d33dfd09ee0e14a4be91efd6d9a449e8db0e6885f4689eaf5a9e787314b3ec6",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_033_420101033.npz",
+      "seed": 420101033,
+      "sha256": "8383df1680c89bb3c9e809a5276304989092367afaeb61d3d0403ac2929039be",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.024378895129487467,
+          0.6,
+          0.02,
+          -0.031321098684017765,
+          0.7759418862702889,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_034_420101034",
+      "factors": {
+        "a": -0.029521011153475663,
+        "b": 0.04250869747644688
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19972998861830946,
+          "unit_direction": [
+            0.4801220773987253,
+            -0.006950070604774721,
+            -0.8771741487942522
+          ],
+          "vector_world_m": [
+            0.0958947770542465,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2261540072019091,
+          "unit_direction": [
+            -0.25633098724565817,
+            0.8994392294347616,
+            0.353982340705675
+          ],
+          "vector_world_m": [
+            -0.05797027993562705,
+            0.20341178597126863,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4258839958202185
+      },
+      "inference_seed": 520101034,
+      "initial_state_hash": "6de4536d2ed83394bfb2eb1fad9c2b33d83bdd212b320df3c2f78770920ac625",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_034_420101034.npz",
+      "seed": 420101034,
+      "sha256": "d3bf7e23206c4e132171f65cd06db07b0d44550ed55b4775ea909a5153ede8ae",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.029521011153475663,
+          0.6,
+          0.02,
+          0.04250869747644688,
+          0.8034117861066732,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_035_420101035",
+      "factors": {
+        "a": 0.02765084532454865,
+        "b": -0.04026181160950578
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23264920887054152,
+          "unit_direction": [
+            0.6579288804607337,
+            -0.005966654817040604,
+            -0.7530564303463452
+          ],
+          "vector_world_m": [
+            0.1530666335322708,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3015978906540135,
+          "unit_direction": [
+            -0.6562136262638689,
+            0.706348450375825,
+            0.26543463104367887
+          ],
+          "vector_world_m": [
+            -0.19791264549960402,
+            0.21303320270007997,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.534247099524555
+      },
+      "inference_seed": 520101035,
+      "initial_state_hash": "394e4fc2dd95ebd7aec0a36f2eaede15fa1131665ec2d331845037194f1b1fde",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_035_420101035.npz",
+      "seed": 420101035,
+      "sha256": "6c73f8702cdd9ceb46a6d3632266e2f392b95d95bdbae03b650b07c8f017519a",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.02765084532454865,
+          0.6,
+          0.02,
+          -0.04026181160950578,
+          0.8130332028354845,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_036_420101036",
+      "factors": {
+        "a": -0.029332489568313514,
+        "b": 0.03740070906790894
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19982057042410864,
+          "unit_direction": [
+            0.48084788485728425,
+            -0.006946920028512847,
+            -0.8767765119632217
+          ],
+          "vector_world_m": [
+            0.09608329863940865,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2115578997351916,
+          "unit_direction": [
+            -0.2990518907992497,
+            0.8760010123388707,
+            0.3784048004329058
+          ],
+          "vector_world_m": [
+            -0.06326678992932713,
+            0.18532493433631314,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.41137847015930024
+      },
+      "inference_seed": 520101036,
+      "initial_state_hash": "d8faccd0aeae46fe399084d5a90878d8c815104b89aeb80ad677ad3c091f5e85",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_036_420101036.npz",
+      "seed": 420101036,
+      "sha256": "4c81f35c7a52a8f3cf9d138ed79ae0255c1be09c127d5ed3f94984aaf795e75c",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.029332489568313514,
+          0.6,
+          0.02,
+          0.03740070906790894,
+          0.7853249344717177,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_037_420101037",
+      "factors": {
+        "a": 0.026598360889644047,
+        "b": -0.04308701218521871
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23195810314145668,
+          "unit_direction": [
+            0.6553517511938882,
+            -0.005984432119370989,
+            -0.75530011834986
+          ],
+          "vector_world_m": [
+            0.15201414909736619,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.28875999037669275,
+          "unit_direction": [
+            -0.6915271100401378,
+            0.6670312773366835,
+            0.27723551564351856
+          ],
+          "vector_world_m": [
+            -0.19968536164041234,
+            0.19261194522469383,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5207180935181495
+      },
+      "inference_seed": 520101037,
+      "initial_state_hash": "185ed0d423d4b5f01e58ed30e74ac503189683e2457143ea920c4484fb047b5b",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_037_420101037.npz",
+      "seed": 420101037,
+      "sha256": "5967e10c01395335af37116738cf2c2bde7688d95bc6c9a3412e070415177fae",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.026598360889644047,
+          0.6,
+          0.02,
+          -0.04308701218521871,
+          0.7926119453600984,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_C_038_420101038",
+      "factors": {
+        "a": -0.031127931312028193,
+        "b": 0.03933138838574668
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19896346409622356,
+          "unit_direction": [
+            0.4738953321102917,
+            -0.006976846372742913,
+            -0.8805535405747724
+          ],
+          "vector_world_m": [
+            0.09428785689569397,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.21122176394526912,
+          "unit_direction": [
+            -0.2818869976069447,
+            0.8814155788477684,
+            0.37900698930837096
+          ],
+          "vector_world_m": [
+            -0.05954066886777472,
+            0.18617415333306608,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4101852280414927
+      },
+      "inference_seed": 520101038,
+      "initial_state_hash": "6e70007664b0fd674ecfcab31a5e0afafb192ead41326aad41ef1a6d0eb91a8f",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_038_420101038.npz",
+      "seed": 420101038,
+      "sha256": "bd551281e54f51f1deb1a32a9887dd063080f83b19b01fac9d65e266b5eb3a77",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.031127931312028193,
+          0.6,
+          0.02,
+          0.03933138838574668,
+          0.7861741534684706,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_C_039_420101039",
+      "factors": {
+        "a": 0.032340273066559816,
+        "b": -0.03293330270392124
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23576096995890006,
+          "unit_direction": [
+            0.6691356135062704,
+            -0.005887902153736874,
+            -0.7431169916949923
+          ],
+          "vector_world_m": [
+            0.15775606127428196,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.29651341059449715,
+          "unit_direction": [
+            -0.6585657085273655,
+            0.7024234242334498,
+            0.26998618601699614
+          ],
+          "vector_world_m": [
+            -0.19527356433603066,
+            0.20827796520092556,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5322743805533972
+      },
+      "inference_seed": 520101039,
+      "initial_state_hash": "375ca81bbb111f14cd90eb42eb11ae903584e65e678bf0e64f82d6a84cdf76ad",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_C_039_420101039.npz",
+      "seed": 420101039,
+      "sha256": "e01c4c749fdac0a7d0eaba242ae6cd18297486cde97e5862ec1de5031ffbd3b1",
+      "split": "C",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.032340273066559816,
+          0.6,
+          0.02,
+          -0.03293330270392124,
+          0.8082779653363301,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_E_000_420102000",
+      "factors": {
+        "a": -0.07781683846129099,
+        "b": -0.088244955155188
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18155417952817735,
+          "unit_direction": [
+            0.2621749048693411,
+            -0.007645858257824696,
+            -0.9649900829066863
+          ],
+          "vector_world_m": [
+            0.04759894974643117,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.24877931268610198,
+          "unit_direction": [
+            -0.5644685795745089,
+            0.7601492346057459,
+            0.32178931585967074
+          ],
+          "vector_world_m": [
+            -0.1404281052594466,
+            0.18910940412408395,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4303334922142793
+      },
+      "inference_seed": 520102000,
+      "initial_state_hash": "0972dff0e3360c93176bd0042e449609ac992957367ff3a7de04c10226fcd6c2",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_000_420102000.npz",
+      "seed": 420102000,
+      "sha256": "8fe7cced191fcf22a5e8a1fd3fc8b28eac31189286341e8e29de4ac33a2c3e9d",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07781683846129099,
+          0.6,
+          0.02,
+          -0.088244955155188,
+          0.7891094042594885,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_E_001_420102001",
+      "factors": {
+        "a": -0.06680727054464212,
+        "b": 0.095375438247462
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18474636242657103,
+          "unit_direction": [
+            0.317237735527131,
+            -0.007513747521496283,
+            -0.9483162778080958
+          ],
+          "vector_world_m": [
+            0.058608517663080034,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.22966540184064319,
+          "unit_direction": [
+            0.14012872626276118,
+            0.926748469689249,
+            0.34857024256900004
+          ],
+          "vector_world_m": [
+            0.03218272022655454,
+            0.21284205969638248,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4144117642672142
+      },
+      "inference_seed": 520102001,
+      "initial_state_hash": "18d0f58446f60c36daaf4fb3c0645edc7e669d2b8f55067dde73964efee0ae5f",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_001_420102001.npz",
+      "seed": 420102001,
+      "sha256": "ac558fea8e0477f704249308ef579f45683ec8978604325e55954051cbf21497",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06680727054464212,
+          0.6,
+          0.02,
+          0.095375438247462,
+          0.812842059831787,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_E_002_420102002",
+      "factors": {
+        "a": 0.06574212447284945,
+        "b": -0.08611449197650772
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2593021551541356,
+          "unit_direction": [
+            0.7372014033857243,
+            -0.005353358987560126,
+            -0.6756518573893427
+          ],
+          "vector_world_m": [
+            0.1911579126805716,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.35089848979524585,
+          "unit_direction": [
+            -0.8032425707485206,
+            0.5502297759880853,
+            0.22814154850313775
+          ],
+          "vector_world_m": [
+            -0.2818566050149068,
+            0.19307479743459555,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6102006449493815
+      },
+      "inference_seed": 520102002,
+      "initial_state_hash": "577cbb4118b4f8e6ca32d9d0c77ee4c40c0ea0adba03e7a4a2f174693f833c55",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_002_420102002.npz",
+      "seed": 420102002,
+      "sha256": "45b2befe5fc1e69a8037873722be6269eab8fdbfbe37941be7312cd441f2a868",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.06574212447284945,
+          0.6,
+          0.02,
+          -0.08611449197650772,
+          0.7930747975700001,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_E_003_420102003",
+      "factors": {
+        "a": 0.07344860232300049,
+        "b": 0.08198020108245156
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2650345371991019,
+          "unit_direction": [
+            0.7503338720769427,
+            -0.005237572195148633,
+            -0.6610383107290552
+          ],
+          "vector_world_m": [
+            0.19886439053072263,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.26746180071539205,
+          "unit_direction": [
+            -0.45415229195796025,
+            0.8391412432332648,
+            0.29931199376948203
+          ],
+          "vector_world_m": [
+            -0.12146838980609852,
+            0.2244382279697218,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.532496337914494
+      },
+      "inference_seed": 520102003,
+      "initial_state_hash": "72e5f97a8145cd3aeee5d768fda15a87c2625a3dfb04617d0314de8bdafdebc2",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_003_420102003.npz",
+      "seed": 420102003,
+      "sha256": "7ddbdaf2b7adb0694e88521bac5f52abe57c6312f9aca253f46e8b7d27165326",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07344860232300049,
+          0.6,
+          0.02,
+          0.08198020108245156,
+          0.8244382281051263,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_E_004_420102004",
+      "factors": {
+        "a": -0.07402464707190001,
+        "b": -0.08810757814081525
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1825850746211978,
+          "unit_direction": [
+            0.2814640859470105,
+            -0.007602688914567729,
+            -0.9595416444549356
+          ],
+          "vector_world_m": [
+            0.051391141135822146,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2721629997136988,
+          "unit_direction": [
+            -0.529399366504751,
+            0.7957492633923452,
+            0.29414183747795636
+          ],
+          "vector_world_m": [
+            -0.14408291963446485,
+            0.21657350654482688,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4547480743348966
+      },
+      "inference_seed": 520102004,
+      "initial_state_hash": "17dfc6f679a716ed431b4909209393c29e311f82177f5256cac3dd597f300231",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_004_420102004.npz",
+      "seed": 420102004,
+      "sha256": "52f17a7b9ef132a33a10ab8613517327325163aeee0a30615b88e3b6cb952d43",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07402464707190001,
+          0.6,
+          0.02,
+          -0.08810757814081525,
+          0.8165735066802314,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_E_005_420102005",
+      "factors": {
+        "a": -0.07226550819460349,
+        "b": 0.0901830612779443
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1830879907384952,
+          "unit_direction": [
+            0.29029910590385627,
+            -0.00758180543239879,
+            -0.95690592292963
+          ],
+          "vector_world_m": [
+            0.05315028001311867,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23161478209688022,
+          "unit_direction": [
+            0.14009719333641477,
+            0.9278513780394315,
+            0.3456365094858865
+          ],
+          "vector_world_m": [
+            0.0324485809069982,
+            0.21490409474289296,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4147027728353754
+      },
+      "inference_seed": 520102005,
+      "initial_state_hash": "653a7808da8dbf1504a42d42839ef54933e86eeaf2965d9b29db9717adacb2a5",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_005_420102005.npz",
+      "seed": 420102005,
+      "sha256": "8440fb7ee51819bc872bd5f90233c373ee126f30cd155680321c6d5d3cfb552a",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07226550819460349,
+          0.6,
+          0.02,
+          0.0901830612779443,
+          0.8149040948782975,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_E_006_420102006",
+      "factors": {
+        "a": 0.06789184760645946,
+        "b": -0.0961025797291219
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.26089097751983426,
+          "unit_direction": [
+            0.7409517862666807,
+            -0.005320757106989524,
+            -0.671537147127412
+          ],
+          "vector_world_m": [
+            0.19330763581418162,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.37419145491652334,
+          "unit_direction": [
+            -0.7856791277254496,
+            0.5804635897106926,
+            0.21394001326716258
+          ],
+          "vector_world_m": [
+            -0.29399441590113096,
+            0.2172045151599119,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6350824324363575
+      },
+      "inference_seed": 520102006,
+      "initial_state_hash": "de3dd29e44fe0feb299b9620df363b7d6ca8acabee565e7e10e4cad641baa6d7",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_006_420102006.npz",
+      "seed": 420102006,
+      "sha256": "75e018b07215bff8ec0c10bb795fcabf66d6c88cd476b288fde93bf455b5beda",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.06789184760645946,
+          0.6,
+          0.02,
+          -0.0961025797291219,
+          0.8172045152953165,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_E_007_420102007",
+      "factors": {
+        "a": 0.06423281950315789,
+        "b": 0.09270820505866562
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2581915074007308,
+          "unit_direction": [
+            0.7345269006719591,
+            -0.005376387228080349,
+            -0.6785582706368108
+          ],
+          "vector_world_m": [
+            0.18964860771088002,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2471733877288753,
+          "unit_direction": [
+            -0.41074245064522996,
+            0.8522865503115711,
+            0.32388003241316476
+          ],
+          "vector_world_m": [
+            -0.10152460301004185,
+            0.21066255395626754,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5053648951296061
+      },
+      "inference_seed": 520102007,
+      "initial_state_hash": "1c5ccc2e1b54bdafcdbe48a98e75c7f6e6d601dc472be9ceb0432c211a70b51b",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_007_420102007.npz",
+      "seed": 420102007,
+      "sha256": "b8cbc2d24bbdb439b9f548b51f8703919d116593317ae3cb6923996834d1df1f",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.06423281950315789,
+          0.6,
+          0.02,
+          0.09270820505866562,
+          0.8106625540916721,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_E_008_420102008",
+      "factors": {
+        "a": -0.06567777670968629,
+        "b": -0.09911798972088999
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18510777969854708,
+          "unit_direction": [
+            0.32272015576720114,
+            -0.007499077159526849,
+            -0.9464647193125314
+          ],
+          "vector_world_m": [
+            0.05973801149803587,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2547635161460365,
+          "unit_direction": [
+            -0.6415369203927359,
+            0.6997781292208639,
+            0.31423072675528124
+          ],
+          "vector_world_m": [
+            -0.1634402015767533,
+            0.17827793672240277,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.43987129584458357
+      },
+      "inference_seed": 520102008,
+      "initial_state_hash": "3083944ab089e4d9ea6a9cd5e4ed3dcb4609cc321cd7054bac5a97e2253aa5f5",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_008_420102008.npz",
+      "seed": 420102008,
+      "sha256": "dbfcd83684dcaa6df0272dd1a6e1c47365819cddb2d44cb29c0083f451588d31",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06567777670968629,
+          0.6,
+          0.02,
+          -0.09911798972088999,
+          0.7782779368578073,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_E_009_420102009",
+      "factors": {
+        "a": -0.06536913864123972,
+        "b": 0.0916891593482963
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18520761380501158,
+          "unit_direction": [
+            0.32421264079186374,
+            -0.007495034865302823,
+            -0.9459545380213227
+          ],
+          "vector_world_m": [
+            0.06004664956648244,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.200332508934334,
+          "unit_direction": [
+            0.1350669922117121,
+            0.9066808413653875,
+            0.3996082575671258
+          ],
+          "vector_world_m": [
+            0.027058309423986432,
+            0.18163764775342095,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.38554012273934557
+      },
+      "inference_seed": 520102009,
+      "initial_state_hash": "2e7d3599b95dce840b1b468eef04afea5d565f5c721533f4fe7356559f373a3d",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_009_420102009.npz",
+      "seed": 420102009,
+      "sha256": "5cb06aac2370897eca89d14c37457b7f3f877ccae5b8e43c24acf69ca769b7db",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06536913864123972,
+          0.6,
+          0.02,
+          0.0916891593482963,
+          0.7816376478888255,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_E_010_420102010",
+      "factors": {
+        "a": 0.07697547088152283,
+        "b": -0.08257113791324222
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2676910193542478,
+          "unit_direction": [
+            0.756062939942753,
+            -0.005185596162832479,
+            -0.6544783727806115
+          ],
+          "vector_world_m": [
+            0.20239125908924496,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3709297606979264,
+          "unit_direction": [
+            -0.7805968354103362,
+            0.5865916538339306,
+            0.2158212505749674
+          ],
+          "vector_world_m": [
+            -0.28954659736031463,
+            0.21758430178402077,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6386207800521742
+      },
+      "inference_seed": 520102010,
+      "initial_state_hash": "e0888cc61cb4cae9880110a9550d3db99cc04951a6aac131c4ee5bd29a58edbe",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_010_420102010.npz",
+      "seed": 420102010,
+      "sha256": "294b550921666ed40753095c63ec2e418cc51c30ddc639d83df8c4bf3b116f84",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07697547088152283,
+          0.6,
+          0.02,
+          -0.08257113791324222,
+          0.8175843019194253,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_E_011_420102011",
+      "factors": {
+        "a": 0.07067086149572892,
+        "b": 0.08268297341861006
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2629567155999449,
+          "unit_direction": [
+            0.7456993416428729,
+            -0.005278958248398479,
+            -0.6662616786767777
+          ],
+          "vector_world_m": [
+            0.19608664970345105,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.24703015994106914,
+          "unit_direction": [
+            -0.4776253906438603,
+            0.8166113125390618,
+            0.3240678176640353
+          ],
+          "vector_world_m": [
+            -0.11798787664266844,
+            0.20172762314621084,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.509986875541014
+      },
+      "inference_seed": 520102011,
+      "initial_state_hash": "ebd37bf28a6440209c47a294d1ea6d40375193d50a3abd536c161b89665981b6",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_011_420102011.npz",
+      "seed": 420102011,
+      "sha256": "73b51bea206415b77d178bc2099894183253e8c1be853a420469bf2bbaa4d68b",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07067086149572892,
+          0.6,
+          0.02,
+          0.08268297341861006,
+          0.8017276232816154,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_E_012_420102012",
+      "factors": {
+        "a": -0.07552979780314481,
+        "b": -0.08482855325623423
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18216715435509212,
+          "unit_direction": [
+            0.27384733862250665,
+            -0.007620130685481608,
+            -0.9617429847613688
+          ],
+          "vector_world_m": [
+            0.04988599040457735,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2743407995292594,
+          "unit_direction": [
+            -0.5077580303682914,
+            0.8105742065153667,
+            0.29180685106504467
+          ],
+          "vector_world_m": [
+            -0.139298744018639,
+            0.2223735758932207,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4565079538843515
+      },
+      "inference_seed": 520102012,
+      "initial_state_hash": "de78cc6da34b7aa8c9fa8eee45b804d5c8e09c54feedeb3bfa5ba1f9863657c5",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_012_420102012.npz",
+      "seed": 420102012,
+      "sha256": "a63f76c9537908ddbf96486ce0924348021b7693c77c380a00a3435ff3fd79b6",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07552979780314481,
+          0.6,
+          0.02,
+          -0.08482855325623423,
+          0.8223735760286253,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_E_013_420102013",
+      "factors": {
+        "a": -0.07368747543538814,
+        "b": 0.08386358821695179
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18268026283498387,
+          "unit_direction": [
+            0.2831631177313364,
+            -0.007598727422688321,
+            -0.9590416612943491
+          ],
+          "vector_world_m": [
+            0.051728312772334015,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.1985439788136971,
+          "unit_direction": [
+            0.13876560372874758,
+            0.9045260630952003,
+            0.40320802125366234
+          ],
+          "vector_world_m": [
+            0.027551075086790347,
+            0.1795882035076103,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.38122424164868096
+      },
+      "inference_seed": 520102013,
+      "initial_state_hash": "80be5ffe2e4ba228f2809ea05afdb04c3c3457f5e3aa0c6e891e37ffbd5d2a22",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_013_420102013.npz",
+      "seed": 420102013,
+      "sha256": "ba9774a8f872df73b72640fa8bc11cb914b4a41622ebc5625741f8d06f0a4cde",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07368747543538814,
+          0.6,
+          0.02,
+          0.08386358821695179,
+          0.7795882036430148,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_E_014_420102014",
+      "factors": {
+        "a": 0.07545938989221448,
+        "b": -0.08244103516677417
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.26654661367923554,
+          "unit_direction": [
+            0.7536211971601767,
+            -0.00520786028239923,
+            -0.657288345691707
+          ],
+          "vector_world_m": [
+            0.20087517809993663,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3467443979347687,
+          "unit_direction": [
+            -0.8302957894613181,
+            0.5072531455036767,
+            0.23087474608417502
+          ],
+          "vector_world_m": [
+            -0.2879004136245382,
+            0.17588718653819002,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6132910116140042
+      },
+      "inference_seed": 520102014,
+      "initial_state_hash": "46425ba4919b8f0a48fbe6670d4e7c929b36ea62da3f18ccb392d81f8b23f3ed",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_014_420102014.npz",
+      "seed": 420102014,
+      "sha256": "fc5dda3fce0738f94baa41ad372bfc449376d4d17d1db8f84ca258aab17b1880",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07545938989221448,
+          0.6,
+          0.02,
+          -0.08244103516677417,
+          0.7758871866735946,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_E_015_420102015",
+      "factors": {
+        "a": 0.06969596376964275,
+        "b": 0.08258108320110465
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.26223053950076664,
+          "unit_direction": [
+            0.7440466405965446,
+            -0.005293576886318551,
+            -0.66810670903737
+          ],
+          "vector_world_m": [
+            0.19511175197736488,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23601934432534147,
+          "unit_direction": [
+            -0.49620877250065737,
+            0.7992055539553341,
+            0.3391862860145417
+          ],
+          "vector_world_m": [
+            -0.11711486913408768,
+            0.18862797082570926,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.49824988382610813
+      },
+      "inference_seed": 520102015,
+      "initial_state_hash": "791ca4dbb9fa330494efe843ba7bd7467f34d88087dfb963df1f931903f71fdc",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_015_420102015.npz",
+      "seed": 420102015,
+      "sha256": "b8ebcf9e87673e1d6befc87913a1c20b12f8e4c34ab4deef3a9d7764108482e8",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.06969596376964275,
+          0.6,
+          0.02,
+          0.08258108320110465,
+          0.7886279709611138,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_E_016_420102016",
+      "factors": {
+        "a": -0.06967698508505013,
+        "b": -0.08179949203779799
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1838561238053668,
+          "unit_direction": [
+            0.30316533368057985,
+            -0.007550129384091704,
+            -0.9529080627220163
+          ],
+          "vector_world_m": [
+            0.05573880312267203,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2686382672618088,
+          "unit_direction": [
+            -0.5290478417945872,
+            0.7945462028796209,
+            0.29800119560509425
+          ],
+          "vector_world_m": [
+            -0.14212249551829745,
+            0.21344551520103094,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4524943910671756
+      },
+      "inference_seed": 520102016,
+      "initial_state_hash": "600ed4ab421ac9e396d0a6203ca97c2fb2f05701dc60f6520bc7bee0957ba811",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_016_420102016.npz",
+      "seed": 420102016,
+      "sha256": "b3fd2d61788a6d89c9b11cae198241f3b681ea3f43b7f7f9dd844a101dab5ebf",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06967698508505013,
+          0.6,
+          0.02,
+          -0.08179949203779799,
+          0.8134455153364355,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_E_017_420102017",
+      "factors": {
+        "a": -0.07911719072025361,
+        "b": 0.087172500536961
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18121760459870614,
+          "unit_direction": [
+            0.25548620174068404,
+            -0.0076600588881087835,
+            -0.9667823561784469
+          ],
+          "vector_world_m": [
+            0.04629859748746855,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.234900371606794,
+          "unit_direction": [
+            0.1544897628021267,
+            0.9273547787416249,
+            0.34080203569581946
+          ],
+          "vector_world_m": [
+            0.036289702691665024,
+            0.2178359821377439,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4161179762055002
+      },
+      "inference_seed": 520102017,
+      "initial_state_hash": "5edf55c7070bcfeec6018d5f0f0ddfd3f335a3360b100402072eac95ab2b300e",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_017_420102017.npz",
+      "seed": 420102017,
+      "sha256": "6aa989946b3328032d4dda38428ec9acff17b8aa85079b37eccf2d0164daee46",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07911719072025361,
+          0.6,
+          0.02,
+          0.087172500536961,
+          0.8178359822731485,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_E_018_420102018",
+      "factors": {
+        "a": 0.07103668658662707,
+        "b": -0.08618545311413031
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.26322962397878163,
+          "unit_direction": [
+            0.7463159800364446,
+            -0.00527348518683443,
+            -0.6655709190583868
+          ],
+          "vector_world_m": [
+            0.1964524747943492,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3502338657451653,
+          "unit_direction": [
+            -0.8200866802392364,
+            0.5246060832343772,
+            0.22857448310709216
+          ],
+          "vector_world_m": [
+            -0.287222128266307,
+            0.18373481652460588,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6134634897239469
+      },
+      "inference_seed": 520102018,
+      "initial_state_hash": "8d8e6c5cf15521c91746e4cb89ffa7fb22b312722361df48f4fa6b15676c3f13",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_018_420102018.npz",
+      "seed": 420102018,
+      "sha256": "c380190a784686a7f30e85da66452665e438a8d2f63ed92af4ae2f65c6d58a54",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07103668658662707,
+          0.6,
+          0.02,
+          -0.08618545311413031,
+          0.7837348166600104,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_E_019_420102019",
+      "factors": {
+        "a": 0.07694790072728003,
+        "b": 0.08514834617683863
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2676701751906041,
+          "unit_direction": [
+            0.7560188160332091,
+            -0.005185999978516953,
+            -0.654529338691527
+          ],
+          "vector_world_m": [
+            0.20236368893500217,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23288600446038468,
+          "unit_direction": [
+            -0.5230006989823635,
+            0.7799399477507654,
+            0.34374983166031187
+          ],
+          "vector_world_m": [
+            -0.12179954311599099,
+            0.18163709815071694,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5005561796509888
+      },
+      "inference_seed": 520102019,
+      "initial_state_hash": "2a5946a9940ce85672c0e1e8124e9c556453f2a91985400361956f7f2710eca4",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_019_420102019.npz",
+      "seed": 420102019,
+      "sha256": "de0e38d022ce3897c104a85fc5d0f7841c93aeca45c174904d153fc2b22ef1ae",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07694790072728003,
+          0.6,
+          0.02,
+          0.08514834617683863,
+          0.7816370982861215,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_E_020_420102020",
+      "factors": {
+        "a": -0.07436684293998212,
+        "b": -0.08105180924927374
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1824890541926696,
+          "unit_direction": [
+            0.2797370258374139,
+            -0.007606689228179814,
+            -0.9600465273384534
+          ],
+          "vector_world_m": [
+            0.05104894526774004,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2533983749391069,
+          "unit_direction": [
+            -0.5394073853381555,
+            0.7805331233404587,
+            0.3159235920456768
+          ],
+          "vector_world_m": [
+            -0.13668495487484122,
+            0.1977858250406177,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.43588742913177647
+      },
+      "inference_seed": 520102020,
+      "initial_state_hash": "e4f915a106b0a2e25f9d71a95a4f5833f9496f2227269ad447be79a362b4ccd8",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_020_420102020.npz",
+      "seed": 420102020,
+      "sha256": "f8491cc8eccc4a3d45b7fd5a2e743333656482d44064a67b99eb22e58d758e08",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07436684293998212,
+          0.6,
+          0.02,
+          -0.08105180924927374,
+          0.7977858251760223,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_E_021_420102021",
+      "factors": {
+        "a": -0.07890622953902042,
+        "b": 0.09582072991965634
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18127161701365105,
+          "unit_direction": [
+            0.2565738610099078,
+            -0.007657776466370714,
+            -0.9664942898465876
+          ],
+          "vector_world_m": [
+            0.04650955866870174,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.21466936995915112,
+          "unit_direction": [
+            0.20835283068859872,
+            0.9041679546959152,
+            0.3729201089309259
+          ],
+          "vector_world_m": [
+            0.044726970893127174,
+            0.1940971651718264,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.39594098697280217
+      },
+      "inference_seed": 520102021,
+      "initial_state_hash": "545582f22ce1a208948b6a9e246e63b185ca26ddd6f8d689b39591f69a16866c",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_021_420102021.npz",
+      "seed": 420102021,
+      "sha256": "772dd1d72aae5b5c3799cfef71ed9812c3ccc50bff4a5b738fc0d0ae5dc4df54",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07890622953902042,
+          0.6,
+          0.02,
+          0.09582072991965634,
+          0.794097165307231,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_E_022_420102022",
+      "factors": {
+        "a": 0.06585183931340698,
+        "b": -0.08705696172907862
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.25938304768189413,
+          "unit_direction": [
+            0.7373944798262168,
+            -0.005351689461566146,
+            -0.675441145135333
+          ],
+          "vector_world_m": [
+            0.1912676275211291,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3575835061758451,
+          "unit_direction": [
+            -0.7911684535832927,
+            0.5691500808945745,
+            0.2238764468905126
+          ],
+          "vector_world_m": [
+            -0.28290878960803517,
+            0.20351868146654783,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6169665538577392
+      },
+      "inference_seed": 520102022,
+      "initial_state_hash": "23bb66681556e161815b3a0447023a0d0124e271df93aabb965db61a5ab4d98b",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_022_420102022.npz",
+      "seed": 420102022,
+      "sha256": "658ade5b3c1698327e84e35ca739c4ac30f4600bd60f3d15ae556699c8e25e87",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.06585183931340698,
+          0.6,
+          0.02,
+          -0.08705696172907862,
+          0.8035186816019524,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_E_023_420102023",
+      "factors": {
+        "a": 0.07039676290314685,
+        "b": 0.0859428100844428
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.26275238392778294,
+          "unit_direction": [
+            0.7452360590748732,
+            -0.00528306347610391,
+            -0.6667798028546305
+          ],
+          "vector_world_m": [
+            0.195812551110869,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.23624389889168823,
+          "unit_direction": [
+            -0.4844736389858172,
+            0.8065088729626869,
+            0.33886388264360134
+          ],
+          "vector_world_m": [
+            -0.11445394138425366,
+            0.19053280063944644,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.49899628281947117
+      },
+      "inference_seed": 520102023,
+      "initial_state_hash": "07a48a26539eec00f38df29fd9a5d444c23b482f40451dbd3221bd69f5276e89",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_023_420102023.npz",
+      "seed": 420102023,
+      "sha256": "8b6cecd6b2debdb4fa8c911aba5c6f6a7c2d4d752c1e34df2bf4635f3a12dc6d",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07039676290314685,
+          0.6,
+          0.02,
+          0.0859428100844428,
+          0.790532800774851,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_E_024_420102024",
+      "factors": {
+        "a": -0.06475483304788379,
+        "b": -0.09167382394074348
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1854076901535918,
+          "unit_direction": [
+            0.32717604706464337,
+            -0.007486946855538562,
+            -0.944933743631762
+          ],
+          "vector_world_m": [
+            0.06066095515983837,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.25874556395479636,
+          "unit_direction": [
+            -0.6064605594004444,
+            0.732448267660537,
+            0.3093947722453925
+          ],
+          "vector_world_m": [
+            -0.15691897945840927,
+            0.18951774008353928,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.44415325410838813
+      },
+      "inference_seed": 520102024,
+      "initial_state_hash": "ce4e2495e64717e050518e0446f42bc18ce3b07f1679fa1cd79eb0e17ef39772",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_024_420102024.npz",
+      "seed": 420102024,
+      "sha256": "9def86b7573aa58e33eaf022ea1da0f4195abb5810ff948642bf5909578efffb",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06475483304788379,
+          0.6,
+          0.02,
+          -0.09167382394074348,
+          0.7895177402189438,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_E_025_420102025",
+      "factors": {
+        "a": -0.06679919522738952,
+        "b": 0.0866942526095514
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18474892438065332,
+          "unit_direction": [
+            0.3172770460062873,
+            -0.007513643326702183,
+            -0.9483031272971123
+          ],
+          "vector_world_m": [
+            0.058616592980332644,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.22670795975781236,
+          "unit_direction": [
+            0.10362873582598917,
+            0.9298221273031981,
+            0.3531173978841349
+          ],
+          "vector_world_m": [
+            0.02349345927139132,
+            0.21079807741857692,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4114568841384657
+      },
+      "inference_seed": 520102025,
+      "initial_state_hash": "e32158bd0441a450eab6cee414402ff6c61562ba6133b30d91984b2cdd7bbab8",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_025_420102025.npz",
+      "seed": 420102025,
+      "sha256": "902214a33a1207bba9c53337e109b017ff7ed050e24c207fbfe7f45b3662ffe1",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06679919522738952,
+          0.6,
+          0.02,
+          0.0866942526095514,
+          0.8107980775539815,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_E_026_420102026",
+      "factors": {
+        "a": 0.07923334743959246,
+        "b": -0.08454899610612933
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.26940216927185157,
+          "unit_direction": [
+            0.7596417512169503,
+            -0.005152659039606113,
+            -0.6503213512663307
+          ],
+          "vector_world_m": [
+            0.2046491356473146,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3747929991438747,
+          "unit_direction": [
+            -0.7838522405230276,
+            0.5830541492508848,
+            0.21359663871034237
+          ],
+          "vector_world_m": [
+            -0.29378233211127136,
+            0.21852461326101946,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6441951684157263
+      },
+      "inference_seed": 520102026,
+      "initial_state_hash": "037389bf20af4f8a0afe79196ac5d12d217e2b1bb30046fa7fbd26967de4d374",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_026_420102026.npz",
+      "seed": 420102026,
+      "sha256": "09365db989042e0f3d2e55bb8e1a8657b7c3a3b4edc7a6204c5c5170ffa3328b",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07923334743959246,
+          0.6,
+          0.02,
+          -0.08454899610612933,
+          0.818524613396424,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_E_027_420102027",
+      "factors": {
+        "a": 0.061181966653476284,
+        "b": 0.0860839599972311
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.255958946330122,
+          "unit_direction": [
+            0.7290143889736705,
+            -0.005423281907864073,
+            -0.6844768868871276
+          ],
+          "vector_world_m": [
+            0.18659775486119842,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.22916832986403285,
+          "unit_direction": [
+            -0.4586061053207052,
+            0.817099489685806,
+            0.34932630035222045
+          ],
+          "vector_world_m": [
+            -0.10509799522179476,
+            0.1872533253840497,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.48512727619415486
+      },
+      "inference_seed": 520102027,
+      "initial_state_hash": "094acb19712f8896145cc955f17622a47e3755bc89bb921dce27fbd9a165a234",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_027_420102027.npz",
+      "seed": 420102027,
+      "sha256": "c6ffde50d82e5a1ba4ba82496de819d05082a029119e768a7aabaf32239b933d",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.061181966653476284,
+          0.6,
+          0.02,
+          0.0860839599972311,
+          0.7872533255194543,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_E_028_420102028",
+      "factors": {
+        "a": -0.07459405856201884,
+        "b": -0.09330721565852983
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18242562399884324,
+          "unit_direction": [
+            0.2785887669268742,
+            -0.00760933410756432,
+            -0.9603803397491034
+          ],
+          "vector_world_m": [
+            0.05082172964570332,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.24462654127919792,
+          "unit_direction": [
+            -0.607919095305079,
+            0.7234227686581546,
+            0.32725199976535574
+          ],
+          "vector_world_m": [
+            -0.14871314566206056,
+            0.1769684097794657,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.42705216527804113
+      },
+      "inference_seed": 520102028,
+      "initial_state_hash": "080afb8c63a19ca45065dad81533003e1d338d6442ef791dc9826caae60bd2e4",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_028_420102028.npz",
+      "seed": 420102028,
+      "sha256": "f0259984819174a514d3043801606ce0fc4cef309393e79505cd8e6725aadf9e",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07459405856201884,
+          0.6,
+          0.02,
+          -0.09330721565852983,
+          0.7769684099148703,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_E_029_420102029",
+      "factors": {
+        "a": -0.07902241416436587,
+        "b": 0.0804122893277015
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18124184186415987,
+          "unit_direction": [
+            0.255974964534558,
+            -0.007659034517142605,
+            -0.9666530694731162
+          ],
+          "vector_world_m": [
+            0.04639337404335629,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.21239873496180234,
+          "unit_direction": [
+            0.13858234575554934,
+            0.9158254239224619,
+            0.3769067873389021
+          ],
+          "vector_world_m": [
+            0.02943471492651778,
+            0.19452016148698725,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3936405768259622
+      },
+      "inference_seed": 520102029,
+      "initial_state_hash": "57728e472782a06f838a48c49a8c13c1ea8b5f9045fdc957af9981b58dc65a34",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_029_420102029.npz",
+      "seed": 420102029,
+      "sha256": "3733c8a9e12b5db18d37240d5c8f28f700d022c64d1b1c348c6a686e2267b2bc",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07902241416436587,
+          0.6,
+          0.02,
+          0.0804122893277015,
+          0.7945201616223918,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_E_030_420102030",
+      "factors": {
+        "a": 0.06975101085587662,
+        "b": -0.09716903961611746
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.26227149967908736,
+          "unit_direction": [
+            0.7441403252065237,
+            -0.00529275016342459,
+            -0.6680023676584061
+          ],
+          "vector_world_m": [
+            0.19516679906359877,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3617114502109009,
+          "unit_direction": [
+            -0.8208754211801155,
+            0.5264791843187979,
+            0.22132151133900507
+          ],
+          "vector_world_m": [
+            -0.29692003903754366,
+            0.19043354926580458,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6239829498899883
+      },
+      "inference_seed": 520102030,
+      "initial_state_hash": "9e2ea1e317880de6963370b504b9d26e5ced2363dc9274a87f9199c9ce369a1d",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_030_420102030.npz",
+      "seed": 420102030,
+      "sha256": "e6d506d6aa3590b21608f0cad365e91134149b0e916beba52b2a5656bc4205a7",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.06975101085587662,
+          0.6,
+          0.02,
+          -0.09716903961611746,
+          0.7904335494012091,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_E_031_420102031",
+      "factors": {
+        "a": 0.07734092526348062,
+        "b": 0.09215638206019044
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2679674326197678,
+          "unit_direction": [
+            0.7566468487941378,
+            -0.005180247126365534,
+            -0.6538032664721176
+          ],
+          "vector_world_m": [
+            0.20275671347120275,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.26225878538431663,
+          "unit_direction": [
+            -0.4392018044316311,
+            0.8449403181723751,
+            0.3052501166433268
+          ],
+          "vector_world_m": [
+            -0.11518453176883975,
+            0.22159302156612515,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5302262180040844
+      },
+      "inference_seed": 520102031,
+      "initial_state_hash": "2aab67721bc211492a9df24a066af3e00306270163df4acf1561e1fabc0b70d7",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_031_420102031.npz",
+      "seed": 420102031,
+      "sha256": "f73d594830f9bfde2c6c4e8cc054ebbc3f04458c8edd4c9619902574e87ba37e",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07734092526348062,
+          0.6,
+          0.02,
+          0.09215638206019044,
+          0.8215930217015297,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_E_032_420102032",
+      "factors": {
+        "a": -0.06722165281049666,
+        "b": -0.08025411735441798
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18461532298760303,
+          "unit_direction": [
+            0.3152183386269256,
+            -0.007519080758433665,
+            -0.9489893900449199
+          ],
+          "vector_world_m": [
+            0.0581941353972255,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2746011780928432,
+          "unit_direction": [
+            -0.52087341395568,
+            0.8023098239618597,
+            0.29153015797417037
+          ],
+          "vector_world_m": [
+            -0.1430324531094709,
+            0.2203152228553883,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4592165010804462
+      },
+      "inference_seed": 520102032,
+      "initial_state_hash": "c55b36703f97490f5e0c3c0920f7be32832a5b7efa1ea0c7eb9a6fec11122fbf",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_032_420102032.npz",
+      "seed": 420102032,
+      "sha256": "dec99f3e7d504ae850b0b8e3f78045b41759dc0a8d281bc5c775adce7984d13b",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06722165281049666,
+          0.6,
+          0.02,
+          -0.08025411735441798,
+          0.8203152229907928,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_E_033_420102033",
+      "factors": {
+        "a": -0.07145155482254906,
+        "b": 0.08077436338358114
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18332593535022754,
+          "unit_direction": [
+            0.2943622422112798,
+            -0.0075719647639391095,
+            -0.9556639240391789
+          ],
+          "vector_world_m": [
+            0.0539642333851731,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.1950548808182191,
+          "unit_direction": [
+            0.11394705709155778,
+            0.9047491742163231,
+            0.4104205159772776
+          ],
+          "vector_world_m": [
+            0.022225929640580608,
+            0.17647574234714702,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.37838081616844665
+      },
+      "inference_seed": 520102033,
+      "initial_state_hash": "7938a699dfa2e0d78431c5be19a3c591b54cb7317e0d6fd3e3702847fdb5be71",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_033_420102033.npz",
+      "seed": 420102033,
+      "sha256": "607fb38819a941d870b55a913a8c1173954f9771bbd12df050a6447282c95233",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07145155482254906,
+          0.6,
+          0.02,
+          0.08077436338358114,
+          0.7764757424825516,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_E_034_420102034",
+      "factors": {
+        "a": 0.07073360585455415,
+        "b": -0.09008974918421449
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2630035073495875,
+          "unit_direction": [
+            0.7458052405421047,
+            -0.005278019052966365,
+            -0.6661431420459194
+          ],
+          "vector_world_m": [
+            0.1961493940622763,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.37106325151665226,
+          "unit_direction": [
+            -0.7837567919098205,
+            0.5823916092861507,
+            0.21574360840663104
+          ],
+          "vector_world_m": [
+            -0.2908233436043182,
+            0.21610412419773484,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6340667588662398
+      },
+      "inference_seed": 520102034,
+      "initial_state_hash": "09d9b63898e535dfb390882025924622de868812e88d12ce7f9a29a4645696aa",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_034_420102034.npz",
+      "seed": 420102034,
+      "sha256": "5988e8914f3fb7ced96eeaedc19dea36cecb398335665b5ce02dec7c659e1d63",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07073360585455415,
+          0.6,
+          0.02,
+          -0.09008974918421449,
+          0.8161041243331394,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_E_035_420102035",
+      "factors": {
+        "a": 0.07226935315324329,
+        "b": 0.09452331909276208
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2641508569020575,
+          "unit_direction": [
+            0.7483797087747613,
+            -0.005255093771294481,
+            -0.6632497233196999
+          ],
+          "vector_world_m": [
+            0.19768514136096543,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2228925107650884,
+          "unit_direction": [
+            -0.48339902608745267,
+            0.798328268078706,
+            0.3591620218844912
+          ],
+          "vector_world_m": [
+            -0.1077460226260308,
+            0.17794139208680737,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.48704336766714584
+      },
+      "inference_seed": 520102035,
+      "initial_state_hash": "0044b2c94dc4727c1739b703281212355816a190e079c50e55ce5481fc0a49cb",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_035_420102035.npz",
+      "seed": 420102035,
+      "sha256": "5268d94cbf087bc3b5b316c26351ac68e440b750fafa4b40a5f2fa232bdf632c",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07226935315324329,
+          0.6,
+          0.02,
+          0.09452331909276208,
+          0.7779413922222119,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_assembly_test_E_036_420102036",
+      "factors": {
+        "a": -0.07458883733560034,
+        "b": -0.09417597349728778
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18242707864279212,
+          "unit_direction": [
+            0.27861516640106565,
+            -0.00760927343196782,
+            -0.9603726818319772
+          ],
+          "vector_world_m": [
+            0.050826950872121815,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.2499888865780364,
+          "unit_direction": [
+            -0.5983750988888139,
+            0.7344375349626687,
+            0.3202323348254527
+          ],
+          "vector_world_m": [
+            -0.149587124727237,
+            0.18360122162643522,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.4324159652208285
+      },
+      "inference_seed": 520102036,
+      "initial_state_hash": "7f22eb876cd534c0a1111fad05fcb2a65ca546eb804f1ed5cbd4aae321648aed",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_036_420102036.npz",
+      "seed": 420102036,
+      "sha256": "94162c1b64a5b1ca7aab79777e830bd37fae250ab0392d3fc68174d517853524",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07458883733560034,
+          0.6,
+          0.02,
+          -0.09417597349728778,
+          0.7836012217618398,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_assembly_test_E_037_420102037",
+      "factors": {
+        "a": -0.07634847504345842,
+        "b": 0.0841539007705517
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1819446655121999,
+          "unit_direction": [
+            0.2696826149100461,
+            -0.007629448870514006,
+            -0.9629190405871161
+          ],
+          "vector_world_m": [
+            0.04906731316426374,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.21093412831388378,
+          "unit_direction": [
+            0.1446062213463673,
+            0.9138110940117136,
+            0.37952381375750394
+          ],
+          "vector_world_m": [
+            0.030502387248460522,
+            0.1927539465589173,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3928787938260837
+      },
+      "inference_seed": 520102037,
+      "initial_state_hash": "e8694885ce7162e0045728b25968c2e64d3142cc25cd2fd6b17774b53fbcae5c",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_037_420102037.npz",
+      "seed": 420102037,
+      "sha256": "300085bde3b1c8259d99705ebc0d514b4e660115261e6d1e014223db98d61971",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07634847504345842,
+          0.6,
+          0.02,
+          0.0841539007705517,
+          0.7927539466943219,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_assembly_test_E_038_420102038",
+      "factors": {
+        "a": 0.0690159010416905,
+        "b": -0.08726846220408055
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.26172493551736054,
+          "unit_direction": [
+            0.7428856133446855,
+            -0.005303803094054159,
+            -0.6693973671581254
+          ],
+          "vector_world_m": [
+            0.19443168924941265,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3542229628093758,
+          "unit_direction": [
+            -0.8082038203869459,
+            0.5438110077484082,
+            0.22600038177756704
+          ],
+          "vector_world_m": [
+            -0.2862843518113206,
+            0.1926303463729936,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6159478983267364
+      },
+      "inference_seed": 520102038,
+      "initial_state_hash": "16aac3a5ab63052de3d7714ed7ce37116d2bd59b99eced1d8a9137255e3ec0e5",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_038_420102038.npz",
+      "seed": 420102038,
+      "sha256": "beb035a453a9860ac93554c93851f75084022a46faee6a90ff7641cc2e59d719",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.0690159010416905,
+          0.6,
+          0.02,
+          -0.08726846220408055,
+          0.7926303465083981,
+          0.1
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_assembly_test_E_039_420102039",
+      "factors": {
+        "a": 0.06490622747347044,
+        "b": 0.09570312779933517
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2586865472732173,
+          "unit_direction": [
+            0.7357244421379977,
+            -0.00536609861401873,
+            -0.677259736162129
+          ],
+          "vector_world_m": [
+            0.19032201568119259,
+            -0.001388137522788102,
+            -0.17519798275495127
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.24695797818504525,
+          "unit_direction": [
+            -0.40170027698134186,
+            0.8564785676516647,
+            0.3241625373581376
+          ],
+          "vector_world_m": [
+            -0.09920308823968486,
+            0.21151421542607862,
+            0.08005452482929987
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5056445254582626
+      },
+      "inference_seed": 520102039,
+      "initial_state_hash": "ab134d7c90602d0c6ac84ca4d2520d1d5b7b2628780951ed65e814fedfbfee22",
+      "path": "assets/exp1/evaluation/test/assembly/e1_assembly_test_E_039_420102039.npz",
+      "seed": 420102039,
+      "sha256": "f8629126f40c154c16161c69193d82d599626bec7980a918c2dcd9e65a6a0594",
+      "split": "E",
+      "stage": "test",
+      "task": "assembly",
+      "task_name": "assembly-v3",
+      "task_params": {
+        "rand_vec": [
+          0.06490622747347044,
+          0.6,
+          0.02,
+          0.09570312779933517,
+          0.8115142155614832,
+          0.1
+        ]
+      }
+    }
+  ],
+  "sampling": "predeclared PCG64 independent uniform factors and nuisance variables; no rejection or score selection",
+  "schema_version": "experiment1.evaluation.v1",
+  "seed_base": 420000000,
+  "task": "assembly",
+  "original_manifest_sha256": "4af2d5e35c62ce187469b94a74eb046e22188df1dbf15b23b48798eecadd90c3",
+  "hash": "3d7e21d81c6d26d8344af8479c8f400dd2e02daaa23f9b017ce2d03d424116b0"
+}

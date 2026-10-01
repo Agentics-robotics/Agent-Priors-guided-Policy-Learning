@@ -1,0 +1,115 @@
+{
+  "checkpoint": "provenance/relocated/b36e9497cd19530b",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "498bddf32e1b946bf78c019c46b7fa5ef6cd82fdc7a8bbeeedb1805f4c526eb2",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 0,
+    "physical_gpu": 3,
+    "uuid": "GPU-211ca63e-6f90-7281-b43a-e1facc953f2b"
+  },
+  "effective_action_targets": 40395171,
+  "final_weights_sha256": "6de427175f4f38c71553db943b29740d7132b3ffb657954c0115a4ee9dfdd245",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.164456367492676,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.108116149902344,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.040656566619873,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.272693008184433,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "bbe871b3458b8ac1f88c4b6dc201f3e32690e1426dc08378f73a529ad55fde7b",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5760,
+      "duplicated_actions": 0,
+      "unique_actions": 5760
+    },
+    "contract": {
+      "action_dimension": 8,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination_pose_field": {
+            "enum": [
+              "target_pose"
+            ],
+            "type": "string"
+          },
+          "manipulated_object_pose_field": {
+            "enum": [
+              "object_pose"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "destination_pose_field",
+          "manipulated_object_pose_field"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Compare FK of the IK-produced target with the demonstrated commanded TCP pose after destination-frame encode/decode, and compare the unchanged gripper scalar. The maximum of position metres, rotation radians and gripper error must be at most 0.005. Quaternion normalization is exact for encoded unit labels; nonunique IK joints are allowed.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Uses all twelve full [680,1160) assigned slices without trimming. The 680:840 retrieval overlap and 900:1160 closing overlap remain action-supervised. The refinement anchors transport convergence, cavity descent/release, retreat, and handle transition to the live destination frame.",
+      "input_shapes": {
+        "features": [
+          2,
+          38
+        ]
+      },
+      "observation_dependencies": [
+        "target_pose",
+        "object_pose",
+        "tcp_pose",
+        "qpos",
+        "qvel",
+        "drawer_position",
+        "drawer_velocity"
+      ],
+      "output_semantics": "Each slot is [destination-frame TCP translation xyz in metres, destination-frame canonical unit quaternion wxyz, native gripper scalar]. At training slot k, the frame is target_pose in that slot's pre-action observation. At execution, slots 1..8 are decoded against the fresh current target_pose. The quaternion is normalized (identity only for a degenerate sampled quaternion); the relative pose is left-multiplied by the live destination world pose. panda_kinematics.solve_ik converts the resulting world TCP target to seven absolute joint targets from freshly measured qpos. The gripper scalar is unchanged and the executor applies its binary sign rule.",
+      "parameter_semantics": "destination_pose_field selects the live observed world pose that defines the Cartesian action frame and is resolved in each causal and execution observation. manipulated_object_pose_field selects the live block world pose used for destination-relative conditioning and release evidence. Positions are metres and quaternions are wxyz.",
+      "policy_id": "place_block_in_drawer__h02",
+      "skill_id": "place_block_in_drawer",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "18b73a03bfcdf61646ac5a5ddb068ac743f97476cfefbc1faa17d45ed45d9ac6",
+    "PRIOR.md": "9c24c212aea99fb61b638d5367d710581f2529b4b35252f8c34d4aeee10bc170",
+    "adapters.py": "12779b86a0ccb1060a1ce6fc7cd9d82fd53e59842ece20765921c909bf314fcf",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "43ba44dd6d8fbd4d9fca83ecb9a80b4c2b808b406483e0a0d4a280ec8b177a3b",
+    "policy.py": "9ae9c7105256922cc76a55b6e082d976018b950480f8b329c6af4612ca4bab0a",
+    "policy_contract.json": "d10b27adac08ac10b34bc88d1b13e0a9e124a42c88b142fcadaeea69e3834c9a",
+    "training_bindings.json": "39e041e22ecdf7df73600edcbdeb462a4d3faa040a7b6402a4dd1aee9f0a7e4d"
+  },
+  "trainable_parameters": 16869384,
+  "training_elapsed_seconds": 649.4967715409584,
+  "weight_l2_change": 28.809059372465416
+}

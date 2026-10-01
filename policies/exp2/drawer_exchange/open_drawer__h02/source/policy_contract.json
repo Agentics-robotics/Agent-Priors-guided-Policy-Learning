@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "open_drawer__h02",
+  "skill_id": "open_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "drawer_origin_world_m": {"type": "array", "items": {"type": "number"}, "minItems": 3, "maxItems": 3},
+      "drawer_orientation_wxyz": {"type": "array", "items": {"type": "number"}, "minItems": 4, "maxItems": 4},
+      "desired_open_position_m": {"type": "number", "exclusiveMinimum": 0.26}
+    },
+    "required": ["drawer_origin_world_m", "drawer_orientation_wxyz", "desired_open_position_m"]
+  },
+  "parameter_semantics": "drawer_origin_world_m is the world position in metres of the drawer at drawer_position=0 and drawer_orientation_wxyz is its unit wxyz calibration; both construct TCP-relative causal features. desired_open_position_m is intended scalar opening in metres, bound to 0.300 m. Learned increments are policy outputs, never caller actuator inputs.",
+  "observation_dependencies": ["qpos", "qvel", "tcp_pose", "red_pose", "drawer_position", "drawer_velocity"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 39]},
+  "action_dimension": 7,
+  "output_semantics": "Each slot is the local SE(3) transform from that slot's measured pre-action TCP to the demonstrated commanded TCP: local translation [3] in metres, local rotation vector [3] in radians, and native gripper scalar [1]. Slots 1..8 execute t..t+7. At every physical step, the slot transform is composed on the fresh measured world TCP pose. The resulting world target is passed to panda_kinematics.solve_ik from fresh qpos; the gripper scalar is appended unchanged and interpreted by common sign semantics.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "Local transform encode/decode reconstructs demonstrated commanded TCP targets when composed with the corresponding measured pre-action TCP. Shared IK is evaluated by FK position/rotation and unchanged gripper scalar."},
+  "cut_relation": "Supervises every action in all assigned [0,470) segments and preserves approach, pull, release, retreat, red pickup and initial lift. The full 230:470 action overlap with red_transfer remains duplicated supervision."
+}

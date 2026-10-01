@@ -1,0 +1,104 @@
+{
+  "checkpoint": "provenance/relocated/87c9da7b403edcc8",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "8eaea32c7c9ef5c94c6f326ad406ba723e5717e4fdafaa9f337cc09b7abd5c93",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 4,
+    "physical_gpu": 7,
+    "uuid": "GPU-26720468-40e8-2514-a0ae-83b4635e346a"
+  },
+  "effective_action_targets": 40786319,
+  "final_weights_sha256": "720889e8387db7913ae3cb5f1c55d07af7e86e79d92ec0391fbc2c759248ddcb",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.6493756771087646,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.8747143745422363,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.757667064666748,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.4322822391986847,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "727427585c0349893591d38a14b35f2497c8e5e1afdf48798fc5c8955972e74e",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 18720,
+      "duplicated_actions": 0,
+      "unique_actions": 18720
+    },
+    "contract": {
+      "action_dimension": 7,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Recompose each local label from its corresponding measured pre-action TCP pose, solve IK from measured joints and compare FK target position, rotation and gripper scalar with the demonstrated commanded target.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Every assigned action [180,1740) in all twelve trajectories remains supervised. The particle encoder and current-TCP residual representation preserve incoming [180,360) and outgoing [1460,1740) overlaps rather than creating a phase-only recut.",
+      "input_shapes": {
+        "particles": [
+          2,
+          12,
+          8
+        ],
+        "robot": [
+          2,
+          58
+        ]
+      },
+      "observation_dependencies": [
+        "bowl_pose",
+        "container_pose",
+        "particle_positions",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is [translation xyz in metres in the current TCP frame, local rotation vector xyz in radians, native gripper scalar]. Training uses inverse(T_world_tcp_before_action) times T_world_commanded_tcp. Execution composes the represented local transform with the fresh observed TCP pose, then panda_kinematics.solve_ik uses fresh measured joints. Slots represent t-1 through t+14; execution uses slots 1 through 8.",
+      "parameter_semantics": "No caller parameters. Two causal observations provide measured robot state, source/bowl/TCP/goal poses and twelve world particle positions. Particle identity is intentionally removed by symmetric learned pooling.",
+      "policy_id": "controlled_pour_and_right__h02",
+      "skill_id": "controlled_pour_and_right",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "fa270a37bff69bd4aa7f8c01c2549c244d50783aa50728d5ca019780a55bbb1a",
+    "PRIOR.md": "519dfee5f47bc419f580ff0a3b31c0dafd8f7fa98fd1e93ae121360c3df6a2b7",
+    "adapters.py": "8cad97ca74f7dbc6fb19a9a63e5fbde056923441013e624dccff6e778922a8a4",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "ecc52aafe8eb8f89af7a90b991c3046c6c850a698e09a5ec3aaaa3c788f560eb",
+    "policy.py": "733b3034cfd87a71dae52519e95c06cf87df7b01e5ca3a6be32f679ec433ebd9",
+    "policy_contract.json": "e8cb46a935a5907f6530d314d9416f343c120e7e6e875a9f8ce4ada9e6e45ebc",
+    "training_bindings.json": "226d804d283f2b409a878e778990921ff5fdf81d9df380d804a46ddaa0041375"
+  },
+  "trainable_parameters": 19138570,
+  "training_elapsed_seconds": 537.3921552060638,
+  "weight_l2_change": 27.52671945345854
+}

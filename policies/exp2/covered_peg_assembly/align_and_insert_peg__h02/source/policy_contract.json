@@ -1,0 +1,22 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "align_and_insert_peg__h02",
+  "skill_id": "align_and_insert_peg",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {
+      "destination_object": {"type": "string", "enum": ["hole"]},
+      "held_object": {"type": "string", "enum": ["peg"]}
+    },
+    "required": ["destination_object", "held_object"],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "destination_object selects observed hole_pose for local goal geometry; held_object selects observed peg_pose for grasp and phase geometry. Learned actions are local TCP corrections; neither argument supplies an actuator value.",
+  "observation_dependencies": ["hole_pose", "peg_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 63]},
+  "action_dimension": 7,
+  "output_semantics": "Each slot is a local target relative to the measured TCP for that physical slot: TCP-frame translation xyz in metres, target orientation relative to current TCP as a 3D rotation vector in radians, and native gripper scalar. At execution the decoder composes the represented delta with the freshly observed world TCP and calls panda_kinematics.solve_ik from fresh qpos. Prediction slots are t-1 through t+14; execution uses slots 1 through 8. There is no accumulation across denoising calls or scripted completion motion.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "Encode measured_tcp_T_commanded_tcp at each demonstration action observation, reconstruct it with exp(rotation vector), compose with the matching measured world TCP, and use shared IK. Compare FK TCP position, rotation angle, and preserved gripper scalar against the commanded demonstration target."},
+  "cut_relation": "Uses every assigned action and the full [1380,1500) overlap. The cut and semantics remain align-descend-insert-stabilize; only target coordinates are converted into fresh-TCP residuals."
+}

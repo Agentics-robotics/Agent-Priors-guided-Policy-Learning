@@ -1,0 +1,58 @@
+{
+  "cut_plan_sha256": "6ff90d860db25d097efcfc9bbe61fa3421abe180b8b3d234811997a8e283064a",
+  "priors": [
+    {
+      "applicability": "Prefer place_red__h04 when blue is low over or supported in blue_goal, red is observable on the central tabletop and outside a 0.12 m horizontal radius of red_goal, and the main anticipated variation is a reachable translation of the red source. It may enter during the demonstrated blue release overlap, but its strongest intended use begins after blue is stable and before red pickup. Prefer h02 when destination anchoring is the dominant need or the source is already near red_goal; prefer h03 for moderate TCP/configuration mismatch without a large source displacement.",
+      "evidence": [
+        {
+          "indices": [
+            620,
+            640,
+            700,
+            740,
+            800,
+            820,
+            840,
+            860,
+            900,
+            960,
+            980,
+            1040
+          ],
+          "trajectory_id": "demo10100"
+        },
+        {
+          "indices": [
+            610,
+            630,
+            690,
+            730,
+            790,
+            810,
+            830,
+            850,
+            890,
+            950,
+            970,
+            1030
+          ],
+          "trajectory_id": "demo10104"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Blue is descending to or settled in blue_goal, normally with TCP still near blue before opening; red is observable, table-supported in the central buffer, collision-free and reachable. For the source-equivariant path, red should be outside the fixed 0.12 m horizontal destination-switch radius.",
+        "exit_conditions": "Use the unchanged framework exit: both red_at_goal and blue_at_goal are true. Demonstrated open gripper and high TCP retreat are handoff guidance, not extra success predicates.",
+        "failure_signatures": "Wrong anchor selection appears as TCP motion tied to blue, red or red_goal at the wrong time; other signatures are a missed red grasp, low/slipping red that never triggers stable transport, red remaining in the buffer, release outside full containment, repeated gripper switching, IK residuals or joint-limit contacts. Recovery from these errors is not demonstrated.",
+        "overlap_role": "All approximately 230-240 shared actions remain supervised: final blue lower/open, retreat, transit, red approach/contact/close and initial lift. The blue translation anchor handles the start, the red translation anchor covers pickup-side overlap, and the destination anchor takes over after observable lift.",
+        "successor_readiness": "There is no successor skill. Terminal readiness is determined only by the unchanged red_at_goal AND blue_at_goal evaluation; opening and retreat are demonstrated continuation behavior."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"target_object\":{\"type\":\"string\",\"enum\":[\"red\"]},\"destination\":{\"type\":\"string\",\"enum\":[\"red_goal\"]},\"handoff_object\":{\"type\":\"string\",\"enum\":[\"blue\"]}},\"required\":[\"target_object\",\"destination\",\"handoff_object\"]},\"parameter_semantics\":\"target_object selects the observed red_pose whose translation anchors red approach/contact/initial lift; destination selects observed red_goal in world metres for transport/place/retreat; handoff_object selects observed blue_pose and blue_goal for predecessor release context. These are semantic scene identifiers, not actuator inputs. The policy uses fixed documented causal switches: destination when red is more than 0.05 m above destination z or within 0.12 m horizontally of destination, otherwise the nearer of handoff and target objects to TCP.\"}",
+      "limitations": "No contact truth or memory is available, so geometric phase is not proof of grasp and a fixed hard switch can be wrong or chatter in unseen states. Translation equivariance covers blue-release and red pickup-side positions, not object yaw, arbitrary destination rotation, collision avoidance, slips, unstable blue, or unreachable source positions. A red source already within 0.12 m of its goal bypasses the red anchor. Validation of the originals is in-distribution only, and no h04 benefit is observed yet.",
+      "pipeline_implications": "Add one independent standard Diffusion Policy with 10-D Cartesian labels: selected-anchor-relative world-axis position, world rotation-6D, and native gripper scalar. Causal features include robot configuration/velocity, world TCP and scene relations, selected-anchor relations and a one-hot anchor identity. Resolve the anchor from every current observation and use the same rule per supervised pre-action observation. Decode with fresh measured qpos through the verified IK and report all solver diagnostics. Keep H2/16/8, 20 Hz, all twelve full cuts and the fixed 20,000-update recipe.",
+      "rationale": "Observed validation gives h01 3/12 and h02/h03 12/12 under the in-distribution replay-entry protocol; all failures preserve blue_at_goal but miss red_at_goal, and no policy has out-of-distribution evidence. h01's moving-object frame may remove destination-directed transport signal, but that cause is unconfirmed. The new representation therefore uses red translation only while source displacement invariance is useful, then switches to the fixed observed destination after lift so long transport remains destination-directed. World orientation avoids rotating commands with incidental block yaw. Demonstrations support the phase geometry: demo10100 has red table-supported around 800-820, lifted around 840-860, transported by 900, lowered by 960 and opened by 980; demo10104 shows the corresponding sequence around 790-970.",
+      "statement": "Phase-local translation-anchor prior: tie blue-release commands to observed blue translation, tie red approach/contact/closure/initial-lift commands to observed red translation, and tie lifted transport/lowering/release/retreat commands to observed red_goal translation using a deterministic causal geometric switch. This makes pickup-side Cartesian positions translate with a displaced red source by construction without erasing destination-directed transport.",
+      "training_bindings": "[{\"trajectory_id\":\"demo10100\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap and all three causal anchors.\"},{\"trajectory_id\":\"demo10101\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap and all three causal anchors.\"},{\"trajectory_id\":\"demo10102\",\"start\":620,\"stop\":1060,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap and all three causal anchors.\"},{\"trajectory_id\":\"demo10103\",\"start\":620,\"stop\":1065,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap and all three causal anchors.\"},{\"trajectory_id\":\"demo10104\",\"start\":610,\"stop\":1057,\"context_start\":609,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Earlier overlap entry and complete hybrid-anchored red placement.\"},{\"trajectory_id\":\"demo10105\",\"start\":610,\"stop\":1056,\"context_start\":609,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Earlier overlap entry and complete hybrid-anchored red placement.\"},{\"trajectory_id\":\"demo10106\",\"start\":620,\"stop\":1059,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap and all three causal anchors.\"},{\"trajectory_id\":\"demo10107\",\"start\":630,\"stop\":1071,\"context_start\":629,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Later overlap entry and complete hybrid-anchored red placement.\"},{\"trajectory_id\":\"demo10108\",\"start\":620,\"stop\":1058,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap and all three causal anchors.\"},{\"trajectory_id\":\"demo10109\",\"start\":620,\"stop\":1063,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap and all three causal anchors.\"},{\"trajectory_id\":\"demo10110\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap and all three causal anchors.\"},{\"trajectory_id\":\"demo10111\",\"start\":620,\"stop\":1061,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap and all three causal anchors.\"}]"
+    }
+  ],
+  "skill_id": "place_red"
+}

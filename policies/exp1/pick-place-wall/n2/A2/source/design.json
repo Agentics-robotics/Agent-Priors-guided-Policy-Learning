@@ -1,0 +1,35 @@
+{
+  "title": "Causal acquisition-to-transport chart with soft phase products",
+  "coverage_gap": "Only LL and HH are demonstrated. Their initial object-to-goal x separations are near zero, while C/E can require a substantial lateral correction. Native x action standard deviation is only about 0.074 in D_2, versus 0.446 for y. Learning a world-axis action distribution alone may reproduce forward transport without learning its unseen lateral components.",
+  "reusable_regularity": "Factor movement direction from movement magnitude by an invertible horizontal coordinate chart. At chunk start a soft causal attachment proxy blends hand-to-object displacement (regularized toward native +y near zero distance) with object-to-goal displacement. The unit blended direction defines the local forward axis. Once attached, transport primarily along local forward can decode into the required world x/y components even for unseen x combinations. A four-way soft acquisition/lift/cross/place descriptor is supplied as features and as products with relations, never used to select or generate actions. All action sequences, including grasp timing and vertical motion, remain diffusion predictions.",
+  "dependencies_preserved": [
+    "The frame is an exactly invertible horizontal rotation, not a translation, action rescaling, waypoint, trajectory tracker or controller. Vertical and gripper components are unchanged.",
+    "One chart computed from raw_current is held fixed for both observations and all sixteen predicted actions. Encode/decode use precisely the same causal chart with no future labels or recurrent state.",
+    "Native world wall center, native half sizes, chart orientation c/s, signed native box face offsets, and hand/object/goal top clearances preserve the wall's actual asymmetric location, orientation and dimensions. No assumption that the entire scene is freely rotatable is imposed.",
+    "Local hand/object/goal/wall vectors and chart orientation preserve independent object and goal positions, and reconstruct their world poses given the wall center. Both native object quaternions, both apertures and hand/object motion increments remain available.",
+    "Ungated geometric features remain alongside phase-weighted features so a wrong soft phase need not erase information. Object2 channels alone are absent per the schema."
+  ],
+  "evidence_refs": [
+    "bundle.json: membership of exactly D_2",
+    "task_materials.json: world action4, control units, raw slices, native +z and wall center/half-size channels, training and C/E layout intervals",
+    "support_summary.json: action_std, initial goal-object vectors, and nearly identical wall geometry across demonstrations",
+    "trajectories/demo_00.json: actions rows 0-78; gripper changes to 0.9 at row 15, lift actions at rows 26-49 and forward transport beginning at row 50",
+    "trajectories/demo_00.json: obs rows 23-30 show aperture decreasing and close hand/object vertical offsets; rows 48-51 show object height near 0.212 m at transport onset and wall top 0.12 m",
+    "trajectories/demo_01.json: obs rows 47-52 show increasing object height during lift",
+    "images/frame_00_demo_00_step_000.png",
+    "images/frame_03_demo_00_step_033.png",
+    "images/frame_04_demo_00_step_044.png",
+    "images/frame_06_demo_00_step_066.png",
+    "images/frame_15_demo_01_step_084.png",
+    "PUBLIC_CONTRACT.md, contracts.py, learning.py and language_policy.json"
+  ],
+  "expected_failure_signature": "A wrong attachment proxy or rapid change in the acquisition direction can rotate the chart prematurely and cause lateral oscillation near grasp. Phase products may encourage premature crossing if the inferred clearance is misleading. If the heading prior helps only transport, successful lifts should still be followed by fewer wrong-x tendencies but acquisition may remain unreliable at extreme object positions; this is a hypothesis, not a measured result. Near cancellation of chart directions is handled by a native +y fallback but may be a discontinuity.",
+  "required_runtime_fields": {
+    "input": "raw_history [B,2,45] and raw_current [B,45]; hand 0:3 and 18:21, aperture 3:4 and 21:22, object 4:7 and 22:25, xyzw quaternions 7:11 and 25:29, goal 36:39, wall center 39:42, wall half sizes 42:45",
+    "conditioning": "88 deterministic features per observation: 52 ungated geometry/dynamics/chart/phase features and 36 phase-by-relation products. Fixed metric scales and smoothness constants, no support-fit state or learned encoder. The 0.09 m clearance soft midpoint is evidence-motivated by the observed transport onset; it is not a hard safety or success boundary.",
+    "action_frame": "Let direction=(1-held)*(object_xy-hand_xy+[0,0.02])+held*(goal_xy-object_xy), c=direction_y/norm and s=direction_x/norm. Encoded lateral=c*world_dx-s*world_dy, forward=s*world_dx+c*world_dy, z=world_dz, grip=gripper. Inverse world_dx=c*lateral+s*forward, world_dy=-s*lateral+c*forward. Unit fallback c=1,s=0 for vanishing direction. Translation units remain 0.01 m per native action. Only host native cube clipping follows decoding."
+  },
+  "training_only_targets": [],
+  "parents": [],
+  "change_summary": "Initial pre-feedback model, independently chosen as a direction/magnitude and causal-phase prior rather than the world-axis representation. Introduces a chunk-frozen acquisition-to-transport rotation and explicit soft phase product basis. Keeps one factory U-Net, action4 only, public weight-1 masked epsilon loss, and frozen optimizer/update budget. No planner, action offset, analytic command, auxiliary loss, support-derived thresholds or extra learned modules."
+}

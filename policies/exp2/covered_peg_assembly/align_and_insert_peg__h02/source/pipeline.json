@@ -1,0 +1,10 @@
+{
+  "policy_id": "align_and_insert_peg__h02",
+  "skill_id": "align_and_insert_peg",
+  "heuristic_index": 2,
+  "prior_summary": "Fresh-TCP residual Cartesian diffusion re-anchors each physical command to the latest measured TCP, targeting local handoff and tracking deviations.",
+  "applicable_conditions": "Prefer near the demonstrated reachable fixture neighborhood when the peg remains securely held but the predecessor switch point or measured TCP tracking state differs modestly from nominal. Reject collision, jam, or dropped-peg signatures.",
+  "termination_guidance": "Residual size is diagnostic only. Terminate solely through the unchanged supplied head-x, y/z, axis-alignment, and stable-hold success evaluation.",
+  "limitations": "Nominal data contain no injected disturbance or recovery examples. Fresh re-anchoring can drift from the hole under large errors and provides neither contact sensing nor jam recovery; use the hole-frame policy for material fixture displacement.",
+  "config": {"action_frame":"fresh_measured_tcp","translation_units":"metres","rotation_representation":"rotation_vector_radians","gripper":"native_scalar","backbone":"standard_diffusion_policy"}
+}

@@ -1,0 +1,76 @@
+{
+  "task_id": "stick-push",
+  "n_demos": 20,
+  "policy_id": "A2",
+  "instance_id": "stick-push__N20__rep0",
+  "author": "RuntimePriorAPI",
+  "manifest": "policies/exp1/stick-push/n20/A2/manifest.json",
+  "source": "policies/exp1/stick-push/n20/A2/source",
+  "checkpoint": {
+    "path": "weights/exp1/stick-push/n20/A2/model.pt",
+    "sha256": "3617525665dbb12772c78eb06627c3969c70d9c3490c6274772b2c5ee33bfc7d",
+    "source_sha256": "3617525665dbb12772c78eb06627c3969c70d9c3490c6274772b2c5ee33bfc7d",
+    "size_bytes": 86317843,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/stick-push/n20/A2/normalizer.json",
+  "config": "policies/exp1/stick-push/n20/A2/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/stick-push/n20/A2/complete.json",
+      "sha256": "5785ea2d6efd51dedff52d34a671452940890fe87e2f65906c29e3fa1646d9f5",
+      "source_sha256": "5785ea2d6efd51dedff52d34a671452940890fe87e2f65906c29e3fa1646d9f5",
+      "size_bytes": 4233,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/stick-push/n20/A2/config.json",
+      "sha256": "1e836b5f8d4f6e553c656931819d8b35735719a754dd22c61e2a61e190378a41",
+      "source_sha256": "1e836b5f8d4f6e553c656931819d8b35735719a754dd22c61e2a61e190378a41",
+      "size_bytes": 8444,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/stick-push/n20/A2/identity.json",
+      "sha256": "ec19ad103437f57e9c802a20abff19bb3f7ae69b2f12767aa9b8f44ec1f0f7b8",
+      "source_sha256": "ec19ad103437f57e9c802a20abff19bb3f7ae69b2f12767aa9b8f44ec1f0f7b8",
+      "size_bytes": 3631,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/stick-push/n20/A2/latency.json",
+      "sha256": "35a49cace359ba16bfd06d167a70fc75a42f5578e6245f2ad549df439cc0b6ca",
+      "source_sha256": "35a49cace359ba16bfd06d167a70fc75a42f5578e6245f2ad549df439cc0b6ca",
+      "size_bytes": 774,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/stick-push/n20/A2/normalizer.json",
+      "sha256": "ec847b1acf92f7c528b795ffd06614dd9d53c6cde44bff88bf8a45db98af505b",
+      "source_sha256": "ec847b1acf92f7c528b795ffd06614dd9d53c6cde44bff88bf8a45db98af505b",
+      "size_bytes": 5171,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/stick-push/n20/A2/source/candidate.py",
+      "sha256": "922e0b7f9989dc220a1fe77afc29dcb808e25bad0ad516dc41cb53602736f4a5",
+      "source_sha256": "922e0b7f9989dc220a1fe77afc29dcb808e25bad0ad516dc41cb53602736f4a5",
+      "size_bytes": 5247,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/stick-push/n20/A2/source/config.json",
+      "sha256": "647e8025c41acaf30e909ef3d8aa899e7119f069bf279554ffde77a3cbecbaa9",
+      "source_sha256": "647e8025c41acaf30e909ef3d8aa899e7119f069bf279554ffde77a3cbecbaa9",
+      "size_bytes": 328,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/stick-push/n20/A2/source/design.json",
+      "sha256": "b8427e844c1bde71a998692db9e327e673a8ba35909a2f28c359028225eb1a52",
+      "source_sha256": "b8427e844c1bde71a998692db9e327e673a8ba35909a2f28c359028225eb1a52",
+      "size_bytes": 7155,
+      "transformation": "none"
+    }
+  ]
+}

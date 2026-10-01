@@ -1,0 +1,15 @@
+{
+  "policy_id": "close_drawer__h03",
+  "entry_conditions": "Block is inside the open or partly closed drawer, or still completing a valid over-cavity release during overlap. target_pose and drawer_position must be finite and mutually consistent with prismatic drawer motion.",
+  "exit_conditions": "Observed drawer_position below 0.025 with negligible velocity, block enclosed near z 0.063, fingers open and TCP retreated high and clear.",
+  "overlap_role": "Every action 900:1160 remains supervised in all 12 runs, including release completion, clearance and handle acquisition. Auxiliary validity masking never removes diffusion action labels from this 260-action overlap.",
+  "successor_readiness": "This terminal skill is ready only from observed state. The training auxiliary output is neither exposed as high-level state nor accepted as contact/success evidence.",
+  "failure_signatures": "Observed drawer response disagrees with intended closure, drawer stalls above 0.025, handle contact is lost, block moves out of the cavity, target and drawer position produce an inconsistent destination, or IK residual/limits indicate infeasibility.",
+  "continuation_guidance": "Prefer this policy while partial closure and destination progress are the main ambiguity. Use the TCP-local policy for realized hand perturbation and the moving-drawer policy for coherent fixture displacement. Stop or replan rather than treating predicted response as proof of motion.",
+  "limitations": "No contact truth or failed-recovery demonstrations exist. Jams, changed prismatic axis, shifted handle geometry, obstruction, block interference, collision and unreachable fixture placement remain unsupported.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[1140,1160,1180,1200,1220,1240,1260,1280,1300,1330]},
+    {"trajectory_id":"demo12102","indices":[1140,1150,1160,1170,1180,1200,1220,1240,1260,1280,1300,1330]},
+    {"trajectory_id":"demo12104","indices":[1140,1150,1160,1180,1200,1220,1240,1260,1280,1300,1330]}
+  ]
+}

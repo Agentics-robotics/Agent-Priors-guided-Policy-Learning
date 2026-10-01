@@ -1,0 +1,24 @@
+{
+  "policy_id": "retrieve_peg_from_box__h04",
+  "entry_conditions": "The peg still requires retrieval and the lid is exposed/open enough for the observed state to support either final release or an approach. Early entry may have the TCP near the lid handle with finger width below 0.07 m and peg still low; late entry may already have open fingers aimed toward the peg. Valid two-frame peg, lid, TCP, qpos and qvel observations are required.",
+  "exit_conditions": "Exit only when fingers are closed, peg center is above the 0.05 m wall with margin, and two causal frames show peg and TCP moving together with an approximately stable relative pose. The unchanged scored exit additionally requires peg center at least 0.15 m high or insertion and cover angle above 0.9 rad.",
+  "overlap_role": "The full [740,950) incoming overlap supplies 210 actions per trajectory for lid release, open-gripper clearance and approach. The [1120,1270) outgoing overlap supplies 150 actions per trajectory for closed-grasp consolidation, lift, box clearance and initial transport. Both are action-supervised in every binding.",
+  "successor_readiness": "reorient_and_stage_peg is ready during the shared lift when the active reference is unambiguously the peg, the gripper is closed, peg height is safely above the wall, and causal peg/TCP co-motion supports carrying. Later switching is safer after lid motion settles.",
+  "failure_signatures": "A wrong active reference can cause a target jump, continued lid attachment, lid contact or an offset descent. Additional signatures are fingers closing away from peg_pose, peg z staying near 0.026 m, peg/TCP separation during lift, box-wall contact, IK nonconvergence or limit contact, and cover angle falling below 0.9 rad despite peg elevation.",
+  "continuation_guidance": "Re-evaluate reference geometry at every new 8-action chunk. Continue while a reachable demonstrated phase remains: release near the handle, open clearance, peg-centered approach, closure near the peg, or peg-centered lift. Do not infer contact from finger closure alone. If the cover closes or the peg is missed/dropped, stop rather than claim recovery; those transitions are absent from supervision.",
+  "limitations": "The selector is deterministic and not contact truth. It can alias unusual intermediate states and has no hysteresis across replans. The prior handles active-reference translation only and does not guarantee rotational transfer, collision-free reachability, a stable grasp, cover retention or recovery from unseen errors.",
+  "evidence": [
+    {
+      "trajectory_id": "demo12200",
+      "indices": [740, 760, 770, 950, 990, 1080, 1100, 1120, 1200, 1240, 1270]
+    },
+    {
+      "trajectory_id": "demo12208",
+      "indices": [740, 760, 770, 950, 990, 1080, 1100, 1120, 1200, 1240, 1270]
+    },
+    {
+      "trajectory_id": "demo12211",
+      "indices": [740, 950, 1120, 1270]
+    }
+  ]
+}

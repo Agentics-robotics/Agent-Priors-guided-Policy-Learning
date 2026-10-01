@@ -1,0 +1,22 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "grasp_lift_stage__h01",
+  "skill_id": "grasp_lift_stage",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "source_object": {"type": "string", "enum": ["container"]},
+      "destination_object": {"type": "string", "enum": ["bowl"]}
+    },
+    "required": ["source_object", "destination_object"]
+  },
+  "parameter_semantics": "source_object selects the currently observed manipulated source pose used as the per-chunk Cartesian frame; destination_object selects the observed bowl pose used in source-to-destination conditioning. Both are semantic observation selectors, not actuator commands.",
+  "observation_dependencies": ["bowl_pose", "container_pose", "particle_positions", "qpos", "qvel", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 51]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an absolute Cartesian TCP target expressed in the source-container pose frozen at chunk construction: source-frame position xyz in metres, source-frame orientation as the first two rotation-matrix columns (6D), and one native gripper scalar. The decoder projects 6D to SO(3), left-composes the frozen chunk-start source pose to obtain a world TCP target, and calls panda_kinematics.solve_ik from freshly measured joints. Slots represent t-1 through t+14; execution uses slots 1 through 8. Gripper values retain the native >=0 open, <0 close rule.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "Compare FK of IK output to the demonstrated commanded world TCP target in metres/radians and compare the unchanged gripper scalar. The only projection is robust Gram-Schmidt of the learned 6D rotation; exact encoded targets are already valid rotations."},
+  "cut_relation": "Uses every assigned [0,360) occurrence without trimming and preserves the complete action-supervised [180,360) overlap with controlled_pour_and_right. The implementation refines the approved source-frame invocation contract at each 8-step replan."
+}

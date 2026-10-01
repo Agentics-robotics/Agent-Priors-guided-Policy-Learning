@@ -1,0 +1,10 @@
+{
+  "policy_id": "red_transfer__h01",
+  "skill_id": "red_transfer",
+  "heuristic_index": 1,
+  "prior_summary": "Red-frame Cartesian action diffusion makes pickup, grasp, and carried-red targets equivariant to the red pose observed at each replan while retaining robot configuration and scene relations.",
+  "applicable_conditions": "Prefer with drawer_position above 0.26 m when red is exposed and reliably localized, especially if its pickup pose is displaced or entry occurs before red release. Transformed poses must remain reachable and collision-free.",
+  "termination_guidance": "Nominally continue through red placement/opening/retreat and the supervised blue pickup overlap; switch cleanly after red remains on the pad and blue/TCP co-motion on initial lift is observable.",
+  "limitations": "Object-frame equivariance is frozen per chunk, does not prove grasp/contact recovery, and does not make the post-release handoff invariant to blue displacement. IK failure and furniture collision remain possible.",
+  "config": {"action_frame":"chunk_start_red_pose","action_rotation":"relative_6d","action_dimension":10,"feature_dimension_per_frame":44,"backbone":"standard_diffusion_backbone","auxiliary_loss":false}
+}

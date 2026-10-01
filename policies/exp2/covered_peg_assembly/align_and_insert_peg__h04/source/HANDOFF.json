@@ -1,0 +1,15 @@
+{
+  "policy_id": "align_and_insert_peg__h04",
+  "entry_conditions": "The peg is visibly retained in a closed grasp, clear of the box, and moves as a rigid pair with the TCP over the two causal frames. It is nearly axis aligned and above, approaching, or already engaging the observed hole; the transported route is plausibly reachable. Demonstrated entries at index 1380 have peg z about 0.420-0.428 m, mostly y near 0.18 m, with demo12205 near y=0.1595 m.",
+  "exit_conditions": "Keep the unchanged success definition: the +x peg head is in [-0.145,-0.09] m, peg y/z are within 0.009 m of the hole center, axis alignment is at least 0.985, and the terminal inserted pose is stable. A closed gripper, rigid-transform estimate, or IK convergence alone is not success.",
+  "overlap_role": "Every assigned action is supervised. [1380,1500) overlaps reorient_and_stage_peg by 120 actions or 6.0 seconds per demonstration, 1,440 actions total. It includes incoming correction, high-to-low descent, insertion-line engagement, and initial +x advancement, allowing invocation before contact or after insertion begins.",
+  "successor_readiness": "There is no learned successor. Continue closed-gripper stabilization until the unchanged evaluator confirms peg-head position, lateral/vertical tolerance, axis alignment, and stability. Do not interpret the object target or IK diagnostics as completion.",
+  "failure_signatures": "The observed peg-to-TCP transform changes materially across replans; peg and TCP separate; the converted TCP target is unreachable; IK is unconverged or touches limits; lateral or angular error persists; descent or +hole-x advancement occurs while offset and jams; or progress stalls before the head-x interval. No demonstrated retract-and-retry behavior covers these failures.",
+  "continuation_guidance": "Re-resolve hole_pose, peg_pose, tcp_pose, and qpos for every executed slot. Continue only while peg-to-TCP geometry is consistent with a rigid grasp and the converted TCP goals remain feasible. If grasp integrity degrades, collision/jam is suspected, or IK repeatedly fails, stop or hand off rather than opening the gripper or treating h04 as a recovery policy.",
+  "limitations": "Object-goal retargeting does not guarantee collision clearance, contact feasibility, grasp retention, dynamics, or Panda reachability. Training contains one hole world pose and nominal successful insertion only, with no contact labels, drops, slips, jams, retries, or large-error recovery.",
+  "evidence": [
+    {"trajectory_id":"demo12200","indices":[1380,1400,1420,1440,1460,1480,1500,1520,1540,1554]},
+    {"trajectory_id":"demo12205","indices":[1380,1400,1420,1440,1460,1480,1500,1520,1540,1558]},
+    {"trajectory_id":"demo12208","indices":[1380,1400,1440,1460,1480,1490,1500,1520,1538]}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "policy_id": "red_transfer__h02",
+  "skill_id": "red_transfer",
+  "heuristic_index": 2,
+  "prior_summary": "Destination-centered action diffusion expresses TCP position as a world-axis offset from the observed red_goal, targeting translated-pad placement and consistent pad-relative descent/release.",
+  "applicable_conditions": "Prefer when the drawer is open, red is acquired or near acquisition, and a displaced but reachable red_goal or pad-relative placement accuracy is the dominant variation.",
+  "termination_guidance": "Continue through red descent, opening, and clearance, then through the retained blue acquisition overlap; nominally hand off after red stays on the pad and blue/TCP initial-lift co-motion is visible.",
+  "limitations": "Goal-relative output does not solve a far-displaced red pickup, collision, grasp failure, a moving goal inside a chunk, or blue displacement. Goal relocation was not observed in training.",
+  "config": {"translation_origin":"chunk_start_red_goal","translation_axes":"world","action_rotation":"absolute_world_6d","action_dimension":10,"feature_dimension_per_frame":50,"backbone":"standard_diffusion_backbone","auxiliary_loss":false}
+}

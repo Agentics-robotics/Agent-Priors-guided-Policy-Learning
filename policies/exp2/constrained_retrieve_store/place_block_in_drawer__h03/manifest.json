@@ -1,0 +1,152 @@
+{
+  "task_id": "constrained_retrieve_store",
+  "policy_id": "place_block_in_drawer__h03",
+  "skill_id": "place_block_in_drawer",
+  "source": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/source",
+  "manifest": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/assignment.json",
+  "training_spec": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/training/spec.json",
+  "dataset": "assets/exp2/datasets/constrained_retrieve_store/place_block_in_drawer/dataset.json",
+  "normalization": "assets/exp2/tasks/constrained_retrieve_store/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/constrained_retrieve_store/place_block_in_drawer__h03/model.pt",
+    "sha256": "7fc65ba16c9ac2cc14ffa3049743c9d2437826e83a3424f8e1e7e029e0bb26a2",
+    "source_sha256": "7fc65ba16c9ac2cc14ffa3049743c9d2437826e83a3424f8e1e7e029e0bb26a2",
+    "size_bytes": 346279442,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 12,
+    "demos": 12,
+    "in_distribution_success": "12/12",
+    "exit_rule": "block inside the drawer cavity and drawer_position > 0.26 at the final state",
+    "guidance": "Preferred alternative for near-demonstration, locally perturbed, or phase-ambiguous states. h03 passed 12/12 demonstrated-entry validations; final drawer_position was 0.2988–0.300 with the block inside, all runs had zero IK-unconverged steps, and first exit attainment was at steps 189–268. Use with an open/stable drawer, valid object/target observations and joints, and a block either plausibly attached for carry or visible in the demonstrated cavity/release corridor. Its fresh-TCP local corrections and carry/release/retreat/handle phase prior target local lag, height, or release-timing ambiguity, not large global displacement. Avoid large object or destination shifts, noisy settling, unseen drops, or recovery states; there is no out-of-distribution result. Suspect failure if inferred phase conflicts with observed block/TCP motion, the block separates before the cavity, opening occurs outside it, the block follows after opening, local increments repeatedly grow/drift, or IK reports nonconvergence/limits. Do not use the auxiliary phase class alone to authorize handoff. Preserve two-frame history and transfer to close_drawer only when actual geometry shows a stationary floor-height block detached from the TCP, preferably after retreat/handle approach. Choose h01 for reliably attached displaced transport or h02 for destination displacement and fixture-anchored completion."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/assignment.json",
+      "sha256": "e33c2403f91aa394e3a66e72e2438188ab47f94cf30cfa70ce8a27a6c5e0bd97",
+      "source_sha256": "f0144e1c2e869675d03d50efda2401848e32cfd38ee49da6448e6856366f18ab",
+      "size_bytes": 13946,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/handoff_evidence.json",
+      "sha256": "b9aed4101fa8d0fa302ad25a68263468ed7eee269c89b712e584e6ca0faf66e6",
+      "source_sha256": "b9aed4101fa8d0fa302ad25a68263468ed7eee269c89b712e584e6ca0faf66e6",
+      "size_bytes": 118368,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/source/HANDOFF.json",
+      "sha256": "6284db63487d86441154bda501f39446c9772957d3925e4a341d8f46d25db5d3",
+      "source_sha256": "6284db63487d86441154bda501f39446c9772957d3925e4a341d8f46d25db5d3",
+      "size_bytes": 2143,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/source/PRIOR.md",
+      "sha256": "519ab3de775b1a35cd4404966a035f2815ea1ec990451e823a99708fbcf2637f",
+      "source_sha256": "519ab3de775b1a35cd4404966a035f2815ea1ec990451e823a99708fbcf2637f",
+      "size_bytes": 5810,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/source/adapters.py",
+      "sha256": "623cf450c125841e55efc1e9d45c22ebf64b567dcc74304cf3e7dd88dcd3d311",
+      "source_sha256": "623cf450c125841e55efc1e9d45c22ebf64b567dcc74304cf3e7dd88dcd3d311",
+      "size_bytes": 6547,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/source/panda_posture.py",
+      "sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "source_sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "size_bytes": 903317,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/source/pipeline.json",
+      "sha256": "21ece1f48e80772724012f8e1365cb67f045d64515b9777a1c45427cd866b544",
+      "source_sha256": "21ece1f48e80772724012f8e1365cb67f045d64515b9777a1c45427cd866b544",
+      "size_bytes": 1454,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/source/policy.py",
+      "sha256": "d0909c79d2d63a36d8f712b38ceb68a3bf537e4f0181a5e12287893b8ba045c9",
+      "source_sha256": "d0909c79d2d63a36d8f712b38ceb68a3bf537e4f0181a5e12287893b8ba045c9",
+      "size_bytes": 1805,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/source/policy_contract.json",
+      "sha256": "3c26302da693bc5c47c8e3e1cc214c4e9d8cfadab9dac5c105e768cd48db490e",
+      "source_sha256": "3c26302da693bc5c47c8e3e1cc214c4e9d8cfadab9dac5c105e768cd48db490e",
+      "size_bytes": 2759,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/source/training_bindings.json",
+      "sha256": "70dcdd03dbc76ecc6cba836ac447ad166f7195498e0df4000dee5600ec0fe592",
+      "source_sha256": "70dcdd03dbc76ecc6cba836ac447ad166f7195498e0df4000dee5600ec0fe592",
+      "size_bytes": 3579,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/submission.json",
+      "sha256": "dd55327efc6ddf50e27e767432061b185794aa4d4cecc704c89fdcd3f8c5add5",
+      "source_sha256": "d65e8ee524d9d39901907a1630cbee31dbddcdd931ddfd0f1c62ebe0c4f65901",
+      "size_bytes": 21834,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/training/adapter_checks.json",
+      "sha256": "118b520cd459bf19e5aa7d5c8ae6abd102ab61123507500cfcee985405e96a9f",
+      "source_sha256": "118b520cd459bf19e5aa7d5c8ae6abd102ab61123507500cfcee985405e96a9f",
+      "size_bytes": 194,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/training/result.json",
+      "sha256": "dc7cedd63530b5abd4cc3449c6529ec12e6984b2e2d9ecd9e614f12d01a6a913",
+      "source_sha256": "d80f9ad871b0aeb808fe8d3fbd246f7012727cfca4114f78879c8f3b4e996526",
+      "size_bytes": 5356,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/training/spec.json",
+      "sha256": "226bb3a83596d6dec8ae5da0dd7da00d9c3ebdb5dfabd1a2b9f4b3a4ab90e1c0",
+      "source_sha256": "226bb3a83596d6dec8ae5da0dd7da00d9c3ebdb5dfabd1a2b9f4b3a4ab90e1c0",
+      "size_bytes": 17282,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/prior_plan.json",
+      "sha256": "0b99a1e6cb67ca6dc2a36af7c91eee18e3e2e02cfb80d0d5da3790a12ef4fe92",
+      "source_sha256": "0b99a1e6cb67ca6dc2a36af7c91eee18e3e2e02cfb80d0d5da3790a12ef4fe92",
+      "size_bytes": 28220,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/constrained_retrieve_store/task.json",
+  "completion_contract": "assets/exp2/tasks/constrained_retrieve_store/completion_contract.json",
+  "public_context": "assets/exp2/tasks/constrained_retrieve_store/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/constrained_retrieve_store/prompts/hl.md",
+  "prior_plan": "policies/exp2/constrained_retrieve_store/place_block_in_drawer__h03/prior_plan.json"
+}

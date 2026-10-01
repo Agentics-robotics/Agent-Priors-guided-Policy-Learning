@@ -1,0 +1,39 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "single_prior_cartesian",
+  "skill_id": "full_task",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "There are no caller parameters: call_args is always the empty object. Intent is fixed to the complete buffer-swap task. Inputs use measured Panda joints in radians, velocities in radians/s (finger channels in metres and metres/s), and world-frame TCP, block and observed goal poses in metres with wxyz quaternions. Every demonstration is bound once with call_args={}; the model must infer progress from causal physical state.",
+  "observation_dependencies": [
+    "qpos",
+    "qvel",
+    "tcp_pose",
+    "red_pose",
+    "blue_pose",
+    "red_goal",
+    "blue_goal"
+  ],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 72]
+  },
+  "action_dimension": 14,
+  "output_semantics": "Each prediction slot represents its Cartesian command at that slot's pre-action time and contains [3 anchor-relative TCP position metres, 6 world TCP rotation columns, 1 native gripper scalar, 4 anchor scores]. Anchor score argmax selects red object, blue object, observed red destination, or observed blue destination. Training positions are relative to the selected anchor in that slot's pre-action observation; decoding resolves that anchor from the freshly measured current observation, adds the learned displacement, projects the 6D orientation by Gram-Schmidt, and invokes panda_kinematics.solve_ik from fresh measured joints. Object anchors cover approaches and the temporary red transfer; destination anchors cover transport/placement after lift. Gripper >=0 opens and <0 closes under the common executor. Prediction slots are t-1 through t+14 and host execution uses slots 1 through 8 starting at current t.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.02,
+    "description": "For an encoded demonstrated slot, anchor addition reconstructs the commanded world TCP position and valid 6D columns reconstruct its rotation. The independent check compares the shared IK solution by URDF FK in metres/radians and compares the unchanged gripper scalar. Gram-Schmidt is only a finite-sample orientation projection; no Cartesian position projection or fallback controller is applied, and IK nonconvergence is reported."
+  },
+  "cut_relation": "One full-task policy preserves every assigned action in each complete [0, stop) demonstration. There is exactly one binding per original trajectory, context starts at 0, and no segmentation, overlap trimming, caller-selected object, stage label, or policy switch is introduced."
+}

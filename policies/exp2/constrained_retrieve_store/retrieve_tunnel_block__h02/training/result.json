@@ -1,0 +1,121 @@
+{
+  "checkpoint": "provenance/relocated/1129cc5daf7a1021",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "c59b68740a974480693a4fb3c309c26c7dfdcc07f382f0c4dcdbc9fd3f0e5b2a",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 1,
+    "physical_gpu": 2,
+    "uuid": "GPU-7a6705f2-1132-637d-000e-c94d37e2f0a2"
+  },
+  "effective_action_targets": 40457650,
+  "final_weights_sha256": "93238da831a3ff6e35daee122045df06307b7f8a9ae7ca9a7be72c04d4aa2a1e",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.900848627090454,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.7328078746795654,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.5104854106903076,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.20657913386821747,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "71de486bf4f61ea36e1fea1055ded9b909be39771331fa57b29d7243ce2dc223",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 6480,
+      "duplicated_actions": 0,
+      "unique_actions": 6480
+    },
+    "contract": {
+      "action_dimension": 7,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination_pose_field": {
+            "enum": [
+              "target_pose"
+            ],
+            "type": "string"
+          },
+          "object_pose_field": {
+            "enum": [
+              "object_pose"
+            ],
+            "type": "string"
+          },
+          "tunnel_clearance_m": {
+            "maximum": 0.16,
+            "minimum": 0.16,
+            "type": "number"
+          }
+        },
+        "required": [
+          "object_pose_field",
+          "destination_pose_field",
+          "tunnel_clearance_m"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Encoding relative to each pre-action measured TCP and decoding from the same observation must recover demonstrated command FK TCP and gripper within 0.01 maximum metres/radians/scalar; IK diagnostics remain explicit.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "Supervises every assigned action [300,840) for all demonstrations, including [300,440) predecessor and [680,840) successor overlap; no action is trimmed for the local-delta representation.",
+      "input_shapes": {
+        "features": [
+          2,
+          52
+        ]
+      },
+      "observation_dependencies": [
+        "drawer_position",
+        "drawer_velocity",
+        "object_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is [translation x,y,z metres in the fresh measured TCP body frame, relative TCP rotation vector x,y,z radians, gripper scalar]. decode composes measured_world_TCP @ represented_delta at that execution slot and calls panda_kinematics.solve_ik from fresh measured joints. Gripper >=0 opens and <0 closes. The sequence is feedback-style rather than accumulated: each slot is resolved from that slot's fresh TCP. Slots represent t-1..t+14 and execution uses 1..8.",
+      "parameter_semantics": "object_pose_field selects the observed block world pose used in causal relations; destination_pose_field selects the observed destination world pose; tunnel_clearance_m is the 0.16 m world-z clearance used as a phase feature. The learned Cartesian displacement is always referenced to the freshly measured TCP and is not an HL actuator argument.",
+      "policy_id": "retrieve_tunnel_block__h02",
+      "skill_id": "retrieve_tunnel_block",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "77432bc8f6e4dd5983ff88aa0d3736a41408a8c86b6395acb3816d89d1070f1f",
+    "PRIOR.md": "355747f2e8844c86a5311bf1a30a568acf9cedb9487880d94f789d69afa67571",
+    "adapters.py": "9d1a93208ea220c2283fccfcc98e2a3d2c510c876d9daa3e4a9cf1d20991d5b3",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "152009b92bebb5cc8737327ccc9de818e4647ef2fc2d3f8c019522c1d5445ef2",
+    "policy.py": "3af9646b2098afc64dbbc30ef700beecd33b10b0cbfb6426fa5a94603300395c",
+    "policy_contract.json": "5e9ae99f638fa187618bb2492b1fe0ad49a37496d81bc26fdaab1348e5ad0d27",
+    "training_bindings.json": "a538cf5af9f1daf97c5dcd7a4335a34ac837e7e3b9d35a9f8c949d6fb2eb079e"
+  },
+  "trainable_parameters": 17069191,
+  "training_elapsed_seconds": 547.2129052591044,
+  "weight_l2_change": 27.36653502117661
+}

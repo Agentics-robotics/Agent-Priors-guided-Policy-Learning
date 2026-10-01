@@ -1,0 +1,53 @@
+{
+  "title": "Lateral-parity canonical transport chart with joint motion diffusion",
+  "coverage_gap": "A3 was the q3 maximizer at 0.875: C=1.0 and E=0.75. Its E-LH cell had 0/5 successes while E-HL, E-LL and E-HH each had 5/5. A1 failed both E off-diagonals, and A2 achieved 1/5 E-HL and 2/5 E-LH. In the public factor schema, E-LH puts the low-y peg below the high-y box, reversing and enlarging the lateral transfer compared with the initial diagonal support. These small-cell results suggest a signed-geometry gap; they do not identify a failed stage, contact event or collision.",
+  "reusable_regularity": "Revise A3's transport chart by first reflecting the lateral coordinate when current goal_y-pegHead_y is positive, then applying the original gravity-preserving horizontal alignment. Opposite lateral transfers now share the same canonical heading half-plane and transverse coordinate convention. This is an invertible observation/action representation, not mirrored extra demonstrations or a controller. Keep A3's joint action/hand-displacement/pegHead-displacement diffusion, scales, losses and training budget unchanged.",
+  "dependencies_preserved": [
+    "World x (box insertion axis) and z (gravity) are not reflected. The chart additionally rotates xy as in A3. The chart metadata [cosine,sine,parity] exactly describes the world axes: world x maps to [cosine,-sine,0], world y to [parity*sine,parity*cosine,0], and world z to [0,0,1].",
+    "Unmodified world hand and goal positions, world heights, and world current/previous xyzw quaternions remain explicit conditioning. The robot workspace, table relation and box placement need not obey reflection symmetry. Parity remains visible so the learned network can break the local symmetry when these dependencies matter.",
+    "The direct yz alignment pair is now [parity*(goal_y-head_y),goal_z-head_z]. Together with parity this preserves the signed original alignment and the side-opening geometry while using the same convention as other local features.",
+    "Both pegGrasp and pegHead, their offset, observed hand/object displacements, previous reach error and gripper history are retained. Quaternions are explicitly world quaternions; they are not incorrectly reflected as translation vectors.",
+    "All sixteen actions and outcome targets and both history observations use a single chunk-start frame. No frame is recomputed from future labels or generated future states. Object2 is omitted only because the public schema declares it absent."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact twenty-episode support boundary; no additional trajectories or support from another task/N."},
+    {"path": "task_materials.json", "use": "Factor directions and E-LH versus E-HL geometry, native action frame, source slices, fixed orientation and separate pegHead/pegGrasp points."},
+    {"path": "support_summary.json", "use": "10 LL/10 HH demonstrations and inspected early episode initial relative directions; these are not collision-free path annotations."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Actual tabletop, peg and side-opening box frame supports preserving world height and insertion-axis dependencies."},
+    {"path": "images/frame_02_demo_02_step_050.png", "use": "Actual acquisition frame supports retaining distinct hand and tool geometry."},
+    {"path": "images/frame_03_demo_03_step_072.png", "use": "Actual late frame shows side insertion, not arbitrary orientation-invariant placement."},
+    {"path": "images/frame_15_demo_19_step_077.png", "use": "Another inspected late actual frame shows held-tool alignment near the side opening."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 0:12,40:52,60:69; actions 0:24,34:59,59:77", "use": "Initial head-to-goal lateral displacement is about -0.059 m; observed late lateral overshoot changes its sign. The new parity rule therefore also has training-time chart transitions, not just a held-out sign branch."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 0:3", "use": "HH initial head-to-goal lateral displacement is also negative, about -0.049 m, despite a different hand-to-peg lateral sign."},
+    {"source": "development_feedback in revision-phase user message", "feedback_hash": "877d4898f2d40995d4cbc494199d72cfa909657987aaacce4150f49e4ddd74cd", "use": "q3 scores A1=0.750, A2=0.825, A3=0.875; A3 E-LH 0/5 and other E cells each 5/5. Failures are recorded only as native_truncated. No inference about failure trajectories or hidden tests is claimed."},
+    {"source": "A3 frozen submission", "submission_hash": "0f5cb157628cf0023080a1fd168bb277f97f19800cc7ab7f0a0e3212fc51ea71", "use": "Actual parent: retain its ten-channel joint diffusion, physical scales and auxiliary targets/loss, revising the chunk frame and its coordinate metadata only."},
+    {"path": "contracts.py", "scope": "public", "use": "Causal chunk-start frame and joint-target interfaces."},
+    {"path": "learning.py", "scope": "public", "use": "Action epsilon weight 1, mask denominator for action4, separately normalized auxiliary loss and fixed final-checkpoint evaluation."}
+  ],
+  "expected_failure_signature": [
+    "Primary falsifiable expectation: E-LH improves relative to A3 while C and the other E cells remain strong. With only five episodes per E cell, this remains a testable design hypothesis rather than an estimated guaranteed gain.",
+    "A parity discontinuity at goal_y=pegHead_y can change the transverse convention near alignment. If harmful, one expects late oscillation or loss of insertion precision, including regressions in cells A3 already solved.",
+    "If the dominant E-LH failure actually comes from workspace reachability, empty grasp or box interference rather than signed local geometry, canonicalization may not improve it. The available native_truncated categories cannot distinguish those possibilities.",
+    "Parity is more often negative near alignment in support than during long transport. The network may treat the retained parity bit as a phase shortcut and insert too early on positive-lateral E layouts.",
+    "World-coordinate skips preserve dependencies but can prevent the desired sharing if the network overuses correlated world positions. Conversely excessive sharing can ignore real robot asymmetry, harming a reflected layout.",
+    "Joint outcome channels can still predict optimistic tool motion after a missed grasp. This revision deliberately does not add a contact detector or claim to repair that distinct failure mode."
+  ],
+  "required_runtime_fields": {
+    "raw_history": "[B,2,42] from causal_context. Use hand 0:3, gripper aperture 3:4, pegGrasp 4:7, object quaternion xyzw 7:11, previous hand 18:21, previous aperture 21:22, previous pegGrasp 22:25, previous quaternion 25:29, goal 36:39, pegHead 39:42.",
+    "frame": "From raw_current only: d=goal_xy-pegHead_xy; p=-1 if d_y>0, otherwise +1. For norm(d)>1e-6 m, c=d_x/norm(d) and s=p*d_y/norm(d); otherwise c=1,s=0. Retain p in both cases. This fixed frame can be an improper orthogonal frame (determinant p), appropriate for expressing translational vectors; no rotation actuation or quaternion reflection is inferred.",
+    "action_semantics": "Encode native translation v as [c*v_x+s*p*v_y,-s*v_x+c*p*v_y,v_z]. Decode u as [c*u_x-s*u_y,p*(s*u_x+c*u_y),u_z]. Gripper is unchanged. Native scale remains 0.01 m, no candidate clipping or action shifting/scaling. The public executor clips decoded world action4 and executes four of sixteen.",
+    "causality": "Only chunk-start observations define p,c,s. No distribution labels, episode IDs, clock, future ground truth, masks, simulator handles or support caches are available to inference. Fixed metric scales use no fitted support statistics."
+  },
+  "training_only_targets": [
+    {
+      "name": "world_outcome_displacements",
+      "source": "Unchanged from A3: exact D_N hand and pegHead cumulative displacement from obs[t] to obs[min(t+k+1,T)] at offsets k=0..15. Hand uses 0:3; pegHead uses 39:42. Repeating obs[T] only defines finite padded labels.",
+      "shape": "[number_of_windows,16,6] in metres, hand xyz then pegHead xyz.",
+      "mapping": "Transform both vectors using the same causal parity chart as actions, divide by 0.1 m, append after encoded action4. Total joint dimension 10.",
+      "loss": "Unchanged weight 0.2 times masked auxiliary epsilon MSE on six channels, divided by mask.sum()*6, clamped to one for empty masks. Common action epsilon loss remains independently weight 1 and normalized by mask.sum()*4. No padded steps contribute to either additional loss.",
+      "inference": "Host-owned diffusion noise supplies all ten channels; only generated action4 is decoded/executed. Generated outcomes are neither oracle observations nor planner inputs."
+    }
+  ],
+  "parents": ["A3"],
+  "change_summary": "One new revision training slot, not a checkpoint selection or ensemble. Replace A3's pure yaw chart with lateral reflection followed by yaw; parity-transform its direct yz alignment feature and add parity to frame metadata, increasing per-observation dimension from 55 to 56. Keep the ten-channel common U-Net interface, target definitions, auxiliary weight 0.2, all physical scales and native control/execution semantics. No A2 stage model is imported because the feedback does not establish a causal stage failure. A1-A3 remain immutable. No structural repair or extra performance-driven debug has been performed."
+}

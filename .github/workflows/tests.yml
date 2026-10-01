@@ -1,0 +1,37 @@
+name: Release checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  experiments:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: exp1
+            manifest: pixi.toml
+          - name: exp2
+            manifest: environments/exp2/pixi.toml
+    name: ${{ matrix.name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@v0.10.2
+        with:
+          pixi-version: v0.66.0
+          manifest-path: ${{ matrix.manifest }}
+          locked: true
+          cache: false
+      - name: Offline contracts
+        run: pixi run --manifest-path "${{ matrix.manifest }}" --locked test
+      - name: Verify released artifacts
+        run: pixi run --manifest-path "${{ matrix.manifest }}" --locked verify
+      - name: Recompute paper tables
+        run: pixi run --manifest-path "${{ matrix.manifest }}" --locked tables
+      - name: Audit publication files
+        run: pixi run --manifest-path "${{ matrix.manifest }}" --locked audit

@@ -1,0 +1,15 @@
+{
+  "policy_id": "return_place_release__h01",
+  "entry_conditions": "Particles are already settled in the bowl and the emptied source remains securely grasped. Prefer this policy once the source is upright or nearly upright and the observed target_pose is reachable, particularly when that destination is displaced relative to training.",
+  "exit_conditions": "The source is upright and stationary on the table within the return region, the gripper is open, and the TCP has retreated clear to approximately 0.28 m height.",
+  "overlap_role": "Every demonstrated action in [1460,1740) is supervised, preserving 280 actions of overlap with controlled_pour_and_right for late righting and complete outbound transition. Destination-frame displacement benefit is expected mainly after righting.",
+  "successor_readiness": "This is terminal. Evaluation is ready only from observed upright support in bounds, open fingers, and arm clearance; no successor object is introduced.",
+  "failure_signatures": "IK non-convergence or limit contact, source/TCP separation suggesting grasp loss, premature opening, source elevated or moving after opening, target outside reach, or source pose outside the unchanged upright/height/region requirements.",
+  "continuation_guidance": "Replan every eight executed actions and resolve target_pose again. Continue through descent, support, opening, and retreat while observations remain consistent. Prefer the fresh-TCP policy for a substantially tilted or unusual intermediate entry, and the support-phase policy when release timing near nominal setdown is the dominant uncertainty.",
+  "limitations": "No contact truth or failed recovery is demonstrated. Constructed destination equivariance does not establish feasibility for arbitrary shifts, and translating the destination also translates the represented early righting path.",
+  "evidence": [
+    {"trajectory_id":"demo12300","indices":[1460,1680,1740,1820,1840,1850,1860,1900,1920,1952]},
+    {"trajectory_id":"demo12303","indices":[1460,1680,1740,1820,1840,1860,1900,1934]},
+    {"trajectory_id":"demo12308","indices":[1460,1680,1740,1820,1840,1860,1900,1943]}
+  ]
+}

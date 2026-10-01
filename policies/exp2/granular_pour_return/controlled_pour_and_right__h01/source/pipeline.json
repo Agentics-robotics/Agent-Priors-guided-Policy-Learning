@@ -1,0 +1,16 @@
+{
+  "policy_id": "controlled_pour_and_right__h01",
+  "skill_id": "controlled_pour_and_right",
+  "heuristic_index": 1,
+  "prior_summary": "Absolute Cartesian TCP targets are learned in the observed bowl frame, making the bowl-centered carry, pour and righting motion equivariant to bowl displacement by construction while retaining robot and task relations in the condition.",
+  "applicable_conditions": "Prefer with a reliable displaced bowl pose, a securely held source, a near-nominal rigid grasp transform and a reachable measured Panda configuration. It is also the nominal complete-trajectory default.",
+  "termination_guidance": "Terminate or hand off only after at least ten particles are observed settled in the bowl, the source is approximately upright and held, and outbound motion has begun; nominal successor readiness is near index 1680 within the supervised [1460,1740) overlap.",
+  "limitations": "Training does not vary the bowl and contains only nominal successful pours, so displacement benefit is structural and expected rather than observed. The model does not compensate a substantially different or slipping grasp and does not establish spill, collision or grasp-loss recovery. IK reachability and the fixed return goal remain dependencies.",
+  "config": {
+    "action_representation": "bowl_relative_tcp_position_rotation6d_gripper",
+    "input_feature_dimension_per_frame": 130,
+    "orientation_projection": "safe_gram_schmidt",
+    "backbone": "standard_diffusion_backbone",
+    "auxiliary_loss": "none"
+  }
+}

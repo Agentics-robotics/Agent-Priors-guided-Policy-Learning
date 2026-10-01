@@ -1,0 +1,44 @@
+{
+  "title": "Causal soft-stage encoder with world-action diffusion",
+  "coverage_gap": "D_N covers only correlated cabinet-x/yaw layouts and a narrow successful motion tube. The support's abrupt descent-to-pull change could be spuriously encoded by world location or typical demonstration timing. C and E require that transition to follow current hand/handle geometry instead.",
+  "reusable_regularity": "Learn a three-way soft movement-phase representation (approach/lift, descend, pull) from causal geometry and motion. Three learned 32-dimensional experts are mixed by a learned phase gate, and both the mixture and full physical features condition a single common DP. Four-step support action prefixes supply training-only phase supervision. This tests an explicit learned hybrid-stage prior rather than cabinet-equivariant output actions. There is no hard action switch and no programmed approach or pull command.",
+  "dependencies_preserved": [
+    "World hand/goal positions, world relative vectors and velocities, gravity-relative heights, observed cabinet yaw and current/previous object xyzw quaternions retain robot, cabinet and fixed-gripper dependencies.",
+    "Local hand-handle and handle-goal vectors are additional inputs, not replacements for world geometry. The decoder remains native world-frame identity to allow learned effects of the fixed world gripper orientation.",
+    "Current/previous apertures and hand/handle changes are available at each of two causal whole observations. The 44-dimensional direct feature bypass remains available even if the learned gate is wrong.",
+    "No separate obstacle state exists in the declared task. Handle, goal, yaw and world heights retain the available cabinet/table context; object2 is declared absent."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exactly the ten drawer__N10__rep0 support demonstrations are available"},
+    {"path": "task_materials.json", "detail": "Correlated LL/HH train coverage; runtime current/previous state and yaw; fixed world gripper orientation and four-action execution prefix"},
+    {"path": "support_summary.json", "detail": "All support action gripper means are -1 with zero overall gripper action standard deviation; nevertheless gripper remains learned and unclamped"},
+    {"path": "trajectories/demo_00.json", "detail": "actions 0-5 lift while moving toward cabinet; 25-34 descend; actions 63-72 change sharply to negative world-y pull at row 65. obs 58-64 show near-handle descent"},
+    {"path": "trajectories/demo_07.json", "detail": "actions 63-70 show an analogous sharp pull onset at row 66 with opposite x-action sign in this HH episode"},
+    {"path": "images/frame_11_demo_07_step_031.png", "detail": "Actual demonstration frame has hand above the handle before opening"},
+    {"path": "images/frame_12_demo_07_step_090.png", "detail": "Actual later frame has drawer extended and hand near the handle"},
+    {"path": "images/frame_01_demo_00_step_060.png", "detail": "Actual near-handle pre-pull frame motivates distinguishing descent from pulling"}
+  ],
+  "expected_failure_signature": [
+    "If causal phase separation helps transfer, pull onset should follow near-handle state rather than the training layout sign or a fixed time. No such result has yet been measured.",
+    "Action-derived phase labels are coarse and anticipate up to four actions. A failure would be confidently predicting pull before secure engagement, or remaining in descent after the hand is aligned.",
+    "Because xyz output is world-frame rather than analytically rotated, A2 can still learn the x/yaw training correlation; large-yaw failure may show reasonable phase sequencing but a misdirected or ineffective pull.",
+    "Three-expert features may overfit the narrow support motion tube; recovery from off-support contact is not supervised."
+  ],
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history [B,2,41] from the shared deployment observation; no phase labels, episode clock or targets at inference",
+    "slices": {"hand_xyz": [0,3], "gripper": [3,4], "handle_xyz": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_handle_xyz": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal_xyz": [36,39], "cabinet_sin_cos_yaw": [39,41]},
+    "conditioning": "Per observation, 44 fixed-physical-scale features feed a 44-96-64 SiLU encoder, a three-logit gate and a 64-96-96 expert bank. Softmax gates mix three 32-dimensional experts. Concatenated direct features, mixture and causal logits give F=79; condition returns [B,2,79].",
+    "action_semantics": "Inherited identity encode/decode for all world_dx, world_dy, world_dz and gripper channels. No clipping, offsets, rescaling, gripper override or changed executor. Native xyz scale remains 0.01 m and the fixed host executes four of sixteen actions at 80 Hz."
+  },
+  "training_only_targets": [
+    {
+      "name": "phase",
+      "source": "For each exact-D_N window (episode,t), mean native xyz actions from t through min(t+4,T)-1; rotate mean xy using normalized observation[t,39:41]. Class 2 if cabinet-local y < -0.25; otherwise class 1 if mean z < -0.05; otherwise class 0. Thresholds are fixed design hyperparameters, not fitted success rules.",
+      "use": "Cross entropy of the causal gate at the latest observation, multiplied by batch.mask[:,0] and divided by its valid count. Weight 0.1. No truth is substituted for a gate at training or inference. Truncated prefixes use only existing support actions.",
+      "common_loss": "The host's action epsilon loss remains weight 1 with denominator mask.sum()*4. No auxiliary diffusion channels or altered action weighting."
+    }
+  ],
+  "support_fit": "None beyond the frozen host exact-D_N normalization. Targets are returned for training only, never cached on the deployment module. All learned layers are registered in build_modules and participate in the joint loss.",
+  "parents": [],
+  "change_summary": "Initial independent scientific design: learned soft-stage expert conditioning and auxiliary phase classification, with native world action4 rather than a rotated action representation. No performance feedback used."
+}

@@ -1,0 +1,20 @@
+{
+  "policy_id": "open_hinged_lid__h04",
+  "skill_id": "open_hinged_lid",
+  "heuristic_index": 4,
+  "prior_summary": "Stationary hinge-canonical Cartesian diffusion: reconstruct the closed-lid installation frame from lid pose minus observed hinge angle, predict absolute TCP targets in that frame, and learn a weighted two-channel open/close mode.",
+  "applicable_conditions": "Prefer when lid_pose and lid_position are coherent and the lid assembly may be rigidly displaced or reoriented, including release and retreat where a stationary installation reference is useful. The transformed trajectory must remain reachable and collision-free.",
+  "termination_guidance": "Terminate only from physical observations: open fingers, TCP clear of the handle and panel, lid_position stably above closed with low lid_velocity, and unchanged peg_pose. Learned mode scores or caller release angle alone are not completion evidence.",
+  "limitations": "The demonstrations do not include displaced installations or recovery from missed/lost contact. Root reconstruction is sensitive to disagreement between lid pose, angle and axis. Absolute root-frame targets may not correct unusual TCP entries; transformed targets may be blocked, unreachable or produce IK failure. Weighted mode learning does not guarantee release timing.",
+  "config": {
+    "backbone": "standard DiffusionBackbone",
+    "condition_dimension": 80,
+    "action_dimension": 11,
+    "action_frame": "freshly reconstructed stationary closed-lid hinge root",
+    "rotation_representation": "6D",
+    "gripper_representation": "two learned scores decoded by argmax",
+    "gripper_diffusion_dimension_weight": 2.0,
+    "auxiliary_loss": false,
+    "prior_plan_hash": "af39fe4104e2d5bcf50c001c75b9051373863ba13f2d55468d3c829f70dcb985"
+  }
+}

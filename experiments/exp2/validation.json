@@ -1,0 +1,407 @@
+{
+  "schema": "appl.release_validation.v1",
+  "date": "2026-10-01",
+  "scope": "Offline integrity, interface, training-input, and CPU inference checks of the public release; not a new paper experiment.",
+  "tests": {
+    "command": "pixi run --manifest-path environments/exp2/pixi.toml --locked python -m pytest tests/exp2/test_public_runtime.py tests/exp2/test_construction_deployment.py -q",
+    "passed": 19,
+    "includes": [
+      "All 78 released policy source packages and contracts",
+      "All 96 frozen initial states, goal predicates, and rule subgoals",
+      "Policy catalogue blinding and validation visibility",
+      "Frozen goal/configuration tampering is refused",
+      "Temporal masking, observed goal channels, action clipping, credential exclusion, canonical CLI identifiers",
+      "New construction libraries use the real DeploymentTools read/invoke/finish path with simulator, model, and API test doubles; task/method mismatch and prompt/catalogue tampering are refused; new-library provenance is preserved in outputs."
+    ]
+  },
+  "training_batch_probe": {
+    "command": "pixi run --manifest-path environments/exp2/pixi.toml --locked python -m appl.policy.probe --task TASK --policy POLICY --output NEW_DIRECTORY",
+    "tested_policies": [
+      {
+        "api_calls": 0,
+        "batch_shapes": {
+          "auxiliary": {},
+          "encoded_action": [
+            1,
+            16,
+            10
+          ],
+          "mask": [
+            1,
+            16,
+            1
+          ],
+          "model_inputs": {
+            "features": [
+              1,
+              2,
+              39
+            ]
+          }
+        },
+        "conversion": {
+          "conversion_max_residual": 5.174570862686508e-06,
+          "conversion_mode": "task_space",
+          "conversion_probes": 15
+        },
+        "optimizer_updates": 0,
+        "physical_steps": 0,
+        "policy": "open_drawer__h01",
+        "source_index": 0,
+        "source_modified": false,
+        "task": "drawer_exchange",
+        "trajectory_id": "demo1000"
+      },
+      {
+        "api_calls": 0,
+        "batch_shapes": {
+          "auxiliary": {},
+          "encoded_action": [
+            1,
+            16,
+            10
+          ],
+          "mask": [
+            1,
+            16,
+            1
+          ],
+          "model_inputs": {
+            "features": [
+              1,
+              2,
+              60
+            ]
+          }
+        },
+        "conversion": {
+          "conversion_max_residual": 7.055710369274758e-05,
+          "conversion_mode": "task_space",
+          "conversion_probes": 15
+        },
+        "optimizer_updates": 0,
+        "physical_steps": 0,
+        "policy": "buffer_red__h01",
+        "source_index": 0,
+        "source_modified": false,
+        "task": "buffer_swap",
+        "trajectory_id": "demo10100"
+      },
+      {
+        "api_calls": 0,
+        "batch_shapes": {
+          "auxiliary": {},
+          "encoded_action": [
+            1,
+            16,
+            10
+          ],
+          "mask": [
+            1,
+            16,
+            1
+          ],
+          "model_inputs": {
+            "features": [
+              1,
+              2,
+              47
+            ]
+          }
+        },
+        "conversion": {
+          "conversion_max_residual": 0.0005160318745141585,
+          "conversion_mode": "task_space",
+          "conversion_probes": 15
+        },
+        "optimizer_updates": 0,
+        "physical_steps": 0,
+        "policy": "open_drawer__h01",
+        "source_index": 0,
+        "source_modified": false,
+        "task": "constrained_retrieve_store",
+        "trajectory_id": "demo12100"
+      },
+      {
+        "api_calls": 0,
+        "batch_shapes": {
+          "auxiliary": {},
+          "encoded_action": [
+            1,
+            16,
+            10
+          ],
+          "mask": [
+            1,
+            16,
+            1
+          ],
+          "model_inputs": {
+            "features": [
+              1,
+              2,
+              38
+            ]
+          }
+        },
+        "conversion": {
+          "conversion_max_residual": 2.615049776572109e-05,
+          "conversion_mode": "task_space",
+          "conversion_probes": 15
+        },
+        "optimizer_updates": 0,
+        "physical_steps": 0,
+        "policy": "open_hinged_lid__h01",
+        "source_index": 0,
+        "source_modified": false,
+        "task": "covered_peg_assembly",
+        "trajectory_id": "demo12200"
+      },
+      {
+        "api_calls": 0,
+        "batch_shapes": {
+          "auxiliary": {},
+          "encoded_action": [
+            1,
+            16,
+            10
+          ],
+          "mask": [
+            1,
+            16,
+            1
+          ],
+          "model_inputs": {
+            "features": [
+              1,
+              2,
+              51
+            ]
+          }
+        },
+        "conversion": {
+          "conversion_max_residual": 7.165548491099816e-05,
+          "conversion_mode": "task_space",
+          "conversion_probes": 15
+        },
+        "optimizer_updates": 0,
+        "physical_steps": 0,
+        "policy": "grasp_lift_stage__h01",
+        "source_index": 0,
+        "source_modified": false,
+        "task": "granular_pour_return",
+        "trajectory_id": "demo12300"
+      },
+      {
+        "api_calls": 0,
+        "batch_shapes": {
+          "auxiliary": {},
+          "encoded_action": [
+            1,
+            16,
+            10
+          ],
+          "mask": [
+            1,
+            16,
+            1
+          ],
+          "model_inputs": {
+            "features": [
+              1,
+              2,
+              49
+            ]
+          }
+        },
+        "conversion": {
+          "conversion_max_residual": 5.174570862686508e-06,
+          "conversion_mode": "task_space",
+          "conversion_probes": 15
+        },
+        "optimizer_updates": 0,
+        "physical_steps": 0,
+        "policy": "open_drawer__h04",
+        "source_index": 0,
+        "source_modified": false,
+        "task": "drawer_exchange",
+        "trajectory_id": "demo1000"
+      },
+      {
+        "api_calls": 0,
+        "batch_shapes": {
+          "auxiliary": {},
+          "encoded_action": [
+            1,
+            16,
+            10
+          ],
+          "mask": [
+            1,
+            16,
+            1
+          ],
+          "model_inputs": {
+            "features": [
+              1,
+              2,
+              47
+            ]
+          }
+        },
+        "conversion": {
+          "conversion_max_residual": 5.178137533814093e-06,
+          "conversion_mode": "task_space",
+          "conversion_probes": 15
+        },
+        "optimizer_updates": 0,
+        "physical_steps": 0,
+        "policy": "dp",
+        "source_index": 0,
+        "source_modified": false,
+        "task": "drawer_exchange",
+        "trajectory_id": "demo1000"
+      },
+      {
+        "api_calls": 0,
+        "batch_shapes": {
+          "auxiliary": {
+            "anchor_index": [
+              1,
+              16
+            ],
+            "anchor_mask": [
+              1,
+              16,
+              1
+            ]
+          },
+          "encoded_action": [
+            1,
+            16,
+            14
+          ],
+          "mask": [
+            1,
+            16,
+            1
+          ],
+          "model_inputs": {
+            "history": [
+              1,
+              2,
+              71
+            ]
+          }
+        },
+        "conversion": {
+          "conversion_max_residual": 5.17073259004975e-06,
+          "conversion_mode": "task_space",
+          "conversion_probes": 15
+        },
+        "optimizer_updates": 0,
+        "physical_steps": 0,
+        "policy": "single_prior",
+        "source_index": 0,
+        "source_modified": false,
+        "task": "drawer_exchange",
+        "trajectory_id": "demo1000"
+      }
+    ],
+    "optimizer_updates": 0,
+    "physical_steps": 0,
+    "api_calls": 0,
+    "scope": "First real training window of each listed design, original normalizers, checked adapter features and represented targets, causal masking, batch dimensions, and native/task-space conversion probes under CPU isolation."
+  },
+  "cpu_inference": {
+    "task": "drawer_exchange",
+    "policy": "open_drawer__h01",
+    "device": "cpu",
+    "seed": 0,
+    "checkpoint_sha256": "e6cc528c1fbf8159f8a2688f1a0a6cdc76f228d4c5fa66d7930fac85cf2e05ca",
+    "source_files": {
+      "policies/exp2/drawer_exchange/open_drawer__h01/source/HANDOFF.json": "d3d98cebac105572e17dc7ad716438277c36a4f8c5211ffb79fc1d522f3a62b3",
+      "policies/exp2/drawer_exchange/open_drawer__h01/source/PRIOR.md": "064e5619f01aebc0be59798b94f3a8abfa38943d4d2ea6c8ecac6c4c32723645",
+      "policies/exp2/drawer_exchange/open_drawer__h01/source/adapters.py": "7af84865c4caaf2c4b84ec068e0cadb8197a1cf052263a12918563164cd81196",
+      "policies/exp2/drawer_exchange/open_drawer__h01/source/panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "policies/exp2/drawer_exchange/open_drawer__h01/source/panda_posture.py": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "policies/exp2/drawer_exchange/open_drawer__h01/source/pipeline.json": "1e00f034883708d9ba3d8817bdbbf2a3789a6cc1b6067146b0bb6a0d3c3831a8",
+      "policies/exp2/drawer_exchange/open_drawer__h01/source/policy.py": "23e0449fced4c37fb86dced2e15bade7df4d0ddac82437bf8cc7e20d552c8442",
+      "policies/exp2/drawer_exchange/open_drawer__h01/source/policy_contract.json": "4e7f7f0ba5551ec4e2127c0e0ae5b9cd05cfa3297682317fa07c6a6fc4a09334",
+      "policies/exp2/drawer_exchange/open_drawer__h01/source/training_bindings.json": "3523876be9e3d67a224b3a6cf7595e710abdd6eed49a17078025b6f5a6e4ef2d"
+    },
+    "prediction": {
+      "binding_hash": "749bf65c1bdc036efd29068b9a3a622887ef47ef56beb8179e57c4c4405fb7df",
+      "chunk_context": {
+        "desired_open_position_m": 0.3,
+        "drawer_orientation_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "drawer_origin_world_m": [
+          0.19,
+          0.0,
+          0.035
+        ]
+      },
+      "diagnostics": {
+        "ik_at_lower_limit": [],
+        "ik_at_upper_limit": [],
+        "ik_converged": true,
+        "ik_iterations": 1,
+        "ik_max_joint_change_rad": 0.002779961941750231,
+        "ik_position_error_m": 3.273849191534763e-08,
+        "ik_rotation_error_rad": 8.412805345676324e-08,
+        "target_world_tcp_pose": [
+          -0.38386744022369385,
+          2.4028122425079346e-05,
+          0.4421195423603058,
+          1.690319784405644e-05,
+          -0.9999989602834839,
+          -0.0014418023756031532,
+          -1.8765468910221887e-05
+        ]
+      },
+      "native_action": [
+        0.0003644652705501787,
+        -0.30003239204504534,
+        -0.00028536028578041834,
+        -2.0996424330049335,
+        -5.189457733097976e-05,
+        1.7996475782155683,
+        0.7826182233113931,
+        1.0
+      ],
+      "represented_action": [
+        -0.5738674402236938,
+        2.4028122425079346e-05,
+        0.4071195423603058,
+        1.0,
+        0.002883613109588623,
+        3.7579797208309174e-05,
+        0.0033147335052490234,
+        -0.9992848634719849,
+        -3.371201455593109e-05,
+        1.0
+      ]
+    },
+    "worker_stderr_bytes": 0,
+    "api_calls": 0,
+    "physical_steps": 0
+  },
+  "limitations": [
+    "No GPU training update was executed during release preparation.",
+    "No fresh simulator episode or paid API request was executed.",
+    "CPU inference is an interface check and does not establish bitwise equivalence with CUDA evaluation."
+  ],
+  "construction_deployment": {
+    "entrypoint": "python -m appl evaluate --task TASK --method appl --suite SUITE --case CASE --gpu DEVICE --construction-run NEW_CONSTRUCTION_DIRECTORY --output NEW_EPISODE_DIRECTORY",
+    "offline_tests": 6,
+    "real_api_calls": 0,
+    "real_physical_steps": 0,
+    "real_model_actions": 0,
+    "execution": "Real deployment tools and journals with explicit simulator, model-worker, and API test doubles"
+  }
+}

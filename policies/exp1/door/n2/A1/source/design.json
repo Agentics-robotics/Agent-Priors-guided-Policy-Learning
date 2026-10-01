@@ -1,0 +1,37 @@
+{
+  "title": "Cabinet-aligned contact geometry with a world-context bypass",
+  "coverage_gap": "D_N contains only two episodes, one LL at door_x 0.03763 m and yaw -6.17 degrees, one HH at 0.06858 m and 7.63 degrees. The crossed translation/yaw combinations and roughly +/-35 degree yaw are absent. Empirically standardizing the near-constant cosine channel (support std approximately 0.00153) would greatly magnify extrapolated yaw.",
+  "reusable_regularity": "Relative hand-handle and handle-goal displacements and translation commands rotate together with a cabinet. Expressing these relations in the observed cabinet frame removes a needless requirement to learn coordinate rotation from two layouts. Use fixed metric scales, not empirical yaw standardization. Quaternion first and third rotation columns are sign-invariant and retain the full handle orientation. This design leaves stage discovery entirely to the common U-Net; it imposes neither a fitted hinge nor predicted future-state diffusion.",
+  "dependencies_preserved": [
+    "World hand and goal positions, world hand-handle and goal-handle vectors, and cabinet sin/cos remain explicit: fixed robot orientation, workspace anisotropy, and cabinet obstacle orientation are not assumed invariant.",
+    "Current and native-previous hand/handle positions determine local motion and contact-relative history; both whole causal observations are used.",
+    "Handle quaternion orientation is retained by two independent rotation columns, both current and native previous. Goal and handle heights and gripper aperture are retained. The declared absent object2 zero slots are omitted, not substituted by privileged geometry."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact two-episode support scope and no development evidence."},
+    {"path": "task_materials.json", "use": "World delta action semantics, xyzw handle quaternion, observed cabinet yaw, missing object2, LL/HH coverage."},
+    {"path": "support_summary.json", "use": "Layout values, cosine standard deviation, 220 transitions, handle-to-goal distance 0.56054 m in both layouts; motivates bounded physical feature units."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Cabinet face, handle, fixed robot/world geometry at approach."},
+    {"path": "images/frame_02_demo_00_step_029.png", "use": "Approach above the handle rather than a straight goal-directed reach."},
+    {"path": "images/frame_04_demo_00_step_059.png", "use": "Contact and partial opening; relative contact geometry matters."},
+    {"path": "images/frame_07_demo_00_step_103.png", "use": "Large articulated opening and retained fixed cabinet obstacle."},
+    {"path": "trajectories/demo_00.json", "rows_read": "obs 0:4,29:32,44:48,74:77; actions 38:46", "use": "Handle stationary during above-handle approach, then movement with changing quaternion; native history supplies causal increments."},
+    {"path": "images/frame_11_demo_01_step_056.png", "use": "Similar near-handle interaction in the HH demonstration."}
+  ],
+  "expected_failure_signature": [
+    "If canonical geometry is insufficient to disentangle phase from only two demonstrations, the hand should arrive above the handle but descend or start pulling prematurely.",
+    "At large yaw, success can still fall because the gripper orientation and native clipping cube are world-fixed; the bypass retains this dependency but its learned correction has little support.",
+    "A cabinet-frame command does not directly encode the evolving hinge tangent, so later opening may drift from the handle even if approach generalizes."
+  ],
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history [B,2,41] and raw_current [B,41], supplied from shared deployment observations; common normalized history is accepted but raw-derived metric geometry is used instead.",
+    "slices": {"hand": [0,3], "gripper": [3,4], "handle": [4,7], "handle_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_gripper": [21,22], "previous_handle": [22,25], "previous_handle_quaternion_xyzw": [25,29], "goal": [36,39], "cabinet_sin_cos_yaw": [39,41]},
+    "action_frame": "For all 16 actions, encode xyz as Rz(cabinet_yaw_at_chunk_start)^T times native world xyz; decode with Rz in the same fixed chunk-start frame. No translation, gain, local clipping or gripper rotation. Native xyz unit remains 0.01 m per unit and gripper remains action[3]. Only the host clips the decoded native cube and executes four actions.",
+    "conditioning": "46 deterministic features per whole observation; history two. No runtime hidden state, planner or external call."
+  },
+  "training_only_targets": [],
+  "support_fit": "None. All scales are declared physical representation hyperparameters; no statistics outside this D_N or additional normalization fitting.",
+  "architecture": "Exactly one unchanged factory DP at condition_dim=46, diffusion_action_dim=4; no extra learned modules or auxiliary losses. Fixed public action epsilon loss and mask denominator mask.sum()*4.",
+  "parents": [],
+  "change_summary": ["Initial scientific design: deterministic cabinet-frame representation and reversible cabinet-frame action rotation, with explicit world bypass. No performance feedback used."]
+}

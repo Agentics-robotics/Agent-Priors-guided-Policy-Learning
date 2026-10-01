@@ -1,0 +1,48 @@
+{
+  "title": "Geometry-gated motor-phase encoder with native-world diffusion",
+  "coverage_gap": "Only five short successful trajectories cover correlated cabinet x/yaw. They provide distinct raised approach, descent and outward-pull behavior but little off-trajectory coverage. A monolithic condition can use cabinet location or elapsed progress as a surrogate for which interaction behavior is appropriate.",
+  "reusable_regularity": "Motor phases should be inferred from local hand-handle geometry, observed motion and remaining drawer displacement, not a clock or cabinet x. A supervised causal soft gate mixes three learned conditioning experts. Phase supervision is a training-only partition of demonstrated action directions, not an expert-state oracle, scripted action or hard phase transition. Native-world diffusion deliberately avoids imposing full rotation equivariance on the fixed-orientation robot.",
+  "dependencies_preserved": [
+    "The phase gate sees current relative planar/vertical geometry, remaining goal distance, hand vertical and drawer-axis motion, handle drawer-axis motion, two signed cabinet-frame hand-handle coordinates and aperture. History is processed separately for each of the two observations.",
+    "Each conditioning expert and the direct bypass see world-frame current/previous hand-handle, goal-handle and goal-hand relations, world hand/handle motion, aperture, absolute hand/handle/goal positions, both object quaternions, and yaw sin/cos.",
+    "World positions and orientation are not discarded by the phase invariance assumption; they can still alter actions for reachability, table/cabinet contact and fixed-gripper geometry.",
+    "Only the declared absent object2 channels are omitted; no independent obstacle fields or simulator geometry are invented."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Current D_5 identities and support-only scope."},
+    {"path": "task_materials.json", "use": "Native world action4, fixed gripper orientation, corrected handle observation, runtime yaw, two-observation history and LL/HH-only training."},
+    {"path": "support_summary.json", "use": "All five gripper commands are -1; the task's meaningful motor changes are not a demonstrated open-versus-close switch. Initial handle-goal distances are approximately .128 m."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Initial approach relative to a finite cabinet and handle."},
+    {"path": "images/frame_10_demo_03_step_028.png", "use": "Hand above the handle during the raised approach/descent transition in a positive-yaw demonstration."},
+    {"path": "images/frame_02_demo_00_step_060.png", "use": "Hand near the handle before opening, motivating geometry-driven phase inference rather than layout-driven timing."},
+    {"path": "images/frame_06_demo_01_step_090.png", "use": "Open drawer and hand near the translated handle at the end of a different layout."},
+    {"path": "trajectories/demo_00.json", "field": "actions", "rows_inclusive": [0,7], "use": "Early positive vertical commands around .6-.7 while approaching the handle."},
+    {"path": "trajectories/demo_03.json", "field": "actions", "rows_inclusive": [20,31], "use": "Vertical command switches from positive .28 at step 23 to negative -.93 at step 24 while world y remains positive."},
+    {"path": "trajectories/demo_00.json", "field": "actions", "rows_inclusive": [60,69], "use": "Small approach commands through step 64 give way to outward saturated-y commands at step 65."},
+    {"path": "trajectories/demo_01.json", "field": "actions", "rows_inclusive": [76,89], "use": "Late outward commands persist while z becomes small positive; outward label takes priority over raise label."}
+  ],
+  "expected_failure_signature": [
+    "If a phase prior transfers but the native-world action model fails angular extrapolation, the raised/descent/pull order should look appropriate but the lateral pull direction or alignment should be wrong at large yaw.",
+    "If the support-only motor labels do not define recoverable states, the learned gate may confuse a missed handle with an engaged handle, producing premature pulling or repeated descent.",
+    "A soft mixture can average incompatible phase conditions near transitions; observed stalling or vertical reversals near the top of approach would falsify the proposed benefit. No performance has been measured."
+  ],
+  "required_runtime_fields": {
+    "source": "Only shared causal_context.raw_history[B,2,41]; no runtime label or elapsed-time field",
+    "slices": {"hand": [0,3], "gripper": [3,4], "handle": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_gripper": [21,22], "previous_handle": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal": [36,39], "cabinet_sin_cos": [39,41]},
+    "condition": "48 fixed physically scaled world relational/context features plus 32 soft-mixed learned expert features and 3 causal phase probabilities = 83 per observation. Gate input has 9 geometry/motion scalars and explicitly excludes absolute cabinet x. No gate labels are read by condition or denoise.",
+    "action_frame": "Identity encode/decode: first four diffusion channels are native world_dx, world_dy, world_dz, gripper. Gripper is unchanged; only the public executor clips the native cube and applies .01 m per xyz unit. Cabinet axis is used only in features and training-only label construction, not to override or postprocess actions."
+  },
+  "training_only_targets": [
+    {
+      "name": "motor_phase",
+      "shape": "[number_of_windows,2,3] one-hot float32",
+      "source_fields": "For the two causal history indices max(0,t-1) and t, read support native actions[index,0:3] and support obs[index,39:41]. These action labels are unavailable to the deployed gate.",
+      "definition": "Define outward=sine*world_dx-cosine*world_dy using unit cabinet yaw. Assign pull class 2 if outward>.35, else raise class 0 if world_dz>.15, else descend/align class 1. Thresholds are fixed operational motor-direction categories chosen before checks/training, not fitted expert thresholds or measured optimal settings.",
+      "loss": ".05 times categorical cross-entropy of the gate probabilities. Each history label is weighted by its chunk's mask[:,0], with denominator equal to the sum of those two-observation validity weights. The common action4 epsilon loss retains weight 1 and mask.sum()*4 denominator."
+    }
+  ],
+  "architecture": "Gate MLP 9->32->3 with SiLU and softmax; three separate expert MLPs 48->64->32 with SiLU; weighted 32-dimensional mixture plus fixed-feature bypass and probabilities feed exactly one unmodified common DP(condition_dim=83, action_dim=4). All trainable modules participate in action and/or auxiliary loss. The auxiliary prediction is simply the causal gate probability, not a future observation at inference.",
+  "support_fit": "No empirical statistics or cached labels in deployment state. Physical scales .1 m for relations, .01 m for single-step motion, .5 m for world positions. Training labels are produced only by training_targets on the exact D_5. Host normalization is unmodified.",
+  "parents": [],
+  "change_summary": "Initial independent learned-phase design, not an A1 clone: native action frame, learned gated representation, and training-only motor-phase supervision replace geometric action canonicalization. No feedback, structural repair or training has occurred."
+}

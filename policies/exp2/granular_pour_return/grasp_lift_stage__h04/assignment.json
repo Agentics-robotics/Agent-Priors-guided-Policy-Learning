@@ -1,0 +1,163 @@
+{
+  "dataset": "assets/exp2/datasets/granular_pour_return/grasp_lift_stage/dataset.json",
+  "dataset_sha256": "7b544610e4641eb9110526a7be294b984b06e50d994efeacfddbac26dac0bb49",
+  "experiment_version": "APPL_v4_cartesian_validation_round",
+  "heuristic": {
+    "applicability": "Prefer grasp_lift_stage__h04 when the source may be translated or rotated relative to the narrow demonstrated start range, while both the source and bowl poses are observed and the Panda remains reachable. It is also intended for nominal or mildly shifted intermediate states where finger width and source elevation reliably distinguish open/low acquisition from closed clear-lift transport. Before lift, the decoder weights source-relative position most strongly; after closed-and-lifted evidence, it weights bowl-relative position most strongly. The high-level caller supplies source_object=\"container\" and destination_object=\"bowl\". Do not prefer it when those poses are unreliable, the grasp is visibly lost, obstacles are unobserved, or the target is unreachable.",
+    "evidence": [
+      {
+        "indices": [
+          0,
+          120,
+          136,
+          140,
+          148,
+          160,
+          180,
+          240,
+          280,
+          320,
+          340,
+          359,
+          360
+        ],
+        "trajectory_id": "demo12300"
+      },
+      {
+        "indices": [
+          0,
+          120,
+          132,
+          136,
+          140,
+          148,
+          160,
+          180,
+          240,
+          280,
+          320,
+          340,
+          359,
+          360
+        ],
+        "trajectory_id": "demo12303"
+      },
+      {
+        "indices": [
+          0,
+          140,
+          160,
+          180,
+          320,
+          360
+        ],
+        "trajectory_id": "demo12306"
+      }
+    ],
+    "handoff": {
+      "entry_conditions": "Observed container and bowl poses are finite; the source is upright and table-supported with open fingers, or the skill is entered in a nearby closed-low/closed-lifted state with plausible source/TCP co-motion. The source handle geometry is unchanged and a collision-free Panda IK branch is expected to exist.",
+      "exit_conditions": "Fingers are physically closed, the source and TCP have co-moved, the source is clear of the table, and the source is staged above the observed bowl near the demonstrated high relation while remaining upright and retaining all particles.",
+      "failure_signatures": "Closed fingers without source/TCP co-motion, no source lift, wrong phase weight near transition, abrupt or stalled transport, source drop/slip, early particle escape, final upright source outside the bowl footprint, IK nonconvergence, or joint-limit contacts. Phase weight is not contact truth.",
+      "overlap_role": "All actions [180,360) remain supervised, duplicating the controlled_pour_and_right overlap. This covers closed-gripper lift, carry, bowl-relative staging and the first small tilt, so switching can occur after secure lift or at nominal high staging.",
+      "successor_readiness": "controlled_pour_and_right is ready only when observed closure, source/TCP co-motion and clearance support a secure grasp. Nominal handoff is at the high bowl-relative stage; the phase weight alone is never sufficient evidence."
+    },
+    "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"container\"]},\"destination_object\":{\"type\":\"string\",\"enum\":[\"bowl\"]}},\"required\":[\"source_object\",\"destination_object\"]},\"parameter_semantics\":\"source_object selects the observed manipulated source pose used for the acquisition-position branch, source/TCP relations and causal phase weight. destination_object selects the observed bowl pose used for the transport/staging-position branch. Both are semantic scene references resolved from fresh observations for every executed slot; neither is an actuator command or contact label.\"}",
+    "limitations": "The smooth phase weight uses finger width and source elevation, not contact truth, and can switch incorrectly after a miss, slip, unusual support height or noisy pose. Dual-frame position labels are redundant and may increase learning difficulty under the fixed budget. Source-relative acquisition does not make unreachable displacements feasible, and bowl-relative transport does not define a collision-free route. Absolute world orientation assumes the demonstrated grasp geometry and gravity direction remain relevant. No demonstration contains deliberate perturbation, failed grasp recovery, slip recovery or obstacle avoidance, and no out-of-distribution result exists.",
+    "pipeline_implications": "Add grasp_lift_stage__h04 as an independent library option, not a replacement for h01-h03. Its standard DiffusionBackbone consumes two 80-channel causal relational feature frames and predicts 13D Cartesian actions: source-relative position, bowl-relative position, absolute world rotation 6D and gripper scalar. The decoder reconstructs both world positions from fresh object poses, blends them with a deterministic causal closed-and-lifted weight, constructs the absolute world orientation, and calls the verified Panda IK from fresh measured joints. Prefer h04 for source displacement plus final upright staging; retain h02 as the local TCP-correction alternative and h03 as the validated best in-distribution phase-aware option. Preserve H2/16/8, 20 Hz, all [0,360) bindings, and the full [180,360) overlap.",
+    "rationale": "Observed validation is complementary: h02 ended over the bowl in 12/12 runs but upright in 0/12, whereas h03 ended upright in 12/12 and over the bowl in 7/12; h03 passed 7/12 overall. This does not identify a causal mechanism, but it motivates combining destination-relative absolute positioning with non-incremental absolute orientation. Demonstrations also show real phase variation: demo12300 first commands closure at 148 and has source z=0.0291 m at 180, while demo12303 commands closure at 136, is closed by observation 140, and has source z=0.0555 m at 180. The proposed dual position encoding avoids a discontinuous label switch: every command has both exact source- and bowl-relative coordinates, and only decoding smoothly changes which branch controls position. Before lift this makes handle approach and low lift equivariant to current source displacement by construction; after lift it makes staging equivariant to current bowl displacement. World-absolute 6D orientation avoids compounding fresh-TCP rotational increments and directly represents the demonstrated near-upright transport posture. Measured joints, velocities and world positions remain inputs to retain reachability and robot-configuration dependence. Expected benefit is falsifiable but unconfirmed.",
+    "statement": "Dual-reference, phase-weighted Cartesian prior: learn each commanded TCP position simultaneously in the freshly observed source frame and the freshly observed bowl frame, use source-relative position during approach/low lift and bowl-relative position during closed clear-lift transport, and learn orientation as an absolute world-frame 6D rotation. This targets source displacement, phase-dependent reference choice, final bowl positioning and extended-rollout orientation drift without changing the standard diffusion backbone.",
+    "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized acquisition/lift/stage supervision; [180,360) preserves controlled_pour_and_right overlap.\"},{\"trajectory_id\":\"demo12301\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized acquisition/lift/stage supervision; [180,360) preserves controlled_pour_and_right overlap.\"},{\"trajectory_id\":\"demo12302\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized acquisition/lift/stage supervision; [180,360) preserves controlled_pour_and_right overlap.\"},{\"trajectory_id\":\"demo12303\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Earlier closure and higher lift supervise the causal reference weight; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12304\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized acquisition/lift/stage supervision; [180,360) preserves controlled_pour_and_right overlap.\"},{\"trajectory_id\":\"demo12305\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized acquisition/lift/stage supervision; [180,360) preserves controlled_pour_and_right overlap.\"},{\"trajectory_id\":\"demo12306\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Earlier/higher lift variation supervises the causal reference weight; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12307\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized acquisition/lift/stage supervision; [180,360) preserves controlled_pour_and_right overlap.\"},{\"trajectory_id\":\"demo12308\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized acquisition/lift/stage supervision; [180,360) preserves controlled_pour_and_right overlap.\"},{\"trajectory_id\":\"demo12309\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized acquisition/lift/stage supervision; [180,360) preserves controlled_pour_and_right overlap.\"},{\"trajectory_id\":\"demo12310\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized acquisition/lift/stage supervision; [180,360) preserves controlled_pour_and_right overlap.\"},{\"trajectory_id\":\"demo12311\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized acquisition/lift/stage supervision; [180,360) preserves controlled_pour_and_right overlap.\"}]"
+  },
+  "heuristic_index": 4,
+  "normalization": {
+    "path": "provenance/relocated/64f72aeeeae5a34c",
+    "sha256": "52a649835b92c470fb6692de6991ba7c8ccd357aa4bb4ad2c6069c971f630101"
+  },
+  "observation_fields": {
+    "bowl_pose": [
+      0,
+      7
+    ],
+    "container_pose": [
+      7,
+      14
+    ],
+    "particle_positions": [
+      14,
+      50
+    ],
+    "qpos": [
+      50,
+      59
+    ],
+    "qvel": [
+      59,
+      68
+    ],
+    "target_pose": [
+      68,
+      75
+    ],
+    "tcp_pose": [
+      75,
+      82
+    ]
+  },
+  "plan_hash": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+  "policy_id": "grasp_lift_stage__h04",
+  "prior_plan_path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/prior_plan.json",
+  "prior_plan_sha256": "3273ceb29e2a24b045e2ed85eac8642d73a46e1b125e009b92c0d71c3af00926",
+  "skill_id": "grasp_lift_stage",
+  "sources": {
+    "demo12300": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12300.json",
+      "sha256": "21e58673a2d41af543f449b6c1bac1ddbf07c90cd1b3768efebe3b218b3ee197"
+    },
+    "demo12301": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12301.json",
+      "sha256": "1c649d39da186987da23fd7a5747e0e55521fac9fd32b20ba073029707c89ef3"
+    },
+    "demo12302": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12302.json",
+      "sha256": "b7b05183c5c26cf55369fd8013ae041085f557a36ebf9a82c9b9916920766aa9"
+    },
+    "demo12303": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12303.json",
+      "sha256": "24c3aeca48398d027456f5e3577b77135dc1b2be53a9a2b3c57a78efc9b761e5"
+    },
+    "demo12304": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12304.json",
+      "sha256": "048c023f0839c4630bb8a8d104c6c149816d94ca47ce5cc79ee2ad30390a4268"
+    },
+    "demo12305": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12305.json",
+      "sha256": "1c4493143c0d144d4fd44267328d7599720c6f6dd95aec6149609f9c8ff44203"
+    },
+    "demo12306": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12306.json",
+      "sha256": "e6c8a2014257ee090527799729078620a59713086e606f831d45cfcba4b1c7a4"
+    },
+    "demo12307": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12307.json",
+      "sha256": "c5530ad3cb09b0118fc5b715af9e6f87caca9d776f81ba10adf224458278d793"
+    },
+    "demo12308": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12308.json",
+      "sha256": "c1945edb8ae947d2f27ea872462c6eca2419d48f993377584f907da7e121c69a"
+    },
+    "demo12309": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12309.json",
+      "sha256": "ead11ff403366336ff24d395ccc9f795108d9d8d23f34736fbba145119718243"
+    },
+    "demo12310": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12310.json",
+      "sha256": "907dd172d12814e6c2ad53331c17252a3b90cab83dfca74130dcca54109a5957"
+    },
+    "demo12311": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12311.json",
+      "sha256": "e9123001777c449f99e1b1e8a0f1d4e6244bd84c9ee1cfc0978e0b44e8eaf3a1"
+    }
+  },
+  "subgoal": "Approach the container handle at the declared local grasp site, close the fingers, infer a secure grasp from finger closure and container/TCP co-motion, lift the particle-filled source clear of the table, and carry it upright to a high pose above the bowl. Maintain handle contact after closure and avoid disturbing the bowl or spilling particles. Approximate entry: open gripper, source upright on the table. Approximate exit: closed gripper, source near (-0.259,0.224,0.400) m above the bowl with only a small initial tilt.",
+  "prior_plan_original_sha256": "3273ceb29e2a24b045e2ed85eac8642d73a46e1b125e009b92c0d71c3af00926"
+}

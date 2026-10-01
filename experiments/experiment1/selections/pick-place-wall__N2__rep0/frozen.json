@@ -1,0 +1,41 @@
+{
+  "instance": "pick-place-wall__N2__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A2",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A2",
+      "feedback_hash": "8c049c48453b172b82f83fa47b8f697e8c8b0fae50cc83614160f9c4017b6d09",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: among valid completed A1-A3, the frozen equal-distribution/equal-cell objective is A1=0.5*0.20+0.5*0.05=0.125, A2=0.5*0.85+0.5*0.80=0.825, and A3=0.5*0.45+0.5*0.05=0.250. A2 is the unique maximizer, so latency/parameter/ID tie breakers are not needed. IID success and training loss do not select. The aggregate feedback supports retaining A2's chart/phase prior for revision, but does not identify the physical cause of its nine truncations.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A2",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A2",
+      "feedback_hash": "f70d2bb290abec2400036775a43a7bc7e2598095c82465df403d113c33b99b30",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: all four candidates are valid and completed. Using the frozen equal-cell, equal-distribution objective, scores are A1=0.125, A2=0.825, A3=0.250, A4=0.825. A2 and A4 tie at 0.5*0.85+0.5*0.80=0.825. Apply the first tie breaker: A2 fixed-method inference latency is 0.11357194450101815 seconds, lower than A4's 0.189361333999841 seconds, so select A2. Both have 5,047,876 complete-system parameters; later tie breakers are unnecessary. A4's E-cell changes (LL improved, HH declined) yield no improvement under the fixed equal-cell objective and remain recorded. IID, training curves and hidden test are not selection criteria; no additional design, check or training is requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "05f1367ed276f3571c909c2ff594184a0f04cfadf1cdbe8bfd14ca161576f05a",
+    "A2": "f054fab910f9ff7a0cb6c6942950e99a7ed53d2a64b354bb8344b1d88044b9b0",
+    "A3": "485161a29f4ab49980fa94838fcd9aa23286ada989fb441ba1823119a11e945f",
+    "A4": "f223e0d35617ebf96973cb56f9a3c768e8aa1addd70bb057c9921ad45935245f"
+  },
+  "feedback_hashes": {
+    "initial": "cc44d9f3abad57f85c866d7493bd8d626d8c98de2ba16bcfe7c95036a7ccc0f2",
+    "final": "7bbba2ae3991490e4ce921a20982521d041f70c2052ae43adaec314e3a7cb68e"
+  }
+}

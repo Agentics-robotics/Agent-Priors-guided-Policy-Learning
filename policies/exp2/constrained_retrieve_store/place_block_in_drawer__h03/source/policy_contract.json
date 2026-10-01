@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "place_block_in_drawer__h03",
+  "skill_id": "place_block_in_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "manipulated_object_pose_field": {"type": "string", "enum": ["object_pose"]},
+      "destination_pose_field": {"type": "string", "enum": ["target_pose"]},
+      "phase_vocabulary": {"type": "string", "enum": ["carry_release_retreat_handle"]}
+    },
+    "required": ["manipulated_object_pose_field", "destination_pose_field", "phase_vocabulary"]
+  },
+  "parameter_semantics": "The two pose-field arguments select the live observed block and drawer-goal world poses used for causal relative geometry, in metres and wxyz. phase_vocabulary selects the declared auxiliary classes: 0 carry/closed descent, 1 opening or settling, 2 deposited retreat, 3 handle-ready. The vocabulary is encoded in model input and is advisory rather than contact truth.",
+  "observation_dependencies": ["object_pose", "target_pose", "tcp_pose", "qpos", "qvel", "drawer_position", "drawer_velocity"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 48]},
+  "action_dimension": 7,
+  "output_semantics": "Each slot is [fresh-current-TCP-frame translation increment xyz in metres, fresh-current-TCP-frame rotation vector xyz in radians, native gripper scalar]. Training slot k uses inverse(measured TCP in that slot's pre-action observation) times the demonstrated commanded TCP pose. During sequential execution each of slots 1..8 is left-multiplied by the newly measured current world TCP pose, so increments are not accumulated open-loop from chunk start. panda_kinematics.solve_ik maps the resulting world TCP target to seven absolute joints from fresh qpos; the gripper scalar is appended unchanged. The four-class auxiliary head is training-only causal phase regularization and does not alter decoding or success criteria.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "Compare FK of the IK target with the demonstrated commanded TCP pose after measured-current-TCP relative encode/decode, and compare unchanged gripper scalar. Maximum position metres, rotation radians and gripper error must be at most 0.005; rotation exp/log is exact on labels and nonunique IK joints are allowed."},
+  "cut_relation": "Covers all twelve complete [680,1160) assigned slices and retains both action-supervised overlaps. It refines the cut with fresh-state local Cartesian correction and a causal phase auxiliary loss, without changing the assigned carry, release, retreat or handle-transition responsibility."
+}

@@ -1,0 +1,15 @@
+{
+  "policy_id": "return_place_release__h02",
+  "entry_conditions": "Particles are already settled and the emptied source remains held. This policy accepts the demonstrated moderate tilt at index 1460, an upright outbound handoff, or another feasible intermediate state with closed fingers and continuous source/TCP motion.",
+  "exit_conditions": "The source is upright and stationary in the marked return region, fingers are open, and the TCP has retreated clear near the terminal pose.",
+  "overlap_role": "The complete [1460,1740) late-righting and outbound interval is action-supervised for every occurrence, giving 280 actions of overlap with controlled_pour_and_right and allowing handoff at multiple points in that interval.",
+  "successor_readiness": "Terminal skill: stable upright placement, observed opening, and arm clearance make evaluation ready. Continued terminal chunks should only preserve the clear stationary state.",
+  "failure_signatures": "Repeated IK non-convergence, large or oscillating local commands, no target progress, source/TCP separation, opening before low upright support, source movement after release, or retreat recontact.",
+  "continuation_guidance": "Decode each slot from the fresh measured TCP and joints, never from an accumulated predicted pose, and replan after eight actions. Once upright, prefer the destination-frame model if target displacement dominates. Near nominal setdown, prefer the phase-regularized model if release timing dominates.",
+  "limitations": "Per-slot local coordinates are feedback-like but do not establish recovery from unseen errors. Demonstrations contain no failed grasp, placement, collision, or release episode and provide no contact truth.",
+  "evidence": [
+    {"trajectory_id":"demo12300","indices":[1460,1480,1520,1560,1600,1640,1680,1700,1720,1740,1820,1840,1850,1860,1900,1920]},
+    {"trajectory_id":"demo12303","indices":[1460,1600,1680,1700,1740,1820,1840,1860,1900,1920]},
+    {"trajectory_id":"demo12308","indices":[1460,1600,1680,1740,1820,1840,1860,1900,1920]}
+  ]
+}

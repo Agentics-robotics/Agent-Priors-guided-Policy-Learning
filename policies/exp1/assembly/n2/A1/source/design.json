@@ -1,0 +1,39 @@
+{
+  "title": "Metric dual-anchor relations in world action space",
+  "coverage_gap": "D_N contains only two episodes, one LL and one HH (179 transitions). Nut and peg x therefore covary; the support does not identify independent grasp-location and insertion-location effects. Population normalization of almost constant goal y and orientation components can also amplify modest deployment changes.",
+  "reusable_regularity": "Separate the handle-to-hand acquisition relation from the peg-goal-to-ring-center insertion relation. Supply signed metric vectors, planar ranges, body axes, and measured motion directly to the common diffusion model, rather than asking it to infer all subtractions from correlated absolute positions. Fixed physical scales, not empirical per-feature variances, preserve meaningful magnitudes outside D_N. This is a passive representation: there is no target controller, action bias, phase rule, or planner.",
+  "dependencies_preserved": [
+    "Robot hand world position remains at a coarse 0.5 m scale; world axes and fixed native end-effector orientation are not quotiented out.",
+    "Handle-hand, handle-ring and goal-ring vectors jointly retain the distinct grasp site, physical ring center and peg location. The goal represents the insertion obstacle, not a grasp target.",
+    "Hand, ring and goal absolute heights retain gravity, table clearance and peg-top dependencies. These and the world hand channel make current physical positions reconstructible.",
+    "Two whole causal observations, native previous hand/site/aperture, observed ring displacement, and sign-invariant two-column body rotation encoding preserve contact, velocity and tilt cues.",
+    "Only absent object2 zero channels are discarded. No external obstacle, reward, success, reset-factor or simulator state is used."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "assembly__N2__rep0; exactly the two listed support episodes, no development evidence"},
+    {"path": "task_materials.json", "detail": "LL/HH support versus LH/HL composition and four-cell extrapolation; native world action4; handle site and ring_center_xyz semantics"},
+    {"path": "support_summary.json", "detail": "87 and 92 transitions; goal-y std approximately 0.00495 m; distinct nut and peg x factors"},
+    {"path": "trajectories/demo_00.json", "detail": "obs 0:3 shows initial handle x approximately 0.1078 versus ring x -0.0222; obs 22:28 acquisition, 46:51 lift/transfer, and 72:76 alignment"},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Ring, offset handle and separate vertical peg are visible"},
+    {"path": "images/frame_02_demo_00_step_024.png", "detail": "The hand is down at the handle rather than at the ring center"},
+    {"path": "images/frame_04_demo_00_step_048.png", "detail": "Lifted ring/handle assembly before full horizontal transport"},
+    {"path": "images/frame_06_demo_00_step_072.png", "detail": "Raised ring approaches the peg"},
+    {"path": "images/frame_15_demo_01_step_092.png", "detail": "Final ring-over-peg configuration of the second support episode"}
+  ],
+  "expected_failure_signature": [
+    "The representation removes a subtraction burden but does not force independence: failures concentrated in opposite-sign layouts would falsify the hope that passive relative features alone break the x correlation.",
+    "Premature carry/lower transitions after missed grasps remain possible because stage changes are learned solely from action diffusion on two demonstrations.",
+    "Large lateral extrapolation may still be pulled toward the small support transport-x range; world-action errors would then grow with goal-ring lateral displacement."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,42] only, using the common raw observations; normalized causal_history is deliberately not reused",
+    "slices": {"hand_xyz": [0,3], "gripper": [3,4], "handle_site_xyz": [4,7], "body_quaternion_wxyz": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_handle_site_xyz": [22,25], "previous_body_quaternion_wxyz": [25,29], "peg_goal_xyz": [36,39], "ring_center_xyz": [39,42]},
+    "representation": "43 float32 features per observation; first history row ring motion is zero, second uses the two available ring centers; no future ring sample is inserted in the earlier row",
+    "action_frame": "Identity encode/decode of native [world_dx, world_dy, world_dz, gripper]. Each xyz unit retains 0.01 m native command scale. Gripper is unchanged, and only the host clips the native cube."
+  },
+  "training_only_targets": [],
+  "support_fit": "None. Metric scales and workspace origin are fixed design constants, not statistics from another dataset. The common normalizer and optimizer remain unchanged.",
+  "architecture": "One unmodified common DP factory call with condition_dim=43 and diffusion_action_dim=4. No extra trainable modules or auxiliary loss; frozen masked epsilon action loss of weight one.",
+  "parents": [],
+  "change_summary": ["Initial scientific design: explicit world-axis dual-anchor geometry and physical scaling. No performance feedback or measured success used."]
+}

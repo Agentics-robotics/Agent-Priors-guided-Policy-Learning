@@ -1,0 +1,126 @@
+{
+  "contract": {
+    "blue_at_start_definition": "blue footprint inside blue_start_center_world +/- blue_start_half_xy_m with red_center_z_open_interval_m",
+    "blue_cavity_half_xy_m": [
+      0.172,
+      0.182
+    ],
+    "blue_center_z_open_interval_m": [
+      0.053,
+      0.074
+    ],
+    "blue_start_center_world": [
+      -0.38972293654681545,
+      0.3084819101628526,
+      0.02
+    ],
+    "blue_start_half_xy_m": [
+      0.06,
+      0.06
+    ],
+    "coordinate_frame": "world",
+    "description": "Open the drawer and put the blue block inside it without removing the red block. The task is complete when the drawer is open and both blocks are inside the drawer.",
+    "drawer_center_expression": "drawer_origin_world + [-drawer_position, 0, 0]",
+    "drawer_open_comparison": "strictly greater than",
+    "drawer_open_m": 0.26,
+    "drawer_origin_world": [
+      0.19,
+      0.0,
+      0.035
+    ],
+    "gripper_release_required": false,
+    "object_half_m": 0.02,
+    "object_velocity_threshold_required": false,
+    "orientation": "wxyz; use the rotated block's axis-aligned extents for full XY containment",
+    "predicates": [
+      "drawer_open",
+      "red_inside",
+      "blue_inside"
+    ],
+    "provenance": "The three task goals follow the user's 2026-09-16 clarification. Spatial thresholds and object geometry retain the existing evaluator definitions; release, clearance, speed and sustained-time conditions are not part of this run's completion rule.",
+    "red_center_z_open_interval_m": [
+      0.014,
+      0.031
+    ],
+    "red_inside_definition": "red center inside the drawer cavity with the blue_inside geometry and z interval",
+    "red_pad_center_world": [
+      -0.18,
+      -0.3,
+      0.02
+    ],
+    "red_pad_half_xy_m": [
+      0.06,
+      0.06
+    ],
+    "required_observations": 1,
+    "schema": "appl.cartesian_ik.task_goals.v1",
+    "scope": "Independent demonstration processing; no change to frozen M0 evaluation or historical results",
+    "segmentation_guidance": "Use this completion definition for the final task endpoint. Retain any additional transition context useful to a skill; explain omitted actions under this definition.",
+    "success_expression": "drawer_open AND red_inside AND blue_inside",
+    "sustained_hold_required": false,
+    "task": "drawer_exchange",
+    "tcp_clearance_required": false,
+    "units": "metres",
+    "xy_containment_comparison": "abs(object_center_xy - target_center_xy) + rotated_object_extent_xy <= target_half_xy"
+  },
+  "drawer_position": 0.0,
+  "env_goals": null,
+  "expert_goals": {
+    "blue_inside": true,
+    "drawer_open": true,
+    "red_inside": true,
+    "success": true
+  },
+  "expert_success": true,
+  "goal": "blue_in_keep_red",
+  "id": "D-G3",
+  "id_layout": {
+    "blue": [
+      -0.38972293654681545,
+      0.3084819101628526,
+      0.02
+    ],
+    "red": [
+      0.0975330397761521,
+      -0.07159565697190723,
+      0.063
+    ]
+  },
+  "initial_goals": {
+    "blue_inside": false,
+    "drawer_open": false,
+    "red_inside": true,
+    "success": false
+  },
+  "initial_sha256": "ecfc42df2ec381259906e2231d7f06007d86b6b3eeb7c909ab9a97c03f464a0d",
+  "kind": "goal",
+  "name": "open_and_put_blue_in_keep_red_inside",
+  "poses": {
+    "blue": [
+      -0.38972293654681545,
+      0.3084819101628526,
+      0.02,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "red": [
+      0.0975330397761521,
+      -0.07159565697190723,
+      0.063,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "prepared": 1790262246.4742548,
+  "robot_qpos": null,
+  "seed": 24092606,
+  "stages": [
+    "open",
+    "blue_in"
+  ],
+  "task": "drawer_exchange"
+}

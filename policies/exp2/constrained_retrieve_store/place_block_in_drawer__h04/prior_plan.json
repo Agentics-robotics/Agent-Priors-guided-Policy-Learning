@@ -1,0 +1,72 @@
+{
+  "cut_plan_sha256": "388b2863018f5e4ec92a10a0b6a0efd22bb0182ef311ace074f29094ca4f82f2",
+  "priors": [
+    {
+      "applicability": "Prefer when the drawer is open and stable and the block begins plausibly attached, indicated only heuristically by close object/TCP centers and common recent motion, especially if the held block is displaced from demonstrated entries and the same policy must continue through release, retreat, and handle approach. Use h01 only for a reliably attached transport interval, h02 when the block is already separated/deposited or destination anchoring alone is desired, and h03 for near-nominal local phase ambiguity. This guidance does not treat proximity as contact truth.",
+      "evidence": [
+        {
+          "indices": [
+            680,
+            840,
+            880,
+            895,
+            900,
+            910,
+            920,
+            940,
+            960,
+            1080,
+            1159
+          ],
+          "trajectory_id": "demo12100"
+        },
+        {
+          "indices": [
+            680,
+            840,
+            880,
+            895,
+            900,
+            905,
+            920,
+            940,
+            960,
+            1080,
+            1159
+          ],
+          "trajectory_id": "demo12102"
+        },
+        {
+          "indices": [
+            680,
+            840,
+            880,
+            890,
+            895,
+            900,
+            920,
+            940,
+            960,
+            1080,
+            1159
+          ],
+          "trajectory_id": "demo12104"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer is open and stable; target_pose and object_pose are reliable; the block is high outside the tunnel and plausibly held close to the TCP; measured qpos admits a feasible transport toward the cavity.",
+        "exit_conditions": "The block is stationary inside the cavity at drawer-floor height and separated from the TCP; the gripper has retreated without disturbing it and has reached the drawer-handle approach.",
+        "failure_signatures": "Object stops following the TCP before cavity alignment; proximity weight collapses while the block should be held or remains high after a drop; opening occurs outside the cavity; the object remains above floor height or follows the retreat after opening; the reference weight chatters under noisy poses; or IK reports nonconvergence/limit contacts for a decoded displaced target.",
+        "overlap_role": "Retain all [680,1160) actions. The 680:840 retrieval overlap supervises attached lift/transfer in the object-dominant frame. The 900:1160 closing overlap supervises release separation, destination-dominant retreat, reorientation, and handle approach/grasp.",
+        "successor_readiness": "close_drawer may receive during 900:1160, but drawer motion waits until two causal frames show the block at drawer-floor height, stationary, and separated from the TCP. The soft proximity weight is guidance only, not proof of release."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"destination_pose_field\":{\"type\":\"string\",\"enum\":[\"target_pose\"]},\"manipulated_object_pose_field\":{\"type\":\"string\",\"enum\":[\"object_pose\"]}},\"required\":[\"destination_pose_field\",\"manipulated_object_pose_field\"]},\"parameter_semantics\":\"destination_pose_field selects the live observed world pose of the drawer placement goal; manipulated_object_pose_field selects the live observed world pose of the block. Both are resolved in each causal state and fresh execution state. Positions are metres and quaternions are wxyz. The deterministic reference weight is 1 below 0.025 m object\u2013TCP center distance, 0 above 0.055 m, and cubic smoothstep between.\"}",
+      "limitations": "Object\u2013TCP distance is not contact truth. A false close-proximity cue, pose noise in the transition band, or a premature drop can choose the wrong frame; no demonstration establishes recovery. Large displacements can be unreachable or collide despite Cartesian equivariance. The object pose and target pose must be reliable, and a blended frame does not remove robot-posture, joint-limit, or collision dependencies. The post-release handle transition remains learned from a small, narrow dataset.",
+      "pipeline_implications": "Add h04 beside immutable h01\u2013h03. The high-level agent supplies only the declared object and destination field names. h04 covers a displaced attached block through the release transition by changing its action frame causally: object-dominant at close proximity and destination-dominant after separation. Continue h04 only while observations remain consistent; switch to h02 for an already separated block or stable destination-relative completion, and to h03 for local ambiguous timing near nominal geometry. close_drawer waits for observed settling rather than the blend weight alone.",
+      "rationale": "Observed demonstrations show object/TCP centers close during transport and separating during release, with variable release timing: demo12100 opens at 910 and settles by 920, demo12102 opens at 900 and settles by 905, and demo12104 opens at 895 and settles by 900. h01's object-frame policy passed 5/12 nominal validations, whereas h02 and h03 passed 12/12; causation is unconfirmed, but a resting object's pose is semantically weak for retreat and handle approach. A soft causal hybrid frame targets that boundary: when distance <=0.025 m its pose is exactly the live object pose, so carry/descent TCP targets are rigidly equivariant to block translation and rotation by construction. When distance >=0.055 m it is exactly target_pose, so retreat and handle targets cannot be shifted by an off-centre resting block. Between, translation is linearly blended and orientation follows the destination-to-object SO(3) geodesic with cubic smoothstep weight. Every training target uses the frame computed from that slot's pre-action observation; every executed slot recomputes it from the fresh state. The standard backbone diffuses an 8D relative pose quaternion plus gripper action from two 48D causal feature frames. No auxiliary head or backbone change is required.",
+      "statement": "Proximity-gated hybrid SE(3) action frame: represent commanded TCP poses relative to a smooth live reference that is exactly the manipulated object frame while object and TCP are close, and exactly the destination frame after they separate.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12100\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12101\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12102\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12103\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12104\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12105\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12106\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12107\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12108\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12109\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12110\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12111\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"}]"
+    }
+  ],
+  "skill_id": "place_block_in_drawer"
+}

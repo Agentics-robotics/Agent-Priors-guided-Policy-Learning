@@ -1,0 +1,137 @@
+{
+  "checkpoint": "provenance/relocated/e8b03f818e6b81ff",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "62b3f426633a27908e2f96af7ee3ca8e3f32b9f6e31b3f24fb10157054f325bd",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 1,
+    "physical_gpu": 2,
+    "uuid": "GPU-7a6705f2-1132-637d-000e-c94d37e2f0a2"
+  },
+  "effective_action_targets": 39211281,
+  "final_weights_sha256": "ac9958268a65862e35710c07338aba67d020ec8f149496692f330f75d5d950e8",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.870992422103882,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.7437803745269775,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.832155466079712,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.11549468338489532,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "d735ee1ab02797e1366d51dedde9d3192107917c24b4fc4183ce860fdd7d1c01",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 7440,
+      "duplicated_actions": 0,
+      "unique_actions": 7440
+    },
+    "contract": {
+      "action_dimension": 7,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination": {
+            "enum": [
+              "red_goal"
+            ],
+            "type": "string"
+          },
+          "phase": {
+            "enum": [
+              "drawer_release_to_red",
+              "red_grasp_transport_place",
+              "red_release_to_blue",
+              "blue_pickup"
+            ],
+            "type": "string"
+          },
+          "primary_object": {
+            "enum": [
+              "red"
+            ],
+            "type": "string"
+          },
+          "successor_object": {
+            "enum": [
+              "blue"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "phase",
+          "primary_object",
+          "successor_object",
+          "destination"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Encode demonstrated commanded-TCP FK relative to the causal chunk TCP, decode by exact SE(3) composition, solve IK from measured joints, and compare world TCP position metres, rotation radians, and gripper scalar. Rotation-vector log/exp is exact on valid encoded labels up to numerical tolerance; nonunique joints are judged only in task space.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "Four contiguous bindings per demonstration cover [230,445), [445,620), [620,780), and [780,850), so every assigned action is supervised exactly once. This retains complete [230,470) overlap with open_drawer and [600,850) overlap with blue_insert while supplying coarse semantic phase intent.",
+      "input_shapes": {
+        "features": [
+          2,
+          44
+        ],
+        "phase": [
+          4
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "red_pose",
+        "blue_pose",
+        "drawer_position",
+        "drawer_velocity",
+        "red_goal",
+        "blue_goal"
+      ],
+      "output_semantics": "Each slot is [dx,dy,dz,rx,ry,rz,gripper]. Translation is metres in the TCP frame frozen from the newest causal observation at chunk construction. Rotation is a relative rotation vector in radians for target orientation in that same frame. The decoder composes the relative pose with the causal chunk TCP and calls panda_kinematics.solve_ik from freshly measured joints. Gripper preserves the demonstrated scalar and common nonnegative=open, negative=close semantics. Slots represent t-1 through t+14; execution uses slots 1 through 8.",
+      "parameter_semantics": "phase is high-level semantic intent selected from observable responsibility, not elapsed time: drawer_release_to_red opens/retreats and approaches red; red_grasp_transport_place closes on red and carries/descends; red_release_to_blue opens, clears red, and transits toward blue; blue_pickup approaches/closes/lifts blue. Object and destination identifiers select current observed red, blue, and red_goal relations in metres and world SE(3) poses.",
+      "policy_id": "red_transfer__h03",
+      "skill_id": "red_transfer",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "58e57aa5bcf5851d844d6ad98b8d776c1647adb35bedf6e7f9e85191248dea65",
+    "PRIOR.md": "6360b41d01b7d46704f72579d3baa2c1c6cc4d618fd9dd233e39fbff49335587",
+    "adapters.py": "68f0bbfd6dbfbdd6f798ac5e0360680478bad616581395cfc768721a8fd85545",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "2ff89bf05cbe5f0a24fa2034a0b3570b044c5e3077d5c5328d3f7ff1defe0ef2",
+    "policy.py": "fdc782a6ec87fe9b2e5ef34b349ea1e0844ec3532f6bba2a804293904d490a05",
+    "policy_contract.json": "e43b85a64ce6f132c3530aca0ae115db8e951743db71a3b8b4c874f4360ec418",
+    "training_bindings.json": "e60fa79eb48a6d3be5f7f519e081f51b7c99dc125167c3f359ce72baf013fc95"
+  },
+  "trainable_parameters": 16983175,
+  "training_elapsed_seconds": 685.875854776008,
+  "weight_l2_change": 27.989398471744124
+}

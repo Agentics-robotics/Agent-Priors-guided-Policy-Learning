@@ -1,0 +1,100 @@
+{
+  "checkpoint": "weights/exp2/covered_peg_assembly/retrieve_peg_from_box__h04/model.pt",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "8b485664f5e56034dbbdb0bcd576a4eabf3ac28dc4515d8f0ffa39162d1699a3",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 1,
+    "physical_gpu": 2,
+    "uuid": "GPU-7a6705f2-1132-637d-000e-c94d37e2f0a2"
+  },
+  "effective_action_targets": 40449366,
+  "final_weights_sha256": "000b667a0b8af7dc4c4771147c97d7395dbce6be65f3fa29aea90f6a6fcd5140",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.777371883392334,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.677430152893066,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.569483280181885,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.12220830470323563,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "8944015f63ba7a619845f17fb42d09a218b57145ca1126cdfd808d713f6c12b3",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 6360,
+      "duplicated_actions": 0,
+      "unique_actions": 6360
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Add the stored chunk reference to each encoded position offset, reconstruct its world 6D orientation, solve IK, and compare FK against the demonstrated commanded TCP pose in metres/radians plus the gripper scalar. The fixed reference subtraction/addition is exactly invertible; IK convergence, residuals and limit contacts remain explicit.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "All twelve assigned [740,1270) segments are unchanged. Every action remains supervised, preserving the 210-action incoming [740,950) and 150-action outgoing [1120,1270) overlaps. The object-selective coordinates refine representation without changing responsibility, timing, labels or success criteria.",
+      "input_shapes": {
+        "features": [
+          2,
+          73
+        ]
+      },
+      "observation_dependencies": [
+        "peg_pose",
+        "lid_pose",
+        "lid_position",
+        "lid_velocity",
+        "qpos",
+        "qvel",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each prediction slot is [world-axis TCP position offset xyz in metres from the active reference point fixed at causal chunk start, world-frame TCP rotation as the first two rotation-matrix columns (6D), native gripper scalar]. Training subtracts the same chunk reference from FK of each demonstrated joint command in all 16 slots. Decode adds that fixed reference, projects 6D rotation by safe Gram-Schmidt, and calls panda_kinematics.solve_ik from freshly measured qpos. The lid-handle reference covers release; the peg-center reference makes post-release approach, grasp and lift translation-equivariant at each replan. Slots are t-1 through t+14 and execution uses slots 1 through 8. Gripper values >=0 open and values <0 close.",
+      "parameter_semantics": "No high-level arguments. The executor supplies two causal observations, oldest first. At every 8-action replan, the newest observed state selects and resolves a chunk-fixed world translation reference: the observed lid-handle point only while the peg is low, TCP-to-handle distance is at most 0.10 m, and finger width is below 0.07 m; otherwise the observed peg center. Only the initial episode observation may be duplicated for padding.",
+      "policy_id": "retrieve_peg_from_box__h04",
+      "skill_id": "retrieve_peg_from_box",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "975bf9642667191dca6b9dd3efd5e6afffa65ccbb989265393e0da71a855af40",
+    "PRIOR.md": "0f7587465c87d651ff198bff054b04709f76b78d900b64cc48dd10e19bd33de9",
+    "adapters.py": "b7a09e37daf8dde59f72177c91ba1e421b86a9adea0cb985ae1331dd660ea922",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "pipeline.json": "75986cd74185cd90bf84559743c81a5bdc66764a27184d4e5d1e68503fa2b0b7",
+    "policy.py": "d1493ccdb8b5d00baf3f69bdb1cd5a0884c33a9396969cd27ed49ec15ddb5005",
+    "policy_contract.json": "7c7023e71af3c0341d32ead53e6847f74bc0f2e43439eebf34d58a8aa27e6453",
+    "training_bindings.json": "4d7edcebd02c5e02821939677448d1abc49f54f2ee47214f944d0f47ac3c800f"
+  },
+  "trainable_parameters": 17372938,
+  "training_elapsed_seconds": 516.642375868978,
+  "weight_l2_change": 29.507446495580606
+}

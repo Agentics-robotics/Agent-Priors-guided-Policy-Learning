@@ -1,0 +1,203 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        0,
+        260,
+        320,
+        480
+      ],
+      "trajectory_id": "demo10100"
+    },
+    {
+      "indices": [
+        0,
+        270,
+        480
+      ],
+      "trajectory_id": "demo10101"
+    },
+    {
+      "indices": [
+        0,
+        260,
+        480
+      ],
+      "trajectory_id": "demo10102"
+    },
+    {
+      "indices": [
+        0,
+        260,
+        480
+      ],
+      "trajectory_id": "demo10103"
+    },
+    {
+      "indices": [
+        0,
+        260,
+        480
+      ],
+      "trajectory_id": "demo10104"
+    },
+    {
+      "indices": [
+        0,
+        250,
+        480
+      ],
+      "trajectory_id": "demo10105"
+    },
+    {
+      "indices": [
+        0,
+        260,
+        480
+      ],
+      "trajectory_id": "demo10106"
+    },
+    {
+      "indices": [
+        0,
+        260,
+        490
+      ],
+      "trajectory_id": "demo10107"
+    },
+    {
+      "indices": [
+        0,
+        260,
+        480
+      ],
+      "trajectory_id": "demo10108"
+    },
+    {
+      "indices": [
+        0,
+        260,
+        480
+      ],
+      "trajectory_id": "demo10109"
+    },
+    {
+      "indices": [
+        0,
+        260,
+        480
+      ],
+      "trajectory_id": "demo10110"
+    },
+    {
+      "indices": [
+        0,
+        260,
+        480
+      ],
+      "trajectory_id": "demo10111"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Gripper open; TCP high and clear near the demonstrated home pose; red is on the initially blue region near y=-0.2 and blue is on the initially red region near y=+0.2; neither object is held.",
+    "exit_conditions": "Core cue: red is settled in the free center near (-0.181, 0, 0.020), gripper open, and TCP clear. Overlap-supported segment cue: red is still stationary in the buffer and blue, not red, is the intended object under the TCP with gripper closed and blue beginning to lift.",
+    "failure_signatures": "Red remains elevated, follows the TCP after opening, or is outside the free center; the gripper stays closed on red; TCP is not clear; blue is displaced before a secure grasp. All demonstrations are successful, so they do not establish recovery from dropped, collided, or otherwise unseen error states.",
+    "overlap_role": "The receiving blue skill starts during the final red lowering/release. Shared supervision then covers opening, retreat from red, transit to blue, blue contact/closure, and initial lift. Thus an object near the gripper at overlap entry is the red object being released; the intended next object is blue.",
+    "successor_readiness": "Switch once red is visibly stable in the buffer and the gripper is open/clear; a later switch remains represented through blue acquisition and lift. Expected benefit: tolerance to handoff timing and intermediate approach states, while causal history is retained across the switch."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Move red block to central buffer",
+  "original_demonstration_count": 12,
+  "plan_hash": "6ff90d860db25d097efcfc9bbe61fa3421abe180b8b3d234811997a8e283064a",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "This is a distinct temporary-storage responsibility required to free the blue target. Entry is the home/clear TCP with both blocks on their sampled initial regions. Observable core exit is red resting near x=-0.181, y approximately 0, z approximately 0.020 with the gripper open and TCP retreating. Segment exit is later: red remains stationary in the buffer while blue is closed on and lifted to roughly z=0.09-0.18 (demo10100:480, demo10101:480, demo10105:480). Front images in demo10100 at 260, 320, and 480 show red placement/retreat followed by blue pickup. The extension is overlap support, not a second core responsibility.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Move red from the sampled initial blue region to the central buffer; release/retreat, then continue through blue grasp and initial lift.",
+      "start": 0,
+      "stop": 480,
+      "trajectory_id": "demo10100"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Move red to the central buffer; retain the transition from red release through the initial blue lift.",
+      "start": 0,
+      "stop": 480,
+      "trajectory_id": "demo10101"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Move red to the central buffer; retain red release, retreat, blue approach/contact, and initial lift.",
+      "start": 0,
+      "stop": 480,
+      "trajectory_id": "demo10102"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Move red to the central buffer; retain successor approach and initial blue lift.",
+      "start": 0,
+      "stop": 480,
+      "trajectory_id": "demo10103"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Move red to the central buffer; retain the release-to-blue-pick transition through blue lift.",
+      "start": 0,
+      "stop": 480,
+      "trajectory_id": "demo10104"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Move red to the central buffer; retain transition actions through a secured, lifted blue block.",
+      "start": 0,
+      "stop": 480,
+      "trajectory_id": "demo10105"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Move red to the central buffer; retain release, retreat, blue contact, and initial blue lift.",
+      "start": 0,
+      "stop": 480,
+      "trajectory_id": "demo10106"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Move red to the central buffer; this occurrence needs the later stop to include a clearly lifted blue block.",
+      "start": 0,
+      "stop": 490,
+      "trajectory_id": "demo10107"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Move red to the central buffer; retain successor approach/grasp and initial blue lift.",
+      "start": 0,
+      "stop": 480,
+      "trajectory_id": "demo10108"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Move red to the central buffer; retain the handoff transition through blue lift.",
+      "start": 0,
+      "stop": 480,
+      "trajectory_id": "demo10109"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Move red to the central buffer; retain release-to-blue-pick actions through initial lift.",
+      "start": 0,
+      "stop": 480,
+      "trajectory_id": "demo10110"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Move red to the central buffer; retain the transition through blue grasp and lift.",
+      "start": 0,
+      "stop": 480,
+      "trajectory_id": "demo10111"
+    }
+  ],
+  "skill_id": "buffer_red",
+  "subgoal": "From an open, clear gripper with red in the initially blue region, approach red from above, close around it, lift and carry it to the free central area, lower it to the table, open, and retreat. The core responsibility is red-to-buffer relocation. The tail is deliberately extended through approach, grasp, and initial lift of blue so a late handoff remains action-supervised."
+}

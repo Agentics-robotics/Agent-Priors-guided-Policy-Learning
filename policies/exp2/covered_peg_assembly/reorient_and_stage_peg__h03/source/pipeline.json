@@ -1,0 +1,16 @@
+{
+  "policy_id": "reorient_and_stage_peg__h03",
+  "skill_id": "reorient_and_stage_peg",
+  "heuristic_index": 3,
+  "prior_summary": "Chunk-start TCP-frame translation and rotation-vector targets, conditioned on causal relative geometry and explicit clearance/alignment/progress cues, reanchor every execution chunk for off-timing handoff states.",
+  "applicable_conditions": "Prefer when the peg is still held but a neighboring skill hands off at a valid non-nominal phase, current tcp_pose is trustworthy, two-frame motion is available, and scene displacement is modest.",
+  "termination_guidance": "Transfer to insertion when causal observations show stable coupling, near hole-axis orientation, y/z centering, and descent to hole height. Use any of the retained [1380,1500) overlap for robust takeover.",
+  "limitations": "Local coordinates do not guarantee a globally correct route under large fixture displacement. Reanchoring cannot recover lost contact, collision, unreachable configurations, or large accumulated execution error.",
+  "config": {
+    "action_frame": "chunk_start_tcp_pose",
+    "rotation_encoding": "rotation_vector",
+    "feature_dimension_per_frame": 73,
+    "backbone": "standard_diffusion_backbone",
+    "auxiliary_loss_weight": 0.0
+  }
+}

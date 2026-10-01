@@ -1,0 +1,38 @@
+{
+  "title": "Multiscale signed metric relations with workspace context",
+  "coverage_gap": "D_N has one LL and one HH trajectory, 168 transitions in total. Their initial goal_y minus pegGrasp_y is about -0.059 and -0.049 m. The specified C and E layouts change that relation independently and can reverse its sign. Normalizing separate world coordinates on two layouts risks encoding layout identity rather than reach and insertion errors.",
+  "reusable_regularity": "Direct signed hand-to-grasp and head-to-goal differences expose compositional geometry without requiring subtraction to be learned from two correlated layouts. Near-contact tanh features at 0.025 m supplement linear 0.1 m features to resolve both centimeter alignment and long-range transport. These scales are physical design constants, not measured optimal hyperparameters. Both histories use the same deterministic feature map; native state differences retain approach direction and closure dynamics. Actions remain learned entirely by the common action4 diffusion process.",
+  "dependencies_preserved": [
+    "World axes, gravity, heights of hand/grasp/head/goal, and a low-gain absolute hand workspace channel are retained; no rotation or full workspace-translation symmetry is assumed.",
+    "Absolute hand position plus signed grasp-hand, head-grasp and goal-head differences reconstruct every present position, including the static box goal. Thus target/box clearance information is not discarded while emphasizing relations.",
+    "Current xyzw peg quaternion and its native previous difference preserve orientation without magnifying tiny near-constant quaternion noise with a learned support scale.",
+    "Aperture, its previous difference, hand and peg native previous displacement, and the observed inter-history pegHead displacement preserve causal motion and contact cues. The first history slot's head difference is zero because an older pegHead is not supplied.",
+    "Absent object2 channels are omitted only because common_spec declares them absent zeros. No unobserved obstacle locations or contact flags are used."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exactly two complete current-support episodes and no development states."},
+    {"path": "task_materials.json", "detail": "Independent peg_y and box_y evaluation factors; world action4; separate pegGrasp and pegHead channels; fixed end-effector orientation."},
+    {"path": "support_summary.json", "detail": "LL/HH counts, 77/91 transitions, nearly identity peg quaternions, initial geometry and goal heights."},
+    {"path": "trajectories/demo_00.json", "detail": "Observed rows 0-4,31-34,48-53,64-68: grasp and head differ by approximately [-0.13,0,-0.01] m; aperture decreases before lift; velocity is useful during overshoot."},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Peg on table beside raised side-insertion box."},
+    {"path": "images/frame_04_demo_00_step_045.png", "detail": "Grasp approach near table; table height cannot be quotiented out."},
+    {"path": "images/frame_06_demo_00_step_068.png", "detail": "Peg approaches box side while held; head-to-goal rather than grasp-to-goal is an alignment cue."},
+    {"path": "images/frame_15_demo_01_step_091.png", "detail": "Late held-peg insertion configuration in the second layout."}
+  ],
+  "expected_failure_signature": [
+    "If relative lifting is insufficient, grasping should remain plausible but transport lateral commands may retain the demonstrated negative-y bias in positive-offset C/E layouts.",
+    "This has no explicit manipulation-mode representation; closure/lift switches may average across similar geometric states, causing premature lift, prolonged table pressure, or stalled insertion.",
+    "Absolute workspace context allows but does not guarantee robot-boundary generalization. Extreme E layouts can still fail at reach or box clearance."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,42], containing only shared deployment observations",
+    "slices": {"hand": [0,3], "aperture": [3,4], "pegGrasp": [4,7], "peg_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_pegGrasp": [22,25], "previous_peg_quaternion_xyzw": [25,29], "goal": [36,39], "pegHead": [39,42]},
+    "normalization": "Use raw fields for fixed physical scales, not common normalized coordinates. The common host normalizer and budget are unmodified; no fitted statistics are added."
+  },
+  "action_frame_semantics": "Identity encode/decode. First three components are native dimensionless world dx,dy,dz, scaled by 0.01 m by native control; fourth is native gripper scalar, never translated or rotated. Only the public executor clips the native cube. Horizon16 and executed prefix4 are unchanged.",
+  "training_only_targets": [],
+  "loss_and_capacity": "44 conditioning features per observation, one unchanged common DP, no extra modules or auxiliary losses. Common masked action epsilon loss has weight1 and denominator mask.sum()*4.",
+  "support_fit": "None; deployment_state_dict is the empty base state. No demonstration rows or phase schedules are cached.",
+  "parents": [],
+  "change_summary": ["Initial independent model: deterministic multiscale geometric representation with identity action frame.", "No optimizer updates, rollouts, performance feedback, or architecture search used in construction."]
+}

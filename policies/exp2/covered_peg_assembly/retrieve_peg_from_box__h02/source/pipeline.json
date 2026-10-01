@@ -1,0 +1,17 @@
+{
+  "policy_id": "retrieve_peg_from_box__h02",
+  "skill_id": "retrieve_peg_from_box",
+  "heuristic_index": 2,
+  "prior_summary": "Current-TCP-frame SE(3) increments make each target conditional on the actual hand pose, addressing modest intermediate-state and incoming hand-configuration mismatch.",
+  "applicable_conditions": "Prefer when the skill is entered early or late with TCP pose or qpos differing from nominal demonstration timing, while the peg/lid geometry remains reachable and the required release, approach, closure, or lift is still represented by successful demonstrations.",
+  "termination_guidance": "Replan after each 8-action chunk. Exit only after local lifts yield a closed-gripper peg above the wall and the two observed frames show peg/TCP co-motion; then use the outgoing-overlap successor.",
+  "limitations": "Local increments can drift or oscillate and do not prove feedback stability. Peg displacement is conditioned but not canceled. No demonstrations cover miss, drop, regrasp, blocked lid, or collision recovery.",
+  "config": {
+    "action_reference": "fresh_measured_tcp_pose",
+    "action_rotation": "rotation_vector",
+    "action_dimension": 7,
+    "input_feature_dimension_per_frame": 56,
+    "backbone": "standard_diffusion_backbone",
+    "auxiliary_loss": false
+  }
+}

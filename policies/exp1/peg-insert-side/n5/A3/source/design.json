@@ -1,0 +1,51 @@
+{
+  "title": "Contact-conditioned lateral reflection and joint outcome diffusion",
+  "coverage_gap": "All five support layouts start with the goal below the peg in world y, by roughly0.041-0.059 m, although reach directions from the hand have both signs. C/E can require the opposite transport direction and a much larger displacement. A3 explicitly folds the undercovered positive post-contact lateral direction into negative-error coordinates and learns action/outcome correlations jointly, rather than asking signed-feature regression alone to extrapolate.",
+  "reusable_regularity": "Once the hand is near the grasp point with a small aperture, reversing a lateral goal error approximately reverses lateral transport without reversing gravity, insertion x, or gripper closure. Use only this partial symmetry, and retain world/asymmetry information. A ten-channel common U-Net jointly denoises encoded action4 and six future geometric-error coordinates so the diffusion model learns correlations between grasp maintenance, head alignment and actions. It does not optimize a plan or query a forward model.",
+  "dependencies_preserved": [
+    "The frame is S=diag(1,s,1), not a full task-goal rotation: x insertion direction and z/table clearance stay in native axes.",
+    "Signed reflected reach, insertion and shaft vectors preserve both pegGrasp and pegHead dependencies; both native previous-step motion vectors and both whole causal observations use the same chunk-start frame.",
+    "Current and previous xyzw quaternion transform by (s*qx,qy,s*qz,qw), the axial-vector rule for S R S, so orientation remains consistent with vector reflection.",
+    "Unreflected coarse absolute hand and goal xyz, all relevant heights and explicit reflection parity preserve robot/world and obstacle placement dependencies. This allows the DP to learn deviations from ideal lateral mirror symmetry.",
+    "Aperture is never reflected and the absence of object2 is the only reason its zero channels are omitted. The box is located by the provided goal, never by a hidden box pose or simulator call.",
+    "The deterministic contact surrogate uses only current aperture and hand-to-grasp distance. It is neither a contact oracle nor an inferred action command."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact five-episode evidence scope; no performance or additional task data."},
+    {"path": "task_materials.json", "use": "Independent peg_y/box_y evaluation factors, fixed orientation, native action cube, world axes and explicit head channel."},
+    {"path": "support_summary.json", "use": "All initial peg-to-goal y offsets negative; initial hand-to-peg y has both signs; only LL and HH demonstrations. This motivates reflection only after the contact-like stage, not during reaching."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "World-constrained peg and side-opening geometry; gravity and side insertion are not arbitrary rotational symmetries."},
+    {"path": "images/frame_02_demo_00_step_056.png", "use": "Grasp/transport geometry differs from free reaching."},
+    {"path": "images/frame_05_demo_01_step_062.png", "use": "Peg carried toward the side opening with orientation largely maintained."},
+    {"path": "images/frame_06_demo_01_step_090.png", "use": "End geometry supports head-to-goal alignment as an outcome variable."},
+    {"path": "trajectories/demo_00.json", "rows": "obs0:4,44:53,64:69; actions40:64", "use": "Near-grasp aperture falls through0.5 and hand/peg separation becomes small; transport moves pegHead as well as hand; later y overshoot motivates a5mm identity-frame deadband."},
+    {"path": "trajectories/demo_01.json", "rows": "obs62:65", "use": "Coherent hand and head displacement during grasped transport in HH as well as LL."},
+    {"path": "contracts.py", "scope": "public", "use": "Joint diffusion permits appended channels but action4 remains first and frame is fixed at causal chunk start."},
+    {"path": "learning.py", "scope": "public", "use": "Inference samples all ten channels without future truth and executes only decoded action4. Common action epsilon normalization is unchanged."}
+  ],
+  "expected_failure_signature": [
+    "If approximate lateral mirror symmetry is invalid because of robot or box-side interactions, previously unseen positive transport may approach the correct y but show different contact or overshoot errors than matched negative transport.",
+    "The contact surrogate can reflect a closed empty gripper; this would produce transport commands without a corresponding carried peg. A failure to recognize contact instead leaves positive transport in its unsupported native frame.",
+    "Parity changes near the5mm boundary or contact threshold can cause chunk-to-chunk y oscillation despite exact within-chunk invertibility.",
+    "Joint auxiliary diffusion may memorize the narrow support's future path and interfere with actions for longer E transports; predicted lateral outcome range would then remain too short. No such outcome or performance is claimed as observed."
+  ],
+  "required_runtime_fields": {
+    "context": ["raw_history [B,2,42]", "raw_current [B,42]"],
+    "source_slices_each_observation": {"hand_xyz": [0,3], "gripper": [3,4], "pegGrasp_xyz": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_pegGrasp_xyz": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal_xyz": [36,39], "pegHead_xyz": [39,42]},
+    "not_required": ["future relations", "contact labels", "stage oracle", "elapsed step", "initial episode layout cache", "simulator", "images at inference"]
+  },
+  "action_frame_semantics": {
+    "causal_frame_definition": "At the current chunk start, contact=(aperture<0.5 and norm(pegGrasp-hand)<0.065m). Set s=-1 only if contact and goal_y-pegHead_y>0.005m, otherwise s=+1. This intentionally leaves reaching in native coordinates and retains a near-alignment identity deadband.",
+    "encode": "For all16 native action4 rows use [dx,s*dy,dz,gripper]. No translation, rescaling, clipping or action generation is performed.",
+    "decode": "Use the identical chunk-start s: [encoded_dx,s*encoded_dy,encoded_dz,gripper]. S squared equals I; y reflection preserves the native action cube and Euclidean translation scale. Gripper remains its scalar native command. Only the executor clips and executes the fixed four-action prefix.",
+    "quaternion": "Reflection is a coordinate mapping, not an executable wrist rotation. Orientation channels use S R S; the native end-effector orientation is unchanged.",
+    "future_channels": "All future labels are reflected by this same chunk-start s, never a future-state-derived frame. Sampled future channels never select the frame."
+  },
+  "training_only_targets": [
+    {"name": "future_relations_world", "shape": "[windows,16,6]", "source": "For k=0..15, current D5 obs[t+k+1]: concatenate (pegGrasp-hand)/0.1m and (goal-pegHead)/0.2m. Beyond the final transition, repeat obs[T] for finite padding only. Convert to the chunk-start reflected coordinates in diffusion_targets and append after encoded action4.", "loss": "Auxiliary epsilon MSE weight0.15 on channels4:10, divided by6*sum(valid_mask) with a safe zero-valid denominator. Invalid padded elements contribute zero. The host's action epsilon loss remains weight1 and denominator4*sum(valid_mask). At inference these6 channels start from host noise and are sampled jointly; there are no future targets in context and no auxiliary decoding controller."}
+  ],
+  "architecture": "Single unchanged factory U-Net with condition_dim50 per observation and diffusion_action_dim10. No additional learned encoder, auxiliary head, planner or support-fit statistics. Deterministic physical-scale feature map and orthogonal involutive action encoding.",
+  "support_fit_statistics": "None. All target arrays are produced only through training_targets on exact D5; no trajectory or label cache is stored in deployment state.",
+  "parents": [],
+  "change_summary": "Initial independent design with a contact-conditioned lateral action frame and joint future-geometry diffusion. Unlike A1 it modifies the diffusion variable/frame; unlike A2 it has no learned router or auxiliary regression head. All three scientific designs were specified before any development performance feedback."
+}

@@ -1,0 +1,74 @@
+{
+  "cut_plan_sha256": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+  "priors": [
+    {
+      "applicability": "Prefer controlled_pour_and_right__h04 when the source is securely and approximately rigidly held, the bowl/container/TCP poses are reliable, the bowl may be displaced from its demonstrated pose, and retaining a direct source-orientation target through late righting is important. It is applicable from the supervised early lift/carry entry through the pour, righting and initial outbound carry. The high-level agent should favor it over h03 when absolute anchoring is more important than local source increments, and over h01 when an atypical but rigid container-to-TCP transform makes direct source-pose control useful. h02 remains preferable when the entry is an unusual ambiguous partial-discharge state and local correction is the main concern.",
+      "evidence": [
+        {
+          "indices": [
+            180,
+            320,
+            360,
+            700,
+            800,
+            900,
+            1000,
+            1100,
+            1200,
+            1460,
+            1600,
+            1680,
+            1740
+          ],
+          "trajectory_id": "demo12300"
+        },
+        {
+          "indices": [
+            180,
+            320,
+            360,
+            700,
+            800,
+            900,
+            1000,
+            1100,
+            1200,
+            1460,
+            1600,
+            1680,
+            1740
+          ],
+          "trajectory_id": "demo12303"
+        },
+        {
+          "indices": [
+            180,
+            320,
+            360,
+            700,
+            900,
+            1100,
+            1460,
+            1680,
+            1740
+          ],
+          "trajectory_id": "demo12309"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "The source container is securely closed in the gripper and lifted or lifting clear of support, with reliable bowl, container and TCP poses. Entry may be in the incoming supervised interval [180,360), including a low early lift or a staged high pose. A closed finger command alone is not proof of grasp contact.",
+        "exit_conditions": "At least ten of twelve particles have settled in the bowl, the source container itself is approximately upright with upright cosine above the unchanged 0.97 criterion, remains held, and has begun moving away from the bowl toward the return region.",
+        "failure_signatures": "Stop or switch if the observed container-to-TCP transform changes rapidly, the gripper is open or grasp is uncertain, source/bowl clearance is unsafe, particles spill outside the bowl, fewer than ten particles transfer, the source stays or returns tilted after discharge, or IK diagnostics show persistent residual/limit contact. Validation of the originals indicates that enough particles with container_upright=false is the most relevant terminal failure signature, but no h04 outcome is yet observed.",
+        "overlap_role": "All twelve action intervals [180,1740) are supervised without trimming. This preserves 180 incoming actions [180,360) per trajectory with grasp_lift_stage and 280 outgoing actions [1460,1740) per trajectory with return_place_release. The latter directly supervises tilted-to-upright source motion and initial departure rather than providing observation-only context.",
+        "successor_readiness": "return_place_release is ready once enough particles are settled, the source is observably approximately upright and still securely held, and outbound motion is under way. Nominal readiness is around action 1680, while the fully supervised [1460,1740) overlap allows takeover during late righting or later outbound carry."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false},\"parameter_semantics\":\"No high-level arguments are accepted. The executor supplies two causal physical observations. At every replan and decode, bowl_pose is the observed moving reference, container_pose is the manipulated source, tcp_pose and qpos provide the current rigid-grasp transform and IK seed, particle_positions provide transfer phase, and target_pose is the fixed return destination context. All positions are world metres and pose quaternions are wxyz.\"}",
+      "limitations": "The demonstrations and validation contain no displaced bowl, unusual-grasp, spill, slip, collision or recovery trial, so the claimed benefits are structural expectations. The mechanism assumes reliable object poses and an approximately rigid source-to-TCP transform; slip or pose noise directly corrupts grasp reattachment. Bowl-relative targets can be unreachable, and moving the bowl independently of the return target changes outbound geometry not varied in training. Particle pooling cannot infer hidden contact. The policy cannot establish grasp security, recover lost material, or guarantee correct phase for states outside successful nominal trajectories. Absolute anchoring does not eliminate diffusion sampling errors or long-segment multimodality.",
+      "pipeline_implications": "Add h04 as an independently trained library alternative, not a replacement for h01-h03. The caller passes an empty argument object and retains two-frame causal history across switches. Use observed source uprightness, particle settlement, grasp-transform stability and IK feasibility to select and terminate it. Because h04 directly targets absolute source pose in the bowl frame, it complements h03's local source increment and h02's fresh-TCP residual. The outgoing successor should not take over solely because particles are empty; it should also observe an upright held source. No success rule, temporal setting or numerical budget changes.",
+      "rationale": "All 36 original validation runs finished with twelve particles in the bowl, a continuously closed gripper and no reported unconverged IK step, while every failed run had container_upright=false. h03 even met the exit rule transiently and later failed it in three runs. The demonstrations directly supervise the source from a tilted pose near action 1460 to approximately upright near 1680 and outbound at 1740, with different outbound timing across trajectories. h04 therefore learns an absolute desired container pose rather than a TCP residual or source increment. For each slot, the demonstrated commanded TCP pose is converted through the observed rigid container-to-TCP transform into a desired container pose, then expressed in the observed bowl frame. At execution that target is moved with the fresh bowl pose and reattached through the fresh observed grasp transform before verified IK. This makes carry-to-bowl, pour and righting motion invariant to rigid bowl displacement by construction and anchors the manipulated object's terminal orientation directly. A registered shared particle-token encoder with mean/max pooling supplies permutation-invariant emptying-phase evidence; robot configuration, velocity, target relation, source/TCP relation and both causal frames remain in the condition. The standard diffusion backbone is unchanged. Expected improvement in terminal righting, displacement handling and rigid-grasp handling is unconfirmed until h04 is trained and validated.",
+      "statement": "Absolute bowl-frame desired-source-pose prior with fresh rigid-grasp reattachment and permutation-invariant particle conditioning. The learned 10D Cartesian action is desired container position (3 m) and orientation (6D rotation) in the current observed bowl frame plus the demonstrated gripper scalar. The decoder reconstructs a world desired container pose from the fresh bowl, maps it to a world TCP target using the fresh observed container-to-TCP transform, and calls the verified Panda IK. This directly covers bowl-relative carry, controlled tilt, righting and initial departure while retaining source geometry and terminal upright orientation.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full controlled pour/right supervision, including incoming [180,360), discharge timing, righting and outgoing [1460,1740) overlap.\"},{\"trajectory_id\":\"demo12301\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full source-pose trajectory and both action-supervised handoff overlaps.\"},{\"trajectory_id\":\"demo12302\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full nominal carry, pour, righting and initial outbound source targets.\"},{\"trajectory_id\":\"demo12303\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full supervision including earlier particle settlement and earlier outbound motion, useful for phase and handoff variation.\"},{\"trajectory_id\":\"demo12304\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full source trajectory with incoming and outgoing overlap preserved.\"},{\"trajectory_id\":\"demo12305\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full nominal pour/right sequence and initial return transport.\"},{\"trajectory_id\":\"demo12306\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full sequence from a relatively high early lift through source righting and departure.\"},{\"trajectory_id\":\"demo12307\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full particle-transfer and direct source-orientation supervision with both overlaps.\"},{\"trajectory_id\":\"demo12308\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full nominal pour/right sequence and outgoing handoff actions.\"},{\"trajectory_id\":\"demo12309\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full sequence with slightly different arm/source orientations and outbound timing.\"},{\"trajectory_id\":\"demo12310\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full controlled pour, source righting and return-directed initial travel.\"},{\"trajectory_id\":\"demo12311\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full source-pose sequence with all assigned responsibility and both handoff overlaps.\"}]"
+    }
+  ],
+  "skill_id": "controlled_pour_and_right"
+}

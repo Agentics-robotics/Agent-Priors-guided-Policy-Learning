@@ -1,0 +1,39 @@
+{
+  "title": "Metric multi-resolution reach and insertion relations",
+  "coverage_gap": "The exact D5 contains three LL and two HH episodes and no independent peg-y/box-y combinations. The observed initial peg-to-goal y offsets are all negative and small (about -0.041 to -0.059 m), whereas C/E can change their magnitude or sign. Absolute-y regression can therefore substitute peg location for box location. Only 415 support transitions are available.",
+  "reusable_regularity": "Approaching the pegGrasp site and aligning the pegHead with the box goal require different displacement vectors. Expose both directly to the common DP in fixed world axes. Pair unsaturated metric vectors, which retain extrapolation magnitude, with bounded componentwise near-contact features. Do not fit a narrow sample-standard-deviation normalization for these derived errors. This candidate has no extra learned encoder, stage gate, auxiliary loss, or action transformation.",
+  "dependencies_preserved": [
+    "Hand-to-pegGrasp and goal-to-pegHead are separate signed world vectors; the head-to-grasp shaft offset is retained rather than confusing the two object points.",
+    "World z and the signed x insertion direction are not quotiented away. Four absolute heights retain table and vertical clearance dependence.",
+    "Coarse absolute hand and goal xyz preserve robot reachability and box/world placement; together with the relative vectors they retain all relevant current positions.",
+    "Current and native previous hand/peg differences preserve lag and transport motion; current and previous aperture and xyzw quaternion are retained. The two whole observations are both encoded.",
+    "The absent object2 channels are omitted only because task_materials declares object2_present=false. Box geometry is represented only by the provided goal and fixed world axes, not by any simulator query."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Identity and exclusivity of this five-demonstration evidence bundle."},
+    {"path": "task_materials.json", "use": "Raw slices, world action semantics, fixed orientation, distribution gap and object2 absence."},
+    {"path": "support_summary.json", "use": "LL=3/HH=2, 415 transitions, small negative initial peg-to-goal y offsets, approximately constant quaternion, and peg/head height ranges."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Separate peg, elevated side-opening box, and approaching gripper."},
+    {"path": "images/frame_01_demo_00_step_028.png", "use": "Approach above the peg before grasp."},
+    {"path": "images/frame_02_demo_00_step_056.png", "use": "Grasp/lift geometry distinct from final insertion."},
+    {"path": "images/frame_06_demo_01_step_090.png", "use": "Peg carried to the side opening; world insertion geometry remains relevant."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 0:4,44:53,64:69; actions 40:64", "use": "PegGrasp and pegHead differ by about (-0.13,0,-0.01) m, aperture decreases during grasp, then the peg rises toward goal z=0.13. These observations motivate metric scales, not a scripted policy."},
+    {"path": "PUBLIC_CONTRACT.md", "scope": "public", "use": "Single common DP and causal action/mask constraints."}
+  ],
+  "expected_failure_signature": [
+    "If merely exposing relations does not overcome one-sided training offsets, C/E trials with positive goal-minus-head y should move in the training-negative direction or stall in lateral alignment.",
+    "Near-contact soft features may saturate at larger errors; failure to use the accompanying metric channels would appear as correct motion signs but insufficient transport distance.",
+    "No explicit stage separation means a long novel transport can trigger insertion-height or gripper behavior too early. These are hypotheses, not measured results."
+  ],
+  "required_runtime_fields": {
+    "context": ["raw_history [B,2,42]"],
+    "source_slices_each_observation": {"hand_xyz": [0,3], "gripper": [3,4], "pegGrasp_xyz": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_pegGrasp_xyz": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal_xyz": [36,39], "pegHead_xyz": [39,42]},
+    "not_required": ["future observations", "stage oracle", "simulator state", "elapsed step", "images at inference"]
+  },
+  "action_frame_semantics": "Identity encoding and decoding of native world_dx, world_dy, world_dz, gripper. xyz retains native 0.01 m/unit and gripper retains [g,-g] actuation. Only the host clips the world action cube and executes the fixed four-action prefix.",
+  "training_only_targets": [],
+  "support_fit_statistics": "None. Geometric feature scales are declared constants, not additional fitted normalization or data. The common host still fits its frozen raw normalizer from this D5; the candidate uses raw causal geometry.",
+  "architecture": "Per-observation 51-dimensional deterministic representation into one unmodified factory U-Net; no additional trainable modules. Common action epsilon loss only.",
+  "parents": [],
+  "change_summary": "Initial independent design. Replaces normalized-raw conditioning by explicit, physically scaled relation features while preserving native action4 and necessary world dependencies. No performance evidence was available."
+}

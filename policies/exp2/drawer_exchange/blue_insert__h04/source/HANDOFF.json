@@ -1,0 +1,14 @@
+{
+  "policy_id": "blue_insert__h04",
+  "entry_conditions": "drawer_position is strictly above 0.26 m; red is on or being released over the outside pad; blue is outside, approached, or carried; source_object resolves to observed blue_pose and destination_field resolves to blue_goal. At earliest entry the fingers may still be closed around red, so closure alone is not evidence of a blue grasp.",
+  "exit_conditions": "Use the unchanged simultaneous task condition at one observation: drawer_position strictly above 0.26 m, red fully contained on its pad with center z in (0.014,0.031) m, and blue fully contained in the drawer cavity with center z in (0.053,0.074) m. Release and high retreat are not additional requirements.",
+  "overlap_role": "Every [600,stop) action remains supervised. This includes all 250 actions from 600 through 849 in each trajectory shared with red_transfer, totaling 3,000 labels over final red lowering/release, retreat, cross-scene transit, blue approach, closure, and lift.",
+  "successor_readiness": "There is no learned manipulation successor. Continue through insertion and the demonstrated release/retreat when appropriate, then defer to framework success evaluation. A stable carried blue near the drawer is a suitable handoff to the destination-anchored h02 policy if corridor progress is uncertain.",
+  "failure_signatures": "Predicted progress alpha selects the wrong corridor anchor; a source displacement drags red-release targets toward blue; pickup is pulled toward the drawer before a secure grasp; blue fails to co-move after closure; IK is unconverged or contacts limits; TCP/blue approaches the drawer lip or wall; drawer_position falls to 0.26 m or below; red leaves its pad; or blue center/extent/z misses final bounds.",
+  "continuation_guidance": "Replan every eight executed actions so the selected blue and goal endpoints refresh causally. Prefer this policy for translated free-blue acquisition or changed source-goal separation. Prefer h02 once stable blue/TCP co-motion near the drawer makes destination alignment dominant, h01 for source rotation, and h03 for small fresh-TCP tracking deviations. Abort or replan on suspected drop/collision rather than assuming recovery.",
+  "limitations": "The representation guarantees only a predictable positional transformation for fixed predicted alpha; it does not guarantee phase estimation, reachability, collision avoidance, or contact. Orientation is world aligned. Proximity, finger closure, and co-motion are cues rather than contact truth. No drop, re-grasp, wall-impact, or insertion-recovery demonstrations exist.",
+  "evidence": [
+    {"trajectory_id":"demo1000","indices":[600,620,650,700,740,780,800,810,820,830,850,870,900,930,950,970,990,1010,1030,1050,1064]},
+    {"trajectory_id":"demo1005","indices":[600,620,650,700,740,780,800,810,820,830,850,870,900,930,950,970,990,1010,1030,1050,1069]}
+  ]
+}

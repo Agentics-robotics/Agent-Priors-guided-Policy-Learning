@@ -1,0 +1,10 @@
+{
+  "policy_id": "open_drawer__h03",
+  "skill_id": "open_drawer",
+  "heuristic_index": 3,
+  "prior_summary": "Use a learned causal relational condition encoder with masked five-phase auxiliary supervision while diffusing absolute world Cartesian targets for nominal-calibration stage ambiguity.",
+  "applicable_conditions": "Prefer at nominal cabinet calibration when drawer progress, finger state, TCP/red geometry and motion cues are reliable but entry may occur before or after release or red contact. Predicted phase is not contact proof.",
+  "termination_guidance": "Switch after opening/exposure for an early red_transfer handoff or after observed red/TCP upward co-motion for the nominal handoff. Stop/replan if actions conflict with physical phase cues.",
+  "limitations": "Absolute world targets are vulnerable to cabinet displacement. Index-derived successful-occurrence phases do not cover unseen failure states. The classifier has no contact truth and cannot prove drawer acquisition or red grasp.",
+  "config": {"action_frame":"world","rotation_representation":"6d","action_dimension":10,"feature_dimension_per_frame":41,"condition_embedding_dimension":256,"phase_classes":5,"phase_loss_weight":0.05}
+}

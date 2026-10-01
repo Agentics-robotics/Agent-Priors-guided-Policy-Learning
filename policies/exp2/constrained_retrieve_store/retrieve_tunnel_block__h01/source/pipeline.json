@@ -1,0 +1,10 @@
+{
+  "policy_id": "retrieve_tunnel_block__h01",
+  "skill_id": "retrieve_tunnel_block",
+  "heuristic_index": 1,
+  "prior_summary": "Object-relative SE(3) Cartesian targets are resolved against the freshly observed block at each executed slot, providing constructed displacement equivariance while retaining robot and world geometry in the causal condition.",
+  "applicable_conditions": "Prefer when the drawer is open and stable, object_pose is reliable, the block is displaced within a physically valid tunnel region, and the resulting target remains collision-free and reachable. It covers approach, grasp alignment, extraction, lift and early transfer.",
+  "termination_guidance": "Terminate or hand off once closed fingers remain near the block, object and TCP move together, the object is outside the tunnel above 0.16 m, and motion has turned toward target_pose.",
+  "limitations": "Object-frame equivariance does not move tunnel geometry or guarantee IK/collision feasibility. Pose noise, a dropped block and false grasp proxies can mislead it; no failed-grasp recovery is demonstrated.",
+  "config": {"action_reference":"fresh_object_pose","rotation_representation":"6d","action_dimension":10,"auxiliary_loss":false,"predecessor_overlap":[300,440],"successor_overlap":[680,840]}
+}

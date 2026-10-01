@@ -1,0 +1,35 @@
+{
+  "title": "Cabinet-frame relations with an explicit world-context bypass",
+  "coverage_gap": "The ten support episodes contain five LL and five HH cabinet-x/yaw combinations, but neither off-diagonal C cell. E combines substantially larger translations and yaw magnitudes. A world-coordinate network can fit this correlation without learning that the pull direction follows cabinet yaw.",
+  "reusable_regularity": "Represent hand-handle alignment, remaining handle-to-goal travel, and causal hand/handle differences in the observed cabinet frame. Express action xyz in this same frame for all sixteen chunk steps. The support's initial handle-to-goal vector has length about 0.128 m and direction (sin(yaw), -cos(yaw), 0). Fixed physical feature scales avoid dividing nearly constant geometry by tiny support variances. This is a representation prior, not a scripted controller: the common DP predicts every action and gripper value.",
+  "dependencies_preserved": [
+    "World hand and goal positions remain explicit, so the representation does not assume robot reachability is translation-invariant.",
+    "Unit sin/cos yaw and both observed xyzw object quaternions remain explicit: the native end-effector orientation is fixed in the world, not rotated with the cabinet.",
+    "World heights retain gravity/table dependence; cabinet-relative handle/goal relations retain drawer-front and opening geometry. There is no separate obstacle field in this task and no invented obstacle oracle.",
+    "Current and native-previous hand/handle relations and displacements, plus both gripper apertures, are included at each of the two whole observations. Only the declared absent object2 zeros are omitted."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "drawer__N10__rep0, ten exact support episodes, no development or test states"},
+    {"path": "task_materials.json", "detail": "raw_dim 41, yaw-corrected handle, observed sin/cos yaw, fixed end-effector orientation, C/E factor ranges"},
+    {"path": "support_summary.json", "detail": "cell_counts LL=5, HH=5; demo_00 and demo_01 initial handle-to-goal vectors and 0.128 m lengths"},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Real initial frame: robot, drawer handle, table and goal placement"},
+    {"path": "images/frame_01_demo_00_step_060.png", "detail": "Real near-handle approach frame before substantial opening"},
+    {"path": "images/frame_12_demo_07_step_090.png", "detail": "Real later frame shows extended drawer and hand near its handle"},
+    {"path": "trajectories/demo_00.json", "detail": "obs rows 0-4, 58-64 and 74-78: stationary handle during approach, later handle motion with hand"}
+  ],
+  "expected_failure_signature": [
+    "If cabinet-frame transfer is the principal missing regularity, off-diagonal layouts should not induce a pull direction tied to training cabinet-x sign. This is a prediction, not a measured result.",
+    "Large-yaw fixed-gripper contact may still fail despite correct approach geometry; expected signature is reaching the handle but slipping or pulling without corresponding handle motion.",
+    "A1 has no explicit contact-stage learning. Diffusion may switch from descent to pull too early or too late near the observed sharp transition, or extrapolate poorly on the much larger initial lateral offset."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,41] and raw_current [B,41] from the shared deployment observation only",
+    "slices": {"hand_xyz": [0,3], "gripper": [3,4], "handle_xyz": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_handle_xyz": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal_xyz": [36,39], "cabinet_sin_cos_yaw": [39,41]},
+    "action_semantics": "For normalized observed s,c, encode xyz as (c*ax+s*ay, -s*ax+c*ay, az); decode by the transpose inverse. Raw_current chunk-start yaw is held fixed for all 16 steps. Gripper is unchanged. No translation offset, additional scaling, candidate clipping or change to 0.01 m native xyz scale, 80 Hz control, fixed rotation or four-action execution.",
+    "conditioning": "42 physical-scale features per whole observation; raw context is used instead of applying a second support z-score. Common host normalization and training recipe are untouched."
+  },
+  "training_only_targets": [],
+  "support_fit": "None; no statistics or weights beyond the host's exact-D_N normalizer and learned DP. Empty deployment state.",
+  "parents": [],
+  "change_summary": "Initial scientific design: direct deterministic cabinet relations plus world bypass; one unchanged common action4 DP and no auxiliary heads/losses. No performance feedback used."
+}

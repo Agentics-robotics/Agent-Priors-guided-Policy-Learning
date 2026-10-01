@@ -1,0 +1,14 @@
+{
+  "representation": "dual_frame_goal_path_plus_goal_independent_world_grasp_stream",
+  "condition_dim": 102,
+  "grasp_input_dim": 31,
+  "grasp_hidden": 64,
+  "grasp_width": 32,
+  "world_grasp_skip_dim": 6,
+  "diffusion_action_dim": 10,
+  "action_frame": "local_x_transverse_local_y_object_to_goal_xy_local_z_world_z",
+  "heading_fallback_norm_m": 0.00001,
+  "motion_scale_m": 0.1,
+  "motion_loss_weight": 0.15,
+  "support_fit_statistics": "none"
+}

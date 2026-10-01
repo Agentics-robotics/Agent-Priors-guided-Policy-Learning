@@ -1,0 +1,5 @@
+# Scientific manifests identify exact bytes, including line endings.
+* -text whitespace=trailing-space,space-before-tab,cr-at-eol
+
+# SCM syntax highlighting & preventing 3-way merges
+pixi.lock merge=binary linguist-language=YAML linguist-generated=true -diff

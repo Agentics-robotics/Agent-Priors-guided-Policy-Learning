@@ -1,0 +1,55 @@
+{
+  "task_id": "drawer",
+  "n_demos": 5,
+  "policy_id": "B0_vanilla_dp",
+  "instance_id": "drawer__N5__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/drawer/n5/B0_vanilla_dp/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/drawer/n5/B0_vanilla_dp/model.pt",
+    "sha256": "1e07fd8b3d34345c6ddc0dc4af986631582d7f620ac6b5172051ccfe77a517c2",
+    "source_sha256": "1e07fd8b3d34345c6ddc0dc4af986631582d7f620ac6b5172051ccfe77a517c2",
+    "size_bytes": 75672323,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/drawer/n5/B0_vanilla_dp/normalizer.json",
+  "config": "policies/exp1/drawer/n5/B0_vanilla_dp/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/drawer/n5/B0_vanilla_dp/complete.json",
+      "sha256": "ad3e35f7ec2508bf879324094a7294257164f7962af665a713fa49abf8e9ae40",
+      "source_sha256": "ad3e35f7ec2508bf879324094a7294257164f7962af665a713fa49abf8e9ae40",
+      "size_bytes": 1794,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n5/B0_vanilla_dp/config.json",
+      "sha256": "97f871f54519f2affd7bfae1281c9017e18bccb91a667bc426a2aa24e66aa2c3",
+      "source_sha256": "97f871f54519f2affd7bfae1281c9017e18bccb91a667bc426a2aa24e66aa2c3",
+      "size_bytes": 7992,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n5/B0_vanilla_dp/identity.json",
+      "sha256": "f262188d07219a1d67c6bc4bba1c0d6703c7cc9e9cc4b4247fae1e742838ab2b",
+      "source_sha256": "f262188d07219a1d67c6bc4bba1c0d6703c7cc9e9cc4b4247fae1e742838ab2b",
+      "size_bytes": 1252,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n5/B0_vanilla_dp/latency.json",
+      "sha256": "644058218432a2344ef99a26be84a34a57303ee77a6b7eb625db111d672ada38",
+      "source_sha256": "644058218432a2344ef99a26be84a34a57303ee77a6b7eb625db111d672ada38",
+      "size_bytes": 763,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n5/B0_vanilla_dp/normalizer.json",
+      "sha256": "f2cc7d305bd9989ec378db42f519a6e0651e9ef15a9e1536302693f3833d2411",
+      "source_sha256": "f2cc7d305bd9989ec378db42f519a6e0651e9ef15a9e1536302693f3833d2411",
+      "size_bytes": 2713,
+      "transformation": "none"
+    }
+  ]
+}

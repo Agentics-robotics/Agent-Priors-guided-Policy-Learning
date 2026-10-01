@@ -1,0 +1,14 @@
+{
+  "policy_id": "grasp_lift_stage__h03",
+  "entry_conditions": "Container and bowl poses are finite. The gripper may be open near the demonstrated approach or closed with plausible source/TCP co-motion; prefer this policy for just-closed, already-lifted, or phase-ambiguous entries rather than a strongly displaced ungrasped source.",
+  "exit_conditions": "Physical observations agree that fingers are closed, source and TCP co-move, the source is clear of the table, and the demonstrated high bowl-relative stage is reached with only a small tilt.",
+  "overlap_role": "The complete [180,360) lift/carry/stage interval is action-supervised here and in controlled_pour_and_right, including the first small tilt.",
+  "successor_readiness": "Admit controlled_pour_and_right using observed closure, co-motion and clearance, not the auxiliary class alone. Nominal readiness is the high bowl-relative stage.",
+  "failure_signatures": "Phase inference inconsistent with finger/elevation/co-motion evidence, closed fingers without source motion, source drop, early particle escape, IK nonconvergence, or joint-limit contact. The phase head cannot certify contact.",
+  "continuation_guidance": "Preserve causal history across switches and cross-check finger width, source elevation, and source/TCP motion. Prefer the source-frame policy for displaced ungrasped acquisition and the TCP-delta policy for a local configuration correction.",
+  "limitations": "The phase labels are causal threshold proxies learned from successful ordering, not force labels. Unseen reorderings, misses, slips, large source displacement/rotation, bowl rotations outside support, and unreachable targets remain unsupported.",
+  "evidence": [
+    {"trajectory_id":"demo12300","indices":[120,136,140,148,160,180,220,280,320,340,359,360]},
+    {"trajectory_id":"demo12303","indices":[120,128,132,136,140,148,160,180,220,280,320,340,359,360]}
+  ]
+}

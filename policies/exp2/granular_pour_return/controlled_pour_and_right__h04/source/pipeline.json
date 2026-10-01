@@ -1,0 +1,20 @@
+{
+  "policy_id": "controlled_pour_and_right__h04",
+  "skill_id": "controlled_pour_and_right",
+  "heuristic_index": 4,
+  "prior_summary": "A permutation-invariant particle encoder conditions diffusion of absolute desired container poses in the observed bowl frame; the decoder reattaches each desired source pose through the fresh observed rigid container-to-TCP transform before verified IK.",
+  "applicable_conditions": "Prefer when the source is securely and approximately rigidly held, bowl/container/TCP poses are reliable, the bowl may be displaced, and direct anchoring of the manipulated source through late righting is useful. The Cartesian targets must remain reachable. Use h02 for a highly ambiguous partial-discharge entry where local residual correction is preferred.",
+  "termination_guidance": "Terminate or hand off only under the unchanged physical evidence: at least ten particles settled in the bowl, the source itself approximately upright and held, and outbound motion begun. Nominal return_place_release readiness is around action 1680, with supervised takeover through action 1740. Do not treat pooled particle features as a success detector.",
+  "limitations": "No displaced-bowl or unusual-grasp trial was demonstrated or validated. The source-to-TCP transform must be rigid and reliably observed; slip or pose noise corrupts reattachment. Bowl displacement can make targets unreachable, and independent bowl versus return-target changes are outside demonstrated geometry. There is no spill, collision, lost-grasp or unseen-phase recovery guarantee.",
+  "config": {
+    "action_representation": "absolute_container_pose_in_fresh_bowl_frame_with_fresh_grasp_reattachment",
+    "action_orientation": "rotation_6d_safe_gram_schmidt",
+    "robot_feature_dimension_per_frame": 58,
+    "particle_token_shape_per_frame": [12, 8],
+    "particle_pooling": ["mean", "max"],
+    "condition_dimension": 384,
+    "action_dimension": 10,
+    "auxiliary_loss": "none",
+    "backbone": "standard_diffusion_backbone"
+  }
+}

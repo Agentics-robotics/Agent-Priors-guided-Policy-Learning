@@ -1,0 +1,55 @@
+{
+  "task_id": "door",
+  "n_demos": 2,
+  "policy_id": "B1_rule_prior",
+  "instance_id": "door__N2__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/door/n2/B1_rule_prior/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/door/n2/B1_rule_prior/model.pt",
+    "sha256": "498b4df99a80af1243113df3cf4ffccae3b3f89e49dc8ed3411c1465f03580b3",
+    "source_sha256": "498b4df99a80af1243113df3cf4ffccae3b3f89e49dc8ed3411c1465f03580b3",
+    "size_bytes": 79374123,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/door/n2/B1_rule_prior/normalizer.json",
+  "config": "policies/exp1/door/n2/B1_rule_prior/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/door/n2/B1_rule_prior/complete.json",
+      "sha256": "312480ecfc8359d0148a9b6de59f8bae2677b1115470d75a4c90af843467d3cb",
+      "source_sha256": "312480ecfc8359d0148a9b6de59f8bae2677b1115470d75a4c90af843467d3cb",
+      "size_bytes": 1325,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n2/B1_rule_prior/config.json",
+      "sha256": "7a4ee17061c2127c57f55fbb5df3534a99af93c35dfae8a86f86227004dd73f0",
+      "source_sha256": "7a4ee17061c2127c57f55fbb5df3534a99af93c35dfae8a86f86227004dd73f0",
+      "size_bytes": 8001,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n2/B1_rule_prior/identity.json",
+      "sha256": "8f3b62d5506a297717215684474f8d58c155d86247e3182f7738d528f73a2d3e",
+      "source_sha256": "8f3b62d5506a297717215684474f8d58c155d86247e3182f7738d528f73a2d3e",
+      "size_bytes": 796,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n2/B1_rule_prior/latency.json",
+      "sha256": "01a1c68fd89ebbab8724bcb5c87eea1711f10b7fab26857b9f3362646c502282",
+      "source_sha256": "01a1c68fd89ebbab8724bcb5c87eea1711f10b7fab26857b9f3362646c502282",
+      "size_bytes": 774,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n2/B1_rule_prior/normalizer.json",
+      "sha256": "f8cbf31e4ad529606569a1c4825472c81e8f4a3e5a009794d35a8e397a4b37e2",
+      "source_sha256": "f8cbf31e4ad529606569a1c4825472c81e8f4a3e5a009794d35a8e397a4b37e2",
+      "size_bytes": 2316,
+      "transformation": "none"
+    }
+  ]
+}

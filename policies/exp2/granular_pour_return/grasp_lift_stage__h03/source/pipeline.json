@@ -1,0 +1,10 @@
+{
+  "policy_id": "grasp_lift_stage__h03",
+  "skill_id": "grasp_lift_stage",
+  "heuristic_index": 3,
+  "prior_summary": "Predict bowl-frame absolute Cartesian targets while a registered shared condition encoder is trained by masked three-class causal phase supervision in addition to action diffusion.",
+  "applicable_conditions": "Prefer when closure/lift phase is ambiguous, entry is just-closed or already-lifted, or a secured source should be staged relative to the observed bowl. Finger width, source height, and two-frame co-motion cues must be reliable.",
+  "termination_guidance": "Use physical closure, source/TCP co-motion, clearance, and bowl-relative stage to decide handoff; never use the phase auxiliary alone as contact evidence. The full [180,360) overlap supports successor entry after secure lift.",
+  "limitations": "The auxiliary is a three-class observation proxy, not contact truth, and successful demonstrations contain no slip recovery. Bowl-frame actions do not protect ungrasped acquisition against source-only displacement; use the source-frame prior in that case.",
+  "config": {"action_frame": "chunk_start_destination_bowl", "action_encoding": "xyz_rotation6d_gripper", "feature_dimension_per_frame": 61, "condition_embedding": 128, "phase_classes": 3, "auxiliary_weight": 0.1}
+}

@@ -1,0 +1,41 @@
+{
+  "instance": "drawer__N2__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A1",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A1",
+      "feedback_hash": "1ea27ccbcd3c5fbced2d1af552d64816c09381f9d08bdce5a178f124e50819ac",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: A1 maximizes the frozen equal-distribution score: 0.5*1.0 + 0.5*0.60 = 0.800, versus A3 0.775 and A2 0.625. All are valid/completed and each distribution's reported rates equally weight its cells. No tie applies, so latency and parameter tiebreakers are not used; IID does not select. A1's E-LL 0/5 and mixed E-HH/HL results motivate the single revision, but no per-cell mixture or alternate checkpoint is selected.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "0ca8c2255906d3d4cdd8e8599e110a0289087b7e3a0b5d2e53dc922aabb044f3",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: select valid/completed A4. Its frozen score is 0.5*dev_C_success + 0.5*dev_E_success = 0.5*1.0 + 0.5*1.0 = 1.000, exceeding A1 0.800, A3 0.775 and A2 0.625. C has 10/10 successes in each of HL and LH; E has 5/5 in each of LL, LH, HL and HH, so these rates obey equal cell weighting. There is no score tie and IID is not used for selection. A4 retains its frozen submission and final fixed-20,000-update EMA policy; no additional edits, checkpoints, training or rollouts are requested. Its improvement supports the residual-representation hypothesis on this development sample, but does not establish the specific failure mechanism of A1 or guarantee hidden-test success.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "0331adae92426013e836c788e8498d73996b1b06967328261ada3040b589c310",
+    "A2": "aa7c50337f3a9c00dcfa11e74c3f7a176f549ba66fb6d6d4aa79c639b9f088e7",
+    "A3": "5be49ce899ff89ccee43ab1d4be3db2952e50e63a53f044120a55d9cb54a90d8",
+    "A4": "c8197cb170c3e8e2bbf8d50f7d95aa1ea290e3bd94217c716114503f6731c0cf"
+  },
+  "feedback_hashes": {
+    "initial": "01e64cfb6c63de2c00d08c3508e479594783ecbb63c93445f098d1c456f1986e",
+    "final": "c6efa710a769ac0eb9fd353ac6dffcc50cec1e170961ee04a2bcd26928c2f34c"
+  }
+}

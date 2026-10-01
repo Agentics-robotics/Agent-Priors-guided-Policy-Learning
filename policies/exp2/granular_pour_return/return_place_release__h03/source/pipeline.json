@@ -1,0 +1,17 @@
+{
+  "policy_id": "return_place_release__h03",
+  "skill_id": "return_place_release",
+  "heuristic_index": 3,
+  "prior_summary": "A shared trainable causal encoder supports world-frame Cartesian diffusion and a masked 16-slot future-open auxiliary objective, encouraging phase-separable features near setdown, release, and retreat.",
+  "applicable_conditions": "Prefer near the nominal demonstrated return support when the source is descending or resting and the main ambiguity is whether to continue settling, open, or retreat. The complete cut remains owned and trained.",
+  "termination_guidance": "Use observed source pose, stationarity, finger opening, and TCP clearance for terminal guidance. The auxiliary open prediction is never a contact or success predicate.",
+  "limitations": "No contact truth or failed release/placement recovery. Future open commands are training labels only and cannot guarantee physical support. World outputs may memorize the nominal destination and are not intended for large target displacement.",
+  "config": {
+    "reference_frame": "world",
+    "action_encoding": "position plus rotation_6d plus gripper",
+    "condition_features_per_frame": 67,
+    "condition_latent_dimension": 256,
+    "auxiliary": "masked 16-slot future gripper-open BCE, weight 0.05",
+    "backbone": "standard DiffusionBackbone with registered shared encoder"
+  }
+}

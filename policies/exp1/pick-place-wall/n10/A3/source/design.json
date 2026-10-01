@@ -1,0 +1,50 @@
+{
+  "title": "Horizontal task-frame action and interaction-outcome diffusion",
+  "coverage_gap": "Matched object/goal x in the ten demonstrations produces mostly world-y transport and limited lateral transport. The absent LH/HL combinations and larger E offsets require a new horizontal travel direction, not simply a larger copy of a familiar absolute x coordinate. Furthermore, action-only training can imitate hand motion without representing whether the object follows or clears the wall.",
+  "reusable_regularity": "Express translation in a horizontal object-to-goal frame while preserving gravity and explicitly retaining its orientation relative to the world, robot and wall. Learn a single joint diffusion density over action4 and twelve future interaction channels. These auxiliary trajectories tie commands to carried-object displacement, hand-object attachment and observed-wall clearances. They are not plans, are not executed, and receive no test-time optimization or geometric guidance. The common U-Net and all training schedules remain fixed. No extra encoder or stage classifier is used.",
+  "dependencies_preserved": [
+    "The 67-dimensional condition includes six relative vectors in the one chunk-start frame, both hand/object native-previous increments and previous hand-object relation.",
+    "Absolute hand and wall centers, frame cosine/sine and world xyzw object quaternions retain the robot workspace and fixed gripper-axis dependence. This is not a claim of exact robot yaw invariance.",
+    "World-axis wall half-sizes and six signed inside-face distances for each of hand and object retain the full finite axis-aligned box without incorrectly rotating half-sizes as vectors. Current hand/object/goal world heights retain gravity/table dependencies.",
+    "Current and previous aperture, aperture difference, distances, goal-hand/object/wall vectors retain grasp state and independent goal coordinates. Only absent object2 fields are omitted.",
+    "All translational action and future-vector transforms use the identical frame defined from chunk-start raw_current. No future state is used to construct any inference frame."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Limits all labels to exactly this ten-episode support bundle."},
+    {"path": "task_materials.json", "use": "Training factor confounding, C/E direction changes, shared runtime wall geometry and native action semantics."},
+    {"path": "support_summary.json", "use": "Small initial goal-object x separation in the inspected LL/HH episodes; wall is a finite obstacle offset along world x. A fully obstacle-blind rotation prior would not be justified."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Actual wall separates initial object and raised goal."},
+    {"path": "images/frame_01_demo_00_step_055.png", "use": "Actual object is raised with the gripper before crossing."},
+    {"path": "images/frame_03_demo_01_step_084.png", "use": "Actual object remains associated with hand near the goal."},
+    {"path": "images/frame_12_demo_07_step_071.png", "use": "Another actual raised carry posture over the finite wall inspected."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 26:32, 54:59, 66:70; actions 23:37 and 48:72", "use": "Shows near-constant approximately 0.04 m vertical hand-object offset during carrying, hand/object co-motion, passage across wall y=0.75 while object z is about 0.24, and lift followed by largely world-y transport. This motivates attachment, motion and wall-clearance auxiliary targets and horizontal-frame actions."},
+    {"path": "contracts.py", "scope": "public", "use": "Joint targets must retain encoded action4 first; frames must be causal and chunk-fixed; auxiliary channels are sampled at inference without labels."},
+    {"path": "learning.py", "scope": "public", "use": "Separate common action epsilon denominator and auxiliary loss; no diffusion clipping before native decoding; executor owns native action clipping."}
+  ],
+  "expected_failure_signature": [
+    "If the frame prior helps transport but hurts grasping, C/E should show lateral drift during descent or rotated approach errors despite suitable transport headings. Explicit world orientation is available but may not be learned from narrow support.",
+    "The robot and wall are not rotationally symmetric. Cross-sign cells may show different collision or grasp failure rates even at the same local goal distance; retained orientation/face features may be insufficient to learn this dependency from D10.",
+    "If joint outcome learning merely models correlations, the diffusion may sample apparent hand-object attachment while a real missed grasp leaves the object behind. There is no simulator-based correction or action filter.",
+    "Very near horizontal goal coincidence the direction frame can turn rapidly or fall back to world +y; repeated chunk replanning may then yield lateral jitter. The frame is fixed within each full sixteen-action chunk.",
+    "The auxiliary denoising objective can consume capacity without improving actions, and its added sample channels can increase fixed-method inference latency. This is a falsifiable risk, not a claimed gain."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,45] and raw_current [B,45], both from the common two-observation state history. No targets/masks/IDs/timer/environment handles at inference.",
+    "slices": {"hand_xyz": [0,3], "gripper": [3,4], "object_xyz": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_object_xyz": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal_xyz": [36,39], "wall_center_xyz": [39,42], "wall_half_size_xyz": [42,45]},
+    "frame_definition": "At chunk start d = goal_xy - object_xy. For ||d||>1e-6 m let c=d_x/||d||, s=d_y/||d||; otherwise c=0,s=1. Columns of R are (c,s,0),(-s,c,0),(0,0,1), a right-handed orthonormal frame. Both history elements use this same frame.",
+    "action_frame": "encode xyz = R^T native_xyz; decode xyz = R encoded_xyz. Encoded channels are forward,lateral,world-up,gripper in native delta units; no translation of action vectors, no axis rescaling, no gripper rotation. Native 0.01 m scale and [g,-g] actuator convention remain unchanged. No candidate clipping, including no local cube clipping: host clips the decoded world cube and executes four of sixteen. Frame orientation cannot depend on future object poses or sampled future channels.",
+    "inference_joint_channels": "The common sampler draws all 16 channels from its own Gaussian stream. The shared DP jointly denoises them with causal conditioning. Only sampled channels 0:4 are decoded/executed; the other 12 are discarded. No extra sampler, rollout, planner or test-time guidance."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_world",
+      "source_fields": "For each exact D_N window at t and valid offset k=0..15, obs[t+k+1,0:7] supplies next hand xyz, aperture and object xyz; obs[t,0:7] supplies start positions and obs[t,39:45] supplies observed wall geometry. No labels outside this support.",
+      "definition": "Twelve channels: future hand displacement from start /0.1 m (3); future object displacement from start /0.1 m (3); future object-minus-hand offset /0.05 m (3); 2*future aperture-1 (1); future object z minus chunk-start wall top /0.1 m (1); future object y minus chunk-start wall far face /0.1 m (1). First nine vector channels rotate into the same causal chunk-start frame in diffusion_targets; aperture/clearance scalars are not rotated. Padded slots beyond the last action have all auxiliary clean values zero. Final valid transitions may use obs[T].",
+      "loss": "0.25 * sum(mask[...,None]*(epsilon_aux-noise_aux)^2) / max(1,12*mask.sum()). Action channels 0:4 are exactly the encoded native actions and retain the host weight-1 epsilon loss with denominator 4*mask.sum(). Auxiliary channels neither replace nor reweight the common action loss.",
+      "inference_isolation": "Only training_targets and diffusion_targets access future labels. condition, inherited denoise, encode_actions and decode_actions never read labels. No support cache or deployment labels are stored. Inference auxiliary values are sampled, not truth."
+    }
+  ],
+  "support_fit": "No fitted statistics; physical scales and degeneracy tolerance are fixed architecture choices. Only training-only targets use exact D_N future observations.",
+  "parents": [],
+  "change_summary": "Initial third scientific design: chunk-fixed horizontal action/representation rotation plus joint action-and-interaction-outcome diffusion with separate masked auxiliary loss. Substantively distinct from a fixed world-only action model and from learned contact-stage gating. No performance feedback used. No structural repairs as authored."
+}

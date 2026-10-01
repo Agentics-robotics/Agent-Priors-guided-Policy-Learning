@@ -1,0 +1,18 @@
+{
+  "policy_id": "controlled_pour_and_right__h02",
+  "skill_id": "controlled_pour_and_right",
+  "heuristic_index": 2,
+  "prior_summary": "A learned DeepSets particle encoder pools bowl-relative and source-relative particle tokens, a causal auxiliary head regularizes settled/source/upright phase, and actions are local SE(3) residuals applied from each fresh TCP.",
+  "applicable_conditions": "Prefer for secure grasps with ambiguous intermediate phase, early or late discharge, mid-tilt or mid-righting entry, or modest execution deviations. Particle, source, bowl and TCP observations must be reliable and the next local transform reachable.",
+  "termination_guidance": "The auxiliary is not a success detector. Hand off only under the unchanged observed conditions: at least ten particles settled in the bowl, source approximately upright and held, and outbound motion begun. Nominal readiness is near 1680.",
+  "limitations": "Local residuals are not an absolute far-destination anchor; use h01 for large bowl displacement. Particle geometry cannot supply hidden contact truth. No demonstration establishes spill, collision or grasp-loss recovery, and the phase head must not be used to override success evaluation.",
+  "config": {
+    "action_representation": "fresh_tcp_local_translation_rotation_vector_gripper",
+    "robot_feature_dimension_per_frame": 58,
+    "particle_token_shape_per_frame": [12, 8],
+    "particle_pooling": ["mean", "max"],
+    "condition_dimension": 384,
+    "phase_auxiliary_weight": 0.05,
+    "phase_targets": ["settled_fraction", "source_fraction", "upright_cosine"]
+  }
+}

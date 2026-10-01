@@ -1,0 +1,32 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "return_place_release__h01",
+  "skill_id": "return_place_release",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "source_object": {"type": "string", "enum": ["container"]},
+      "destination": {"type": "string", "enum": ["target_pose"]}
+    },
+    "required": ["source_object", "destination"]
+  },
+  "parameter_semantics": "source_object selects the observed container_pose of the emptied source; destination selects the observed target_pose of the return region. Both are symbolic scene identities resolved from fresh causal observations at each replan. Poses use world metres and wxyz quaternions.",
+  "observation_dependencies": ["container_pose", "target_pose", "bowl_pose", "tcp_pose", "qpos", "qvel"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {"features": [2, 63]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an absolute Cartesian TCP target expressed in the destination frame fixed at the current chunk replan: 3 position coordinates in metres, the first two columns of the destination-relative rotation matrix (6D), then the native gripper scalar. Prediction slots are t-1 through t+14 and execution uses slots 1 through 8. decode_action left-multiplies by the observed destination world pose, orthonormalizes the 6D rotation, and calls panda_kinematics.solve_ik from freshly measured qpos. No nonlearned task trajectory or release gate is added.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Compare the represented destination-relative Cartesian target after world reconstruction with FK of the IK joint result, using maximum TCP position error in metres, rotation error in radians, and unchanged gripper scalar error. 6D rotation is projected to SO(3) by Gram-Schmidt before IK; demonstrated targets are already valid rotations."
+  },
+  "cut_relation": "Uses every frozen binding action [start,stop), including all action-supervised [1460,1740) overlap with controlled_pour_and_right and the terminal stationary labels. It changes only observations and Cartesian action coordinates; the assigned return, placement, release, and retreat responsibility is unchanged."
+}

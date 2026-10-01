@@ -1,0 +1,98 @@
+{
+  "dataset": "assets/exp2/datasets/granular_pour_return/full_task_single_prior/dataset.json",
+  "dataset_sha256": "d84e4894589ee9596a7d0038b58cbe4c5ce85426b6344a5544e233737e1084ed",
+  "experiment_version": "CartesianIK_pour_SinglePrior_cartesian",
+  "heuristic": {
+    "statement": "Framework scope only: API independently chooses one full-task inductive bias from original demonstrations."
+  },
+  "heuristic_index": 1,
+  "normalization": {
+    "path": "provenance/relocated/17be5f4a2853e697",
+    "sha256": "52a649835b92c470fb6692de6991ba7c8ccd357aa4bb4ad2c6069c971f630101"
+  },
+  "observation_fields": {
+    "bowl_pose": [
+      0,
+      7
+    ],
+    "container_pose": [
+      7,
+      14
+    ],
+    "particle_positions": [
+      14,
+      50
+    ],
+    "qpos": [
+      50,
+      59
+    ],
+    "qvel": [
+      59,
+      68
+    ],
+    "target_pose": [
+      68,
+      75
+    ],
+    "tcp_pose": [
+      75,
+      82
+    ]
+  },
+  "plan_hash": "28948d8f6cac675b0b558379f5b696e8201879277e6e50fcdd9f848c8381131c",
+  "policy_id": "single_prior_cartesian",
+  "scientific_design_owner": "Runtime API",
+  "skill_id": "full_task",
+  "sources": {
+    "demo12300": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12300.json",
+      "sha256": "21e58673a2d41af543f449b6c1bac1ddbf07c90cd1b3768efebe3b218b3ee197"
+    },
+    "demo12301": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12301.json",
+      "sha256": "1c649d39da186987da23fd7a5747e0e55521fac9fd32b20ba073029707c89ef3"
+    },
+    "demo12302": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12302.json",
+      "sha256": "b7b05183c5c26cf55369fd8013ae041085f557a36ebf9a82c9b9916920766aa9"
+    },
+    "demo12303": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12303.json",
+      "sha256": "24c3aeca48398d027456f5e3577b77135dc1b2be53a9a2b3c57a78efc9b761e5"
+    },
+    "demo12304": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12304.json",
+      "sha256": "048c023f0839c4630bb8a8d104c6c149816d94ca47ce5cc79ee2ad30390a4268"
+    },
+    "demo12305": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12305.json",
+      "sha256": "1c4493143c0d144d4fd44267328d7599720c6f6dd95aec6149609f9c8ff44203"
+    },
+    "demo12306": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12306.json",
+      "sha256": "e6c8a2014257ee090527799729078620a59713086e606f831d45cfcba4b1c7a4"
+    },
+    "demo12307": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12307.json",
+      "sha256": "c5530ad3cb09b0118fc5b715af9e6f87caca9d776f81ba10adf224458278d793"
+    },
+    "demo12308": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12308.json",
+      "sha256": "c1945edb8ae947d2f27ea872462c6eca2419d48f993377584f907da7e121c69a"
+    },
+    "demo12309": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12309.json",
+      "sha256": "ead11ff403366336ff24d395ccc9f795108d9d8d23f34736fbba145119718243"
+    },
+    "demo12310": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12310.json",
+      "sha256": "907dd172d12814e6c2ad53331c17252a3b90cab83dfca74130dcca54109a5957"
+    },
+    "demo12311": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12311.json",
+      "sha256": "e9123001777c449f99e1b1e8a0f1d4e6244bd84c9ee1cfc0978e0b44e8eaf3a1"
+    }
+  },
+  "subgoal": "Complete the entire supplied task with one learned policy."
+}

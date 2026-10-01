@@ -1,0 +1,1258 @@
+{
+  "cell_counts": {
+    "10": {
+      "HH": 5,
+      "LL": 5
+    },
+    "2": {
+      "HH": 1,
+      "LL": 1
+    },
+    "20": {
+      "HH": 10,
+      "LL": 10
+    },
+    "5": {
+      "HH": 2,
+      "LL": 3
+    }
+  },
+  "hash": "c628a2ecc25e74c39efaf2cee4a4e033a102abab97eedcd97e59f9e3da9ce985",
+  "phase": "support",
+  "records": [
+    {
+      "cell": "LL",
+      "episode_id": "r3_peg-insert-side_train_IID_000_31400000",
+      "factors": {
+        "a": 0.5719881600297548,
+        "b": 0.5130179379246167
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.21126770973205566,
+          "unit_direction": [
+            0.607958197593689,
+            -0.13915960490703583,
+            -0.7816786766052246
+          ],
+          "vector_world_m": [
+            0.1284419298171997,
+            -0.02939993143081665,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.40017178654670715,
+          "unit_direction": [
+            -0.9569942951202393,
+            -0.14736224710941315,
+            0.2498926818370819
+          ],
+          "vector_world_m": [
+            -0.38296210765838623,
+            -0.05897021293640137,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6114394962787628
+      },
+      "inference_seed": 201400000,
+      "initial_state_hash": "dc0ce30fee9243aba934e9760bd5ef9f022c0654a6b6109bb3c16cd291769709",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_000_31400000.npz",
+      "seed": 31400000,
+      "sha256": "0477141e737c058491c4a3d028ad0e955101f5311fc63a529fd014f63a28fbc9",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.10302612162263647,
+          0.5719881600297548,
+          0.02,
+          -0.27993600458551204,
+          0.5130179379246167,
+          0.0
+        ]
+      },
+      "transitions": 77
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_peg-insert-side_train_IID_001_31400100",
+      "factors": {
+        "a": 0.6480937852372238,
+        "b": 0.5990627098679341
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2186441272497177,
+          "unit_direction": [
+            0.6195803284645081,
+            0.21361498534679413,
+            -0.7553070783615112
+          ],
+          "vector_world_m": [
+            0.13546760380268097,
+            0.046705663204193115,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.42828163504600525,
+          "unit_direction": [
+            -0.9655959010124207,
+            -0.11448325961828232,
+            0.2334912270307541
+          ],
+          "vector_world_m": [
+            -0.41354697942733765,
+            -0.049031078815460205,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.646925762295723
+      },
+      "inference_seed": 201400100,
+      "initial_state_hash": "c327839cbfd0170087bc3621d4703c4408e347d7a3a3a98e1bde4552b44b5396",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_001_31400100.npz",
+      "seed": 31400100,
+      "sha256": "60340334c4c4f8c4c9697ffc9d5921bd7b6b9ff211067a78eda83139c8a2f0d7",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.11005180214634852,
+          0.6480937852372238,
+          0.02,
+          -0.30349520630089455,
+          0.5990627098679341,
+          0.0
+        ]
+      },
+      "transitions": 91
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_peg-insert-side_train_IID_002_31400200",
+      "factors": {
+        "a": 0.5584126326329695,
+        "b": 0.5178561184552791
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2215358465909958,
+          "unit_direction": [
+            0.637711226940155,
+            -0.1939888596534729,
+            -0.7454480528831482
+          ],
+          "vector_world_m": [
+            0.14127589762210846,
+            -0.04297548532485962,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4524739384651184,
+          "unit_direction": [
+            -0.9711445569992065,
+            -0.08963276445865631,
+            0.22100721299648285
+          ],
+          "vector_world_m": [
+            -0.43941760063171387,
+            -0.040556490421295166,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6740097850561142
+      },
+      "inference_seed": 201400200,
+      "initial_state_hash": "afe65c24f8400a00278f6a38d7493e4e21dcec7c1ec84e6eaa530d8204309163",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_002_31400200.npz",
+      "seed": 31400200,
+      "sha256": "b4395ca61392aba101c39e375a45202a58f95fde8e4015b11694b818339aef49",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.11586009094684682,
+          0.5584126326329695,
+          0.02,
+          -0.32355752023259027,
+          0.5178561184552791,
+          0.0
+        ]
+      },
+      "transitions": 87
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_peg-insert-side_train_IID_003_31400300",
+      "factors": {
+        "a": 0.6367973908538855,
+        "b": 0.5920268954179447
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2228415608406067,
+          "unit_direction": [
+            0.6523429155349731,
+            0.15889887511730194,
+            -0.7410801649093628
+          ],
+          "vector_world_m": [
+            0.14536911249160767,
+            0.03540927171707153,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.42087361216545105,
+          "unit_direction": [
+            -0.9655206799507141,
+            -0.10637511312961578,
+            0.23760102689266205
+          ],
+          "vector_world_m": [
+            -0.4063621759414673,
+            -0.04477047920227051,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6437151730060577
+      },
+      "inference_seed": 201400300,
+      "initial_state_hash": "2acf488c7d1d5b3ab351bfde789f11c9f5c84b32be733e8dbfd127b8cdcda1d6",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_003_31400300.npz",
+      "seed": 31400300,
+      "sha256": "e78c59a1bb096899ce3076ba5aaf467dc8e83013dd22e00805158b9bb25cab40",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.1199533064128392,
+          0.6367973908538855,
+          0.02,
+          -0.28640886913395397,
+          0.5920268954179447,
+          0.0
+        ]
+      },
+      "transitions": 81
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_peg-insert-side_train_IID_004_31400400",
+      "factors": {
+        "a": 0.5738902679010119,
+        "b": 0.5174606014887473
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19714432954788208,
+          "unit_direction": [
+            0.5280537605285645,
+            -0.13948069512844086,
+            -0.8376779556274414
+          ],
+          "vector_world_m": [
+            0.10410280525684357,
+            -0.027497828006744385,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4160100817680359,
+          "unit_direction": [
+            -0.9611547589302063,
+            -0.13564498722553253,
+            0.24037879705429077
+          ],
+          "vector_world_m": [
+            -0.399850070476532,
+            -0.05642968416213989,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.613154411315918
+      },
+      "inference_seed": 201400400,
+      "initial_state_hash": "ac897b503426f6e4cf06ef79591d139f33ec9c9e796129c5129a0a121625cffb",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_004_31400400.npz",
+      "seed": 31400400,
+      "sha256": "865829d80a861486a5282068540f824eb7b9acf4f30904c1d8692de816bc2a78",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07868700636099002,
+          0.5738902679010119,
+          0.02,
+          -0.32116304374849197,
+          0.5174606014887473,
+          0.0
+        ]
+      },
+      "transitions": 79
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_peg-insert-side_train_IID_005_31400500",
+      "factors": {
+        "a": 0.6309030206537256,
+        "b": 0.5922426156862306
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.21259891986846924,
+          "unit_direction": [
+            0.6142743229866028,
+            0.1388290673494339,
+            -0.7767841219902039
+          ],
+          "vector_world_m": [
+            0.13059405982494354,
+            0.02951490879058838,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4412801265716553,
+          "unit_direction": [
+            -0.9700365662574768,
+            -0.0876096710562706,
+            0.22661343216896057
+          ],
+          "vector_world_m": [
+            -0.42805784940719604,
+            -0.038660407066345215,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6538790464401245
+      },
+      "inference_seed": 201400500,
+      "initial_state_hash": "1f0dc68f95d9201150bc18a50706021e3bb11cf30902a005731f657631b4cada",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_005_31400500.npz",
+      "seed": 31400500,
+      "sha256": "a507fb67f06f2474fbdf0cb726640922a47b36396bb8c10d2b63804f0bf7a6b8",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.10517825404104528,
+          0.6309030206537256,
+          0.02,
+          -0.3228796196408495,
+          0.5922426156862306,
+          0.0
+        ]
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_peg-insert-side_train_IID_006_31400600",
+      "factors": {
+        "a": 0.5585893651441423,
+        "b": 0.50709160275339
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.21843169629573822,
+          "unit_direction": [
+            0.6245077252388,
+            -0.19593657553195953,
+            -0.7560416460037231
+          ],
+          "vector_world_m": [
+            0.13641227781772614,
+            -0.042798757553100586,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.42370012402534485,
+          "unit_direction": [
+            -0.9641181230545044,
+            -0.12154293805360794,
+            0.23601599037647247
+          ],
+          "vector_world_m": [
+            -0.4084969758987427,
+            -0.05149775743484497,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6421318203210831
+      },
+      "inference_seed": 201400600,
+      "initial_state_hash": "588d11666073a4b4123f8ca8324340c1fe1204bbd1bb45630af973b738d12805",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_006_31400600.npz",
+      "seed": 31400600,
+      "sha256": "56ce4306c6dc44bc6283a2f47a7c62d77e60db7de7252fdf4b925d8fca3654a4",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.1109964645272034,
+          0.5585893651441423,
+          0.02,
+          -0.29750048925270367,
+          0.50709160275339,
+          0.0
+        ]
+      },
+      "transitions": 80
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_peg-insert-side_train_IID_007_31400700",
+      "factors": {
+        "a": 0.6347960285086759,
+        "b": 0.5925181007816178
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20687241852283478,
+          "unit_direction": [
+            0.5802236199378967,
+            0.16149048507213593,
+            -0.798286497592926
+          ],
+          "vector_world_m": [
+            0.12003226578235626,
+            0.03340792655944824,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.420064240694046,
+          "unit_direction": [
+            -0.9660218954086304,
+            -0.10064634680747986,
+            0.23805883526802063
+          ],
+          "vector_world_m": [
+            -0.4057912528514862,
+            -0.04227793216705322,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6269366592168808
+      },
+      "inference_seed": 201400700,
+      "initial_state_hash": "ff83c1d95e32910db5c84390f885b18dffd122a3ff49e6abeec01cec80fcf313",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_007_31400700.npz",
+      "seed": 31400700,
+      "sha256": "ea36a152d864dab031138ca1429ba452c5e05055add5e3584ae0502bb89d9818",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.09461646209071384,
+          0.6347960285086759,
+          0.02,
+          -0.3111747835427972,
+          0.5925181007816178,
+          0.0
+        ]
+      },
+      "transitions": 87
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_peg-insert-side_train_IID_008_31400800",
+      "factors": {
+        "a": 0.5524004774736239,
+        "b": 0.5103411556787485
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2023041695356369,
+          "unit_direction": [
+            0.5244023203849792,
+            -0.24214838445186615,
+            -0.8163126707077026
+          ],
+          "vector_world_m": [
+            0.10608877241611481,
+            -0.048987627029418945,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4015445411205292,
+          "unit_direction": [
+            -0.9628129005432129,
+            -0.10474380105733871,
+            0.24903838336467743
+          ],
+          "vector_world_m": [
+            -0.38661226630210876,
+            -0.04205930233001709,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6038487106561661
+      },
+      "inference_seed": 201400800,
+      "initial_state_hash": "b62ee80df81b43d0f9720ec28d16ee340d822ec90d89749bb053c60cecbddbaf",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_008_31400800.npz",
+      "seed": 31400800,
+      "sha256": "2df4f6e8a158be0332d69f9a0221cf014c7132aaf91b9e1e2a8f506949298976",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.08067297083339546,
+          0.5524004774736239,
+          0.02,
+          -0.30593929636820505,
+          0.5103411556787485,
+          0.0
+        ]
+      },
+      "transitions": 79
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_peg-insert-side_train_IID_009_31400900",
+      "factors": {
+        "a": 0.6266937938054435,
+        "b": 0.5847873299766767
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20538897812366486,
+          "unit_direction": [
+            0.5816525816917419,
+            0.12320859730243683,
+            -0.8040521740913391
+          ],
+          "vector_world_m": [
+            0.11946502327919006,
+            0.02530568838119507,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.41772159934043884,
+          "unit_direction": [
+            -0.9657257199287415,
+            -0.10032154619693756,
+            0.23939388990402222
+          ],
+          "vector_world_m": [
+            -0.40340450406074524,
+            -0.04190647602081299,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6231105774641037
+      },
+      "inference_seed": 201400900,
+      "initial_state_hash": "6897939db0dc63341fb335847d191c798d8e70745b5c1c354bde1de0ec002629",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_009_31400900.npz",
+      "seed": 31400900,
+      "sha256": "cc5dff1fae4568b670e55218d8afaf75e5bde92f157e6a80a87e5be79695624a",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.09404922372580225,
+          0.6266937938054435,
+          0.02,
+          -0.30935530194129696,
+          0.5847873299766767,
+          0.0
+        ]
+      },
+      "transitions": 85
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_peg-insert-side_train_IID_010_31401000",
+      "factors": {
+        "a": 0.5651692790034104,
+        "b": 0.5150910118745473
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19816380739212036,
+          "unit_direction": [
+            0.5216237902641296,
+            -0.18277212977409363,
+            -0.8333684206008911
+          ],
+          "vector_world_m": [
+            0.10336695611476898,
+            -0.03621882200241089,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3725711405277252,
+          "unit_direction": [
+            -0.9538825750350952,
+            -0.13441264629364014,
+            0.26840510964393616
+          ],
+          "vector_world_m": [
+            -0.3553891181945801,
+            -0.05007827281951904,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5707349479198456
+      },
+      "inference_seed": 201401000,
+      "initial_state_hash": "ba2de3739391acea12eedab0cd1eec9cae642475aa5d8ce6d4842953f054828e",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_010_31401000.npz",
+      "seed": 31401000,
+      "sha256": "f745a1690b3982dcb5cdce6ae1dfb85a365267a64b6865c4da3fa1af6fb5c8fb",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07795115354046277,
+          0.5651692790034104,
+          0.02,
+          -0.27743796870685566,
+          0.5150910118745473,
+          0.0
+        ]
+      },
+      "transitions": 73
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_peg-insert-side_train_IID_011_31401100",
+      "factors": {
+        "a": 0.6293386508807446,
+        "b": 0.5780460765555964
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19639025628566742,
+          "unit_direction": [
+            0.5221505761146545,
+            0.14232134819030762,
+            -0.840894341468811
+          ],
+          "vector_world_m": [
+            0.10254528373479843,
+            0.027950525283813477,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.40705737471580505,
+          "unit_direction": [
+            -0.9611297249794006,
+            -0.12600812315940857,
+            0.24566562473773956
+          ],
+          "vector_world_m": [
+            -0.3912349343299866,
+            -0.0512925386428833,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6034476310014725
+      },
+      "inference_seed": 201401100,
+      "initial_state_hash": "0bb6a5d271aa2feafd3c05c7f7a35addd4c85c66e58133e9bd45dcb18d47755d",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_011_31401100.npz",
+      "seed": 31401100,
+      "sha256": "7371e2bd75d04a80e22553ec017b449d2b78f04cc783829a361c15488c858a49",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.0771294867874046,
+          0.6293386508807446,
+          0.02,
+          -0.3141054536322782,
+          0.5780460765555964,
+          0.0
+        ]
+      },
+      "transitions": 81
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_peg-insert-side_train_IID_012_31401200",
+      "factors": {
+        "a": 0.5602527895909295,
+        "b": 0.5177382487733192
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.22304639220237732,
+          "unit_direction": [
+            0.6463713049888611,
+            -0.18442490696907043,
+            -0.7403995990753174
+          ],
+          "vector_world_m": [
+            0.14417079091072083,
+            -0.041135311126708984,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4119834303855896,
+          "unit_direction": [
+            -0.9645899534225464,
+            -0.10319483280181885,
+            0.24272821843624115
+          ],
+          "vector_world_m": [
+            -0.3973950743675232,
+            -0.04251456260681152,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6350298225879669
+      },
+      "inference_seed": 201401200,
+      "initial_state_hash": "d91a0acd988315c70ca6948e98c0bcf7fcc5e53f687916e29c8961b2bb6c570d",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_012_31401200.npz",
+      "seed": 31401200,
+      "sha256": "e57a9dfda5a4d6abc66072587882d5f166a78a8811dd4a4914af3e9a1cdaad24",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.1187549891113572,
+          0.5602527895909295,
+          0.02,
+          -0.27864009065958295,
+          0.5177382487733192,
+          0.0
+        ]
+      },
+      "transitions": 81
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_peg-insert-side_train_IID_013_31401300",
+      "factors": {
+        "a": 0.6270595158488709,
+        "b": 0.5861503933116319
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.21610210835933685,
+          "unit_direction": [
+            0.6339551210403442,
+            0.11879301816225052,
+            -0.7641918063163757
+          ],
+          "vector_world_m": [
+            0.13699904084205627,
+            0.025671422481536865,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4253925085067749,
+          "unit_direction": [
+            -0.9672076106071472,
+            -0.0961679145693779,
+            0.23507700860500336
+          ],
+          "vector_world_m": [
+            -0.4114428758621216,
+            -0.04090911149978638,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6414946168661118
+      },
+      "inference_seed": 201401300,
+      "initial_state_hash": "859c7efe0456a29480f3880348c26e16fc5e0cd7f31209d767ff25c5419256bf",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_013_31401300.npz",
+      "seed": 31401300,
+      "sha256": "baeaca5bf1a9c24d5b04fc30dea3b37e5cefbebc658792553116533cf8eb7f95",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.1115832379197785,
+          0.6270595158488709,
+          0.02,
+          -0.2998596447815821,
+          0.5861503933116319,
+          0.0
+        ]
+      },
+      "transitions": 82
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_peg-insert-side_train_IID_014_31401400",
+      "factors": {
+        "a": 0.550950890920333,
+        "b": 0.5159427267100716
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.21204110980033875,
+          "unit_direction": [
+            0.5803859233856201,
+            -0.23786525428295135,
+            -0.7788275480270386
+          ],
+          "vector_world_m": [
+            0.12306567281484604,
+            -0.050437211990356445,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.41258493065834045,
+          "unit_direction": [
+            -0.9664652347564697,
+            -0.0848507285118103,
+            0.24237434566020966
+          ],
+          "vector_world_m": [
+            -0.3987489938735962,
+            -0.035008132457733154,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6246260404586792
+      },
+      "inference_seed": 201401400,
+      "initial_state_hash": "d76ef22a9e9458f24eaef9973c9a76cea58cf0009512d45d92b752b9fcec93b9",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_014_31401400.npz",
+      "seed": 31401400,
+      "sha256": "b908f77eb7c0e8b2dc11f136a35be5dd7e8444af794de6592e1c5d9c457e0a65",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.09764986864132308,
+          0.550950890920333,
+          0.02,
+          -0.3010991084514139,
+          0.5159427267100716,
+          0.0
+        ]
+      },
+      "transitions": 81
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_peg-insert-side_train_IID_015_31401500",
+      "factors": {
+        "a": 0.6432391797730194,
+        "b": 0.5850142131871794
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.198274165391922,
+          "unit_direction": [
+            0.5115824341773987,
+            0.21107693016529083,
+            -0.832904577255249
+          ],
+          "vector_world_m": [
+            0.10143357515335083,
+            0.04185110330581665,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3761477768421173,
+          "unit_direction": [
+            -0.9515047669410706,
+            -0.15479281544685364,
+            0.2658529579639435
+          ],
+          "vector_world_m": [
+            -0.35790640115737915,
+            -0.05822497606277466,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5744219422340393
+      },
+      "inference_seed": 201401500,
+      "initial_state_hash": "deb619dca84da4493b617a692f6d3fdfd7bbfdac45c600dca6282f6417748c43",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_015_31401500.npz",
+      "seed": 31401500,
+      "sha256": "e7e7bfa4549ddca80c6e20e9f844605589b7eddb666f639fa57f3918ed1e2f08",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.07601777230483055,
+          0.6432391797730194,
+          0.02,
+          -0.28188863542934217,
+          0.5850142131871794,
+          0.0
+        ]
+      },
+      "transitions": 76
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_peg-insert-side_train_IID_016_31401600",
+      "factors": {
+        "a": 0.5721785902352171,
+        "b": 0.5095085825698776
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.21592015027999878,
+          "unit_direction": [
+            0.6298616528511047,
+            -0.13527914881706238,
+            -0.764835774898529
+          ],
+          "vector_world_m": [
+            0.13599982857704163,
+            -0.029209494590759277,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4431826174259186,
+          "unit_direction": [
+            -0.9638930559158325,
+            -0.14140896499156952,
+            0.22564062476158142
+          ],
+          "vector_world_m": [
+            -0.4271806478500366,
+            -0.06266999244689941,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6591027677059174
+      },
+      "inference_seed": 201401600,
+      "initial_state_hash": "86d28b53e7dbe0b337326036ac8279b4c9cd3972a9c9b3e12f797e556d40f460",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_016_31401600.npz",
+      "seed": 31401600,
+      "sha256": "feceefffbee7d26f75df0aee5af653b01dddd6439b346e48b8c4345511f489a7",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.11058402426451722,
+          0.5721785902352171,
+          0.02,
+          -0.31659662147243,
+          0.5095085825698776,
+          0.0
+        ]
+      },
+      "transitions": 84
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_peg-insert-side_train_IID_017_31401700",
+      "factors": {
+        "a": 0.641106460132272,
+        "b": 0.5817034776644531
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.21775250136852264,
+          "unit_direction": [
+            0.6257470846176147,
+            0.18240153789520264,
+            -0.7583998441696167
+          ],
+          "vector_world_m": [
+            0.13625799119472504,
+            0.0397183895111084,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.41240954399108887,
+          "unit_direction": [
+            -0.9594047665596008,
+            -0.1440388709306717,
+            0.2424774169921875
+          ],
+          "vector_world_m": [
+            -0.3956676721572876,
+            -0.05940300226211548,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6301620453596115
+      },
+      "inference_seed": 201401700,
+      "initial_state_hash": "9c5bf1c329e417648c345e598cc0ebfae02cf03af238be93f2cb6646c8d7232c",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_017_31401700.npz",
+      "seed": 31401700,
+      "sha256": "7bd83ba66e9a93e09188e23ac9db762839bd0aebc2103f8f119cb0ea11d89636",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.11084217828619183,
+          0.641106460132272,
+          0.02,
+          -0.28482546988994106,
+          0.5817034776644531,
+          0.0
+        ]
+      },
+      "transitions": 82
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_peg-insert-side_train_IID_018_31401800",
+      "factors": {
+        "a": 0.5633408535570361,
+        "b": 0.5067000705807343
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.21676796674728394,
+          "unit_direction": [
+            0.6235267519950867,
+            -0.1755206435918808,
+            -0.7618443965911865
+          ],
+          "vector_world_m": [
+            0.1351606249809265,
+            -0.03804725408554077,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.42869868874549866,
+          "unit_direction": [
+            -0.9633957743644714,
+            -0.13212250173091888,
+            0.23326407372951508
+          ],
+          "vector_world_m": [
+            -0.4130065143108368,
+            -0.05664074420928955,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6454666554927826
+      },
+      "inference_seed": 201401800,
+      "initial_state_hash": "065fb4479b2109679ca6e20344a3c9e1f1ae3d0c9044cedd9652a115d2e24eda",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_018_31401800.npz",
+      "seed": 31401800,
+      "sha256": "ed47abc988c1563a012b1f0ae124591c2beaca4e2728ba6bda2e3a99bd6ac932",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.10974481848528658,
+          0.5633408535570361,
+          0.02,
+          -0.30326169121226176,
+          0.5067000705807343,
+          0.0
+        ]
+      },
+      "transitions": 81
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_peg-insert-side_train_IID_019_31401900",
+      "factors": {
+        "a": 0.6429632461660008,
+        "b": 0.5796789829443453
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20322251319885254,
+          "unit_direction": [
+            0.5457012057304382,
+            0.20457936823368073,
+            -0.8126238584518433
+          ],
+          "vector_world_m": [
+            0.11089877039194107,
+            0.04157513380050659,
+            -0.1651434600353241
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.3879997432231903,
+          "unit_direction": [
+            -0.9523504376411438,
+            -0.16310375928878784,
+            0.2577321231365204
+          ],
+          "vector_world_m": [
+            -0.3695117235183716,
+            -0.06328421831130981,
+            0.10000000149011612
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.5912222564220428
+      },
+      "inference_seed": 201401900,
+      "initial_state_hash": "b1acb74d557f334dfcfd19eaf9d422ab8d3019804ddb33c583a665cb1591ed9f",
+      "path": "assets/exp1/demonstrations/peg-insert-side/train20/r3_peg-insert-side_train_IID_019_31401900.npz",
+      "seed": 31401900,
+      "sha256": "776c442e4795f457d2926820e14f93c8b5558ad125409843125566a05377014d",
+      "split": "IID",
+      "stage": "train",
+      "task": "peg-insert-side",
+      "task_name": "peg-insert-side-v3",
+      "task_params": {
+        "rand_vec": [
+          0.08548297086938736,
+          0.6429632461660008,
+          0.02,
+          -0.28402876629870194,
+          0.5796789829443453,
+          0.0
+        ]
+      },
+      "transitions": 77
+    }
+  ],
+  "schema_version": "experiment1.support.v1",
+  "source": {
+    "historical_exposure": "The support and task layouts were used in development; not unseen-task transfer.",
+    "published_from_sha256": "84ba985233e416bbffb363cea823a355d439ade901b26d6fbe3c2f5f5815dc04",
+    "reuse": "Original successful demonstrations; bytes, episode IDs, subsets, seeds and ordering unchanged."
+  },
+  "subsets": {
+    "10": [
+      "r3_peg-insert-side_train_IID_000_31400000",
+      "r3_peg-insert-side_train_IID_001_31400100",
+      "r3_peg-insert-side_train_IID_002_31400200",
+      "r3_peg-insert-side_train_IID_003_31400300",
+      "r3_peg-insert-side_train_IID_004_31400400",
+      "r3_peg-insert-side_train_IID_005_31400500",
+      "r3_peg-insert-side_train_IID_006_31400600",
+      "r3_peg-insert-side_train_IID_007_31400700",
+      "r3_peg-insert-side_train_IID_008_31400800",
+      "r3_peg-insert-side_train_IID_009_31400900"
+    ],
+    "2": [
+      "r3_peg-insert-side_train_IID_000_31400000",
+      "r3_peg-insert-side_train_IID_001_31400100"
+    ],
+    "20": [
+      "r3_peg-insert-side_train_IID_000_31400000",
+      "r3_peg-insert-side_train_IID_001_31400100",
+      "r3_peg-insert-side_train_IID_002_31400200",
+      "r3_peg-insert-side_train_IID_003_31400300",
+      "r3_peg-insert-side_train_IID_004_31400400",
+      "r3_peg-insert-side_train_IID_005_31400500",
+      "r3_peg-insert-side_train_IID_006_31400600",
+      "r3_peg-insert-side_train_IID_007_31400700",
+      "r3_peg-insert-side_train_IID_008_31400800",
+      "r3_peg-insert-side_train_IID_009_31400900",
+      "r3_peg-insert-side_train_IID_010_31401000",
+      "r3_peg-insert-side_train_IID_011_31401100",
+      "r3_peg-insert-side_train_IID_012_31401200",
+      "r3_peg-insert-side_train_IID_013_31401300",
+      "r3_peg-insert-side_train_IID_014_31401400",
+      "r3_peg-insert-side_train_IID_015_31401500",
+      "r3_peg-insert-side_train_IID_016_31401600",
+      "r3_peg-insert-side_train_IID_017_31401700",
+      "r3_peg-insert-side_train_IID_018_31401800",
+      "r3_peg-insert-side_train_IID_019_31401900"
+    ],
+    "5": [
+      "r3_peg-insert-side_train_IID_000_31400000",
+      "r3_peg-insert-side_train_IID_001_31400100",
+      "r3_peg-insert-side_train_IID_002_31400200",
+      "r3_peg-insert-side_train_IID_003_31400300",
+      "r3_peg-insert-side_train_IID_004_31400400"
+    ]
+  },
+  "task": "peg-insert-side"
+}

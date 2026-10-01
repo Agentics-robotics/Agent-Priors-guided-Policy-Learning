@@ -1,0 +1,20 @@
+{
+  "policy_id": "open_hinged_lid__h03",
+  "skill_id": "open_hinged_lid",
+  "heuristic_index": 3,
+  "prior_summary": "Phase-predictive world Cartesian policy: a shared trainable causal encoder feeds the standard diffusion backbone and a masked 16-step lid-angle/gripper auxiliary head.",
+  "applicable_conditions": "Prefer near close-versus-pull, maximum-opening-versus-release, and release-versus-retreat transitions when lid installation remains near demonstration support and the supplied release angle is physically valid.",
+  "termination_guidance": "Use current physical observations, not the auxiliary prediction: fingers open, TCP clear, lid stably open with low velocity, and peg unchanged. Auxiliary output is training support for the condition representation and is not a success signal.",
+  "limitations": "Future auxiliary labels come only from successful nominal trajectories and provide no contact truth or recovery evidence. Absolute world targets remain sensitive to large lid displacement and an inappropriate release angle is out of support. Use h01 for assembly displacement and h02 for unusual TCP/joint entries.",
+  "config": {
+    "backbone": "standard DiffusionBackbone with registered condition encoder",
+    "condition_encoder": [86, 256, 256],
+    "condition_dimension": 256,
+    "action_dimension": 10,
+    "action_frame": "world",
+    "rotation_representation": "6D",
+    "auxiliary_target": "16-step normalized lid angle and gripper sign",
+    "auxiliary_weight": 0.05,
+    "prior_plan_hash": "a4a6a00bd785dd359bc4a614b9f5f2a1151c47a5e759fc8fd856dc5eb68bb43c"
+  }
+}

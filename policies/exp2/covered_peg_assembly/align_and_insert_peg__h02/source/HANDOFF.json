@@ -1,0 +1,15 @@
+{
+  "policy_id": "align_and_insert_peg__h02",
+  "entry_conditions": "Peg is visibly retained, gripper remains closed, observed hole and TCP poses are finite, and a modest local correction appears reachable and collision-free. Entry may occur anywhere in the shared 1380-1500 alignment, descent, and engagement interval.",
+  "exit_conditions": "Use only the unchanged task success geometry and a stable held pose. A small predicted residual or converged IK is not a new success criterion.",
+  "overlap_role": "All assigned actions remain supervised, including 1,440 actions across the twelve [1380,1500) overlaps. Each target is encoded relative to its own action observation, supporting early and late predecessor switches.",
+  "successor_readiness": "There is no learned successor. Continue closed-gripper stabilization after geometric success; if local commands drift from the destination, prefer the hole-frame policy rather than release.",
+  "failure_signatures": "Repeated large local residuals; accumulating destination-relative drift; descent with lateral error; peg/TCP separation; IK nonconvergence or limits; collision; or stalled insertion. Re-anchoring is not demonstrated jam recovery.",
+  "continuation_guidance": "Compose every executed slot with the fresh measured TCP and solve from fresh qpos. Do not accumulate residuals across denoising calls or from stale chunk context. Monitor observed hole-relative peg geometry externally.",
+  "limitations": "The expected robustness to local perturbation is structural, not observed recovery evidence. Large fixture displacement, severe grasp errors, contacts, and jams are unsupported.",
+  "evidence": [
+    {"trajectory_id":"demo12200","indices":[1380,1390,1400,1410,1420,1430,1440,1450,1460,1470,1480,1490,1500,1510,1520,1530,1540]},
+    {"trajectory_id":"demo12205","indices":[1380,1390,1400,1420,1440,1460,1480,1500,1520,1540]},
+    {"trajectory_id":"demo12211","indices":[1380,1500,1546]}
+  ]
+}

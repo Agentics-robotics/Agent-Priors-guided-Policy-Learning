@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "open_drawer__h01",
+  "skill_id": "open_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "drawer_origin_world_m": {"type": "array", "items": {"type": "number"}, "minItems": 3, "maxItems": 3},
+      "drawer_orientation_wxyz": {"type": "array", "items": {"type": "number"}, "minItems": 4, "maxItems": 4},
+      "desired_open_position_m": {"type": "number", "exclusiveMinimum": 0.26}
+    },
+    "required": ["drawer_origin_world_m", "drawer_orientation_wxyz", "desired_open_position_m"]
+  },
+  "parameter_semantics": "drawer_origin_world_m is the current world-frame origin in metres of the drawer at drawer_position=0. drawer_orientation_wxyz is its unit wxyz orientation and defines local -X opening translation. desired_open_position_m is the intended scalar opening in metres, bound to the demonstrated 0.300 m. Fresh drawer_position and measured robot/object state come from the executor.",
+  "observation_dependencies": ["qpos", "qvel", "tcp_pose", "red_pose", "drawer_position", "drawer_velocity"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 39]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an absolute TCP target expressed in the drawer frame computed at that slot's pre-action observation: relative position [3] in metres, relative rotation as the first two rotation-matrix columns [6], then native gripper scalar [1]. At execution, slots 1..8 correspond to current t..t+7. Every slot is transformed through the drawer frame recomputed from the fresh current drawer_position and caller calibration. Rotation 6D is projected by Gram-Schmidt, then the world target is passed to panda_kinematics.solve_ik from freshly measured qpos. The gripper scalar is appended unchanged and the common executor maps its sign to open/close.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "For valid labels, drawer-frame encode/decode reconstructs the demonstrated commanded world TCP pose; shared IK is checked by FK position/rotation and the unchanged gripper scalar. Gram-Schmidt only projects sampled non-orthogonal 6D rotations."},
+  "cut_relation": "Covers every assigned action in each [0,470) segment. It retains approach, front acquisition, pull, release, retreat, red approach/closure and initial lift, including the full action-supervised 230:470 overlap with red_transfer."
+}

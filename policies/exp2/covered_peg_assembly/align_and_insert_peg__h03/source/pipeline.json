@@ -1,0 +1,10 @@
+{
+  "policy_id": "align_and_insert_peg__h03",
+  "skill_id": "align_and_insert_peg",
+  "heuristic_index": 3,
+  "prior_summary": "A registered causal geometry encoder and approach/insert/stabilize auxiliary head condition diffusion of absolute world TCP targets, targeting switch-time phase ambiguity near the demonstrated workspace.",
+  "applicable_conditions": "Prefer when the hole remains near its demonstrated world pose but handoff may occur high during descent, on the insertion line, during engagement, or already near the stable tail. Peg retention and reachability must remain plausible.",
+  "termination_guidance": "A stage prediction is never completion. Use only the unchanged head-x interval, y/z tolerance, minimum axis alignment, and stable-held-pose evaluator.",
+  "limitations": "Stage labels are nominal geometry, not contact. World-frame outputs do not transport to a materially moved fixture. The data contain no dropped-peg, collision, jam, or retry recovery.",
+  "config": {"action_frame":"world","translation_units":"metres","rotation_representation":"6d_projected","stage_classes":["approach_descend","insert","stabilize"],"auxiliary_weight":0.05,"condition_encoder_dimension":256}
+}

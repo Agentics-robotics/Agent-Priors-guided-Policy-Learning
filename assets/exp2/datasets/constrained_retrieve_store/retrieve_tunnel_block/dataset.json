@@ -1,0 +1,264 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        300,
+        420,
+        440,
+        520,
+        540,
+        560,
+        600,
+        620,
+        640,
+        680,
+        700,
+        780,
+        800,
+        820,
+        840
+      ],
+      "trajectory_id": "demo12100"
+    },
+    {
+      "indices": [
+        300,
+        420,
+        440,
+        520,
+        540,
+        560,
+        600,
+        640,
+        680,
+        700,
+        780,
+        820,
+        840
+      ],
+      "trajectory_id": "demo12101"
+    },
+    {
+      "indices": [
+        300,
+        440,
+        540,
+        600,
+        680,
+        700,
+        840
+      ],
+      "trajectory_id": "demo12102"
+    },
+    {
+      "indices": [
+        300,
+        440,
+        540,
+        600,
+        680,
+        700,
+        840
+      ],
+      "trajectory_id": "demo12103"
+    },
+    {
+      "indices": [
+        300,
+        440,
+        540,
+        600,
+        680,
+        700,
+        840
+      ],
+      "trajectory_id": "demo12104"
+    },
+    {
+      "indices": [
+        300,
+        440,
+        540,
+        600,
+        680,
+        700,
+        840
+      ],
+      "trajectory_id": "demo12105"
+    },
+    {
+      "indices": [
+        300,
+        440,
+        540,
+        600,
+        680,
+        700,
+        840
+      ],
+      "trajectory_id": "demo12106"
+    },
+    {
+      "indices": [
+        300,
+        440,
+        540,
+        600,
+        680,
+        700,
+        840
+      ],
+      "trajectory_id": "demo12107"
+    },
+    {
+      "indices": [
+        300,
+        440,
+        540,
+        600,
+        680,
+        700,
+        840
+      ],
+      "trajectory_id": "demo12108"
+    },
+    {
+      "indices": [
+        300,
+        440,
+        540,
+        600,
+        680,
+        700,
+        840
+      ],
+      "trajectory_id": "demo12109"
+    },
+    {
+      "indices": [
+        300,
+        440,
+        540,
+        600,
+        680,
+        700,
+        840
+      ],
+      "trajectory_id": "demo12110"
+    },
+    {
+      "indices": [
+        300,
+        440,
+        540,
+        600,
+        680,
+        700,
+        840
+      ],
+      "trajectory_id": "demo12111"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Drawer_position is near 0.300 and stable, gripper is open and free of the drawer handle, block pose remains low in the tunnel, and the arm is retreating from the drawer or already approaching from above.",
+    "exit_conditions": "Fingers are closed around the block; TCP and object move together; object z is roughly 0.30 m or higher, safely above the 0.16 m tunnel clearance; the object is outside the tunnel and transfer toward the drawer is underway.",
+    "failure_signatures": "Object pose fails to follow TCP after the close command, fingers remain fully open, object stays inside/near the tunnel floor, object z does not clear 0.16 m before lateral transfer, or the object drops. Contact truth is unavailable, so grasp is inferred from finger state and coupled object/TCP motion; recovery from a failed grasp is not demonstrated.",
+    "overlap_role": "With the predecessor, actions 300:440 are shared (140 actions, 7.0 s per trajectory) so this receiver can start from early post-open retreat. With the placement successor, actions 680:840 are shared (160 actions, 8.0 s per trajectory), covering the final clearance lift, object reorientation/stabilization, and first half of transfer.",
+    "successor_readiness": "The placement skill is ready once object and TCP remain co-located under a closed gripper, object z exceeds tunnel clearance, and motion has turned toward the open drawer. The 680:840 overlap lets it start during the last lift or after transfer has begun."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Grasp and extract the block from the low tunnel",
+  "original_demonstration_count": 12,
+  "plan_hash": "388b2863018f5e4ec92a10a0b6a0efd22bb0182ef311ace074f29094ca4f82f2",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "Observed responsibility: actions 300:540 approach the block, approximately 540:600 close the gripper and pull the block outward at low height, and 600:700 lift it clear; the tail to 840 begins the transfer. This model is separate because collision-constrained low-height approach, object contact, horizontal extraction, and clearance lift differ from drawer manipulation and later placement. The demonstrations vary initial block x/y, supporting position-conditioned learning; they do not demonstrate failed-grasp recovery.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Retrieve the block from initial tunnel pose near (-0.4368, -0.4063, 0.0800); pull it outward and lift it clear before beginning transfer.",
+      "start": 300,
+      "stop": 840,
+      "trajectory_id": "demo12100"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Retrieve the block from initial tunnel pose near (-0.4478, -0.4076, 0.0800); pull it outward and lift it clear before beginning transfer.",
+      "start": 300,
+      "stop": 840,
+      "trajectory_id": "demo12101"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Retrieve the block from initial tunnel pose near (-0.4416, -0.3979, 0.0800); pull it outward and lift it clear before beginning transfer.",
+      "start": 300,
+      "stop": 840,
+      "trajectory_id": "demo12102"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Retrieve the block from initial tunnel pose near (-0.4463, -0.3953, 0.0800); pull it outward and lift it clear before beginning transfer.",
+      "start": 300,
+      "stop": 840,
+      "trajectory_id": "demo12103"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Retrieve the block from initial tunnel pose near (-0.4421, -0.3968, 0.0800); pull it outward and lift it clear before beginning transfer.",
+      "start": 300,
+      "stop": 840,
+      "trajectory_id": "demo12104"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Retrieve the block from initial tunnel pose near (-0.4365, -0.3972, 0.0800); pull it outward and lift it clear before beginning transfer.",
+      "start": 300,
+      "stop": 840,
+      "trajectory_id": "demo12105"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Retrieve the block from initial tunnel pose near (-0.4415, -0.4049, 0.0800); pull it outward and lift it clear before beginning transfer.",
+      "start": 300,
+      "stop": 840,
+      "trajectory_id": "demo12106"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Retrieve the block from initial tunnel pose near (-0.4401, -0.3951, 0.0800); pull it outward and lift it clear before beginning transfer.",
+      "start": 300,
+      "stop": 840,
+      "trajectory_id": "demo12107"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Retrieve the block from initial tunnel pose near (-0.4448, -0.3990, 0.0800); pull it outward and lift it clear before beginning transfer.",
+      "start": 300,
+      "stop": 840,
+      "trajectory_id": "demo12108"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Retrieve the block from initial tunnel pose near (-0.4457, -0.3966, 0.0800); pull it outward and lift it clear before beginning transfer.",
+      "start": 300,
+      "stop": 840,
+      "trajectory_id": "demo12109"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Retrieve the block from initial tunnel pose near (-0.4444, -0.4051, 0.0800); pull it outward and lift it clear before beginning transfer.",
+      "start": 300,
+      "stop": 840,
+      "trajectory_id": "demo12110"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Retrieve the block from initial tunnel pose near (-0.4408, -0.4063, 0.0800); pull it outward and lift it clear before beginning transfer.",
+      "start": 300,
+      "stop": 840,
+      "trajectory_id": "demo12111"
+    }
+  ],
+  "skill_id": "retrieve_tunnel_block",
+  "subgoal": "With the drawer already open, move from the drawer-retreat state to the tunnel, descend within the tunnel clearance, align an open gripper around the block, close on it, pull it horizontally out of the tunnel, then lift it above the 0.16 m tunnel clearance and begin transfer toward the drawer. Approximate entry: drawer open and stable, block low near z=0.08, gripper open. Approximate exit: block held with closed fingers and elevated around z=0.30-0.32 or higher, outside the tunnel and moving toward the drawer."
+}

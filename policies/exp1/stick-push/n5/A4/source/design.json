@@ -1,0 +1,37 @@
+{
+  "title": "Compact kinematic spanning-tree relations",
+  "coverage_gap": "The original D5 still contains only three LL and two HH episodes. Development feedback reports no failures for any initial candidate in the sampled C/E cells, so there is no observed failure mode to repair. The unresolved question is whether A1's explicit but redundant conditioning is necessary for its empirical success, or whether a compact information-preserving relational state can retain that success with less inference work. Twenty C and twenty E trials per candidate do not establish perfect population generalization.",
+  "reusable_regularity": "Replace A1's redundant 65D representation by a 39D spatial-tree-plus-temporal-change representation. A fixed world anchor and the three edges hand-to-stick, stick-to-pushed-object and pushed-object-to-goal span all point positions. Explicit hand/stick/pushed-object motion, aperture change, and quaternion feature differences encode the native previous pose without separately listing a second complete graph. Keep the physical metric scales and direct short-range grasp edge that were present in the successful A1. No learned router, joint target, planner or controller is added.",
+  "dependencies_preserved": [
+    "Current stick world position equals origin plus .20 times its anchor feature; hand equals stick minus .05 times the grasp edge; pushed object equals stick plus .20 times its edge; goal equals pushed object plus .20 times the goal edge. Thus all absolute heights and workspace positions remain available, though they are no longer separately duplicated as scalar heights or lengths.",
+    "Native previous hand, stick and pushed-object positions are current positions minus .01 times their temporal features; previous aperture is current aperture minus .10 times its change. Previous quaternion features are current quaternion features minus their differences. Both common history entries remain, preserving every causal native previous slot.",
+    "Quaternion normalization and canonical sign preserve physical orientation, and zero absent quaternions remain zero as in A1. The fixed origin is fitted only to D5 initial object2_xyz and is restored for fresh deployment. No varying runtime object is treated as a fixed world anchor.",
+    "World axes, observed stick COM, declared object2 insertion-site-plus-[0,.09,0] point, goal, hand orientation constraint and scalar gripper semantics are unchanged. No obstacle state is invented or discarded; fixed scene dependencies remain represented by absolute positions and orientations."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Same exact five support episodes; no additional training data in revision."},
+    {"path": "task_materials.json", "detail": "Native current18+previous18+goal3 and world action schema define the 39D physical information being preserved."},
+    {"path": "support_summary.json", "detail": "LL/HH-only support and centimeter-scale acquisition motion justify retaining A1's local/scene/motion scale separation."},
+    {"path": "trajectories/demo_00.json", "detail": "Previously read obs 23:29, 48:52 and 72:75 exhibit changing hand/stick/object2 motion coupling; explicit temporal changes preserve this signal while removing duplicate pose edges."},
+    {"path": "images/frame_01_demo_00_step_025.png", "detail": "Inspected low grasp posture motivates keeping the direct 5cm-scaled hand-stick edge."},
+    {"path": "images/frame_02_demo_00_step_050.png", "detail": "Inspected elevated tool posture motivates retaining absolute z via the world anchor rather than declaring a translation symmetry."},
+    {"path": "images/frame_03_demo_00_step_075.png", "detail": "Inspected pushed-assembly translation is retained through the stick-object2 edge and object2 motion."},
+    {"source": "revision message development_feedback and q3 record_selection result", "feedback_hash": "7f9a8eb3f591faede0cbd2fc183514bc7845bd731e62499d19b9e227afed74b0", "detail": "A1/A2/A3 each have equal-cell dev_C=1.0 and dev_E=1.0. Latencies are A1 .10132629299914697s, A2 .10616329000185942s, A3 .10361592249682872s; q3 selects A1. All have 20000 updates. No measured failure is attributed to a phase, frame or cell; no IID or hidden-test outcome selects."},
+    {"path": "learning.py", "detail": "Condition dimension controls only allowed factory input capacity; action loss, backbone widths, sampling and update recipe stay frozen."}
+  ],
+  "expected_failure_signature": [
+    "If A1 depended on explicit redundant hand heights, point-to-point distances, or the duplicated previous graph for stage transitions, A4 may hesitate at lift onset or start forward transfer early even though it retains the same physical information. Reduced information redundancy is not assumed harmless for a finite learner.",
+    "If temporal quaternion differences are poorly conditioned away from support, orientation changes can cause worse contact behavior; crossing the quaternion canonical-sign boundary remains a potential discontinuity inherited from the physical representation.",
+    "If the common U-Net convolutional cost dominates, reducing conditioning from 65 to 39 dimensions may not improve measured latency enough to win the tie-break. No latency improvement or success result for A4 is claimed before evaluation.",
+    "The representation still has no recovery supervision, and empirical all-success development feedback does not validate tool loss recovery or broader extrapolation."
+  ],
+  "required_runtime_fields": {"raw_history": "[B,2,39] all declared current/previous positions, apertures, object quaternions, and goal_xyz", "raw_current": "Not separately needed", "support_fit_state": "world_origin: mean D5 obs[0,11:14], as in parent A1", "action_frame": "Identity encode/decode: world_dx, world_dy, world_dz in native .01m displacement-control units; unchanged scalar gripper. Host clips in native [-1,1], predicts sixteen and executes four. No support actions enter conditioning."},
+  "training_only_targets": [],
+  "parents": ["A1"],
+  "change_summary": [
+    "One new revision training slot based on the selected A1, not an edit or checkpoint substitution. A1/A2/A3 remain frozen.",
+    "Retained A1's fixed support world origin, metric signed interaction edges, quaternion convention, identity world actions, and action-only loss.",
+    "Removed redundant pushed-object-to-hand edges, repeated distances and separate absolute-height scalars. Replaced the full native-previous spatial graph with explicit translational, aperture and quaternion-feature changes. This produces a 39D sufficient physical representation instead of 65D and reduces factory conditioning parameters without changing any common backbone width.",
+    "The revision is motivated by the empirical success tie and measured A1 latency advantage, not by a fabricated failure diagnosis. It tests representational sufficiency and efficiency with one fixed new training run."
+  ]
+}

@@ -1,0 +1,286 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        180,
+        320,
+        360,
+        700,
+        900,
+        1000,
+        1100,
+        1460,
+        1680,
+        1740
+      ],
+      "trajectory_id": "demo12300"
+    },
+    {
+      "indices": [
+        180,
+        320,
+        360,
+        700,
+        900,
+        1000,
+        1100,
+        1460,
+        1680,
+        1740
+      ],
+      "trajectory_id": "demo12301"
+    },
+    {
+      "indices": [
+        180,
+        320,
+        360,
+        700,
+        900,
+        1000,
+        1100,
+        1460,
+        1680,
+        1740
+      ],
+      "trajectory_id": "demo12302"
+    },
+    {
+      "indices": [
+        180,
+        320,
+        360,
+        700,
+        900,
+        1000,
+        1100,
+        1460,
+        1680,
+        1740
+      ],
+      "trajectory_id": "demo12303"
+    },
+    {
+      "indices": [
+        180,
+        320,
+        360,
+        700,
+        900,
+        1000,
+        1100,
+        1460,
+        1680,
+        1740
+      ],
+      "trajectory_id": "demo12304"
+    },
+    {
+      "indices": [
+        180,
+        320,
+        360,
+        700,
+        900,
+        1000,
+        1100,
+        1460,
+        1680,
+        1740
+      ],
+      "trajectory_id": "demo12305"
+    },
+    {
+      "indices": [
+        180,
+        320,
+        360,
+        700,
+        900,
+        1000,
+        1100,
+        1460,
+        1680,
+        1740
+      ],
+      "trajectory_id": "demo12306"
+    },
+    {
+      "indices": [
+        180,
+        320,
+        360,
+        700,
+        900,
+        1000,
+        1100,
+        1460,
+        1680,
+        1740
+      ],
+      "trajectory_id": "demo12307"
+    },
+    {
+      "indices": [
+        180,
+        320,
+        360,
+        700,
+        900,
+        1000,
+        1100,
+        1460,
+        1680,
+        1740
+      ],
+      "trajectory_id": "demo12308"
+    },
+    {
+      "indices": [
+        180,
+        320,
+        360,
+        700,
+        900,
+        1000,
+        1100,
+        1460,
+        1680,
+        1740
+      ],
+      "trajectory_id": "demo12309"
+    },
+    {
+      "indices": [
+        180,
+        320,
+        360,
+        700,
+        900,
+        1000,
+        1100,
+        1460,
+        1680,
+        1740
+      ],
+      "trajectory_id": "demo12310"
+    },
+    {
+      "indices": [
+        180,
+        320,
+        360,
+        700,
+        900,
+        1000,
+        1100,
+        1460,
+        1680,
+        1740
+      ],
+      "trajectory_id": "demo12311"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "The source container is closed in the gripper and lifted clear of the support. Through the incoming overlap it may be only 0.024-0.060 m high near the pickup location or already staged near (-0.259,0.224,0.400) m above the bowl. The source is the controlled object; the bowl and particle positions are task context used to aim and determine emptying progress.",
+    "exit_conditions": "The demonstrated particles have settled on the bowl floor, the source has been rotated back to approximately upright, remains closed in the gripper, and is moving away from the bowl toward the return target. At observation 1740 it is upright near x=-0.420 to -0.460 m, y=-0.264 to -0.281 m, and z=0.219-0.242 m.",
+    "failure_signatures": "Do not begin a pour with an open or uncertain grasp, a source below safe clearance, or a source not positioned over the bowl. During pouring, likely failures are particles remaining in the source, particles outside the bowl bounds, gripper opening, container/bowl collision, or failure to right the source. The demonstrations are successful nominal pours and do not establish spill, slip, or collision recovery.",
+    "overlap_role": "Incoming actions [180,360) teach early lift/carry and staged entry. Outgoing actions [1460,1740) are shared with return_place_release and teach late righting, the upright transition, and initial outbound transport. The outgoing overlap is action-supervised for 280 steps (14.0 s) per trajectory, not just observed context.",
+    "successor_readiness": "return_place_release can take over once the particles have settled in the bowl and the gripper still securely holds the source. Nominal readiness is after the source is nearly upright near index 1680; the overlap allows takeover earlier during righting or later during outbound travel."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Position, pour, and right the source",
+  "original_demonstration_count": 12,
+  "plan_hash": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "This skill owns the granular-transfer dynamics: preserve the grasp, position above the bowl, rotate progressively to the maximum pour attitude, wait for particle discharge, then reverse the rotation and begin departure. Across inspected runs, observation 360 starts a small tilt, 700 shows a large tilt while particles are still in the source, and 900-1100 show particles on the bowl floor while the source reaches and leaves its maximum attitude. By 1460 all particle positions are settled in the bowl and the source is being righted; by 1680 it is approximately upright. The front image of demo12300 at 900 visually confirms the tipped source over the bowl. These are observed nominal outcomes, not evidence of recovery behavior.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "demo12300: continue lifting/carrying the grasped filled source, pour its particles into the bowl, right it, and begin outbound transport; actions [180,1740).",
+      "start": 180,
+      "stop": 1740,
+      "trajectory_id": "demo12300"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "demo12301: pour the grasped source into the bowl and right it; particle landing pattern and outbound timing are specific to this run; actions [180,1740).",
+      "start": 180,
+      "stop": 1740,
+      "trajectory_id": "demo12301"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "demo12302: execute the full tilt-discharge-right sequence for this particle realization and start transport toward the target; actions [180,1740).",
+      "start": 180,
+      "stop": 1740,
+      "trajectory_id": "demo12302"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "demo12303: execute the full nominal pour and righting sequence; this run starts outbound motion earlier, so observation 1680 is already away from the bowl; actions [180,1740).",
+      "start": 180,
+      "stop": 1740,
+      "trajectory_id": "demo12303"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "demo12304: execute the full nominal pour, particle settling, righting, and initial outbound carry; actions [180,1740).",
+      "start": 180,
+      "stop": 1740,
+      "trajectory_id": "demo12304"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "demo12305: execute the full nominal pour and source righting, then begin return transport; actions [180,1740).",
+      "start": 180,
+      "stop": 1740,
+      "trajectory_id": "demo12305"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "demo12306: continue from a relatively higher early lift, pour, right the emptied source, and transport toward the target; actions [180,1740).",
+      "start": 180,
+      "stop": 1740,
+      "trajectory_id": "demo12306"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "demo12307: execute the full nominal pour and source righting with this run's particle distribution, then begin outbound carry; actions [180,1740).",
+      "start": 180,
+      "stop": 1740,
+      "trajectory_id": "demo12307"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "demo12308: execute the full nominal pour/right sequence and initial return travel; actions [180,1740).",
+      "start": 180,
+      "stop": 1740,
+      "trajectory_id": "demo12308"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "demo12309: execute the full nominal pour/right sequence with its slightly different arm and container orientations, then start return travel; actions [180,1740).",
+      "start": 180,
+      "stop": 1740,
+      "trajectory_id": "demo12309"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "demo12310: execute the full nominal pour/right sequence and begin transport of the emptied source toward the return target; actions [180,1740).",
+      "start": 180,
+      "stop": 1740,
+      "trajectory_id": "demo12310"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "demo12311: execute the full nominal pour/right sequence and initial return travel; actions [180,1740).",
+      "start": 180,
+      "stop": 1740,
+      "trajectory_id": "demo12311"
+    }
+  ],
+  "skill_id": "controlled_pour_and_right",
+  "subgoal": "With the source continuously held, finish transport to a high bowl-centered pose, tilt it in the demonstrated controlled arc until at least ten of twelve particles are transferred into the bowl, then rotate it back toward upright and start moving away. Keep the gripper closed and the container above the bowl walls throughout. Approximate entry: securely grasped source, from early lift-off through staged upright pose. Approximate exit: emptied source approximately upright, still grasped, elevated and approaching the return region."
+}

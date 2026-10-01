@@ -1,0 +1,10 @@
+{
+  "policy_id": "place_red__h04",
+  "skill_id": "place_red",
+  "heuristic_index": 4,
+  "prior_summary": "A deterministic phase-local translation anchor uses observed blue for predecessor release, observed red for source approach/contact/initial lift, and observed red_goal for lifted transport/place/retreat. Pickup-side Cartesian positions therefore translate with a displaced red source without keeping long transport attached to the moving block.",
+  "applicable_conditions": "Prefer when blue is low over or stable in blue_goal, red is visible and table-supported in the central area outside a 0.12 m horizontal radius of red_goal, and the dominant anticipated variation is a reachable translation of the red source. The full earlier overlap entry is trained, but strongest applicability begins after blue is stable and before red pickup.",
+  "termination_guidance": "Use only the unchanged red_at_goal AND blue_at_goal success expression. Open fingers and high TCP retreat are demonstrated terminal continuation, not additional success predicates.",
+  "limitations": "The memoryless geometric anchor is not contact truth and may select the wrong phase after slip, low transport, unusual proximity or pose noise. Translation equivariance does not cover yaw, collision avoidance, unstable blue, arbitrary recovery or unreachable displacement; red already within 0.12 m of goal uses the destination anchor.",
+  "config": {"backbone":"standard_diffusion_backbone","feature_dimension":71,"action_dimension":10,"position_reference":"causal_blue_red_or_red_goal_translation","rotation":"world_6d","lift_switch_height_m":0.05,"destination_switch_radius_xy_m":0.12,"auxiliary_loss":false}
+}

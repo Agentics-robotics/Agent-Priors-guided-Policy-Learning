@@ -1,0 +1,14 @@
+{
+  "policy_id": "retrieve_tunnel_block__h01",
+  "entry_conditions": "Drawer_position is near 0.300 and stable, gripper is open and free of the handle, the block is low in a valid tunnel pose, object pose is reliable, and the arm is retreating from the drawer or approaching the tunnel.",
+  "exit_conditions": "Fingers are closed near the block, object and TCP exhibit coupled motion, object is outside the tunnel and above world z 0.16 m, and transfer toward target_pose has begun.",
+  "overlap_role": "Actions 300:440 provide 140 action-supervised predecessor-overlap steps; actions 680:840 provide 160 successor-overlap steps covering final clearance, reorientation and early transfer.",
+  "successor_readiness": "Placement is ready when object/TCP relative pose remains stable under closed fingers, object z exceeds 0.16 m, and motion turns toward the open drawer. Closed fingers alone do not prove a grasp.",
+  "failure_signatures": "Object does not follow TCP after closure, fingers stay open, block remains near the floor, transfer begins below clearance, object pose is unreliable, or IK repeatedly reports nonconvergence or joint-limit contacts.",
+  "continuation_guidance": "Continue object-relative feedback through low extraction and vertical clearance; switch in the 680:840 overlap after observed coupled motion and clearance. If predecessor TCP offset rather than object displacement dominates, prefer h02; for ambiguous low-clearance transfer, prefer h03.",
+  "limitations": "No contact truth or failed-grasp recovery is available. Object displacement invariance does not guarantee wall clearance, reachability, or robustness to moving the tunnel/drawer.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[420,520,540,560,600,620,640,680,700,780,820,840]},
+    {"trajectory_id":"demo12101","indices":[420,520,540,560,600,640,680,700,780,820,840]}
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "title": "Typed relational encoder with joint action and hand/handle-motion diffusion",
+  "coverage_gap": "Five successful support trajectories provide many coupled hand/handle motion observations but little independent position/yaw coverage. A single flattened-state regressor may learn the correlated layouts rather than the changing hand-to-handle and handle-to-goal relationships. The stationary handle during approach and moving handle during pulling supply useful training-only physical supervision without external labels.",
+  "reusable_regularity": "Represent hand, handle and goal as typed nodes. Two rounds of shared directed-edge message passing use both world and cabinet-relative displacements, distance and relative causal motion. A learned 64D relational readout augments a 43D geometric/world skip. Jointly diffuse native world action4 followed by six future cumulative hand/handle displacement channels in the chunk-start cabinet frame. Sharing the denoiser across action and observed effects encourages coherent contact/motion representations. There is no fitted circle, hard stage rule, auxiliary planner or forced action rotation.",
+  "dependencies_preserved": [
+    "The direct skip retains current/native-previous hand and handle world positions, goal world position, yaw, both gripper apertures and full sign-invariant 6D current/previous handle attitudes. The graph does not replace all information by a translation-invariant average.",
+    "Typed nodes and ordered node readout preserve the difference between robot, movable handle and goal. Directed pair features retain motion and displacement signs. Hand and goal attitude slots are zero placeholders, not invented measurements; type codes identify their roles.",
+    "World positions, world edge vectors and native world actions retain fixed robot/gripper, gravity/table height, reachability and cube-saturation dependencies. Cabinet yaw and full handle pose retain all declared panel/cabinet information. Object2 is omitted because it is declared absent."
+  ],
+  "evidence_refs": [
+    {"path":"bundle.json","detail":"Exactly the five current D_5 episodes, no other task/N evidence."},
+    {"path":"task_materials.json","detail":"Raw41 fields, causal two-observation history, native world action cube and fixed EE orientation."},
+    {"path":"support_summary.json","detail":"542 transitions; initial hand-to-handle distances vary about 0.21-0.31m; all gripper actions equal 1 but physical aperture and hand motion vary. Gripper remains a learned native action channel rather than a hardcoded output."},
+    {"path":"images/frame_00_demo_00_step_000.png","detail":"Hand, handle/cabinet and goal have distinct spatial roles."},
+    {"path":"images/frame_01_demo_00_step_036.png","detail":"Hand moves toward/above the stationary handle."},
+    {"path":"images/frame_02_demo_00_step_073.png","detail":"Hand and handle move together during opening."},
+    {"path":"images/frame_05_demo_01_step_076.png","detail":"Different layout with hand-panel interaction during pull."},
+    {"path":"images/frame_06_demo_01_step_112.png","detail":"Later opening configuration supports using future handle displacement as a training-only target."},
+    {"path":"trajectories/demo_00.json","detail":"Obs0:4 and33:38 have a stationary handle with moving hand; obs50:56 and73:76 have coupled but unequal hand/handle displacement. This motivates separate auxiliary motion channels."},
+    {"path":"contracts.py","scope":"public","detail":"Joint diffusion retains action4 first; extra supervision may use support future states but never inference conditioning."},
+    {"path":"learning.py","scope":"public","detail":"Host action loss uses mask.sum()*4; auxiliary losses are separate; deployment denoises joint channels then decodes only action4."}
+  ],
+  "expected_failure_signature": [
+    "World action coordinates require learned direction composition. If the relational encoder cannot extrapolate the yaw dependence, C may improve while E shows systematically wrong pull directions or excessive world-cube saturation.",
+    "Generated future motion is not a dynamics oracle. The denoiser may hallucinate moving handles while actual contact fails, causing confident repeated pulls at a stationary handle.",
+    "Extra channels and message passing may overfit five trajectories or spend capacity modeling motion rather than action. Worse C and E despite coherent support motion would falsify the intended auxiliary benefit.",
+    "The world-context skip can reintroduce position/yaw confounding. Persistent crossed-cell asymmetry is a predicted warning sign rather than evidence for an invariant graph policy."
+  ],
+  "required_runtime_fields": {
+    "source":"Only raw_history [B,2,41] and raw_current [B,41] from the common causal context; neither labels nor masks enter condition or denoise.",
+    "slices":{"hand":"0:3 and 18:21","gripper":"3:4 and 21:22","handle":"4:7 and 22:25","handle_quaternion_xyzw":"7:11 and 25:29","goal":"36:39","cabinet_sin_cos":"39:41"},
+    "normalization":"Fixed world/goal-relative position scale0.5m, edge scale0.25m, contact skip0.1m, causal step motion0.01m and unit attitude/aperture/yaw. No fitted mean/std, no clipped observations.",
+    "action_frame":"Identity encode/decode for native [world_dx,world_dy,world_dz,gripper], including 0.01m xyz units. Auxiliary motion is cabinet-frame, but action4 is not rotated, normalized or overwritten. Only the public executor clips decoded world actions and executes four of sixteen."
+  },
+  "training_only_targets": [
+    {"name":"future_displacement","shape":"[num_windows,16,6]","source":"For support window (episode,t) and k=0..15, take obs[min(t+k+1,T),0:3]-obs[t,0:3] and obs[min(t+k+1,T),4:7]-obs[t,4:7]. Rotate both differences using observed yaw39:41 at t only and divide by0.1m.","padding":"Edge-repeat obs[T] only for padded indices. Common valid-action mask determines all valid auxiliary elements; obs[T] is a legitimate next-state target for the final valid action.","loss":"Append after unmodified encoded native action4. Auxiliary epsilon squared error on channels4:10, multiplied by mask[...,None], summed and divided by max(mask.sum()*6,1), weight0.25. Host native action epsilon weight1 and denominator mask.sum()*4 remain untouched.","inference":"No future truth, target cache or mask at runtime. Host initializes all ten diffusion channels from its generator and denoises jointly; auxiliary sampled channels are discarded, never used as a planner or supplied externally."}
+  ],
+  "support_fit":"None. training_targets produces a returned training-only tensor dictionary; no labels or raw trajectories are retained on the design. Default empty deployment state is sufficient.",
+  "architecture":"Three 19D typed nodes -> shared48D encoder; two rounds of 106->96->48 edge messages and 96->96->48 residual node updates with LayerNorm; ordered144->96->64 readout; concatenate43D skip for107D per-observation conditioning. One common U-Net with diffusion_action_dim10. All learned modules are created only in build_modules and participate in joint loss.",
+  "parents": [],
+  "change_summary": "Initial independent scientific design: learned typed message passing plus training-only joint future-motion denoising, retaining native world actions. Contrasts with explicit cabinet/hinge action charts without inheriting them. No development feedback used; common optimizer, update budget, U-Net architecture rule and action loss unchanged."
+}

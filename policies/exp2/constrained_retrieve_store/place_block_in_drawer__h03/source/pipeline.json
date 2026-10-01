@@ -1,0 +1,10 @@
+{
+  "policy_id": "place_block_in_drawer__h03",
+  "skill_id": "place_block_in_drawer",
+  "heuristic_index": 3,
+  "prior_summary": "Fresh-current-TCP Cartesian increments provide local feedback at perturbed intermediate states, while a registered four-class causal phase head regularizes carry, opening/settling, deposited-retreat and handle-ready separation.",
+  "applicable_conditions": "Prefer when block and destination remain in the demonstrated corridor but TCP/object height, lag or release timing is unusual and two causal frames provide consistent motion evidence. It is useful in the 900:1160 release-to-closing overlap.",
+  "termination_guidance": "Transfer to close_drawer only after observed floor-height stationarity and detachment, not from the learned phase class alone. Prefer a late transfer when TCP is at the handle; preserve both causal history frames across the switch.",
+  "limitations": "Local increments can drift and are not invariant to large object or drawer displacement. Coarse phase labels are action/geometry supervision, not contact truth. Two frames may not resolve noisy settling; unseen slip/drop recovery, collision avoidance and IK feasibility are not established.",
+  "config": {"action_frame": "fresh_current_tcp_pose", "orientation_encoding": "rotation_vector", "action_dimension": 7, "condition_latent": 128, "phase_classes": 4, "phase_loss_weight": 0.1, "history_steps": 2, "horizon": 16, "execution_steps": 8}
+}

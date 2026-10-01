@@ -1,0 +1,115 @@
+{
+  "contract": {
+    "coordinate_frame": "world",
+    "description": "Move the red block into the marked central buffer region, then move the blue block to the region where the red block started. The task is complete when the red block is in the buffer region and the blue block is in the initially red region.",
+    "drawer_channels": "No drawer in this task: drawer_position and drawer_velocity are fixed zero compatibility channels.",
+    "fixtures": [],
+    "full_rotated_xy_containment": true,
+    "gripper_release_required": false,
+    "half_xy_m": [
+      0.06,
+      0.06
+    ],
+    "object_half_m": 0.02,
+    "predicates": [
+      "red_at_goal",
+      "blue_at_goal"
+    ],
+    "required_observations": 1,
+    "schema": "appl.scaleup.goals.v1",
+    "success_expression": "red_at_goal AND blue_at_goal",
+    "sustained_hold_required": false,
+    "targets": {
+      "blue": [
+        -0.35,
+        -0.2,
+        0.02
+      ],
+      "red": [
+        -0.18,
+        0,
+        0.02
+      ]
+    },
+    "task_id": "buffer_swap",
+    "tcp_clearance_required": false,
+    "units": "metres",
+    "velocity_threshold_required": false,
+    "z_tolerance_m": 0.011
+  },
+  "drawer_position": 0.0,
+  "env_goals": {
+    "blue": [
+      -0.35,
+      -0.2,
+      0.02
+    ],
+    "red": [
+      -0.18,
+      0,
+      0.02
+    ]
+  },
+  "expert_goals": {
+    "blue_at_goal": true,
+    "red_at_goal": true,
+    "success": true
+  },
+  "expert_success": true,
+  "goal": "red_buffer_blue_goal",
+  "id": "B-G2b",
+  "id_layout": {
+    "blue": [
+      -0.34864252547901536,
+      0.20963522170649268,
+      0.02
+    ],
+    "red": [
+      -0.35503960074625224,
+      -0.19163982553741662,
+      0.02
+    ]
+  },
+  "initial_goals": {
+    "blue_at_goal": false,
+    "red_at_goal": false,
+    "success": false
+  },
+  "initial_sha256": "17c624cc69a67f4d3514e529f2fbea569d90295c1f3ccb080f663bee69ef385b",
+  "kind": "goal",
+  "name": "red_to_buffer_blue_to_goal",
+  "poses": {
+    "blue": [
+      -0.34864252547901536,
+      0.20963522170649268,
+      0.02,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "red": [
+      -0.35503960074625224,
+      -0.19163982553741662,
+      0.02,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "prepared": 1790262246.6119678,
+  "program": [
+    [
+      "red",
+      "buffer"
+    ],
+    [
+      "blue",
+      "blue"
+    ]
+  ],
+  "robot_qpos": null,
+  "seed": 24092707,
+  "task": "buffer_swap"
+}

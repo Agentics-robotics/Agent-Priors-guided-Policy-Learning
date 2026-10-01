@@ -1,0 +1,122 @@
+{
+  "checkpoint": "weights/exp2/constrained_retrieve_store/retrieve_tunnel_block__h04/model.pt",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "3b70e7fd0b80cdba0882017189180093fa8dbe2b49d71a423e633cc36cc82a0c",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 0,
+    "physical_gpu": 3,
+    "uuid": "GPU-211ca63e-6f90-7281-b43a-e1facc953f2b"
+  },
+  "effective_action_targets": 40457650,
+  "final_weights_sha256": "7892f92c811c42c239e7b06f1585317234edb6d2a0da9e7612a83d0451706081",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 2.203655242919922,
+      "step": 1
+    },
+    {
+      "l2_norm": 2.149224281311035,
+      "step": 2
+    },
+    {
+      "l2_norm": 2.054281234741211,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.16379719972610474,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "ccdb473da6dd673b0b7c420c4723a43f0b3c3fa58f6898ed1e25d4a03c232c53",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 6480,
+      "duplicated_actions": 0,
+      "unique_actions": 6480
+    },
+    "contract": {
+      "action_dimension": 19,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination_pose_field": {
+            "enum": [
+              "target_pose"
+            ],
+            "type": "string"
+          },
+          "object_pose_field": {
+            "enum": [
+              "object_pose"
+            ],
+            "type": "string"
+          },
+          "tunnel_clearance_m": {
+            "maximum": 0.16,
+            "minimum": 0.16,
+            "type": "number"
+          }
+        },
+        "required": [
+          "object_pose_field",
+          "destination_pose_field",
+          "tunnel_clearance_m"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Both encoded candidates independently recover the demonstrated commanded FK TCP pose. Their clearance blend must therefore recover that same pose and shared gripper within 0.01 maximum metres/radians/scalar; nonunique IK is accepted only through the independent task-space comparison and diagnostics expose all residuals.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "Keeps every action in each [300,840) binding, including action-supervised predecessor overlap [300,440) and successor overlap [680,840). The analytic 0.04 m clearance blend changes only the reference used to decode learned Cartesian targets and adds no task waypoint or recovery script.",
+      "input_shapes": {
+        "features": [
+          2,
+          72
+        ]
+      },
+      "observation_dependencies": [
+        "drawer_position",
+        "drawer_velocity",
+        "object_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is [world-axis TCP translation offset from fresh object position in metres (3), absolute world TCP rotation 6D (6), destination-frame TCP translation in metres (3), destination-frame TCP rotation 6D (6), shared gripper scalar (1)]. Both branches represent the same demonstrated Cartesian command. decode reconstructs both from fresh object_pose and target_pose. Let c=object_center_z-object_half_m-tunnel_clearance_m; destination weight is clip(c/0.04,0,1). Positions are linearly blended and rotations are blended on SO(3) from the object candidate to the destination candidate. The world target is converted only by panda_kinematics.solve_ik from fresh measured joints. Gripper >=0 opens and <0 closes. Slots are t-1 through t+14 and execution uses slots 1 through 8.",
+      "parameter_semantics": "object_pose_field selects the observed manipulated block whose fresh world position anchors the low-motion translation candidate and supplies clearance; destination_pose_field selects the fresh observed SE(3) drawer destination for the post-clear candidate; tunnel_clearance_m is the fixed world-z tunnel roof height in metres. Bindings use object_pose, target_pose and 0.16.",
+      "policy_id": "retrieve_tunnel_block__h04",
+      "skill_id": "retrieve_tunnel_block",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "f1381e66d6010b09923a3fc79dfe56b24bdde06d62c48daf18d541135c311e22",
+    "PRIOR.md": "13c50ee39778985dab52a53c21712ab3aee8bdc83f48309437c50aa57b57e131",
+    "adapters.py": "f35d7832b09c616107753ed5dd1640869c9394cff6487e1d2dc651ef23583203",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+    "pipeline.json": "70992e5dca70553a5132d2c739e45083172a6e8211f59e5734bd2e83d6586d04",
+    "policy.py": "4ebb1d80ac7e78819f8e4054cc8e90cf868667643ad966d99c2f0def60366353",
+    "policy_contract.json": "7e8e768fabe9ac465646a3989054f44b3cad986962db54c640ee178c187bca63",
+    "training_bindings.json": "51f3bd5eb43c968c936e1f352a1567e7d534373ba08ee8a678a4465a136d8a06"
+  },
+  "trainable_parameters": 17366675,
+  "training_elapsed_seconds": 514.1932804919779,
+  "weight_l2_change": 29.973353522252662
+}

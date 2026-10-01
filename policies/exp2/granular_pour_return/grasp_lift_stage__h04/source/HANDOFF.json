@@ -1,0 +1,15 @@
+{
+  "policy_id": "grasp_lift_stage__h04",
+  "entry_conditions": "Container and bowl poses are finite. Enter with the source upright and table-supported and fingers open, or from a nearby closed-low/closed-lifted state only when source/TCP co-motion is plausible. The source handle geometry must be unchanged and a collision-free reachable Panda configuration must be available.",
+  "exit_conditions": "Observed fingers are closed, source and TCP have co-moved, the source is clear of the table, all particles remain in the source, and the upright source is staged at the demonstrated high relation above the bowl.",
+  "overlap_role": "The full [180,360) interval is action-supervised here and in controlled_pour_and_right. It covers closed-gripper lift, upright carry, bowl-relative staging and the first small tilt, supporting early or nominal switching.",
+  "successor_readiness": "Invoke controlled_pour_and_right only after physical observations support closure, source/TCP co-motion and clearance. Nominal readiness is the high bowl-relative stage; the decoder's destination weight alone is never sufficient evidence.",
+  "failure_signatures": "Closed fingers without source/TCP co-motion, no source lift, a wrong phase weight around transition, abrupt or stalled transport, source slip/drop, early particle escape, an upright source outside the bowl footprint, IK nonconvergence, or joint-limit contact.",
+  "continuation_guidance": "Preserve the two causal frames across switches and monitor finger width, source elevation and source/TCP motion. The source branch should dominate approach and low lift; the bowl branch should dominate clear-lift transport. Stop or select another policy if grasp loss or unreachable IK is observed rather than treating the phase weight as recovery logic.",
+  "limitations": "Finger width and elevation are phase proxies rather than force/contact labels. Unseen grasp misses, slips, large rotations, changed geometry, noisy poses, obstacles and unreachable source/bowl placements are unsupported. Dual-frame supervision and absolute world orientation may underperform under the fixed training budget.",
+  "evidence": [
+    {"trajectory_id":"demo12300","indices":[0,120,136,140,148,160,180,240,280,320,340,359,360]},
+    {"trajectory_id":"demo12303","indices":[0,120,132,136,140,148,160,180,240,280,320,340,359,360]},
+    {"trajectory_id":"demo12306","indices":[0,140,160,180,320,360]}
+  ]
+}

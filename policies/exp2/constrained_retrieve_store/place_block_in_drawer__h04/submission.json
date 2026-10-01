@@ -1,0 +1,284 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/constrained_retrieve_store/place_block_in_drawer/dataset.json",
+    "dataset_sha256": "55ad1cb9ea4c494c40a43a872eb47f71a2d710eeda20242a53c2fcd0f57c59c8",
+    "experiment_version": "APPL_v4_cartesian_validation_round",
+    "heuristic": {
+      "applicability": "Prefer when the drawer is open and stable and the block begins plausibly attached, indicated only heuristically by close object/TCP centers and common recent motion, especially if the held block is displaced from demonstrated entries and the same policy must continue through release, retreat, and handle approach. Use h01 only for a reliably attached transport interval, h02 when the block is already separated/deposited or destination anchoring alone is desired, and h03 for near-nominal local phase ambiguity. This guidance does not treat proximity as contact truth.",
+      "evidence": [
+        {
+          "indices": [
+            680,
+            840,
+            880,
+            895,
+            900,
+            910,
+            920,
+            940,
+            960,
+            1080,
+            1159
+          ],
+          "trajectory_id": "demo12100"
+        },
+        {
+          "indices": [
+            680,
+            840,
+            880,
+            895,
+            900,
+            905,
+            920,
+            940,
+            960,
+            1080,
+            1159
+          ],
+          "trajectory_id": "demo12102"
+        },
+        {
+          "indices": [
+            680,
+            840,
+            880,
+            890,
+            895,
+            900,
+            920,
+            940,
+            960,
+            1080,
+            1159
+          ],
+          "trajectory_id": "demo12104"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer is open and stable; target_pose and object_pose are reliable; the block is high outside the tunnel and plausibly held close to the TCP; measured qpos admits a feasible transport toward the cavity.",
+        "exit_conditions": "The block is stationary inside the cavity at drawer-floor height and separated from the TCP; the gripper has retreated without disturbing it and has reached the drawer-handle approach.",
+        "failure_signatures": "Object stops following the TCP before cavity alignment; proximity weight collapses while the block should be held or remains high after a drop; opening occurs outside the cavity; the object remains above floor height or follows the retreat after opening; the reference weight chatters under noisy poses; or IK reports nonconvergence/limit contacts for a decoded displaced target.",
+        "overlap_role": "Retain all [680,1160) actions. The 680:840 retrieval overlap supervises attached lift/transfer in the object-dominant frame. The 900:1160 closing overlap supervises release separation, destination-dominant retreat, reorientation, and handle approach/grasp.",
+        "successor_readiness": "close_drawer may receive during 900:1160, but drawer motion waits until two causal frames show the block at drawer-floor height, stationary, and separated from the TCP. The soft proximity weight is guidance only, not proof of release."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"destination_pose_field\":{\"type\":\"string\",\"enum\":[\"target_pose\"]},\"manipulated_object_pose_field\":{\"type\":\"string\",\"enum\":[\"object_pose\"]}},\"required\":[\"destination_pose_field\",\"manipulated_object_pose_field\"]},\"parameter_semantics\":\"destination_pose_field selects the live observed world pose of the drawer placement goal; manipulated_object_pose_field selects the live observed world pose of the block. Both are resolved in each causal state and fresh execution state. Positions are metres and quaternions are wxyz. The deterministic reference weight is 1 below 0.025 m object–TCP center distance, 0 above 0.055 m, and cubic smoothstep between.\"}",
+      "limitations": "Object–TCP distance is not contact truth. A false close-proximity cue, pose noise in the transition band, or a premature drop can choose the wrong frame; no demonstration establishes recovery. Large displacements can be unreachable or collide despite Cartesian equivariance. The object pose and target pose must be reliable, and a blended frame does not remove robot-posture, joint-limit, or collision dependencies. The post-release handle transition remains learned from a small, narrow dataset.",
+      "pipeline_implications": "Add h04 beside immutable h01–h03. The high-level agent supplies only the declared object and destination field names. h04 covers a displaced attached block through the release transition by changing its action frame causally: object-dominant at close proximity and destination-dominant after separation. Continue h04 only while observations remain consistent; switch to h02 for an already separated block or stable destination-relative completion, and to h03 for local ambiguous timing near nominal geometry. close_drawer waits for observed settling rather than the blend weight alone.",
+      "rationale": "Observed demonstrations show object/TCP centers close during transport and separating during release, with variable release timing: demo12100 opens at 910 and settles by 920, demo12102 opens at 900 and settles by 905, and demo12104 opens at 895 and settles by 900. h01's object-frame policy passed 5/12 nominal validations, whereas h02 and h03 passed 12/12; causation is unconfirmed, but a resting object's pose is semantically weak for retreat and handle approach. A soft causal hybrid frame targets that boundary: when distance <=0.025 m its pose is exactly the live object pose, so carry/descent TCP targets are rigidly equivariant to block translation and rotation by construction. When distance >=0.055 m it is exactly target_pose, so retreat and handle targets cannot be shifted by an off-centre resting block. Between, translation is linearly blended and orientation follows the destination-to-object SO(3) geodesic with cubic smoothstep weight. Every training target uses the frame computed from that slot's pre-action observation; every executed slot recomputes it from the fresh state. The standard backbone diffuses an 8D relative pose quaternion plus gripper action from two 48D causal feature frames. No auxiliary head or backbone change is required.",
+      "statement": "Proximity-gated hybrid SE(3) action frame: represent commanded TCP poses relative to a smooth live reference that is exactly the manipulated object frame while object and TCP are close, and exactly the destination frame after they separate.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12100\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12101\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12102\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12103\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12104\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12105\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12106\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12107\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12108\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12109\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12110\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"},{\"trajectory_id\":\"demo12111\",\"start\":680,\"stop\":1160,\"context_start\":679,\"call_args\":{\"destination_pose_field\":\"target_pose\",\"manipulated_object_pose_field\":\"object_pose\"},\"rationale\":\"Full assigned placement responsibility; retains object-dominant retrieval overlap and destination-dominant release/closing overlap.\"}]"
+    },
+    "heuristic_index": 4,
+    "normalization": {
+      "path": "provenance/relocated/020be9790de9ea79",
+      "sha256": "77f9e282362384cdb24b5a4c4cd94a6d094c763bbb103d5745bd227a356e1d8d"
+    },
+    "observation_fields": {
+      "drawer_position": [
+        0,
+        1
+      ],
+      "drawer_velocity": [
+        1,
+        2
+      ],
+      "object_pose": [
+        2,
+        9
+      ],
+      "qpos": [
+        9,
+        18
+      ],
+      "qvel": [
+        18,
+        27
+      ],
+      "target_pose": [
+        27,
+        34
+      ],
+      "tcp_pose": [
+        34,
+        41
+      ]
+    },
+    "plan_hash": "388b2863018f5e4ec92a10a0b6a0efd22bb0182ef311ace074f29094ca4f82f2",
+    "policy_id": "place_block_in_drawer__h04",
+    "prior_plan_path": "provenance/relocated/433e0c53203de873",
+    "prior_plan_sha256": "e975bcf195062ed1e13dc5c61bad51bd195bca4ee767cea86c43faba11388026",
+    "skill_id": "place_block_in_drawer",
+    "sources": {
+      "demo12100": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12100.json",
+        "sha256": "391a897312690daa7abf863f2708fc783c18975f8b6e5a358208033ffb8f1957"
+      },
+      "demo12101": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12101.json",
+        "sha256": "493d417d97f6c7ad95744837844bd6c4ae5865d62c56ac753277daa0ef37663e"
+      },
+      "demo12102": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12102.json",
+        "sha256": "3113517600968988726041c14c18f2a8f07f3b06f70887911beafbdb50fddcf6"
+      },
+      "demo12103": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12103.json",
+        "sha256": "02bab38901c57544525be9b29344ccf005563d4416ed167f66128b5a5cc81175"
+      },
+      "demo12104": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12104.json",
+        "sha256": "093692525af6e2ecae6406548c5baf4b761414df3f199d46ecb9f1bf9cbdcf59"
+      },
+      "demo12105": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12105.json",
+        "sha256": "171a227e85dbc24fdc02a5653b5f677ec9fa03f98b8c18bcd5d0fa89978c743d"
+      },
+      "demo12106": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12106.json",
+        "sha256": "e8d3a501485c37a1134c80025e27714a62eec64d3dc046ec3dad4b8d21edd786"
+      },
+      "demo12107": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12107.json",
+        "sha256": "54c168dfa58464cbe2d3cf6957c1b5ccb1bc087f1574e257907ca3716472fbef"
+      },
+      "demo12108": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12108.json",
+        "sha256": "563deff02e2d882b12ce7f02696248d76d7c8d11b568c455db1a3f49279bc655"
+      },
+      "demo12109": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12109.json",
+        "sha256": "3e6f6b1a656eaaa9ffad9f931d7137e7995671ae4000d59dd2313c72c62aa4ce"
+      },
+      "demo12110": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12110.json",
+        "sha256": "3e3a501cbb93d5f0e8b65b1850b5e257913d811ea29c3b7aa09063cbf45a7729"
+      },
+      "demo12111": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12111.json",
+        "sha256": "f1079f7e5f2fa2b2ee03e8e6d480a28e03ea0ad78de362c753d5fa28ce890ed9"
+      }
+    },
+    "subgoal": "Carry the extracted block from above the tunnel to the open drawer, align it over the cavity, descend, open the gripper to leave the block resting at drawer-floor height, then retreat without disturbing it and reorient toward the drawer handle. Contact is maintained with the block until release. Approximate entry: block held high outside the tunnel, drawer open. Approximate exit: block resting in the open drawer near z=0.063 and x about -0.166 to -0.177 in the open-drawer world pose, gripper free and at/near the handle approach."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/4630bd475929afd6",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "0ef04dda766f9ee318eb95f9c5bbd7312ca90b006e1896927fd8918454eb1db0",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 6,
+      "physical_gpu": 4,
+      "uuid": "GPU-29557089-826b-ddb5-4d55-d03f2009a879"
+    },
+    "effective_action_targets": 4046,
+    "final_weights_sha256": "b374868a5f7d2d87198f5619b36675c15c9b8bfa9ba5b1a5ef277f773c41b1b4",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 3.951939582824707,
+        "step": 1
+      },
+      {
+        "l2_norm": 2.2159323692321777,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "da75f64f32584e57b73af88de7774aa5ff2bdb3372676a6dcc47a300d408e319",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 5760,
+        "duplicated_actions": 0,
+        "unique_actions": 5760
+      },
+      "contract": {
+        "action_dimension": 8,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "destination_pose_field": {
+              "enum": [
+                "target_pose"
+              ],
+              "type": "string"
+            },
+            "manipulated_object_pose_field": {
+              "enum": [
+                "object_pose"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "destination_pose_field",
+            "manipulated_object_pose_field"
+          ],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "For the same pre-action observation, recompute the identical hybrid reference, decode the represented demonstrated target, and compare FK of the IK result with the demonstrated commanded TCP pose. The maximum of position error in metres, rotation angle in radians and unchanged gripper-scalar error must be at most 0.005. Unit-quaternion normalization is exact on encoded labels and nonunique IK joints are allowed.",
+          "mode": "task_space",
+          "tolerance": 0.005
+        },
+        "cut_relation": "Uses every action in all twelve assigned [680,1160) slices. It preserves the 680:840 retrieval overlap in the object-dominant frame and the 900:1160 closing overlap while the live reference changes to destination-dominant release, retreat, reorientation and handle approach.",
+        "input_shapes": {
+          "features": [
+            2,
+            48
+          ]
+        },
+        "observation_dependencies": [
+          "target_pose",
+          "object_pose",
+          "tcp_pose",
+          "qpos",
+          "qvel",
+          "drawer_position",
+          "drawer_velocity"
+        ],
+        "output_semantics": "Each slot is [hybrid-reference-frame TCP translation xyz in metres, hybrid-reference-frame canonical unit quaternion wxyz, native gripper scalar]. At training slot k, the reference is computed causally from target_pose, object_pose and tcp_pose in that slot's pre-action observation. At execution, slots 1..8 are decoded against a reference recomputed from the fresh current observation. The reference equals object_pose for object/TCP distance <=0.025 m, equals target_pose for distance >=0.055 m, and is a smooth proper-SE(3) interpolation between. The represented quaternion is normalized, with identity used only for a degenerate sampled quaternion. The relative pose is left-multiplied by the live reference. panda_kinematics.solve_ik converts the world TCP target to seven absolute Panda joint targets from freshly measured qpos. The learned gripper scalar is unchanged and the executor applies its binary sign rule.",
+        "parameter_semantics": "destination_pose_field selects the live observed drawer-goal world pose and manipulated_object_pose_field selects the live observed block world pose. Both are resolved in each causal state and fresh execution state. Positions are metres and quaternions are wxyz. The hybrid reference uses object/TCP centre distance: object weight is 1 at or below 0.025 m, 0 at or above 0.055 m, and cubic smoothstep between. Translation is linearly blended and orientation is blended on the destination-to-object SO(3) geodesic.",
+        "policy_id": "place_block_in_drawer__h04",
+        "skill_id": "place_block_in_drawer",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "0163ffe64c00d795b9e24653a537e35bb9ad7b7b3f40294016dc54f5744fa2ba",
+      "PRIOR.md": "aae3b414dfb9dd6ca81726a76522a3f0db90c66a941e135489f25a69a6a965e3",
+      "adapters.py": "d1c85af34acef1c9338bb1d94664eb87f24c91fc603be5d7ed2616e461b46d5e",
+      "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "panda_posture.py": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "pipeline.json": "cbde7eedfccc760a13cd44b3652e901e78b973aab92a93007caa519c31273297",
+      "policy.py": "e990bd3a87da28926a2199ed7ef981d3a1d4371918f47e6bf20af20c1c57e80a",
+      "policy_contract.json": "dc4496ec8c6292a1eaee91a299d1e86e20fbaf4b368e703cf947e6839575ae57",
+      "training_bindings.json": "245273230f6a67fb1fc7604809816924253905e6c3c9fc3e10e5a1a5bb076632"
+    },
+    "trainable_parameters": 17012744,
+    "training_elapsed_seconds": 3.741103505017236,
+    "weight_l2_change": 0.20495253848788633
+  },
+  "files": {
+    "HANDOFF.json": "0163ffe64c00d795b9e24653a537e35bb9ad7b7b3f40294016dc54f5744fa2ba",
+    "PRIOR.md": "aae3b414dfb9dd6ca81726a76522a3f0db90c66a941e135489f25a69a6a965e3",
+    "adapters.py": "d1c85af34acef1c9338bb1d94664eb87f24c91fc603be5d7ed2616e461b46d5e",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+    "pipeline.json": "cbde7eedfccc760a13cd44b3652e901e78b973aab92a93007caa519c31273297",
+    "policy.py": "e990bd3a87da28926a2199ed7ef981d3a1d4371918f47e6bf20af20c1c57e80a",
+    "policy_contract.json": "dc4496ec8c6292a1eaee91a299d1e86e20fbaf4b368e703cf947e6839575ae57",
+    "training_bindings.json": "245273230f6a67fb1fc7604809816924253905e6c3c9fc3e10e5a1a5bb076632"
+  },
+  "version": "2d6e207ef067723742fd158a855e568a37ea1093ec827195f7e18abd09dea415"
+}

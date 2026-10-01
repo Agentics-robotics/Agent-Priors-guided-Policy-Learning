@@ -1,0 +1,10 @@
+{
+  "policy_id": "retrieve_tunnel_block__h03",
+  "skill_id": "retrieve_tunnel_block",
+  "heuristic_index": 3,
+  "prior_summary": "Destination-frame absolute Cartesian targets retain world tunnel/drawer structure; explicit causal coupling and margin features expose phase, and a narrow closed-near-object guard blocks sampled +x transfer before observed block clearance.",
+  "applicable_conditions": "Prefer when the block and tunnel are near demonstrated world support and closure/extraction/lift/transfer phase is ambiguous, especially after fingers close. target_pose must be the intended drawer destination and object/TCP/finger observations must be finite.",
+  "termination_guidance": "After the guard is inactive because the observed object is above 0.16 m, hand off when object and TCP continue together under closed fingers and destination-directed transfer has begun.",
+  "limitations": "Finger proximity and motion are only grasp proxies. The guard cannot recover a failed grasp, may reject a valid unseen low transfer, and does not ensure collision-free or reachable commands. Destination anchoring is sensitive to large block shifts and unusual entry TCP states.",
+  "config": {"action_reference":"fresh_destination_pose","rotation_representation":"6d","action_dimension":10,"auxiliary_loss":false,"clearance_guard":true,"predecessor_overlap":[300,440],"successor_overlap":[680,840]}
+}

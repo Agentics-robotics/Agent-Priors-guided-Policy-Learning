@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "checks": "Static inspection of all Python-pickle string operands inside each PyTorch ZIP data.pkl; two representative checkpoints also loaded on CPU.",
+  "private_metadata_patterns": "absolute personal/runtime paths, local proxy address, credential prefixes, private-key delimiters",
+  "checkpoint_count": 222,
+  "private_metadata_matches": 0,
+  "checkpoint_bytes_changed": false,
+  "limitation": "This is a release metadata audit, not a general proof that pickle payloads are safe to execute."
+}

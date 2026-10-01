@@ -1,0 +1,42 @@
+{
+  "title": "Compact typed-interaction bottleneck",
+  "coverage_gap": "The exact two-episode LL/HH support still lacks independent and extrapolated factor coverage. Revision feedback gives A2 a perfect finite C/E sample, so no observed A2 failure mechanism is available to target. Its wider conditioning interface has more parameters and slightly higher fixed-method latency than A1. This revision tests whether the learned relational abstraction can be retained in a narrower interface without losing extrapolation robustness.",
+  "reusable_regularity": "Preserve A2's shared, role-tagged hand-stick, stick-pushed-object and pushed-object-goal encoder, causal learned relation attention, physical hand-rooted bypass and training-only motion supervision. Reduce each role's learned embedding from 24 to 8 dimensions; keep roles separate rather than pooling them. The hypothesis is that a low-dimensional interaction salience/contact state can supplement exact geometry, instead of encoding a full trajectory or episode identity in a large latent vector. Because the bypass remains lossless, narrowing the learned augmentation does not remove a raw physical dependency.",
+  "dependencies_preserved": {
+    "robot": "Current and previous absolute hand anchors, aperture, hand motion and closure change remain in the 49-channel physical bypass. World orientation and native control semantics are unchanged.",
+    "objects_and_goal": "Both object positions, current/previous xyzw quaternions and complete goal vector remain recoverable from the hand-rooted coordinates. Learned edge inputs retain relative position history, edge motion, endpoint heights, observed quaternions and explicit roles. Object2 is the declared observed insertion-site-plus-offset point. Zero graph quaternions for hand/goal are absence placeholders, not invented orientations.",
+    "world_and_obstacles": "All positions and actions stay in world axes; absolute hand position and all heights are retained. Both objects/fixture dependencies remain represented, with no hidden obstacle data, oracle contact labels, planner or simulator internals.",
+    "causal_stage": "Attention is computed from aperture, its change, hand-stick error, heights and hand/stick one-step displacements, not time, episode ID, factor label, target-as-phase clock or future state. The goal still affects explicit physical and learned relational channels."
+  },
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exact current D_2 support identities remain unchanged."},
+    {"path": "task_materials.json", "detail": "Identical causal raw pose/aperture/goal channels, native world action4 and declared object2 point semantics."},
+    {"path": "support_summary.json", "detail": "One LL and one HH sequence, 148 transitions total; no factorial recovery coverage is added for this revision."},
+    {"path": "trajectories/demo_00.json", "detail": "Previously inspected obs 20:35 and 43:51 show closing followed by a stable hand-stick offset and coupled lift/transport; these motivate retaining motion-sensitive causal relation attention."},
+    {"path": "trajectories/demo_01.json", "detail": "Previously inspected obs 22:27 and 43:48 show analogous acquisition and raised co-motion at the other support placement."},
+    {"path": "images/frame_03_demo_00_step_030.png", "detail": "Actual inspected grasp/lift frame; the revision retains geometric fixture/tool dependence."},
+    {"path": "images/frame_10_demo_01_step_023.png", "detail": "Actual inspected second-demo acquisition frame supports the same role-specific manipulation structure."},
+    {"path": "images/frame_15_demo_01_step_073.png", "detail": "Actual inspected late second-demo interaction; the second object is not removed by compression."},
+    {"source_type": "revision_message", "reference": "development_feedback.A2", "submission_hash": "6763f26a3dcbc019ecaf9e6f78e667af2ca8f0ce35c87ea3e20a74103eac4ff2", "detail": "Reported C=1.0 and E=1.0, all C cells 10/10 and all E cells 5/5; 5,346,303 parameters and 0.10788568950374611 s fixed-method latency. This motivates preserving the learned-encoder family while testing a smaller conditioning width, not a new checkpoint selection."},
+    {"source_type": "revision_message", "reference": "development_feedback.A1", "submission_hash": "90e01a9986f45efd65fe202e282fc171a62b862110b94abe5df7aaddc443c81a", "detail": "Reported C=1.0, E=0.6, 4,789,828 parameters and 0.10627669300447451 s latency; eight native truncations. The smaller deterministic model is not selected merely for speed and does not establish a specific grasp-failure mechanism."},
+    {"source_type": "revision_message", "reference": "development_feedback.A3", "submission_hash": "2c1a915d2f01dac66e5f14dc2dabacf250b1837d9ff7d5801c98546c12e15bb7", "detail": "Reported C=0.65, E=0.25 and 0.11014286049612565 s latency, with 25 native truncations. A4 does not adopt the goal-action frame or joint auxiliary diffusion; these results cannot isolate which A3 component caused its lower success."},
+    {"path": "learning.py", "scope": "public", "detail": "Same fixed optimizer, final-update EMA, U-Net family, native action loss and separately mask-normalized auxiliary hooks. Only conditioning dimensionality changes with the compact architecture."}
+  ],
+  "expected_failure_signature": "If A2 needs more than eight learned features per role, compression will lose transition or off-diagonal/extrapolated robustness even though all raw geometry is still available. This could manifest as more native truncations, possibly at closing/lift/transport transitions; no phase-specific diagnostic has been observed. If success is retained but the fixed latency is not lower, the efficiency hypothesis fails under the frozen tie rule. A2's finite 20/20 C and 20/20 E observations do not imply population perfection, and A4 has no measured outcome yet.",
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history [B,2,39] from shared deployment observations. No labels, extra sensor values, environment handles, caches or earlier model weights.",
+    "fields": ["current.hand_xyz[0:3]", "current.gripper[3:4]", "current.object_xyz[4:7]", "current.object_quaternion[7:11]", "current.object2_xyz[11:14]", "current.object2_quaternion[14:18]", "previous native fields[18:36]", "goal_xyz[36:39]"],
+    "condition": "76 channels per observation: the unchanged 49-channel lossless physical bypass, three gated 8-dimensional role embeddings, and three causal attention weights. Shared edge encoder 24->64->8, gate 14->32->3. Fixed physical scales, no fitted statistics.",
+    "action_frame": "Identity action4 encode/decode exactly as A2: native world xyz displacements at 0.01 m scale plus independent gripper scalar. No action projection, rescaling, candidate clipping or controller correction. The common executor alone clips the native cube and executes four of sixteen."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_motion",
+      "source_fields": "Unchanged from A2: for valid j=0..15 with t+j<T in each exact support window, use obs[t+j+1] minus obs[t] for hand[0:3], stick[4:7], pushed-object[11:14] positions and aperture[3:4]. Positions are divided by 0.1 m; aperture change is unscaled. Padding is zero and invalid.",
+      "predictor": "76->128->160 MLP from the causal conditioned current observation, producing [B,16,10]. This head executes only in training_loss. No future data is ever passed to condition or deployment denoising.",
+      "loss": "Same 0.2 times future-motion MSE as A2, summed only over the intersection of public mask and future_motion_valid and divided by 10 times the intersected mask sum, with empty denominator floor 1. Public action epsilon loss retains weight 1 and mask.sum()*4 denominator."
+    }
+  ],
+  "parents": ["A2"],
+  "change_summary": "Single post-feedback architecture revision from A2: edge_width 24->8 reduces total condition_dim 124->76, the shared edge output layer, the common DP conditioning projections and the auxiliary head input width. All edge inputs, gate structure, physical bypass, action frame, auxiliary labels/weight/masks, other hidden widths and common training recipe are unchanged. Candidate class is renamed only for clarity. This is fresh initialization and one new fixed-budget training slot, not pruning, distillation, warm-starting, a checkpoint change, or a repair to any submitted candidate. A1/A3 results inform the choice but their code is not used as a parent."
+}

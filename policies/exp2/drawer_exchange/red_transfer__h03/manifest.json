@@ -1,0 +1,152 @@
+{
+  "task_id": "drawer_exchange",
+  "policy_id": "red_transfer__h03",
+  "skill_id": "red_transfer",
+  "source": "policies/exp2/drawer_exchange/red_transfer__h03/source",
+  "manifest": "policies/exp2/drawer_exchange/red_transfer__h03/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/drawer_exchange/red_transfer__h03/assignment.json",
+  "training_spec": "policies/exp2/drawer_exchange/red_transfer__h03/training/spec.json",
+  "dataset": "assets/exp2/datasets/drawer_exchange/red_transfer/dataset.json",
+  "normalization": "assets/exp2/tasks/drawer_exchange/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/drawer_exchange/red_transfer__h03/model.pt",
+    "sha256": "62b3f426633a27908e2f96af7ee3ca8e3f32b9f6e31b3f24fb10157054f325bd",
+    "source_sha256": "62b3f426633a27908e2f96af7ee3ca8e3f32b9f6e31b3f24fb10157054f325bd",
+    "size_bytes": 339943494,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 9,
+    "demos": 12,
+    "in_distribution_success": "9/12",
+    "exit_rule": "red on the pad and drawer_position > 0.26 at the final state",
+    "guidance": "Use for represented intermediate entries or red-versus-blue phase ambiguity only when the caller can infer the semantic phase from current geometry. It passed 9/12 in-distribution runs. Require drawer_position >0.26 m and select: drawer_release_to_red before red contact; red_grasp_transport_place while closing/carrying/descending red; red_release_to_blue after supported release and during transit; blue_pickup for blue approach/closure/lift. Avoid guessing the phase, and do not assume this local-TCP representation handles large red/goal displacement. Wrong phase can select the wrong object or gripper behavior. Watch for phase/geometry disagreement, closure on the wrong object, absent red co-motion, red off-pad/following retreat, blue not under TCP at closure, unreachable IK targets, and especially loss of drawer opening. All three validation failures ended with drawer_position <=0.26; two also had red off-pad, while one transiently met the exit rule and ended with red on-pad but the drawer nearly closed (0.0521 m). Handoff: after supported red release use red_release_to_blue, then blue_pickup; switch cleanly to blue_insert after red is contained and stationary, drawer_position remains >0.26, and blue/TCP initial-lift co-motion is observed. If phase cannot be determined, prefer h02 rather than guessing."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/assignment.json",
+      "sha256": "dde4d850ce704356371ac5f5509afba6ceaaed55f3b5ca74be9c2a409188dbb1",
+      "source_sha256": "0f8c01e360c8bda7486982b0fac526d55d43997ecfd10498d2181fe80f1f4670",
+      "size_bytes": 24769,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/handoff_evidence.json",
+      "sha256": "c13c0e0611e4113f62496ace0d838345f6701d18d46dfaaf525d1a7be6732882",
+      "source_sha256": "c13c0e0611e4113f62496ace0d838345f6701d18d46dfaaf525d1a7be6732882",
+      "size_bytes": 125399,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/source/HANDOFF.json",
+      "sha256": "58e57aa5bcf5851d844d6ad98b8d776c1647adb35bedf6e7f9e85191248dea65",
+      "source_sha256": "58e57aa5bcf5851d844d6ad98b8d776c1647adb35bedf6e7f9e85191248dea65",
+      "size_bytes": 2120,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/source/PRIOR.md",
+      "sha256": "6360b41d01b7d46704f72579d3baa2c1c6cc4d618fd9dd233e39fbff49335587",
+      "source_sha256": "6360b41d01b7d46704f72579d3baa2c1c6cc4d618fd9dd233e39fbff49335587",
+      "size_bytes": 4756,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/source/adapters.py",
+      "sha256": "68f0bbfd6dbfbdd6f798ac5e0360680478bad616581395cfc768721a8fd85545",
+      "source_sha256": "68f0bbfd6dbfbdd6f798ac5e0360680478bad616581395cfc768721a8fd85545",
+      "size_bytes": 4438,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/source/panda_posture.py",
+      "sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "source_sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "size_bytes": 718763,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/source/pipeline.json",
+      "sha256": "2ff89bf05cbe5f0a24fa2034a0b3570b044c5e3077d5c5328d3f7ff1defe0ef2",
+      "source_sha256": "2ff89bf05cbe5f0a24fa2034a0b3570b044c5e3077d5c5328d3f7ff1defe0ef2",
+      "size_bytes": 1363,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/source/policy.py",
+      "sha256": "fdc782a6ec87fe9b2e5ef34b349ea1e0844ec3532f6bba2a804293904d490a05",
+      "source_sha256": "fdc782a6ec87fe9b2e5ef34b349ea1e0844ec3532f6bba2a804293904d490a05",
+      "size_bytes": 1146,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/source/policy_contract.json",
+      "sha256": "e43b85a64ce6f132c3530aca0ae115db8e951743db71a3b8b4c874f4360ec418",
+      "source_sha256": "e43b85a64ce6f132c3530aca0ae115db8e951743db71a3b8b4c874f4360ec418",
+      "size_bytes": 2760,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/source/training_bindings.json",
+      "sha256": "e60fa79eb48a6d3be5f7f519e081f51b7c99dc125167c3f359ce72baf013fc95",
+      "source_sha256": "e60fa79eb48a6d3be5f7f519e081f51b7c99dc125167c3f359ce72baf013fc95",
+      "size_bytes": 12951,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/submission.json",
+      "sha256": "f4c9c809a62e02c1a952f2c1915fe236f4acd5a1ad71e3f302fd41f80d4dd5a3",
+      "source_sha256": "9c0fc241fddd67b123cad1f3f8ba5c9e8ac041f5c125afef0e6165dfa8eefc6c",
+      "size_bytes": 32768,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/training/adapter_checks.json",
+      "sha256": "611de534bbdd620ee6f0112a2b00a29eb55b308fee83e97bf7ea8f09ae343e9d",
+      "source_sha256": "611de534bbdd620ee6f0112a2b00a29eb55b308fee83e97bf7ea8f09ae343e9d",
+      "size_bytes": 196,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/training/result.json",
+      "sha256": "98349ef6368548f60c8305de70e1e2da2471510a42e7859f0ea01eab519f0ce4",
+      "source_sha256": "6fc02c4b0c4d61ea51d15872a07d453fee62ea6e6a18864064d256abca07e3b6",
+      "size_bytes": 5521,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/training/spec.json",
+      "sha256": "f613fba68d4e8197a12a91795f4a91a5ff4310d30242c813ca2ce10a4d972ab9",
+      "source_sha256": "f613fba68d4e8197a12a91795f4a91a5ff4310d30242c813ca2ce10a4d972ab9",
+      "size_bytes": 16981,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h03/prior_plan.json",
+      "sha256": "6646d768c6520ef3b2c1af3270d45f7d9cf204f024b8f191142662079dda7198",
+      "source_sha256": "6646d768c6520ef3b2c1af3270d45f7d9cf204f024b8f191142662079dda7198",
+      "size_bytes": 37406,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/drawer_exchange/task.json",
+  "completion_contract": "assets/exp2/tasks/drawer_exchange/completion_contract.json",
+  "public_context": "assets/exp2/tasks/drawer_exchange/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/drawer_exchange/prompts/hl.md",
+  "prior_plan": "policies/exp2/drawer_exchange/red_transfer__h03/prior_plan.json"
+}

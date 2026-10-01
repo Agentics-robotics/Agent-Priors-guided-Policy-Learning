@@ -1,0 +1,22 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "place_block_in_drawer__h04",
+  "skill_id": "place_block_in_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "destination_pose_field": {"type": "string", "enum": ["target_pose"]},
+      "manipulated_object_pose_field": {"type": "string", "enum": ["object_pose"]}
+    },
+    "required": ["destination_pose_field", "manipulated_object_pose_field"]
+  },
+  "parameter_semantics": "destination_pose_field selects the live observed drawer-goal world pose and manipulated_object_pose_field selects the live observed block world pose. Both are resolved in each causal state and fresh execution state. Positions are metres and quaternions are wxyz. The hybrid reference uses object/TCP centre distance: object weight is 1 at or below 0.025 m, 0 at or above 0.055 m, and cubic smoothstep between. Translation is linearly blended and orientation is blended on the destination-to-object SO(3) geodesic.",
+  "observation_dependencies": ["target_pose", "object_pose", "tcp_pose", "qpos", "qvel", "drawer_position", "drawer_velocity"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 48]},
+  "action_dimension": 8,
+  "output_semantics": "Each slot is [hybrid-reference-frame TCP translation xyz in metres, hybrid-reference-frame canonical unit quaternion wxyz, native gripper scalar]. At training slot k, the reference is computed causally from target_pose, object_pose and tcp_pose in that slot's pre-action observation. At execution, slots 1..8 are decoded against a reference recomputed from the fresh current observation. The reference equals object_pose for object/TCP distance <=0.025 m, equals target_pose for distance >=0.055 m, and is a smooth proper-SE(3) interpolation between. The represented quaternion is normalized, with identity used only for a degenerate sampled quaternion. The relative pose is left-multiplied by the live reference. panda_kinematics.solve_ik converts the world TCP target to seven absolute Panda joint targets from freshly measured qpos. The learned gripper scalar is unchanged and the executor applies its binary sign rule.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "For the same pre-action observation, recompute the identical hybrid reference, decode the represented demonstrated target, and compare FK of the IK result with the demonstrated commanded TCP pose. The maximum of position error in metres, rotation angle in radians and unchanged gripper-scalar error must be at most 0.005. Unit-quaternion normalization is exact on encoded labels and nonunique IK joints are allowed."},
+  "cut_relation": "Uses every action in all twelve assigned [680,1160) slices. It preserves the 680:840 retrieval overlap in the object-dominant frame and the 900:1160 closing overlap while the live reference changes to destination-dominant release, retreat, reorientation and handle approach."
+}

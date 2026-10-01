@@ -1,0 +1,18 @@
+{
+  "policy_id": "reorient_and_stage_peg__h04",
+  "skill_id": "reorient_and_stage_peg",
+  "heuristic_index": 4,
+  "prior_summary": "Diffuse desired peg poses in the observed hole frame and reconstruct TCP targets with the causal rigid grasp transform, making destination motion covariant to reachable hole displacement while adapting to stable grasp-offset variation.",
+  "applicable_conditions": "Prefer when the cover is open, fingers are closed, peg_pose and hole_pose are reliable, and peg-to-TCP geometry is stable over both causal frames. It is intended for a reachable moved hole or a different but rigid grasp transform at retrieval handoff.",
+  "termination_guidance": "Hand off through the retained [1380,1500) overlap once the peg is nearly hole-axis aligned, centered in hole-relative y/z, and descending near hole height with healthy IK diagnostics. Do not continue indefinitely after a valid staged state.",
+  "limitations": "There is no contact truth or recovery supervision. The chunk grasp transform must remain rigid; displacement covariance does not preserve collision clearance, reachability or insertion contact, and no dropped peg, slipping grasp, cover collapse or post-success recovery is demonstrated.",
+  "config": {
+    "action_frame": "chunk_hole_pose",
+    "action_body": "desired_peg_pose",
+    "grasp_factorization": "newest_causal_tcp_to_peg",
+    "rotation_encoding": "6d",
+    "feature_dimension_per_frame": 76,
+    "backbone": "standard_diffusion_backbone",
+    "auxiliary_loss_weight": 0.0
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "budget_factor": 1.5,
+  "demos": 12,
+  "exit_rule": "peg center at least 0.15 m high (or the peg inserted) and the cover still open (> 0.9 rad) at the final state",
+  "passed": 8,
+  "per_demo": {
+    "demo12200": true,
+    "demo12201": true,
+    "demo12202": false,
+    "demo12203": true,
+    "demo12204": true,
+    "demo12205": true,
+    "demo12206": true,
+    "demo12207": false,
+    "demo12208": false,
+    "demo12209": true,
+    "demo12210": true,
+    "demo12211": false
+  },
+  "policy": "retrieve_peg_from_box__h03",
+  "skill": "retrieve_peg_from_box",
+  "success_rate": 0.6666666666666666,
+  "task": "covered_peg_assembly"
+}

@@ -1,0 +1,122 @@
+{
+  "checkpoint": "weights/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/model.pt",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "c5d42860972b6a78ec4c8361de3eb74bb36e2de89220a7b956d244949fd86857",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 2,
+    "physical_gpu": 0,
+    "uuid": "GPU-3a21dde0-fd97-6ab3-4abb-5c98696a4bc3"
+  },
+  "effective_action_targets": 40457650,
+  "final_weights_sha256": "03c10697306c768462cfacc5425d4baf942801a47fe75209abb6c068f30356b5",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.3221142292022705,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.356632947921753,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.0925889015197754,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.16983318328857422,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "f0ae17f3977b8a88247baed7949d7ff39eada3fe47803b2d152cd9fc023939cc",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 6480,
+      "duplicated_actions": 0,
+      "unique_actions": 6480
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination_pose_field": {
+            "enum": [
+              "target_pose"
+            ],
+            "type": "string"
+          },
+          "object_pose_field": {
+            "enum": [
+              "object_pose"
+            ],
+            "type": "string"
+          },
+          "tunnel_clearance_m": {
+            "maximum": 0.16,
+            "minimum": 0.16,
+            "type": "number"
+          }
+        },
+        "required": [
+          "object_pose_field",
+          "destination_pose_field",
+          "tunnel_clearance_m"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Destination-frame encode/decode must recover demonstrated FK TCP and gripper within 0.01 maximum metres/radians/scalar. The declared guard is inactive on valid demonstrated targets; any projection and all IK residuals are reported.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "Keeps all [300,840) actions for each trajectory, including [300,440) predecessor and [680,840) successor overlap. The only nonlearned refinement is the declared low-clearance projection; it does not add task waypoints.",
+      "input_shapes": {
+        "features": [
+          2,
+          70
+        ]
+      },
+      "observation_dependencies": [
+        "drawer_position",
+        "drawer_velocity",
+        "object_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is [destination-frame TCP x,y,z metres, destination-frame TCP rotation 6D as first two columns, gripper scalar]. decode composes the represented pose with the freshly observed target_pose. If and only if observed fingers are closed, TCP is within 0.06 m of the block and block z is below tunnel_clearance_m, a deterministic projection caps premature +world-x transfer to object_x+0.03 m and keeps y inside the object-centre tunnel lane while the block is inside tunnel x. Rotation is unchanged. The resulting world TCP pose goes through panda_kinematics.solve_ik from fresh joints. Gripper >=0 opens and <0 closes. Slots are t-1..t+14; execution uses 1..8.",
+      "parameter_semantics": "object_pose_field selects the observed manipulated block used for proximity, motion and clearance features; destination_pose_field selects the observed SE(3) frame for learned targets; tunnel_clearance_m is world z=0.16 m and enters both features and the conservative decoder guard. Bindings use object_pose, target_pose and 0.16.",
+      "policy_id": "retrieve_tunnel_block__h03",
+      "skill_id": "retrieve_tunnel_block",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "59ccbdd46263c8e7bb48c6698353466cff9141b423987c9e5d55c793a5bc3e03",
+    "PRIOR.md": "042d17def01201b479b5c484bebb66784f274bbf6cddc2827d9070ded9a7cb23",
+    "adapters.py": "79c23f69dd7c96c745aa51be3f2edcd0035993234ff3dbc2dbf4cc453c068e8f",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+    "pipeline.json": "4bdbe974cb00ae902507b21755cdd5ace610ee2ea6046379660e990f7ce18822",
+    "policy.py": "344af08569a23540d60c2b67daa9c98df9156a4ef63c67c64cfa70f48f5af1cc",
+    "policy_contract.json": "2c8cb28e3ed6aaa3ff7d432feb4b5b422aef46adad2c7a6a196107422f75ac01",
+    "training_bindings.json": "be5ed805fb9a281c646f2719139d9dcd9788a05cc21cac5f69f7d04555eca4d9"
+  },
+  "trainable_parameters": 17329930,
+  "training_elapsed_seconds": 539.0359236118384,
+  "weight_l2_change": 27.92508630806765
+}

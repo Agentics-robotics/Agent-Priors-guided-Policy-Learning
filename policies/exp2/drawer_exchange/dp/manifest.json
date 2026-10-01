@@ -1,0 +1,133 @@
+{
+  "task_id": "drawer_exchange",
+  "policy_id": "dp",
+  "skill_id": "full_task",
+  "source": "policies/exp2/drawer_exchange/dp/source",
+  "manifest": "policies/exp2/drawer_exchange/dp/manifest.json",
+  "author": "RepositoryAgent",
+  "methods": [
+    "dp"
+  ],
+  "assignment": "policies/exp2/drawer_exchange/dp/assignment.json",
+  "training_spec": "policies/exp2/drawer_exchange/dp/training/spec.json",
+  "dataset": "assets/exp2/datasets/drawer_exchange/full_task_dp/dataset.json",
+  "normalization": "assets/exp2/tasks/drawer_exchange/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/drawer_exchange/dp/model.pt",
+    "sha256": "23de4902006e53a0be4518e20dd841a80f2754f56677c172885955e3c77b1845",
+    "source_sha256": "23de4902006e53a0be4518e20dd841a80f2754f56677c172885955e3c77b1845",
+    "size_bytes": 340277446,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 5,
+    "demos": 12,
+    "in_distribution_success": "5/12",
+    "exit_rule": "standard task success (first occurrence)",
+    "guidance": "No final guidance recorded."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/drawer_exchange/dp/assignment.json",
+      "sha256": "92ea71ba084356877599370808dff43a47d47b1178b73fcce9929388269cdcea",
+      "source_sha256": "6b67b774e9d1e05a7f965a23e42621153b3aaebbe87e00785624956ab64fc0e6",
+      "size_bytes": 2998,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/source/HANDOFF.json",
+      "sha256": "d8c175832ef5a9e33121b97b4e946007a7f04b8fa751f450b4d21d6fef3000f7",
+      "source_sha256": "d8c175832ef5a9e33121b97b4e946007a7f04b8fa751f450b4d21d6fef3000f7",
+      "size_bytes": 1568,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/source/PRIOR.md",
+      "sha256": "ea31a37dc5469598e9d4f3adf1e5b4b05acf283ce7d3f4852753dcda324a1675",
+      "source_sha256": "ea31a37dc5469598e9d4f3adf1e5b4b05acf283ce7d3f4852753dcda324a1675",
+      "size_bytes": 950,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/source/adapters.py",
+      "sha256": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+      "source_sha256": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+      "size_bytes": 2083,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/source/panda_posture.py",
+      "sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "source_sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "size_bytes": 718763,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/source/pipeline.json",
+      "sha256": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+      "source_sha256": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+      "size_bytes": 328,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/source/policy.py",
+      "sha256": "a252e4e6c9fbf9b9b2300b43440ee2774544ee26d74c0b4a3de8ea28dc7b4ab1",
+      "source_sha256": "a252e4e6c9fbf9b9b2300b43440ee2774544ee26d74c0b4a3de8ea28dc7b4ab1",
+      "size_bytes": 743,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/source/policy_contract.json",
+      "sha256": "a8086fe72d0a9797e8252aeb7e2207c74044b231342c2833d1cd66c5bbc73bac",
+      "source_sha256": "a8086fe72d0a9797e8252aeb7e2207c74044b231342c2833d1cd66c5bbc73bac",
+      "size_bytes": 1357,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/source/training_bindings.json",
+      "sha256": "faf7ba5147dd2eaf3b0e356479dc829c9276f28658a92875c6ba7d3750e04ae1",
+      "source_sha256": "faf7ba5147dd2eaf3b0e356479dc829c9276f28658a92875c6ba7d3750e04ae1",
+      "size_bytes": 2295,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/submission.json",
+      "sha256": "0315fe3c44510988e1bf0bda7bc871aae4bc9bb3a7e1c7a5beb9f79dd24359c3",
+      "source_sha256": "f324460f6e7440b0af24ea455e9585168e553bf294bfb8aab3938954dcce14d8",
+      "size_bytes": 5509,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/training/adapter_checks.json",
+      "sha256": "673166c8f9535fa9f9d8e7ef568f486dc7cc6a0f330f08c88d6b75c030b61ff7",
+      "source_sha256": "673166c8f9535fa9f9d8e7ef568f486dc7cc6a0f330f08c88d6b75c030b61ff7",
+      "size_bytes": 195,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/training/result.json",
+      "sha256": "13b98aa1f81bddb6a6c7668bfd75320bd5d67b95333cdca6b3e8e97e8b368e72",
+      "source_sha256": "e2a18f0dd4d5b7b857aa69ada5f2b04f4eb6cc048a1139555ede69c6c1bb9a44",
+      "size_bytes": 3621,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/dp/training/spec.json",
+      "sha256": "ec95999451f5b167e4b396a34202f89d4af9d3f7b62643966cebf34d8ba3a8a0",
+      "source_sha256": "ec95999451f5b167e4b396a34202f89d4af9d3f7b62643966cebf34d8ba3a8a0",
+      "size_bytes": 14773,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/drawer_exchange/task.json",
+  "completion_contract": "assets/exp2/tasks/drawer_exchange/completion_contract.json",
+  "public_context": "assets/exp2/tasks/drawer_exchange/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/drawer_exchange/prompts/hl.md"
+}

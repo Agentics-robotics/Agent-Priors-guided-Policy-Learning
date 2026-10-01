@@ -1,0 +1,277 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/constrained_retrieve_store/open_drawer/dataset.json",
+    "dataset_sha256": "effdd277ac6e01982baa125579f273ff2d23600b8a3a0539bcd96e3fa9d7059b",
+    "experiment_version": "APPL_v4_cartesian_validation_round",
+    "heuristic": {
+      "applicability": "Prefer open_drawer__h04 when target_pose is a reliable rigid reference for a drawer whose placement may be translated or rotated relative to training, especially when the high-level agent also wants fresh-state local behavior near the open stop and through departure. Invoke from a closed or partly opening drawer with the block still undisturbed and with a reachable arm configuration near the demonstrated approach/pull manifold. The early target-frame position branch is intended for approach, handle alignment and most of the pull; the fresh-TCP branch dominates only near full opening and remains active through release, clearance and the 300:440 departure overlap.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            140,
+            160,
+            165,
+            180,
+            220,
+            240,
+            250,
+            265,
+            280,
+            300,
+            340,
+            380,
+            420,
+            439
+          ],
+          "trajectory_id": "demo12100"
+        },
+        {
+          "indices": [
+            0,
+            160,
+            165,
+            180,
+            220,
+            250,
+            265,
+            300,
+            340,
+            420,
+            439
+          ],
+          "trajectory_id": "demo12101"
+        },
+        {
+          "indices": [
+            0,
+            160,
+            220,
+            250,
+            265,
+            300,
+            420,
+            439
+          ],
+          "trajectory_id": "demo12102"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer is closed or in an observed approach/early-opening state, target_pose is available and credible, the block remains low in the tunnel, and the measured arm pose is reachable without an unseen collision. The standard demonstrated entry is drawer_position near 0, low velocity, open fingers and TCP high near world (-0.384, 0, 0.442).",
+        "exit_conditions": "Drawer_position is about 0.300 m and stable, fingers are observably open after release, TCP has cleared the handle/drawer and is moving above or toward the tunnel, and the block remains at its entry pose.",
+        "failure_signatures": "Drawer_position never reaches 0.29 m, reaches the open stop and later regresses below 0.29 m, the gripper repeatedly changes sign or stays closed after full opening, the TCP returns toward the handle after release, the block moves, or IK reports an unconverged/unreachable composed target. The progress blend can be unreliable if drawer progress is noisy or an unseen state is phase-inconsistent.",
+        "overlap_role": "All actions 300:440 in every trajectory remain directly supervised: 140 actions (7.0 s) of post-handle retreat, free-space turn and initial tunnel descent. In this interval the progress blend is fully on the fresh-current-TCP branch, matching the representation intended to remain locally stable after opening while preserving successor overlap.",
+        "successor_readiness": "Switch to retrieve_tunnel_block after the drawer is open and nearly stationary, fingers are open, and the TCP has safe clearance. The shared 300:440 tail supports switching shortly after release or later above the tunnel; preserve the two causal history frames across the switch."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"open_stop_m\":{\"type\":\"number\",\"minimum\":0.25,\"maximum\":0.35}},\"required\":[\"open_stop_m\"]},\"parameter_semantics\":\"open_stop_m is the intended drawer travel/open stop in metres, bound to 0.300 m for all authorized demonstrations. It normalizes drawer position and sets the causal representation blend: drawer-frame commanded position dominates through 0.90 of travel, a smooth blend is used from 0.90 to 0.98, and fresh measured-TCP residual position dominates at and above 0.98. target_pose and tcp_pose are observed world poses in metres with wxyz quaternions; no future or contact truth is supplied.\"}",
+      "limitations": "The only validation evidence is in-distribution and does not test displaced drawers or perturbed entries. Target-frame equivariance covers commanded position during approach and most of the pull; commanded orientation remains a fresh-TCP body correction, so full rigid-pose equivariance is not guaranteed. Near-stop blending is not hysteretic and may be ambiguous under noisy/nonmonotone drawer progress. Relative coordinates do not ensure reachability, collision clearance, handle contact or a successful grasp. The demonstrations do not establish recovery from a missed handle, premature release, severe tracking error, disturbed block or unseen phase order. The block-approach tail is not made object-frame invariant, so large independent block displacement is better handled by the existing dual-anchor policy h03.",
+      "pipeline_implications": "Add h04 as an independent alternative, not a replacement for h01-h03. The high-level agent should select it when drawer displacement and near-stop continuation are both concerns and target_pose is trustworthy. h02 remains the evidence-backed in-distribution default and is preferable for small intermediate TCP deviations without a displaced-drawer requirement; h03 remains preferable when independent block displacement in the overlap is the main concern. Terminate by semantic observations rather than elapsed time, and hand off within the supervised 300:440 overlap once successor readiness holds.",
+      "rationale": "Validation showed h02's fresh-current-TCP residual policy passing all 12 demonstrated entries, while the fully drawer-relative h01 passed 6/12 and several h01 failures reached or nearly reached the stop before ending below the threshold. This does not identify a cause, but it motivates retaining explicit drawer anchoring only where it supplies the needed displacement invariant and using fresh-state residual control near the stop/departure. The new 10D label redundantly encodes the same demonstrated command position in target-frame absolute coordinates and in measured-TCP body residual coordinates, plus a body rotation correction and gripper scalar. A causal smooth progress blend decodes these two exact position labels; therefore demonstration labels remain physically identical under either branch. This targets translated/rotated drawer-position paths by construction through approach and most of pull, and targets near-stop/late-state mismatch with the mechanism used by the strongest validated original. It is an unconfirmed design hypothesis, not a claim of improvement.",
+      "statement": "Hybrid drawer-equivariant / fresh-TCP Cartesian policy: learn two exact coordinate descriptions of each commanded TCP position, use drawer target-frame position for displacement-equivariant approach and pull, smoothly change to fresh measured-TCP residual position near the open stop, and always express orientation as a fresh-TCP body rotation correction. Preserve robot state, target world pose, relative block geometry, causal drawer motion and full successor overlap in conditioning.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12100\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12101\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12102\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12103\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12104\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12105\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12106\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12107\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12108\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12109\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12110\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12111\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"}]"
+    },
+    "heuristic_index": 4,
+    "normalization": {
+      "path": "provenance/relocated/020be9790de9ea79",
+      "sha256": "77f9e282362384cdb24b5a4c4cd94a6d094c763bbb103d5745bd227a356e1d8d"
+    },
+    "observation_fields": {
+      "drawer_position": [
+        0,
+        1
+      ],
+      "drawer_velocity": [
+        1,
+        2
+      ],
+      "object_pose": [
+        2,
+        9
+      ],
+      "qpos": [
+        9,
+        18
+      ],
+      "qvel": [
+        18,
+        27
+      ],
+      "target_pose": [
+        27,
+        34
+      ],
+      "tcp_pose": [
+        34,
+        41
+      ]
+    },
+    "plan_hash": "388b2863018f5e4ec92a10a0b6a0efd22bb0182ef311ace074f29094ca4f82f2",
+    "policy_id": "open_drawer__h04",
+    "prior_plan_path": "provenance/relocated/66ed02f79a756358",
+    "prior_plan_sha256": "1987cf997a210824db157d63abe655212efbc1dc0d2339d9e2388dd73f1c3dd3",
+    "skill_id": "open_drawer",
+    "sources": {
+      "demo12100": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12100.json",
+        "sha256": "391a897312690daa7abf863f2708fc783c18975f8b6e5a358208033ffb8f1957"
+      },
+      "demo12101": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12101.json",
+        "sha256": "493d417d97f6c7ad95744837844bd6c4ae5865d62c56ac753277daa0ef37663e"
+      },
+      "demo12102": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12102.json",
+        "sha256": "3113517600968988726041c14c18f2a8f07f3b06f70887911beafbdb50fddcf6"
+      },
+      "demo12103": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12103.json",
+        "sha256": "02bab38901c57544525be9b29344ccf005563d4416ed167f66128b5a5cc81175"
+      },
+      "demo12104": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12104.json",
+        "sha256": "093692525af6e2ecae6406548c5baf4b761414df3f199d46ecb9f1bf9cbdcf59"
+      },
+      "demo12105": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12105.json",
+        "sha256": "171a227e85dbc24fdc02a5653b5f677ec9fa03f98b8c18bcd5d0fa89978c743d"
+      },
+      "demo12106": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12106.json",
+        "sha256": "e8d3a501485c37a1134c80025e27714a62eec64d3dc046ec3dad4b8d21edd786"
+      },
+      "demo12107": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12107.json",
+        "sha256": "54c168dfa58464cbe2d3cf6957c1b5ccb1bc087f1574e257907ca3716472fbef"
+      },
+      "demo12108": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12108.json",
+        "sha256": "563deff02e2d882b12ce7f02696248d76d7c8d11b568c455db1a3f49279bc655"
+      },
+      "demo12109": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12109.json",
+        "sha256": "3e6f6b1a656eaaa9ffad9f931d7137e7995671ae4000d59dd2313c72c62aa4ce"
+      },
+      "demo12110": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12110.json",
+        "sha256": "3e3a501cbb93d5f0e8b65b1850b5e257913d811ea29c3b7aa09063cbf45a7729"
+      },
+      "demo12111": {
+        "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12111.json",
+        "sha256": "f1079f7e5f2fa2b2ee03e8e6d480a28e03ea0ad78de362c753d5fa28ce890ed9"
+      }
+    },
+    "subgoal": "From the common home state with the drawer closed, approach the drawer handle, close the gripper on it, pull the drawer to its approximately 0.30 m open stop, release it, and lift/turn toward the tunnel approach. Contact is with the drawer handle; the tunnel block must remain undisturbed. Approximate entry: drawer_position 0, open fingers, TCP high near world (-0.384, 0, 0.442). Approximate exit: drawer_position about 0.300 and stationary, fingers open, TCP descending toward the tunnel from above while the block is still at its initial low pose."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/7d4478151b4c1ffe",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "3f7f59b1f820b51e27be21bdaf7f62a264db96eadadee7a3e084d094ca3485fc",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 7,
+      "physical_gpu": 5,
+      "uuid": "GPU-13ce441a-9b9f-d327-08cf-e7e9f728b580"
+    },
+    "effective_action_targets": 4030,
+    "final_weights_sha256": "c5cef4102a5d421a755a2776c1b6b634399d46221b5e5c1f56f4b8641d3299fb",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 3.802793264389038,
+        "step": 1
+      },
+      {
+        "l2_norm": 2.3133127689361572,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "88374e0a949334f48160ffa5591b3e137348eb35c1eac39afa25eaa4c9497b78",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 5280,
+        "duplicated_actions": 0,
+        "unique_actions": 5280
+      },
+      "contract": {
+        "action_dimension": 10,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "open_stop_m": {
+              "maximum": 0.35,
+              "minimum": 0.25,
+              "type": "number"
+            }
+          },
+          "required": [
+            "open_stop_m"
+          ],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "For labels, target_pose composed with the anchor-relative position and measured TCP composed with the body correction both reconstruct the demonstrated command from native-command FK. Their causal blend therefore reconstructs the same world position, and body rotation reconstructs command orientation before verified Panda IK. World TCP position, rotation angle and gripper scalar are compared; nonunique IK is allowed.",
+          "mode": "task_space",
+          "tolerance": 0.01
+        },
+        "cut_relation": "Preserves actions 0:440 for all twelve assigned occurrences, including the complete 300:440 action-supervised successor overlap. It refines each command into two exact causal Cartesian coordinate descriptions without trimming phases, changing gripper labels, or adding scripted contact recovery.",
+        "input_shapes": {
+          "features": [
+            2,
+            48
+          ]
+        },
+        "observation_dependencies": [
+          "drawer_position",
+          "drawer_velocity",
+          "object_pose",
+          "qpos",
+          "qvel",
+          "target_pose",
+          "tcp_pose"
+        ],
+        "output_semantics": "Each slot is [px_a,py_a,pz_a,dx_b,dy_b,dz_b,rx_b,ry_b,rz_b,g]. The first position is the commanded TCP origin in the fresh target_pose frame in metres. The second position and rotation vector are a local SE(3) correction from the fresh measured TCP, with metres and radians. At each executed slot, causal drawer progress smoothly blends the two reconstructed world positions; orientation is the measured TCP rotation right-multiplied by the body rotation correction. Both label branches reconstruct the same demonstrated Cartesian command. The resulting world TCP target is solved by shared Panda IK from freshly measured joints. Slots represent t-1 through t+14 and execution uses slots 1 through 8. g retains nonnegative-open/negative-close native gripper semantics.",
+        "parameter_semantics": "open_stop_m is the intended drawer travel/open stop in metres, bound to 0.300 m for every authorized occurrence. It normalizes observed drawer progress and sets a fixed causal blend: target-pose-relative commanded position through progress 0.90, smooth interpolation over 0.90 to 0.98, and fresh measured-TCP residual position from 0.98 onward. Observed poses use world metres and wxyz quaternions.",
+        "policy_id": "open_drawer__h04",
+        "skill_id": "open_drawer",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "f607e69953bb62f6e6e94cbb9f2c7f7134a7430789349c7a3c3a528d293383cb",
+      "PRIOR.md": "cd943dcb00b3e88d478840a732bd41c3fa8e01d6060f7eaf24134e41586a291f",
+      "adapters.py": "15b188adcb52cd5d87196b523992a3b020250136bcaa388653c44debec4a8563",
+      "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "panda_posture.py": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "pipeline.json": "56b26cf9317c0678c8e2b6159c38666c978be7f169a8ba0994b9e20538240988",
+      "policy.py": "8d872bd3f6caa78932ba4e87c129320faffcfe466e69b8d44a8edbd45cc89771",
+      "policy_contract.json": "7c164638e670fa6766b2ce3d06904541ef0c0aa58646647698b00c16260c1419",
+      "training_bindings.json": "92d03cfecc16656750f4870ad2daec00a4e3e844c226f1b4c2e15c2583824e2c"
+    },
+    "trainable_parameters": 17014538,
+    "training_elapsed_seconds": 3.526448536897078,
+    "weight_l2_change": 0.20426495086184288
+  },
+  "files": {
+    "HANDOFF.json": "f607e69953bb62f6e6e94cbb9f2c7f7134a7430789349c7a3c3a528d293383cb",
+    "PRIOR.md": "cd943dcb00b3e88d478840a732bd41c3fa8e01d6060f7eaf24134e41586a291f",
+    "adapters.py": "15b188adcb52cd5d87196b523992a3b020250136bcaa388653c44debec4a8563",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+    "pipeline.json": "56b26cf9317c0678c8e2b6159c38666c978be7f169a8ba0994b9e20538240988",
+    "policy.py": "8d872bd3f6caa78932ba4e87c129320faffcfe466e69b8d44a8edbd45cc89771",
+    "policy_contract.json": "7c164638e670fa6766b2ce3d06904541ef0c0aa58646647698b00c16260c1419",
+    "training_bindings.json": "92d03cfecc16656750f4870ad2daec00a4e3e844c226f1b4c2e15c2583824e2c"
+  },
+  "version": "80c2aa72dcc55970812521b0544f0b2d39542978d8cb7daafa39d187fe0c57b2"
+}

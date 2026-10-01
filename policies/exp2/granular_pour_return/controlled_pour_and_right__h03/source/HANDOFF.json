@@ -1,0 +1,15 @@
+{
+  "policy_id": "controlled_pour_and_right__h03",
+  "entry_conditions": "The source is closed in the gripper, lifted and observed to move rigidly with the TCP. Supported incoming entry spans [180,360), including the demonstrated start-height variation. Later entry is acceptable only while the rigid transform is trustworthy and the next compensated target reachable.",
+  "exit_conditions": "At least ten particles are observed settled in the bowl, the source itself rather than only the TCP is approximately upright, the source remains rigidly held, and outbound motion is under way within [1460,1740).",
+  "overlap_role": "The complete [180,360) incoming and [1460,1740) outgoing action ranges are relabeled as source motion and remain supervised. This preserves substantial command overlap with grasp_lift_stage and return_place_release.",
+  "successor_readiness": "return_place_release can take over after particle settlement and near-upright source orientation, nominally near 1680. Keep h03 active later only if its rigid-grasp compensation remains needed and stable during outbound motion.",
+  "failure_signatures": "Open fingers, rapid change in container-to-TCP transform, implausible compensation from pose noise, unreachable or non-converged IK, bowl collision, spill, remaining particles during righting, or failure of source uprightness. Demonstrations do not support recovery.",
+  "continuation_guidance": "Continue only while the source-to-TCP relation remains rigid. Use h01 for a major bowl displacement and h02 for partial-discharge or phase ambiguity. Abort rather than compensate when grasp rigidity is doubtful.",
+  "limitations": "The observed transform is not contact truth. This policy cannot recover a lost or sliding grasp, and training contains only modest nominal grasp variation. Source-local increments require repeated reliable replanning and do not by themselves anchor a distant bowl.",
+  "evidence": [
+    {"trajectory_id":"demo12300","indices":[180,320,360,1460,1600,1680,1740]},
+    {"trajectory_id":"demo12303","indices":[180,320,360,1460,1600,1680,1740]},
+    {"trajectory_id":"demo12309","indices":[180,320,360,1460,1600,1680,1740]}
+  ]
+}

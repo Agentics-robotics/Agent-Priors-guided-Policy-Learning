@@ -1,0 +1,177 @@
+{
+  "cut_plan_sha256": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "priors": [
+    {
+      "applicability": "Prefer when the observed lid pose or handle is displaced or rigidly reoriented relative to training, and the lid is closed through opening/release. The high-level caller supplies which observed pose is the moving lid reference. Reachability still has to be checked from measured Panda joints.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            180,
+            200,
+            220,
+            240,
+            300,
+            500,
+            620,
+            700,
+            740,
+            750,
+            760,
+            770,
+            800,
+            820,
+            900,
+            940,
+            949
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            0,
+            200,
+            220,
+            500,
+            740,
+            760,
+            770,
+            820,
+            900,
+            949
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Lid is observed closed or partly open, the peg is stationary in the box, and the TCP is free or plausibly aligned with the handle. Measured joints must admit IK to the relative targets.",
+        "exit_conditions": "Observed fingers are open, TCP is clear of the lid, lid_position remains well above closed and lid_velocity is small; peg pose remains unchanged.",
+        "failure_signatures": "IK residual or limit contacts grow after a large scene transform; fingers close without synchronized lid motion; lid angle stalls or reverses; or the post-release TCP follows a moving lid instead of clearing it.",
+        "overlap_role": "Retains all actions [740,950) in every demonstration, including final closed-gripper swing, opening/release, retreat and transit toward box access, for action-supervised overlap with retrieve_peg_from_box.",
+        "successor_readiness": "Prefer a later handoff after open fingers, clear TCP and low lid velocity. An earlier overlap takeover is possible once the box is exposed, but moving-panel clearance must be observed."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{\"lid_pose_field\":{\"type\":\"string\",\"enum\":[\"lid_pose\"]}},\"required\":[\"lid_pose_field\"],\"additionalProperties\":false},\"parameter_semantics\":\"lid_pose_field names the currently observed world pose [metres, unit wxyz] of the manipulated moving lid. It is resolved at every replan and again from the fresh current observation for every decoded action; training binds it to lid_pose.\"}",
+      "limitations": "Relative coordinates cannot make unreachable poses reachable and do not prove a handle grasp. Training has one hinge installation, near-identical approach starts, and successful executions only. The moving body frame can undesirably couple post-release retreat to panel settling, and unseen collision geometry or pose noise can break the expected benefit.",
+      "pipeline_implications": "This is the displacement-specialist option. Prefer it for reliable lid-pose estimates and displaced/reoriented assemblies; switch or defer to the phase-aware world policy when the lid is already released and moving, and to the TCP-increment policy for unusual robot entry configurations. Preserve two-frame history across switches and use observable release/clearance cues, not elapsed time.",
+      "rationale": "Observed: both inspected trajectories start with lid_position 0 and the same hinge pose; the TCP approaches the handle by 180-200, the gripper command changes to close at 220, lid motion is synchronized with the closed fingers from 220 through 750, release is commanded at 760, and retreat/clearance continues through 949 while the peg stays fixed. The demonstrations provide almost no lid-mount displacement. Decision: express every commanded TCP target as a full pose in the observed moving lid frame, with 3-D relative translation, 6-D relative rotation and gripper scalar, and decode against the fresh lid pose before shared IK. Condition the unchanged DP backbone on two-frame lid-relative geometry plus qpos/qvel. Expected benefit, not observed proof: approach, handle alignment and constrained pull should transform equivariantly with lid displacement and rigid orientation, while robot state retains reachability dependencies. Its likely post-release moving-frame error differs from the incremental and phase-aware alternatives.",
+      "statement": "Moving-lid SE(3) equivariance: learn Cartesian TCP targets in the observed lid body frame so approach, grasp alignment and hinge-contact motion are invariant by construction to rigid displacement of the manipulated lid assembly.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including [740,950) successor overlap; moving-lid relative labels preserve every assigned action.\"},{\"trajectory_id\":\"demo12201\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12202\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12203\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12204\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12205\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12206\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12207\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12208\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12209\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12210\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12211\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"}]"
+    },
+    {
+      "applicability": "Prefer for entries or replans whose measured TCP/joints differ from the demonstrated nominal path, including takeover at a partly open lid, provided the current relative correction remains locally reachable and the observed lid/handle relation still identifies the intended phase.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            100,
+            180,
+            200,
+            220,
+            260,
+            300,
+            500,
+            700,
+            740,
+            760,
+            780,
+            800,
+            820,
+            860,
+            900,
+            949
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            180,
+            220,
+            300,
+            620,
+            740,
+            760,
+            800,
+            820,
+            900,
+            949
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "TCP may be off the nominal world path but must be collision-free, with valid two-frame measured TCP, qpos/qvel and lid observations. The lid can be closed or partly open; no recovery from a lost grasp is established.",
+        "exit_conditions": "Fingers are open, TCP has accumulated a clear retreat from the lid, lid is stably open and peg remains stationary.",
+        "failure_signatures": "Incremental commands shrink to ineffective motion, orientation increments oscillate, IK repeatedly fails, the gripper closes away from the handle, or lid motion is not synchronized with commanded pull.",
+        "overlap_role": "All [740,950) actions remain supervised. Relative increments cover release at about 760 and the subsequent retreat, providing the same 210-action overlap with retrieve_peg_from_box.",
+        "successor_readiness": "Hand off after the incremental policy has opened its fingers and established observed clearance; preserve causal history so the receiver sees the release and retreat trend."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{\"lid_pose_field\":{\"type\":\"string\",\"enum\":[\"lid_pose\"]},\"max_open_angle_rad\":{\"type\":\"number\",\"exclusiveMinimum\":0.0,\"maximum\":3.141592653589793}},\"required\":[\"lid_pose_field\",\"max_open_angle_rad\"],\"additionalProperties\":false},\"parameter_semantics\":\"lid_pose_field selects the observed moving lid pose used to compute lid/handle geometry. max_open_angle_rad is the physical hinge travel scale in radians (1.85 in this task), used to nondimensionalize observed lid position and phase features; it is not an actuator command.\"}",
+      "limitations": "One-step relative targets do not demonstrate recovery after a missed handle or lost contact. Small local increments can accumulate error or stall and a 16-slot sequence of future local corrections is decoded against later measured TCPs, so large discontinuous moves and poor state estimates can be problematic. IK, collisions and joint limits remain configuration dependent.",
+      "pipeline_implications": "This is the intermediate-state/entry specialist. Prefer it when TCP or joints are off the nominal path but local geometry is trustworthy. Use the moving-lid SE(3) policy for large assembly displacement and the phase-aware world policy when release timing dominates. Replan every eight controls and retain the two causal observations through switches.",
+      "rationale": "Observed: the nominal demonstrations share the same initial qpos and essentially the same commanded arm path, while deployment may enter from preceding-skill or interrupted states. The commanded targets progress through free-space approach (0-200), close/contact (220 onward), long pull (260-750), release (760) and retreat (780-949). Decision: learn each target as inv(current measured TCP) times commanded TCP, encoded by local translation, rotation vector and gripper scalar; decode each executed slot from the fresh measured TCP, then solve IK from fresh qpos. Two-frame inputs expose TCP-to-handle geometry, lid angle/velocity, finger width, qpos/qvel and temporal change. Expected benefit: closed-loop local corrections should be less tied to the demonstrated absolute robot path and more tolerant of intermediate-state offsets. Its likely accumulated drift/stalling differs from the body-frame and phase-aware policies.",
+      "statement": "Fresh-TCP incremental correction: learn local SE(3) corrections from each measured TCP so replans can continue from shifted robot configurations and intermediate execution states instead of replaying an absolute path.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full assigned operation and [740,950) overlap; local TCP corrections are computed for every action.\"},{\"trajectory_id\":\"demo12201\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12202\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12203\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12204\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12205\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12206\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12207\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12208\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12209\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12210\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12211\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"}]"
+    },
+    {
+      "applicability": "Prefer near ambiguous phase transitions\u2014handle closure versus pull, maximum opening versus release, or post-release retreat\u2014when assembly placement remains near demonstrated support and the high-level desired release angle is valid for the lid geometry.",
+      "evidence": [
+        {
+          "indices": [
+            180,
+            200,
+            220,
+            240,
+            260,
+            700,
+            720,
+            740,
+            750,
+            760,
+            770,
+            780,
+            800,
+            820,
+            840,
+            860,
+            900,
+            940,
+            949
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            200,
+            220,
+            240,
+            700,
+            740,
+            750,
+            760,
+            770,
+            800,
+            820,
+            840,
+            900,
+            949
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Observed lid, fingers, TCP and measured joints are valid and the assembly remains near the demonstrated installation. The two-frame history should distinguish approach, contact pull and retreat trends.",
+        "exit_conditions": "The phase-conditioned policy has issued release, fingers are observed open, TCP is clear, lid velocity is low and the peg remains unmoved.",
+        "failure_signatures": "Auxiliary phase prediction disagrees with observed angle/finger trend, premature opening occurs before sufficient lid angle, fingers remain closed after maximum opening, or world-frame targets are unreachable after scene displacement.",
+        "overlap_role": "The complete [740,950) interval remains action-supervised. It contains final pull, release, lift/retreat and movement toward box access, allowing robust later takeover by retrieve_peg_from_box.",
+        "successor_readiness": "Use observed open fingers, lid exposure, clearance and low velocity as the authority. The auxiliary prediction is guidance only and never establishes contact or success."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{\"lid_pose_field\":{\"type\":\"string\",\"enum\":[\"lid_pose\"]},\"release_angle_rad\":{\"type\":\"number\",\"minimum\":0.5,\"maximum\":1.85}},\"required\":[\"lid_pose_field\",\"release_angle_rad\"],\"additionalProperties\":false},\"parameter_semantics\":\"lid_pose_field selects the observed lid pose for handle-distance features. release_angle_rad is the high-level intended opening angle in radians (1.73 for the demonstrations), encoded as conditioning and as angle-to-release; it does not override learned Cartesian or gripper actions.\"}",
+      "limitations": "The auxiliary future labels come only from successful nominal executions and do not prove contact or recovery. World-frame Cartesian targets remain sensitive to large lid displacement. A caller-supplied release angle outside feasible geometry can induce out-of-support behavior. The future phase head supports a shared encoder but is not a safety monitor.",
+      "pipeline_implications": "This is the phase/release specialist. Prefer it around close/pull/release ambiguity at near-nominal scene placement. Use the moving-lid policy for large pose displacement and the fresh-TCP incremental policy for off-path robot entries. Handoff still uses current physical observations, never the auxiliary prediction alone.",
+      "rationale": "Observed: at 200 the gripper is open and lid closed; at 220 the command is closed and lid starts moving; fingers remain closed while lid_position rises to about 1.71-1.74 at 740-750; opening is commanded at 760; the released lid can move rapidly around 800 and settles near 1.35-1.40 by 820-949 while the TCP retreats. Similar cues occur in demo12208 despite different peg position. Decision: keep world Cartesian pose targets (position, 6-D rotation, gripper) but add a registered causal condition encoder and auxiliary head predicting the masked 16-step future normalized lid angle and commanded gripper mode from the two observations. Diffusion and auxiliary losses share the encoder; no future enters inference. Expected benefit: richer phase features and the supervised future head should separate approach/close/pull/release/retreat at transitions. Its world-displacement failure is covered by the moving-lid policy, while the incremental policy covers unusual TCP entry.",
+      "statement": "Phase-predictive world Cartesian policy: use two-frame contact proxies plus a shared auxiliary future lid-angle/gripper head to reduce phase and release ambiguity without claiming contact truth.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"release_angle_rad\":1.73},\"rationale\":\"Full operation and [740,950) overlap provide masked phase and release labels.\"},{\"trajectory_id\":\"demo12201\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"release_angle_rad\":1.73},\"rationale\":\"Full operation including phase-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12202\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"release_angle_rad\":1.73},\"rationale\":\"Full operation including phase-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12203\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"release_angle_rad\":1.73},\"rationale\":\"Full operation including phase-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12204\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"release_angle_rad\":1.73},\"rationale\":\"Full operation including phase-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12205\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"release_angle_rad\":1.73},\"rationale\":\"Full operation including phase-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12206\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"release_angle_rad\":1.73},\"rationale\":\"Full operation including phase-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12207\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"release_angle_rad\":1.73},\"rationale\":\"Full operation including phase-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12208\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"release_angle_rad\":1.73},\"rationale\":\"Full operation including phase-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12209\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"release_angle_rad\":1.73},\"rationale\":\"Full operation including phase-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12210\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"release_angle_rad\":1.73},\"rationale\":\"Full operation including phase-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12211\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"release_angle_rad\":1.73},\"rationale\":\"Full operation including phase-supervised release/retreat overlap.\"}]"
+    }
+  ],
+  "skill_id": "open_hinged_lid"
+}

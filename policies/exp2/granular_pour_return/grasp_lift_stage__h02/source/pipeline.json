@@ -1,0 +1,10 @@
+{
+  "policy_id": "grasp_lift_stage__h02",
+  "skill_id": "grasp_lift_stage",
+  "heuristic_index": 2,
+  "prior_summary": "Predict a one-step SE(3) target in the freshly measured TCP body frame, conditioned on two-frame source/TCP/bowl relationships and measured Panda configuration.",
+  "applicable_conditions": "Prefer for local intermediate-state differences near demonstrated approach, just-closed, lift, or carry relationships, including early or late skill entry. The source geometry must remain locally recognizable and targets reachable.",
+  "termination_guidance": "Require closed fingers plus source/TCP co-motion and table clearance before early handoff; nominally continue until upright high staging above the bowl. The [180,360) overlap permits successor takeover throughout lift and carry.",
+  "limitations": "Local targets do not guarantee convergence from large errors and repeated sampling can compound error. Training contains no deliberate perturbation, miss, or slip recovery. Large object displacement is better addressed by the source-frame policy.",
+  "config": {"action_frame": "fresh_measured_tcp_body", "action_encoding": "xyz_rotation_vector_gripper", "feature_dimension_per_frame": 55, "backbone": "standard_diffusion_backbone"}
+}

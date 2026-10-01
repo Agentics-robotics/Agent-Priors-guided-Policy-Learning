@@ -1,0 +1,41 @@
+{
+  "title": "Causally gated shared-edge encoder with future-motion supervision",
+  "coverage_gap": "Two LL/HH demonstrations confound object and goal placement, and have few examples near the closing/lift/transport switches. A flat representation can interpolate whole trajectories rather than reusing interactions, while purely geometric input alone does not force the denoiser to represent whether the tool is being acquired or transported.",
+  "reusable_regularity": "A single shared MLP encodes the three physical relations hand-stick, stick-pushed-object, and pushed-object-goal, with explicit role tags, relative position history, relative displacement, endpoint heights and observed orientations. Learned soft attention over these relations depends only on causal aperture, hand-stick error, heights and hand/stick motion; it does not use target coordinates as an episode-specific phase clock. The U-Net receives these gated edge embeddings plus a lossless metric hand-rooted bypass. Training-only prediction of hand, tool, pushed-object and aperture evolution encourages embeddings to identify acquisition versus coupled transport, without imposing a hand-coded controller or supplying future states at inference.",
+  "dependencies_preserved": {
+    "robot": "Both native hand poses and apertures plus hand/closure finite differences survive the bypass. Absolute hand world position and fixed-world action components preserve robot workspace and actuator dependence.",
+    "objects_and_goal": "All observed object positions, current/previous xyzw quaternions and goal remain recoverable. No real orientation is invented for the hand or goal: graph endpoint orientation placeholders are zeros with role tags. Object2 remains the declared observation point, not an inferred COM.",
+    "world_and_obstacles": "World coordinates and physical heights are retained. Encoded interaction edges explicitly include the second object/fixture; no independent obstacle geometry, collision oracle, analytic path or unobserved contact flag is introduced.",
+    "stage": "Three attention weights are learned salience, not oracle stage labels or a persistent state machine. Every value is recomputed from the two causal whole observations. All goal and long-range dependencies also remain in the bypass and edge embeddings."
+  },
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exact current D_2 identities and permitted evidence bundle."},
+    {"path": "task_materials.json", "detail": "Only shared raw pose/aperture/goal observations at inference; fixed-world native action4 and object2 insertion-site-plus-offset semantics."},
+    {"path": "support_summary.json", "detail": "One 75-transition LL and one 73-transition HH sequence; no factorial coverage or recovery episodes."},
+    {"path": "trajectories/demo_00.json", "detail": "Inspected obs 20:35 and 43:51: aperture drops from about 0.88 to 0.34, hand-stick z offset settles near 0.043 m, then both rise before positive-x transport. Inspected actions 25:45 show descent-to-lift reversal."},
+    {"path": "trajectories/demo_01.json", "detail": "Inspected obs 22:27 and 43:48: analogous closing and raised co-motion at different initial stick/goal positions. These are evidence for reusable relations, not observed performance of this candidate."},
+    {"path": "images/frame_03_demo_00_step_030.png", "detail": "Actual inspected acquisition/lift frame with tool adjacent to the raised fixture."},
+    {"path": "images/frame_10_demo_01_step_023.png", "detail": "Actual inspected second-demo closing-stage frame; similar manipulation geometry despite changed factors."},
+    {"path": "images/frame_15_demo_01_step_073.png", "detail": "Actual inspected late second-demo frame with hand at the pushed assembly."},
+    {"path": "contracts.py", "scope": "public", "detail": "All learned modules registered in build_modules; auxiliary targets are training-only."},
+    {"path": "learning.py", "scope": "public", "detail": "Public action epsilon loss remains independent of additional mask-normalized losses. Auxiliary head need not execute during deployment."}
+  ],
+  "expected_failure_signature": "The learned attention could collapse onto a single relation or learn a nominal aperture/height schedule that fails after a missed grasp. Future-motion supervision could encourage averaging across the lift/transport transition, observed as correct approach but premature horizontal transport or stalled lifting. If the auxiliary representation truly helps causal reuse, its gains should not require IID goal/stick pairing. No measured gains are asserted; the bypass can still permit shortcuts and the 16-step motion prediction can overfit two trajectories.",
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,39], the identical shared deployment input. Normalized history is accepted but physical-scale raw features are used.",
+    "fields": ["current.hand_xyz[0:3]", "current.gripper[3:4]", "current.object_xyz[4:7]", "current.object_quaternion[7:11]", "current.object2_xyz[11:14]", "current.object2_quaternion[14:18]", "previous native fields[18:36]", "goal_xyz[36:39]"],
+    "condition": "124 channels per observation: 49 lossless hand-rooted pose/goal/change channels, three 24-dimensional shared edge encodings modulated by causal softmax weights, and those three weights. The gate is 14->32->3 and shared edge encoder is 24->64->24. All scaling is fixed physical scaling, without support-fit statistics.",
+    "action_frame": "Identity world action4 encode/decode; no action normalization, rescaling or candidate clipping. Gripper is not rotated. The common executor clips world native commands and executes four of sixteen."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_motion",
+      "source_fields": "For each current D_N window (episode,t), use obs[t+j+1,0:3], obs[t+j+1,4:7], obs[t+j+1,11:14], obs[t+j+1,3:4] minus the corresponding chunk-start fields for j=0..15 while t+j<T. Includes only the terminal observation of valid final actions, never another episode.",
+      "units": "Hand/stick/pushed-object world displacement divided by 0.1 m, followed by unscaled aperture change; ten channels.",
+      "predictor": "124->128->160 MLP from the causal encoded current observation, reshaped [B,16,10]. Evaluated only in training_loss; no future values or auxiliary caches at inference.",
+      "loss": "0.2 times sum of squared error over public valid-action mask intersected with future_motion_valid, divided by 10 times that intersected mask sum (denominator floor 1 for empty masks). Nonnegative additional loss; public action epsilon weight 1 and mask.sum()*4 denominator unchanged."
+    }
+  ],
+  "parents": [],
+  "change_summary": "Initial independent scientific design: jointly learned shared interaction encoding, causal relation attention, and separately mask-normalized multistep motion supervision. Unlike a deterministic relation-only input, salience and motion abstractions are learned in the common optimizer. No earlier candidate feedback or structural repair is used."
+}

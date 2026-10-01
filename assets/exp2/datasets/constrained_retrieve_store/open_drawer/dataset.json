@@ -1,0 +1,208 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        0,
+        180,
+        240,
+        260,
+        300,
+        420,
+        440
+      ],
+      "trajectory_id": "demo12100"
+    },
+    {
+      "indices": [
+        0,
+        260,
+        300,
+        420,
+        440
+      ],
+      "trajectory_id": "demo12101"
+    },
+    {
+      "indices": [
+        0,
+        300,
+        440
+      ],
+      "trajectory_id": "demo12102"
+    },
+    {
+      "indices": [
+        0,
+        300,
+        440
+      ],
+      "trajectory_id": "demo12103"
+    },
+    {
+      "indices": [
+        0,
+        300,
+        440
+      ],
+      "trajectory_id": "demo12104"
+    },
+    {
+      "indices": [
+        0,
+        300,
+        440
+      ],
+      "trajectory_id": "demo12105"
+    },
+    {
+      "indices": [
+        0,
+        300,
+        440
+      ],
+      "trajectory_id": "demo12106"
+    },
+    {
+      "indices": [
+        0,
+        300,
+        440
+      ],
+      "trajectory_id": "demo12107"
+    },
+    {
+      "indices": [
+        0,
+        300,
+        440
+      ],
+      "trajectory_id": "demo12108"
+    },
+    {
+      "indices": [
+        0,
+        300,
+        440
+      ],
+      "trajectory_id": "demo12109"
+    },
+    {
+      "indices": [
+        0,
+        300,
+        440
+      ],
+      "trajectory_id": "demo12110"
+    },
+    {
+      "indices": [
+        0,
+        300,
+        440
+      ],
+      "trajectory_id": "demo12111"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Drawer visibly/observably closed (drawer_position near 0), low drawer velocity, open gripper, and the block still low inside the tunnel.",
+    "exit_conditions": "Drawer_position is near 0.300 with near-zero velocity, fingers are open after handle release, TCP has cleared the drawer and is moving above/toward the tunnel, and object_pose remains at the initial low tunnel pose.",
+    "failure_signatures": "Drawer_position remains well below the open stop, drawer velocity is still large, fingers remain closed on the handle, the TCP has not cleared the drawer, or the block moved during drawer opening. No demonstrated trial establishes recovery from a missed handle or a prematurely released drawer.",
+    "overlap_role": "The successor shares actions 300:440 in every trajectory: 140 supervised actions, 7.0 s at 20 Hz per occurrence. These actions cover post-handle retreat, large free-space turn, and the start of descent over the tunnel, allowing either skill to own a switch made shortly after drawer opening.",
+    "successor_readiness": "Switch to tunnel retrieval when the drawer is open and stable, the handle is no longer held, and the arm has clearance to move toward the observed block. The shared tail also permits a later switch when the TCP is already over the tunnel."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Open the drawer and depart toward the tunnel",
+  "original_demonstration_count": 12,
+  "plan_hash": "388b2863018f5e4ec92a10a0b6a0efd22bb0182ef311ace074f29094ca4f82f2",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "Observed responsibility: actions 0:300 perform handle approach, grasp, pull, release, and initial retreat; actions 300:440 continue the demonstrated departure toward the low tunnel. This is separated from block retrieval because articulated-drawer contact and low-tunnel grasping have different contact targets and motion constraints. The retained departure tail is deliberate action-supervised overlap with the successor, not evidence of recovery from an unseen missed handle.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Open the drawer, release its handle, and depart toward the tunnel containing the block initially near (-0.4368, -0.4063, 0.0800).",
+      "start": 0,
+      "stop": 440,
+      "trajectory_id": "demo12100"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Open the drawer, release its handle, and depart toward the tunnel containing the block initially near (-0.4478, -0.4076, 0.0800).",
+      "start": 0,
+      "stop": 440,
+      "trajectory_id": "demo12101"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Open the drawer, release its handle, and depart toward the tunnel containing the block initially near (-0.4416, -0.3979, 0.0800).",
+      "start": 0,
+      "stop": 440,
+      "trajectory_id": "demo12102"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Open the drawer, release its handle, and depart toward the tunnel containing the block initially near (-0.4463, -0.3953, 0.0800).",
+      "start": 0,
+      "stop": 440,
+      "trajectory_id": "demo12103"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Open the drawer, release its handle, and depart toward the tunnel containing the block initially near (-0.4421, -0.3968, 0.0800).",
+      "start": 0,
+      "stop": 440,
+      "trajectory_id": "demo12104"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Open the drawer, release its handle, and depart toward the tunnel containing the block initially near (-0.4365, -0.3972, 0.0800).",
+      "start": 0,
+      "stop": 440,
+      "trajectory_id": "demo12105"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Open the drawer, release its handle, and depart toward the tunnel containing the block initially near (-0.4415, -0.4049, 0.0800).",
+      "start": 0,
+      "stop": 440,
+      "trajectory_id": "demo12106"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Open the drawer, release its handle, and depart toward the tunnel containing the block initially near (-0.4401, -0.3951, 0.0800).",
+      "start": 0,
+      "stop": 440,
+      "trajectory_id": "demo12107"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Open the drawer, release its handle, and depart toward the tunnel containing the block initially near (-0.4448, -0.3990, 0.0800).",
+      "start": 0,
+      "stop": 440,
+      "trajectory_id": "demo12108"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Open the drawer, release its handle, and depart toward the tunnel containing the block initially near (-0.4457, -0.3966, 0.0800).",
+      "start": 0,
+      "stop": 440,
+      "trajectory_id": "demo12109"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Open the drawer, release its handle, and depart toward the tunnel containing the block initially near (-0.4444, -0.4051, 0.0800).",
+      "start": 0,
+      "stop": 440,
+      "trajectory_id": "demo12110"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Open the drawer, release its handle, and depart toward the tunnel containing the block initially near (-0.4408, -0.4063, 0.0800).",
+      "start": 0,
+      "stop": 440,
+      "trajectory_id": "demo12111"
+    }
+  ],
+  "skill_id": "open_drawer",
+  "subgoal": "From the common home state with the drawer closed, approach the drawer handle, close the gripper on it, pull the drawer to its approximately 0.30 m open stop, release it, and lift/turn toward the tunnel approach. Contact is with the drawer handle; the tunnel block must remain undisturbed. Approximate entry: drawer_position 0, open fingers, TCP high near world (-0.384, 0, 0.442). Approximate exit: drawer_position about 0.300 and stationary, fingers open, TCP descending toward the tunnel from above while the block is still at its initial low pose."
+}

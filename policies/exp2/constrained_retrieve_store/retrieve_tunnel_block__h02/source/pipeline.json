@@ -1,0 +1,10 @@
+{
+  "policy_id": "retrieve_tunnel_block__h02",
+  "skill_id": "retrieve_tunnel_block",
+  "heuristic_index": 2,
+  "prior_summary": "Cartesian commands are learned as fresh measured-TCP body-frame corrections, reducing sensitivity to valid predecessor TCP/configuration offsets and intermediate restarts without changing the Diffusion Policy backbone.",
+  "applicable_conditions": "Prefer when the drawer is open, the block remains near demonstrated valid tunnel support, and the main variation is a collision-free predecessor or mid-skill TCP/configuration offset. Object, TCP and joint observations must be finite.",
+  "termination_guidance": "Hand off after closed-finger object/TCP motion is coupled, object z exceeds 0.16 m outside the tunnel, and fresh local corrections point toward target_pose.",
+  "limitations": "Feedback deltas can drift globally and are not object-displacement invariant. Two-frame phase inference can mistake grasp state; IK and collision feasibility are not guaranteed and failed-grasp recovery is not demonstrated.",
+  "config": {"action_reference":"fresh_measured_tcp_body","rotation_representation":"rotation_vector","action_dimension":7,"auxiliary_loss":false,"predecessor_overlap":[300,440],"successor_overlap":[680,840]}
+}

@@ -1,0 +1,152 @@
+{
+  "task_id": "drawer_exchange",
+  "policy_id": "blue_insert__h03",
+  "skill_id": "blue_insert",
+  "source": "policies/exp2/drawer_exchange/blue_insert__h03/source",
+  "manifest": "policies/exp2/drawer_exchange/blue_insert__h03/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/drawer_exchange/blue_insert__h03/assignment.json",
+  "training_spec": "policies/exp2/drawer_exchange/blue_insert__h03/training/spec.json",
+  "dataset": "assets/exp2/datasets/drawer_exchange/blue_insert/dataset.json",
+  "normalization": "assets/exp2/tasks/drawer_exchange/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/drawer_exchange/blue_insert__h03/model.pt",
+    "sha256": "3b563753df8e4d5a5cf7301f945b3ad38c8f1579e9355f077b2e8ddfdf702d64",
+    "source_sha256": "3b563753df8e4d5a5cf7301f945b3ad38c8f1579e9355f077b2e8ddfdf702d64",
+    "size_bytes": 345653074,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 10,
+    "demos": 12,
+    "in_distribution_success": "10/12",
+    "exit_rule": "standard task success at the final state (drawer open, red on pad, blue inside)",
+    "guidance": "Validated in distribution at 10/12 final successes (83.3%). Use when entry timing within the demonstrated responsibility is uncertain but still nominal, two-frame causal history is available, and small feedback-like TCP corrections are more important than a fixed global anchor. Entry requires drawer_position > 0.26 m, red being released/settled on its pad, blue outside or held, and source_object=\"blue\" plus destination_field=\"blue_goal\". Avoid it for large source or destination displacement, global collision-free routing, long open-loop correction, or recovery after drops, re-grasps, or impacts; eight-step local increments can drift. Do not use the auxiliary phase class as a success or contact signal. Watch for phase/geometry disagreement, blue failing to co-move after closure, drift away from source or destination, IK/limit issues, red or drawer regressions, and lip/wall contact. In both validation failures the drawer remained open and red remained on-pad but blue was not inside; neither failure had any IK-unconverged steps, so healthy IK alone is not evidence of success. Replan every eight executed actions. Hand off to h02 when blue is stably carried toward the drawer, and to h01 for large free-source displacement; h04 is the corridor-specialized alternative for source-to-goal translation. End only on framework-observed simultaneous task success. No recovery or learned successor is established."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/assignment.json",
+      "sha256": "6ae156142ba12c5700e72fc7353e40a8e650bf1a6685cbc22692fe8e554cc720",
+      "source_sha256": "f65ca42aa37f80254650ad12d2ea1ca9bbd499a0a0f71548c7f221ba61599d27",
+      "size_bytes": 13231,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/handoff_evidence.json",
+      "sha256": "1770bcb37c8e4ba4b02e45a2080cc014f4dffaad4d914e18f0e95ebcfaeb2f25",
+      "source_sha256": "1770bcb37c8e4ba4b02e45a2080cc014f4dffaad4d914e18f0e95ebcfaeb2f25",
+      "size_bytes": 87418,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/source/HANDOFF.json",
+      "sha256": "552a51b1f05a1ba46e7e9fab264623690b809cbdba97af5734b137f289390bc9",
+      "source_sha256": "552a51b1f05a1ba46e7e9fab264623690b809cbdba97af5734b137f289390bc9",
+      "size_bytes": 2094,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/source/PRIOR.md",
+      "sha256": "21e75e7a38313a6f69c1b17dd17940a1f5f80bd6ff1a11d497ebba5240a5a295",
+      "source_sha256": "21e75e7a38313a6f69c1b17dd17940a1f5f80bd6ff1a11d497ebba5240a5a295",
+      "size_bytes": 3812,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/source/adapters.py",
+      "sha256": "4466d1262dbd5971d18266d8be925c5c4cf7969714b8325812df53f9ff72866d",
+      "source_sha256": "4466d1262dbd5971d18266d8be925c5c4cf7969714b8325812df53f9ff72866d",
+      "size_bytes": 5008,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/source/panda_posture.py",
+      "sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "source_sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "size_bytes": 718763,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/source/pipeline.json",
+      "sha256": "32d60b6c7e4d2a617307aaa6476314f9f4a6b3e4149e0aeb699be1c3b9353e6f",
+      "source_sha256": "32d60b6c7e4d2a617307aaa6476314f9f4a6b3e4149e0aeb699be1c3b9353e6f",
+      "size_bytes": 1294,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/source/policy.py",
+      "sha256": "5b58f1b1c69f9617a97b93d9d10e3e20a3a03f9ab2da0ff6ab3f139a11c062cc",
+      "source_sha256": "5b58f1b1c69f9617a97b93d9d10e3e20a3a03f9ab2da0ff6ab3f139a11c062cc",
+      "size_bytes": 1665,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/source/policy_contract.json",
+      "sha256": "b9141297c5266ecc74fbdc56822b64c6d22332e72e9336336ed314e4383f5507",
+      "source_sha256": "b9141297c5266ecc74fbdc56822b64c6d22332e72e9336336ed314e4383f5507",
+      "size_bytes": 2110,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/source/training_bindings.json",
+      "sha256": "488db8f8f2ab6b286c954753705e496ea993e5ea1e4704694dbe6c59880de656",
+      "source_sha256": "488db8f8f2ab6b286c954753705e496ea993e5ea1e4704694dbe6c59880de656",
+      "size_bytes": 2744,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/submission.json",
+      "sha256": "1ae88206d863db67c3a053535dc92b818768ce782133aecadc8acd4c48f21707",
+      "source_sha256": "893dec00052f77f9a7e3311e49016c677c47a88d04b56305d158d404cedb6f88",
+      "size_bytes": 20324,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/training/adapter_checks.json",
+      "sha256": "fcb6f3cc272d903af1302fb52a3fe7a1ea33befe8afce2a5dc1b2ca6c455fca0",
+      "source_sha256": "fcb6f3cc272d903af1302fb52a3fe7a1ea33befe8afce2a5dc1b2ca6c455fca0",
+      "size_bytes": 194,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/training/result.json",
+      "sha256": "99d3b4568a8a8f8df947fefdaab71f5effc4635214f32b2b278abd1056483f44",
+      "source_sha256": "8f694319bfc077458e7ceeec9a8ca24bf0211fc6b408331075c1bed6357b912b",
+      "size_bytes": 4645,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/training/spec.json",
+      "sha256": "5c223f40bcdcb4913a957b7fc33c6c3f908371280a1556e64ec4f9d04292eeda",
+      "source_sha256": "5c223f40bcdcb4913a957b7fc33c6c3f908371280a1556e64ec4f9d04292eeda",
+      "size_bytes": 15930,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/blue_insert__h03/prior_plan.json",
+      "sha256": "99fc693d2481ae639b42789fa886f7843477c395f5bc7f7cbcfcd525a06854e7",
+      "source_sha256": "99fc693d2481ae639b42789fa886f7843477c395f5bc7f7cbcfcd525a06854e7",
+      "size_bytes": 25362,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/drawer_exchange/task.json",
+  "completion_contract": "assets/exp2/tasks/drawer_exchange/completion_contract.json",
+  "public_context": "assets/exp2/tasks/drawer_exchange/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/drawer_exchange/prompts/hl.md",
+  "prior_plan": "policies/exp2/drawer_exchange/blue_insert__h03/prior_plan.json"
+}

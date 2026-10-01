@@ -1,0 +1,24 @@
+{
+  "budget_factor": 1.5,
+  "demos": 12,
+  "exit_rule": "peg axis aligned with the head within 0.01 m of the hole axis at x >= -0.21 m (or the peg inserted) and the cover still open (> 0.9 rad) at the final state",
+  "passed": 5,
+  "per_demo": {
+    "demo12200": false,
+    "demo12201": false,
+    "demo12202": false,
+    "demo12203": false,
+    "demo12204": false,
+    "demo12205": false,
+    "demo12206": true,
+    "demo12207": false,
+    "demo12208": true,
+    "demo12209": true,
+    "demo12210": true,
+    "demo12211": true
+  },
+  "policy": "reorient_and_stage_peg__h01",
+  "skill": "reorient_and_stage_peg",
+  "success_rate": 0.4166666666666667,
+  "task": "covered_peg_assembly"
+}

@@ -1,0 +1,53 @@
+{
+  "title": "Reflection-compatible learned stage and motion encoding",
+  "coverage_gap": "Revision feedback selects A3 at score0.875: C=20/20 and E=15/20. All five of A3's E failures are HL (0/5), while A2 has E-HL4/5 but E-LH0/5. The declared E-HL reset intervals imply a negative peg-to-box y offset of0.225-0.275m, much larger than support's roughly0.041-0.059m. Positive E-LH offsets are0.125-0.175m and were handled by A3 (5/5). These aggregate results motivate combining the complementary representation biases; they do not reveal the actual failed motions or causally isolate reflection, routing, or auxiliary losses.",
+  "reusable_regularity": "A lateral coordinate reflection and a geometric stage representation should compose: contact, vertical progress and transverse error norm are reflection invariant, while lateral displacement and velocity reverse sign. Retain A2's learned reach/insert encoders, invariant soft router and short-horizon motion supervision, but express all local vectors, actions and auxiliary motion labels in A3's causal contact-conditioned lateral frame. Retain world asymmetry explicitly. Use action4 diffusion rather than A3's joint ten-channel diffusion to avoid requiring a long, poorly covered transport trajectory to be modeled as a future-error sequence.",
+  "dependencies_preserved": [
+    "PegGrasp-hand, goal-pegHead, and pegHead-pegGrasp remain distinct vector channels. Reach and insertion branches use the corresponding geometry rather than substituting one object point for the other.",
+    "All signed local vectors, native previous-step velocities, and current/previous quaternions use a single chunk-start reflection consistently for both history observations. The quaternion axial-vector mapping is (s*qx,qy,s*qz,qw).",
+    "Stage-router inputs are norms, aperture/difference, world heights, x insertion error and vertical peg motion. They are invariant to lateral reflection and have no elapsed-step, future-truth, or phase-oracle input.",
+    "Absolute hand and goal xyz are retained, unreflected, in both the coarse world encoder and direct path. Explicit parity lets the policy relate canonical local geometry to the asymmetric robot/world. Table height and signed insertion x are never removed or rotated.",
+    "A0.15 gate floor and ungated geometric path preserve corrective information when stage inference is wrong. Native current/previous gripper state remains scalar and unreflected.",
+    "No simulator obstacle query or hidden box pose is used. Only the supplied goal represents box placement, and only the declared absent object2 channels are discarded."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact D5 training scope remains unchanged in revision."},
+    {"path": "task_materials.json", "use": "Factor intervals establish the extreme negative E-HL transport magnitude; raw channels and native action semantics are unchanged."},
+    {"path": "support_summary.json", "use": "Narrow one-sided transport support offsets and both signs of initial reach offset; five episodes and415 transitions."},
+    {"path": "images/frame_04_demo_01_step_034.png", "use": "Free approach geometry differs from contact and transport."},
+    {"path": "images/frame_05_demo_01_step_062.png", "use": "Contact/transport configuration motivates geometric rather than elapsed-time stage inputs."},
+    {"path": "images/frame_06_demo_01_step_090.png", "use": "Raised, side-opening insertion retains gravity and x-axis dependencies."},
+    {"path": "trajectories/demo_00.json", "rows": "obs44:53,64:69; actions40:64", "use": "Evidence for small-aperture near-contact surrogate, later coherent transport and alignment, and different roles of grasp/head points."},
+    {"path": "trajectories/demo_01.json", "rows": "obs62:65", "use": "Hand/head displacement is a physically interpretable short-horizon auxiliary label during HH transport."},
+    {"source": "revision user message: development_feedback", "feedback_hash_recorded_at_q3": "b487fea8d866015c6b36da9b791f62644717bc77be23051fb895b35279fff8a2", "use": "A1 score0.525; A2 score0.65 with C-HL5/10,C-LH7/10,E-HL4/5,E-LH0/5; A3 score0.875 with both C cells10/10,E-HL0/5,E-LH5/5. Both A2 and A3 E-LL/E-HH are5/5. q3 selected A3 uniquely. No dev trajectory states or hidden tests were supplied or accessed."},
+    {"source": "frozen submitted parent A2", "submission_hash": "043723c76f06237f87403dbe87cfd92e6dac95f551f043a00f778ff0328e6c58", "use": "Retain branch sizes, invariant router inputs, gate floor, short-horizon head, physical scales and auxiliary weights."},
+    {"source": "frozen submitted parent A3", "submission_hash": "b17e3f1754bff49775c1793bb97fde7753c44235afe60d7928732b4fee01c4c0", "use": "Retain causal contact-conditioned y reflection,5mm deadband, explicit parity and quaternion/vector frame semantics; do not retain joint diffusion targets."},
+    {"path": "PUBLIC_CONTRACT.md", "scope": "public", "use": "One new A4 slot, one common U-Net and frozen control/training semantics."},
+    {"path": "learning.py", "scope": "public", "use": "Mask normalization, causal training/inference isolation and final fixed-update EMA evaluation."}
+  ],
+  "expected_failure_signature": [
+    "The specific revision hypothesis predicts better E-HL coverage than A3's0/5 while retaining its positive-offset coverage. If A2's E-HL advantage was seed-specific rather than a useful representation bias, A4 can retain the same long-negative-offset truncations.",
+    "If A3's joint future channels rather than its reflection were essential to positive-direction transfer, removing them may lose E-LH or C success even with the correct mirrored action semantics.",
+    "A closed empty or slipping grasp can still trigger the frame rule and corrupt stage routing; parity can still switch near the5mm boundary and cause y oscillation.",
+    "A learned world encoder can overfit the original peg-y/box-y correlation despite canonical local inputs. This would appear as cell-dependent failures rather than uniformly improved extrapolation. The small per-cell development sample sizes do not establish any of these mechanisms."
+  ],
+  "required_runtime_fields": {
+    "context": ["raw_history [B,2,42]", "raw_current [B,42]"],
+    "source_slices_each_observation": {"hand_xyz": [0,3], "gripper": [3,4], "pegGrasp_xyz": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_pegGrasp_xyz": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal_xyz": [36,39], "pegHead_xyz": [39,42]},
+    "not_required": ["future states or outcomes", "phase labels", "contact oracle", "initial-layout cache", "step index", "simulator", "images at inference", "parent weights or parent predictions"]
+  },
+  "action_frame_semantics": {
+    "frame": "Exactly the A3 rule, computed once conceptually from causal raw_current at each chunk start: s=-1 if aperture<0.5, norm(pegGrasp-hand)<0.065m, and goal_y-pegHead_y>0.005m; otherwise s=+1. It is deterministic and recomputed from the identical context whenever required, without persistent state.",
+    "encode_decode": "Encode all16 rows as [dx,s*dy,dz,gripper] and decode with the same involution. No future state or prediction selects a frame. Native x/z,0.01m/unit displacement scale, fixed wrist orientation and gripper[g,-g] are unchanged. Only the host clips the native action cube and executes four of sixteen actions.",
+    "conditioning_and_motion": "The same s reflects signed local vector y components and applies S R S to orientation channels. Auxiliary hand/head displacements are also reflected by the same chunk-start s; world contextual hand/goal positions are deliberately unreflected with parity retained."
+  },
+  "training_only_targets": [
+    {"name": "phase_distribution", "source": "Exact D5 obs[t], using the unchanged A2 contact surrogate(aperture<0.5 and hand/grasp distance<0.065m) and alignment surrogate(abs goal-head y,z<0.035m). Three phases: approach/close, contact transport, contact aligned insertion; label smoothing0.05. These are surrogate annotations, not reward or simulator contact truth.", "loss": "Cross entropy from predicted causal probabilities, normalized by sum(mask[:,0]) and weighted0.05. Targets are never inference conditioning."},
+    {"name": "future_delta4_world", "source": "Exact D5 differences obs[t+4]-obs[t] for hand_xyz and pegHead_xyz, divided by0.04m. Endpoint padding is finite and excluded when action offset3 is invalid. In training_loss reflect these six components by the causal chunk-start s, not by a future frame.", "loss": "The117-64-6 motion head predicts the canonical displacement from current learned conditioning. SmoothL1 weight0.1, denominator6*sum(mask[:,3]), safe empty-set normalization. This head is not called at inference and never transforms actions."}
+  ],
+  "architecture": "One common factory DP with condition_dim117 and diffusion_action_dim4. Retain A2 reach20-64-32, insertion20-64-32, world6-32-16 and stage10-32-3 SiLU MLPs; joint-training-only motion head117-64-6. Condition is gated32+32,world16,phase3,ungated geometry33,parity1. No extra backbone, parent-weight reuse, ensemble, planner, joint diffusion channels, or pretraining.",
+  "loss_and_budget": "Common action epsilon loss is untouched: encoded native4 first, weight1 and denominator mask.sum()*4. Two separately mask-normalized nonnegative auxiliary losses as documented above. Same optimizer, updates, horizons, seeds, splits and final-checkpoint rule as all candidates.",
+  "support_fit_statistics": "None beyond the frozen host normalizer. Phase and motion labels are computed from current D5 only via training_targets and never cached in deployment state. No development states are used for fitting.",
+  "parents": ["A2", "A3"],
+  "change_summary": "One feedback-driven new scientific slot: combine A2's learned causal stage/motion representation with A3's contact-conditioned action reflection. Relative to A2, consistently reflect local features, quaternions, action y and motion labels and add parity. Relative to A3, replace its fixed feature map and joint10-channel outcome diffusion by A2-style learned conditioning and action4 diffusion with masked short-horizon auxiliary heads. All thresholds, gate settings and auxiliary-head weights are retained from their parent rather than searched. A1-A3 remain immutable; q3 was recorded before implementation. No A4 performance has been observed."
+}

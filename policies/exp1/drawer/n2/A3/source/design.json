@@ -1,0 +1,51 @@
+{
+  "title": "Causal contact-chart conditioning with joint action and relative-motion diffusion",
+  "coverage_gap": "Two diagonally paired layouts give almost no evidence for independent translation/yaw transfer or failed-contact recovery. The demonstrations contain a rapid change from descent to pulling followed by delayed drawer movement, which an action-only marginal can imitate without representing the response of the handle.",
+  "reusable_regularity": "Model an action chunk and its hand/drawer motion together in the fixed chunk-start cabinet frame. Six extra diffusion channels describe cumulative hand and handle displacement from the observed start, so the unchanged temporal U-Net can learn a joint relation between command sequences and relative physical response. Smooth causal geometry charts expose approach, descent and near-handle pulling without a timer or an inferred future state. This is joint stochastic co-denoising, not the separate causal forecast head of A2 or the action-only likelihood of A1.",
+  "dependencies_preserved": [
+    "The 30-dimensional physical bypass carries unbounded local hand-handle and goal-handle vectors, observed local hand/handle increments, world hand and goal positions, aperture/change, yaw, and current/previous quaternions. It retains the actual alignment and observed drawer response even if a chart is inappropriate.",
+    "Yaw normalization is only a coordinate change: world position, vertical height and orientation information remain to represent fixed-gripper, robot workspace and cabinet-face dependencies. All present positional fields can be reconstructed from the physical bypass.",
+    "Chart weights are continuous functions of each causal observation's planar hand-handle separation and relative height. They do not prescribe an action, use a rollout clock, infer true contact, or replace raw geometry. The denoiser can override these soft biases using the full bypass and observed motion.",
+    "No geometry or obstacle channels beyond the common observation are added. Object2 is declared absent and omitted."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Only the exact N=2 current-support episodes are used for motion labels."},
+    {"path": "task_materials.json", "detail": "Drawer handle positions, yaw, fixed gripper rotation, 80 Hz native world delta controls, and confounded LL/HH training layout."},
+    {"path": "support_summary.json", "detail": "88 and 90 transitions; approximately 0.128 m initial drawer travel; no failed-contact demonstrations included."},
+    {"path": "images/frame_02_demo_00_step_024.png", "detail": "Raised approach near the cabinet; supports a separate approach/descent representation."},
+    {"path": "images/frame_04_demo_00_step_048.png", "detail": "Descending hand near the closed drawer."},
+    {"path": "images/frame_06_demo_00_step_072.png", "detail": "Low hand during early drawer movement."},
+    {"path": "images/frame_13_demo_01_step_066.png", "detail": "Near-handle interaction with opposite yaw."},
+    {"path": "images/frame_15_demo_01_step_090.png", "detail": "Open drawer and low hand at the end of the second demonstration."},
+    {"path": "trajectories/demo_00.json", "detail": "Actions 0:28 switch vertical direction near step 23; observed planar separation then is about 0.060 m (obs 21:26). Near pull onset (obs 62:70), hand is around 0.02 m above the handle; obs 72:77 show hand and drawer moving together with nonzero hand-handle offset."},
+    {"path": "trajectories/demo_01.json", "detail": "Obs 63:68 show similar low-height approach near onset of pull."},
+    {"path": "contracts.py", "scope": "public", "detail": "Joint diffusion may append auxiliary channels after the encoded action4; all frames must be causal chunk-start frames."},
+    {"path": "learning.py", "scope": "public", "detail": "Common host samples all configured diffusion channels; only first four are decoded/executed. Public action loss denominator remains mask.sum()*4."}
+  ],
+  "expected_failure_signature": [
+    "If command-response coupling transfers, pulling actions and actual drawer increments should stay coordinated across layouts. Joint generation may instead hallucinate drawer motion after a missed contact, yielding hand travel without observed drawer progress.",
+    "The broad soft chart thresholds may trigger low-height pulling on the wrong side of a yawed handle. Correct local pull direction combined with persistent low/side contact failure would expose the missing recovery support.",
+    "Co-denoising six extra channels can compete with action learning, especially around the rare discontinuous stage change. This would appear as worse approach/descent timing than an action-only design, rather than a claim that joint diffusion must help.",
+    "The cabinet frame does not make the fixed gripper rotation-equivariant. Extreme yaw can still fail even when motion samples are internally consistent."
+  ],
+  "required_runtime_fields": [
+    {"source": "context.raw_history", "shape": "[B,2,41]", "fields": "Current 0:11 and native previous 18:29 hand/aperture/handle/quaternion, goal 36:39, cabinet sine/cosine yaw 39:41"},
+    {"source": "context.raw_current", "shape": "[B,41]", "fields": "39:41 for the common chunk-start action basis"},
+    {"source": "host-owned noisy diffusion sample", "shape": "[B,16,10]", "fields": "First four action channels and six jointly generated motion channels. These are latent samples, never future ground-truth observations."}
+  ],
+  "action_frame_semantics": "Encode unitless native xyz with Rz(yaw_start)^T; decode with Rz(yaw_start). The same start yaw applies to all 16 rows. Gripper and vertical action are unchanged; no clipping, controller gain change, action shift, integration, solver or planner. Host clips the decoded world cube and executes the fixed four-action prefix. Auxiliary channels do not enter decode_actions.",
+  "training_only_targets": [
+    {
+      "name": "future_motion",
+      "shape": "[windows,16,6]",
+      "source_fields": "For each valid transition t+k<T: Rz(obs[t,39:41])^T * (obs[t+k+1,0:3]-obs[t,0:3]) / 0.1 m and the same transformation of obs[t+k+1,4:7]-obs[t,4:7]. These are cumulative displacements from the chunk start, not increments rotated using future yaw. Padded labels are zero.",
+      "diffusion_semantics": "Append after exactly preserved encoded action4; all ten channels are noised and jointly denoised by one factory DP using the frozen schedule. At deployment all ten start as host Gaussian noise; the six extra channels are discarded after common sampling.",
+      "loss": "Additional weight 0.25 times epsilon squared error on channels 4:10, multiplied by the common valid mask and independently divided by mask.sum()*6 (safe all-zero denominator). Public action epsilon loss remains weight 1, denominator mask.sum()*4, unaffected by auxiliary channel count.",
+      "inference_exclusion": "Future observations are accessed only in training_targets, never retained on the design. No label or mask is consulted by condition/denoise/decode. Inference does not clamp motion latents to ground truth, use predicted motion as an observation, or run an extra planning procedure."
+    }
+  ],
+  "support_fit_statistics": "No fitted or cached statistics. Physical scales are fixed; chart centers are a pre-feedback modeling choice informed by the read support geometry (planar approach around 6 cm, near-contact vertical gap around 2 cm), with broad smooth widths rather than a learned success threshold. Common normalization/training recipe is unchanged.",
+  "architecture": "One common DP, condition_dim=42, diffusion_action_dim=10. Condition consists of 30 physical features plus 3 continuous chart weights and 9 chart-weighted relation coordinates. No extra denoiser or optimizer, no pretraining, no learned modules outside the common DP.",
+  "parents": [],
+  "change_summary": ["Initial independent hypothesis: jointly diffuse local actions and future relative motion, with a smooth causal contact chart and full physical/world bypass. Shares the physically justified yaw convention with A1 but changes the modeled random variables, objective and conditioning interactions. No development feedback used."]
+}

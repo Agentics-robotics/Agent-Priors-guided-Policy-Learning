@@ -1,0 +1,100 @@
+{
+  "composition": "skips the pouring skill: grasp and lift, then return",
+  "container_pose": null,
+  "contract": {
+    "bowl_center": [
+      -0.26,
+      0.18
+    ],
+    "bowl_floor_top": 0.012,
+    "bowl_inner_half_xy": [
+      0.13,
+      0.12
+    ],
+    "bowl_wall_top": 0.08,
+    "contact_tolerance_m": 0.0003,
+    "container_bound_half_xy": [
+      0.078,
+      0.03
+    ],
+    "container_grasp_local": [
+      -0.07,
+      0,
+      0.052
+    ],
+    "container_half_xy": [
+      0.035,
+      0.03
+    ],
+    "container_handle_half": [
+      0.008,
+      0.012,
+      0.025
+    ],
+    "container_handle_local": [
+      -0.07,
+      0,
+      0.052
+    ],
+    "container_height": 0.085,
+    "container_over_bowl_definition": "container origin xy inside bowl_center +/- bowl_inner_half_xy and its z above bowl_wall_top",
+    "control_hz": 20,
+    "description": "Lift the particle-filled container and put it upright in its marked return region without pouring. The task is complete when the container is upright in the return region and no particle is in the bowl.",
+    "minimum_particles_in_bowl": 10,
+    "no_particles_in_bowl_definition": "particles_in_bowl (the task measure) equals 0",
+    "particle_count": 12,
+    "particle_radius": 0.0055,
+    "predicates": [
+      "container_at_return",
+      "container_upright",
+      "no_particles_in_bowl"
+    ],
+    "return_half_xy": [
+      0.12,
+      0.075
+    ],
+    "return_target": [
+      -0.46,
+      -0.28,
+      0.0
+    ],
+    "return_z_tolerance": 0.015,
+    "robot": "panda",
+    "schema": "appl.cartesian_ik.task_goals.v1",
+    "success_expression": "container_at_return AND container_upright AND no_particles_in_bowl",
+    "task_id": "granular_pour_return",
+    "upright_cosine": 0.97,
+    "wall_thickness": 0.005
+  },
+  "expert_goals": {
+    "container_at_return": true,
+    "container_upright": true,
+    "no_particles_in_bowl": true,
+    "particles_in_bowl": 0,
+    "success": true
+  },
+  "expert_planner_error": null,
+  "expert_success": true,
+  "goal": "return_no_pour",
+  "id": "C-U1",
+  "initial_goals": {
+    "container_at_return": false,
+    "container_upright": true,
+    "no_particles_in_bowl": true,
+    "particles_in_bowl": 0,
+    "success": false
+  },
+  "initial_sha256": "0f55297f2cf3f76f8bd5d65002cefbcd4fdf290240a0e012523ea8f09abbef5b",
+  "kind": "compose",
+  "name": "grasp_and_return_without_pouring",
+  "particle_positions": null,
+  "prepared": 1790328488.4316885,
+  "robot_qpos": null,
+  "seed": 24093409,
+  "stages": [
+    "grasp",
+    "carry_return"
+  ],
+  "suite": "compose",
+  "task": "granular_pour_return"
+}

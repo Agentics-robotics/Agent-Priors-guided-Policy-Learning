@@ -1,0 +1,17 @@
+{
+  "policy_id": "open_drawer__h02",
+  "skill_id": "open_drawer",
+  "heuristic_index": 2,
+  "prior_summary": "Diffuse body-frame SE(3) corrections and resolve each executed slot from the fresh measured TCP, using causal relational and robot-state features to reduce sensitivity to small intermediate-state tracking mismatch.",
+  "applicable_conditions": "Prefer for partial-progress invocation or small TCP/configuration mismatch when drawer, handle relation, finger order and phase remain close to demonstrated support.",
+  "termination_guidance": "Hand off after the drawer is near 0.300 m and stable, fingers are open, TCP is safely clear and moving toward/above the unchanged block.",
+  "limitations": "Local corrections do not force large drawer or block displacement equivariance and do not recover missed contact. Large corrections may be unreachable or collide, and phase can remain ambiguous.",
+  "config": {
+    "action_frame": "fresh measured TCP body frame per executed slot",
+    "action_layout": "body translation 3 + body rotation vector 3 + gripper 1",
+    "input_feature_dimension_per_frame": 47,
+    "correction_accumulation": false,
+    "standard_backbone_unchanged": true,
+    "augmentation": "none"
+  }
+}

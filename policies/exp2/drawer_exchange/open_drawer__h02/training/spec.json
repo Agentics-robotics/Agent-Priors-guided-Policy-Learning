@@ -1,0 +1,669 @@
+{
+  "candidate_config": {
+    "action_dimension": 7,
+    "action_frame": "fresh_measured_tcp",
+    "auxiliary_loss": false,
+    "feature_dimension_per_frame": 39,
+    "rotation_representation": "rotation_vector"
+  },
+  "contract": {
+    "action_dimension": 7,
+    "call_args_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "desired_open_position_m": {
+          "exclusiveMinimum": 0.26,
+          "type": "number"
+        },
+        "drawer_orientation_wxyz": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "type": "array"
+        },
+        "drawer_origin_world_m": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array"
+        }
+      },
+      "required": [
+        "drawer_origin_world_m",
+        "drawer_orientation_wxyz",
+        "desired_open_position_m"
+      ],
+      "type": "object"
+    },
+    "conversion_check": {
+      "description": "Local transform encode/decode reconstructs demonstrated commanded TCP targets when composed with the corresponding measured pre-action TCP. Shared IK is evaluated by FK position/rotation and unchanged gripper scalar.",
+      "mode": "task_space",
+      "tolerance": 0.01
+    },
+    "cut_relation": "Supervises every action in all assigned [0,470) segments and preserves approach, pull, release, retreat, red pickup and initial lift. The full 230:470 action overlap with red_transfer remains duplicated supervision.",
+    "input_shapes": {
+      "features": [
+        2,
+        39
+      ]
+    },
+    "observation_dependencies": [
+      "qpos",
+      "qvel",
+      "tcp_pose",
+      "red_pose",
+      "drawer_position",
+      "drawer_velocity"
+    ],
+    "output_semantics": "Each slot is the local SE(3) transform from that slot's measured pre-action TCP to the demonstrated commanded TCP: local translation [3] in metres, local rotation vector [3] in radians, and native gripper scalar [1]. Slots 1..8 execute t..t+7. At every physical step, the slot transform is composed on the fresh measured world TCP pose. The resulting world target is passed to panda_kinematics.solve_ik from fresh qpos; the gripper scalar is appended unchanged and interpreted by common sign semantics.",
+    "parameter_semantics": "drawer_origin_world_m is the world position in metres of the drawer at drawer_position=0 and drawer_orientation_wxyz is its unit wxyz calibration; both construct TCP-relative causal features. desired_open_position_m is intended scalar opening in metres, bound to 0.300 m. Learned increments are policy outputs, never caller actuator inputs.",
+    "policy_id": "open_drawer__h02",
+    "skill_id": "open_drawer",
+    "temporal": {
+      "control_hz": 20,
+      "execution_steps": 8,
+      "history_steps": 2,
+      "prediction_horizon": 16,
+      "prediction_start_offset": -1
+    },
+    "version": "appl.flexible.sol.v1"
+  },
+  "normalizer": {
+    "action_min": [
+      -0.27523431181907654,
+      -0.48230525851249695,
+      -0.2661714255809784,
+      -2.721616744995117,
+      -0.17081283032894135,
+      1.7778841257095337,
+      -2.8931069374084473,
+      -1.0
+    ],
+    "action_scale": [
+      0.7570628523826599,
+      1.4581440389156342,
+      0.48798830807209015,
+      1.4734541177749634,
+      0.40092431008815765,
+      1.0326164960861206,
+      3.6785051226615906,
+      2.0
+    ],
+    "fit_ids": [
+      "demo1000",
+      "demo1001",
+      "demo1002",
+      "demo1003",
+      "demo1004",
+      "demo1005",
+      "demo1006",
+      "demo1007",
+      "demo1008",
+      "demo1009",
+      "demo1010",
+      "demo1011"
+    ],
+    "fit_samples": 12809,
+    "mean": [
+      0.1030886173248291,
+      0.2416381686925888,
+      -0.022266052663326263,
+      -1.9805344939231873,
+      0.029631920158863068,
+      2.2941845655441284,
+      -1.0538184940814972,
+      0.023531297454610467,
+      0.023504973389208317,
+      0.008340850472450256,
+      0.0022372454404830933,
+      0.0398804247379303,
+      0.0005724132061004639,
+      1.1555850505828857e-05,
+      -0.004193857312202454,
+      0.0003268718719482422,
+      -0.06548766791820526,
+      -0.05896627902984619,
+      -0.2946813479065895,
+      0.004355445504188538,
+      0.23035555705428123,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.051303740590810776,
+      -0.1795918047428131,
+      0.17111708968877792,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.29100069403648376,
+      0.1891772374510765,
+      0.17090900894254446,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.15000000596046448,
+      0.11486924719065428,
+      -0.18000000715255737,
+      -0.30000001192092896,
+      0.019999999552965164,
+      -0.025000005960464478,
+      0.07500000298023224,
+      0.06300000101327896
+    ],
+    "observation_clipping": false,
+    "quaternion_normalization": "unit_component_bounds",
+    "raw_std": [
+      0.19320454564770467,
+      0.34744724049149867,
+      0.12640534777909035,
+      0.4083288234275415,
+      0.078949774907061,
+      0.28157822875180594,
+      0.9030127835788065,
+      0.012094321493359917,
+      0.012115167752277717,
+      0.06710143484610252,
+      0.16645254476965135,
+      0.0459470968230391,
+      0.15313908125189232,
+      0.028732880075280406,
+      0.1472318240490447,
+      0.14984932234327844,
+      0.02563828887597177,
+      0.025694069078098493,
+      0.10664077715320468,
+      0.17018123884883826,
+      0.11797926158641954,
+      0.002164098480959409,
+      0.3493929603220111,
+      0.20656424134885482,
+      0.0033216502833971592,
+      0.10618009789747901,
+      0.11645912123569721,
+      0.07692243932743757,
+      4.492630487755878e-05,
+      0.0007320062662340939,
+      0.0007171649989247589,
+      0.005679715701515264,
+      0.08215042008501794,
+      0.08113726295254593,
+      0.08168316163398055,
+      0.00032725253864207137,
+      0.0013524665762012918,
+      0.00040327118839793893,
+      0.013012712617614107,
+      0.1106901531212755,
+      0.019933566316535516,
+      0.0,
+      0.0,
+      0.0,
+      0.1106901536368466,
+      0.0,
+      0.0
+    ],
+    "std": [
+      0.3783250153064728,
+      0.723807767033577,
+      0.24402392655611038,
+      0.7292104363441467,
+      0.20047955960035324,
+      0.5162914991378784,
+      1.8392166793346405,
+      0.01646870165131986,
+      0.01649502571672201,
+      0.2714995890855789,
+      0.42695991694927216,
+      0.20651976764202118,
+      0.40919095277786255,
+      0.12875590473413467,
+      0.39086557924747467,
+      0.39631545543670654,
+      0.2656244486570358,
+      0.2591497302055359,
+      0.15467392653226852,
+      0.3087788373231888,
+      0.2126798965036869,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.1590060330927372,
+      0.12495726346969604,
+      0.15111718326807022,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.12250477075576782,
+      0.12533584982156754,
+      0.1509091043844819,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.15000000596046448,
+      0.12950258422642946,
+      1.0,
+      1.0,
+      1.0,
+      0.15000000596046448,
+      1.0,
+      1.0
+    ]
+  },
+  "public_context": {
+    "capabilities": {
+      "automatic_ik_service": false,
+      "causal_history_across_switches": true,
+      "contact_truth": false,
+      "future_states": "training targets only",
+      "learned_images": false,
+      "parameter_budget": 64000000,
+      "public_robot_chain": true,
+      "typed_call_arguments": true,
+      "variable_learned_action_dimension": true
+    },
+    "native_action": {
+      "arm": "seven absolute joint position targets in radians",
+      "control_hz": 20,
+      "dimension": 8,
+      "gripper": "nonnegative opens (+1), negative closes (-1); common binary executor"
+    },
+    "observation_fields": {
+      "blue_goal": [
+        44,
+        47
+      ],
+      "blue_pose": [
+        32,
+        39
+      ],
+      "drawer_position": [
+        39,
+        40
+      ],
+      "drawer_velocity": [
+        40,
+        41
+      ],
+      "qpos": [
+        0,
+        9
+      ],
+      "qvel": [
+        9,
+        18
+      ],
+      "red_goal": [
+        41,
+        44
+      ],
+      "red_pose": [
+        25,
+        32
+      ],
+      "tcp_pose": [
+        18,
+        25
+      ]
+    },
+    "observation_semantics": "Structured raw state, metres/radians, world poses wxyz; no images in learned model",
+    "robot": {
+      "arm_joint_order": [
+        "panda_joint1",
+        "panda_joint2",
+        "panda_joint3",
+        "panda_joint4",
+        "panda_joint5",
+        "panda_joint6",
+        "panda_joint7"
+      ],
+      "base_link": "panda_link0",
+      "base_position_world": [
+        -0.85,
+        0.0,
+        0.0
+      ],
+      "base_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "frames": "URDF parent-origin then local joint rotation; world/base translation as supplied",
+      "tcp_chain": [
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link1",
+          "limits": {
+            "effort": 87.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.175
+          },
+          "name": "panda_joint1",
+          "parent": "panda_link0",
+          "q_index": 0,
+          "rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            0.0,
+            0.333
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link2",
+          "limits": {
+            "effort": 87.0,
+            "lower": -1.7628,
+            "upper": 1.7628,
+            "velocity": 2.175
+          },
+          "name": "panda_joint2",
+          "parent": "panda_link1",
+          "q_index": 1,
+          "rpy": [
+            -1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link3",
+          "limits": {
+            "effort": 87.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.175
+          },
+          "name": "panda_joint3",
+          "parent": "panda_link2",
+          "q_index": 2,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            -0.316,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link4",
+          "limits": {
+            "effort": 87.0,
+            "lower": -3.0718,
+            "upper": -0.0698,
+            "velocity": 2.175
+          },
+          "name": "panda_joint4",
+          "parent": "panda_link3",
+          "q_index": 3,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0825,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link5",
+          "limits": {
+            "effort": 12.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.61
+          },
+          "name": "panda_joint5",
+          "parent": "panda_link4",
+          "q_index": 4,
+          "rpy": [
+            -1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            -0.0825,
+            0.384,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link6",
+          "limits": {
+            "effort": 12.0,
+            "lower": -0.0175,
+            "upper": 3.7525,
+            "velocity": 2.61
+          },
+          "name": "panda_joint6",
+          "parent": "panda_link5",
+          "q_index": 5,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link7",
+          "limits": {
+            "effort": 12.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.61
+          },
+          "name": "panda_joint7",
+          "parent": "panda_link6",
+          "q_index": 6,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.088,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "child": "panda_link8",
+          "name": "panda_joint8",
+          "parent": "panda_link7",
+          "rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "type": "fixed",
+          "xyz": [
+            0.0,
+            0.0,
+            0.107
+          ]
+        },
+        {
+          "child": "panda_hand",
+          "name": "panda_hand_joint",
+          "parent": "panda_link8",
+          "rpy": [
+            0.0,
+            0.0,
+            -0.7853981633974483
+          ],
+          "type": "fixed",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "child": "panda_hand_tcp",
+          "name": "panda_hand_tcp_joint",
+          "parent": "panda_hand",
+          "rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "type": "fixed",
+          "xyz": [
+            0.0,
+            0.0,
+            0.1034
+          ]
+        }
+      ],
+      "tcp_link": "panda_hand_tcp",
+      "urdf_sha256": "524c6986dbbabe244e05801f262862205e880834d01459b06ee273016d0579ba",
+      "urdf_source": "environments/exp2/.pixi/envs/default/lib/python3.11/site-packages/mani_skill/assets/robots/panda/panda_v2.urdf"
+    },
+    "scene_identifiers": {
+      "goals": [
+        "red_goal",
+        "blue_goal"
+      ],
+      "objects": [
+        "red",
+        "blue"
+      ]
+    },
+    "schema": "appl.flexible.sol.v1",
+    "task_id": "drawer_exchange",
+    "temporal": {
+      "control_hz": 20,
+      "execution_steps": 8,
+      "history_steps": 2,
+      "prediction_horizon": 16,
+      "prediction_start_offset": -1
+    }
+  },
+  "representation_normalizer": {
+    "center": [
+      0.0003627645783126354,
+      -0.0058137644082307816,
+      0.004232929088175297,
+      0.006142400670796633,
+      0.0007419283501803875,
+      -0.03188653662800789,
+      0.0
+    ],
+    "fit": "valid training labels only; midpoint/half-range, constant dimension scale 1",
+    "inference_used": false,
+    "scale": [
+      0.010036572813987732,
+      0.014857759699225426,
+      0.025078531354665756,
+      0.0081104077398777,
+      0.0028660502284765244,
+      0.03324903920292854,
+      1.0
+    ],
+    "valid_labels": 88968
+  },
+  "skill_id": "open_drawer",
+  "training": {
+    "action_scale_floor": 0.01,
+    "batch_size": 128,
+    "checkpoint_every": 2000,
+    "clip_sample": true,
+    "denoising_inference_steps": 100,
+    "denoising_train_steps": 100,
+    "down_dims": [
+      128,
+      256,
+      512
+    ],
+    "ema_decay": 0.999,
+    "execution_steps": 8,
+    "groups": 8,
+    "horizon": 16,
+    "kernel_size": 5,
+    "learning_rate": 0.0001,
+    "lr_schedule": "cosine",
+    "max_grad_norm": 1,
+    "observation_normalization": "limits",
+    "observation_std_floor": 0.001,
+    "observation_steps": 2,
+    "quaternion_normalization": "unit_component_bounds",
+    "sampler": "ddpm",
+    "seeds": [
+      0
+    ],
+    "selection": "last EMA at predeclared budget",
+    "timestep_embed_dim": 128,
+    "updates": 20000,
+    "warmup_steps": 500,
+    "weight_decay": 1e-06
+  }
+}

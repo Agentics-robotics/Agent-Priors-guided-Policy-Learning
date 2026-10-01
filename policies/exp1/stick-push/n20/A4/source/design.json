@@ -1,0 +1,47 @@
+{
+  "title": "Minimal invertible causal interaction chain",
+  "coverage_gap": "The original support remains only LL/HH D20. After the one permitted initial development evaluation, A1,A2,A3 all attained C=1.0 and E=1.0 in every reported subcondition. No failure category was observed to justify a targeted behavioral repair, and these finite samples do not establish universal success. The revision instead tests whether A1's redundant expansion is necessary to preserve its observed generalization, while reducing conditioning cost under the frozen latency tie-break.",
+  "reusable_regularity": "A current world anchor plus an interaction chain and entity-wise native-history differences is a minimal causal coordinate system. Relative positions expose manipulation geometry; instantaneous changes expose motion without concatenating a second full relation chain. The map is linear and invertible over the entire39D raw observation, not a learned compression and not a removal of constant support channels. The U-Net, rather than handcrafted norm features, must compute any remaining nonlinear interaction distances.",
+  "dependencies_preserved": [
+    "Features0:3 are current hand world xyz,3:6 stick-hand,6:9 object2-stick,9:12 goal-object2. The hand anchor and three edges reconstruct all four current world positions.",
+    "Feature12 is current aperture;13:17 current stick xyzw and17:21 current object2 xyzw, with a constant vector-part gain10 and scalar-part gain1. Absent zero orientation fields are retained; no inference-time field is pruned merely because it was constant in D20.",
+    "Features21:30 are current-minus-native-previous hand/stick/object2 xyz differences divided by .01m;30 is aperture difference;31:39 are stick/object2 quaternion differences with the same gain as the current quaternions. All18 native-previous fields are therefore recoverable. Both outer observations are still supplied.",
+    "World vertical remains explicit in the hand z anchor scaled by .1m and is linearly recoverable for stick and object2 from the chain z components. This retains table/robot/workspace dependence while removing duplicate absolute-height features. World x/y anchors use .4m scaling.",
+    "The source points remain exactly stick COM and object2 insertion site+[0,.09,0]. No unprovided tip, contact, obstacle, collision-free route, success flag or dynamics oracle is introduced. Full world pose dependence is preserved."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Same exact stick-push__N20__rep0 support provenance; no additional demonstrations."},
+    {"path": "task_materials.json", "use": "Current18+native-previous18+goal3 schema, public object point definitions and world action4 semantics."},
+    {"path": "support_summary.json", "use": "Correlated LL/HH support and anisotropic metric action/position variation still motivate physically scaled relations."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Robot and fixed tabletop anchor matter during approach."},
+    {"path": "images/frame_01_demo_01_step_023.png", "use": "Acquisition configuration makes relative hand/tool geometry relevant."},
+    {"path": "images/frame_02_demo_02_step_049.png", "use": "Raised tool configuration requires preservation of world height information."},
+    {"path": "images/frame_03_demo_03_step_072.png", "use": "Late pushing connects the tool and target object geometry."},
+    {"path": "trajectories/demo_00.json", "rows": "obs0:8,20:32,45:53,65:73; actions0:60", "use": "Causal hand/stick/object2 changes distinguish approach, acquisition and delayed pushing without needing a second explicitly expanded relation chain."},
+    {"path": "trajectories/demo_01.json", "rows": "obs25:33", "use": "Corresponding acquisition changes in the other support cell."},
+    {"source": "User-provided revision-phase development_feedback for A1,A2,A3", "use": "All three completed20000 updates and scored C=E=1.0. A1 latency0.10404845999437384s is lower than A2 0.10644499450427247s and A3 0.10710104800091358s. Thus q3 is A1; there is no reported accuracy failure to repair.", "parent_submission_hash": "e887126634a628a6313eb491858d3858000c9d4c043d0c9dae2928d8136d13fc"}
+  ],
+  "expected_failure_signature": [
+    "If A1's nonlinear planar distance features were important for transfer, the compressed model can fail near approach-to-descent or close/lift boundaries even though no raw information is lost. That would falsify the sufficiency of minimal coordinates under this finite training budget.",
+    "Removing separately repeated heights and previous goal relations can make them harder for the shared U-Net to reconstruct; failures could include premature lateral driving before adequate lift.",
+    "The latency hypothesis may fail because fixed denoising overhead dominates the smaller conditioning projection. Lower condition dimension is not claimed to guarantee measured latency improvement.",
+    "Like A1, direct xyzw features can be sensitive to quaternion sign changes or off-support recovery states. The development ceiling does not test all such conditions."
+  ],
+  "required_runtime_fields": [
+    "context.raw_history[B,2,39]: current0:18, native-previous18:36, goal36:39 for both outer observations.",
+    "One fixed registered39x39 coefficient buffer built from config applies the physical-unit change of coordinates. It contains no fitted episode state, labels, parameters or support lookup.",
+    "No phase, future trajectory, step count, evaluation identity or environment handle. The normalized-history argument is accepted but raw causal fields supply this representation."
+  ],
+  "training_only_targets": [],
+  "action_frame_semantics": "Identity world action4 encode/decode inherited from CandidateDesign. Native xyz magnitude .01m per unit command, fixed end-effector orientation and80 Hz remain unchanged; gripper is untouched. No clipping except common post-decode native cube clipping, and no change to horizon16, execute4 or diffusion sampling.",
+  "architecture": "Exactly one common factory DP with condition_dim39 and diffusion_action_dim4. Fixed nonlearned linear39x39 buffer maps raw history to current21D chain/pose plus18D native-history differences. No auxiliary head, learned pre-encoder, joint channels or additional loss. Every trainable parameter belongs to the unmodified common U-Net; action epsilon weight1 and denominator mask.sum()*4 remain the sole objective.",
+  "support_fit_statistics": "None. No weights or checkpoints are inherited. A4 is trained from the host's seeded initialization for the full fixed budget as one new slot. The buffer is deterministic geometry, checkpointed/restored by the common module state mechanism.",
+  "feedback_basis": {"q3": "A1", "selection_score_A1": 1.0, "selection_score_A2": 1.0, "selection_score_A3": 1.0, "interpretation": "Observed success is tied at the ceiling, so test representation economy rather than add supervision with no demonstrated accuracy benefit. The C and E95% intervals reported for each were approximately[.839,1], and no hidden-test results were used."},
+  "parents": ["A1"],
+  "change_summary": [
+    "Revision from A1, not a modification of its submitted files: reduce per-observation conditioning62->39 by replacing the second expanded native-previous chain with complete entity pose differences, encoding the goal only once, and dropping duplicate heights and planar norms.",
+    "Preserve all39 raw fields through an invertible map. Increase hand world-z gain to the prior explicit height scale so world vertical remains salient after removing duplicate height channels.",
+    "Compute the fixed map in one matrix multiplication with a nontrainable buffer. Keep world-frame action4, no auxiliary loss, common U-Net topology and all training/control budgets unchanged.",
+    "This is the single feedback-informed A4 experiment. No interface repairs at creation, no additional training runs, no new checkpoint selection and no claimed A4 performance before outer evaluation."
+  ]
+}

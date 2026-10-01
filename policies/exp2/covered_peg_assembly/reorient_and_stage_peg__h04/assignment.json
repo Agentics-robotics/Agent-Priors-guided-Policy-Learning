@@ -1,0 +1,160 @@
+{
+  "dataset": "assets/exp2/datasets/covered_peg_assembly/reorient_and_stage_peg/dataset.json",
+  "dataset_sha256": "4014116a35d762f089a674edd8ef7555125889863de854487a05527f4784ec47",
+  "experiment_version": "APPL_v4_cartesian_validation_round",
+  "heuristic": {
+    "applicability": "Prefer when the cover is observably open, fingers are closed, the peg appears coupled to the TCP, the peg-to-TCP relative pose is stable across both causal frames, and hole_pose is reliable. It is especially intended for a reachable displacement of the hole/fixture or a different but rigid grasp transform delivered by retrieval. It covers the full demonstrated lift/turn/transport/descent range, with its strongest invariant applying to the hole-relative approach, alignment, descent and early insertion. If peg pose is unreliable but TCP and hole are reliable, prefer h01; if source/held-peg displacement dominates with the nominal hole, h02 remains the directly validated stronger original.",
+    "evidence": [
+      {
+        "indices": [
+          1120,
+          1140,
+          1200,
+          1240,
+          1270,
+          1320,
+          1380,
+          1420,
+          1460,
+          1499
+        ],
+        "trajectory_id": "demo12200"
+      },
+      {
+        "indices": [
+          1120,
+          1270,
+          1380,
+          1420,
+          1460,
+          1499
+        ],
+        "trajectory_id": "demo12205"
+      },
+      {
+        "indices": [
+          1120,
+          1270,
+          1380,
+          1420,
+          1460,
+          1499
+        ],
+        "trajectory_id": "demo12208"
+      }
+    ],
+    "handoff": {
+      "entry_conditions": "Enter after retrieval when fingers are closed, peg_pose remains at a stable relative transform to tcp_pose over the two causal frames, the cover is open, and the peg is beginning to lift or is on the demonstrated successful lift/turn route. A rigid but shifted grasp transform is allowed; a slipping or dropped peg is not.",
+      "exit_conditions": "Transfer to align_and_insert_peg once the held peg is nearly hole-axis aligned, hole-relative y/z error is small, the peg has descended toward hole height, and IK diagnostics remain healthy. The retained labels also cover initial +x insertion through index 1500; the unchanged framework exit rule remains authoritative.",
+      "failure_signatures": "Stop or switch on changing peg-to-TCP relative pose, gripper opening, peg below required box-wall clearance during traverse, worsening hole-relative y/z or orientation error, premature fixture approach, IK nonconvergence/limit contacts, cover collapse, or motion away from a previously valid staged state. No dropped-peg, collision, bad-grasp or post-success recovery is demonstrated.",
+      "overlap_role": "Every [1120,1500) segment remains action-supervised. Incoming [1120,1270) overlaps retrieval for 150 actions and covers low closed-grasp lift through clearance/initial turning. Outgoing [1380,1500) overlaps insertion for 120 actions and covers remaining alignment, descent and early insertion, allowing either neighbor to own several 8-action chunks.",
+      "successor_readiness": "align_and_insert_peg is ready when the peg remains rigidly held, is approximately identity/hole-axis oriented, centered near hole y/z, and has descended from high clearance without bad IK diagnostics. The index-1380 evidence includes residual lateral error, so later takeover is preferable when centering is not yet established."
+    },
+    "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{},\"required\":[]},\"parameter_semantics\":\"No high-level numeric parameters. The caller passes an empty object. At every replan the adapter resolves the newest observed hole_pose as the destination frame and the newest causal rigid grasp transform T_tcp^-1*T_peg. Selection is valid only when the peg is judged stably held from causal observations.\"}",
+    "limitations": "No contact truth is available. The causal peg-to-TCP transform is only a grasp proxy and is assumed rigid for the eight executed actions. Hole-frame covariance does not make box/lid collisions, robot reachability or insertion contact invariant. The demonstrations contain one essentially fixed hole pose, successful trajectories only, and no drop, slip, collision, bad-grasp, unreachable-target or post-success recovery. Extended execution beyond the labeled segment can still leave a transient success state.",
+    "pipeline_implications": "Add h04 beside, not in place of, h01-h03. The high-level selector should use observed frame reliability and coupling: h04 for reliable hole and peg poses with a stable potentially altered rigid grasp; h01 when peg pose/grasp-offset estimation is suspect but destination and TCP are reliable; h02 when a displaced held source is the dominant condition. Preserve two-frame history across switches. Monitor peg/TCP coupling and IK diagnostics, and hand off through the existing [1380,1500) overlap rather than relying on untrained indefinite execution.",
+    "rationale": "Validation showed different in-distribution failure signatures: h01 finished 5/12 despite zero IK-unconverged steps, h02 finished 8/12 but all four failures had 78-101 IK-unconverged steps, and h03 finished 0/12 with the peg head inserted but axis alignment false in every final state. All policies transiently passed every run before final scoring, so the results do not prove recovery or terminal stability. h04 therefore supervises the task-space variable evaluated by this skill—the desired PEG pose—rather than TCP pose alone. It converts each exact commanded TCP label through the causal measured grasp transform, expresses the resulting desired peg pose in the current hole frame, and inverts that transform during decoding. This combines destination covariance with explicit grasp-offset adaptation while retaining robot, clearance and lid dependencies. It is a falsifiable hypothesis that this factorization makes final peg alignment easier and reduces sensitivity to valid rigid grasp variation; no h04 performance is claimed.",
+    "statement": "Destination-frame desired-object trajectory prior: diffuse the desired held peg pose in the newest observed hole frame, then reconstruct the world TCP target with the causal peg-to-TCP grasp transform before verified IK. This makes the represented approach/alignment path covariant to reachable hole displacement and adapts commands to a different stable grasp geometry by construction.",
+    "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift/turn/stage slice; preserves incoming [1120,1270) and outgoing [1380,1500) action-supervised overlap.\"},{\"trajectory_id\":\"demo12201\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift/turn/stage slice with both neighbor overlaps retained.\"},{\"trajectory_id\":\"demo12202\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift/turn/stage slice with both neighbor overlaps retained.\"},{\"trajectory_id\":\"demo12203\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift/turn/stage slice with both neighbor overlaps retained.\"},{\"trajectory_id\":\"demo12204\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift/turn/stage slice with both neighbor overlaps retained.\"},{\"trajectory_id\":\"demo12205\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full slice retains the laterally offset index-1380 approach and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12206\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift/turn/stage slice with both neighbor overlaps retained.\"},{\"trajectory_id\":\"demo12207\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift/turn/stage slice with both neighbor overlaps retained.\"},{\"trajectory_id\":\"demo12208\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full slice retains the earlier aligned approach and deep early-insertion endpoint plus both overlaps.\"},{\"trajectory_id\":\"demo12209\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift/turn/stage slice with both neighbor overlaps retained.\"},{\"trajectory_id\":\"demo12210\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift/turn/stage slice with both neighbor overlaps retained.\"},{\"trajectory_id\":\"demo12211\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full assigned lift/turn/stage slice with both neighbor overlaps retained.\"}]"
+  },
+  "heuristic_index": 4,
+  "normalization": {
+    "path": "provenance/relocated/316f9fa4276b8c11",
+    "sha256": "5d50ce2e025ef83183ac172a24c1b19ea7482f651c1c6fa09f34f83bd3887b24"
+  },
+  "observation_fields": {
+    "hole_pose": [
+      0,
+      7
+    ],
+    "lid_pose": [
+      7,
+      14
+    ],
+    "lid_position": [
+      14,
+      15
+    ],
+    "lid_velocity": [
+      15,
+      16
+    ],
+    "peg_pose": [
+      16,
+      23
+    ],
+    "qpos": [
+      23,
+      32
+    ],
+    "qvel": [
+      32,
+      41
+    ],
+    "target_pose": [
+      41,
+      48
+    ],
+    "tcp_pose": [
+      48,
+      55
+    ]
+  },
+  "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "policy_id": "reorient_and_stage_peg__h04",
+  "prior_plan_path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/prior_plan.json",
+  "prior_plan_sha256": "289566519c3f5d4118da498c4d0e72972db27034c3065e3981370c20afdafbef",
+  "skill_id": "reorient_and_stage_peg",
+  "sources": {
+    "demo12200": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12200.json",
+      "sha256": "e7ccc303ea6b6ddd3150e2336c6b06b3f89a66d478909e3f9555eb3d6ccc85f1"
+    },
+    "demo12201": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12201.json",
+      "sha256": "aa9e1f1d14f676f5b4c9fb52ee6bbbb5d86865d82adcc051e3256482461f1016"
+    },
+    "demo12202": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12202.json",
+      "sha256": "4ad5e3ce9117f56008597389c45a799aff1857f683091069d582e024a00b32a7"
+    },
+    "demo12203": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12203.json",
+      "sha256": "c43ecf548e80a87d465fbc947e98d191dffd25cc4966f83e2698dd7a8a2cf8af"
+    },
+    "demo12204": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12204.json",
+      "sha256": "35eea2d5c8fc6e02c992c923db4e580d473d5583edcd45cfee79e682782c5a09"
+    },
+    "demo12205": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12205.json",
+      "sha256": "b4b9855dac2b9f0e836ea063d38694af37abba89371fcae59fffa7d65c4dfb3c"
+    },
+    "demo12206": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12206.json",
+      "sha256": "6a64bcc76a39a6dc2f1119c5e5983a5686835cdf2ae5a0899ab8f39da92ef407"
+    },
+    "demo12207": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12207.json",
+      "sha256": "58410156c6edfad3658ce632cf8ebe122570c51412ba53f8631c9e78a14c5397"
+    },
+    "demo12208": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12208.json",
+      "sha256": "1522c1f09079f05ace6825ff5221ebf74ca8c45941a00050c53b579b43e84d5b"
+    },
+    "demo12209": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12209.json",
+      "sha256": "2a6dc540f7c4c6e6cb92c1fe50c106da8f71123c6b3ede06a790bf8ca0c3d31b"
+    },
+    "demo12210": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12210.json",
+      "sha256": "dd077218ff68ac6e93b28dc73234d21ac2a16c937de945465c9970deb9ad4ac4"
+    },
+    "demo12211": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12211.json",
+      "sha256": "0440e3242bad2dbcefe176eab207fd19647109b019c55702ff1906862c9e4b5d"
+    }
+  },
+  "subgoal": "Maintain the peg grasp while lifting to clearance, turning the peg into the square-hole axis, transporting it above the target, and staging it through descent and the first part of insertion.",
+  "prior_plan_original_sha256": "289566519c3f5d4118da498c4d0e72972db27034c3065e3981370c20afdafbef"
+}

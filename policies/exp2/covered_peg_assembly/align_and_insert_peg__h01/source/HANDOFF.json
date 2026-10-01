@@ -1,0 +1,15 @@
+{
+  "policy_id": "align_and_insert_peg__h01",
+  "entry_conditions": "Peg is visibly retained in a closed grasp and clear of the box; peg axis is near the hole axis; observed hole, peg, TCP, qpos, and qvel are finite. Demonstrated entries at index 1380 have peg z about 0.420-0.428 m, with demo12205 providing a y-offset near 0.160 m.",
+  "exit_conditions": "Keep the supplied success definition unchanged: peg head x lies in [-0.145,-0.09], y/z satisfy the 0.009 m tolerance, axis alignment is at least 0.985, and the held pose is stable.",
+  "overlap_role": "Every assigned action is supervised. [1380,1500) overlaps reorient_and_stage_peg by 120 actions or 6 seconds per demonstration (1,440 actions total), including final alignment, descent, and initial engagement.",
+  "successor_readiness": "There is no learned successor. Continue closed-gripper stabilization until the unchanged success evaluator passes; never use an IK diagnostic alone as completion.",
+  "failure_signatures": "IK nonconvergence or joint-limit contact after displacement; peg/TCP separation; descent with lateral or angular error; fixture collision; or stalled +hole-x progress. These data do not demonstrate jam recovery.",
+  "continuation_guidance": "Re-resolve hole_pose and solve IK from fresh measured qpos for every executed slot. If the hole-relative target becomes unreachable or grasp integrity visibly degrades, stop or hand off rather than opening the gripper.",
+  "limitations": "Hole-frame transport cannot guarantee robot reachability, collision avoidance, grasp retention, or contact recovery. Only nominal successful insertions were observed.",
+  "evidence": [
+    {"trajectory_id":"demo12200","indices":[1380,1400,1420,1440,1460,1480,1500,1520,1540,1554]},
+    {"trajectory_id":"demo12205","indices":[1380,1400,1440,1460,1480,1500,1520,1558]},
+    {"trajectory_id":"demo12202","indices":[1380,1500,1545]}
+  ]
+}

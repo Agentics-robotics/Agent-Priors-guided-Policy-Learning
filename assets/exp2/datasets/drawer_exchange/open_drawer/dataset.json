@@ -1,0 +1,250 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        0,
+        200,
+        230,
+        280,
+        400,
+        445,
+        470
+      ],
+      "trajectory_id": "demo1000"
+    },
+    {
+      "indices": [
+        0,
+        200,
+        230,
+        280,
+        400,
+        445,
+        470
+      ],
+      "trajectory_id": "demo1001"
+    },
+    {
+      "indices": [
+        0,
+        200,
+        230,
+        280,
+        400,
+        445,
+        470
+      ],
+      "trajectory_id": "demo1002"
+    },
+    {
+      "indices": [
+        0,
+        200,
+        230,
+        280,
+        400,
+        445,
+        470
+      ],
+      "trajectory_id": "demo1003"
+    },
+    {
+      "indices": [
+        0,
+        200,
+        230,
+        280,
+        400,
+        445,
+        470
+      ],
+      "trajectory_id": "demo1004"
+    },
+    {
+      "indices": [
+        0,
+        200,
+        230,
+        280,
+        400,
+        445,
+        470
+      ],
+      "trajectory_id": "demo1005"
+    },
+    {
+      "indices": [
+        0,
+        200,
+        230,
+        280,
+        400,
+        445,
+        470
+      ],
+      "trajectory_id": "demo1006"
+    },
+    {
+      "indices": [
+        0,
+        200,
+        230,
+        280,
+        400,
+        445,
+        470
+      ],
+      "trajectory_id": "demo1007"
+    },
+    {
+      "indices": [
+        0,
+        200,
+        230,
+        280,
+        400,
+        445,
+        470
+      ],
+      "trajectory_id": "demo1008"
+    },
+    {
+      "indices": [
+        0,
+        200,
+        230,
+        280,
+        400,
+        445,
+        470
+      ],
+      "trajectory_id": "demo1009"
+    },
+    {
+      "indices": [
+        0,
+        200,
+        230,
+        280,
+        400,
+        445,
+        470
+      ],
+      "trajectory_id": "demo1010"
+    },
+    {
+      "indices": [
+        0,
+        200,
+        230,
+        280,
+        400,
+        445,
+        470
+      ],
+      "trajectory_id": "demo1011"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Drawer closed or nearly closed, TCP high and free, gripper open, red supported inside the drawer, and blue resting outside. These are observed scene cues, not extra success conditions.",
+    "exit_conditions": "Nominal switch cue: drawer_position is safely above the strict 0.26-m open threshold (observed about 0.300), drawer velocity is near zero, drawer-front contact has been relinquished, and the red block is aligned with the TCP, gripped, and beginning to rise. An earlier switch after drawer opening is also represented by the overlap.",
+    "failure_signatures": "Drawer_position at or below 0.26; continued drawer motion after pull; gripper missing or dragging the drawer front; red not exposed; TCP/red XY misalignment on descent; fingers close without subsequent red/TCP co-motion; or red drops during initial lift. Demonstrations do not establish recovery from these unseen failures.",
+    "overlap_role": "With red_transfer, shared actions are indices 230:470 in every trajectory: 240 supervised actions per occurrence, 2,880 total, lasting 12.0 s per occurrence at 20 Hz. The overlap begins with the gripper still closed at the fully pulled drawer, includes handle release, upward retreat, red approach/descent/contact, gripper closure, and initial red lift. This gives the receiving model action supervision on both sides of drawer release and red pickup rather than only observation context.",
+    "successor_readiness": "red_transfer is ready once drawer_position is above 0.26 and the red pose is exposed. Its dataset begins at the still-contacting/releasing-handle state at index 230, so it can receive before nominal red grasp; the clean nominal handoff is red/TCP co-motion with closed fingers by observation 470."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Open drawer and establish the red-block pickup handoff",
+  "original_demonstration_count": 12,
+  "plan_hash": "a9fba2a55520353eef0f232a80fe6fefabff1f74b3712258fccdbe335cfa1dd8",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "A distinct skill is warranted because constrained drawer pulling is an articulated-object contact responsibility unlike free-space block transport. Every trajectory was separately checked at both segment boundaries. The segment retains approach, drawer contact/pull, handle release, retreat, red approach/contact, close, and initial lift; the last 240 actions intentionally overlap the red-transfer model.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Closed-drawer pull with red initially at about (0.106,-0.063,0.063); drawer reaches 0.300, then red is exposed near x=-0.197 and lifted to z=0.100 for handoff.",
+      "start": 0,
+      "stop": 470,
+      "trajectory_id": "demo1000"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Closed-drawer pull with red initially at about (0.108,-0.077,0.063); drawer reaches 0.300 and red is grasped/lifted to z=0.093.",
+      "start": 0,
+      "stop": 470,
+      "trajectory_id": "demo1001"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Closed-drawer pull with red initially at about (0.102,-0.068,0.063); drawer reaches 0.300 and red is grasped/lifted to z=0.100.",
+      "start": 0,
+      "stop": 470,
+      "trajectory_id": "demo1002"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Closed-drawer pull with red initially at about (0.098,-0.071,0.063); drawer reaches 0.300 and red is grasped/lifted to z=0.099.",
+      "start": 0,
+      "stop": 470,
+      "trajectory_id": "demo1003"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Closed-drawer pull with red initially at about (0.093,-0.074,0.063); drawer reaches 0.300 and red is grasped/lifted to z=0.099.",
+      "start": 0,
+      "stop": 470,
+      "trajectory_id": "demo1004"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Closed-drawer pull with red initially at about (0.095,-0.055,0.063); drawer reaches 0.300 and red is grasped/lifted to z=0.107.",
+      "start": 0,
+      "stop": 470,
+      "trajectory_id": "demo1005"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Closed-drawer pull with red initially at about (0.101,-0.063,0.063); drawer reaches 0.300 and red is grasped/lifted to z=0.100.",
+      "start": 0,
+      "stop": 470,
+      "trajectory_id": "demo1006"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Closed-drawer pull with red initially at about (0.095,-0.057,0.063); drawer reaches 0.300 and red is grasped/lifted to z=0.107.",
+      "start": 0,
+      "stop": 470,
+      "trajectory_id": "demo1007"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Closed-drawer pull with red initially at about (0.097,-0.057,0.063); drawer reaches 0.300 and red is grasped/lifted to z=0.107.",
+      "start": 0,
+      "stop": 470,
+      "trajectory_id": "demo1008"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Closed-drawer pull with red initially at about (0.094,-0.069,0.063); drawer reaches 0.300 and red is grasped/lifted to z=0.099.",
+      "start": 0,
+      "stop": 470,
+      "trajectory_id": "demo1009"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Closed-drawer pull with red initially at about (0.095,-0.064,0.063); drawer reaches 0.300 and red is grasped/lifted to z=0.099.",
+      "start": 0,
+      "stop": 470,
+      "trajectory_id": "demo1010"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Closed-drawer pull with red initially at about (0.100,-0.063,0.063); drawer reaches 0.300 and red is grasped/lifted to z=0.100.",
+      "start": 0,
+      "stop": 470,
+      "trajectory_id": "demo1011"
+    }
+  ],
+  "skill_id": "open_drawer",
+  "subgoal": "Primary responsibility: acquire the drawer front, pull the drawer from closed to a reliably open state, release/retract from the drawer, and continue through the demonstrated handoff until the red block is grasped and beginning to lift. Observed contact/motion: the gripper approaches low over the drawer front, closes, pulls mainly along world -X, then opens and retreats upward before moving above and descending to the exposed red block; gripper/object co-motion is used only as an observable contact cue because contact truth is unavailable. Entry is a closed drawer (drawer_position about 0), open gripper, high TCP, red inside the drawer, and blue outside. At the nominal exit observation 470, drawer_position is 0.300, fingers are about 0.018 m, and red is grasped and lifted to z about 0.093-0.107 m while blue is unchanged. Examples: demo1000 observations 230/280 show the fully opened drawer followed by release/vertical retreat; 400/445/470 show red alignment, closure, and lift. The front images at demo1000 indices 150, 230, and 445 support the drawer-pull, open-drawer, and red-contact interpretation. Purpose/expected benefit: the retained post-opening transition should let the red-transfer successor accept a switch before or after drawer release and red contact; it is not evidence of recovery from unseen failed pulls or misgrasps."
+}

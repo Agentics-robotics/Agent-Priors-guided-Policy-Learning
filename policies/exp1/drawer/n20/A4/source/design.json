@@ -1,0 +1,46 @@
+{
+  "title": "Separate fixed-gripper contact and cabinet-articulation frames in joint diffusion",
+  "coverage_gap": "A3 achieved C=1.0 and E=0.75, but all five E-LH episodes failed, while E-LL/HL/HH each succeeded 5/5. Its only non-success category was joint_violation. A1 and A2 also failed E-LH 5/5. The gap is therefore not just a missed train-cell recombination: it is an extrapolated combination of negative cabinet translation with positive large yaw. No failure trajectories were provided, so aggregate joint violations do not establish whether the originating error was reach, contact, or prolonged ineffective motion.",
+  "reusable_regularity": "Retain A3's jointly modeled action/outcome structure and cabinet-aligned travel, but distinguish the contact relation from the drawer's articulation. Cabinet yaw rotates drawer travel; it does not rotate the robot's fixed native gripper. The hand-handle relation is therefore explicitly encoded and predicted in world axes, which are fixed relative to that gripper. Cabinet-local approach features are also retained as direct cues for cabinet-frame actions. This is a frame-factorization hypothesis, not an inferred contact state or a safety controller.",
+  "dependencies_preserved": [
+    "Absolute world hand/handle/goal coordinates, yaw and both object quaternions are retained unchanged from A3; robot reach, table height and cabinet context are not discarded in pursuit of invariance.",
+    "Hand-handle offsets, previous offsets and relative motion appear in both world and cabinet coordinates. The learned typed contact edge uses the world version. Remaining handle-goal travel and its causal changes retain cabinet coordinates.",
+    "The current and previous aperture, individual hand and handle motion, and two whole causal observations are retained. Object2 alone is omitted because it is declared absent zeros.",
+    "Generated outcome channels are not used by an external planner or controller. Only jointly denoised action4 is decoded and executed. No future ground truth, development states, joint angles, contact force, simulator handle or extra obstacle source enters runtime.",
+    "No episode is routed by cell, yaw threshold, factor-sign rule or observed development label. The same smooth feature and target mappings apply to every layout."
+  ],
+  "evidence_refs": [
+    {"source": "revision-phase development_feedback message", "candidate": "A3", "submission_hash": "97f74f8e2061f92e475d3333423f0ac907ae1b02c24ead761074c6d485fcf2bb", "use": "q3 score 0.875: C=1.0, E=0.75. E-LH=0/5; other E cells each 5/5. Five joint violations are the only non-success category. This identifies a residual layout dependence but does not reveal a failure trajectory or causal stage."},
+    {"source": "revision-phase development_feedback message", "candidate": "A1", "submission_hash": "11055ce3bc5c61fc28a3dab2ccef0e85f5093f312fde42dc6b6c592d3c6a92e8", "use": "C=1.0, E=0.45; E-HH and LH zero successes, E-HL=4/5 and LL=5/5; eleven joint violations. Geometric canonicalization alone did not resolve extrapolation."},
+    {"source": "revision-phase development_feedback message", "candidate": "A2", "submission_hash": "d0d1c79815df12dea3c86f62eeff016b91f057fac2e0c10985bd008717bd35d9", "use": "C=1.0, E=0.30; six joint violations and eight truncations. Current command-mode conditioning is not the strongest observed base for this revision."},
+    {"path": "bundle.json", "use": "Only the original exact D20 is used for all training-only outcome labels."},
+    {"path": "task_materials.json", "use": "Explicit yaw, corrected handle observations and fixed native end-effector orientation motivate different frames for contact and articulation."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 63-66 and 76-79", "use": "Handle stationary before pull; late hand-handle offset is nonzero with causal relative motion. Late LL offsets need not be treated as a universal cabinet-local contact constant."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 78-80", "use": "HH late pull also has nonzero hand-handle offsets, with different components from the inspected LL late segment. These are not matched states and do not prove a mechanism; they support continuous rather than exact-contact supervision."},
+    {"path": "images/frame_01_demo_01_step_031.png", "use": "Robot approaching the cabinet from its world-fixed orientation."},
+    {"path": "images/frame_02_demo_02_step_059.png", "use": "Near-handle fixed-gripper geometry."},
+    {"path": "images/frame_06_demo_07_step_089.png", "use": "Drawer articulation and hand/handle relation during opening."},
+    {"path": "images/frame_15_demo_19_step_090.png", "use": "Another late opening frame shows the same nonrotating robot tool interacting with the drawer."},
+    {"path": "contracts.py", "use": "Compatible fixed-start frames, action4-first diffusion and causal inference separation."},
+    {"path": "learning.py", "use": "Frozen update budget, common mask-normalized action loss and auxiliary target isolation."}
+  ],
+  "expected_failure_signature": [
+    "Primary falsifiable expectation: E-LH success improves without sacrificing the parent's successful E cells and C. If LH remains 0/5 with joint violations, separating contact and travel frames has not addressed the observed aggregate failure.",
+    "A trade-off is possible: the world contact edge may require the network to learn some yaw coupling for local actions; regressions in E-HH/HL/LL would show that the more specific frame factorization did not generalize overall.",
+    "No actual joint state is observed, so this model cannot enforce joint safety. Joint violations may remain even if contact prediction is improved, especially if the cause was world-reach extrapolation before contact.",
+    "Joint outcome generation may still hallucinate opening after lost contact. No outcome accuracy, failure timing or A4 success has yet been measured."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,41] and raw_current [B,41], exactly as in A3; no extra runtime fields",
+    "slices": {"hand": [0,3], "aperture": [3,4], "handle": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_handle": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal": [36,39], "cabinet_sin_cos_yaw": [39,41]},
+    "condition_dimensions": 150,
+    "architecture": "A3's shared 11->64->32 SiLU typed-edge encoder and embedding product are retained. Contact edge now uses world current/previous offset and relative step delta; travel edge remains cabinet-local. Append a 9D raw cabinet-local approach bypass. Concatenate 27 raw relation dimensions, three 32D embedding/product blocks and 27 unchanged physical context dimensions. The common DP still has ten diffusion channels.",
+    "action_frame": "Unchanged from A3: encode xyz with R_z(chunk_start_yaw)^T, decode with the same R_z, preserve native gripper scalar. Frame remains fixed for all 16 actions. Native action units remain 0.01 m. No action clipping, damping, residual controller, stage-dependent decoding or use of predicted auxiliary channels in decode.",
+    "scales": "Exactly A3's physical scales: relative positions /0.1 m, observed step deltas /0.01 m, world coordinates centered at [0,0.6,0] /0.5 m. Orientation/aperture unstandardized. No new support-fit statistics or change to common normalization."
+  },
+  "training_only_targets": [
+    {"name": "mixed_frame_outcomes", "shape": "[windows,16,6] float32", "source": "Exact current D_N obs[t+k+1,0:3], obs[t+k+1,4:7], obs[t,4:7], obs[t,39:41] for valid k only", "definition": "Channels 4:7 in the full joint diffusion target are future_hand - future_handle in world axes, divided by 0.1 m. Channels 7:10 remain R_z(yaw_t)^T (future_handle - handle_t)/0.1 m. First four channels remain exactly encoded native action4. Only the contact-offset frame changes from A3; there are no additional targets. Invalid tail entries are zero-filled and auxiliary supervision is masked.", "loss": "Unchanged 0.2 times auxiliary epsilon MSE over six outcome dimensions, numerator weighted by batch.mask and denominator mask.sum()*6 (floor 1 only for all-invalid auxiliary masks). Common action epsilon loss remains weight 1 and denominator mask.sum()*4.", "runtime_isolation": "At deployment ten channels start from host-owned Gaussian noise. Neither future labels nor masks are read by condition/denoise/encode/decode. No targets or caches are stored in deployment state."}
+  ],
+  "parents": ["A3"],
+  "change_summary": "One feedback-driven scientific revision of A3. (1) Move the learned hand-handle relation edge and corresponding three future-offset diffusion targets to world axes fixed relative to the gripper. (2) Retain the old cabinet-local approach as an additional 9D raw bypass, increasing per-observation condition from 141 to 150. Keep the shared encoder widths, multiplicative relation interaction, action frame, six-target auxiliary dimension/weight/scales, all world dependencies and the common DP/update recipe unchanged. This is a new training slot, not an edit or checkpoint choice for A3. A1/A2 are comparative feedback evidence, not implementation parents. No performance-driven trials of A4 or edits to submitted parents."
+}

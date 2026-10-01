@@ -1,0 +1,568 @@
+{
+  "_path": "assets/exp2/tasks/drawer_exchange/appl.json",
+  "api": {
+    "base_url": "https://api.openai.com/v1",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "service_tier": "default",
+    "timeout_seconds": 1800
+  },
+  "completion_contract": "assets/exp2/tasks/drawer_exchange/completion_contract.json",
+  "cut_schema": "assets/exp2/tasks/buffer_swap/cut_schema/cut.schema.json",
+  "cut_source": {
+    "manifest_sha256": "c3d3d45c3d0e8c59c37e20fb48b27e5c06c057d80e59c30558204823f8342627",
+    "path": "provenance/relocated/d7d64eebcfb1540a"
+  },
+  "dataset": "provenance/relocated/2680ff63655a2360",
+  "design": {
+    "max_api_calls": 64,
+    "max_checks": 3,
+    "max_output_tokens": 32768,
+    "max_tool_calls": 256
+  },
+  "devices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "episodes": [
+    {
+      "centers": {
+        "blue": [
+          -0.4,
+          0.3,
+          0.02
+        ],
+        "red": [
+          0.105,
+          -0.065,
+          0.063
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.015,
+        "red": 0.012
+      },
+      "initial_sha256": "beae9a77c9348e0aa9e0dc41eed37a4e8ea0db2132e89b7087d7a5374d8900c9",
+      "layout": {
+        "blue": [
+          -0.42200732155430876,
+          0.2844126371656276,
+          0.02
+        ],
+        "red": [
+          0.084305965909215,
+          -0.04806016094437426,
+          0.063
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.42901464310861753,
+          0.2838252743312552,
+          0.02
+        ],
+        "red": [
+          0.07561193181843001,
+          -0.043120321888748515,
+          0.063
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092400,
+      "task": "drawer_exchange"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.4,
+          0.3,
+          0.02
+        ],
+        "red": [
+          0.105,
+          -0.065,
+          0.063
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.015,
+        "red": 0.012
+      },
+      "initial_sha256": "d525769e1cf2978c8a912d0ef0a9d47b86de427f78e71e7a98e30b3c1e79c416",
+      "layout": {
+        "blue": [
+          -0.42700658552056436,
+          0.32080268216584046,
+          0.02
+        ],
+        "red": [
+          0.09765699309196484,
+          -0.08653619742835755,
+          0.063
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.43901317104112875,
+          0.3266053643316809,
+          0.02
+        ],
+        "red": [
+          0.09765699309196484,
+          -0.09607239485671511,
+          0.063
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092401,
+      "task": "drawer_exchange"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.4,
+          0.3,
+          0.02
+        ],
+        "red": [
+          0.105,
+          -0.065,
+          0.063
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.015,
+        "red": 0.012
+      },
+      "initial_sha256": "b6a718a1d7005835cfb6e7259203fd46e31a196e3d7c7ea4049a0188f86fa20e",
+      "layout": {
+        "blue": [
+          -0.41984854457756,
+          0.31756485927469164,
+          0.02
+        ],
+        "red": [
+          0.09934118291897126,
+          -0.0908277468710947,
+          0.063
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.42469708915511994,
+          0.3201297185493833,
+          0.02
+        ],
+        "red": [
+          0.09934118291897126,
+          -0.1046554937421894,
+          0.063
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092402,
+      "task": "drawer_exchange"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.4,
+          0.3,
+          0.02
+        ],
+        "red": [
+          0.105,
+          -0.065,
+          0.063
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.015,
+        "red": 0.012
+      },
+      "initial_sha256": "93ead9421dc178da35cd57b408820c41b7744fdf157d93fcb0f1eb80ee2e1ad3",
+      "layout": {
+        "blue": [
+          -0.4186967364459971,
+          0.2813118892088589,
+          0.02
+        ],
+        "red": [
+          0.12121187472618145,
+          -0.044674024851745334,
+          0.063
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.42239347289199414,
+          0.27762377841771785,
+          0.02
+        ],
+        "red": [
+          0.1254237494523629,
+          -0.03634804970349067,
+          0.063
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092403,
+      "task": "drawer_exchange"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.4,
+          0.3,
+          0.02
+        ],
+        "red": [
+          0.105,
+          -0.065,
+          0.063
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.015,
+        "red": 0.012
+      },
+      "initial_sha256": "b439aa5d9733bc04ddeafb2166c84d5d5c9d4640dfacf5b285a9d4d13e699fd4",
+      "layout": {
+        "blue": [
+          -0.42270128926616535,
+          0.28147679873988674,
+          0.02
+        ],
+        "red": [
+          0.11459477365854,
+          -0.04064104627613449,
+          0.063
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.4304025785323307,
+          0.2779535974797735,
+          0.02
+        ],
+        "red": [
+          0.11459477365854,
+          -0.028282092552268975,
+          0.063
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092404,
+      "task": "drawer_exchange"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.4,
+          0.3,
+          0.02
+        ],
+        "red": [
+          0.105,
+          -0.065,
+          0.063
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.015,
+        "red": 0.012
+      },
+      "initial_sha256": "34bbb1a759ddbb1e1244859db53320ab980e7f96458ce3ae66a2694d3ef263a3",
+      "layout": {
+        "blue": [
+          -0.41970903787761116,
+          0.2898723453106891,
+          0.02
+        ],
+        "red": [
+          0.12983109031080944,
+          -0.06580752525290391,
+          0.063
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.4244180757552223,
+          0.2898723453106891,
+          0.02
+        ],
+        "red": [
+          0.1426621806216189,
+          -0.06580752525290391,
+          0.063
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092405,
+      "task": "drawer_exchange"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.4,
+          0.3,
+          0.02
+        ],
+        "red": [
+          0.105,
+          -0.065,
+          0.063
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.015,
+        "red": 0.012
+      },
+      "initial_sha256": "a15a0cfa08137fbe22c5ea52aafcc0a66985b98754e459dc5b37b88c20c7edeb",
+      "layout": {
+        "blue": [
+          -0.37864165272029965,
+          0.323960792147276,
+          0.02
+        ],
+        "red": [
+          0.08948348551709195,
+          -0.04347959614846381,
+          0.063
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.3722833054405993,
+          0.3329215842945521,
+          0.02
+        ],
+        "red": [
+          0.08596697103418392,
+          -0.03395919229692762,
+          0.063
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092406,
+      "task": "drawer_exchange"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.4,
+          0.3,
+          0.02
+        ],
+        "red": [
+          0.105,
+          -0.065,
+          0.063
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.015,
+        "red": 0.012
+      },
+      "initial_sha256": "ce77306498b242275fc3d0af755f352d2fec8f95ffbd1f5fabeadefc03770a00",
+      "layout": {
+        "blue": [
+          -0.3799771720923519,
+          0.30733832422786567,
+          0.02
+        ],
+        "red": [
+          0.12537875522119618,
+          -0.08414647756947902,
+          0.063
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.37495434418470375,
+          0.30733832422786567,
+          0.02
+        ],
+        "red": [
+          0.13375751044239234,
+          -0.09129295513895805,
+          0.063
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092407,
+      "task": "drawer_exchange"
+    }
+  ],
+  "evaluation": {
+    "context_recent_turns": 6,
+    "diagnostic_seeds": [],
+    "feedback_protocol": "api_conditions_v1",
+    "hide_step_budget": true,
+    "max_api_calls": 128,
+    "max_invocation_steps": 300,
+    "max_steps": 5000,
+    "ood_seeds": [
+      24092400,
+      24092401,
+      24092402,
+      24092403,
+      24092404,
+      24092405,
+      24092406,
+      24092407
+    ],
+    "output": "provenance/relocated/4c11786775488eab",
+    "seeds": []
+  },
+  "experiment_version": "CartesianIK_APPL_v4_cartesian",
+  "framework_sha256": "ee4591062262e537304cdd02bc553210ad4d889d998b5c0c551f596845101adf",
+  "ik_revision": {
+    "invalid_v1_results": "provenance/relocated/0de950aeee986712",
+    "v1_configuration": "provenance/relocated/f6390f0c9c9b87ec",
+    "v1_output": "provenance/relocated/e5527a35514b0afa"
+  },
+  "interface_path": "assets/exp2/tasks/drawer_exchange/interface.md",
+  "kinematics": {
+    "path": "provenance/relocated/2f8ab6b158f13f4b",
+    "posture": {
+      "path": "provenance/relocated/df8ea15330f8d744",
+      "sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff"
+    },
+    "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "version": "v2"
+  },
+  "method": "APPL_v4_cartesian",
+  "normalization": {
+    "directory": "data/exp2/demonstrations_v2",
+    "scope": "full_training_demonstrations",
+    "train_ids": [
+      "demo1000",
+      "demo1001",
+      "demo1002",
+      "demo1003",
+      "demo1004",
+      "demo1005",
+      "demo1006",
+      "demo1007",
+      "demo1008",
+      "demo1009",
+      "demo1010",
+      "demo1011"
+    ]
+  },
+  "output": "provenance/relocated/c9edfdee565e4d8b",
+  "prior_schema": "assets/exp2/tasks/buffer_swap/prior_schema/priors.schema.json",
+  "prompts": {
+    "hl": "assets/exp2/tasks/drawer_exchange/prompts/appl_hl.md",
+    "train": "assets/exp2/tasks/drawer_exchange/prompts/appl_train.md"
+  },
+  "public_context": "assets/exp2/tasks/drawer_exchange/public_context.json",
+  "schema": "appl.flexible.sol.v1",
+  "segmentation": {
+    "max_api_calls": 64,
+    "max_output_tokens": 65536,
+    "max_plan_versions": 16,
+    "max_skills": 16,
+    "max_tool_calls": 160
+  },
+  "sources": {
+    "demo1000": {
+      "path": "assets/exp2/demonstrations/drawer_exchange/demo1000.json",
+      "sha256": "58d911a45df1915e4a74c254caf6de4e202ead11d89ed69197de0b5f0c17fde5"
+    },
+    "demo1001": {
+      "path": "assets/exp2/demonstrations/drawer_exchange/demo1001.json",
+      "sha256": "165f93f38197cd75050488a557609072e12ca0006771c36b72b90e8cae68f956"
+    },
+    "demo1002": {
+      "path": "assets/exp2/demonstrations/drawer_exchange/demo1002.json",
+      "sha256": "8c43a8c1562f90c040f0570aa1dde013fad47bbef1f786ccf8ab2ba3d766136d"
+    },
+    "demo1003": {
+      "path": "assets/exp2/demonstrations/drawer_exchange/demo1003.json",
+      "sha256": "01c617c320a46f6c3862737aad218921effe677e1630ab85e7a43d80e1fe082a"
+    },
+    "demo1004": {
+      "path": "assets/exp2/demonstrations/drawer_exchange/demo1004.json",
+      "sha256": "bfa82b20e4971095967e9981400d145771890c2a55fff0568853e2d77acf3a22"
+    },
+    "demo1005": {
+      "path": "assets/exp2/demonstrations/drawer_exchange/demo1005.json",
+      "sha256": "71eacabcb7799f216f03bb1e582e6aec3a42e83850c569b001de3cbc4e26778a"
+    },
+    "demo1006": {
+      "path": "assets/exp2/demonstrations/drawer_exchange/demo1006.json",
+      "sha256": "4d2e5f38fd0c80ef267e9ae877f9d9e1b098325ac5da5aa769b0e9abeceef06b"
+    },
+    "demo1007": {
+      "path": "assets/exp2/demonstrations/drawer_exchange/demo1007.json",
+      "sha256": "410c02b19c7511f551f3c69e21c88c7e386b4067ebfebc6c169e9b44e94cc930"
+    },
+    "demo1008": {
+      "path": "assets/exp2/demonstrations/drawer_exchange/demo1008.json",
+      "sha256": "7c7641d622180d497137b4560cadf5a4497bf22c7ffb5a5aef785fe0a1f17cc3"
+    },
+    "demo1009": {
+      "path": "assets/exp2/demonstrations/drawer_exchange/demo1009.json",
+      "sha256": "9ff9137a991b6a81fa0f9330449d359eeeeed398e225b1dbe22a449ea7b84d93"
+    },
+    "demo1010": {
+      "path": "assets/exp2/demonstrations/drawer_exchange/demo1010.json",
+      "sha256": "867210d90fa09b282d5a6190209251c0b69d6e64b6cef2bcaea97951df57711f"
+    },
+    "demo1011": {
+      "path": "assets/exp2/demonstrations/drawer_exchange/demo1011.json",
+      "sha256": "126c98245881a8ba6dde2da8707d8396d32d946fa4bbd62535b29d5eecc94eb7"
+    }
+  },
+  "study_output": "provenance/relocated/d5b42859ba846383",
+  "study_version": "CartesianIK_TwoTasks_Sol_20260924",
+  "task_id": "drawer_exchange",
+  "training": {
+    "action_scale_floor": 0.01,
+    "batch_size": 128,
+    "checkpoint_every": 2000,
+    "clip_sample": true,
+    "denoising_inference_steps": 100,
+    "denoising_train_steps": 100,
+    "down_dims": [
+      128,
+      256,
+      512
+    ],
+    "ema_decay": 0.999,
+    "execution_steps": 8,
+    "groups": 8,
+    "horizon": 16,
+    "kernel_size": 5,
+    "learning_rate": 0.0001,
+    "lr_schedule": "cosine",
+    "max_grad_norm": 1,
+    "observation_normalization": "limits",
+    "observation_std_floor": 0.001,
+    "observation_steps": 2,
+    "quaternion_normalization": "unit_component_bounds",
+    "sampler": "ddpm",
+    "seeds": [
+      0
+    ],
+    "selection": "last EMA at predeclared budget",
+    "timestep_embed_dim": 128,
+    "updates": 20000,
+    "warmup_steps": 500,
+    "weight_decay": 1e-06
+  },
+  "training_details_path": "assets/exp2/tasks/drawer_exchange/training_details.md",
+  "validation_round": {
+    "v2_configuration": "assets/exp2/tasks/drawer_exchange/without_verification.json",
+    "v2_output": "provenance/relocated/0aa976f720b9fb54"
+  },
+  "task_spec": "assets/exp2/tasks/drawer_exchange/task.json"
+}

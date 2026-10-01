@@ -1,0 +1,45 @@
+[workspace]
+authors = ["APPL authors"]
+channels = ["conda-forge"]
+name = "appl"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+test = "python -m pytest -q tests/release tests/experiment1 tests/interfaces tests/test_dataset.py tests/test_model.py tests/test_representation.py"
+verify = "python -m appl_release verify"
+audit = "python -m appl_release audit"
+tables = "python -m appl_release tables"
+exp1 = "python -m experiment1.release"
+
+[dependencies]
+python = "3.11.*"
+
+[pypi-dependencies]
+agent-priors-policy-learning = { path = ".", editable = true }
+metaworld = { git = "https://github.com/Farama-Foundation/Metaworld.git", rev = "6e01ad7e2ffb2302e4dca04f796fcd8837df8540" }
+mujoco = "==3.3.0"
+torch = "==2.7.1"
+diffusers = "==0.35.1"
+gymnasium = "==1.2.0"
+numpy = "==2.2.6"
+scipy = "==1.15.3"
+einops = "==0.8.1"
+h5py = "==3.14.0"
+matplotlib = "==3.10.3"
+imageio = "==2.37.0"
+imageio-ffmpeg = "==0.6.0"
+pytest = "==8.4.1"
+
+[activation.env]
+PYTHONPATH = "$PIXI_PROJECT_ROOT/src"
+PYTHONNOUSERSITE = "1"
+MUJOCO_GL = "egl"
+CUDA_DEVICE_ORDER = "PCI_BUS_ID"
+OMP_NUM_THREADS = "1"
+MKL_NUM_THREADS = "1"
+OPENBLAS_NUM_THREADS = "1"
+PYTHONUNBUFFERED = "1"
+
+[environments]
+default = { features = [] }

@@ -1,0 +1,15 @@
+{
+  "policy_id": "place_block_in_drawer__h04",
+  "entry_conditions": "Drawer is open and stable; target_pose and object_pose are reliable; the block is high outside the tunnel and plausibly held close to the TCP; and the measured arm state admits a feasible path toward the cavity.",
+  "exit_conditions": "The block rests stationary inside the drawer cavity at drawer-floor height and is separated from the TCP; the gripper has retreated without disturbing it and has reached the drawer-handle approach.",
+  "overlap_role": "All actions 680:1160 remain supervised. The 680:840 retrieval overlap supplies attached lift and transfer in the object-dominant frame. The 900:1160 closing overlap supplies release separation, destination-dominant retreat, reorientation, and handle approach/grasp.",
+  "successor_readiness": "close_drawer may receive during 900:1160 only after two causal frames support a stationary floor-height block separated from the TCP. The proximity weight alone is not proof of release. A late handoff occurs with the free gripper at the handle.",
+  "failure_signatures": "The object stops following the TCP before cavity alignment; the proximity weight collapses while the block should be held or remains high after a drop; opening occurs outside the cavity; the block remains above floor height or follows the retreat; noisy poses make the weight chatter; or IK residual and limit diagnostics show a decoded displaced target is unreachable.",
+  "continuation_guidance": "Keep h04 through a coherent close-to-separated transition. Switch to h02 if the block is already separated/deposited and completion should remain purely fixture-anchored, or to h03 for a near-nominal local release/retreat ambiguity. close_drawer waits for observed floor-height stationarity and separation before moving the drawer.",
+  "limitations": "Object/TCP distance is observable but is not contact truth. Demonstrations contain successful release timing variation but no recovery from premature drops. Large displacement can violate reachability or collision clearance, and a blended frame does not remove robot posture and joint-limit dependencies. No out-of-distribution benefit has been observed.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[680,840,880,895,900,910,920,940,960,1080,1159]},
+    {"trajectory_id":"demo12102","indices":[680,840,880,895,900,905,920,940,960,1080,1159]},
+    {"trajectory_id":"demo12104","indices":[680,840,880,890,895,900,920,940,960,1080,1159]}
+  ]
+}

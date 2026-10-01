@@ -1,0 +1,140 @@
+{
+  "task_id": "buffer_swap",
+  "policy_id": "single_prior",
+  "skill_id": "full_task",
+  "source": "policies/exp2/buffer_swap/single_prior/source",
+  "manifest": "policies/exp2/buffer_swap/single_prior/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "single_prior"
+  ],
+  "assignment": "policies/exp2/buffer_swap/single_prior/assignment.json",
+  "training_spec": "policies/exp2/buffer_swap/single_prior/training/spec.json",
+  "dataset": "assets/exp2/datasets/buffer_swap/full_task_single_prior/dataset.json",
+  "normalization": "assets/exp2/tasks/buffer_swap/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/buffer_swap/single_prior/model.pt",
+    "sha256": "82ef790435332f62edeed4823e5b90a8e84d43882e67e666183be6a1f534d92b",
+    "source_sha256": "82ef790435332f62edeed4823e5b90a8e84d43882e67e666183be6a1f534d92b",
+    "size_bytes": 365658194,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 0,
+    "demos": 12,
+    "in_distribution_success": "0/12",
+    "exit_rule": "standard task success (first occurrence)",
+    "guidance": "No final guidance recorded."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/assignment.json",
+      "sha256": "a6f49b52464f739641131dc8a1e63eef6e84bb86d87db9ea989636e5b1467bda",
+      "source_sha256": "4685d1390aa8be28b6fd7929d623b6ecc2066c7218c8d0038d77e6fb67fe495b",
+      "size_bytes": 3018,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/handoff_evidence.json",
+      "sha256": "0e415895858a24a1703ca81177700570683fd3a700464c773681132808612b49",
+      "source_sha256": "0e415895858a24a1703ca81177700570683fd3a700464c773681132808612b49",
+      "size_bytes": 48602,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/source/HANDOFF.json",
+      "sha256": "3ee982ab987ae576f20f742174e6983e2651a105b02430fd2e18afdb8f8e750a",
+      "source_sha256": "3ee982ab987ae576f20f742174e6983e2651a105b02430fd2e18afdb8f8e750a",
+      "size_bytes": 4213,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/source/PRIOR.md",
+      "sha256": "3fd72c3b0734bc310928b2170cbc46993235aa8874f06687d9987847a8044aa4",
+      "source_sha256": "3fd72c3b0734bc310928b2170cbc46993235aa8874f06687d9987847a8044aa4",
+      "size_bytes": 10441,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/source/adapters.py",
+      "sha256": "de88c07b5e6c61326ec51211548a7dd42748cab34486f3c72276a6fda053a0c8",
+      "source_sha256": "de88c07b5e6c61326ec51211548a7dd42748cab34486f3c72276a6fda053a0c8",
+      "size_bytes": 7273,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/source/panda_posture.py",
+      "sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+      "source_sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+      "size_bytes": 715015,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/source/pipeline.json",
+      "sha256": "b2a00df897643485c2646c7e56115e7ceded18ccd52f565973a2adaae2bb6930",
+      "source_sha256": "b2a00df897643485c2646c7e56115e7ceded18ccd52f565973a2adaae2bb6930",
+      "size_bytes": 2214,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/source/policy.py",
+      "sha256": "2727bd85c292cb79abf0dbf71f6aa0ac22e59bb5296424e884faee2132f50db4",
+      "source_sha256": "2727bd85c292cb79abf0dbf71f6aa0ac22e59bb5296424e884faee2132f50db4",
+      "size_bytes": 1168,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/source/policy_contract.json",
+      "sha256": "d0331ceb26bdbab20a66a1e5bc3070319ae88eea403d1db1ffef5a1564ace92d",
+      "source_sha256": "d0331ceb26bdbab20a66a1e5bc3070319ae88eea403d1db1ffef5a1564ace92d",
+      "size_bytes": 2836,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/source/training_bindings.json",
+      "sha256": "afe15b3879d0d7da78489f660b90373634e78fcf984a8ca900324942b986ae96",
+      "source_sha256": "afe15b3879d0d7da78489f660b90373634e78fcf984a8ca900324942b986ae96",
+      "size_bytes": 3101,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/submission.json",
+      "sha256": "1286d6cb28871d11832a03418655024a6c3b7f5d1e7f7818ad35669d761c483f",
+      "source_sha256": "b28954bec88a618393bcd55ca21345a001d7774abf8cf53d0743c3ea1a648e79",
+      "size_bytes": 10526,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/training/adapter_checks.json",
+      "sha256": "4082a95efe3c7b0b5dbf9ec7919813cfbf9d74f8f6741d2e97b67b1c476c5c98",
+      "source_sha256": "4082a95efe3c7b0b5dbf9ec7919813cfbf9d74f8f6741d2e97b67b1c476c5c98",
+      "size_bytes": 196,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/training/result.json",
+      "sha256": "6c380a60b8ef0eedc127162e27d1bc53f2e6e1a3ec5cfc9d4056a9cf49afd03a",
+      "source_sha256": "d160b5169a2e7ed541c672f70708d03bed6d7f1f0658e7fce8dcb74eee3d77ae",
+      "size_bytes": 5109,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/single_prior/training/spec.json",
+      "sha256": "8d3757d3eec8ce8330ad253cb366b6e9f10998ba2b42ed15ca83da771804ef1f",
+      "source_sha256": "8d3757d3eec8ce8330ad253cb366b6e9f10998ba2b42ed15ca83da771804ef1f",
+      "size_bytes": 17200,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/buffer_swap/task.json",
+  "completion_contract": "assets/exp2/tasks/buffer_swap/completion_contract.json",
+  "public_context": "assets/exp2/tasks/buffer_swap/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/buffer_swap/prompts/hl.md"
+}

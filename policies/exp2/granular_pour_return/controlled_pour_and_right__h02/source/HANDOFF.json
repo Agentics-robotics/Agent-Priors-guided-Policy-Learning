@@ -1,0 +1,15 @@
+{
+  "policy_id": "controlled_pour_and_right__h02",
+  "entry_conditions": "The source is securely closed in the gripper and clear of support. Entry may occur in early carry, at the staged pose, during tilt/discharge or during righting when the observed relational state is within nominal demonstrated phases and the next local motion is reachable.",
+  "exit_conditions": "At least ten particles are observed settled inside the bowl, the source is approximately upright and still held, and outbound motion has begun. The learned phase auxiliary does not replace these conditions.",
+  "overlap_role": "Every binding keeps incoming actions [180,360) and outgoing actions [1460,1740) under diffusion supervision. The model can continue the predecessor's carry and share late righting and outbound commands with return_place_release.",
+  "successor_readiness": "Hand off to return_place_release only from observed particle settlement and source uprightness. Nominal readiness is around 1680, with action-supervised flexibility throughout [1460,1740).",
+  "failure_signatures": "Uncertain/open grasp, missing or implausible particle observations, large relocation beyond local residual support, particles outside the bowl, collision, spill, non-converged IK, or oscillation between tilt and righting. Nominal success data do not establish recovery.",
+  "continuation_guidance": "Continue local corrections while the source remains secure and phase evidence is coherent. Use h01 when the bowl is substantially displaced and h03 when the rigid source-to-TCP transform is unusual. Do not continue through grasp loss, spill or collision.",
+  "limitations": "Particle pooling is identity invariant but does not infer contact truth. The auxiliary predicts causal current geometry labels only and cannot authorize success or handoff. Large global changes remain outside the local action invariant.",
+  "evidence": [
+    {"trajectory_id":"demo12300","indices":[700,800,900,1000,1100,1200]},
+    {"trajectory_id":"demo12303","indices":[700,760,800,850,900,1000,1100,1200]},
+    {"trajectory_id":"demo12309","indices":[700,800,900,1000,1100,1200]}
+  ]
+}

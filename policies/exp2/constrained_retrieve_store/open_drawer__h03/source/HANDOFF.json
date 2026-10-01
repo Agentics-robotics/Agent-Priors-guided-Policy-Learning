@@ -1,0 +1,15 @@
+{
+  "policy_id": "open_drawer__h03",
+  "entry_conditions": "Both target_pose and object_pose are valid; normal entry has a closed stable drawer, open fingers and high clear TCP. Intermediate use requires drawer/finger order consistent with demonstrated approach-pull-release.",
+  "exit_conditions": "Drawer is near 0.300 m and stationary, fingers are open, the object route is active, TCP is clear in the block-relative retreat/turn/descent corridor, and the block remains low and undisturbed.",
+  "overlap_role": "The object-relative branch supervises every shared action 300:440 in all twelve occurrences. These 140 actions align late drawer departure with the successor's observed-block approach.",
+  "successor_readiness": "After the object route activates and drawer stability/release persist, switch anywhere in 300:440 once arm clearance is adequate. Preserve both causal frames.",
+  "failure_signatures": "Invalid anchor, route oscillation, drawer below open stop or moving, fingers closed after expected release, TCP not clear, block movement, or IK residual/limit contact.",
+  "continuation_guidance": "Use the drawer branch through contact and release, then continue block-relative only while all causal route conditions remain true. Prefer the fresh-TCP residual prior for small phase inconsistency rather than forcing the object route.",
+  "limitations": "Route cues do not prove handle contact or release, and these handoff conditions do not modify task success. Large displaced-anchor poses may be unreachable or collision-infeasible.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[220,260,265,270,280,300,340,420,439]},
+    {"trajectory_id":"demo12101","indices":[250,260,265,270,275,280,300,340,420,439]},
+    {"trajectory_id":"demo12102","indices":[250,260,265,270,280,300,340,420,439]}
+  ]
+}

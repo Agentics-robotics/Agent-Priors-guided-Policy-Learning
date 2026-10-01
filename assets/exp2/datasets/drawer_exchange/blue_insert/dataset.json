@@ -1,0 +1,240 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        600,
+        610,
+        700,
+        800,
+        850,
+        1000,
+        1065
+      ],
+      "trajectory_id": "demo1000"
+    },
+    {
+      "indices": [
+        600,
+        610,
+        700,
+        800,
+        850,
+        1077
+      ],
+      "trajectory_id": "demo1001"
+    },
+    {
+      "indices": [
+        600,
+        610,
+        700,
+        800,
+        850,
+        1000,
+        1063
+      ],
+      "trajectory_id": "demo1002"
+    },
+    {
+      "indices": [
+        600,
+        610,
+        700,
+        800,
+        850,
+        1066
+      ],
+      "trajectory_id": "demo1003"
+    },
+    {
+      "indices": [
+        600,
+        610,
+        700,
+        800,
+        850,
+        1065
+      ],
+      "trajectory_id": "demo1004"
+    },
+    {
+      "indices": [
+        600,
+        610,
+        700,
+        800,
+        850,
+        1070
+      ],
+      "trajectory_id": "demo1005"
+    },
+    {
+      "indices": [
+        600,
+        610,
+        700,
+        800,
+        850,
+        1064
+      ],
+      "trajectory_id": "demo1006"
+    },
+    {
+      "indices": [
+        600,
+        610,
+        700,
+        800,
+        850,
+        1069
+      ],
+      "trajectory_id": "demo1007"
+    },
+    {
+      "indices": [
+        600,
+        610,
+        700,
+        800,
+        850,
+        1071
+      ],
+      "trajectory_id": "demo1008"
+    },
+    {
+      "indices": [
+        600,
+        610,
+        700,
+        800,
+        850,
+        1065
+      ],
+      "trajectory_id": "demo1009"
+    },
+    {
+      "indices": [
+        600,
+        610,
+        700,
+        800,
+        850,
+        1069
+      ],
+      "trajectory_id": "demo1010"
+    },
+    {
+      "indices": [
+        600,
+        610,
+        700,
+        800,
+        850,
+        1065
+      ],
+      "trajectory_id": "demo1011"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Drawer_position is above 0.26. The earliest represented state intentionally has red still held or touching down at the outside pad, fingers closed, and blue resting outside; after red release, the TCP is free to retreat and acquire blue. Red is predecessor-release context, while blue is the intended object.",
+    "exit_conditions": "At one observation, drawer_position is strictly above 0.26, the red block is fully contained on the outside pad with center z in (0.014,0.031), and the blue block is fully contained in the open drawer cavity with center z in (0.053,0.074). Demonstrations additionally show open fingers and a high retreat, but those are retained transition context rather than added success requirements.",
+    "failure_signatures": "Red moves off the pad during retreat; TCP approaches the predecessor red instead of blue; gripper closes without blue/TCP co-motion; blue is carried into drawer walls or lip; drawer_position falls to 0.26 or below; blue center/rotated extent is not fully inside the cavity; blue z is outside (0.053,0.074); or final red containment is lost. Demonstrations do not show recovery from these failures.",
+    "overlap_role": "With red_transfer, shared actions are 600:850 in every trajectory: 250 supervised actions per occurrence, 3,000 total, lasting 12.5 s per occurrence. They include final red lowering while still grasped, red release, retreat, cross-scene transit, blue approach/descent/contact, gripper closure, and blue lift. This supplies the receiving skill with action labels across the object-identity change and a wide range of switch times.",
+    "successor_readiness": "There is no further learned manipulation successor. Readiness for framework success evaluation is the unchanged simultaneous completion expression: drawer_open AND red_on_pad AND blue_inside. The final high retreat is observed but is not required by that evaluator."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Pick the blue block and place it inside the open drawer",
+  "original_demonstration_count": 12,
+  "plan_hash": "a9fba2a55520353eef0f232a80fe6fefabff1f74b3712258fccdbe335cfa1dd8",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "Blue pickup, long transport, and confined placement into the drawer cavity form a separate responsibility from placing red on an open pad. Each start boundary was separately checked at the red-pad contact state, and each stop is that trajectory's final observation/action boundary. The full demonstrated release and high retreat are retained even though gripper release and TCP clearance are not evaluator requirements.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Begins with red still held at the pad; then blue is picked from about (-0.401,0.291), inserted, released, and left at about (-0.172,0.074,0.063) with drawer_position 0.297 and red on pad.",
+      "start": 600,
+      "stop": 1065,
+      "trajectory_id": "demo1000"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Begins during final red lowering/release; then blue is picked from about (-0.409,0.311), inserted, released, and left at about (-0.172,0.074,0.063) with drawer open and red on pad.",
+      "start": 600,
+      "stop": 1077,
+      "trajectory_id": "demo1001"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Begins with red still held at the pad; then blue is picked from about (-0.393,0.297), inserted, released, and left at about (-0.172,0.074,0.063) with drawer open and red on pad.",
+      "start": 600,
+      "stop": 1063,
+      "trajectory_id": "demo1002"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Begins with red still held at the pad; then blue is picked from about (-0.400,0.305), inserted, released, and left at about (-0.172,0.074,0.063) with drawer open and red on pad.",
+      "start": 600,
+      "stop": 1066,
+      "trajectory_id": "demo1003"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Begins with red still held at the pad; then blue is picked from about (-0.411,0.296), inserted, released, and left at about (-0.172,0.074,0.063) with drawer open and red on pad.",
+      "start": 600,
+      "stop": 1065,
+      "trajectory_id": "demo1004"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Begins while red is still descending/held near the pad; then blue is picked from about (-0.406,0.304), inserted, released, and left at about (-0.172,0.074,0.063) with drawer open and red on pad.",
+      "start": 600,
+      "stop": 1070,
+      "trajectory_id": "demo1005"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Begins with red still held at the pad; then blue is picked from about (-0.406,0.292), inserted, released, and left at about (-0.172,0.074,0.063) with drawer open and red on pad.",
+      "start": 600,
+      "stop": 1064,
+      "trajectory_id": "demo1006"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Begins with red still held at the pad; then blue is picked from about (-0.396,0.291), inserted, released, and left at about (-0.172,0.074,0.063) with drawer open and red on pad.",
+      "start": 600,
+      "stop": 1069,
+      "trajectory_id": "demo1007"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Begins with red still held at the pad; then blue is picked from about (-0.408,0.315), inserted, released, and left at about (-0.173,0.073,0.063) with drawer open and red on pad.",
+      "start": 600,
+      "stop": 1071,
+      "trajectory_id": "demo1008"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Begins with red still held at the pad; then blue is picked from about (-0.414,0.293), inserted, released, and left at about (-0.172,0.074,0.063) with drawer open and red on pad.",
+      "start": 600,
+      "stop": 1065,
+      "trajectory_id": "demo1009"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Begins with red still held at the pad; then blue is picked from about (-0.387,0.314), inserted, released, and left at about (-0.173,0.073,0.063) with drawer open and red on pad.",
+      "start": 600,
+      "stop": 1069,
+      "trajectory_id": "demo1010"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Begins with red still held at the pad; then blue is picked from about (-0.409,0.287), inserted, released, and left at about (-0.172,0.074,0.063) with drawer open and red on pad.",
+      "start": 600,
+      "stop": 1065,
+      "trajectory_id": "demo1011"
+    }
+  ],
+  "skill_id": "blue_insert",
+  "subgoal": "Primary responsibility: finish the predecessor red release/retreat context, acquire the blue block outside the drawer, lift and transport it to the open drawer cavity, lower it inside, release it, and retreat to a high clear pose. The intended object is blue; the red block visible at segment entry is only the predecessor object still being lowered/released. Observed contact/motion: at observation 600 red is still pinched near the pad at z about 0.032-0.037 m; by 700 red is settled at z about 0.020 m and the open gripper is retreating toward blue; around 800 the TCP descends over blue; by 850 blue is pinched and lifted; later it is carried to the drawer, lowered to z about 0.063 m, released, and the TCP retreats to z about 0.323 m. Final observations in all occurrences simultaneously show drawer_position about 0.297, red near (-0.176 to -0.177,-0.298 to -0.304,0.020), and blue near (-0.171 to -0.173,0.073 to 0.074,0.063), satisfying the supplied one-observation completion rule. The demo1000 final front image supports blue in the drawer, red on the outside pad, and the open drawer. Purpose/expected benefit: retaining the long release-to-pick overlap should make this independently trained insertion model usable from intermediate transition states; demonstrated success does not establish recovery from dropped blue blocks, drawer collisions, or unseen placements."
+}

@@ -1,0 +1,60 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "open_drawer__h04",
+  "skill_id": "open_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "drawer_origin_world_m": {
+        "type": "array",
+        "items": {"type": "number"},
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "drawer_orientation_wxyz": {
+        "type": "array",
+        "items": {"type": "number"},
+        "minItems": 4,
+        "maxItems": 4
+      },
+      "desired_open_position_m": {"type": "number", "exclusiveMinimum": 0.26},
+      "red_phase_min_open_m": {"type": "number", "exclusiveMinimum": 0.26},
+      "red_phase_clearance_m": {"type": "number", "exclusiveMinimum": 0.0},
+      "red_phase_xy_radius_m": {"type": "number", "exclusiveMinimum": 0.0}
+    },
+    "required": [
+      "drawer_origin_world_m",
+      "drawer_orientation_wxyz",
+      "desired_open_position_m",
+      "red_phase_min_open_m",
+      "red_phase_clearance_m",
+      "red_phase_xy_radius_m"
+    ]
+  },
+  "parameter_semantics": "drawer_origin_world_m is the current world-frame origin in metres of the drawer at drawer_position=0. drawer_orientation_wxyz is its unit wxyz orientation and defines local -X opening translation. desired_open_position_m is the intended opening in metres, bound to the demonstrated 0.300 m. red_phase_min_open_m is the minimum observed opening for red-frame eligibility, bound to 0.280 m. red_phase_clearance_m is the minimum world-Z TCP-above-red clearance for the high-retreat branch, bound to 0.280 m. red_phase_xy_radius_m is the world-XY TCP/red radius retaining red-frame use during approach, descent and lift, bound to 0.140 m. These are calibration and intent values; fresh physical observations select the active frame.",
+  "observation_dependencies": [
+    "qpos",
+    "qvel",
+    "tcp_pose",
+    "red_pose",
+    "drawer_position",
+    "drawer_velocity"
+  ],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {"features": [2, 49]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an absolute TCP target relative to the active frame at that slot's pre-action state: position [3] in metres, rotation as the first two columns [6] of the active-frame rotation matrix, and native gripper scalar [1]. The articulated drawer frame is active unless drawer_position is at least red_phase_min_open_m and either TCP-minus-red world-Z clearance is at least red_phase_clearance_m or TCP/red world-XY distance is at most red_phase_xy_radius_m; then the observed red pose is active. Prediction slots are t-1 through t+14 and execution uses slots 1 through 8 for t through t+7. At each physical execution step the active frame is recomputed from the fresh observation, 6D rotation is projected by Gram-Schmidt, the represented target is transformed to a world TCP pose, and panda_kinematics.solve_ik produces absolute arm-joint targets from freshly measured qpos. The gripper scalar is appended unchanged and the common executor maps its sign to open or close.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.01,
+    "description": "For a valid demonstration label, active-frame encoding followed by decoding against the same pre-action observation reconstructs the demonstrated commanded world TCP pose. The framework checks FK position in metres, rotation angle in radians and unchanged gripper scalar; nonunique IK is allowed. Gram-Schmidt only projects sampled non-orthogonal 6D rotations."
+  },
+  "cut_relation": "Covers every assigned action in each [0,470) segment. It retains high approach, drawer-front acquisition and pull, release and retreat, red approach/closure and initial lift, including all 240 action-supervised steps 230:470 overlapping red_transfer in every demonstration."
+}

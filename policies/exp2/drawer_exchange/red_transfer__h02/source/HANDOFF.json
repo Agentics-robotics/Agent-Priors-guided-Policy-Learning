@@ -1,0 +1,14 @@
+{
+  "policy_id": "red_transfer__h02",
+  "entry_conditions": "Drawer_position is above 0.26 m, red is visible and preferably acquired or within a demonstrated-style approach, and the current red_goal is valid and reachable.",
+  "exit_conditions": "Red lies within pad containment and no longer follows TCP; after the retained overlap, blue is under TCP with closed fingers and observed blue/TCP initial-lift co-motion. These are switch cues only.",
+  "overlap_role": "Complete [230,470) and [600,850) action supervision is preserved in all twelve demonstrations. The successor overlap includes final goal-relative red descent/release before retreat, blue approach, closure, and lift.",
+  "successor_readiness": "The continuation beginning at 600 is deliberately ready for blue_insert despite red still being held or touching. Established blue lift near the end is the cleaner nominal switch.",
+  "failure_signatures": "Goal-relative descent is unreachable; red misses, tips, or remains outside the pad; fingers open before support; red follows retreat; retreat collides; or blue is approached at a stale absolute location.",
+  "continuation_guidance": "Refresh red_goal at each chunk. If red pickup itself is far displaced, prefer the red-object policy. If entry occurs after release or phase is uncertain, prefer the phase-conditioned local policy or successor skill.",
+  "limitations": "No goal relocation occurs in the demonstrations, so translated-pad benefit is representational expectation rather than observed success. Successful runs do not prove contact recovery, collision avoidance, or IK feasibility outside support.",
+  "evidence": [
+    {"trajectory_id":"demo1000","indices":[530,560,580,594,600,604,608,610,620,650,800,850]},
+    {"trajectory_id":"demo1001","indices":[560,600,604,608,610,700,800,830,849]}
+  ]
+}

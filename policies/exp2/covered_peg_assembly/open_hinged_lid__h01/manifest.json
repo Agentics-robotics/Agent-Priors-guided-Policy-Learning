@@ -1,0 +1,152 @@
+{
+  "task_id": "covered_peg_assembly",
+  "policy_id": "open_hinged_lid__h01",
+  "skill_id": "open_hinged_lid",
+  "source": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/source",
+  "manifest": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/assignment.json",
+  "training_spec": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/training/spec.json",
+  "dataset": "assets/exp2/datasets/covered_peg_assembly/open_hinged_lid/dataset.json",
+  "normalization": "assets/exp2/tasks/covered_peg_assembly/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/covered_peg_assembly/open_hinged_lid__h01/model.pt",
+    "sha256": "68e9b3709850d5e9abd62f5564d260f2313d7575df510dc1f84139e9dee64347",
+    "source_sha256": "68e9b3709850d5e9abd62f5564d260f2313d7575df510dc1f84139e9dee64347",
+    "size_bytes": 337704582,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 7,
+    "demos": 12,
+    "in_distribution_success": "7/12",
+    "exit_rule": "cover open (> 0.9 rad) with the TCP released from the lid handle (> 0.10 m) and the peg moved < 1 cm from its entry position at the final state",
+    "guidance": "Observed reliability: 7/12 (58.3%) from this policy’s own demonstrated segment-entry states, under the 1,425-step budget. Use only with valid lid pose, a closed/partly open lid, stationary in-box peg, and a reachable, collision-free handle approach. Its moving-lid body-frame prior is intended for direct contact geometry when assembly displacement/reorientation is the selector concern, but that benefit has no out-of-distribution validation. Avoid as the nominal first choice given five validation failures; also avoid after release if lid motion would drag the moving reference, with unreliable lid pose, or when IK/reachability is poor. Recognize failure from closure without synchronized lid motion, stalled/reversing opening, growing TCP-to-handle error, peg motion, repeated IK/limit issues, or failure of the TCP to clear after release. Two failed runs briefly met the exit rule and then finished nearly closed, and another finished at 1.005 rad without satisfying the full exit, so do not hand off on a transient angle crossing or angle alone. Continue through release/retreat until physical observations persistently show cover >0.9 rad, open fingers, TCP >0.10 m from the handle and clear of the panel, low lid velocity, and peg displacement <1 cm. Then hand off to retrieve_peg_from_box; preserve both causal frames. The supervised [740,950) overlap supports a later handoff after settling. If release/settling is the uncertainty near nominal placement, prefer h03; if the TCP/joints are off the nominal path but local geometry is valid, prefer h02."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/assignment.json",
+      "sha256": "af6908b480d652a2eca826c57a3998f60d3fffed701145326050ca44dce6b08b",
+      "source_sha256": "c72f94d1b47a5e5f74ded3fc1a6629496aa664ea9d0db9dec79156a33721d8b9",
+      "size_bytes": 11159,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/handoff_evidence.json",
+      "sha256": "22516d173a4599cb6236766dee25aae9b0b80796526284033349dee0d3d8c982",
+      "source_sha256": "22516d173a4599cb6236766dee25aae9b0b80796526284033349dee0d3d8c982",
+      "size_bytes": 100441,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/source/HANDOFF.json",
+      "sha256": "1c098e2e69522f058b0eecd4c8b6f0ec641c3d441e3f146080a0712b93f8b5c3",
+      "source_sha256": "1c098e2e69522f058b0eecd4c8b6f0ec641c3d441e3f146080a0712b93f8b5c3",
+      "size_bytes": 2076,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/source/PRIOR.md",
+      "sha256": "2855e24c5b8a4f8d8c59867884b0c7f6d91c4317dfe07fce3f4897486e71156d",
+      "source_sha256": "2855e24c5b8a4f8d8c59867884b0c7f6d91c4317dfe07fce3f4897486e71156d",
+      "size_bytes": 4706,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/source/adapters.py",
+      "sha256": "00fa9670b4ea56cee67158f1a8c556463c9029ba70b0b5ff629ecdde1b0e3016",
+      "source_sha256": "00fa9670b4ea56cee67158f1a8c556463c9029ba70b0b5ff629ecdde1b0e3016",
+      "size_bytes": 4400,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/source/panda_posture.py",
+      "sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+      "source_sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+      "size_bytes": 1041625,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/source/pipeline.json",
+      "sha256": "169f4fa47226363a145410487b80fab4f59ba88ba437462414aff8896d53b775",
+      "source_sha256": "169f4fa47226363a145410487b80fab4f59ba88ba437462414aff8896d53b775",
+      "size_bytes": 1464,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/source/policy.py",
+      "sha256": "6d26b89ce0cbc6669afc2c7e24f0c3cb8ce75184030b81455cd490a15d0f04c6",
+      "source_sha256": "6d26b89ce0cbc6669afc2c7e24f0c3cb8ce75184030b81455cd490a15d0f04c6",
+      "size_bytes": 980,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/source/policy_contract.json",
+      "sha256": "378867ef8e4ed43ec33e9c86cb19ffbf3ccf459989d2c29ceace87cea1a2fd1c",
+      "source_sha256": "378867ef8e4ed43ec33e9c86cb19ffbf3ccf459989d2c29ceace87cea1a2fd1c",
+      "size_bytes": 2505,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/source/training_bindings.json",
+      "sha256": "7b00b8937fc015aefb0f168d9a2a381dba9c128899fbadbf67d21b989db393c4",
+      "source_sha256": "7b00b8937fc015aefb0f168d9a2a381dba9c128899fbadbf67d21b989db393c4",
+      "size_bytes": 2514,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/submission.json",
+      "sha256": "d7b1f51ad480ab614e4ef7d2daeb17add807dcca2372cbf7ae7c273132e8394d",
+      "source_sha256": "b04a9c14c5154b97e49ce5afe8d2938d8bcce0d2b200faf301bbf07d3b4bbb13",
+      "size_bytes": 18540,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/training/adapter_checks.json",
+      "sha256": "aa8ec014b243f4f4650dcd4f6d9831d155071438d9da547a8fde22aed1d293fc",
+      "source_sha256": "aa8ec014b243f4f4650dcd4f6d9831d155071438d9da547a8fde22aed1d293fc",
+      "size_bytes": 196,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/training/result.json",
+      "sha256": "2a47b6cb16e64104b0e1bf869e9788703afa5f934b73391324698cfcb3f387d4",
+      "source_sha256": "427014fbfed03482f2c183ffac295c67f68f827d2907be642a80c849635bcc4d",
+      "size_bytes": 4885,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/training/spec.json",
+      "sha256": "e98bc6ca16572603f1fb63e6778124a2759f4b353690b0486d7f449e6477eecc",
+      "source_sha256": "e98bc6ca16572603f1fb63e6778124a2759f4b353690b0486d7f449e6477eecc",
+      "size_bytes": 18152,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/prior_plan.json",
+      "sha256": "bbb077f205a8d1d6ef0f26a8ee39299597859f7cb201b01eba31c2ecdabec4cc",
+      "source_sha256": "bbb077f205a8d1d6ef0f26a8ee39299597859f7cb201b01eba31c2ecdabec4cc",
+      "size_bytes": 22965,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/covered_peg_assembly/task.json",
+  "completion_contract": "assets/exp2/tasks/covered_peg_assembly/completion_contract.json",
+  "public_context": "assets/exp2/tasks/covered_peg_assembly/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/covered_peg_assembly/prompts/hl.md",
+  "prior_plan": "policies/exp2/covered_peg_assembly/open_hinged_lid__h01/prior_plan.json"
+}

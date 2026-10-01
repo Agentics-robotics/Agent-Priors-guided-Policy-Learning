@@ -1,0 +1,15 @@
+{
+  "policy_id": "return_place_release__h02",
+  "skill_id": "return_place_release",
+  "heuristic_index": 2,
+  "prior_summary": "Fresh measured TCP body-frame command transforms provide a feedback-like Cartesian action representation for tilted handoff and feasible off-nominal intermediate states.",
+  "applicable_conditions": "Prefer at the demonstrated moderately tilted entry or after a policy switch into an unusual but still securely grasped and reachable intermediate state. Source, destination, TCP, and measured joints must be reliable.",
+  "termination_guidance": "Continue through observed support, opening, and retreat; terminate only when the source is upright and stationary inside return bounds, fingers are open, and TCP is clear. Do not infer success from a local command alone.",
+  "limitations": "Successful nominal paths only; no lost-grasp, collision, failed placement, or release recovery. Local transforms can drift or oscillate and do not directly construct invariance to a large target displacement. Contact is inferred only from causal geometry.",
+  "config": {
+    "reference_frame": "fresh measured TCP at every executed slot",
+    "action_encoding": "body translation plus rotation_vector plus gripper",
+    "condition_features_per_frame": 63,
+    "backbone": "standard DiffusionBackbone"
+  }
+}

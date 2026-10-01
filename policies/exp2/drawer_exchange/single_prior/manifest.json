@@ -1,0 +1,140 @@
+{
+  "task_id": "drawer_exchange",
+  "policy_id": "single_prior",
+  "skill_id": "full_task",
+  "source": "policies/exp2/drawer_exchange/single_prior/source",
+  "manifest": "policies/exp2/drawer_exchange/single_prior/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "single_prior"
+  ],
+  "assignment": "policies/exp2/drawer_exchange/single_prior/assignment.json",
+  "training_spec": "policies/exp2/drawer_exchange/single_prior/training/spec.json",
+  "dataset": "assets/exp2/datasets/drawer_exchange/full_task_single_prior/dataset.json",
+  "normalization": "assets/exp2/tasks/drawer_exchange/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/drawer_exchange/single_prior/model.pt",
+    "sha256": "333d965982e4c68c9ebc7f83b417467e12808de99147c75674f9eccf26b21dfe",
+    "source_sha256": "333d965982e4c68c9ebc7f83b417467e12808de99147c75674f9eccf26b21dfe",
+    "size_bytes": 365965714,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 5,
+    "demos": 12,
+    "in_distribution_success": "5/12",
+    "exit_rule": "standard task success (first occurrence)",
+    "guidance": "No final guidance recorded."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/assignment.json",
+      "sha256": "a86b563dae547e8473d0c70e7c9ddbb75dfa9a506cee95bad1e3c0f3bc169747",
+      "source_sha256": "1e0d8d50cadfd7835ded09b62e97faf8658edbc771051f99c956b9599959a0ac",
+      "size_bytes": 3046,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/handoff_evidence.json",
+      "sha256": "d15a50fe17d332582793c21bb1750f6ba7d41e26d8715cb0b6dcd807915637f3",
+      "source_sha256": "d15a50fe17d332582793c21bb1750f6ba7d41e26d8715cb0b6dcd807915637f3",
+      "size_bytes": 42990,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/source/HANDOFF.json",
+      "sha256": "ca46631a0be5691155c253d8b017bfdda422c36eab03d560cb02d0c8f0176572",
+      "source_sha256": "ca46631a0be5691155c253d8b017bfdda422c36eab03d560cb02d0c8f0176572",
+      "size_bytes": 3655,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/source/PRIOR.md",
+      "sha256": "4aa6064fcb344267159a875d0355d8486a66b050a1f4a4285fbb2cdf5e3b57c6",
+      "source_sha256": "4aa6064fcb344267159a875d0355d8486a66b050a1f4a4285fbb2cdf5e3b57c6",
+      "size_bytes": 9324,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/source/adapters.py",
+      "sha256": "afea3ed63bfc930c0cae3ec8f5722defb549e7f1acbecb7a0604c8ca683c3458",
+      "source_sha256": "afea3ed63bfc930c0cae3ec8f5722defb549e7f1acbecb7a0604c8ca683c3458",
+      "size_bytes": 7745,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/source/panda_posture.py",
+      "sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "source_sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "size_bytes": 718763,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/source/pipeline.json",
+      "sha256": "a2d297e9314d619ecc3b1b47754442b7c7a1cbae67fbfb09abe8892ee85022fb",
+      "source_sha256": "a2d297e9314d619ecc3b1b47754442b7c7a1cbae67fbfb09abe8892ee85022fb",
+      "size_bytes": 1917,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/source/policy.py",
+      "sha256": "37684840e58fb1adcffc3d5442c61d7a1c658dc2a99c31ff03eb8d9938c8d6ef",
+      "source_sha256": "37684840e58fb1adcffc3d5442c61d7a1c658dc2a99c31ff03eb8d9938c8d6ef",
+      "size_bytes": 2112,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/source/policy_contract.json",
+      "sha256": "8264b632e5d6e99d85a372f306da5d35315fb20a6a8b1e1b00f0fe4a86ef9e81",
+      "source_sha256": "8264b632e5d6e99d85a372f306da5d35315fb20a6a8b1e1b00f0fe4a86ef9e81",
+      "size_bytes": 2506,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/source/training_bindings.json",
+      "sha256": "a82d9f280a2d8014aa7c4240745f38642b5db2f5bd4854408975405f1cfddb88",
+      "source_sha256": "a82d9f280a2d8014aa7c4240745f38642b5db2f5bd4854408975405f1cfddb88",
+      "size_bytes": 2957,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/submission.json",
+      "sha256": "e3c38adf965a1111a11ea843bf17b5f19054bbb222845e98a8736535d079b4cb",
+      "source_sha256": "69081b22b4cf6ca550bd2ed00d4e91d481eb0a64b3821b40149ae69e48c44dfb",
+      "size_bytes": 10233,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/training/adapter_checks.json",
+      "sha256": "387d4507e737f70d1508d4726560e9d0aabc66c69543edd260bded914bd53ab3",
+      "source_sha256": "387d4507e737f70d1508d4726560e9d0aabc66c69543edd260bded914bd53ab3",
+      "size_bytes": 196,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/training/result.json",
+      "sha256": "baa50114a6f58e8e45e509c2e29049c2786ed053dba3dd5f125459edbc2356e1",
+      "source_sha256": "b5bfda1fb9022fb1d932596d461b8a1f9b4eb39df02e09a5f929a70c45d4a87c",
+      "size_bytes": 4785,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/single_prior/training/spec.json",
+      "sha256": "8855ba19bba40951556914199af312fee581967c67131e0b366a1060c9653d14",
+      "source_sha256": "8855ba19bba40951556914199af312fee581967c67131e0b366a1060c9653d14",
+      "size_bytes": 16284,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/drawer_exchange/task.json",
+  "completion_contract": "assets/exp2/tasks/drawer_exchange/completion_contract.json",
+  "public_context": "assets/exp2/tasks/drawer_exchange/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/drawer_exchange/prompts/hl.md"
+}

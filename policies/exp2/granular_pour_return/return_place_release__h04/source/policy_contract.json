@@ -1,0 +1,32 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "return_place_release__h04",
+  "skill_id": "return_place_release",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "source_object": {"type": "string", "enum": ["container"]},
+      "destination": {"type": "string", "enum": ["target_pose"]}
+    },
+    "required": ["source_object", "destination"]
+  },
+  "parameter_semantics": "source_object selects the observed container_pose used as the fresh Cartesian reference for every executed slot; destination selects target_pose for causal goal-relative conditioning. Both are symbolic scene identities resolved from physical observations. Positions are world metres and orientations are wxyz before deterministic matrix conversion.",
+  "observation_dependencies": ["container_pose", "target_pose", "bowl_pose", "tcp_pose", "qpos", "qvel"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {"features": [2, 63]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an absolute Cartesian TCP pose represented in the source container frame observed immediately before that slot: 3 source-frame position coordinates in metres, the first two columns of the source-relative rotation matrix (6D), and the native gripper scalar. Demonstration labels use the observed container pose immediately before each action. Prediction slots are t-1 through t+14 and execution uses slots 1 through 8. For every executed slot, decode_action left-multiplies the represented transform by the fresh current container world pose, projects the 6D rotation to SO(3), and calls panda_kinematics.solve_ik from freshly measured qpos. It does not accumulate predicted poses or add a scripted trajectory or release gate.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Compose the represented source-relative pose with the corresponding observed source pose and compare that world target with FK of the IK joint result, using the maximum TCP position error in metres, rotation error in radians, and unchanged gripper scalar error. The 6D rotation is projected to SO(3) by Gram-Schmidt; demonstrated rotations are valid."
+  },
+  "cut_relation": "All actions in every frozen [start,stop) binding remain supervised, including the full 280-action [1460,1740) overlap with controlled_pour_and_right, placement, opening, retreat, and terminal hold. Only causal features and the Cartesian action reference frame change; the assigned responsibility and success definition are unchanged."
+}

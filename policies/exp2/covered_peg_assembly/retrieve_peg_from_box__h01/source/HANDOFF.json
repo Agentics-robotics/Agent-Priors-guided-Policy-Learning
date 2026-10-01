@@ -1,0 +1,14 @@
+{
+  "policy_id": "retrieve_peg_from_box__h01",
+  "entry_conditions": "The peg is still in the box and observed. Preferred entry is after the lid fingers have opened and the TCP is no longer coupled to the handle; index-740 early entry remains supervised for incoming overlap.",
+  "exit_conditions": "Closed fingers carry the peg above the box rim, peg_pose and tcp_pose co-move across the two causal frames, and the successor can continue the shared lift or initial turn.",
+  "overlap_role": "All actions in incoming [740,950) and outgoing [1120,1270) are supervised for every trajectory. The constructed peg-frame invariant is chiefly useful once the peg becomes the active approach reference.",
+  "successor_readiness": "reorient_and_stage_peg is ready during the shared lift after the peg clears the wall top with margin and its observed relative pose to the closed gripper is approximately stable while both move.",
+  "failure_signatures": "TCP fails to track a displaced peg; fingers close with a large peg-relative offset; peg remains near z=0.026 m under lift; peg-to-TCP pose changes abruptly; object motion stalls or deflects near a wall; or IK repeatedly reports residual or joint-limit contacts.",
+  "continuation_guidance": "Use this displacement specialist from open-hand clearance through descent, closure, and lift. Route early lid-held entries to retrieve_peg_from_box__h03 and locally perturbed TCP/qpos entries to retrieve_peg_from_box__h02. Do not hand off on gripper sign alone.",
+  "limitations": "No contact truth is observed, and co-motion is only a causal proxy. Large peg displacements can be unreachable or place the peg near a wall. Successful demonstrations do not establish recovery from a miss, drop, or obstructed lift.",
+  "evidence": [
+    {"trajectory_id":"demo12200","indices":[950,990,1020,1040,1060,1080,1100,1120,1140,1180,1200,1220,1240,1270]},
+    {"trajectory_id":"demo12208","indices":[950,990,1020,1040,1060,1080,1100,1120,1140,1180,1200,1220,1240,1270]}
+  ]
+}

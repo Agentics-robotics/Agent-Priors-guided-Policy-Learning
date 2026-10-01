@@ -1,0 +1,24 @@
+{
+  "policy_id": "close_drawer__h04",
+  "entry_conditions": "The drawer is open near 0.300 m. At the earliest shared entry the block may still be descending or releasing near the TCP, or it may already rest inside the cavity; later valid entries may be during retreat, handle approach, or closure. For the targeted block-anchor behavior, require a reliable object_pose and an early state with the TCP close to the block. The gate does not prove grasp or safe placement.",
+  "exit_conditions": "Use the unchanged terminal guidance: drawer_position below 0.025 m with negligible velocity, block retained inside near the drawer floor, fingers open, and TCP retreated high and clear. Framework task success is unchanged.",
+  "overlap_role": "All actions 900:1160 remain directly diffusion-supervised in all 12 trajectories: 260 actions (13.0 s) per trajectory shared with place_block_in_drawer. This covers release completion under different block heights and finger openings, initial clearance, retreat and reorientation, handle approach, and handle acquisition before active closure.",
+  "successor_readiness": "This is the terminal skill. Readiness is observable only from the unchanged physical criteria: loaded drawer closed below 0.025 m and nearly stationary, gripper released, and hand clear. The learned action mode and analytic gate are not success predicates.",
+  "failure_signatures": "An incorrect active block gate can make the TCP chase or re-contact a noisy or moving block, fail to clear the cavity, or bias handle approach. If an early displaced block is farther than 0.16 m from the TCP, the gate is zero and the targeted invariance is absent. Other signatures are missed handle acquisition, drawer stopping above 0.025 m, block leaving or interfering with the drawer, jam, collision, or unconverged/unreachable IK.",
+  "continuation_guidance": "Continue replanning with fresh observations while the block is being safely released and cleared, then while the handle is approached and the drawer advances toward closure. Once the gate falls to zero, actions are target_pose-relative. If object_pose is unreliable, the block is near the handle corridor, or the observed geometry contradicts a valid early release, switch to a more appropriate existing prior rather than treating the gate as recovery logic.",
+  "limitations": "The smooth gate is a geometric phase prior, not contact sensing. It assumes valid placement keeps the block away from the later handle corridor and target_pose remains a coherent drawer-attached frame. Translation covariance does not remove fixed-base reachability, joint-limit, collision, handle-geometry, force, contact, or orientation dependencies. No recovery from missed release, missed grasp, jam, obstruction, collision, or unreachable targets is demonstrated, and no out-of-distribution benefit has been observed.",
+  "evidence": [
+    {
+      "trajectory_id": "demo12100",
+      "indices": [900, 920, 940, 960, 1080, 1140, 1160, 1200, 1260, 1329]
+    },
+    {
+      "trajectory_id": "demo12104",
+      "indices": [900, 920, 1160, 1260]
+    },
+    {
+      "trajectory_id": "demo12108",
+      "indices": [900, 920, 1160, 1260]
+    }
+  ]
+}

@@ -1,0 +1,220 @@
+{
+  "cut_plan_sha256": "6ff90d860db25d097efcfc9bbe61fa3421abe180b8b3d234811997a8e283064a",
+  "priors": [
+    {
+      "applicability": "Prefer when target_object is red, red is visibly displaced from its demonstrated initial patch, and red plus the supplied buffer are plausibly reachable. It remains applicable through supervised release and blue-acquisition overlap. Resolve red from the latest causal observation at each 8-step replan.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            40,
+            80,
+            100,
+            120,
+            140,
+            160,
+            180,
+            200,
+            220,
+            240,
+            260,
+            280,
+            320,
+            380,
+            420,
+            450,
+            479
+          ],
+          "trajectory_id": "demo10100"
+        },
+        {
+          "indices": [
+            0,
+            40,
+            80,
+            100,
+            120,
+            160,
+            200,
+            220,
+            240,
+            260,
+            280,
+            320,
+            360,
+            420,
+            440,
+            479
+          ],
+          "trajectory_id": "demo10103"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Open clear gripper with red observed and reachable, or a supervised intermediate approach/hold/carry/lower/release state. target_object is red, successor_object blue, and buffer_pose_world denotes the free area.",
+        "exit_conditions": "Core exit is red stationary near buffer with open gripper and clear TCP. Later overlap exit may have red stationary and blue closed on and beginning to lift.",
+        "failure_signatures": "Red fails to co-move after close, remains elevated/follows TCP after opening, lands outside buffer, or becomes unobservable; IK has significant residual/limit contact; blue is disturbed before red settles.",
+        "overlap_role": "Every assigned action is retained. The 210-230 action tails cover red lowering/release, opening, retreat, transit to blue, blue closure and initial lift.",
+        "successor_readiness": "Switch after observed red stability and open/clear fingers; later switch through blue initial lift is supervised. Preserve two-frame causal history."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"target_object\",\"successor_object\",\"buffer_pose_world\"],\"properties\":{\"target_object\":{\"type\":\"string\",\"enum\":[\"red\"]},\"successor_object\":{\"type\":\"string\",\"enum\":[\"blue\"]},\"buffer_pose_world\":{\"type\":\"array\",\"items\":{\"type\":\"number\"},\"minItems\":7,\"maxItems\":7}}},\"parameter_semantics\":\"target_object selects current red_pose as action/input frame; successor_object selects blue_pose for overlap conditioning; buffer_pose_world is [x,y,z,qw,qx,qy,qz] in world metres/wxyz and identifies the free destination. Training uses [-0.181,0,0.02,1,0,0,0]. All enter preprocessing/conversion; object poses refresh each replan.\"}",
+      "limitations": "The representation does not make transport to a fixed buffer invariant to arbitrary red displacement; that mapping is learned from red-to-buffer relation. Stale red pose corrupts decoding. Large shifts can be unreachable or collide. Successful demonstrations do not support recovery after a miss, drop or collision. Prefer the destination prior for moved-buffer placement and the causal residual prior for unusual intermediate TCP entries.",
+      "pipeline_implications": "build_inputs makes two red-centric feature frames while retaining scaled Panda qpos/qvel, fingers, TCP/world position and buffer pose. chunk_context freezes current red pose for one chunk. encode_targets maps FK command poses to red-frame translation plus rotation-6D and native gripper; decode_action composes the world pose and calls panda_kinematics.solve_ik from fresh joints. Standard DiffusionBackbone remains unchanged. Normalize only these authorized labels.",
+      "rationale": "Observed: demo10100 starts red near (-0.355,-0.209), whereas demo10103 starts it near (-0.351,-0.204); at index 40 each commanded TCP is directly above its respective red. Closure is around 100, red and TCP rise together by 120-160, move toward center by 180-220, lower by 240-260 and release by 280. This is evidence of object-relative structure over demonstrated variation, not recovery. Expected benefit: labels inverse(T_red_at_chunk) T_tcp_command remove a chunk-level displacement of red from action labels. This directly covers approach, alignment, closure, lift and the local held-object relation; red-to-buffer conditioning still represents transport. Fresh qpos/qvel and world positions remain because reachability and IK posture are not object-frame invariant.",
+      "statement": "Red-anchored SE(3) policy: learn each TCP target in the currently observed red-block frame, using 6D rotation plus gripper, while conditioning on red-to-buffer/red-to-blue relations and robot state. Prefer when red is displaced but observed and reachable.",
+      "training_bindings": "[{\"trajectory_id\":\"demo10100\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"Full responsibility plus 220-action overlap.\"},{\"trajectory_id\":\"demo10101\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"Full responsibility plus 210-action overlap.\"},{\"trajectory_id\":\"demo10102\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10103\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10104\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10105\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 230 overlap actions retained.\"},{\"trajectory_id\":\"demo10106\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10107\",\"start\":0,\"stop\":490,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"Full later-stop occurrence and 230 overlap actions.\"},{\"trajectory_id\":\"demo10108\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10109\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10110\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10111\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"}]"
+    },
+    {
+      "applicability": "Prefer when TCP/Panda posture differs from home, invocation is mid-skill, or red is already near buffer and switch timing is uncertain, provided state resembles a supervised phase and objects are observed. Refresh TCP anchor each replan.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            80,
+            100,
+            120,
+            160,
+            200,
+            220,
+            240,
+            260,
+            280,
+            300,
+            320,
+            340,
+            360,
+            380,
+            420,
+            450,
+            479
+          ],
+          "trajectory_id": "demo10100"
+        },
+        {
+          "indices": [
+            0,
+            80,
+            100,
+            120,
+            160,
+            200,
+            220,
+            240,
+            250,
+            260,
+            280,
+            300,
+            320,
+            340,
+            360,
+            400,
+            420,
+            440,
+            460,
+            479
+          ],
+          "trajectory_id": "demo10105"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Any supervised red phase: clear/open approach, closed-finger lift/carry, lowering, or release/retreat. Late entry is allowed when red is stable and continuation into blue overlap is intended.",
+        "exit_conditions": "Core exit is stable buffered red with open/clear gripper. Segment exit can be blue closed on and lifting while red stays stable. Predicted phase alone is not proof.",
+        "failure_signatures": "Predicted phase conflicts with object motion; red remains elevated/follows after opening; closed fingers lack object co-motion; or IK residual/limit contact is significant.",
+        "overlap_role": "Complete 210-230 action overlaps remain supervised. Auxiliary phase separates release/retreat from blue approach/closure/lift without replacing diffusion.",
+        "successor_readiness": "Use observed red stability and open/clear gripper, not auxiliary class alone. Preserve causal history; late switching through blue lift is represented."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"target_object\",\"successor_object\",\"buffer_pose_world\"],\"properties\":{\"target_object\":{\"type\":\"string\",\"enum\":[\"red\"]},\"successor_object\":{\"type\":\"string\",\"enum\":[\"blue\"]},\"buffer_pose_world\":{\"type\":\"array\",\"items\":{\"type\":\"number\"},\"minItems\":7,\"maxItems\":7}}},\"parameter_semantics\":\"target_object selects red_pose relational features; successor_object selects blue_pose overlap features; buffer_pose_world is [x,y,z,qw,qx,qy,qz] world metres/wxyz and supplies the intended center relation/phase reference. Training uses [-0.181,0,0.02,1,0,0,0].\"}",
+      "limitations": "No object-displacement invariance; use red-frame policy for far-shifted red. Phase labels are coarse, not contact/grasp truth, and can be wrong after unseen failures. Large residuals from unusual entries may be out of support. No failed-grasp/drop/collision recovery is demonstrated. Phase has no external memory. Prefer destination prior for precise moved-buffer landing.",
+      "pipeline_implications": "Two causal feature frames contain scaled qpos/qvel, world TCP, red/TCP, blue/TCP and buffer/TCP relations. A registered MLP conditions the standard backbone and shares its embedding with a registered phase head. Labels are world position delta, log(R_command R_anchor^T), gripper. A causal geometric phase label with valid mask adds 0.1 masked cross-entropy while epsilon loss remains active. decode_action reconstructs world target and calls IK. All modules are optimized, EMA'd and saved.",
+      "rationale": "Observed: similar low-TCP states have different intent: 80-100 approaches/closes at red, 240-280 lowers then opens at buffer, and 440-460 approaches/closes at blue. High retreat at 320-340 follows release, unlike initial high approach. Two causal frames, fingers, object motion and distances provide phase cues. Expected benefit: a trainable encoder shared by diffusion and masked four-class phase head encourages separation of red acquisition, red transport, release/retreat and blue-overlap behavior. Chunk-start TCP residuals reduce dependence on one home or preceding endpoint. This is expected robustness, not recovery evidence.",
+      "statement": "Causal phase-and-residual policy: diffuse world position and rotation-vector residuals from chunk-start TCP, with a shared learned causal encoder supervised by a four-class geometric phase target. Prefer for noncanonical TCP/posture entries or uncertain handoff timing.",
+      "training_bindings": "[{\"trajectory_id\":\"demo10100\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All core and 220 overlap actions supervise residual diffusion and phase.\"},{\"trajectory_id\":\"demo10101\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All core and 210 overlap actions retained.\"},{\"trajectory_id\":\"demo10102\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10103\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10104\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10105\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 230 overlap actions retained.\"},{\"trajectory_id\":\"demo10106\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10107\",\"start\":0,\"stop\":490,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All later-stop and 230 overlap actions retained.\"},{\"trajectory_id\":\"demo10108\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10109\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10110\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10111\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"}]"
+    },
+    {
+      "applicability": "Prefer when planner supplies a free destination differing from demonstrated center, or red is held/near center and accurate lower/release/retreat matters more than large red displacement. It remains valid through overlap if target/destination are reachable and collision-free.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            100,
+            120,
+            160,
+            180,
+            200,
+            220,
+            240,
+            260,
+            280,
+            300,
+            320,
+            340,
+            380,
+            420,
+            450,
+            479
+          ],
+          "trajectory_id": "demo10100"
+        },
+        {
+          "indices": [
+            0,
+            100,
+            120,
+            160,
+            200,
+            220,
+            240,
+            260,
+            280,
+            300,
+            320,
+            340,
+            360,
+            400,
+            420,
+            440,
+            460,
+            479
+          ],
+          "trajectory_id": "demo10103"
+        },
+        {
+          "indices": [
+            0,
+            100,
+            120,
+            160,
+            200,
+            220,
+            240,
+            250,
+            260,
+            280,
+            300,
+            320,
+            340,
+            400,
+            420,
+            440,
+            460,
+            479
+          ],
+          "trajectory_id": "demo10105"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Normal open/clear entry or supervised held-red/carry/lower entry. Supplied buffer must be a reachable free tabletop pose; target red, successor blue.",
+        "exit_conditions": "Core is red settled at supplied buffer with open fingers and clear TCP; later segment cue is blue closure/lift while red remains there.",
+        "failure_signatures": "Red is outside supplied region, elevated/following after open, buffer occupied, IK has significant residual/limit contact, or blue moves before red settles.",
+        "overlap_role": "All release, retreat, transit, blue approach, close and lift actions remain supervised; successor features identify blue.",
+        "successor_readiness": "Switch when red is stable at actual supplied destination and gripper open/clear; later switch through blue lift is supported. Keep causal history."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"target_object\",\"successor_object\",\"buffer_pose_world\"],\"properties\":{\"target_object\":{\"type\":\"string\",\"enum\":[\"red\"]},\"successor_object\":{\"type\":\"string\",\"enum\":[\"blue\"]},\"buffer_pose_world\":{\"type\":\"array\",\"items\":{\"type\":\"number\"},\"minItems\":7,\"maxItems\":7}}},\"parameter_semantics\":\"target_object selects red_pose; successor_object selects blue_pose; buffer_pose_world is destination frame [x,y,z,qw,qx,qy,qz] in world metres/wxyz. Training uses [-0.181,0,0.02,1,0,0,0]. It directly defines action encoding/decoding and relational inputs.\"}",
+      "limitations": "No target-displacement invariance; far-shifted red can be outside target-to-buffer support, so use red-frame policy. Destination can be occupied/unreachable or physically unsuitable; no contact/collision truth or scripted repair exists. Rotation-vector labels assume no adverse pi branch change. No failed placement/release recovery is shown. Prefer causal residual prior for phase ambiguity.",
+      "pipeline_implications": "Inputs contain destination-frame TCP/red/blue poses, TCP-to-object vectors, scaled world destination/TCP and Panda qpos/qvel. chunk_context stores supplied destination. encode_targets emits destination-local translation, SO(3) rotation vector and gripper. decode composes world pose and calls IK from fresh joints. Standard backbone remains unchanged; normalize seven-dimensional authorized labels only.",
+      "rationale": "Observed: sampled red starts converge on red near (-0.181,0,0.020), command low TCP near (-0.190,0,0.023) around 260-280, open, and retreat vertically around 300-340; red then stays fixed while blue is acquired at 420-479. Expected benefit: labels inverse(T_buffer) T_tcp_command make carry endpoint, lowering, opening and retreat transform with a supplied buffer pose by construction. qpos/qvel, TCP world position and destination world position remain because destination shift affects reachability. Acquisition is learned from target-to-destination relations, not declared invariant.",
+      "statement": "Buffer-destination-frame policy: diffuse TCP targets as destination-frame translation, rotation vector and gripper, retaining world robot configuration and object graph relations. Prefer when the free buffer pose is shifted or placement/release precision dominates.",
+      "training_bindings": "[{\"trajectory_id\":\"demo10100\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"Full responsibility plus all 220 overlap actions.\"},{\"trajectory_id\":\"demo10101\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"Full responsibility plus all 210 overlap actions.\"},{\"trajectory_id\":\"demo10102\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10103\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10104\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10105\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 230 overlap actions retained.\"},{\"trajectory_id\":\"demo10106\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10107\",\"start\":0,\"stop\":490,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"Full later-stop occurrence and all 230 overlap actions.\"},{\"trajectory_id\":\"demo10108\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10109\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10110\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10111\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"}]"
+    }
+  ],
+  "skill_id": "buffer_red"
+}

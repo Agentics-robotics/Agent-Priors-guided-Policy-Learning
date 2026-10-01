@@ -1,0 +1,38 @@
+{
+  "coordinate_frame": "world",
+  "description": "Exchange the red and blue blocks between the two marked regions. The red goal is the initially blue region and the blue goal is the initially red region. A free central area can be used temporarily.",
+  "drawer_channels": "No drawer in this task: drawer_position and drawer_velocity are fixed zero compatibility channels.",
+  "fixtures": [],
+  "full_rotated_xy_containment": true,
+  "gripper_release_required": false,
+  "half_xy_m": [
+    0.06,
+    0.06
+  ],
+  "object_half_m": 0.02,
+  "predicates": [
+    "red_at_goal",
+    "blue_at_goal"
+  ],
+  "required_observations": 1,
+  "schema": "appl.scaleup.goals.v1",
+  "success_expression": "red_at_goal AND blue_at_goal",
+  "sustained_hold_required": false,
+  "targets": {
+    "blue": [
+      -0.35,
+      -0.2,
+      0.02
+    ],
+    "red": [
+      -0.35,
+      0.2,
+      0.02
+    ]
+  },
+  "task_id": "buffer_swap",
+  "tcp_clearance_required": false,
+  "units": "metres",
+  "velocity_threshold_required": false,
+  "z_tolerance_m": 0.011
+}

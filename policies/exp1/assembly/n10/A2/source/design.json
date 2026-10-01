@@ -1,0 +1,42 @@
+{
+  "title": "Causally inferred phase and factorized grasp/seating encoders",
+  "coverage_gap": "Only LL/HH co-occurrences appear in the ten support episodes. A monolithic policy can use goal_x to predict pickup actions and nut_x to predict late placement. The episodes also expose only a narrow progression of grasp, lift, carry and lower states; a single global latent may entangle these phases with the diagonal layout.",
+  "reusable_regularity": "Use a goal-independent learned grasp encoder and a distinct ring-to-peg encoder, with a learned four-way causal phase network trained on support-derived coarse motion/contact motifs. Soft phase weights emphasize acquisition/lift or transport/seating, without making any branch disappear. The resulting stage-conditioned features feed one unchanged common DP, not multiple expert controllers. Direct relation and robot/world skips preserve geometric correction signals and permit exceptions to the factorization. No phase clock, planner or hardcoded runtime action is used.",
+  "dependencies_preserved": [
+    "The grasp branch sees hand-to-handle error, ring/handle lever arm, quaternion, aperture and recent motion, but no goal. The seating branch sees goal-to-ring together with hand-to-handle, lever arm, orientation, aperture and motion, so grasp/placement are not treated as independent physical processes.",
+    "The phase predictor sees current contact geometry, absolute heights, gripper state/change, hand/handle increments, ring/goal height error and planar distance, never action labels at deployment.",
+    "Both branch gates have a .25 floor. Direct grasp, ring-to-goal and lever-arm coordinate skips remain available regardless of phase, preserving peg/clearance information before pickup.",
+    "Coarse world hand xyz, raw wxyz orientation, world-axis velocities and goal/ring heights retain robot workspace, gravity, fixed-gripper orientation and peg dependence. Previous native quaternion enters both learned encoders. Only explicitly absent object2 channels are omitted."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "All ten listed episodes are the only training-target source"},
+    {"path": "task_materials.json", "detail": "Separate handle site and ring center; native world action4, fixed end-effector orientation, raw two-observation history and factor coverage"},
+    {"path": "support_summary.json", "detail": "Five LL and five HH episodes; support gripper actions range from 0 to .6, with positive and negative vertical actions"},
+    {"path": "trajectories/demo_00.json", "detail": "Read obs 0:3, 25:29, 38:43 and actions 26:31: closing aperture near the handle, then action_z=1 at 27:31 and elevated ring shortly afterwards. Ring/handle x offset is about .13 m."},
+    {"path": "trajectories/demo_01.json", "detail": "Read obs 59:62 and 86:90: ring near .19 m during transport, then descending near peg xy toward goal height .1 m"},
+    {"path": "images/frame_02_demo_01_step_031.png", "detail": "Inspected handle acquisition configuration"},
+    {"path": "images/frame_01_demo_00_step_060.png", "detail": "Inspected raised transport configuration"},
+    {"path": "images/frame_03_demo_01_step_091.png", "detail": "Inspected near-final lowered ring configuration"},
+    {"path": "contracts.py", "detail": "Modules initialized only in build_modules; training-only target hook and causal condition/denoise interfaces"},
+    {"path": "learning.py", "detail": "The host weights action epsilon loss by 1 with denominator mask.sum()*4 and separately adds training_loss"}
+  ],
+  "expected_failure_signature": "Falsifiable: factorization should reduce sign-correlated pickup errors in C without having to infer a new pickup strategy from goal_x. Failure may instead cluster at phase boundaries: a missed grasp can be interpreted as lift, or a large E transport error can keep a ring in transport too long. Coarse labels can prematurely predict seating, while direct relation skips might still allow the DP to learn the original co-occurrence shortcut. Phase misclassification and grasp-versus-placement failure counts would distinguish these explanations. No development performance is claimed.",
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history [B,2,42], using metric rather than host-normalized features",
+    "slices": {"hand": [0,3], "aperture": [3,4], "handle": [4,7], "quaternion_wxyz": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_handle": [22,25], "previous_quaternion_wxyz": [25,29], "peg_goal": [36,39], "ring_center": [39,42]},
+    "action_frame": "Identity native world_dx/world_dy/world_dz, .01 m per native unit, and unchanged scalar gripper. Candidate does not clip, add feedback controllers, or change execution horizon."
+  },
+  "training_only_targets": [
+    {
+      "name": "phase",
+      "shape": "[number_of_windows,2] integer labels for the causal historical times max(0,t-1) and t",
+      "source": "Exact D_N support obs[k] and actions[k]. No stored labels or cached predictions are consulted at inference.",
+      "definition": "Priority order: lift=1 if native az>.6 and ring_z<.18; seating=3 if ring_z>.06 and planar goal-to-ring distance<.04; transport=2 if ring_z>.1; otherwise acquisition=0. These are coarse training annotations, not a runtime finite-state policy or success oracle.",
+      "loss": "Negative log probability from the learned causal phase predictor, weight .05. Multiply each of two historical-label losses by mask[:,0], divide by 2*sum(mask[:,0]) with denominator floor 1. This is separate from and does not rescale the common action loss. No loss is assigned to padded future actions."
+    }
+  ],
+  "support_fit_statistics": "None; thresholds/scales are fixed physical design choices informed by the inspected D_N and public semantics. No other data, pretrained weights or optimizer updates are used in support fitting.",
+  "architecture": "One common DP condition_dim=93 action_dim=4. Grasp MLP 26->64->32 and seating MLP 28->64->32 use SiLU. Phase MLP 16->64->4 outputs softmax probabilities. Concatenate weighted 32+32 latents, four probabilities, sixteen robot/world channels and nine direct relative coordinates. All learned modules participate in the joint training loss and are registered in build_modules.",
+  "parents": [],
+  "change_summary": "Initial scientific design: learned phase-conditioned factorization with an auxiliary support-derived phase loss. This is a separate pre-feedback design, not an A1 revision. Before the first check, corrected the factory/documentation conditioning-width arithmetic from 89 to 93 (32+32+4+16+9); features, modules and losses otherwise unchanged. No feedback-driven edits."
+}

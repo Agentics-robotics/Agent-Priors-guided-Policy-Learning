@@ -1,0 +1,235 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        900,
+        920,
+        940,
+        960,
+        1080,
+        1140,
+        1160,
+        1180,
+        1200,
+        1260,
+        1330
+      ],
+      "trajectory_id": "demo12100"
+    },
+    {
+      "indices": [
+        900,
+        920,
+        940,
+        1080,
+        1140,
+        1160,
+        1260,
+        1330
+      ],
+      "trajectory_id": "demo12101"
+    },
+    {
+      "indices": [
+        900,
+        920,
+        1160,
+        1260,
+        1330
+      ],
+      "trajectory_id": "demo12102"
+    },
+    {
+      "indices": [
+        900,
+        920,
+        1160,
+        1260,
+        1330
+      ],
+      "trajectory_id": "demo12103"
+    },
+    {
+      "indices": [
+        900,
+        920,
+        1160,
+        1260,
+        1330
+      ],
+      "trajectory_id": "demo12104"
+    },
+    {
+      "indices": [
+        900,
+        920,
+        1160,
+        1260,
+        1330
+      ],
+      "trajectory_id": "demo12105"
+    },
+    {
+      "indices": [
+        900,
+        920,
+        1160,
+        1260,
+        1330
+      ],
+      "trajectory_id": "demo12106"
+    },
+    {
+      "indices": [
+        900,
+        920,
+        1160,
+        1260,
+        1330
+      ],
+      "trajectory_id": "demo12107"
+    },
+    {
+      "indices": [
+        900,
+        920,
+        1160,
+        1260,
+        1330
+      ],
+      "trajectory_id": "demo12108"
+    },
+    {
+      "indices": [
+        900,
+        920,
+        1160,
+        1260,
+        1330
+      ],
+      "trajectory_id": "demo12109"
+    },
+    {
+      "indices": [
+        900,
+        920,
+        1160,
+        1260,
+        1330
+      ],
+      "trajectory_id": "demo12110"
+    },
+    {
+      "indices": [
+        900,
+        920,
+        1160,
+        1260,
+        1330
+      ],
+      "trajectory_id": "demo12111"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Drawer is open near 0.300. At the earliest shared entry the gripper is opening and the block is still descending or settling over the cavity (observed object z from about 0.063 to 0.124 at index 900); later valid entries have the block resting at z about 0.063 and the open gripper retreating.",
+    "exit_conditions": "Drawer_position is about 0.00219-0.00227, below the unchanged 0.025 closed threshold; drawer velocity is negligible; the block remains at z about 0.063 inside the drawer; fingers are open near 0.04; TCP is retreated high near z=0.358.",
+    "failure_signatures": "Drawer begins moving while object is still coupled to TCP, object is outside the cavity or above floor height, fingers miss/remain open at the handle, drawer_position stops above 0.025, the block leaves the drawer during closure, or the hand remains trapped at the handle. Successful demonstrations do not establish recovery from any of these unseen errors.",
+    "overlap_role": "Actions 900:1160 are shared with placement: 260 supervised actions, 13.0 s per trajectory. This gives the receiver direct supervision for completing release if switched early, distinguishing the block being released from the later drawer-handle target, clearing the cavity, and approaching/grasping the handle before closure.",
+    "successor_readiness": "This is the terminal skill. Task-success readiness is observable when the loaded drawer is below the 0.025 closure threshold, nearly stationary, and the hand has released and retreated. The framework retains the supplied success definition unchanged."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Close the loaded drawer and clear the hand",
+  "original_demonstration_count": 12,
+  "plan_hash": "388b2863018f5e4ec92a10a0b6a0efd22bb0182ef311ace074f29094ca4f82f2",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "Observed responsibility: the segment deliberately starts at 900 while release is completing, then covers retreat/reorientation, handle approach and closure beginning around 1140:1180, pushing to closed by about 1260, handle release, and retreat to 1330. It is separate from placement because articulated closure must only follow confirmed release and uses a different contact object and force/motion direction. Starting before confirmed release is overlap for timing robustness, not evidence that the policy can recover an arbitrarily misplaced block.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Complete release of the retrieved block in the open drawer, then grasp the drawer handle, push closed, release, and retreat.",
+      "start": 900,
+      "stop": 1330,
+      "trajectory_id": "demo12100"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Complete release of the retrieved block in the open drawer, then grasp the drawer handle, push closed, release, and retreat.",
+      "start": 900,
+      "stop": 1330,
+      "trajectory_id": "demo12101"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Complete release of the retrieved block in the open drawer, then grasp the drawer handle, push closed, release, and retreat.",
+      "start": 900,
+      "stop": 1330,
+      "trajectory_id": "demo12102"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Complete release of the retrieved block in the open drawer, then grasp the drawer handle, push closed, release, and retreat.",
+      "start": 900,
+      "stop": 1330,
+      "trajectory_id": "demo12103"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Complete release of the retrieved block in the open drawer, then grasp the drawer handle, push closed, release, and retreat.",
+      "start": 900,
+      "stop": 1330,
+      "trajectory_id": "demo12104"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Complete release of the retrieved block in the open drawer, then grasp the drawer handle, push closed, release, and retreat.",
+      "start": 900,
+      "stop": 1330,
+      "trajectory_id": "demo12105"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Complete release of the retrieved block in the open drawer, then grasp the drawer handle, push closed, release, and retreat.",
+      "start": 900,
+      "stop": 1330,
+      "trajectory_id": "demo12106"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Complete release of the retrieved block in the open drawer, then grasp the drawer handle, push closed, release, and retreat.",
+      "start": 900,
+      "stop": 1330,
+      "trajectory_id": "demo12107"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Complete release of the retrieved block in the open drawer, then grasp the drawer handle, push closed, release, and retreat.",
+      "start": 900,
+      "stop": 1330,
+      "trajectory_id": "demo12108"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Complete release of the retrieved block in the open drawer, then grasp the drawer handle, push closed, release, and retreat.",
+      "start": 900,
+      "stop": 1330,
+      "trajectory_id": "demo12109"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Complete release of the retrieved block in the open drawer, then grasp the drawer handle, push closed, release, and retreat.",
+      "start": 900,
+      "stop": 1330,
+      "trajectory_id": "demo12110"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Complete release of the retrieved block in the open drawer, then grasp the drawer handle, push closed, release, and retreat.",
+      "start": 900,
+      "stop": 1330,
+      "trajectory_id": "demo12111"
+    }
+  ],
+  "skill_id": "close_drawer",
+  "subgoal": "Ensure the block is released inside the open drawer, retreat from the cavity, approach and grasp the drawer handle, push the drawer from about 0.30 m travel to below the 0.025 closed threshold, release the handle, and retreat to a clear final pose. The intended contact target after release is the drawer handle; at early overlap states the block may still be the object being lowered/released and must not be confused with the handle. Approximate exit: drawer_position about 0.0022, block enclosed at z=0.063, open fingers, TCP high and clear."
+}

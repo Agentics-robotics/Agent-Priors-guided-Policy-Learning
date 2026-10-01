@@ -1,0 +1,14 @@
+{
+  "policy_id": "grasp_lift_stage__h01",
+  "entry_conditions": "The source container is upright and observable, the gripper is open or a prior close has plausible co-motion, and current measured joints admit the source-relative target. This policy is preferred for source table-pose displacement.",
+  "exit_conditions": "Fingers are closed around the handle, the source co-moves with the TCP, the source is table-clear, and it is staged high above the bowl near the demonstrated relation with only a small initial tilt.",
+  "overlap_role": "Every action in [180,360) is supervised for this policy and for controlled_pour_and_right, covering closed-gripper lift, upright carry, bowl staging, and the first small tilt.",
+  "successor_readiness": "controlled_pour_and_right may receive after a clearly closed, co-moving, lifted source; nominal switching waits for the high bowl-relative stage.",
+  "failure_signatures": "Do not hand off on closure alone. Stop or escalate if fingers remain open, TCP/handle alignment is wrong, the source fails to follow the TCP, particles move independently before secure lift, or IK reports nonconvergence or limit contact.",
+  "continuation_guidance": "Resolve the source and bowl at every replan, retain two-frame history across switches, execute slots 1 through 8, and monitor finger width plus source/TCP co-motion. Use the TCP-delta prior for local intermediate-state errors and the phase-aware prior for ambiguous already-grasped entries.",
+  "limitations": "Training contains successful nominal sequences only, with about 15 mm x and 12 mm y initial source spread and one bowl pose. Contact truth, missed-grasp recovery, slip recovery, large source rotations, and unreachable placements are not covered.",
+  "evidence": [
+    {"trajectory_id":"demo12300","indices":[0,80,120,140,148,160,180,220,280,320,340,359]},
+    {"trajectory_id":"demo12303","indices":[0,120,132,136,140,160,180,220,280,320,340,359]}
+  ]
+}

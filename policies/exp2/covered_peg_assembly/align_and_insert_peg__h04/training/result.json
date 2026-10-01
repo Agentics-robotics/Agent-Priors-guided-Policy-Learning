@@ -1,0 +1,115 @@
+{
+  "checkpoint": "weights/exp2/covered_peg_assembly/align_and_insert_peg__h04/model.pt",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "bd14aa4f51188fccd770f688940aa8d60adbd72cb9eaf2ae59249b4bc2409ae1",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 1,
+    "physical_gpu": 2,
+    "uuid": "GPU-7a6705f2-1132-637d-000e-c94d37e2f0a2"
+  },
+  "effective_action_targets": 39354553,
+  "final_weights_sha256": "dcf263b3cb6c25ec891f026590f4dde396cd0b3e37cdd1e33fad715114ae248b",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.8948066234588623,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.065143585205078,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.020776271820068,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.20924679934978485,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "e759f339455c7cbd17237407d1331c2117f9ebd4899b6993c09dd3d1df732b49",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 2014,
+      "duplicated_actions": 0,
+      "unique_actions": 2014
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination_object": {
+            "enum": [
+              "hole"
+            ],
+            "type": "string"
+          },
+          "held_object": {
+            "enum": [
+              "peg"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "destination_object",
+          "held_object"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For a demonstration label and its matching pre-action observation, reconstruct world_T_desired_peg from world_T_hole and the 10D label, then right-compose the same observed peg_T_tcp. Algebraically this recovers the demonstrated commanded world TCP pose before shared IK. Compare FK TCP position in metres, rotation angle in radians, and unchanged gripper scalar; nonunique Panda joint solutions are allowed.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Uses every assigned [start,stop) action in all twelve trajectories, including the complete [1380,1500) action-supervised overlap. It preserves final alignment, descent, +hole-x insertion, and stabilization while changing only causal features and the Cartesian target coordinates.",
+      "input_shapes": {
+        "features": [
+          2,
+          72
+        ]
+      },
+      "observation_dependencies": [
+        "hole_pose",
+        "peg_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is a desired virtual held-peg pose expressed in the observed destination/hole frame: translation xyz in metres, rotation as the first two columns of the relative rotation matrix (6D), then the native gripper scalar. For training slot k, the virtual peg target is commanded_world_T_tcp[k] multiplied by the pre-action observed tcp_T_peg[k], then expressed relative to pre-action world_T_hole[k]. At each physical decode, 6D is projected to SO(3), the object target is left-composed with fresh world_T_hole, and fresh observed peg_T_tcp is right-composed to produce a world TCP target. panda_kinematics.solve_ik converts only that target from fresh measured qpos. Slots represent t-1 through t+14; execution uses slots 1 through 8, beginning at t. No scripted task motion or recurrent state is added.",
+      "parameter_semantics": "destination_object names the currently observed destination pose and resolves hole_pose in world metres with wxyz orientation at every causal frame, target-label slot, and decode step. held_object names the currently observed rigidly grasped object and resolves peg_pose. Together with observed tcp_pose, held_object defines the causal rigid peg-to-TCP transform used to retarget the Cartesian command. The arguments are semantic scene identifiers, not poses or actuator values.",
+      "policy_id": "align_and_insert_peg__h04",
+      "skill_id": "align_and_insert_peg",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "fe9e4af0a34b94451df42214d3f61e40f46c128ef0a4b499fd03c7ab529e1d21",
+    "PRIOR.md": "39aaa90a26f79899b0f2b335a72891deffd1df78093504707f0e0470f35fc188",
+    "adapters.py": "54b72c70766211d1a69c1a55342559b40da0baddc1ad377c28743e5ecc3bdefc",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "pipeline.json": "6da11189643d6001cb68344161886b02bafe375fbb88e2a965b5887b598ab541",
+    "policy.py": "c2cee40ca56d69cf425a1d589ef40f3de2d2f6cefd837e41b4566984b2802d52",
+    "policy_contract.json": "796e71f13bac4c2d800b5b24a2ec912fd00d3b1294f96b8888b594c145f55008",
+    "training_bindings.json": "aba85976ad87f21d3b3e9d19c857c2e1dd4bbb9418e5b0fd1cbb95883aaff28c"
+  },
+  "trainable_parameters": 17358602,
+  "training_elapsed_seconds": 510.44730206602253,
+  "weight_l2_change": 28.3274422089273
+}

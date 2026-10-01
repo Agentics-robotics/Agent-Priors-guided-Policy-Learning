@@ -1,0 +1,309 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/granular_pour_return/return_place_release/dataset.json",
+    "dataset_sha256": "1860220ef00ca7354a8e7a5cd8753c7e9f1e7764cb6377f5c8dcde434916006f",
+    "experiment_version": "APPL_v4_cartesian_new_task",
+    "heuristic": {
+      "applicability": "Prefer when the return target is near demonstrated world support, the source is approaching or resting at table height, and the main uncertainty is whether the trajectory is still descending/settling, should open, or should retreat. The model also owns and is supervised on the complete cut, but its auxiliary benefit is expected near setdown/release rather than as recovery from a lost grasp or failed contact.",
+      "evidence": [
+        {
+          "indices": [
+            1740,
+            1760,
+            1780,
+            1800,
+            1820,
+            1840,
+            1850,
+            1860,
+            1870,
+            1880,
+            1900,
+            1920,
+            1940,
+            1952
+          ],
+          "trajectory_id": "demo12300"
+        },
+        {
+          "indices": [
+            1740,
+            1760,
+            1780,
+            1800,
+            1820,
+            1830,
+            1840,
+            1850,
+            1860,
+            1870,
+            1880,
+            1900,
+            1920,
+            1934
+          ],
+          "trajectory_id": "demo12303"
+        },
+        {
+          "indices": [
+            1740,
+            1780,
+            1800,
+            1820,
+            1830,
+            1840,
+            1850,
+            1860,
+            1880,
+            1900,
+            1920,
+            1943
+          ],
+          "trajectory_id": "demo12308"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "The emptied source is securely grasped and particles are already settled. Preference is strongest once the upright source is near the return region or descending, with a target near demonstrated world support and causal geometry sufficient to distinguish elevated, supported, open, and retreat phases.",
+        "exit_conditions": "The source remains upright and stationary at z approximately zero inside the return bounds, fingers are open, and the TCP has cleared upward to approximately (-0.46,-0.28,0.28) m.",
+        "failure_signatures": "Opening while source z is elevated, outside the return region, tilted, or still moving; fingers remaining closed after stable setdown; source movement after opening; TCP recontact during retreat; or IK failure. The auxiliary prediction is not a contact sensor.",
+        "overlap_role": "All [1460,1740) actions remain supervised despite this prior's setdown emphasis, so it can accept the same predecessor overlap. Its world-frame output is complementary rather than a shortened release-only cut.",
+        "successor_readiness": "Terminal skill. Stable upright source, open fingers, and clear TCP make evaluation ready; an auxiliary open-horizon prediction alone never establishes success."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"container\"]},\"destination\":{\"type\":\"string\",\"enum\":[\"target_pose\"]}},\"required\":[\"source_object\",\"destination\"]},\"parameter_semantics\":\"source_object selects observed container_pose and destination selects observed target_pose. The arguments are symbolic scene identities. World poses use metres and wxyz quaternions; the learned action is a world TCP target plus the demonstrated gripper scalar.\"}",
+      "limitations": "There is no contact truth, failed placement, premature-release recovery, or corrective regrasp in training. The open-horizon auxiliary uses demonstrated future gripper labels only during training and cannot guarantee support. World-frame outputs are intentionally not displacement invariant and may memorize the nominal target; the destination-frame prior covers target displacement. Large off-trajectory entries are better handled by the current-TCP incremental prior.",
+      "pipeline_implications": "Select this model near nominal setdown when causal source height/uprightness, target error, finger width, and two-frame motion indicate phase ambiguity. The shared trainable condition encoder feeds both diffusion and a masked 16-slot future-open auxiliary head; inference remains causal and does not consume future truth. Do not use the auxiliary output as a success predicate or scripted gripper gate. Prefer destination-relative output for displaced goals and current-TCP increments for strongly off-nominal handoffs.",
+      "rationale": "Across inspected runs the source is low and nearly stationary before opening, but opening timing differs: demo12300 remains closed at 1840 and opens by 1850, while demo12303 and demo12308 command open at 1840. Retreat follows with the source stationary and TCP rising to about 0.28 m. This phase ambiguity can blur gripper and Cartesian diffusion labels. A trainable causal condition encoder shared by the unchanged DP backbone and a masked horizon-wise future-open auxiliary head gives a direct gradient encouraging phase-separable features. The main action remains a world position plus 6D rotation and gripper, retaining demonstrated robot/world geometry and offering a lower-drift complement near contact.",
+      "statement": "Support-phase regularized world policy: diffuse absolute world TCP pose (position, 6D rotation, gripper) while a shared trainable causal encoder also predicts the masked 16-slot future open/closed sequence, targeting setdown-versus-release-versus-retreat ambiguity.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":1460,\"stop\":1953,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; includes action-supervised [1460,1740) predecessor overlap and terminal hold.\"},{\"trajectory_id\":\"demo12301\",\"start\":1460,\"stop\":1945,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; retains shared righting/outbound actions.\"},{\"trajectory_id\":\"demo12302\",\"start\":1460,\"stop\":1952,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; retains shared righting/outbound actions.\"},{\"trajectory_id\":\"demo12303\",\"start\":1460,\"stop\":1935,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including this run's earlier release and retreat.\"},{\"trajectory_id\":\"demo12304\",\"start\":1460,\"stop\":1947,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12305\",\"start\":1460,\"stop\":1949,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12306\",\"start\":1460,\"stop\":1935,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including late righting, release, and retreat.\"},{\"trajectory_id\":\"demo12307\",\"start\":1460,\"stop\":1946,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12308\",\"start\":1460,\"stop\":1944,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including observed opening by index 1840 and retreat.\"},{\"trajectory_id\":\"demo12309\",\"start\":1460,\"stop\":1947,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut retaining this run's wrist/yaw variation.\"},{\"trajectory_id\":\"demo12310\",\"start\":1460,\"stop\":1950,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12311\",\"start\":1460,\"stop\":1953,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut through stable terminal hold.\"}]"
+    },
+    "heuristic_index": 3,
+    "normalization": {
+      "path": "provenance/relocated/b3141fbf4dee2e06",
+      "sha256": "52a649835b92c470fb6692de6991ba7c8ccd357aa4bb4ad2c6069c971f630101"
+    },
+    "observation_fields": {
+      "bowl_pose": [
+        0,
+        7
+      ],
+      "container_pose": [
+        7,
+        14
+      ],
+      "particle_positions": [
+        14,
+        50
+      ],
+      "qpos": [
+        50,
+        59
+      ],
+      "qvel": [
+        59,
+        68
+      ],
+      "target_pose": [
+        68,
+        75
+      ],
+      "tcp_pose": [
+        75,
+        82
+      ]
+    },
+    "plan_hash": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+    "policy_id": "return_place_release__h03",
+    "prior_plan_path": "assets/exp2/prior_plans/granular_pour_return/return_place_release.json",
+    "prior_plan_sha256": "31602a2b11a37928aab71e1bb8de0364fd0b3d2c1919913fca04348cc80c1992",
+    "skill_id": "return_place_release",
+    "sources": {
+      "demo12300": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12300.json",
+        "sha256": "21e58673a2d41af543f449b6c1bac1ddbf07c90cd1b3768efebe3b218b3ee197"
+      },
+      "demo12301": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12301.json",
+        "sha256": "1c649d39da186987da23fd7a5747e0e55521fac9fd32b20ba073029707c89ef3"
+      },
+      "demo12302": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12302.json",
+        "sha256": "b7b05183c5c26cf55369fd8013ae041085f557a36ebf9a82c9b9916920766aa9"
+      },
+      "demo12303": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12303.json",
+        "sha256": "24c3aeca48398d027456f5e3577b77135dc1b2be53a9a2b3c57a78efc9b761e5"
+      },
+      "demo12304": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12304.json",
+        "sha256": "048c023f0839c4630bb8a8d104c6c149816d94ca47ce5cc79ee2ad30390a4268"
+      },
+      "demo12305": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12305.json",
+        "sha256": "1c4493143c0d144d4fd44267328d7599720c6f6dd95aec6149609f9c8ff44203"
+      },
+      "demo12306": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12306.json",
+        "sha256": "e6c8a2014257ee090527799729078620a59713086e606f831d45cfcba4b1c7a4"
+      },
+      "demo12307": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12307.json",
+        "sha256": "c5530ad3cb09b0118fc5b715af9e6f87caca9d776f81ba10adf224458278d793"
+      },
+      "demo12308": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12308.json",
+        "sha256": "c1945edb8ae947d2f27ea872462c6eca2419d48f993377584f907da7e121c69a"
+      },
+      "demo12309": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12309.json",
+        "sha256": "ead11ff403366336ff24d395ccc9f795108d9d8d23f34736fbba145119718243"
+      },
+      "demo12310": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12310.json",
+        "sha256": "907dd172d12814e6c2ad53331c17252a3b90cab83dfca74130dcca54109a5957"
+      },
+      "demo12311": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12311.json",
+        "sha256": "e9123001777c449f99e1b1e8a0f1d4e6244bd84c9ee1cfc0978e0b44e8eaf3a1"
+      }
+    },
+    "subgoal": "Finish righting the emptied source, carry it upright to the marked return region centered at target_pose, lower until supported, open the gripper only after placement, and retreat without recontact. Maintain the source grasp through transport and descent. Approximate entry: emptied source still grasped above the bowl, possibly moderately tilted. Approximate exit: source upright and stationary inside the return region near z=0, gripper open, TCP clear above the target."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/2857f66a651476f3",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "0ffee7d87bba8fffb5ed2fdd0df691a652abe2fb104da422f59c4772920f2a23",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 1,
+      "physical_gpu": 2,
+      "uuid": "GPU-7a6705f2-1132-637d-000e-c94d37e2f0a2"
+    },
+    "effective_action_targets": 4013,
+    "final_weights_sha256": "2df987050556c54fa704a74b31bc860088a8c7ce4f431ef6ef9163f509002c4e",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 2.852668046951294,
+        "step": 1
+      },
+      {
+        "l2_norm": 2.1210124492645264,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "34d1e3674be1322db7354b3137fc027e62de0914a32a7302883a9e6d2ad645bd",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 5836,
+        "duplicated_actions": 0,
+        "unique_actions": 5836
+      },
+      "contract": {
+        "action_dimension": 10,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "destination": {
+              "enum": [
+                "target_pose"
+              ],
+              "type": "string"
+            },
+            "source_object": {
+              "enum": [
+                "container"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "source_object",
+            "destination"
+          ],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "Compare the represented absolute world target after 6D SO(3) projection with FK of the IK result using maximum position error in metres, rotation error in radians, and unchanged gripper scalar error. Demonstrated world rotations are valid, so projection only resolves sampled 6D outputs.",
+          "mode": "task_space",
+          "tolerance": 0.005
+        },
+        "cut_relation": "The complete frozen [start,stop) action range is supervised for all twelve occurrences, including the 280-action [1460,1740) predecessor overlap, placement/opening, retreat, and terminal hold. The auxiliary label supports phase features but does not narrow or redefine the skill.",
+        "input_shapes": {
+          "features": [
+            2,
+            67
+          ]
+        },
+        "observation_dependencies": [
+          "container_pose",
+          "target_pose",
+          "tcp_pose",
+          "qpos",
+          "qvel"
+        ],
+        "output_semantics": "Each slot is an absolute world-frame TCP pose target: 3 position coordinates in metres, the first two columns of the world rotation matrix (6D), and the native gripper scalar. Prediction slots are t-1 through t+14 and slots 1 through 8 execute. decode_action orthonormalizes 6D rotation and calls panda_kinematics.solve_ik from fresh measured qpos. During training only, a shared causal condition encoder also predicts 16 future open/closed labels under masks; these logits do not script, gate, or replace the diffused gripper action.",
+        "parameter_semantics": "source_object selects observed container_pose and destination selects observed target_pose. They are symbolic scene identities used in causal geometric features. Positions use world metres and orientations use wxyz quaternions before deterministic matrix conversion.",
+        "policy_id": "return_place_release__h03",
+        "skill_id": "return_place_release",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "e57afe340178bfc8b6f8b479a33116b05d8d028128ac4dbaeff0d72d83511f3f",
+      "PRIOR.md": "d3d735e320e7d79dacf646351af7c9f131fc4a9a5180005f14800fe9f9d6c9c8",
+      "adapters.py": "2ce2574dc29e485c771dace4846ee1a13a07dd99e30b37b709f5e42fae4f9fab",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "4bbe37904a61f6a7cb9de31ba671ffba9707a578f903a431f008c865f61e83cf",
+      "policy.py": "2abf26f6262adfb685f8e74f9e38eacb4dd1677767156e347659ef86779515c6",
+      "policy_contract.json": "22a43a4da888522cd1be993afcd36d845727678a2d4c4868987c62fc68d65b57",
+      "training_bindings.json": "b56ebd372dd77021560dde45c27eeb0508ded6371c29e7bfcf4c38c9fbdbceaf"
+    },
+    "trainable_parameters": 18296730,
+    "training_elapsed_seconds": 3.398829929996282,
+    "weight_l2_change": 0.21229097342171704
+  },
+  "files": {
+    "HANDOFF.json": "e57afe340178bfc8b6f8b479a33116b05d8d028128ac4dbaeff0d72d83511f3f",
+    "PRIOR.md": "d3d735e320e7d79dacf646351af7c9f131fc4a9a5180005f14800fe9f9d6c9c8",
+    "adapters.py": "2ce2574dc29e485c771dace4846ee1a13a07dd99e30b37b709f5e42fae4f9fab",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+    "pipeline.json": "4bbe37904a61f6a7cb9de31ba671ffba9707a578f903a431f008c865f61e83cf",
+    "policy.py": "2abf26f6262adfb685f8e74f9e38eacb4dd1677767156e347659ef86779515c6",
+    "policy_contract.json": "22a43a4da888522cd1be993afcd36d845727678a2d4c4868987c62fc68d65b57",
+    "training_bindings.json": "b56ebd372dd77021560dde45c27eeb0508ded6371c29e7bfcf4c38c9fbdbceaf"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "v1": {
+    "files": {
+      "HANDOFF.json": "e57afe340178bfc8b6f8b479a33116b05d8d028128ac4dbaeff0d72d83511f3f",
+      "PRIOR.md": "d3d735e320e7d79dacf646351af7c9f131fc4a9a5180005f14800fe9f9d6c9c8",
+      "adapters.py": "2ce2574dc29e485c771dace4846ee1a13a07dd99e30b37b709f5e42fae4f9fab",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "4bbe37904a61f6a7cb9de31ba671ffba9707a578f903a431f008c865f61e83cf",
+      "policy.py": "2abf26f6262adfb685f8e74f9e38eacb4dd1677767156e347659ef86779515c6",
+      "policy_contract.json": "22a43a4da888522cd1be993afcd36d845727678a2d4c4868987c62fc68d65b57",
+      "training_bindings.json": "b56ebd372dd77021560dde45c27eeb0508ded6371c29e7bfcf4c38c9fbdbceaf"
+    },
+    "folder": "provenance/relocated/5acb3cc9d026907f",
+    "version": "9936fa3901451a88a39c9f828e8ebe7dd9978bd0e3b10f1d83dffaba9261f103"
+  },
+  "version": "6ff96d59aa6a10217d8452cc1fca5d6c6765317c73057132d416d734917783e5"
+}

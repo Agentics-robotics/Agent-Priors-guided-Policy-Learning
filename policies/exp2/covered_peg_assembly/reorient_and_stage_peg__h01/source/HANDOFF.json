@@ -1,0 +1,15 @@
+{
+  "policy_id": "reorient_and_stage_peg__h01",
+  "entry_conditions": "Use when fingers are closed and two causal frames show the peg moving with the TCP from the low retrieval state or a later still-grasped state. Demonstrated index-1120 peg z is about 0.028-0.040 m, but this is support rather than a hard threshold or contact proof.",
+  "exit_conditions": "Hand off after approximate hole-axis alignment, y/z centering and descent toward z about 0.10 m, or after observable +x progress in the outgoing insertion overlap. The original task success definition is unchanged.",
+  "overlap_role": "Every [1120,1500) action is supervised, including 150 incoming actions [1120,1270) shared with retrieve_peg_from_box and 120 outgoing actions [1380,1500) shared with align_and_insert_peg.",
+  "successor_readiness": "align_and_insert_peg is ready when peg/TCP coupling remains stable, peg orientation is near the hole axis, lateral error is small and descent is underway; residual correction is allowed in the shared region.",
+  "failure_signatures": "Peg/TCP offset changes abruptly, gripper opens, peg stays below wall clearance, transformed targets are unreachable, hole pose is unreliable, alignment/lateral error grows, or the fixture is approached before alignment.",
+  "continuation_guidance": "Refresh hole_pose at each 8-action replan, retain the two causal frames across switches, execute slots 1-8 only, and monitor the reported IK convergence, residuals and joint-limit contacts. Prefer the peg-frame policy if the source peg moved but the hole did not.",
+  "limitations": "No demonstrations establish drop, collision, bad-grasp or unreachable-pose recovery. Closed fingers and visual coupling are proxies only. Destination-frame covariance may move commands into different obstacle or arm-limit conditions.",
+  "evidence": [
+    {"trajectory_id":"demo12200","indices":[1120,1240,1380,1400,1460,1480]},
+    {"trajectory_id":"demo12205","indices":[1120,1240,1380,1400,1460,1480]},
+    {"trajectory_id":"demo12208","indices":[1120,1220,1360,1380,1440,1480]}
+  ]
+}

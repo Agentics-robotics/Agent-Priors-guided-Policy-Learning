@@ -1,0 +1,10 @@
+{
+  "policy_id": "red_transfer__h03",
+  "skill_id": "red_transfer",
+  "heuristic_index": 3,
+  "prior_summary": "A required coarse semantic phase disambiguates red preparation, red transport/place, red-release-to-blue transit, and blue pickup; TCP-relative Cartesian targets replan local corrections from the actual intermediate state.",
+  "applicable_conditions": "Prefer for a switch into a represented intermediate state or when similar red and blue approach geometry makes intent ambiguous. The high-level agent must select phase from current observable object/TCP/finger relationships, not elapsed time.",
+  "termination_guidance": "Advance phase only from physical observations. Nominally finish after red remains on the pad and, through the retained overlap, blue is centered, closed on, and co-moving with TCP during initial lift.",
+  "limitations": "A wrong phase can select the wrong object or gripper mode. Local actions are not exactly invariant to large object or goal displacement and do not prove contact recovery, collision avoidance, or reachability.",
+  "config": {"action_frame":"chunk_start_tcp_pose","action_rotation":"relative_rotation_vector","action_dimension":7,"feature_dimension_per_frame":44,"phase_dimension":4,"phase_ranges":[[230,445],[445,620],[620,780],[780,850]],"backbone":"standard_diffusion_backbone","auxiliary_loss":false}
+}

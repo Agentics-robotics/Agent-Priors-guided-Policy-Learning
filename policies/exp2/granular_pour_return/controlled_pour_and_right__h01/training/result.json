@@ -1,0 +1,99 @@
+{
+  "checkpoint": "provenance/relocated/6ca8868d86382ac8",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "5484bb28ec5355a1b37ff30666a2a16427bff3fcb654895d01afef1e2984d5c3",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 0,
+    "physical_gpu": 3,
+    "uuid": "GPU-211ca63e-6f90-7281-b43a-e1facc953f2b"
+  },
+  "effective_action_targets": 40786319,
+  "final_weights_sha256": "214a532625ee26b24e53a99e9c2ea0bbf5b3b199617fca0d011fa199c7f474ba",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.204699993133545,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.155386924743652,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.317523956298828,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.13304314017295837,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "2be2a896fbf61955bbe9fe6d076dc74a7be1c98f0bf28bccae2ffdf95c845c0b",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 18720,
+      "duplicated_actions": 0,
+      "unique_actions": 18720
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Compare FK of decoded IK joints with each demonstrated commanded TCP target, including metres, radians and gripper scalar. Rotation 6D is projected by safe Gram-Schmidt; valid labels reconstruct exactly before numerical IK tolerance.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "All twelve assigned [180,1740) segments are supervised without trimming. This preserves incoming actions [180,360) and outgoing actions [1460,1740) while changing only the Cartesian label frame to the observed bowl.",
+      "input_shapes": {
+        "features": [
+          2,
+          130
+        ]
+      },
+      "observation_dependencies": [
+        "bowl_pose",
+        "container_pose",
+        "particle_positions",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is [bowl-frame TCP position xyz in metres, bowl-frame TCP orientation as first two rotation-matrix columns (6D), native gripper scalar]. The bowl frame is the pose observed immediately before the labeled action in training and the fresh current bowl pose during execution. Safe Gram-Schmidt projects the 6D values to SO(3); the world target is T_world_bowl times T_bowl_tcp. panda_kinematics.solve_ik converts that world target from freshly measured qpos. Slots represent t-1 through t+14 and execution uses slots 1 through 8.",
+      "parameter_semantics": "No caller parameters. The executor supplies two causal states in physical units. Bowl pose is a world-frame observed pose in metres and wxyz quaternion convention and is resolved afresh for preprocessing and every decoded target.",
+      "policy_id": "controlled_pour_and_right__h01",
+      "skill_id": "controlled_pour_and_right",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "3414bfbd08eb4a79c54cb7f8426e81ab4e4a80c0d0c89cbf4ee7c6d0ad9fbeaf",
+    "PRIOR.md": "d1dc7ae264c014c236cb33bb2f524b09d7d4b976c5b32b3a345ce10ae1276557",
+    "adapters.py": "4e6a2e9d18876e6cc51d1fc713ef777cc76208d144ff24a2f539818b84539806",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "44714c9556f3b022fa786a8e9817eeafeff4c9212a0078703fc400380a7f100b",
+    "policy.py": "597734716ef3e51179f63e0312472cecda38f0d815522794b9559780c605b148",
+    "policy_contract.json": "aed90072bd7dfd292c41ba8cec5bd67ef0870bcc85248685e419fc9db35f5712",
+    "training_bindings.json": "13e80125f39445298311370af92f2b0db4fe0287d6f8ad0735d0830916285c28"
+  },
+  "trainable_parameters": 18190090,
+  "training_elapsed_seconds": 675.5383611989673,
+  "weight_l2_change": 32.38857752968043
+}

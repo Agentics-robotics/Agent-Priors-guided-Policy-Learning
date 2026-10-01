@@ -1,0 +1,41 @@
+{
+  "instance": "pick-place-wall__N20__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A3",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A3",
+      "feedback_hash": "4cfb4ae3adf8548b71c7329d3eac0a1029f18f3fe78df3080face8e804002504",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3 under the frozen rule: A1 scores 0.5*0.95+0.5*0.50=0.725; A2 scores 0.5*0.85+0.5*0.50=0.675; A3 scores 0.5*0.90+0.5*0.90=0.900 (reported floating value 0.8999999999999999). Cell rates are equally weighted within each distribution. All three are eligible completed candidates, and A3 is the unique maximum, so latency/parameter tie breakers do not apply. IID and training losses do not select. A3's E crossed-cell gains motivate retaining its frame/motion design; its remaining HL and LL truncations motivate one new revision without assuming an unobserved failure mechanism.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A3",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A3",
+      "feedback_hash": "f3a60f7f47824250989901c084854c938e87a803f630507328300016f2cb5e7a",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: all A1-A4 are eligible completed candidates. Equal-cell-weighted selection scores are A1=0.725, A2=0.675, A3=0.8999999999999999 and A4=0.8999999999999999. A3 and A4 tie at C=0.90 and E=0.90, including identical reported per-cell success rates. Apply the first frozen tie breaker: A3 fixed-method inference latency is 0.1163052810006775 s versus A4 0.1681957099972351 s, so select A3. A3 also has fewer complete-system parameters (4,878,538 versus 5,155,050), though that tie breaker is not needed. A4's added world-axis grasp stream yielded no observed development success gain and remains recorded as a negative revision result. IID, training loss, training time and hidden test do not select. No candidate edits or further training are requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "52d49283441bd2384a918c7d150e8766be5a55c954c33cc113c4546fee2bcc09",
+    "A2": "406950b70d01745ac44ef2d35f1bb05488b2a116e374e80aa05ba8be46bfd6b4",
+    "A3": "5f823b7d600b8486b954479c1cb9a18107bf9ecae79e02ae9e86372c0473b3a3",
+    "A4": "df20e908f3b23f68b71a2250ad72ee5b2167f9b928e586ac1c51a8b353fd2315"
+  },
+  "feedback_hashes": {
+    "initial": "e6ec8ae0f858e3820fa71ccb733e3922133603179a10204113b24da27fb249ae",
+    "final": "c60d74079636e2d1076a68d655f62c896ad01de952825763df4e1006147f5ab2"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "policy_id": "retrieve_tunnel_block__h04",
+  "skill_id": "retrieve_tunnel_block",
+  "heuristic_index": 4,
+  "prior_summary": "A redundant Cartesian action predicts both a block-position-anchored world-orientation pose and a destination-frame pose; observed block-bottom clearance blends from the displacement-equivariant low branch to the destination branch over 0.04 m above the tunnel roof.",
+  "applicable_conditions": "Prefer when block translation beyond demonstrated x/y support is the principal variation, target_pose reliably identifies the open drawer destination, and the observed state is a valid approach, low extraction or clearance-lift state. The drawer should be open above 0.26 and object/TCP observations finite.",
+  "termination_guidance": "Hand off during the 680:840 overlap after the observed block bottom is above world z 0.16 m, the destination branch dominates, object and TCP motion remain coupled under closed fingers, and transfer toward target_pose has begun while the drawer remains open.",
+  "limitations": "No out-of-distribution benefit is observed. The 19-D branches can disagree, the height blend is not contact estimation, and noisy object height can switch references incorrectly. The policy cannot retry a missed grasp and does not guarantee collision freedom, IK reachability, drawer preservation or safe large displacement.",
+  "config": {"action_reference":"clearance_blend_object_translation_and_destination_pose","object_rotation_frame":"world","destination_rotation_frame":"destination","rotation_representation":"6d","blend_height_m":0.04,"action_dimension":19,"input_features_per_frame":72,"auxiliary_loss":false,"predecessor_overlap":[300,440],"successor_overlap":[680,840]}
+}

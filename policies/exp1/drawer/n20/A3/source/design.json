@@ -1,0 +1,44 @@
+{
+  "title": "Typed relational encoder with joint action and geometric-outcome diffusion",
+  "coverage_gap": "Only correlated near-center LL/HH layouts are demonstrated. Extrapolated translation/yaw may produce hand trajectories that appear plausible while failing to move the handle, and action-only supervision does not explicitly distinguish motion of the hand from motion transmitted to the drawer. This candidate asks whether continuous, support-derived outcome structure transfers across layout changes without imposing a hard contact rule.",
+  "reusable_regularity": "Hand-to-handle approach and handle-to-goal travel are two different relations in the same cabinet coordinate system. A shared type-tagged encoder processes current/previous relative vectors and their changes; an elementwise product exposes interaction between these relations. Joint diffusion then models both action4 and the next 16 continuous hand-handle offsets and cumulative handle displacements. A stationary handle during approach versus moving handle during pulling is available from observations, without simulator contact or success labels.",
+  "dependencies_preserved": [
+    "Raw cabinet-local relation features bypass the learned bottleneck, and current/previous hand/handle displacements retain causal motion cues.",
+    "Absolute world hand, handle and goal positions, current/previous quaternion, cabinet yaw and aperture are retained. The cabinet-frame action representation is not treated as exact symmetry of robot reach, fixed gripper contact or world-axis clipping.",
+    "Cabinet and tabletop relationships are represented through observed world height, yaw and handle/goal geometry. No unobserved obstacle, cabinet joint, contact force or collision-free path is queried.",
+    "No future ground truth is supplied to condition, denoise or action encode/decode at inference. Joint auxiliary channels are sampled from host-owned noise alongside actions, and only decoded action4 is executed. They do not provide a planner, simulator model or extra inference controller.",
+    "Object2 absent-zero fields alone are omitted; gripper commands are learned unchanged as native scalars."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact current support and no development/hidden-test evidence."},
+    {"path": "task_materials.json", "use": "Declared corrected handle point, goal and explicit yaw, complete previous-observation fields, fixed native action4 semantics and layout gap."},
+    {"path": "support_summary.json", "use": "LL/HH-only support; inspected initial handle-to-goal geometry is a rotated negative-y segment of 0.128 m."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 0-3, 32-41 and 63-66; actions 56-69", "use": "Handle stays stationary through approach/descent despite hand motion; abrupt outward command begins near the handle. This motivates separate hand-relative and object-displacement outcomes rather than equating commanded motion with drawer progress."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 78-80", "use": "During late pull both handle and hand move, with nonzero hand-handle offset. Continuous labels preserve these offsets rather than declaring them perfect contact."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Robot/world geometry and closed cabinet at reset."},
+    {"path": "images/frame_02_demo_02_step_059.png", "use": "Near-handle configuration with drawer still largely closed."},
+    {"path": "images/frame_06_demo_07_step_089.png", "use": "Open drawer with hand near the moving handle."},
+    {"path": "images/frame_15_demo_19_step_090.png", "use": "Late open-drawer configuration in another demonstration."},
+    {"path": "contracts.py", "use": "Joint diffusion may append auxiliary channels after encoded action4; inference denoising is causal and uses no training targets."},
+    {"path": "learning.py", "use": "Frozen separate action4 epsilon loss, joint diffusion target hook, valid mask and execution of only the decoded action prefix."}
+  ],
+  "expected_failure_signature": [
+    "If the joint model learns co-occurrence but not transferable contact regularity, it can internally generate apparent handle displacement while the observed real handle remains stationary; rollout behavior would show outward hand motion without opening.",
+    "If six auxiliary channels distract from action modeling under the fixed update budget, near-support reaching or stage transitions may degrade despite finite outcome loss.",
+    "At large yaw the geometry is canonical but fixed gripper contact is not; E may show good goal-aligned motion followed by lateral slip. Strong raw world shortcuts could still harm crossed C cells.",
+    "Outcomes are learned only from successful support continuations, not recovery demonstrations. Loss of contact may lead to repeated ineffective pulling rather than recovery. These are pre-feedback hypotheses."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history for condition and raw_current for fixed chunk frame; neither is augmented with auxiliary ground truth",
+    "slices": {"hand": [0,3], "aperture": [3,4], "handle": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_handle": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal": [36,39], "cabinet_sin_cos_yaw": [39,41]},
+    "condition_dimensions": 141,
+    "architecture": "One shared 11->64->32 SiLU relation encoder. Each input is current relative xyz, previous relative xyz, relative observed-step delta, and a two-component one-hot relation tag. Concatenate both raw 9D relations, both learned 32D embeddings, their 32D product, and 27 physical world/motion fields. There is one unchanged common U-Net with diffusion input dimension 10.",
+    "action_frame": "Channels 0:4 are R_z(start_yaw)^T world action xyz followed by unchanged gripper. Same chunk-start R_z decodes to world for all 16 steps. Native xyz scale remains 0.01 m/unit, and only the public executor clips the native cube. Generated auxiliary channels are not passed to action decoding.",
+    "scales": "Relative geometry /0.1 m, observed causal step displacement /0.01 m, absolute world coordinates centered at [0,0.6,0] /0.5 m; orientation and aperture unstandardized. No fitted support state or altered common normalization."
+  },
+  "training_only_targets": [
+    {"name": "relative_outcomes", "shape": "[windows,16,6], float32", "source": "Exact D_N obs[t+k+1,0:3] and obs[t+k+1,4:7], obs[t,4:7], and obs[t,39:41] for valid k=0..15 only", "definition": "First 3 = R_z(yaw_t)^T (future_hand - future_handle) /0.1 m. Last 3 = R_z(yaw_t)^T (future_handle - current_handle) /0.1 m. The chunk-start frame is fixed across the whole target; no future orientation defines the frame. Entries beyond the episode's T actions are zero-filled and excluded by the common valid mask.", "use": "Appended as diffusion channels 4:10 only during training. At inference all ten channels start from host Gaussian noise and are jointly denoised from causal conditioning; future truth is never supplied.", "loss": "Additional 0.2 * sum(mask * squared_epsilon_error_on_channels_4:10)/(mask.sum()*6), with denominator floor 1 only for an all-invalid auxiliary batch. The host's first-four epsilon loss remains weight 1 and denominator mask.sum()*4. No extra action loss, auxiliary action scaling, target-based inference conditioning or label caching."}
+  ],
+  "parents": [],
+  "change_summary": "Initial standalone continuous-outcome candidate. It introduces a shared typed relation encoder with multiplicative interaction and ten-channel joint diffusion, as distinct from a deterministic action-only representation or a supervised discrete-stage encoder. All learned parameters enter the common joint training loss. No support fitting, development feedback, extra pretraining, optimizer changes or task rollouts."
+}

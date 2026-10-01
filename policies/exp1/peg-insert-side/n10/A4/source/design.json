@@ -1,0 +1,38 @@
+{
+  "title": "Action-only goal-bearing diffusion: joint-state simplification of A3",
+  "coverage_gap": "N10 lacks off-diagonal layout training and the designated extrapolation ranges. Development feedback localizes A1's shortcomings to LH (C 6/10, E 0/5) and A2's to both off-diagonal E cells (0/5 each), while A3 succeeded in every C and E cell. Those are aggregate outcomes, not observations of failure trajectories. The available comparison does not establish whether A3's goal-bearing frame, its joint future-state diffusion, or their interaction caused the advantage.",
+  "reusable_regularity": "Retain exactly A3's 48-dimensional causal metric conditioning, world dependencies, and fixed chunk-start goal-bearing yaw frame, but diffuse action4 alone. The hypothesis is that canonicalizing the large lateral bearing variation carries enough reusable structure for independent peg/box placement, and that jointly generating seven future contact-state channels may be unnecessary. This is one focused latent-formulation simplification, not a new rollout controller, checkpoint choice, or search. It offers a small parameter/compute reduction if success is retained; latency must still be measured by the fixed method.",
+  "dependencies_preserved": [
+    "distinct hand-to-pegGrasp and pegHead-to-goal edges with signed metric and smooth fine coordinates; the head-to-grasp offset is retained",
+    "absolute world hand, causal frame orientation, goal-to-hand relation and object rotation columns preserve robot/workspace and side-opening orientation dependencies",
+    "both whole causal observations, native previous hand/object motion and previous orientation retain dynamics; gripper aperture/change retains contact information",
+    "world up and all four relevant z heights preserve gravity, table and elevated-hole relations",
+    "the frame is exactly the A3 proper horizontal rotation, held constant for every action in each chunk; the scalar gripper is not rotated",
+    "no contact-state predictions substitute for measured geometry, and no scripted action or collision-free path is introduced"
+  ],
+  "evidence_refs": [
+    "bundle.json: peg-insert-side__N10__rep0 exact-support scope and identities",
+    "task_materials.json: LL/HH training, C/E factor ranges, shared observation42 and world action4 schemas",
+    "support_summary.json: five LL and five HH demonstrations, narrow initial interaction-to-goal bearings",
+    "images/frame_00_demo_00_step_000.png: separated peg and side-opening box",
+    "images/frame_01_demo_00_step_056.png: low-height hand/peg contact",
+    "images/frame_03_demo_01_step_091.png and images/frame_06_demo_03_step_079.png: raised peg at the box opening",
+    "trajectories/demo_00.json: obs[0:4], obs[48:54], obs[64:76] support distinct head/grasp contact-chain geometry and lift/transport motion",
+    "revision-phase development_feedback in this session: A1 C=0.80 E=0.75, A2 C=1.00 E=0.50, A3 C=1.00 E=1.00 with 20/20 C and 20/20 E successes; A3 latency=0.10068948450498283 s and parameters=4764299",
+    "A3 frozen submission ad4885376d82fd10c39c80b970d330378f02201113c119da897dd0e393060926: actual parent conditioning/frame and joint-state formulation",
+    "q3 record_selection feedback hash 8e72ae28fe1509cfb6fb5700f60832717e9280c9d524b51c348b1e5b82d8d891: A3 uniquely selected by the fixed C/E rule",
+    "contracts.py and learning.py: shared action-only hooks, causal context, factory action dimension and fixed action mask denominator"
+  ],
+  "expected_failure_signature": "If A3's generated contact-state trajectory was essential, A4 should lose success particularly on off-diagonal E transfers, with grasp/transport consistency a plausible but unobserved mechanism. A degradation would reject the claim that frame canonicalization alone suffices; it would not by itself identify a particular physical failure stage. If success is retained, the simplification supports omitting joint states at this evidence budget, not a claim of universal equivalence. Rapid near-goal bearing changes and missed-grasp recovery remain inherited risks. No A3 development failure is invented, and no A4 performance has been measured at design time.",
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,42] plus raw_current [B,42] for the chunk frame; identical sources and feature order to A3",
+    "slices": {"hand": [0,3], "gripper": [3,4], "pegGrasp": [4,7], "peg_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_gripper": [21,22], "previous_pegGrasp": [22,25], "previous_peg_quaternion_xyzw": [25,29], "goal": [36,39], "pegHead": [39,42]},
+    "omitted": "Declared absent object2 zero fields only. No stage oracle, future observation/action, factor value, demonstration identity, episode clock, simulator model or success flag.",
+    "frame_definition": "At chunk start e1_xy=normalize(goal_xy-pegHead_xy), e2_xy=(-e1_y,e1_x), e3=world z. If bearing length is at most 0.0001 m, use the measured head-minus-grasp horizontal axis; if that too is degenerate use (-1,0). The same causal frame serves both history observations and all sixteen actions.",
+    "action_frame": "Encode xyz with R^T and decode xyz with R, preserving native 0.01 m-per-unit world displacement semantics. Gripper passes through unchanged. No action translation, gain, saturation or clipping is added; the host alone clips the decoded native cube and executes the common four-action prefix."
+  },
+  "training_only_targets": [],
+  "support_fit": "None. A3's fixed metric scales are unchanged. Host normalization and data remain frozen, and no trained A1-A3 weights or deployment state are loaded.",
+  "parents": ["A3"],
+  "change_summary": "One revision slot based on completed development feedback. Preserve A3 conditioning/frame code and all metric constants. Reduce diffusion_action_dim from 11 to 4; remove future_contact_world labels, seven appended clean targets, and the 0.15-weight separately normalized joint-state loss. Thus the common action epsilon objective is the sole loss, still weight 1 with denominator mask.sum()*4. Remove the now-unused numpy import and joint_aux_weight config. No other architectural, temporal, control, normalization, optimizer or budget changes; all modules train anew. This compares complete design formulations, whose different channel shapes also entail the host's corresponding initialization/noise tensor shapes."
+}

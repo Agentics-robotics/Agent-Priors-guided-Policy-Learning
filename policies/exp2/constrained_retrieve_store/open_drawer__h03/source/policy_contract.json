@@ -1,0 +1,21 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "open_drawer__h03",
+  "skill_id": "open_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "open_stop_m": {"type": "number", "minimum": 0.25, "maximum": 0.35}
+    },
+    "required": ["open_stop_m"]
+  },
+  "parameter_semantics": "open_stop_m is the intended drawer travel/open stop in metres, bound to 0.300 m. It normalizes progress and sets the causal 0.98-open routing threshold. target_pose is the observed rigid drawer reference and object_pose is the approached tunnel block; poses are world metres and wxyz.",
+  "observation_dependencies": ["drawer_position", "drawer_velocity", "object_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 58]},
+  "action_dimension": 19,
+  "output_semantics": "Each slot is [drawer-relative position 3 m, drawer-relative rotation 6D, block-relative position 3 m, block-relative rotation 6D, gripper 1]. Both branches represent the same absolute commanded TCP. At each executed slot, fresh causal state selects target_pose unless drawer_position>=0.98*open_stop_m, abs(drawer_velocity)<=0.02 m/s and measured finger width>=0.06 m; otherwise it selects object_pose. The selected 6D rotation is Gram-Schmidt projected, composed with the fresh anchor and sent to IK from fresh joints. Slots represent t-1 through t+14; slots 1 through 8 execute. Gripper sign retains nonnegative-open/negative-close semantics.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "Every FK command is encoded in both observed anchors, so either fresh causal route recomposes the same world TCP target. The check compares FK position in metres, rotation angle in radians and gripper scalar after 6D projection and verified nonunique IK."},
+  "cut_relation": "Preserves actions 0:440 for every authorized occurrence and the full 300:440 overlap. It refines each action into two simultaneously supervised anchor coordinates; the causal decoder routes without removing phases or using future state."
+}

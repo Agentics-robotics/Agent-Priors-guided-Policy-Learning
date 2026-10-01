@@ -1,0 +1,265 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/buffer_swap/place_blue/dataset.json",
+    "dataset_sha256": "98ac37416dadd76c1f36a4501e776ceed681430a6c61c8d5cd6e3af729519744",
+    "experiment_version": "APPL_v4_cartesian",
+    "heuristic": {
+      "applicability": "Prefer when blue is visibly present but displaced from its demonstrated +y source, especially before contact or during the pickup/lift portion, and when the buffered red pose is plausible. The target_object, destination_goal and context_object arguments select the physical fields; their poses are resolved causally at each replan. It remains applicable across the full assigned slice and is trained on every action, including predecessor red release/retreat and successor red approach/grasp/lift overlap.",
+      "evidence": [
+        {
+          "indices": [
+            260,
+            320,
+            360,
+            420,
+            440,
+            460,
+            480,
+            540,
+            580,
+            620,
+            640
+          ],
+          "trajectory_id": "demo10100"
+        },
+        {
+          "indices": [
+            250,
+            330,
+            370,
+            410,
+            430,
+            450,
+            470,
+            530,
+            570,
+            610,
+            630
+          ],
+          "trajectory_id": "demo10105"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Red is low or settled near the central buffer and may still be opening; blue is the intended object in the +y region. Two causal observations, including history retained across a skill switch, must identify blue separately from nearby red.",
+        "exit_conditions": "Core exit is blue stationary inside the observed blue goal with the gripper open and TCP clearing it. The supervised tail also supports continuation until the gripper has closed on buffered red and red begins lifting.",
+        "failure_signatures": "Wrong-object approach, buffered red movement, blue not following a closed gripper, blue outside goal after opening, blue remaining attached, or repeated IK nonconvergence. The goal-frame prior is preferred for a held blue near destination; the fresh-TCP prior is preferred for modest intermediate-state offsets.",
+        "overlap_role": "All assigned actions are supervised. The initial overlap includes final red lowering/release, retreat, full blue approach, contact and lift; the terminal overlap includes blue lowering/release, retreat, buffered-red approach, closure and initial lift.",
+        "successor_readiness": "Switch to place_red after blue is visibly settled at the blue goal and the gripper is open/clear, or use the later overlap after buffered red has been aligned, closed on and lifted. Do not infer grasp solely from a closed command."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"target_object\":{\"type\":\"string\",\"enum\":[\"blue\"]},\"destination_goal\":{\"type\":\"string\",\"enum\":[\"blue_goal\"]},\"context_object\":{\"type\":\"string\",\"enum\":[\"red\"]}},\"required\":[\"target_object\",\"destination_goal\",\"context_object\"]},\"parameter_semantics\":\"target_object names the currently observed manipulated object whose world pose defines the per-replan action frame; destination_goal names the observed 3D goal position in world metres; context_object names the buffered object that must be distinguished and preserved. Demonstration bindings use blue, blue_goal and red respectively.\"}",
+      "limitations": "A frozen reference over one 0.4 s execution chunk does not provide contact truth and can be stale if blue slips independently. Object-frame actions do not by themselves guarantee collision avoidance, red preservation, grasp success or reachability. Large destination changes or late placement errors can be modeled but are less directly anchored than in the blue-goal prior, which should cover those cases. Small off-nominal execution offsets or unusual mid-phase entries are more directly covered by the fresh-TCP increment prior. None of the successful demonstrations establishes recovery after a dropped blue block, wrong-object grasp or red displacement.",
+      "pipeline_implications": "Use a standard independently trained DiffusionBackbone with two frames, horizon 16, execution slots 1-8 and 20 Hz. encode_targets applies inverse(chunk-start blue pose) to every demonstrated commanded TCP pose. decode_action composes the sampled relative pose with that same causal frame, then calls panda_kinematics.solve_ik from freshly measured joints and preserves the gripper scalar. Fit representation normalization only to these 10D labels. The high-level agent should select this package rather than the destination prior for a gross source displacement; retain IK diagnostics because translating a relationship can still make it unreachable.",
+      "rationale": "Observed evidence: in demo10100 blue starts at (-0.3601,0.1945,0.0200), while in demo10105 it starts at (-0.3492,0.2026,0.0200). The commanded TCP moves from the buffered-red area through a high transfer, descends beside blue (demo10100:420-460; demo10105:410-450), closes, lifts blue (480/470) and transports it while blue follows (540/530). Demonstrations therefore provide only a roughly 2 cm source spread, despite deployment permitting larger object displacement. The relative label transformation exactly translates/rotates the demonstrated pickup geometry with the observed blue pose; this is an expected generalization benefit, not evidence of success beyond that spread. Robot joints and blue world pose remain inputs because object-frame invariance does not remove Panda reach and IK feasibility.",
+      "statement": "Blue-object-frame Cartesian keyframes. Learn each commanded TCP target as a pose in a chunk-start frame attached to the currently observed blue block: 3 m-valued coordinates, a 6D relative rotation, and the native gripper scalar (10 dimensions). Build two-frame inputs from TCP, blue destination, buffered red, goals, qpos and qvel, with geometric relations expressed in the same blue frame while retaining blue's world pose and the robot joints for reachability. The chunk frame is resolved from the blue pose at every replan and is fixed only for the sampled chunk. This makes approach, alignment, closure, lift and the beginning of transport equivariant by construction to a displacement/rotation of blue; goal-relative input still tells the diffusion model how the carried block must move to the actual blue goal. No backbone change or auxiliary loss is needed.",
+      "training_bindings": "[{\"trajectory_id\":\"demo10100\",\"start\":260,\"stop\":860,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\"},\"rationale\":\"Full assigned occurrence, including buffer_red predecessor overlap and place_red successor overlap.\"},{\"trajectory_id\":\"demo10101\",\"start\":270,\"stop\":850,\"context_start\":269,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10102\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10103\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10104\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10105\",\"start\":250,\"stop\":850,\"context_start\":249,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\"},\"rationale\":\"Full assigned occurrence, including the earlier low-red entry and successor overlap.\"},{\"trajectory_id\":\"demo10106\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10107\",\"start\":260,\"stop\":860,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\"},\"rationale\":\"Full assigned occurrence and extended successor red-lift overlap.\"},{\"trajectory_id\":\"demo10108\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10109\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10110\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10111\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"}]"
+    },
+    "heuristic_index": 1,
+    "normalization": {
+      "path": "provenance/relocated/8ca68e5f0699c3f4",
+      "sha256": "a7b3cf25f71119bff5e5dbff8a8e733b5142452226e64786554479dc9eb9d9c6"
+    },
+    "plan_hash": "6ff90d860db25d097efcfc9bbe61fa3421abe180b8b3d234811997a8e283064a",
+    "policy_id": "place_blue__h01",
+    "prior_plan_path": "assets/exp2/prior_plans/buffer_swap/place_blue.json",
+    "prior_plan_sha256": "fdd5f9c2acca19dc2fba489f179e26d8b12e4b1f87f1516c4411997fec0cff2d",
+    "skill_id": "place_blue",
+    "sources": {
+      "demo10100": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10100.json",
+        "sha256": "8143fbe3be71a1c631f5c7749d18b35e22bc92139fcfff7b5ebbf518d6fc335a"
+      },
+      "demo10101": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10101.json",
+        "sha256": "799625b2044bcc28a7a6eea51a4740935e9cf0d9f22b8374ff1e1fd6775609bf"
+      },
+      "demo10102": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10102.json",
+        "sha256": "fa8a632a17305449d85b05f19a29a04268ec6859c9c22eedc08f8a9e98a25917"
+      },
+      "demo10103": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10103.json",
+        "sha256": "bc5327538d11b7263aa843cfbf7cca57e277f228ab83827e6a6be39d17fb7359"
+      },
+      "demo10104": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10104.json",
+        "sha256": "ab4fdca4a826e13907c3634c17d0cedd822e5736cf37113947d7cd86e096a9a8"
+      },
+      "demo10105": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10105.json",
+        "sha256": "8dca03afe82b1247c339dba887d9f2bd2f2de158810338259d17bdcde391146f"
+      },
+      "demo10106": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10106.json",
+        "sha256": "835849cc15e004b22d320f6fdc36d9c0bcc18a5019712e0ea572dff0a4b0c51a"
+      },
+      "demo10107": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10107.json",
+        "sha256": "2ee06e92d7a0502499d2696e463e66a9bc5e58f2c9beab9b4819cfe9a6a4f7a0"
+      },
+      "demo10108": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10108.json",
+        "sha256": "a267623fe0603dff6f918dfd6f2d08e3da5b313580763e0a482af84e38ab43d6"
+      },
+      "demo10109": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10109.json",
+        "sha256": "5e77ab47c4b0b7e0c67997b120e9215fcf9a4473429c62e0207c5dee631be8a6"
+      },
+      "demo10110": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10110.json",
+        "sha256": "cd8edf45f317ef134effd4d03d206a23dba900ec9d39034ba19d0f51242e60a0"
+      },
+      "demo10111": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10111.json",
+        "sha256": "66f8244ef8020adfb90b028d50deb30d29f68dc21258d3981de4adebf3412646"
+      }
+    },
+    "subgoal": "Accept the scene while red is finishing its buffer release, retreat from red, approach the blue block in the initially red region, close from above, lift and carry blue to the blue goal near (-0.35,-0.20), lower and release it, then retreat. The core responsibility is blue-to-blue-goal relocation. The tail is extended through approach, grasp, and initial lift of buffered red."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/1f3ae6da38891fbf",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "b46974de9e75599efd31bf62469e6f0d4ca534da6c69bc02198d05b2d5c6fc80",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 6,
+      "physical_gpu": 4,
+      "uuid": "GPU-29557089-826b-ddb5-4d55-d03f2009a879"
+    },
+    "effective_action_targets": 4067,
+    "final_weights_sha256": "a2798b0b42100835059b1525c99791f5d9a295dde374f7813df69de7f4d90603",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 5.555862903594971,
+        "step": 1
+      },
+      {
+        "l2_norm": 2.032609462738037,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "1e6c4b507549c52993cfbb09c0c7385bf143b1b8b06ef795c07ad5cfccb3c1dd",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 7100,
+        "duplicated_actions": 0,
+        "unique_actions": 7100
+      },
+      "contract": {
+        "action_dimension": 10,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "context_object": {
+              "enum": [
+                "red"
+              ],
+              "type": "string"
+            },
+            "destination_goal": {
+              "enum": [
+                "blue_goal"
+              ],
+              "type": "string"
+            },
+            "target_object": {
+              "enum": [
+                "blue"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "target_object",
+            "destination_goal",
+            "context_object"
+          ],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "For supervised targets, relative-pose composition and 6D rotation reconstruction recover the demonstrated command FK pose; independent comparison uses world TCP position/rotation and gripper. Gram-Schmidt is the declared rotation projection and IK nonuniqueness is allowed.",
+          "mode": "task_space",
+          "tolerance": 0.01
+        },
+        "cut_relation": "Every action in all twelve assigned [start,stop) slices is bound and supervised. This preserves the full blue relocation plus the substantial buffer_red predecessor and place_red successor overlap; only the Cartesian representation changes.",
+        "input_shapes": {
+          "features": [
+            2,
+            51
+          ]
+        },
+        "observation_dependencies": [
+          "qpos",
+          "qvel",
+          "tcp_pose",
+          "blue_pose",
+          "red_pose",
+          "blue_goal",
+          "red_goal"
+        ],
+        "output_semantics": "Each prediction slot is [x,y,z,r6d_1..r6d_6,gripper], where position is metres and rotation is a 6D matrix-column encoding of a TCP pose relative to the blue pose observed at chunk construction. Slots represent t-1 through t+14; host execution uses slots 1..8. The reference pose is fixed for one chunk. decode_action projects 6D rotation by Gram-Schmidt, composes the relative pose with the chunk reference to obtain a world TCP target, invokes panda_kinematics.solve_ik from freshly measured qpos, and appends the unmodified native gripper scalar.",
+        "parameter_semantics": "target_object selects the observed manipulated-object pose defining the chunk-start object frame; destination_goal selects the observed world goal point in metres; context_object selects buffered red for disambiguation and preservation context. Training binds blue, blue_goal and red.",
+        "policy_id": "place_blue__h01",
+        "skill_id": "place_blue",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "6eeccd64758ad43aa85dea508b424e4aa01f1357a05dcdcfb186d7ee80ff57bc",
+      "PRIOR.md": "c0d6e1035ae54ae57be8c989e14d7604204a42470ca43200be32aebb18801501",
+      "adapters.py": "1988042c7ed4c735c7b9fd54623ab2b9b0464f0a715061c1bfa8751d1672867f",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "2d39493b8fb0ada0074a335ee13fc775dd0b1b1b46ccce9bc7133c1f76f94f24",
+      "policy.py": "e66e3701c93213e1ee4f36553eeda2c0c4d568fb8c804575d0111027418d4e52",
+      "policy_contract.json": "f3b457fd2f8d767a83064606e1745725d82d722212024bf3a0921c89a25d6edf",
+      "training_bindings.json": "68b684a95e67225ad9cb168760eb34e173d5fc1de79aa4c6db2ab93e6472884c"
+    },
+    "trainable_parameters": 17057546,
+    "training_elapsed_seconds": 3.1552143699955195,
+    "weight_l2_change": 0.20459299706601042
+  },
+  "files": {
+    "HANDOFF.json": "6eeccd64758ad43aa85dea508b424e4aa01f1357a05dcdcfb186d7ee80ff57bc",
+    "PRIOR.md": "c0d6e1035ae54ae57be8c989e14d7604204a42470ca43200be32aebb18801501",
+    "adapters.py": "1988042c7ed4c735c7b9fd54623ab2b9b0464f0a715061c1bfa8751d1672867f",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+    "pipeline.json": "2d39493b8fb0ada0074a335ee13fc775dd0b1b1b46ccce9bc7133c1f76f94f24",
+    "policy.py": "e66e3701c93213e1ee4f36553eeda2c0c4d568fb8c804575d0111027418d4e52",
+    "policy_contract.json": "f3b457fd2f8d767a83064606e1745725d82d722212024bf3a0921c89a25d6edf",
+    "training_bindings.json": "68b684a95e67225ad9cb168760eb34e173d5fc1de79aa4c6db2ab93e6472884c"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "v1": {
+    "files": {
+      "HANDOFF.json": "6eeccd64758ad43aa85dea508b424e4aa01f1357a05dcdcfb186d7ee80ff57bc",
+      "PRIOR.md": "c0d6e1035ae54ae57be8c989e14d7604204a42470ca43200be32aebb18801501",
+      "adapters.py": "1988042c7ed4c735c7b9fd54623ab2b9b0464f0a715061c1bfa8751d1672867f",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "2d39493b8fb0ada0074a335ee13fc775dd0b1b1b46ccce9bc7133c1f76f94f24",
+      "policy.py": "e66e3701c93213e1ee4f36553eeda2c0c4d568fb8c804575d0111027418d4e52",
+      "policy_contract.json": "f3b457fd2f8d767a83064606e1745725d82d722212024bf3a0921c89a25d6edf",
+      "training_bindings.json": "68b684a95e67225ad9cb168760eb34e173d5fc1de79aa4c6db2ab93e6472884c"
+    },
+    "folder": "provenance/relocated/0408d48a85be85e8",
+    "version": "99f9033e8c16965b3bb38050228ba2363215b92750685b1c6af4e0526e5907ff"
+  },
+  "version": "7354fdabcac00fa924ffdd43790bd8c0e3923c20e43f77cede0d068de44cf2b9"
+}

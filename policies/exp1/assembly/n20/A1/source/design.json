@@ -1,0 +1,31 @@
+{
+  "title": "Two-center metric coordinates with smooth proximity features",
+  "coverage_gap": "The exact twenty demonstrations contain ten LL and ten HH layouts, but no LH or HL. Separate world nut and peg x channels can therefore stand in for one another. The observed handle is not the ring center; treating the native object site as the insertion point would introduce an approximately 0.13 m offset.",
+  "reusable_regularity": "Grasping depends on the hand-to-handle edge, while assembly alignment depends on the ring-to-peg edge. Supply these relations explicitly in world axes, with fixed physical units rather than narrow-support coordinate standard deviations. A second smooth signed proximity scale emphasizes centimeter errors without losing long-range edges. This is a deterministic 56-dimensional representation with no learned encoder, no explicit stage, and no auxiliary loss; the common U-Net learns the action sequence.",
+  "dependencies_preserved": [
+    "The 0:3 world hand location, centered at [0,0.6,0] and scaled by 0.3 m, preserves robot workspace dependence rather than assuming global translation invariance.",
+    "Edges use 4:7 handle, 39:42 ring center, and 36:39 peg goal separately. World ring and goal positions can be reconstructed from the hand and these edges; heights relative to the world table are explicit.",
+    "Current and native-previous gripper, hand/handle increments, and both wxyz orientations converted to continuous rotation columns preserve contact and inertial cues. The two whole causal observations preserve measured ring motion.",
+    "No obstacle channels exist beyond the declared table/world and peg geometry. Absent object2 zero fields are omitted; no undeclared geometry is used. Fixed world axes preserve gravity and the native fixed gripper orientation."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "assembly__N20__rep0, twenty exact support identities and hashes"},
+    {"path": "task_materials.json", "detail": "LL/HH support, C and E definitions; handle site versus ring center; wxyz, world action4 and common raw42 semantics"},
+    {"path": "support_summary.json", "detail": "cell_counts HH=10, LL=10; demo_00 through demo_03 ranges include low grasp height and high carried object height"},
+    {"path": "trajectories/demo_00.json", "detail": "obs rows 0-2: handle x 0.1078 versus ring x -0.0222; rows 26-29, 45-47, and 72-74 show grasp, lift and alignment geometry; actions 0-86 show the switches"},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Initial ring, offset handle, peg and table geometry"},
+    {"path": "images/frame_01_demo_01_step_032.png", "detail": "Gripper at the handle rather than ring center"},
+    {"path": "images/frame_02_demo_02_step_059.png", "detail": "Lifted ring in transport"},
+    {"path": "images/frame_03_demo_03_step_093.png", "detail": "Ring aligned at the upright peg"}
+  ],
+  "expected_failure_signature": "If explicit edges do not eliminate the correlation shortcut, cross-cell runs should grasp successfully yet move the ring to the x associated with the nut rather than the actual peg. E may still fail at long lateral displacements unseen in support. A separate failure is premature descent or lift under four-step execution because no stage structure is imposed. These are predictions, not measured outcomes.",
+  "required_runtime_fields": {
+    "input": "context.raw_history [B,2,42] only; normalized causal_history is intentionally replaced with fixed metric scaling",
+    "slices": ["0:3 hand", "3:4 gripper", "4:7 handle", "7:11 wxyz", "18:21 previous hand", "21:22 previous gripper", "22:25 previous handle", "25:29 previous wxyz", "36:39 goal", "39:42 ring center"],
+    "action_frame": "Identity encode/decode on all sixteen native actions: world_dx, world_dy, world_dz in native 0.01 m units, gripper unchanged. Only the public executor clips in world native action space and executes four actions."
+  },
+  "training_only_targets": [],
+  "support_fit": "None; no fitted statistics or cached labels. Fixed scales are physical design constants, not estimates from other data. Common raw normalization remains host-owned.",
+  "parents": [],
+  "change_summary": "Initial executable design. Replaces raw coordinate conditioning by explicit two-center geometry and sign-invariant orientation; leaves action encoding, action epsilon loss, all masks, diffusion schedules and optimizer unchanged. No performance feedback used."
+}

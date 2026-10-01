@@ -1,0 +1,233 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        740,
+        770,
+        790,
+        810,
+        850,
+        900,
+        950,
+        990,
+        1020,
+        1040,
+        1060,
+        1080,
+        1100,
+        1120,
+        1140,
+        1180,
+        1200,
+        1220,
+        1240,
+        1270
+      ],
+      "trajectory_id": "demo12200"
+    },
+    {
+      "indices": [
+        740,
+        950,
+        1100,
+        1120,
+        1140,
+        1250,
+        1270
+      ],
+      "trajectory_id": "demo12201"
+    },
+    {
+      "indices": [
+        740,
+        950,
+        1120,
+        1270
+      ],
+      "trajectory_id": "demo12202"
+    },
+    {
+      "indices": [
+        740,
+        950,
+        1120,
+        1270
+      ],
+      "trajectory_id": "demo12203"
+    },
+    {
+      "indices": [
+        740,
+        950,
+        1120,
+        1270
+      ],
+      "trajectory_id": "demo12204"
+    },
+    {
+      "indices": [
+        740,
+        950,
+        1120,
+        1270
+      ],
+      "trajectory_id": "demo12205"
+    },
+    {
+      "indices": [
+        740,
+        950,
+        1120,
+        1270
+      ],
+      "trajectory_id": "demo12206"
+    },
+    {
+      "indices": [
+        740,
+        950,
+        1120,
+        1270
+      ],
+      "trajectory_id": "demo12207"
+    },
+    {
+      "indices": [
+        740,
+        950,
+        1120,
+        1270
+      ],
+      "trajectory_id": "demo12208"
+    },
+    {
+      "indices": [
+        740,
+        950,
+        1120,
+        1270
+      ],
+      "trajectory_id": "demo12209"
+    },
+    {
+      "indices": [
+        740,
+        950,
+        1120,
+        1270
+      ],
+      "trajectory_id": "demo12210"
+    },
+    {
+      "indices": [
+        740,
+        950,
+        1120,
+        1270
+      ],
+      "trajectory_id": "demo12211"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Observable entry may be early or late in lid release: lid_position is about 1.71 rad at index 740 with the fingers still closed on the lid, or the lid is already released/open with the fingers near 0.04 m. The peg must still be inside the box. Required motion is release/clearance if needed, open-gripper approach to peg_pose, close around the peg, and lift while maintaining peg-gripper coupling.",
+    "exit_conditions": "Observable exit cue: fingers are closed near 0.012-0.013 m, the peg has risen from z about 0.026 m to roughly 0.44-0.48 m by index 1270, the TCP and peg move together, and the peg is clear of the box walls. Initial reorientation/transport may already be underway.",
+    "failure_signatures": "The hand remains attached to the lid rather than targeting the peg; the lid blocks the approach; fingers close while TCP is offset from peg_pose; peg z stays near 0.026 m after the lift command; peg and TCP cease co-motion; or peg height/trajectory indicates wall contact. Demonstrations show successful pickup only and do not prove regrasp or drop recovery.",
+    "overlap_role": "Incoming overlap with open_hinged_lid is [740,950), 210 actions/10.5 s per trajectory, teaching lid release and approach clearance before the peg becomes the active object. Outgoing overlap with reorient_and_stage_peg is [1120,1270), 150 actions/7.5 s per trajectory, teaching closed-grasp consolidation, lift, box clearance, and initial turn. Both are action-supervised overlaps.",
+    "successor_readiness": "reorient_and_stage_peg is ready when the closed gripper is carrying the peg above the box rim and peg_pose co-moves with tcp_pose. Switching can occur during the shared lift; later switching is safer if peg z is high and lid motion has settled."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Release lid, grasp peg, and lift clear",
+  "original_demonstration_count": 12,
+  "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "This responsibility changes the active object from the lid to the peg and contains the discrete open-to-close grasp event plus extraction from the box. The segment intentionally starts at 740 while the lid is still held, because observed actions release it around 760-770 before the open-gripper transit. In demo12200 the arm passes above/around the box at 900-990, descends toward the peg at 1020-1080, closes by 1100, and lifts through 1120-1240; the front image at 1030 shows the open gripper over the peg. At each 1270 boundary the peg is elevated and the gripper is closed. This breadth is expected to tolerate handoff timing, not unseen grasp failures.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Peg-retrieval occurrence in demo12200: finish releasing the lid, approach the orange peg in the box, close the gripper, and lift it clear to z about 0.443 m by the stop.",
+      "start": 740,
+      "stop": 1270,
+      "trajectory_id": "demo12200"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Peg-retrieval occurrence in demo12201: transition from the lid to the in-box peg, grasp it, and lift it clear to z about 0.449 m.",
+      "start": 740,
+      "stop": 1270,
+      "trajectory_id": "demo12201"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Peg-retrieval occurrence in demo12202: release/clear the cover, grasp the peg, and extract it above the box to z about 0.464 m.",
+      "start": 740,
+      "stop": 1270,
+      "trajectory_id": "demo12202"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Peg-retrieval occurrence in demo12203: leave the released lid, descend to the peg, establish a closed grasp, and lift to z about 0.451 m.",
+      "start": 740,
+      "stop": 1270,
+      "trajectory_id": "demo12203"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Peg-retrieval occurrence in demo12204: complete lid release, target the peg rather than the lid, close, and lift the peg to about 0.463 m.",
+      "start": 740,
+      "stop": 1270,
+      "trajectory_id": "demo12204"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Peg-retrieval occurrence in demo12205: release the lid, approach and grasp the peg, then lift it to about 0.436 m as transport begins.",
+      "start": 740,
+      "stop": 1270,
+      "trajectory_id": "demo12205"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Peg-retrieval occurrence in demo12206: move from cover release to peg pickup and lift the closed-grasp peg to about 0.464 m.",
+      "start": 740,
+      "stop": 1270,
+      "trajectory_id": "demo12206"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Peg-retrieval occurrence in demo12207: finish with the lid, acquire the peg, and raise it clear of the box to about 0.464 m.",
+      "start": 740,
+      "stop": 1270,
+      "trajectory_id": "demo12207"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Peg-retrieval occurrence in demo12208: release the cover, grasp the more offset in-box peg, and lift it to about 0.475 m.",
+      "start": 740,
+      "stop": 1270,
+      "trajectory_id": "demo12208"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Peg-retrieval occurrence in demo12209: change active object from lid to peg, close the fingers on the peg, and lift to about 0.465 m.",
+      "start": 740,
+      "stop": 1270,
+      "trajectory_id": "demo12209"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Peg-retrieval occurrence in demo12210: clear the released lid, approach the peg, grasp it, and elevate it to about 0.465 m.",
+      "start": 740,
+      "stop": 1270,
+      "trajectory_id": "demo12210"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Peg-retrieval occurrence in demo12211: release/clear the lid, grasp the peg in the box, and lift it to about 0.464 m.",
+      "start": 740,
+      "stop": 1270,
+      "trajectory_id": "demo12211"
+    }
+  ],
+  "skill_id": "retrieve_peg_from_box",
+  "subgoal": "After exposing the box, release and clear the lid if necessary, approach the peg with open fingers, close a stable grasp, and lift the peg above the box walls."
+}

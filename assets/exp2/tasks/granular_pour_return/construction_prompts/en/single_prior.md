@@ -1,0 +1,15 @@
+Learn one full-task policy from the authorized demonstrations and make it useful under changes in object positions and intermediate execution states. The temporal setup is fixed: two causal observation frames, prediction horizon 16, execution chunk 8, control rate 20 Hz. Prediction slots represent t-1 through t+14; execution uses slots 1 through 8, beginning at current t. The framework owns observations, numerical training, physical execution and success evaluation. Keep the supplied success definition unchanged.
+
+Read the assignment, task goals, public capabilities, INTERFACE.md, TRAINING_DETAILS.md and panda_kinematics.py. Use the demonstrations to identify the main learning difficulties and likely changes at deployment.
+
+Your prior must target displacement, relative to the demonstrations, of the objects the task manipulates or approaches. Make the relevant motions invariant to that displacement by construction, for example by expressing the learned Cartesian actions relative to the observed pose of the object being approached, manipulated or used as a destination, and state which parts of the task this covers. State the other failures you expect and their observable signatures.
+
+All policies act through Cartesian end-effector targets. Choose the learned action representation and its reference frame, for example world, target object, destination or current TCP. decode_action converts it to a world TCP pose that the supplied panda_kinematics.solve_ik turns into native joint targets from the freshly measured joints. Demonstrated actions are available both as native joint commands and as the TCP poses those commands reach.
+
+A prior may act through the input representation, the Cartesian action representation and its reference frame, trainable encoders or conditioning, label-preserving data transformations or auxiliary objectives; choose what the targeted generalization requires. Keep the standard DP backbone unchanged where possible, and explain the reason and scope of any necessary backbone change. Input features remain your design choice.
+
+An auxiliary head is optional. Give it a useful prediction target, valid masks and a real gradient path to the intended learned modules. Include all learned modules in the model, optimizer and saved state. Demonstration futures may supply training labels; inference uses causal observations only. Auxiliary objectives support the main action diffusion objective.
+
+Preserve complete demonstrations. Define the policy's inputs, bind them to the demonstrations, and implement consistent training-target and action conversions. Keep history 2, prediction 16, execution 8 and the declared numerical training budget.
+
+Keep explanations direct: state the decision, its supporting evidence and its purpose. Use English for submissions. Publish the prior, calling contract and limitations, check the implementation through the supplied tools and submit the checked package; the framework then trains the model and evaluates it. There is no rollout feedback and no final-test feedback for design.

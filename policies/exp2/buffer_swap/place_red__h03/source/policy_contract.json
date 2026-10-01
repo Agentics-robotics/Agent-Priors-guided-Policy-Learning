@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "place_red__h03",
+  "skill_id": "place_red",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "target_object": {"type": "string", "enum": ["red"]},
+      "destination": {"type": "string", "enum": ["red_goal"]},
+      "handoff_object": {"type": "string", "enum": ["blue"]}
+    },
+    "required": ["target_object", "destination", "handoff_object"]
+  },
+  "parameter_semantics": "target_object, destination and handoff_object select red_pose, red_goal, blue_pose and blue_goal for causal relational conditioning. Learned translations are metres and rotations radians in the fresh measured TCP frame; arguments never provide actuator values or hidden phase.",
+  "observation_dependencies": ["qpos", "qvel", "tcp_pose", "red_pose", "blue_pose", "red_goal", "blue_goal"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 61]},
+  "action_dimension": 7,
+  "output_semantics": "Each slot is [translation x,y,z metres in the current measured TCP frame, relative TCP rotation vector x,y,z radians, native gripper scalar]. Labels use that slot's pre-action measured TCP; each execution decode composes the represented SE(3) transform with the fresh current TCP, then supplied IK converts the resulting world target from fresh qpos. Slot 0 is t-1 and slots 1..8 execute t..t+7. Gripper sign semantics are unchanged.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "Compare FK of decoded IK against the demonstrated commanded TCP after exact pre-action TCP relative-pose log/exp roundtrip. Report position, rotation, gripper and IK diagnostics; no clipping or scripted correction is applied."},
+  "cut_relation": "Binds every assigned action in all 12 full segments. The complete 230-240 action place_blue overlap receives fresh-TCP residual supervision for blue lower/open, retreat, transit, red approach/closure and initial lift before the remaining red placement."
+}

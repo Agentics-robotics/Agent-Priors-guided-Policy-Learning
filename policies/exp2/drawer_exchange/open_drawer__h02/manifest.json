@@ -1,0 +1,152 @@
+{
+  "task_id": "drawer_exchange",
+  "policy_id": "open_drawer__h02",
+  "skill_id": "open_drawer",
+  "source": "policies/exp2/drawer_exchange/open_drawer__h02/source",
+  "manifest": "policies/exp2/drawer_exchange/open_drawer__h02/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/drawer_exchange/open_drawer__h02/assignment.json",
+  "training_spec": "policies/exp2/drawer_exchange/open_drawer__h02/training/spec.json",
+  "dataset": "assets/exp2/datasets/drawer_exchange/open_drawer/dataset.json",
+  "normalization": "assets/exp2/tasks/drawer_exchange/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/drawer_exchange/open_drawer__h02/model.pt",
+    "sha256": "e70a403c39edcf420381f2797441cd6178bdc84cdc97e6a0baa072156ba3780c",
+    "source_sha256": "e70a403c39edcf420381f2797441cd6178bdc84cdc97e6a0baa072156ba3780c",
+    "size_bytes": 337935814,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 6,
+    "demos": 12,
+    "in_distribution_success": "6/12",
+    "exit_rule": "drawer_position >= 0.29 at the final state (the demonstrated open stop is 0.30)",
+    "guidance": "**Use:** Fresh-TCP local-increment prior requiring accurate drawer origin/orientation and desired opening (trained at 0.300 m). Its documented niche is a modest arm/path deviation in an otherwise training-like scene, including local correction from fresh measured TCP state. Such perturbed entries were not separately validated. In-distribution it passed 6/12 runs (50%), so treat it as a monitored secondary option rather than the nominal default.\n\n**Avoid:** Do not use it as recovery for large deviations, a missed handle/front, blocked drawer, distant/unreachable objects, or accumulated pose drift. Prefer H01 only when reliable cabinet displacement is the dominant consideration, and H03 for nominal geometry. Local increments are not globally object-displacement invariant.\n\n**Failure recognition:** Every validation run reached at least 0.29 m once (first crossing at steps 201–223; maximum 0.300 m), but six ended below the exit threshold at 0.13102–0.28257 m. Thus a transient opening is not completion. Watch for repeated local motion without drawer progress, subsequent drawer regression, unexpected drawer motion, growing TCP/front or TCP/red error, closure without red co-motion, red drop, IK nonconvergence, or limit contact; replan instead of allowing drift to accumulate.\n\n**Handoff:** For validated completion, verify `drawer_position >= 0.29` at termination. The 230:470 overlap permits transfer to `red_transfer` after opening above 0.26 m and red exposure; the cleaner cue is a stable drawer, released front, closed fingers, and observed red/TCP upward co-motion near the initial lift. The validation did not test the composed handoff."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/assignment.json",
+      "sha256": "3acaafff1de0ea650633e1d8ce49b2d2c5080c28e8ac1cc60307baa09ea67783",
+      "source_sha256": "31e001cdef822a099dd1b9ab5cc4b7b93b3ff256b9ca92d531304d7e42370660",
+      "size_bytes": 13898,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/handoff_evidence.json",
+      "sha256": "14210e69c6aedc7b51f9458e004e075d4f116f7352a6cb8a55a6dfcd3a5f44bc",
+      "source_sha256": "14210e69c6aedc7b51f9458e004e075d4f116f7352a6cb8a55a6dfcd3a5f44bc",
+      "size_bytes": 80940,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/source/HANDOFF.json",
+      "sha256": "44e76c23f3e6994dcd7a5b94eb090b82929bdd5f29c834239bc08bfc29c72dcc",
+      "source_sha256": "44e76c23f3e6994dcd7a5b94eb090b82929bdd5f29c834239bc08bfc29c72dcc",
+      "size_bytes": 1811,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/source/PRIOR.md",
+      "sha256": "2906ddb98b40da6231dc7099c0418ba2cf3b4c9e73bb7454673201d5c6886429",
+      "source_sha256": "2906ddb98b40da6231dc7099c0418ba2cf3b4c9e73bb7454673201d5c6886429",
+      "size_bytes": 3720,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/source/adapters.py",
+      "sha256": "d1c6b316e39205e2e5ba4eca81285a21621ca6a95408c83806867b7c1fe6a943",
+      "source_sha256": "d1c6b316e39205e2e5ba4eca81285a21621ca6a95408c83806867b7c1fe6a943",
+      "size_bytes": 4359,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/source/panda_posture.py",
+      "sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "source_sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "size_bytes": 718763,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/source/pipeline.json",
+      "sha256": "96491cd973e6e33b75f9f100458ed4b809dd87d9b42a98e9dac4e744da3cabd5",
+      "source_sha256": "96491cd973e6e33b75f9f100458ed4b809dd87d9b42a98e9dac4e744da3cabd5",
+      "size_bytes": 1223,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/source/policy.py",
+      "sha256": "630874f0e63b7f3ba80e99eb7e4207fdde12da2d78ff8b3c0281f489177eb46d",
+      "source_sha256": "630874f0e63b7f3ba80e99eb7e4207fdde12da2d78ff8b3c0281f489177eb46d",
+      "size_bytes": 1112,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/source/policy_contract.json",
+      "sha256": "b26bd4a41939874e7b4d5ec80c74eb660ac5845bd5d643f4679504c1b9aaaf9e",
+      "source_sha256": "b26bd4a41939874e7b4d5ec80c74eb660ac5845bd5d643f4679504c1b9aaaf9e",
+      "size_bytes": 2353,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/source/training_bindings.json",
+      "sha256": "12eb61d7f902833828f2e4b7c11e74bfb3ff3aaee355c8e50e83de836a5c276b",
+      "source_sha256": "12eb61d7f902833828f2e4b7c11e74bfb3ff3aaee355c8e50e83de836a5c276b",
+      "size_bytes": 3446,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/submission.json",
+      "sha256": "9fd4c1226425cfce768bce9493c4e1340b33c0fdf3d2ac229e39919ef39b11e8",
+      "source_sha256": "2a3ff4920c4eb8edf2700abf08b998cf42aff23ac79a20fd64e3615594f1b97c",
+      "size_bytes": 21303,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/training/adapter_checks.json",
+      "sha256": "ab7c562bb1a6e72a3053cf5a75bc08da7fe6938ca1e29da3fd82c2d836aeaa24",
+      "source_sha256": "ab7c562bb1a6e72a3053cf5a75bc08da7fe6938ca1e29da3fd82c2d836aeaa24",
+      "size_bytes": 195,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/training/result.json",
+      "sha256": "26690f2451e15f9283ea036df291d387b04164222be876c420ae526063f71739",
+      "source_sha256": "61fefb84c58dc2fecb4feda69e9eacd0dfd9e795577f8f45853fdbc26614e1a7",
+      "size_bytes": 4961,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/training/spec.json",
+      "sha256": "875efcc925e018b6eaf5ba736a29bb6009d913e4c316ac5de72986a2b309c1ec",
+      "source_sha256": "875efcc925e018b6eaf5ba736a29bb6009d913e4c316ac5de72986a2b309c1ec",
+      "size_bytes": 16182,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/open_drawer__h02/prior_plan.json",
+      "sha256": "9e0b97bb55b439f6decfa75325aeda39fa77844d38444c9423bed36179851351",
+      "source_sha256": "9e0b97bb55b439f6decfa75325aeda39fa77844d38444c9423bed36179851351",
+      "size_bytes": 27844,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/drawer_exchange/task.json",
+  "completion_contract": "assets/exp2/tasks/drawer_exchange/completion_contract.json",
+  "public_context": "assets/exp2/tasks/drawer_exchange/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/drawer_exchange/prompts/hl.md",
+  "prior_plan": "policies/exp2/drawer_exchange/open_drawer__h02/prior_plan.json"
+}

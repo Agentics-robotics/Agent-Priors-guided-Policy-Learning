@@ -1,0 +1,41 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "single_prior_cartesian",
+  "skill_id": "full_task",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "There are no caller-selected parameters: call_args is exactly {} for every complete demonstration and deployment call. At each 8-step replan the policy resolves the currently observed world poses of the lid, peg, insertion target and hole. Positions are metres in the world frame and quaternions are wxyz. A causal geometric relevance blend defines one chunk-fixed SE(3) reference from the lid while closed or held at its handle, the peg while it is approached or lifted, and target_pose once lift or source-to-destination progress indicates transport. This is representation conditioning, not a stage argument or policy selector.",
+  "observation_dependencies": [
+    "hole_pose",
+    "lid_pose",
+    "lid_position",
+    "lid_velocity",
+    "peg_pose",
+    "qpos",
+    "qvel",
+    "target_pose",
+    "tcp_pose"
+  ],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 80]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each of 16 slots represents t-1 through t+14. Slots 1 through 8 execute current t through t+7. A slot is [p_ref_tcp(3 metres), R_ref_tcp first-two-columns(6), gripper(1)]. The pose is relative to the causal SE(3) reference fixed when the chunk is built. The 6D rotation is projected by robust Gram-Schmidt, composed with that reference into a world TCP target, and passed with freshly measured qpos to panda_kinematics.solve_ik. The returned seven absolute Panda joint targets are followed by the unchanged demonstrated gripper scalar; the common executor applies its >=0 open and <0 close rule. Training targets are FK poses of demonstrated native joint commands, not measured lagging TCP poses. The framework alone fits midpoint/half-range normalization in these ten represented coordinates.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "For valid demonstrated targets, encode uses inverse(chunk reference) times commanded FK TCP and decode recomposes the same world pose. The independent check compares FK position in metres, rotation angle in radians and unchanged gripper scalar. Robust Gram-Schmidt is identity on valid 6D labels and only projects invalid/noisy sampled rotation columns; shared IK may choose a nonunique joint posture and reports convergence, residuals and limit contacts."
+  },
+  "cut_relation": "One model owns every action in [0, stop) of all twelve complete demonstrations. There are no cuts, segments, object choices, stage labels, runtime high-level calls or successor policies; the full-task relational reference is recomputed causally once per execution chunk."
+}

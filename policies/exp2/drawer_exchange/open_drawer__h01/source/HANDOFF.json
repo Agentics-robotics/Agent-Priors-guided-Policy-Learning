@@ -1,0 +1,14 @@
+{
+  "policy_id": "open_drawer__h01",
+  "entry_conditions": "Drawer closed or partly open with reliable caller-supplied zero-opening pose and fresh drawer_position; TCP high/free or plausibly near the front; observable gripper state; red supported in the drawer and blue outside. Reachability remains a high-level responsibility.",
+  "exit_conditions": "Nominal exit is drawer_position safely above the unchanged strict 0.26-m threshold, drawer velocity near zero, front contact relinquished, and observable red/TCP co-motion after closure and initial lift. A closed gripper alone is not grasp proof.",
+  "overlap_role": "All actions 0:470 are supervised. Actions 230:470 in every trajectory overlap red_transfer and include front release, retreat, red approach/descent, closure and initial lift: 240 actions per occurrence and 2,880 total.",
+  "successor_readiness": "red_transfer can receive once drawer_position is above 0.26 and red is exposed because its supervision starts at 230. Nominal stronger readiness is closed fingers plus red/TCP upward co-motion near 470.",
+  "failure_signatures": "Drawer remains at or below 0.26; drawer moves without matching TCP/front geometry; calibration jumps; fingers drag or miss the front; red/TCP XY misalignment; closure without red co-motion; red drop; IK nonconvergence or limit contact.",
+  "continuation_guidance": "Continue through release and red pickup while observed relations follow a demonstrated phase. Switch early to red_transfer after opening/exposure or later after initial lift. Stop or replan rather than interpreting repeated nominal commands as demonstrated recovery.",
+  "limitations": "Guidance is based on successful demonstrations at one cabinet calibration. It does not add success conditions, contact truth, recovery competence, collision checking or guarantees for large displaced/unreachable drawers.",
+  "evidence": [
+    {"trajectory_id":"demo1000","indices":[140,160,180,200,230,240,280,300,400,445,470]},
+    {"trajectory_id":"demo1001","indices":[150,215,230,240,300,400,445,469]}
+  ]
+}

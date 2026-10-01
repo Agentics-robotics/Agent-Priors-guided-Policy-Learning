@@ -1,0 +1,115 @@
+{
+  "checkpoint": "weights/exp2/granular_pour_return/grasp_lift_stage__h04/model.pt",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "3e02f78a3cced595075f4366de5855ebbce60f08cc10ac2005e0a4556580b061",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 6,
+    "physical_gpu": 4,
+    "uuid": "GPU-29557089-826b-ddb5-4d55-d03f2009a879"
+  },
+  "effective_action_targets": 40205168,
+  "final_weights_sha256": "6bf7d7773a86f7fdf6d5bed65f0c2b7ed6e868f43661433a29fc51f144200829",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.370724678039551,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.372041702270508,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.286063194274902,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.25201866030693054,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "00cf5f9f8ea748789523e651e217f596d75e2eedb35b3e2b415cd5ff75707921",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 4320,
+      "duplicated_actions": 0,
+      "unique_actions": 4320
+    },
+    "contract": {
+      "action_dimension": 13,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination_object": {
+            "enum": [
+              "bowl"
+            ],
+            "type": "string"
+          },
+          "source_object": {
+            "enum": [
+              "container"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_object",
+          "destination_object"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For an encoded demonstration slot, both source- and bowl-relative branches reconstruct the same commanded world TCP position, so every causal blend reconstructs that position; the world 6D label reconstructs the commanded orientation. Compare FK of the IK output with the demonstrated commanded TCP in metres/radians and compare the unchanged gripper scalar.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Uses all twelve assigned [0,360) segments without trimming and retains the complete [180,360) action-supervised overlap with controlled_pour_and_right. The dual representation and causal blend change coordinates only, not responsibility, temporal alignment, future access, success definition or handoff boundary.",
+      "input_shapes": {
+        "features": [
+          2,
+          80
+        ]
+      },
+      "observation_dependencies": [
+        "bowl_pose",
+        "container_pose",
+        "particle_positions",
+        "qpos",
+        "qvel",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot contains two exact representations of the commanded TCP position plus one orientation: source-frame position xyz in metres, destination-bowl-frame position xyz in metres, absolute world-frame orientation as the first two rotation-matrix columns (6D), and one native gripper scalar. At execution, both position branches are composed with their fresh observed poses and blended in world coordinates by a deterministic causal closed-and-lifted weight from finger width and source elevation; sampled 6D orientation is projected to SO(3). The resulting world TCP pose is passed to panda_kinematics.solve_ik from fresh measured joints. Slots represent t-1 through t+14, and execution uses slots 1 through 8. The gripper scalar retains >=0 open and <0 close semantics.",
+      "parameter_semantics": "source_object selects the observed manipulated source pose used by the acquisition position branch, source/TCP features and causal phase weight. destination_object selects the observed bowl pose used by the transport/staging position branch. Both references are resolved from fresh observations for each executed slot; neither is an actuator input or contact label.",
+      "policy_id": "grasp_lift_stage__h04",
+      "skill_id": "grasp_lift_stage",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "df07a0d69119403dc859e709b91cc65ebc1922760f2d63408e7e151940eebb6e",
+    "PRIOR.md": "3dc5e3fbfff532bce5cf1113ef276ed23932013a51603dd3d3e8d3be3a4647d8",
+    "adapters.py": "bc71229592c56b3dac6c3a5effaa9d79ebee308aa67fa36f5b549c9c5882e0d0",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+    "pipeline.json": "5abdd17b944c6e78fd5f103fd356541e7add596b95d9851ea28046440d5a7e2c",
+    "policy.py": "892aa36f3013c31f1e867bf59842cc74576a93094f557d6705c99b380fda1c94",
+    "policy_contract.json": "3542c02d9ed1dc755c6e0d6535e11cb4e23024a43ec5ecf6e0a252315e13d67f",
+    "training_bindings.json": "bcfd35e286a64f71dcc3be4d9ec0d6e93843dd826bc3d36d9e0b2b96d26f955f"
+  },
+  "trainable_parameters": 17475981,
+  "training_elapsed_seconds": 551.2889597630128,
+  "weight_l2_change": 30.92177879089152
+}

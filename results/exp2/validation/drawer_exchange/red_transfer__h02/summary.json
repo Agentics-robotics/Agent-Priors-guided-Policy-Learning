@@ -1,0 +1,24 @@
+{
+  "budget_factor": 1.5,
+  "demos": 12,
+  "exit_rule": "red on the pad and drawer_position > 0.26 at the final state",
+  "passed": 10,
+  "per_demo": {
+    "demo1000": true,
+    "demo1001": true,
+    "demo1002": false,
+    "demo1003": false,
+    "demo1004": true,
+    "demo1005": true,
+    "demo1006": true,
+    "demo1007": true,
+    "demo1008": true,
+    "demo1009": true,
+    "demo1010": true,
+    "demo1011": true
+  },
+  "policy": "red_transfer__h02",
+  "skill": "red_transfer",
+  "success_rate": 0.8333333333333334,
+  "task": "drawer_exchange"
+}

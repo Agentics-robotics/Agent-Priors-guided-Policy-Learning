@@ -1,0 +1,274 @@
+{
+  "action_schema": {
+    "control_dt_seconds": 0.0125,
+    "control_frequency_hz": 80.0,
+    "dim": 4,
+    "end_effector_rotation": "fixed native orientation",
+    "fields": [
+      "world_dx",
+      "world_dy",
+      "world_dz",
+      "gripper"
+    ],
+    "gripper_actuator_controls": "[action[3], -action[3]]",
+    "high": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "low": [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "native_xyz_scale_m": 0.01,
+    "world_clip": "native action cube after candidate decoding"
+  },
+  "dependencies": {
+    "metaworld": "3.1.1",
+    "mujoco": "3.3.0",
+    "numpy": "2.2.6"
+  },
+  "distribution": {
+    "C_cells": [
+      "LH",
+      "HL"
+    ],
+    "E_cells": [
+      "LL",
+      "LH",
+      "HL",
+      "HH"
+    ],
+    "E_definition": "Both factor values are sampled in extrap_low/extrap_high outside training intervals; all four sign cells balanced.",
+    "balanced_training_sequence": [
+      "LL",
+      "HH",
+      "LL",
+      "HH",
+      "LL",
+      "HH",
+      "LL",
+      "HH",
+      "LL",
+      "HH",
+      "LL",
+      "HH",
+      "LL",
+      "HH",
+      "LL",
+      "HH",
+      "LL",
+      "HH",
+      "LL",
+      "HH"
+    ],
+    "factors": {
+      "a": {
+        "extrap_high": [
+          0.675,
+          0.7
+        ],
+        "extrap_low": [
+          0.5,
+          0.525
+        ],
+        "high": [
+          0.625,
+          0.65
+        ],
+        "low": [
+          0.55,
+          0.575
+        ],
+        "name": "peg_y",
+        "units": "m"
+      },
+      "b": {
+        "extrap_high": [
+          0.65,
+          0.675
+        ],
+        "extrap_low": [
+          0.425,
+          0.45
+        ],
+        "high": [
+          0.575,
+          0.6
+        ],
+        "low": [
+          0.5,
+          0.525
+        ],
+        "name": "box_y",
+        "units": "m"
+      }
+    },
+    "nuisance_ranges": {
+      "box_x": [
+        -0.325,
+        -0.275
+      ],
+      "box_z": 0.0,
+      "peg_x": [
+        0.075,
+        0.125
+      ],
+      "peg_z": 0.02
+    },
+    "reset_range_extension": "none; native bounds, or previously calibrated Round 2 cabinet extension",
+    "train_cells": [
+      "LL",
+      "HH"
+    ],
+    "version": "round3-layout-v1"
+  },
+  "hash": "43ea54525f2ebb20b6f232f0b76704adbb5dd966af6184d48b3b5043e6c0b4c0",
+  "historical_exposure": "Shared task semantics and raw support originate in historical development; fresh evaluation seeds do not constitute unseen tasks.",
+  "implementation_hashes": {
+    "distribution": "4183b28ad75aa87e7af7de061824370f11926df938d9e2abfe1fda9264b3399e",
+    "geometry": "34eedfa53c72e99102762c43e047641a097a9c3650601dcce9ef0b524427dbb4",
+    "native_control": "4282580b80befc557f67d25acffffec737ad0dae2c440601be76fc09139f351d",
+    "native_task": "27aae3fc1adb894493f649655d3515b71d2b1819c988513cadabf8d29ebbabf0",
+    "native_xml": "a001c569cf11268ddad29a026ed3b1d00c81262139c5f0b9835f2c92a6d1434b",
+    "snapshot": "900966bf1dc18c98a98bc4f628c1e5fb5ad89643202fa1c49ef32ddacf205b09",
+    "task_reset": "cf9884aab05f89b61c6272a0f2ca52c8a639cb3c125301c0d38a46faad483cc4"
+  },
+  "max_steps": 500,
+  "native_id": "peg-insert-side-v3",
+  "observation_schema": {
+    "all_methods_receive_identical_raw_fields": true,
+    "dp_history": "two whole observations, initial repeated",
+    "extra_physical_pose_channels": "ring body center for assembly; pegHead site for peg-insert-side; same declared channel for B0 and all candidates",
+    "fields": [
+      {
+        "name": "current.hand_xyz",
+        "slice": [
+          0,
+          3
+        ],
+        "units": "m"
+      },
+      {
+        "name": "current.gripper",
+        "slice": [
+          3,
+          4
+        ],
+        "units": "unitless aperture / .1 m"
+      },
+      {
+        "name": "current.object_xyz",
+        "slice": [
+          4,
+          7
+        ],
+        "units": "m"
+      },
+      {
+        "name": "current.object_quaternion",
+        "slice": [
+          7,
+          11
+        ],
+        "units": "unit quaternion"
+      },
+      {
+        "name": "current.object2_xyz",
+        "slice": [
+          11,
+          14
+        ],
+        "units": "m or absent zeros"
+      },
+      {
+        "name": "current.object2_quaternion",
+        "slice": [
+          14,
+          18
+        ],
+        "units": "unit quaternion or absent zeros"
+      },
+      {
+        "name": "previous.hand_xyz",
+        "slice": [
+          18,
+          21
+        ],
+        "units": "m"
+      },
+      {
+        "name": "previous.gripper",
+        "slice": [
+          21,
+          22
+        ],
+        "units": "unitless aperture / .1 m"
+      },
+      {
+        "name": "previous.object_xyz",
+        "slice": [
+          22,
+          25
+        ],
+        "units": "m"
+      },
+      {
+        "name": "previous.object_quaternion",
+        "slice": [
+          25,
+          29
+        ],
+        "units": "unit quaternion"
+      },
+      {
+        "name": "previous.object2_xyz",
+        "slice": [
+          29,
+          32
+        ],
+        "units": "m or absent zeros"
+      },
+      {
+        "name": "previous.object2_quaternion",
+        "slice": [
+          32,
+          36
+        ],
+        "units": "unit quaternion or absent zeros"
+      },
+      {
+        "name": "goal_xyz",
+        "slice": [
+          36,
+          39
+        ],
+        "units": "m"
+      },
+      {
+        "name": "peg_head_xyz",
+        "slice": [
+          39,
+          42
+        ],
+        "units": "m"
+      }
+    ],
+    "frame": "world; native current18+previous18+goal3",
+    "native_history_reset": "current repeated as previous",
+    "object2_present": false,
+    "object_point": "pegGrasp site",
+    "policy": "state-input",
+    "quaternion_order": "xyzw",
+    "raw_dim": 42,
+    "runtime_oracles_provided": false,
+    "version": "round3-common-observation-v1"
+  },
+  "schema_version": "experiment1.common_spec.v1",
+  "success_hold_steps": 1,
+  "success_semantics": "unchanged public task evaluator; runner stops on success, termination or truncation; any invalid joint invalidates the episode",
+  "task": "peg-insert-side"
+}

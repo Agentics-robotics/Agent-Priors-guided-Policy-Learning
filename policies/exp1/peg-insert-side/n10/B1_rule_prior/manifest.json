@@ -1,0 +1,55 @@
+{
+  "task_id": "peg-insert-side",
+  "n_demos": 10,
+  "policy_id": "B1_rule_prior",
+  "instance_id": "peg-insert-side__N10__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/peg-insert-side/n10/B1_rule_prior/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/peg-insert-side/n10/B1_rule_prior/model.pt",
+    "sha256": "455b5abfa906463102276fdaee3e99ff7d9fce82ab84b99d6273bb82962f1b67",
+    "source_sha256": "455b5abfa906463102276fdaee3e99ff7d9fce82ab84b99d6273bb82962f1b67",
+    "size_bytes": 79490027,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/peg-insert-side/n10/B1_rule_prior/normalizer.json",
+  "config": "policies/exp1/peg-insert-side/n10/B1_rule_prior/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/peg-insert-side/n10/B1_rule_prior/complete.json",
+      "sha256": "f62eab2b131489357c7286ce788f1d7dbdee2f4feeb750558a574248d35d8a7b",
+      "source_sha256": "f62eab2b131489357c7286ce788f1d7dbdee2f4feeb750558a574248d35d8a7b",
+      "size_bytes": 2753,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n10/B1_rule_prior/config.json",
+      "sha256": "b86f1a7b37d20c1615ba0d633c7b1ba1a502b1dcd3231f8f18f7bf5079e455d5",
+      "source_sha256": "b86f1a7b37d20c1615ba0d633c7b1ba1a502b1dcd3231f8f18f7bf5079e455d5",
+      "size_bytes": 8098,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n10/B1_rule_prior/identity.json",
+      "sha256": "da33bcd379cbc32b598285a001d594eb52de3f3c556cce70a91a2615290a75c6",
+      "source_sha256": "da33bcd379cbc32b598285a001d594eb52de3f3c556cce70a91a2615290a75c6",
+      "size_bytes": 2192,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n10/B1_rule_prior/latency.json",
+      "sha256": "ad6fe434c0e7c4ef3f8619b113191548b7863952406894362de47eba1d1a80dc",
+      "source_sha256": "ad6fe434c0e7c4ef3f8619b113191548b7863952406894362de47eba1d1a80dc",
+      "size_bytes": 773,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n10/B1_rule_prior/normalizer.json",
+      "sha256": "983a280a3ea407466888086a042c593f68bd7afecacb2e0a2869ca251d66bb87",
+      "source_sha256": "983a280a3ea407466888086a042c593f68bd7afecacb2e0a2869ca251d66bb87",
+      "size_bytes": 3745,
+      "transformation": "none"
+    }
+  ]
+}

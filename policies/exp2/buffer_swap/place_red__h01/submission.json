@@ -1,0 +1,267 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/buffer_swap/place_red/dataset.json",
+    "dataset_sha256": "e84b54ab549c5d36768a857ab1f030f359415e7a448456090d59d6ac1513270a",
+    "experiment_version": "APPL_v4_cartesian",
+    "heuristic": {
+      "applicability": "Prefer when the buffered red pose is displaced or yawed relative to training but remains visible, table-supported, collision-free, and reachable, especially once the TCP is nearer red than blue. It is also valid from the declared early entry while blue is being released because the same causal selector uses blue as the prefix reference. High-level arguments identify target_object=red, destination=red_goal, and handoff_object=blue; observations resolve their current poses.",
+      "evidence": [
+        {
+          "indices": [
+            620,
+            640,
+            700,
+            740,
+            800,
+            820,
+            860,
+            900,
+            960,
+            980,
+            1040,
+            1063
+          ],
+          "trajectory_id": "demo10100"
+        },
+        {
+          "indices": [
+            610,
+            630,
+            680,
+            740,
+            800,
+            820,
+            850,
+            900,
+            960,
+            980,
+            1020,
+            1056
+          ],
+          "trajectory_id": "demo10104"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Blue is descending to or settled in the blue goal at the declared overlap entry, red is observable in the central free area, and both selected object poses and current Panda state are finite. The early selector should resolve blue because the TCP is near it.",
+        "exit_conditions": "Use the unchanged terminal condition: red_at_goal AND blue_at_goal. Demonstrated terminal guidance is red and blue table-supported in their opposite goals, with TCP retreated high and gripper open; this guidance does not add a success predicate.",
+        "failure_signatures": "Blue is unstable or outside its goal; the selector oscillates between objects; IK residuals are large; red does not rise after closure, separates from the TCP, or is released outside full goal containment; either object is disturbed during retreat.",
+        "overlap_role": "Supervise every assigned action. The shared prefix contains final blue lowering/opening, retreat, transit, red approach, red close, and initial red lift (about 230-240 actions per run), so the active-object selector covers both sides of the place_blue/place_red handoff rather than trimming the difficult switch.",
+        "successor_readiness": "There is no successor manipulation skill. Stop only when the framework observes its unchanged success expression; otherwise replan from causal observations within applicability rather than inferring success from gripper sign."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"target_object\":{\"type\":\"string\",\"enum\":[\"red\"]},\"destination\":{\"type\":\"string\",\"enum\":[\"red_goal\"]},\"handoff_object\":{\"type\":\"string\",\"enum\":[\"blue\"]}},\"required\":[\"target_object\",\"destination\",\"handoff_object\"]},\"parameter_semantics\":\"target_object selects the currently observed red_pose as the intended pickup/manipulation frame; destination selects the observed red_goal position in world metres; handoff_object selects blue_pose as the predecessor-release frame. Values are semantic scene identifiers, not actuator commands. Poses are world-frame metres with wxyz quaternion and are resolved causally at every build/decode.\"}",
+      "limitations": "Nearest-object switching can be discontinuous around an equidistant transit state and is not a learned contact estimator. If an object pose is noisy, occluded, physically unreachable, or the wrong object is attached, equivariance does not make the command safe or successful. A displaced red destination still requires the network to use goal-relative input; the destination-frame prior covers that case more directly. Very unusual intermediate robot tracking states are better covered by the fresh-TCP residual prior. Demonstrations do not establish recovery from slips, missed grasps, unstable blue, or unseen collisions.",
+      "pipeline_implications": "Use the unchanged standard DiffusionBackbone and independent weights. Inputs are two causal relational feature frames including arm qpos/qvel; no future, contact truth, or action history is used. encode_targets computes commanded TCP poses from demonstrated native arm commands and expresses each slot in the active object's pose at that slot's pre-action observation. decode_action reconstructs a world TCP pose from the same selector on the fresh observation and calls panda_kinematics.solve_ik from freshly measured joints; it appends the represented gripper scalar and reports convergence/residual/limits. Representation normalization is fitted only to valid relative labels. All assigned [start,stop) actions, including roughly 230-240 actions shared with place_blue, remain supervised.",
+      "rationale": "Observed: all inspected runs put the buffered red source near (-0.181, 0.000, 0.020), so the demonstrations provide essentially no source-position range. They nevertheless show the required relational structure: demo10100 releases blue at 640, retreats by 700, approaches red by 740-800, closes at 820, lifts through 860, transports through 900, lowers by 960, opens at 980, and retreats by 1040. demo10104 shows the same structure with an earlier blue entry (blue z=0.055 at 610), release at 630, red contact around 800, closure/lift at 820-850, and red release around 980. Expected benefit, not observed recovery: moving the red source changes the world TCP path but preserves target-relative approach/contact/lift geometry; active-object relative targets implement that covariance exactly for the selected frame. The blue-relative prefix also preserves the action-supervised predecessor overlap without translating blue-release commands with a displaced red block.",
+      "statement": "Manipulated-object-equivariant Cartesian Diffusion Policy. Learn each TCP target as a full pose relative to the causally observed active manipulated object: blue while the TCP is closer to the handoff blue block, then red while approaching, grasping, lifting, carrying, lowering, and releasing red. The action is [object-frame position (m), object-frame rotation 6D, native gripper scalar]. The causal nearest-object selector is recomputed from each action observation for labels and from the fresh current observation for decoding; its selected-object bit and distances are inputs. Pairwise TCP/object/goal geometry, two-frame motion, qpos and qvel retain phase, reachability, robot configuration, and blue-release context. This makes the red-relative part of the motion equivariant by construction to displacement and yaw of the buffered red block, rather than asking the network to extrapolate world coordinates.",
+      "training_bindings": "[{\"trajectory_id\":\"demo10100\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill; preserves the supervised place_blue overlap from blue release through initial red lift.\"},{\"trajectory_id\":\"demo10101\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10102\",\"start\":620,\"stop\":1060,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10103\",\"start\":620,\"stop\":1065,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10104\",\"start\":610,\"stop\":1057,\"context_start\":609,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Earlier blue-descent entry; full skill and 240-action overlap.\"},{\"trajectory_id\":\"demo10105\",\"start\":610,\"stop\":1056,\"context_start\":609,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Earlier blue-descent entry; full skill and 240-action overlap.\"},{\"trajectory_id\":\"demo10106\",\"start\":620,\"stop\":1059,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10107\",\"start\":630,\"stop\":1071,\"context_start\":629,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Later low-blue entry; full skill and 230-action overlap.\"},{\"trajectory_id\":\"demo10108\",\"start\":620,\"stop\":1058,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10109\",\"start\":620,\"stop\":1063,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10110\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10111\",\"start\":620,\"stop\":1061,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"}]"
+    },
+    "heuristic_index": 1,
+    "normalization": {
+      "path": "provenance/relocated/8ca68e5f0699c3f4",
+      "sha256": "a7b3cf25f71119bff5e5dbff8a8e733b5142452226e64786554479dc9eb9d9c6"
+    },
+    "plan_hash": "6ff90d860db25d097efcfc9bbe61fa3421abe180b8b3d234811997a8e283064a",
+    "policy_id": "place_red__h01",
+    "prior_plan_path": "assets/exp2/prior_plans/buffer_swap/place_red.json",
+    "prior_plan_sha256": "bffe3099c16add9c75e9b8aac8fe313c18ab9b323232356b67029cae42831bf0",
+    "skill_id": "place_red",
+    "sources": {
+      "demo10100": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10100.json",
+        "sha256": "8143fbe3be71a1c631f5c7749d18b35e22bc92139fcfff7b5ebbf518d6fc335a"
+      },
+      "demo10101": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10101.json",
+        "sha256": "799625b2044bcc28a7a6eea51a4740935e9cf0d9f22b8374ff1e1fd6775609bf"
+      },
+      "demo10102": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10102.json",
+        "sha256": "fa8a632a17305449d85b05f19a29a04268ec6859c9c22eedc08f8a9e98a25917"
+      },
+      "demo10103": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10103.json",
+        "sha256": "bc5327538d11b7263aa843cfbf7cca57e277f228ab83827e6a6be39d17fb7359"
+      },
+      "demo10104": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10104.json",
+        "sha256": "ab4fdca4a826e13907c3634c17d0cedd822e5736cf37113947d7cd86e096a9a8"
+      },
+      "demo10105": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10105.json",
+        "sha256": "8dca03afe82b1247c339dba887d9f2bd2f2de158810338259d17bdcde391146f"
+      },
+      "demo10106": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10106.json",
+        "sha256": "835849cc15e004b22d320f6fdc36d9c0bcc18a5019712e0ea572dff0a4b0c51a"
+      },
+      "demo10107": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10107.json",
+        "sha256": "2ee06e92d7a0502499d2696e463e66a9bc5e58f2c9beab9b4819cfe9a6a4f7a0"
+      },
+      "demo10108": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10108.json",
+        "sha256": "a267623fe0603dff6f918dfd6f2d08e3da5b313580763e0a482af84e38ab43d6"
+      },
+      "demo10109": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10109.json",
+        "sha256": "5e77ab47c4b0b7e0c67997b120e9215fcf9a4473429c62e0207c5dee631be8a6"
+      },
+      "demo10110": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10110.json",
+        "sha256": "cd8edf45f317ef134effd4d03d206a23dba900ec9d39034ba19d0f51242e60a0"
+      },
+      "demo10111": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10111.json",
+        "sha256": "66f8244ef8020adfb90b028d50deb30d29f68dc21258d3981de4adebf3412646"
+      }
+    },
+    "subgoal": "Accept the scene while blue is finishing its goal release, ensure the gripper retreats clear, approach the red block in the central buffer, close from above, lift and carry red to the red goal near (-0.35,+0.20), lower it, open, and retreat. This terminal responsibility completes the unchanged success condition red_at_goal AND blue_at_goal."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/df2dc415e14318ea",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "988f51116f71c135295d77c31438ee6daaa29ff34355e1c30122a7b4d126cafd",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 1,
+      "physical_gpu": 2,
+      "uuid": "GPU-7a6705f2-1132-637d-000e-c94d37e2f0a2"
+    },
+    "effective_action_targets": 4050,
+    "final_weights_sha256": "ee79421e7a48e010ae891b63a3e78642a7da03c90b82a4beff1bbc19895653d3",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 4.084618091583252,
+        "step": 1
+      },
+      {
+        "l2_norm": 3.352935791015625,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "89cf50afb1fa9315aea2b8e5e412e01d95eb8de643c1955c63ae8ad002a00285",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 5312,
+        "duplicated_actions": 0,
+        "unique_actions": 5312
+      },
+      "contract": {
+        "action_dimension": 10,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "destination": {
+              "enum": [
+                "red_goal"
+              ],
+              "type": "string"
+            },
+            "handoff_object": {
+              "enum": [
+                "blue"
+              ],
+              "type": "string"
+            },
+            "target_object": {
+              "enum": [
+                "red"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "target_object",
+            "destination",
+            "handoff_object"
+          ],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "Compare decoded IK FK TCP to the demonstrated commanded TCP after active-object relative pose roundtrip; report metres, radians, gripper error and IK diagnostics. Gram-Schmidt is the only rotation projection.",
+          "mode": "task_space",
+          "tolerance": 0.005
+        },
+        "cut_relation": "Covers every assigned [start,stop) action in all 12 segments. It preserves the roughly 230-240 action place_blue overlap: blue lowering/opening and retreat are blue-relative, followed by transit, red approach/closure and initial lift, then full red placement and terminal retreat.",
+        "input_shapes": {
+          "features": [
+            2,
+            69
+          ]
+        },
+        "observation_dependencies": [
+          "qpos",
+          "qvel",
+          "tcp_pose",
+          "red_pose",
+          "blue_pose",
+          "red_goal",
+          "blue_goal"
+        ],
+        "output_semantics": "Each slot is [x,y,z metres, rotation-6D, gripper scalar] for a TCP pose in the causally selected active-object frame. The active frame is blue when its 3D TCP distance is strictly less than red's, otherwise red; labels select from each pre-action observation and decoding selects from the fresh current observation. Rotation-6D is projected by Gram-Schmidt, the relative transform is composed into world, and supplied Panda IK converts it from freshly measured joints. Slot 0 represents t-1 and execution uses slots 1..8 for t..t+7. Gripper values preserve native sign semantics.",
+        "parameter_semantics": "target_object selects the currently observed red_pose as intended pickup/manipulation frame; destination selects observed red_goal in world metres; handoff_object selects blue_pose and blue_goal for predecessor release. Poses are world metres and wxyz and are resolved causally. Values are scene identifiers, not actuator commands.",
+        "policy_id": "place_red__h01",
+        "skill_id": "place_red",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "2d76d2cd769042b5f944cbc88abb4c4a3b545f10aabd94b0d1f528ad2f014e8a",
+      "PRIOR.md": "659cccb827ecbd94c10dee9e83ac79debc0a3eed568b88d8ec3517291dd4a198",
+      "adapters.py": "effdeb1b2f1d577b727463079079deb001b2d568148b0be1e36f04df4442b6ba",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "2785e0237b6c2890e0c01d2fac404bbacba8847f7a23a8e76ca7ce6045760369",
+      "policy.py": "7fc6d9a538935fc6dcf648731926e15df75dc18a0114cbf2738ac66c1d99ed6e",
+      "policy_contract.json": "b1efcc5f0ff02ea880d63ed42581974c997194837bdc7508cccbb031eceeb76a",
+      "training_bindings.json": "d60f9ebadb0d949fa781065363a8b95c557760abc07737926bf3b0b35dd9746f"
+    },
+    "trainable_parameters": 17315594,
+    "training_elapsed_seconds": 2.9434016479644924,
+    "weight_l2_change": 0.20626139194869295
+  },
+  "files": {
+    "HANDOFF.json": "2d76d2cd769042b5f944cbc88abb4c4a3b545f10aabd94b0d1f528ad2f014e8a",
+    "PRIOR.md": "659cccb827ecbd94c10dee9e83ac79debc0a3eed568b88d8ec3517291dd4a198",
+    "adapters.py": "effdeb1b2f1d577b727463079079deb001b2d568148b0be1e36f04df4442b6ba",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+    "pipeline.json": "2785e0237b6c2890e0c01d2fac404bbacba8847f7a23a8e76ca7ce6045760369",
+    "policy.py": "7fc6d9a538935fc6dcf648731926e15df75dc18a0114cbf2738ac66c1d99ed6e",
+    "policy_contract.json": "b1efcc5f0ff02ea880d63ed42581974c997194837bdc7508cccbb031eceeb76a",
+    "training_bindings.json": "d60f9ebadb0d949fa781065363a8b95c557760abc07737926bf3b0b35dd9746f"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "v1": {
+    "files": {
+      "HANDOFF.json": "2d76d2cd769042b5f944cbc88abb4c4a3b545f10aabd94b0d1f528ad2f014e8a",
+      "PRIOR.md": "659cccb827ecbd94c10dee9e83ac79debc0a3eed568b88d8ec3517291dd4a198",
+      "adapters.py": "effdeb1b2f1d577b727463079079deb001b2d568148b0be1e36f04df4442b6ba",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "2785e0237b6c2890e0c01d2fac404bbacba8847f7a23a8e76ca7ce6045760369",
+      "policy.py": "7fc6d9a538935fc6dcf648731926e15df75dc18a0114cbf2738ac66c1d99ed6e",
+      "policy_contract.json": "b1efcc5f0ff02ea880d63ed42581974c997194837bdc7508cccbb031eceeb76a",
+      "training_bindings.json": "d60f9ebadb0d949fa781065363a8b95c557760abc07737926bf3b0b35dd9746f"
+    },
+    "folder": "provenance/relocated/f2bbf4ea1e70a9e1",
+    "version": "ed661e555f47dde998c56883c74cae411cb34d7952e0a12887bafed282573076"
+  },
+  "version": "8d4bbc6597e454b396a0e71dea1c485d2e1d4512e0aaf12f3bc3a3e224b89fa2"
+}

@@ -1,0 +1,76 @@
+{
+  "task_id": "pick-place-wall",
+  "n_demos": 10,
+  "policy_id": "A2",
+  "instance_id": "pick-place-wall__N10__rep0",
+  "author": "RuntimePriorAPI",
+  "manifest": "policies/exp1/pick-place-wall/n10/A2/manifest.json",
+  "source": "policies/exp1/pick-place-wall/n10/A2/source",
+  "checkpoint": {
+    "path": "weights/exp1/pick-place-wall/n10/A2/model.pt",
+    "sha256": "454d9060e1ee544e0b44d315c1368d9043b889fefc77468bae971789c3b4d125",
+    "source_sha256": "454d9060e1ee544e0b44d315c1368d9043b889fefc77468bae971789c3b4d125",
+    "size_bytes": 87581059,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/pick-place-wall/n10/A2/normalizer.json",
+  "config": "policies/exp1/pick-place-wall/n10/A2/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/pick-place-wall/n10/A2/complete.json",
+      "sha256": "e1ed45701f2b333d1c89b89070723e0936c0816510bd1e7f9d3c2ccf7495fcab",
+      "source_sha256": "e1ed45701f2b333d1c89b89070723e0936c0816510bd1e7f9d3c2ccf7495fcab",
+      "size_bytes": 2742,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n10/A2/config.json",
+      "sha256": "4b8f7af43c31c6be8a87c0e9c4a57df68cbd5579f2c587b72ec62adc42eca6b3",
+      "source_sha256": "4b8f7af43c31c6be8a87c0e9c4a57df68cbd5579f2c587b72ec62adc42eca6b3",
+      "size_bytes": 8577,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n10/A2/identity.json",
+      "sha256": "f553eb38f6a569880ce16b671397efc4b1f8ac38c4c360bd167ba2a45317ab5f",
+      "source_sha256": "f553eb38f6a569880ce16b671397efc4b1f8ac38c4c360bd167ba2a45317ab5f",
+      "size_bytes": 2181,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n10/A2/latency.json",
+      "sha256": "176c4473800828e1fb373d8c108f7c13622e8b933c5a2b08ea162b526f43fd9c",
+      "source_sha256": "176c4473800828e1fb373d8c108f7c13622e8b933c5a2b08ea162b526f43fd9c",
+      "size_bytes": 772,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n10/A2/normalizer.json",
+      "sha256": "bce64ea6c8950fcef1b0b59b0a8ae54c0ab27dfaba9102a312a3b55264e50b8d",
+      "source_sha256": "bce64ea6c8950fcef1b0b59b0a8ae54c0ab27dfaba9102a312a3b55264e50b8d",
+      "size_bytes": 3917,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n10/A2/source/candidate.py",
+      "sha256": "46269888efc364187546756f1b9823394a0b5538277dab12eb4123a45c17dc8d",
+      "source_sha256": "46269888efc364187546756f1b9823394a0b5538277dab12eb4123a45c17dc8d",
+      "size_bytes": 5558,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n10/A2/source/config.json",
+      "sha256": "7c6db69d91a8b55c5d19c1b831aa96e69aed91dd96df6a09582964c5e330c8d8",
+      "source_sha256": "7c6db69d91a8b55c5d19c1b831aa96e69aed91dd96df6a09582964c5e330c8d8",
+      "size_bytes": 255,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n10/A2/source/design.json",
+      "sha256": "a98579ec43d77402964c2e61d102f950130f7d233c65fdd440bdf420def4fffd",
+      "source_sha256": "a98579ec43d77402964c2e61d102f950130f7d233c65fdd440bdf420def4fffd",
+      "size_bytes": 7300,
+      "transformation": "none"
+    }
+  ]
+}

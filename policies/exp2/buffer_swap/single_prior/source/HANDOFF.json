@@ -1,0 +1,24 @@
+{
+  "policy_id": "single_prior_cartesian",
+  "entry_conditions": "Full-task entry is a causally observed buffer-swap state with red_pose, blue_pose, red_goal, blue_goal, TCP pose and Panda joint state available. The normal entry has red near the initially blue/bottom region, blue near the initially red/top region, an open gripper and an unobstructed central buffer area; the same policy may also be called at intermediate demonstrated-style states without a stage argument.",
+  "exit_conditions": "Exit only when the unchanged framework predicate red_at_goal AND blue_at_goal is true, including full rotated XY containment and the supplied z tolerance. A final arm retreat, open fingers, low velocity, or a predicted destination anchor alone is not task completion.",
+  "overlap_role": "This is one indivisible full-task policy, so there is no runtime overlap, policy selection, stage boundary or successor policy. All approach, grasp, temporary placement, transfer, release and retreat actions are jointly supervised; HANDOFF describes semantics only.",
+  "successor_readiness": "No learned successor is required. The environment is ready to terminate only after both block predicates are measured true; otherwise the current full-task policy remains responsible, subject to its limitations and the framework's execution rules.",
+  "failure_signatures": "Observable failures include an IK diagnostic with converged=false or growing position/rotation residual; a close command and narrowing fingers while the intended block fails to rise or co-move with the TCP over the two causal frames; a carried block falling back to table height away from its intended region; red or blue goal-distance vectors ceasing to decrease during a placement; repeated switching among anchor diagnostics with little TCP/object progress; either block leaving reachable tabletop support; or both blocks remaining too close to occupied destinations to preserve a free temporary buffer. There is no contact-truth channel, so finger closure alone is not a grasp signature.",
+  "continuation_guidance": "Before measured success, replan the same policy from the latest two physical observations and execute the standard slots 1 through 8. Fresh object/destination anchors let later chunks update after moderate translation error. Do not externally select an object, inject a stage label, advance on gripper sign, or replace failed IK with a scripted motion; stop or invoke framework-level safety handling when reachability or scene assumptions are violated.",
+  "limitations": "Support consists of twelve long demonstrations with a single order: red to a central temporary site, blue to its bottom destination, then red to its top destination. Initial XY variation is only centimetric, the central site is unmarked, orientations are near the demonstrated tabletop alignment, and no failed grasps or obstruction recoveries are present. Translation equivariance covers selected approached objects and destinations but cannot guarantee collision avoidance, contact stability, recovery, or extrapolation to large rotations, large displacements, occupied buffers, changed transfer order or unreachable Cartesian targets.",
+  "evidence": [
+    {"trajectory_id": "demo10100", "indices": [0, 102, 205, 274, 446, 617, 652, 823, 961, 1029]},
+    {"trajectory_id": "demo10101", "indices": [0, 141, 283, 425, 567, 638, 780, 922, 993]},
+    {"trajectory_id": "demo10102", "indices": [0, 96, 289, 481, 674, 867, 963]},
+    {"trajectory_id": "demo10103", "indices": [0, 118, 355, 591, 828, 946]},
+    {"trajectory_id": "demo10104", "indices": [0, 117, 352, 587, 822, 939]},
+    {"trajectory_id": "demo10105", "indices": [0, 150, 301, 452, 603, 754, 905]},
+    {"trajectory_id": "demo10106", "indices": [0, 151, 302, 453, 605, 756, 907]},
+    {"trajectory_id": "demo10107", "indices": [0, 153, 306, 459, 612, 765, 918]},
+    {"trajectory_id": "demo10108", "indices": [0, 151, 302, 453, 604, 755, 906]},
+    {"trajectory_id": "demo10109", "indices": [0, 151, 303, 455, 607, 759, 911]},
+    {"trajectory_id": "demo10110", "indices": [0, 152, 304, 456, 608, 760, 912]},
+    {"trajectory_id": "demo10111", "indices": [0, 151, 303, 454, 606, 757, 909]}
+  ]
+}

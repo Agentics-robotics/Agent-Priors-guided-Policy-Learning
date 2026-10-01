@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "red_transfer__h01",
+  "skill_id": "red_transfer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "manipulated_object": {"type": "string", "enum": ["red"]},
+      "placement_target": {"type": "string", "enum": ["red_goal"]},
+      "handoff_object": {"type": "string", "enum": ["blue"]}
+    },
+    "required": ["manipulated_object", "placement_target", "handoff_object"]
+  },
+  "parameter_semantics": "manipulated_object selects the current observed red SE(3) pose as the causal chunk action frame; placement_target selects the observed red_goal world point in metres; handoff_object selects the observed blue SE(3) pose for successor-transition conditioning. Identifiers are resolved from each causal observation and are not actuator inputs.",
+  "observation_dependencies": ["qpos", "qvel", "tcp_pose", "red_pose", "blue_pose", "drawer_position", "drawer_velocity", "red_goal", "blue_goal"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 44], "intent": [3]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [x,y,z,r1x,r1y,r1z,r2x,r2y,r2z,gripper]. XYZ is metres in the red-block frame frozen from the newest causal observation at chunk construction. The six rotation values are the first two columns of target TCP orientation relative to that red frame. The decoder uses safe Gram-Schmidt projection, composes the relative pose with the frozen red world pose, and calls panda_kinematics.solve_ik from freshly measured joints. Gripper retains the demonstrated scalar and the executor applies nonnegative=open, negative=close. Slots represent t-1 through t+14 and execution uses slots 1 through 8.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "Encode FK of each demonstrated joint command in the causal red frame, decode it back to the same world TCP target, solve IK from measured joints, and compare world position in metres, rotation angle in radians, and gripper scalar. Safe 6D projection is exact for valid encoded rotations; nonunique IK is accepted only through task-space agreement."},
+  "cut_relation": "All twelve authorized [230,850) segments are supervised without trimming. This preserves [230,470) overlap with open_drawer and [600,850) overlap with blue_insert while making the primary red-relative approach/grasp/transport labels equivariant to the observed red pose."
+}

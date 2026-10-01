@@ -1,0 +1,22 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "align_and_insert_peg__h04",
+  "skill_id": "align_and_insert_peg",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {
+      "destination_object": {"type": "string", "enum": ["hole"]},
+      "held_object": {"type": "string", "enum": ["peg"]}
+    },
+    "required": ["destination_object", "held_object"],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "destination_object names the currently observed destination pose and resolves hole_pose in world metres with wxyz orientation at every causal frame, target-label slot, and decode step. held_object names the currently observed rigidly grasped object and resolves peg_pose. Together with observed tcp_pose, held_object defines the causal rigid peg-to-TCP transform used to retarget the Cartesian command. The arguments are semantic scene identifiers, not poses or actuator values.",
+  "observation_dependencies": ["hole_pose", "peg_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 72]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is a desired virtual held-peg pose expressed in the observed destination/hole frame: translation xyz in metres, rotation as the first two columns of the relative rotation matrix (6D), then the native gripper scalar. For training slot k, the virtual peg target is commanded_world_T_tcp[k] multiplied by the pre-action observed tcp_T_peg[k], then expressed relative to pre-action world_T_hole[k]. At each physical decode, 6D is projected to SO(3), the object target is left-composed with fresh world_T_hole, and fresh observed peg_T_tcp is right-composed to produce a world TCP target. panda_kinematics.solve_ik converts only that target from fresh measured qpos. Slots represent t-1 through t+14; execution uses slots 1 through 8, beginning at t. No scripted task motion or recurrent state is added.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "For a demonstration label and its matching pre-action observation, reconstruct world_T_desired_peg from world_T_hole and the 10D label, then right-compose the same observed peg_T_tcp. Algebraically this recovers the demonstrated commanded world TCP pose before shared IK. Compare FK TCP position in metres, rotation angle in radians, and unchanged gripper scalar; nonunique Panda joint solutions are allowed."},
+  "cut_relation": "Uses every assigned [start,stop) action in all twelve trajectories, including the complete [1380,1500) action-supervised overlap. It preserves final alignment, descent, +hole-x insertion, and stabilization while changing only causal features and the Cartesian target coordinates."
+}

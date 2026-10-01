@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "place_red__h01",
+  "skill_id": "place_red",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "target_object": {"type": "string", "enum": ["red"]},
+      "destination": {"type": "string", "enum": ["red_goal"]},
+      "handoff_object": {"type": "string", "enum": ["blue"]}
+    },
+    "required": ["target_object", "destination", "handoff_object"]
+  },
+  "parameter_semantics": "target_object selects the currently observed red_pose as intended pickup/manipulation frame; destination selects observed red_goal in world metres; handoff_object selects blue_pose and blue_goal for predecessor release. Poses are world metres and wxyz and are resolved causally. Values are scene identifiers, not actuator commands.",
+  "observation_dependencies": ["qpos", "qvel", "tcp_pose", "red_pose", "blue_pose", "red_goal", "blue_goal"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 69]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [x,y,z metres, rotation-6D, gripper scalar] for a TCP pose in the causally selected active-object frame. The active frame is blue when its 3D TCP distance is strictly less than red's, otherwise red; labels select from each pre-action observation and decoding selects from the fresh current observation. Rotation-6D is projected by Gram-Schmidt, the relative transform is composed into world, and supplied Panda IK converts it from freshly measured joints. Slot 0 represents t-1 and execution uses slots 1..8 for t..t+7. Gripper values preserve native sign semantics.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "Compare decoded IK FK TCP to the demonstrated commanded TCP after active-object relative pose roundtrip; report metres, radians, gripper error and IK diagnostics. Gram-Schmidt is the only rotation projection."},
+  "cut_relation": "Covers every assigned [start,stop) action in all 12 segments. It preserves the roughly 230-240 action place_blue overlap: blue lowering/opening and retreat are blue-relative, followed by transit, red approach/closure and initial lift, then full red placement and terminal retreat."
+}

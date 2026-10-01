@@ -1,0 +1,236 @@
+{
+  "cut_plan_sha256": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+  "priors": [
+    {
+      "applicability": "Prefer when the emptied source is securely held, already upright or nearly upright, and outbound transport, descent, placement, release, and retreat must follow a currently observed destination pose that may be translated or rotated relative to training. The target must remain reachable from the measured Panda configuration. This model is still supervised on the complete assigned cut, including the tilted shared entry, but its constructed displacement benefit is claimed for the upright target-directed part.",
+      "evidence": [
+        {
+          "indices": [
+            1460,
+            1600,
+            1680,
+            1700,
+            1740,
+            1760,
+            1780,
+            1800,
+            1820,
+            1840,
+            1850,
+            1860,
+            1880,
+            1900,
+            1920,
+            1940,
+            1952
+          ],
+          "trajectory_id": "demo12300"
+        },
+        {
+          "indices": [
+            1460,
+            1600,
+            1680,
+            1740,
+            1780,
+            1800,
+            1820,
+            1840,
+            1860,
+            1880,
+            1900,
+            1920,
+            1934
+          ],
+          "trajectory_id": "demo12303"
+        },
+        {
+          "indices": [
+            1460,
+            1600,
+            1680,
+            1740,
+            1780,
+            1800,
+            1820,
+            1840,
+            1860,
+            1880,
+            1900,
+            1920,
+            1943
+          ],
+          "trajectory_id": "demo12308"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Particles are already settled in the bowl; the emptied source remains securely grasped above the bowl. Preference begins once source uprightness is close to the required orientation and the measured robot configuration admits a reachable outbound path to the observed target_pose.",
+        "exit_conditions": "The source is upright and stationary on the table inside the return region, the fingers are open, and the TCP has retreated clear to the demonstrated approximately 0.28 m height.",
+        "failure_signatures": "IK non-convergence or joint-limit contact, loss of the source, target outside reachable workspace, premature opening, source still elevated or moving after opening, or source tilt/height outside the unchanged success requirements. A strongly tilted entry under a target displacement is outside the claimed invariant portion.",
+        "overlap_role": "All actions [1460,1740) remain supervised, preserving the 280-action overlap with controlled_pour_and_right: late righting plus outbound travel. The destination-frame construction is expected to be most useful after righting, not to redefine the overlap.",
+        "successor_readiness": "Terminal skill; evaluate only after upright support in the marked region, open fingers, and collision-free clearance. No successor object is introduced."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"container\"]},\"destination\":{\"type\":\"string\",\"enum\":[\"target_pose\"]}},\"required\":[\"source_object\",\"destination\"]},\"parameter_semantics\":\"source_object names the observed emptied source pose (container_pose); destination names the observed return destination pose (target_pose). Both are symbolic scene identities, not actuator commands. The adapter resolves both from the fresh causal observations at every replan; poses are world-frame metres and wxyz quaternions.\"}",
+      "limitations": "Training has one nominal target pose and successful executions only. Equivariance is constructed, but there is no evidence for arbitrarily large destination shifts, changed obstacles, unreachable goals, a lost grasp, corrective repouring, or release recovery. Destination-relative output shifts early righting commands too, so use the current-TCP incremental prior for substantially tilted/off-nominal entry. No contact truth is available.",
+      "pipeline_implications": "The high-level selector should route upright, securely held, reachable target-displacement cases here; retain measured qpos/qvel and a world encoding of the goal so the model can account for robot reachability rather than treating the scene as free-floating. Replan every 8 executed steps and resolve target_pose again. If the source is still appreciably tilted or intermediate motion is off-trajectory, prefer the current-TCP incremental prior; near ambiguous setdown/release with a nominal target, prefer the phase-regularized world policy.",
+      "rationale": "Observed demonstrations right the source near the bowl, then move it toward the single target at (-0.46,-0.28,0), descend, release around 1840-1850, and retreat. The single demonstrated destination makes memorizing world coordinates a likely deployment failure. Learning each commanded Cartesian pose as inverse(target_pose) times commanded_TCP, with target-relative observation relations, and decoding by target_pose times the learned relative pose makes the upright transport/descent/place/retreat motion equivariant to destination displacement by construction. Rotation is continuous 6D; gripper remains the demonstrated scalar. Measured qpos/qvel and the world target pose retain configuration and reachability dependencies.",
+      "statement": "Destination-frame SE(3) return: learn absolute commanded TCP poses relative to the observed target_pose (3D translation, 6D rotation, gripper), while conditioning on target-relative scene relations plus measured robot state and world goal pose. This targets displacement of the approached return destination and covers upright transport through retreat by construction.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":1460,\"stop\":1953,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; includes action-supervised [1460,1740) predecessor overlap and terminal hold.\"},{\"trajectory_id\":\"demo12301\",\"start\":1460,\"stop\":1945,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; retains shared righting/outbound actions.\"},{\"trajectory_id\":\"demo12302\",\"start\":1460,\"stop\":1952,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; retains shared righting/outbound actions.\"},{\"trajectory_id\":\"demo12303\",\"start\":1460,\"stop\":1935,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including this run's earlier release and retreat.\"},{\"trajectory_id\":\"demo12304\",\"start\":1460,\"stop\":1947,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12305\",\"start\":1460,\"stop\":1949,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12306\",\"start\":1460,\"stop\":1935,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including late righting, release, and retreat.\"},{\"trajectory_id\":\"demo12307\",\"start\":1460,\"stop\":1946,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12308\",\"start\":1460,\"stop\":1944,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including observed opening by index 1840 and retreat.\"},{\"trajectory_id\":\"demo12309\",\"start\":1460,\"stop\":1947,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut retaining this run's wrist/yaw variation.\"},{\"trajectory_id\":\"demo12310\",\"start\":1460,\"stop\":1950,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12311\",\"start\":1460,\"stop\":1953,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut through stable terminal hold.\"}]"
+    },
+    {
+      "applicability": "Prefer for the moderately tilted shared handoff or for a still-secure grasp whose intermediate TCP/source state differs from the nominal trajectory. Fresh measured TCP feedback must be trustworthy, source and target poses must be observed, and the intended return target must be reachable. The local action construction covers late righting, outbound transport, descent, release, and retreat, with particular benefit expected for re-entry at intermediate states.",
+      "evidence": [
+        {
+          "indices": [
+            1460,
+            1480,
+            1520,
+            1560,
+            1600,
+            1640,
+            1680,
+            1700,
+            1720,
+            1740,
+            1760,
+            1780,
+            1800,
+            1820,
+            1840,
+            1850,
+            1860,
+            1870,
+            1880,
+            1900,
+            1920,
+            1940
+          ],
+          "trajectory_id": "demo12300"
+        },
+        {
+          "indices": [
+            1460,
+            1600,
+            1680,
+            1700,
+            1740,
+            1760,
+            1780,
+            1800,
+            1820,
+            1840,
+            1860,
+            1880,
+            1900,
+            1920
+          ],
+          "trajectory_id": "demo12303"
+        },
+        {
+          "indices": [
+            1460,
+            1600,
+            1680,
+            1740,
+            1780,
+            1800,
+            1820,
+            1840,
+            1860,
+            1880,
+            1900,
+            1920
+          ],
+          "trajectory_id": "demo12308"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Particles are already settled in the bowl and the source remains held. This prior accepts the demonstrated moderate tilt at index 1460 as well as upright outbound entries and intermediate re-entry states, provided the grasp appears secure from source/TCP continuity and closed fingers.",
+        "exit_conditions": "The source is upright and stationary in the marked return region, fingers are open, and the TCP has retreated clear near the terminal pose.",
+        "failure_signatures": "Repeated IK non-convergence, large or oscillatory local commands, lack of progress toward target, source/TCP separation indicating grasp loss, opening before low upright support, or recontact during retreat. These demonstrations do not prove recovery from such failures.",
+        "overlap_role": "The complete [1460,1740) righting and outbound overlap is action-supervised in every occurrence. Current-TCP-relative labels make this prior especially suitable for accepting predecessor handoff at different points within that overlap.",
+        "successor_readiness": "Terminal skill; after stable upright placement, opening, and clearance, no successor is needed. Continued chunks should only stabilize the demonstrated clear terminal state."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"container\"]},\"destination\":{\"type\":\"string\",\"enum\":[\"target_pose\"]}},\"required\":[\"source_object\",\"destination\"]},\"parameter_semantics\":\"source_object selects container_pose and destination selects target_pose from each fresh causal observation. Poses are world-frame metres and wxyz. The learned action is interpreted relative to the freshly measured TCP at each executed slot, not as caller-provided motion.\"}",
+      "limitations": "The demonstrations contain only successful nominal paths and no lost-grasp, collision, or release-recovery episodes. Per-step body-frame deltas improve feedback consistency but do not prove recovery from large unseen errors and can drift or oscillate under poor observations. A large destination displacement still requires learned target-error extrapolation; the destination-frame prior covers that case more directly. Contact is inferred only from geometry and stationarity.",
+      "pipeline_implications": "Use this model at the tilted shared entry and when switching at an unusual but still feasible intermediate state. The executor must decode every slot from the fresh measured tcp_pose and joints; it must not accumulate against a predicted pose. Replan after each 8-action chunk. Switch to the destination-frame prior for a displaced goal once upright, or to the phase-regularized world prior when setdown/release timing is the dominant ambiguity.",
+      "rationale": "The 12 executions enter at similar but not identical tilts and differ in when outbound travel, descent, and opening occur. At demo12300 indices 1680-1740 the source moves rapidly from above the bowl toward the return region; demo12303 is already outbound by 1680; opening occurs at 1840 in demo12303/demo12308 versus 1850 in demo12300. Absolute trajectories can be brittle when a predecessor hands off at a different intermediate state. Encoding each commanded pose as inverse(measured_TCP_before_action) times commanded_TCP and decoding each slot from the fresh measured TCP creates a local feedback-like Cartesian action; a rotation vector is appropriate because demonstrated relative rotations are local. Relational source/goal features and qpos/qvel retain task phase and reachability.",
+      "statement": "Fresh-TCP body-increment policy: learn local Cartesian command transforms (body-frame translation, rotation vector, gripper) relative to each slot's measured TCP and decode from the fresh TCP, targeting handoff/intermediate-state variation rather than a fixed absolute path.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":1460,\"stop\":1953,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; includes action-supervised [1460,1740) predecessor overlap and terminal hold.\"},{\"trajectory_id\":\"demo12301\",\"start\":1460,\"stop\":1945,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; retains shared righting/outbound actions.\"},{\"trajectory_id\":\"demo12302\",\"start\":1460,\"stop\":1952,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; retains shared righting/outbound actions.\"},{\"trajectory_id\":\"demo12303\",\"start\":1460,\"stop\":1935,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including this run's earlier release and retreat.\"},{\"trajectory_id\":\"demo12304\",\"start\":1460,\"stop\":1947,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12305\",\"start\":1460,\"stop\":1949,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12306\",\"start\":1460,\"stop\":1935,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including late righting, release, and retreat.\"},{\"trajectory_id\":\"demo12307\",\"start\":1460,\"stop\":1946,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12308\",\"start\":1460,\"stop\":1944,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including observed opening by index 1840 and retreat.\"},{\"trajectory_id\":\"demo12309\",\"start\":1460,\"stop\":1947,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut retaining this run's wrist/yaw variation.\"},{\"trajectory_id\":\"demo12310\",\"start\":1460,\"stop\":1950,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12311\",\"start\":1460,\"stop\":1953,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut through stable terminal hold.\"}]"
+    },
+    {
+      "applicability": "Prefer when the return target is near demonstrated world support, the source is approaching or resting at table height, and the main uncertainty is whether the trajectory is still descending/settling, should open, or should retreat. The model also owns and is supervised on the complete cut, but its auxiliary benefit is expected near setdown/release rather than as recovery from a lost grasp or failed contact.",
+      "evidence": [
+        {
+          "indices": [
+            1740,
+            1760,
+            1780,
+            1800,
+            1820,
+            1840,
+            1850,
+            1860,
+            1870,
+            1880,
+            1900,
+            1920,
+            1940,
+            1952
+          ],
+          "trajectory_id": "demo12300"
+        },
+        {
+          "indices": [
+            1740,
+            1760,
+            1780,
+            1800,
+            1820,
+            1830,
+            1840,
+            1850,
+            1860,
+            1870,
+            1880,
+            1900,
+            1920,
+            1934
+          ],
+          "trajectory_id": "demo12303"
+        },
+        {
+          "indices": [
+            1740,
+            1780,
+            1800,
+            1820,
+            1830,
+            1840,
+            1850,
+            1860,
+            1880,
+            1900,
+            1920,
+            1943
+          ],
+          "trajectory_id": "demo12308"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "The emptied source is securely grasped and particles are already settled. Preference is strongest once the upright source is near the return region or descending, with a target near demonstrated world support and causal geometry sufficient to distinguish elevated, supported, open, and retreat phases.",
+        "exit_conditions": "The source remains upright and stationary at z approximately zero inside the return bounds, fingers are open, and the TCP has cleared upward to approximately (-0.46,-0.28,0.28) m.",
+        "failure_signatures": "Opening while source z is elevated, outside the return region, tilted, or still moving; fingers remaining closed after stable setdown; source movement after opening; TCP recontact during retreat; or IK failure. The auxiliary prediction is not a contact sensor.",
+        "overlap_role": "All [1460,1740) actions remain supervised despite this prior's setdown emphasis, so it can accept the same predecessor overlap. Its world-frame output is complementary rather than a shortened release-only cut.",
+        "successor_readiness": "Terminal skill. Stable upright source, open fingers, and clear TCP make evaluation ready; an auxiliary open-horizon prediction alone never establishes success."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"container\"]},\"destination\":{\"type\":\"string\",\"enum\":[\"target_pose\"]}},\"required\":[\"source_object\",\"destination\"]},\"parameter_semantics\":\"source_object selects observed container_pose and destination selects observed target_pose. The arguments are symbolic scene identities. World poses use metres and wxyz quaternions; the learned action is a world TCP target plus the demonstrated gripper scalar.\"}",
+      "limitations": "There is no contact truth, failed placement, premature-release recovery, or corrective regrasp in training. The open-horizon auxiliary uses demonstrated future gripper labels only during training and cannot guarantee support. World-frame outputs are intentionally not displacement invariant and may memorize the nominal target; the destination-frame prior covers target displacement. Large off-trajectory entries are better handled by the current-TCP incremental prior.",
+      "pipeline_implications": "Select this model near nominal setdown when causal source height/uprightness, target error, finger width, and two-frame motion indicate phase ambiguity. The shared trainable condition encoder feeds both diffusion and a masked 16-slot future-open auxiliary head; inference remains causal and does not consume future truth. Do not use the auxiliary output as a success predicate or scripted gripper gate. Prefer destination-relative output for displaced goals and current-TCP increments for strongly off-nominal handoffs.",
+      "rationale": "Across inspected runs the source is low and nearly stationary before opening, but opening timing differs: demo12300 remains closed at 1840 and opens by 1850, while demo12303 and demo12308 command open at 1840. Retreat follows with the source stationary and TCP rising to about 0.28 m. This phase ambiguity can blur gripper and Cartesian diffusion labels. A trainable causal condition encoder shared by the unchanged DP backbone and a masked horizon-wise future-open auxiliary head gives a direct gradient encouraging phase-separable features. The main action remains a world position plus 6D rotation and gripper, retaining demonstrated robot/world geometry and offering a lower-drift complement near contact.",
+      "statement": "Support-phase regularized world policy: diffuse absolute world TCP pose (position, 6D rotation, gripper) while a shared trainable causal encoder also predicts the masked 16-slot future open/closed sequence, targeting setdown-versus-release-versus-retreat ambiguity.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":1460,\"stop\":1953,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; includes action-supervised [1460,1740) predecessor overlap and terminal hold.\"},{\"trajectory_id\":\"demo12301\",\"start\":1460,\"stop\":1945,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; retains shared righting/outbound actions.\"},{\"trajectory_id\":\"demo12302\",\"start\":1460,\"stop\":1952,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; retains shared righting/outbound actions.\"},{\"trajectory_id\":\"demo12303\",\"start\":1460,\"stop\":1935,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including this run's earlier release and retreat.\"},{\"trajectory_id\":\"demo12304\",\"start\":1460,\"stop\":1947,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12305\",\"start\":1460,\"stop\":1949,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12306\",\"start\":1460,\"stop\":1935,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including late righting, release, and retreat.\"},{\"trajectory_id\":\"demo12307\",\"start\":1460,\"stop\":1946,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12308\",\"start\":1460,\"stop\":1944,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including observed opening by index 1840 and retreat.\"},{\"trajectory_id\":\"demo12309\",\"start\":1460,\"stop\":1947,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut retaining this run's wrist/yaw variation.\"},{\"trajectory_id\":\"demo12310\",\"start\":1460,\"stop\":1950,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12311\",\"start\":1460,\"stop\":1953,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut through stable terminal hold.\"}]"
+    }
+  ],
+  "skill_id": "return_place_release"
+}

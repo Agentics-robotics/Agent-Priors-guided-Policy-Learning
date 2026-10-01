@@ -1,0 +1,234 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/covered_peg_assembly/full_task_single_prior/dataset.json",
+    "dataset_sha256": "1ecca0005b5d40b1265305396b91cca5063ee121ccb800f6b48496ed528a6b04",
+    "experiment_version": "CartesianIK_peg_SinglePrior_cartesian",
+    "heuristic": {
+      "statement": "Framework scope only: API independently chooses one full-task inductive bias from original demonstrations."
+    },
+    "heuristic_index": 1,
+    "normalization": {
+      "path": "provenance/relocated/da0d96ddb8b9a5c9",
+      "sha256": "5d50ce2e025ef83183ac172a24c1b19ea7482f651c1c6fa09f34f83bd3887b24"
+    },
+    "observation_fields": {
+      "hole_pose": [
+        0,
+        7
+      ],
+      "lid_pose": [
+        7,
+        14
+      ],
+      "lid_position": [
+        14,
+        15
+      ],
+      "lid_velocity": [
+        15,
+        16
+      ],
+      "peg_pose": [
+        16,
+        23
+      ],
+      "qpos": [
+        23,
+        32
+      ],
+      "qvel": [
+        32,
+        41
+      ],
+      "target_pose": [
+        41,
+        48
+      ],
+      "tcp_pose": [
+        48,
+        55
+      ]
+    },
+    "plan_hash": "f9522aa4f1435765fb4b907d9ad17b87f3cb28314e655e8323f21b1bec45761b",
+    "policy_id": "single_prior_cartesian",
+    "scientific_design_owner": "Runtime API",
+    "skill_id": "full_task",
+    "sources": {
+      "demo12200": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12200.json",
+        "sha256": "e7ccc303ea6b6ddd3150e2336c6b06b3f89a66d478909e3f9555eb3d6ccc85f1"
+      },
+      "demo12201": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12201.json",
+        "sha256": "aa9e1f1d14f676f5b4c9fb52ee6bbbb5d86865d82adcc051e3256482461f1016"
+      },
+      "demo12202": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12202.json",
+        "sha256": "4ad5e3ce9117f56008597389c45a799aff1857f683091069d582e024a00b32a7"
+      },
+      "demo12203": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12203.json",
+        "sha256": "c43ecf548e80a87d465fbc947e98d191dffd25cc4966f83e2698dd7a8a2cf8af"
+      },
+      "demo12204": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12204.json",
+        "sha256": "35eea2d5c8fc6e02c992c923db4e580d473d5583edcd45cfee79e682782c5a09"
+      },
+      "demo12205": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12205.json",
+        "sha256": "b4b9855dac2b9f0e836ea063d38694af37abba89371fcae59fffa7d65c4dfb3c"
+      },
+      "demo12206": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12206.json",
+        "sha256": "6a64bcc76a39a6dc2f1119c5e5983a5686835cdf2ae5a0899ab8f39da92ef407"
+      },
+      "demo12207": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12207.json",
+        "sha256": "58410156c6edfad3658ce632cf8ebe122570c51412ba53f8631c9e78a14c5397"
+      },
+      "demo12208": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12208.json",
+        "sha256": "1522c1f09079f05ace6825ff5221ebf74ca8c45941a00050c53b579b43e84d5b"
+      },
+      "demo12209": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12209.json",
+        "sha256": "2a6dc540f7c4c6e6cb92c1fe50c106da8f71123c6b3ede06a790bf8ca0c3d31b"
+      },
+      "demo12210": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12210.json",
+        "sha256": "dd077218ff68ac6e93b28dc73234d21ac2a16c937de945465c9970deb9ad4ac4"
+      },
+      "demo12211": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12211.json",
+        "sha256": "0440e3242bad2dbcefe176eab207fd19647109b019c55702ff1906862c9e4b5d"
+      }
+    },
+    "subgoal": "Complete the entire supplied task with one learned policy."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/38e9b0adbc0bc407",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "9070c3e85bae3ba003d4eeac5d4ad972b12df6d1bab34d9873c5b44a94d2581e",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 1,
+      "physical_gpu": 2,
+      "uuid": "GPU-7a6705f2-1132-637d-000e-c94d37e2f0a2"
+    },
+    "effective_action_targets": 4088,
+    "final_weights_sha256": "6e925da577f2c6fbc560214a4a12b0bbc120a9c78ca3d7974c27b2edcddd166e",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 3.227015495300293,
+        "step": 1
+      },
+      {
+        "l2_norm": 1.2490910291671753,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "f14c70c6b58cc87af5b64997606e414466aef52696d80e2b4d5407d021169b44",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 18574,
+        "duplicated_actions": 0,
+        "unique_actions": 18574
+      },
+      "contract": {
+        "action_dimension": 10,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "required": [],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "For valid demonstrated targets, encode uses inverse(chunk reference) times commanded FK TCP and decode recomposes the same world pose. The independent check compares FK position in metres, rotation angle in radians and unchanged gripper scalar. Robust Gram-Schmidt is identity on valid 6D labels and only projects invalid/noisy sampled rotation columns; shared IK may choose a nonunique joint posture and reports convergence, residuals and limit contacts.",
+          "mode": "task_space",
+          "tolerance": 0.005
+        },
+        "cut_relation": "One model owns every action in [0, stop) of all twelve complete demonstrations. There are no cuts, segments, object choices, stage labels, runtime high-level calls or successor policies; the full-task relational reference is recomputed causally once per execution chunk.",
+        "input_shapes": {
+          "features": [
+            2,
+            80
+          ]
+        },
+        "observation_dependencies": [
+          "hole_pose",
+          "lid_pose",
+          "lid_position",
+          "lid_velocity",
+          "peg_pose",
+          "qpos",
+          "qvel",
+          "target_pose",
+          "tcp_pose"
+        ],
+        "output_semantics": "Each of 16 slots represents t-1 through t+14. Slots 1 through 8 execute current t through t+7. A slot is [p_ref_tcp(3 metres), R_ref_tcp first-two-columns(6), gripper(1)]. The pose is relative to the causal SE(3) reference fixed when the chunk is built. The 6D rotation is projected by robust Gram-Schmidt, composed with that reference into a world TCP target, and passed with freshly measured qpos to panda_kinematics.solve_ik. The returned seven absolute Panda joint targets are followed by the unchanged demonstrated gripper scalar; the common executor applies its >=0 open and <0 close rule. Training targets are FK poses of demonstrated native joint commands, not measured lagging TCP poses. The framework alone fits midpoint/half-range normalization in these ten represented coordinates.",
+        "parameter_semantics": "There are no caller-selected parameters: call_args is exactly {} for every complete demonstration and deployment call. At each 8-step replan the policy resolves the currently observed world poses of the lid, peg, insertion target and hole. Positions are metres in the world frame and quaternions are wxyz. A causal geometric relevance blend defines one chunk-fixed SE(3) reference from the lid while closed or held at its handle, the peg while it is approached or lifted, and target_pose once lift or source-to-destination progress indicates transport. This is representation conditioning, not a stage argument or policy selector.",
+        "policy_id": "single_prior_cartesian",
+        "skill_id": "full_task",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "deb1f0d2150b7c52da2eadb0c610d5df051838b05068e183a89dfccdd4395cc3",
+      "PRIOR.md": "494c389ab21632d07f3c8e14c2fb133de1c35b38fc2879f73e2257b81d1c6350",
+      "adapters.py": "c7d9d97d00527bdfa39e2bcb52dc2dfb76b5ae637d469339fca1b26233cdbc18",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "4929ea92d8a57edaf81dd394830f5ed1b393a73e119091a3dd3b5a6ac008cf49",
+      "policy.py": "d671e4216f99e27fd81d77b395f3d7696f1500888ca40e34c80a59e304379c7e",
+      "policy_contract.json": "22244c158b35de1a2ddd797294f61fc347ca937dee45a468c726393221d676c8",
+      "training_bindings.json": "c1069ee8eb3808e547a6ca5d32c310977f07920113588839cf113cd842a307e6"
+    },
+    "trainable_parameters": 17473290,
+    "training_elapsed_seconds": 4.216348277870566,
+    "weight_l2_change": 0.20737546401550963
+  },
+  "files": {
+    "HANDOFF.json": "deb1f0d2150b7c52da2eadb0c610d5df051838b05068e183a89dfccdd4395cc3",
+    "PRIOR.md": "494c389ab21632d07f3c8e14c2fb133de1c35b38fc2879f73e2257b81d1c6350",
+    "adapters.py": "c7d9d97d00527bdfa39e2bcb52dc2dfb76b5ae637d469339fca1b26233cdbc18",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "pipeline.json": "4929ea92d8a57edaf81dd394830f5ed1b393a73e119091a3dd3b5a6ac008cf49",
+    "policy.py": "d671e4216f99e27fd81d77b395f3d7696f1500888ca40e34c80a59e304379c7e",
+    "policy_contract.json": "22244c158b35de1a2ddd797294f61fc347ca937dee45a468c726393221d676c8",
+    "training_bindings.json": "c1069ee8eb3808e547a6ca5d32c310977f07920113588839cf113cd842a307e6"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "v1": {
+    "files": {
+      "HANDOFF.json": "deb1f0d2150b7c52da2eadb0c610d5df051838b05068e183a89dfccdd4395cc3",
+      "PRIOR.md": "494c389ab21632d07f3c8e14c2fb133de1c35b38fc2879f73e2257b81d1c6350",
+      "adapters.py": "c7d9d97d00527bdfa39e2bcb52dc2dfb76b5ae637d469339fca1b26233cdbc18",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "4929ea92d8a57edaf81dd394830f5ed1b393a73e119091a3dd3b5a6ac008cf49",
+      "policy.py": "d671e4216f99e27fd81d77b395f3d7696f1500888ca40e34c80a59e304379c7e",
+      "policy_contract.json": "22244c158b35de1a2ddd797294f61fc347ca937dee45a468c726393221d676c8",
+      "training_bindings.json": "c1069ee8eb3808e547a6ca5d32c310977f07920113588839cf113cd842a307e6"
+    },
+    "folder": "provenance/relocated/b291341fa2ee0135",
+    "version": "f91ad146484f1230bb3cbdd8af153c79defc19d212c7f087f8f6d9a2d1816848"
+  },
+  "version": "4a0f3caf49aaadcc184c05fe122d6623118209d6c5842a71aa85968057069a0c"
+}

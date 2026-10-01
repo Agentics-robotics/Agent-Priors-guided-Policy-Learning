@@ -1,0 +1,38 @@
+{
+  "title": "Metric cabinet-frame diffusion with a world-context bypass",
+  "coverage_gap": "The exact N=2 support has one LL and one HH episode. Cabinet x and yaw are confounded, and neither crossed cells nor yaw magnitudes of 33--37 degrees are observed. Per-coordinate support standardization would particularly magnify the almost-constant goal y and yaw cosine outside support.",
+  "reusable_regularity": "A translating drawer is approached relative to its handle and pulled along its cabinet axis. Analytically express hand-handle separation, goal-handle remaining displacement, and observed hand/handle increments in the cabinet yaw basis; diffuse actions in that same orthonormal basis. Fixed metric scales and an additional smooth near-contact view do not identify a demonstration or fit an extrapolation trend from two layouts. This candidate has no learned preprocessing and no auxiliary objective.",
+  "dependencies_preserved": [
+    "The frame is a coordinate change, not a claim of full environment rotation invariance: retain absolute world hand and goal coordinates, world vertical, yaw sine/cosine, and both handle quaternions for fixed robot orientation/workspace and cabinet contact geometry.",
+    "Current hand and handle positions, gripper aperture, and native previous hand/handle/aperture encode contact alignment and observed motion. Two whole observation histories are processed separately.",
+    "All real positional fields are reconstructible from the unbounded relation vectors and world hand/goal bypass. Current and previous quaternions are unmodified. Absent object2 fields are omitted as declared by task_materials.json.",
+    "The cabinet is the relevant visible obstacle. Handle position, cabinet yaw, and remaining drawer travel retain its task-varying geometry; no collision-free path or simulator field is supplied or inferred."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Two complete current-support episodes, images_and_numeric, no development/test data."},
+    {"path": "task_materials.json", "detail": "Yaw-corrected handle point, yaw channels 39:41, fixed end-effector rotation, world delta controls, LL/HH training versus crossed and extreme layouts."},
+    {"path": "support_summary.json", "detail": "178 transitions; initial handle-goal distances approximately 0.128 m in both demos; goal-y std approximately 0.000708 and yaw-cosine std approximately 0.002376."},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Cabinet, handle, fixed-orientation fingers and initial offset are visible."},
+    {"path": "images/frame_02_demo_00_step_024.png", "detail": "Raised approach above the handle, rather than immediate straight-line pulling."},
+    {"path": "images/frame_04_demo_00_step_048.png", "detail": "Descent near the cabinet face."},
+    {"path": "images/frame_06_demo_00_step_072.png", "detail": "Low hand contacting/pulling the drawer."},
+    {"path": "images/frame_09_demo_01_step_018.png", "detail": "Raised approach in the opposite signed layout."},
+    {"path": "trajectories/demo_00.json", "detail": "Read actions 0:28 and 40:72, observations 21:26 and 62:70: vertical action reverses around 23; pulling starts near 65 after a close descent."},
+    {"path": "trajectories/demo_01.json", "detail": "Read observations 63:68: similar final descent with opposite-signed layout geometry."}
+  ],
+  "expected_failure_signature": [
+    "If local-coordinate transfer is sufficient, new layouts should preserve approach and pull direction; if the world bypass becomes a layout identifier, crossed-cell actions will instead follow the wrong lateral direction.",
+    "At extreme yaw the fixed gripper can lose contact despite correct local translation. That would appear as hand motion along the desired pull axis without matching handle travel.",
+    "No explicit stage supervision: diffusion can switch to descent/pull prematurely after off-support approach errors, especially with four-step open-loop execution."
+  ],
+  "required_runtime_fields": [
+    {"source": "context.raw_history", "shape": "[B,2,41]", "fields": "hand 0:3; aperture 3:4; handle 4:7; quaternion 7:11; previous hand 18:21; previous aperture 21:22; previous handle 22:25; previous quaternion 25:29; goal 36:39; cabinet sin/cos yaw 39:41"},
+    {"source": "context.raw_current", "shape": "[B,41]", "fields": "39:41 only for the fixed chunk action basis"}
+  ],
+  "action_frame_semantics": "For every one of 16 native action4 rows, encode xyz as Rz(yaw_start)^T times the unitless world displacement command; decode by Rz(yaw_start). Z and gripper are unchanged. No translation of action points, rescaling, candidate clipping, changing native 0.01 m scale, or future frame use. Host alone clips the world cube and executes four actions.",
+  "training_only_targets": [],
+  "support_fit_statistics": "None. Raw-history physical scaling is a representation choice; the common normalizer remains untouched. Its standardized history is not used by this design.",
+  "architecture": "Exactly one common DP factory call, condition_dim=33, diffusion_action_dim=4. All learned capacity belongs to the frozen common U-Net. Common mask-normalized action epsilon objective only.",
+  "parents": [],
+  "change_summary": ["Initial executable design: analytical yaw canonicalization, metric relation and increment features, near-contact tanh features, and world-context bypass. No performance feedback used."]
+}

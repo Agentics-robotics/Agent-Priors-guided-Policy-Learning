@@ -1,0 +1,41 @@
+{
+  "instance": "assembly__N2__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A2",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A2",
+      "feedback_hash": "115d0428275178325417ab15fb88a903288d30f8d08d37aee9cbcab83f12d7a9",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: select A2 by the frozen equal-distribution, equal-subcondition rule. Scores are A1=0.5*0.50+0.5*0.25=0.375, A2=0.5*0.50+0.5*0.50=0.500, and A3=0.5*0.30+0.5*0.25=0.275. All are eligible and A2 is the unique maximum, so latency/parameter tie-breaks are not invoked. IID and training loss do not select. For revision, A2's E-HL success (5/5 versus A1's 0/5) supports retaining its carry-bearing representation, while C-LH=0/10 and both low-nut E cells=0/5 reveal an unresolved asymmetry. Only truncation categories are supplied, so acquisition failure versus positive-direction transport failure is not directly established.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "ee2e806877af28bf2db87c93554f7b2ef1d700285395ebdc1d30442d8bfd3370",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: select A4, the unique maximum under the frozen rule. Equal-cell C success is (1.0+1.0)/2=1.0; equal-cell E success is (1.0+0.6+0.0+0.2)/4=0.45. Thus A4 scores 0.5*1.0+0.5*0.45=0.725, versus A2=0.500, A1=0.375 and A3=0.275. All four candidates are eligible completed submissions at the fixed 20,000 updates. There is no tie, so A4's higher latency (0.222956598 s versus A2's 0.153658422 s) and parameter count do not override its higher score. IID, training losses and hidden tests are not selection criteria. Record the limitations and negative results: A4 improves C-LH from A2's 0/10 to 10/10, but E success falls from 0.50 to 0.45, E-HL falls from 5/5 to 3/5, E-LH remains 0/5, and E-LL is only 1/5. The feedback does not establish a stage-specific causal mechanism. No further editing, checks, candidate slots or training are requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "2b095b5273e7293a201d0f56543078be04258571d1179121a15ccc4aff0edbcb",
+    "A2": "447740e1c2b4efa10b684dd5baf4004ea117785c8e3f418b8d5dfafab301dff6",
+    "A3": "25c9be1c73fe657f4110988876300ab75b1e6a1a9d4a457a55be10507e44b620",
+    "A4": "4fca0478bcab23383245f34fd4ef2059f9009131d3dd1b75905f8133ae085a35"
+  },
+  "feedback_hashes": {
+    "initial": "1add92348e674f534d9bab99be1ac736367ec0ae65ce3795a53ecbeeffe07af1",
+    "final": "71c8227937f57250e1bb41b4ad8c728149ec80584cb5204cde5faa768e67264c"
+  }
+}

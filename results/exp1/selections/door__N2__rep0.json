@@ -1,0 +1,41 @@
+{
+  "instance": "door__N2__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A1",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A1",
+      "feedback_hash": "851e60ff58025b2a426d176b892f2f5d6c47b4f3196f95643ad600211b736def",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3 under the frozen development-only rule: A1 = 0.5*1.00 + 0.5*1.00 = 1.000; A2 = 0.5*1.00 + 0.5*0.95 = 0.975; A3 = 0.5*1.00 + 0.5*0.30 = 0.650. Each C/E score uses equal subcondition weights. All three are eligible completed candidates, so A1 is the unique maximum and no latency or parameter tiebreak is needed. IID scores and training curves did not select. A1's 20/20 C and 20/20 E results are finite-development evidence, not a guarantee of perfect population or hidden-test performance. A2's one E-LL truncation and A3's 14 E truncations remain recorded.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A1",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A1",
+      "feedback_hash": "add655d12719a318630d52258d613eda98a3671246b34b277e5cc967b611bd37",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: select A1 under the frozen rule. Equal-subcondition C/E scores give A1=0.5*1.00+0.5*1.00=1.000; A2=0.975; A3=0.650; A4=0.975. All four candidates completed and are eligible; A4's joint violation invalidated its affected episode, which remains a recorded failure. A1 is the unique score maximum, so latency, parameter count and candidate-ID tiebreaks are not invoked. The compact revision A4 had 20/20 C and 19/20 E, with its E-LL cell at 4/5 and one joint-violation episode overall; its smaller 4675140-parameter system did not preserve A1's development success or improve the reported fixed-method latency (0.1067321750 s versus A1's 0.1032762465 s). This negative revision result remains recorded. IID success, training curves, training time and hidden-test outcomes do not select. No edits, new design, checkpoint search or additional training are requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "6f2b753e57fecf24562d103e0e4da835b886f1222903229ec2b26322b62cfe39",
+    "A2": "fcd77866285452595fbef063d9c1c6129b12825e0a876c27125ffe0ec1be2993",
+    "A3": "05027ca31000e4f97dec0bfda25c8b60a406fc913354c99f1481f77ef32a2f48",
+    "A4": "c284082a5cd9bff162444a9618678d6ead3718f611d5a9f91fd9ee5f739ad9fc"
+  },
+  "feedback_hashes": {
+    "initial": "d3e4aeba0915886540558c5e3a22dc44103c6c42104b04d1e2f106c54aeb2d1f",
+    "final": "5f22a83b630eaaffcbcac456ef2b3ff736801610ddf8518beccf5178f3b71d35"
+  }
+}

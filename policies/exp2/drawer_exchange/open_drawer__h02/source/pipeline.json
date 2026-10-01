@@ -1,0 +1,10 @@
+{
+  "policy_id": "open_drawer__h02",
+  "skill_id": "open_drawer",
+  "heuristic_index": 2,
+  "prior_summary": "Predict local SE(3) corrections and compose each executed slot with the fresh measured TCP to tolerate modest feasible arm-entry and tracking deviations.",
+  "applicable_conditions": "Prefer when drawer/red geometry is near demonstrated support but TCP pose, measured joints or tracking lag differs modestly, including a predecessor-produced intermediate entry. Relations must remain coherent; this is not arbitrary recovery.",
+  "termination_guidance": "Switch after drawer_position exceeds 0.26 m and stabilizes; nominal robust transfer also observes handle release and red/TCP upward co-motion after closure. Replan if local increments accumulate without expected progress.",
+  "limitations": "Local corrections can drift and do not create invariance to large object displacement. They cannot infer contact truth or recover missed pulls/drops. Large offsets, collisions, singularities and joint-limit configurations remain unsupported.",
+  "config": {"action_frame":"fresh_measured_tcp","rotation_representation":"rotation_vector","action_dimension":7,"feature_dimension_per_frame":39,"auxiliary_loss":false}
+}

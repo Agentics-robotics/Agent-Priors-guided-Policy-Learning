@@ -1,0 +1,14 @@
+{
+  "policy_id": "red_transfer__h01",
+  "entry_conditions": "Drawer_position is strictly above 0.26 m, red is exposed, and a reliable current red pose is available. Entry may be at the closed-gripper drawer front or later during red approach, contact, or lift.",
+  "exit_conditions": "Nominal switch cue: red is within the outside pad and no longer follows TCP; after the retained overlap, blue is centered under TCP with closed fingers and observed blue/TCP co-motion on initial lift. These cues do not alter task success.",
+  "overlap_role": "The package supervises [230,470) shared with open_drawer and [600,850) shared with blue_insert in every demonstration. This covers drawer release through red lift and final red descent/release through blue pickup/lift.",
+  "successor_readiness": "blue_insert may receive from index 600 with red still held or touching because release context is included. The least ambiguous nominal handoff is after blue co-motion is established near the cut end.",
+  "failure_signatures": "Red fails to co-move after closure; transformed approach is unreachable; red is carried into furniture; red is outside the pad or follows TCP after opening; TCP fails to clear red; or blue approach shifts with red rather than current blue.",
+  "continuation_guidance": "Replan the red anchor from the latest causal observation every chunk. If red has already been released and blue pose variation dominates, prefer the phase-conditioned local policy or hand off to blue_insert rather than relying on red anchoring.",
+  "limitations": "Observed successful trajectories do not establish recovery from missed grasps, off-pad release, stale object poses, collision, or IK nonconvergence. Closed fingers alone are not proof of grasp.",
+  "evidence": [
+    {"trajectory_id":"demo1000","indices":[230,240,400,445,470,560,600,610,700,800,850]},
+    {"trajectory_id":"demo1001","indices":[230,400,445,470,560,600,610,700,800,849]}
+  ]
+}

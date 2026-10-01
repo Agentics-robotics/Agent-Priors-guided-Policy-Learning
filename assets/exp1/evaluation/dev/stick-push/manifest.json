@@ -1,0 +1,3169 @@
+{
+  "counts": {
+    "C": 20,
+    "E": 20,
+    "IID": 10
+  },
+  "hidden_from_runtime_api": true,
+  "historical_novelty": "New declared seeds; task/support/layout semantics were historically exposed.",
+  "paired_across_n_and_systems": true,
+  "phase": "dev",
+  "records": [
+    {
+      "cell": "LL",
+      "episode_id": "e1_stick-push_dev_IID_000_410500000",
+      "factors": {
+        "a": -0.062291932570314734,
+        "b": 0.5657078588512849
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18747915420771868,
+          "unit_direction": [
+            -0.3567123677153354,
+            0.004729775106599704,
+            -0.9342022885576551
+          ],
+          "vector_world_m": [
+            -0.06687613299470381,
+            0.0008867342365780351,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4772929347027657,
+          "unit_direction": [
+            0.9690544979195344,
+            -0.07661330464498627,
+            0.23465673144679594
+          ],
+          "vector_world_m": [
+            0.4625228651989297,
+            -0.036566989011282525,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6647720889104843,
+        "target_object_to_goal_m": [
+          0.20023093262861497,
+          -0.03429214114871504,
+          0.0
+        ]
+      },
+      "inference_seed": 510500000,
+      "initial_state_hash": "a0204f50e35ee3feac40986ec7b921bfa5db8c06adec79a1625a21e87cc36c2b",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_IID_000_410500000.npz",
+      "seed": 410500000,
+      "sha256": "941434e3368c36c122ecf1707a1c5761c5fe3c2a63f5ef98ae98366fb68f3ae5",
+      "split": "IID",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.062291932570314734,
+          0.6022748478625675,
+          0.0005,
+          0.400230932628615,
+          0.5657078588512849,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_stick-push_dev_IID_001_410500001",
+      "factors": {
+        "a": -0.04906203783395571,
+        "b": 0.5827872690908972
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18378723889393128,
+          "unit_direction": [
+            -0.2918931617951207,
+            -0.0815436236104543,
+            -0.952968530196944
+          ],
+          "vector_world_m": [
+            -0.05364623825834479,
+            -0.014986677432771378,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4637738773549507,
+          "unit_direction": [
+            0.9703702741571052,
+            -0.007792951002185839,
+            0.24149699987151385
+          ],
+          "vector_world_m": [
+            0.45003238451582717,
+            -0.0036141671023208755,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6475611162488819,
+        "target_object_to_goal_m": [
+          0.20097034668187141,
+          -0.017212730909102802,
+          0.0
+        ]
+      },
+      "inference_seed": 510500001,
+      "initial_state_hash": "1cad6cb64427f83a7f93a0618b802f3c14e799fec9917cbc0dcdde48b805d914",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_IID_001_410500001.npz",
+      "seed": 410500001,
+      "sha256": "114dd121412103877f59b1fb2d223b4b2ed7e1b40504a3fa6b02fcbc7f2143cf",
+      "split": "IID",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04906203783395571,
+          0.586401436193218,
+          0.0005,
+          0.4009703466818714,
+          0.5827872690908972,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_stick-push_dev_IID_002_410500002",
+      "factors": {
+        "a": -0.0649883467291062,
+        "b": 0.5694946066866652
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1885577876535899,
+          "unit_direction": [
+            -0.3689720165857636,
+            -0.03289406612717042,
+            -0.9288582407398107
+          ],
+          "vector_world_m": [
+            -0.06957254715349527,
+            -0.006202432335870145,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4793018419105473,
+          "unit_direction": [
+            0.9708366288821365,
+            -0.053601034581980296,
+            0.23367321008731426
+          ],
+          "vector_world_m": [
+            0.4653237844174345,
+            -0.0256910746034541,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6678596295641372,
+        "target_object_to_goal_m": [
+          0.2003354376883283,
+          -0.030505393313334794,
+          0.0
+        ]
+      },
+      "inference_seed": 510500002,
+      "initial_state_hash": "13fa1362f3d204819135672de3bfda233f962d37724a1723073655eb9c9ac96d",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_IID_002_410500002.npz",
+      "seed": 410500002,
+      "sha256": "44796b67e9f56756d78ca33bd1979c6470a33fae226da4a66052c7cfc7d4a2fb",
+      "split": "IID",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.0649883467291062,
+          0.5951856812901193,
+          0.0005,
+          0.4003354376883283,
+          0.5694946066866652,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_stick-push_dev_IID_003_410500003",
+      "factors": {
+        "a": -0.04717560863487791,
+        "b": 0.5849931483928713
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18282060965946167,
+          "unit_direction": [
+            -0.28311802020395577,
+            0.045458205457350735,
+            -0.9580071702197169
+          ],
+          "vector_world_m": [
+            -0.051759809059266984,
+            0.00831069683573793,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.46148562060907466,
+          "unit_direction": [
+            0.9686244884982829,
+            -0.053535063641309555,
+            0.24269445243425128
+          ],
+          "vector_world_m": [
+            0.44700627321177755,
+            -0.02470566206885605,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6443062302685363,
+        "target_object_to_goal_m": [
+          0.19983066457689963,
+          -0.015006851607128668,
+          0.0
+        ]
+      },
+      "inference_seed": 510500003,
+      "initial_state_hash": "6c6606e03e0dd5140d372929ee8a3fd6a3a7bdf40daceafd95dca85e5ffe1c58",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_IID_003_410500003.npz",
+      "seed": 410500003,
+      "sha256": "10e8894a384b10c809443875dffe92e88ecba44e4d63db20e7eb9340e7eb60ea",
+      "split": "IID",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04717560863487791,
+          0.6096988104617274,
+          0.0005,
+          0.39983066457689964,
+          0.5849931483928713,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_stick-push_dev_IID_004_410500004",
+      "factors": {
+        "a": -0.06430595537204524,
+        "b": 0.5695563937583611
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1884218537552714,
+          "unit_direction": [
+            -0.3656165907693019,
+            -0.04797451601239279,
+            -0.9295283504915863
+          ],
+          "vector_world_m": [
+            -0.06889015579643432,
+            -0.009039447240067,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4789809098917904,
+          "unit_direction": [
+            0.9711124081564023,
+            -0.04758492907934574,
+            0.2338297783627799
+          ],
+          "vector_world_m": [
+            0.4651443048659613,
+            -0.02279227262756134,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6674027636470617,
+        "target_object_to_goal_m": [
+          0.20083834949391605,
+          -0.030443606241638888,
+          0.0
+        ]
+      },
+      "inference_seed": 510500004,
+      "initial_state_hash": "362cfd416c1f96f9896f4a582c3d20c92b2d5c0af283b930f03c9ffed5d31573",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_IID_004_410500004.npz",
+      "seed": 410500004,
+      "sha256": "2dab39784dceabf1e1d54d2e9dce3a63d59197c5ed5ed83d7362f828a98629d5",
+      "split": "IID",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06430595537204524,
+          0.5923486663859224,
+          0.0005,
+          0.40083834949391606,
+          0.5695563937583611,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_stick-push_dev_IID_005_410500005",
+      "factors": {
+        "a": -0.04615122792986666,
+        "b": 0.585421622700729
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18259891900979458,
+          "unit_direction": [
+            -0.277851745395789,
+            0.052827983091689575,
+            -0.9591702725705056
+          ],
+          "vector_world_m": [
+            -0.050735428354255735,
+            0.009646332606010222,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.46089914652090475,
+          "unit_direction": [
+            0.9684323553762747,
+            -0.055571427555483645,
+            0.24300327055372423
+          ],
+          "vector_world_m": [
+            0.4463496460561545,
+            -0.0256128235312707,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6434980655306993,
+        "target_object_to_goal_m": [
+          0.20019841812628786,
+          -0.014578377299271028,
+          0.0
+        ]
+      },
+      "inference_seed": 510500005,
+      "initial_state_hash": "9caff13396bdbc81702039ae28272f943c316d085a71fc0caee809e2a91e3da0",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_IID_005_410500005.npz",
+      "seed": 410500005,
+      "sha256": "625a2f5a2143c6b541404c14b3aadf807993c60bc1581ce6785965875b1a62cf",
+      "split": "IID",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04615122792986666,
+          0.6110344462319997,
+          0.0005,
+          0.40019841812628787,
+          0.585421622700729,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_stick-push_dev_IID_006_410500006",
+      "factors": {
+        "a": -0.06133175177460699,
+        "b": 0.5688928301069484
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18719383040397483,
+          "unit_direction": [
+            -0.3521267343947487,
+            0.02470525600157314,
+            -0.9356262144950765
+          ],
+          "vector_world_m": [
+            -0.06591595219899607,
+            0.004624671502045263,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.47672271507255265,
+          "unit_direction": [
+            0.9688867191060524,
+            -0.07786487584388974,
+            0.23493741006856506
+          ],
+          "vector_world_m": [
+            0.461890307329975,
+            -0.03711995502108634,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6639165454765275,
+        "target_object_to_goal_m": [
+          0.200558555555368,
+          -0.031107169893051623,
+          0.0
+        ]
+      },
+      "inference_seed": 510500006,
+      "initial_state_hash": "6dcf4cb3040af3e02c6742b3936968e7c725ea33da76845a28cf8b3f7234016c",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_IID_006_410500006.npz",
+      "seed": 410500006,
+      "sha256": "7217992a7d669a9b62a3b5e77b2b29cddff972f9059742947474d9036b2e5623",
+      "split": "IID",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06133175177460699,
+          0.6060127851280347,
+          0.0005,
+          0.400558555555368,
+          0.5688928301069484,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_stick-push_dev_IID_007_410500007",
+      "factors": {
+        "a": -0.047162921022304426,
+        "b": 0.5824769338514123
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18327288105890058,
+          "unit_direction": [
+            -0.2823501281134055,
+            -0.08381388542156744,
+            -0.9556430493468174
+          ],
+          "vector_world_m": [
+            -0.0517471214466935,
+            -0.01536081225395125,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4608200618077832,
+          "unit_direction": [
+            0.9699844235455228,
+            -0.007704455198191437,
+            0.24304497412857284
+          ],
+          "vector_world_m": [
+            0.4469882820108348,
+            -0.0035503675206258745,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6440929428666837,
+        "target_object_to_goal_m": [
+          0.19982536098853038,
+          -0.017523066148587674,
+          0.0
+        ]
+      },
+      "inference_seed": 510500007,
+      "initial_state_hash": "d9996b14f16a56e971023f4e4f3a5d6eb0fe3668d3ce5c4e69400afae2380e0d",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_IID_007_410500007.npz",
+      "seed": 410500007,
+      "sha256": "5f2b1acde46850fc30b486ff7f72120cfc514ddaeabaff32003c606c8f4531af",
+      "split": "IID",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.047162921022304426,
+          0.5860273013720382,
+          0.0005,
+          0.3998253609885304,
+          0.5824769338514123,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_stick-push_dev_IID_008_410500008",
+      "factors": {
+        "a": -0.06387482495672381,
+        "b": 0.5687694668195415
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1880491183256458,
+          "unit_direction": [
+            -0.36404863788067315,
+            -0.0041292203178272474,
+            -0.9313707848095695
+          ],
+          "vector_world_m": [
+            -0.06845902538111288,
+            -0.0007764962401397568,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4784198382347756,
+          "unit_direction": [
+            0.9699306632609166,
+            -0.06655691930292026,
+            0.2341040045773313
+          ],
+          "vector_world_m": [
+            0.4640340710162363,
+            -0.031842150566308125,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6664689565604214,
+        "target_object_to_goal_m": [
+          0.20015924605951246,
+          -0.03123053318045843,
+          0.0
+        ]
+      },
+      "inference_seed": 510500008,
+      "initial_state_hash": "89ec374c0759ff9c005ab1fb95d79208ed91860b60db92823a5c64274f8e68a3",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_IID_008_410500008.npz",
+      "seed": 410500008,
+      "sha256": "8e4e406507e9efc7654483bc93ba5985d471ebda44281f7beec168e7f631d29d",
+      "split": "IID",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06387482495672381,
+          0.6006116173858497,
+          0.0005,
+          0.4001592460595125,
+          0.5687694668195415,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_stick-push_dev_IID_009_410500009",
+      "factors": {
+        "a": -0.04524197481587796,
+        "b": 0.581230225010589
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.182521394014855,
+          "unit_direction": [
+            -0.272988136591877,
+            0.0684701599547649,
+            -0.959577675061203
+          ],
+          "vector_world_m": [
+            -0.049826175240267036,
+            0.01249726904336379,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.45969050564332276,
+          "unit_direction": [
+            0.9672601467089954,
+            -0.07103726802680939,
+            0.2436421866996349
+          ],
+          "vector_world_m": [
+            0.44464030592929266,
+            -0.032655157658764256,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6422118996581778,
+        "target_object_to_goal_m": [
+          0.1993983311134147,
+          -0.018769774989411014,
+          0.0
+        ]
+      },
+      "inference_seed": 510500009,
+      "initial_state_hash": "97d32821916aeef5d97944dad65bfa355a297d2f48050498120e67a7eff6293e",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_IID_009_410500009.npz",
+      "seed": 410500009,
+      "sha256": "42561c6506f01e902bbacfbb6f2691bcc0d8c93262f9ce21c14d7e21e506eb9c",
+      "split": "IID",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04524197481587796,
+          0.6138853826693532,
+          0.0005,
+          0.3993983311134147,
+          0.581230225010589,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_C_000_410501000",
+      "factors": {
+        "a": -0.06327642438385724,
+        "b": 0.5851903057312398
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1878598026827172,
+          "unit_direction": [
+            -0.3612301505653044,
+            -0.017663823966246158,
+            -0.9323093733549271
+          ],
+          "vector_world_m": [
+            -0.06786062480824631,
+            -0.0033183224849212545,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.47775597451474017,
+          "unit_direction": [
+            0.9717593078823983,
+            -0.0269582927202746,
+            0.2344293027706438
+          ],
+          "vector_world_m": [
+            0.46426381513112464,
+            -0.012879485409828417,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6656157771974573,
+        "target_object_to_goal_m": [
+          0.2009873907472674,
+          -0.01480969426876022,
+          0.0
+        ]
+      },
+      "inference_seed": 510501000,
+      "initial_state_hash": "ba3a24e7722e1f5ba24da29574e3864d75bc0b62d028f45d00aedfab6244b619",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_000_410501000.npz",
+      "seed": 410501000,
+      "sha256": "38bfa8ec2b2077469c8e12f7fe29c8891a247ac0e389edfee74c8e948ed589d5",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06327642438385724,
+          0.5980697911410682,
+          0.0005,
+          0.4009873907472674,
+          0.5851903057312398,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_C_001_410501001",
+      "factors": {
+        "a": -0.049898286862204676,
+        "b": 0.5659668302159686
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18371060939980324,
+          "unit_direction": [
+            -0.29656690740176767,
+            -0.05604709099139799,
+            -0.9533660330773032
+          ],
+          "vector_world_m": [
+            -0.05448248728659375,
+            -0.010296445241115948,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.46356672094580287,
+          "unit_direction": [
+            0.9688599150454331,
+            -0.054198968635287996,
+            0.24160491885933782
+          ],
+          "vector_world_m": [
+            0.44913121387344057,
+            -0.025124838168904873,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6472773303456061,
+        "target_object_to_goal_m": [
+          0.1992329270112359,
+          -0.03403316978403137,
+          0.0
+        ]
+      },
+      "inference_seed": 510501001,
+      "initial_state_hash": "0bb7a9cd804d29f2819c4cb3de2bbca4083c9d017191427e92fd4a3dca81b9ef",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_001_410501001.npz",
+      "seed": 410501001,
+      "sha256": "d1018aefdcf078a12ff5f9ff1fe49281539d480d8c90db7c0f94b7c788fe94f0",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.049898286862204676,
+          0.5910916683848735,
+          0.0005,
+          0.3992329270112359,
+          0.5659668302159686,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_C_002_410501002",
+      "factors": {
+        "a": -0.06347401109310344,
+        "b": 0.5845919172093752
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18795335320833986,
+          "unit_direction": [
+            -0.36210160848820994,
+            0.023381646660606815,
+            -0.9318453325148385
+          ],
+          "vector_world_m": [
+            -0.06805821151749251,
+            0.004394658893393633,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4765018864999417,
+          "unit_direction": [
+            0.970966275861404,
+            -0.044471713355977355,
+            0.23504628874121722
+          ],
+          "vector_world_m": [
+            0.4626672621757818,
+            -0.02119085531000786,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6644552397082816,
+        "target_object_to_goal_m": [
+          0.19919325108267832,
+          -0.015408082790624777,
+          0.0
+        ]
+      },
+      "inference_seed": 510501002,
+      "initial_state_hash": "e10687e5d2955f6e6b4895a3ae8ee512d12e4757a60750ddc525da998ed427f5",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_002_410501002.npz",
+      "seed": 410501002,
+      "sha256": "e0c782c13f06e60f013b2d83462e1733b54264189f569e8197584832d38727ab",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06347401109310344,
+          0.6057827725193831,
+          0.0005,
+          0.39919325108267834,
+          0.5845919172093752,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_C_003_410501003",
+      "factors": {
+        "a": -0.046354781697069414,
+        "b": 0.570380660945686
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18258657651823146,
+          "unit_direction": [
+            -0.2789853618640589,
+            -0.04511286388152093,
+            -0.9592351105844633
+          ],
+          "vector_world_m": [
+            -0.05093898212145849,
+            -0.008237003373059881,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.46130554998504414,
+          "unit_direction": [
+            0.968822436419329,
+            -0.04936088305892228,
+            0.24278918821512363
+          ],
+          "vector_world_m": [
+            0.446923166870269,
+            -0.02277044930724359,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6438921265032755,
+        "target_object_to_goal_m": [
+          0.20056838517319958,
+          -0.02961933905431402,
+          0.0
+        ]
+      },
+      "inference_seed": 510501003,
+      "initial_state_hash": "a3ca6ed297f8b86a9a7390fa5b8418fd4e4ef348e0b47d68f8f33e10e4f04c6d",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_003_410501003.npz",
+      "seed": 410501003,
+      "sha256": "be09cd2fbb6939ad17de77fee97072b5d90caccdf3bfb05268179dbf01a41c5d",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.046354781697069414,
+          0.5931511102529295,
+          0.0005,
+          0.4005683851731996,
+          0.570380660945686,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_C_004_410501004",
+      "factors": {
+        "a": -0.0624597836527374,
+        "b": 0.5816161357744928
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18757281898443953,
+          "unit_direction": [
+            -0.3574291010825414,
+            0.019542420306318163,
+            -0.9337357932027118
+          ],
+          "vector_world_m": [
+            -0.06704398407712647,
+            0.0036656268666348524,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.47564655314679394,
+          "unit_direction": [
+            0.970631916549863,
+            -0.049275253994951564,
+            0.2354689616881016
+          ],
+          "vector_world_m": [
+            0.4616777254812089,
+            -0.0234376047181315,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6632193721312335,
+        "target_object_to_goal_m": [
+          0.19921794182847147,
+          -0.018383864225507196,
+          0.0
+        ]
+      },
+      "inference_seed": 510501004,
+      "initial_state_hash": "f086425b87bad602f5d7a744288ea465e21ded916d9cfc31605e87f0a192e3bb",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_004_410501004.npz",
+      "seed": 410501004,
+      "sha256": "eba20850e110d10b2e7e9f99b998a5fe9ea03c78a84e8c06d67b66231232b010",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.0624597836527374,
+          0.6050537404926243,
+          0.0005,
+          0.3992179418284715,
+          0.5816161357744928,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_C_005_410501005",
+      "factors": {
+        "a": -0.0494770208720306,
+        "b": 0.5650558584859985
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1833321853941246,
+          "unit_direction": [
+            -0.29488123528446314,
+            -0.019548982602654155,
+            -0.9553339177252687
+          ],
+          "vector_world_m": [
+            -0.05406122129641967,
+            -0.003583957702776308,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.46395477068352364,
+          "unit_direction": [
+            0.967854540032693,
+            -0.07058510765816255,
+            0.24140284156361935
+          ],
+          "vector_world_m": [
+            0.44904073117587534,
+            -0.032748297437214635,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6472869560776482,
+        "target_object_to_goal_m": [
+          0.19956371030384473,
+          -0.03494414151400149,
+          0.0
+        ]
+      },
+      "inference_seed": 510501005,
+      "initial_state_hash": "2259320f268197f869a20e1508b2d452df6557ff4549d6cc1d078ebd6974e159",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_005_410501005.npz",
+      "seed": 410501005,
+      "sha256": "d3edf345e76f6ec00f91ca695364494e31a13d6cd0f573708008aa82734b57f5",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.0494770208720306,
+          0.5978041559232131,
+          0.0005,
+          0.39956371030384474,
+          0.5650558584859985,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_C_006_410501006",
+      "factors": {
+        "a": -0.06418380839455567,
+        "b": 0.5843668004739425
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1882537490683858,
+          "unit_direction": [
+            -0.3652942327005866,
+            0.0315180818767826,
+            -0.9303583901220529
+          ],
+          "vector_world_m": [
+            -0.06876800881894475,
+            0.00593339707674867,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.47758156313573696,
+          "unit_direction": [
+            0.9709235603002447,
+            -0.04806448154756648,
+            0.23451491566094576
+          ],
+          "vector_world_m": [
+            0.46369519161350586,
+            -0.022954710228795583,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6658353122041227,
+        "target_object_to_goal_m": [
+          0.19951138321895018,
+          -0.015633199526057462,
+          0.0
+        ]
+      },
+      "inference_seed": 510501006,
+      "initial_state_hash": "09c03bc49cd80115cd8ac7021c114c6c3c1ec3dab264640fbf7b92c445f93ed4",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_006_410501006.npz",
+      "seed": 410501006,
+      "sha256": "3b7f71d09dbfe0a3b40af0ef76faaf60c0fd3781f7f6b0e98b81bc026683614c",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06418380839455567,
+          0.6073215107027381,
+          0.0005,
+          0.3995113832189502,
+          0.5843668004739425,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_C_007_410501007",
+      "factors": {
+        "a": -0.04553318998320274,
+        "b": 0.5650188582325338
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18244441034446823,
+          "unit_direction": [
+            -0.2746995115551447,
+            -0.054531029668853453,
+            -0.9599825754432314
+          ],
+          "vector_world_m": [
+            -0.05011739040759182,
+            -0.009948881553410671,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4602730398061186,
+          "unit_direction": [
+            0.96824259044929,
+            -0.05740152378069766,
+            0.2433338264765147
+          ],
+          "vector_world_m": [
+            0.44565596037584543,
+            -0.02642037384004492,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6427174501505868,
+        "target_object_to_goal_m": [
+          0.2001227703926427,
+          -0.03498114176746614,
+          0.0
+        ]
+      },
+      "inference_seed": 510501007,
+      "initial_state_hash": "5596e9094c07d99a9d38674cbe6e66b4e277b736fe66ed90820e2caf30ce9a04",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_007_410501007.npz",
+      "seed": 410501007,
+      "sha256": "ed993d35966cbe0fab12770f8313be276646206b2d7d41d4e08408e3930872cc",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04553318998320274,
+          0.5914392320725788,
+          0.0005,
+          0.4001227703926427,
+          0.5650188582325338,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_C_008_410501008",
+      "factors": {
+        "a": -0.06244294609466301,
+        "b": 0.585716506612171
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18774184450395873,
+          "unit_direction": [
+            -0.3570176201056699,
+            -0.04738217684637217,
+            -0.932895143224244
+          ],
+          "vector_world_m": [
+            -0.06702714651905209,
+            -0.008895617277750678,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.47492210566176407,
+          "unit_direction": [
+            0.9716900335775761,
+            -0.014267581262880935,
+            0.2358281466893132
+          ],
+          "vector_world_m": [
+            0.46147707679721267,
+            -0.006775989736067745,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6626639501657228,
+        "target_object_to_goal_m": [
+          0.19903413070254966,
+          -0.014283493387828972,
+          0.0
+        ]
+      },
+      "inference_seed": 510501008,
+      "initial_state_hash": "b548084b73726dc51f1c599929ad7199e921f00e39e6123d270e629bcbed62c0",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_008_410501008.npz",
+      "seed": 410501008,
+      "sha256": "de6f63b6ba2d55bf5ca82943e0f684fb8450c24d579722ebfe70acb53bd92dc3",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06244294609466301,
+          0.5924924963482388,
+          0.0005,
+          0.39903413070254967,
+          0.585716506612171,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_C_009_410501009",
+      "factors": {
+        "a": -0.04601958534060254,
+        "b": 0.5717118206335707
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18230774386198065,
+          "unit_direction": [
+            -0.27757342992134293,
+            0.00205632349612868,
+            -0.9607022236548538
+          ],
+          "vector_world_m": [
+            -0.05060378576499162,
+            0.0003748836972295999,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.46122585315124104,
+          "unit_direction": [
+            0.9678780198790972,
+            -0.06515501350223354,
+            0.24283114061100552
+          ],
+          "vector_world_m": [
+            0.4464103654650704,
+            -0.030051176689648296,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6435335970132217,
+        "target_object_to_goal_m": [
+          0.20039078012446787,
+          -0.028288179366429245,
+          0.0
+        ]
+      },
+      "inference_seed": 510501009,
+      "initial_state_hash": "ddaf03490606fb24a25f4de01dfe54e9334fbef800082b5cdfe672f450e9d3f9",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_009_410501009.npz",
+      "seed": 410501009,
+      "sha256": "a6eb43221e2392b5b28c6b547d35eeba67a221c4c7222535887b18772227c464",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04601958534060254,
+          0.601762997323219,
+          0.0005,
+          0.4003907801244679,
+          0.5717118206335707,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_C_010_410501010",
+      "factors": {
+        "a": -0.061366732891227196,
+        "b": 0.5851426145657093
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18746936762202931,
+          "unit_direction": [
+            -0.35179578483768487,
+            -0.05843532878181885,
+            -0.9342510573291304
+          ],
+          "vector_world_m": [
+            -0.06595093331561627,
+            -0.010954834133512947,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.47461742182167993,
+          "unit_direction": [
+            0.971694086148027,
+            -0.01114722023152996,
+            0.2359795381512141
+          ],
+          "vector_world_m": [
+            0.4611829419669499,
+            -0.005290664926767219,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6620867894437092,
+        "target_object_to_goal_m": [
+          0.19981620907572273,
+          -0.014857385434290715,
+          0.0
+        ]
+      },
+      "inference_seed": 510501010,
+      "initial_state_hash": "3344f8df92c3719f65f487452201e347efe0489e8121a8c2f658d790cf14b4e5",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_010_410501010.npz",
+      "seed": 410501010,
+      "sha256": "7b35622a83901ec918bb1109163f628f8320eb020f757231e84840e9816df7f5",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.061366732891227196,
+          0.5904332794924765,
+          0.0005,
+          0.39981620907572274,
+          0.5851426145657093,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_C_011_410501011",
+      "factors": {
+        "a": -0.04672169707510468,
+        "b": 0.5688652709072001
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18269282927513544,
+          "unit_direction": [
+            -0.2808314792816912,
+            -0.04551543852118589,
+            -0.9586772267560554
+          ],
+          "vector_world_m": [
+            -0.051305897499493755,
+            -0.008315344239133937,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4613347824048056,
+          "unit_direction": [
+            0.9686627339062515,
+            -0.052472736509197704,
+            0.24277380390911824
+          ],
+          "vector_world_m": [
+            0.4468778115702846,
+            -0.02420749847965542,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.644027611679941,
+        "target_object_to_goal_m": [
+          0.2001561144951799,
+          -0.031134729092799907,
+          0.0
+        ]
+      },
+      "inference_seed": 510501011,
+      "initial_state_hash": "aed26776ed6c79c2c95488435ee6b091f5252f72090355030ddccabb7616484c",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_011_410501011.npz",
+      "seed": 410501011,
+      "sha256": "f73e3f009658b1624f2811a6281cacc6b86678a526a21b96b73edd5fa5f9b172",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04672169707510468,
+          0.5930727693868555,
+          0.0005,
+          0.4001561144951799,
+          0.5688652709072001,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_C_012_410501012",
+      "factors": {
+        "a": -0.061312422098801916,
+        "b": 0.5838767140837042
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18724687004377363,
+          "unit_direction": [
+            -0.3519237598352699,
+            -0.035342809803724236,
+            -0.9353611885569044
+          ],
+          "vector_world_m": [
+            -0.06589662252319099,
+            -0.006617830514299761,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4753062533991973,
+          "unit_direction": [
+            0.9715707195563109,
+            -0.02291905261098304,
+            0.23563754778949675
+          ],
+          "vector_world_m": [
+            0.4617936386246724,
+            -0.01089356902798544,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6625531234429709,
+        "target_object_to_goal_m": [
+          0.20048121652587042,
+          -0.01612328591629575,
+          0.0
+        ]
+      },
+      "inference_seed": 510501012,
+      "initial_state_hash": "856715cabe254613dfc48aab916074444695a7af7dcd1ceade7c9d4a20a1442c",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_012_410501012.npz",
+      "seed": 410501012,
+      "sha256": "6ea0999567ad2120c59965daa30cabb4ef88a0d372325cf63678e4b920e8423a",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.061312422098801916,
+          0.5947702831116897,
+          0.0005,
+          0.40048121652587043,
+          0.5838767140837042,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_C_013_410501013",
+      "factors": {
+        "a": -0.047144332041932094,
+        "b": 0.5716766614520968
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18275362233358727,
+          "unit_direction": [
+            -0.28305065478756464,
+            -0.03783718610875504,
+            -0.9583583224304478
+          ],
+          "vector_world_m": [
+            -0.05172853246632117,
+            -0.006914882820285073,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.46236315331011923,
+          "unit_direction": [
+            0.9689643122340581,
+            -0.049304468122954546,
+            0.2422338354563445
+          ],
+          "vector_world_m": [
+            0.44801339484951,
+            -0.02279656935360752,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6451167756437065,
+        "target_object_to_goal_m": [
+          0.20086906280757794,
+          -0.028323338547903143,
+          0.0
+        ]
+      },
+      "inference_seed": 510501013,
+      "initial_state_hash": "f2c439f3caf1db15dd2192e2fc82f8ab57f0361b0b15c1b9da37f9749c024e9f",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_013_410501013.npz",
+      "seed": 410501013,
+      "sha256": "38346de81e670529b09869ab49390c79cc58d09f0618074cf5cc83f16abc52e2",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.047144332041932094,
+          0.5944732308057044,
+          0.0005,
+          0.40086906280757795,
+          0.5716766614520968,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_C_014_410501014",
+      "factors": {
+        "a": -0.06151515972960517,
+        "b": 0.5854189689571203
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18738775136587535,
+          "unit_direction": [
+            -0.3527410925857954,
+            -0.0445892865560854,
+            -0.9346579679892525
+          ],
+          "vector_world_m": [
+            -0.06609936015399424,
+            -0.008355486142753499,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.47486691276893933,
+          "unit_direction": [
+            0.9716558503050247,
+            -0.016033247045410114,
+            0.23585555655358315
+          ],
+          "vector_world_m": [
+            0.4614072139082257,
+            -0.007613658526115619,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6622546641348147,
+        "target_object_to_goal_m": [
+          0.19989205417862055,
+          -0.014581031042879666,
+          0.0
+        ]
+      },
+      "inference_seed": 510501014,
+      "initial_state_hash": "4160e39fc126b634c825522395e206f8d71647d68fed491bc07146420c91dd80",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_014_410501014.npz",
+      "seed": 410501014,
+      "sha256": "1cdfa4f9abb2b4ed6b5fe3d6652dbd24d3521495f7ec8410239e269749ae60b5",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06151515972960517,
+          0.5930326274832359,
+          0.0005,
+          0.39989205417862056,
+          0.5854189689571203,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_C_015_410501015",
+      "factors": {
+        "a": -0.04816656705547812,
+        "b": 0.5696896192496693
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18302063990230177,
+          "unit_direction": [
+            -0.28822305237281476,
+            0.03398214574612296,
+            -0.9569601276183803
+          ],
+          "vector_world_m": [
+            -0.0527507674798672,
+            0.006219434059708706,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4636639102044558,
+          "unit_direction": [
+            0.9669352315596296,
+            -0.08177890838928706,
+            0.24155427570503132
+          ],
+          "vector_world_m": [
+            0.44833297037938874,
+            -0.037917928436028814,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6466845501067575,
+        "target_object_to_goal_m": [
+          0.2001664033239106,
+          -0.030310380750330657,
+          0.0
+        ]
+      },
+      "inference_seed": 510501015,
+      "initial_state_hash": "9f929f71b5c18ac22a450de62461df7baacb9fa1e8ac966c5ec175546c0edfc5",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_015_410501015.npz",
+      "seed": 410501015,
+      "sha256": "9c042b7bb78989f83ae0f593e822bc28fb35a73f3a7c25bc58e22c26633353a5",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04816656705547812,
+          0.6076075476856981,
+          0.0005,
+          0.4001664033239106,
+          0.5696896192496693,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_C_016_410501016",
+      "factors": {
+        "a": -0.0638044154339898,
+        "b": 0.5863212163659427
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.188184339655725,
+          "unit_direction": [
+            -0.3634128960119256,
+            0.04154164793058633,
+            -0.9307015410427967
+          ],
+          "vector_world_m": [
+            -0.06838861585837888,
+            0.007817487584028004,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.47850544104214193,
+          "unit_direction": [
+            0.9710446534130815,
+            -0.047824711865835,
+            0.2340621242593899
+          ],
+          "vector_world_m": [
+            0.46465015015304045,
+            -0.022884384844074734,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6666897806978669,
+        "target_object_to_goal_m": [
+          0.20084573471905065,
+          -0.013678783634057279,
+          0.0
+        ]
+      },
+      "inference_seed": 510501016,
+      "initial_state_hash": "077b775af1f9f53f1628da098570e698fe7d9509d346e94070ea154a50bfcba9",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_016_410501016.npz",
+      "seed": 410501016,
+      "sha256": "26e0067f310207130245145c91e7850ae95219a421a68e56319da7b6c4e7c815",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.0638044154339898,
+          0.6092056012100174,
+          0.0005,
+          0.40084573471905066,
+          0.5863212163659427,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_C_017_410501017",
+      "factors": {
+        "a": -0.04717448801170727,
+        "b": 0.5712954793346444
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18276307000742972,
+          "unit_direction": [
+            -0.28320102323731067,
+            -0.0379665613741184,
+            -0.9583087814763911
+          ],
+          "vector_world_m": [
+            -0.051758688436096344,
+            -0.006938885314359378,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.46176778856251527,
+          "unit_direction": [
+            0.9688432226930785,
+            -0.05014154202713735,
+            0.2425461514945778
+          ],
+          "vector_world_m": [
+            0.44738059240676337,
+            -0.023153748976985633,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.644530858569945,
+        "target_object_to_goal_m": [
+          0.2002061043950561,
+          -0.02870452066535556,
+          0.0
+        ]
+      },
+      "inference_seed": 510501017,
+      "initial_state_hash": "6f047cf29fb4490d4730d81451971dd0ad2608b353fb9240cc7b4e7f8633e077",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_017_410501017.npz",
+      "seed": 410501017,
+      "sha256": "6d6b54576bf720f91efe5b439da2b3cfdde73efea2edcd534aebe4c3e9119bb4",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.04717448801170727,
+          0.59444922831163,
+          0.0005,
+          0.4002061043950561,
+          0.5712954793346444,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_C_018_410501018",
+      "factors": {
+        "a": -0.06479928463151047,
+        "b": 0.5808462280900724
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18873990762731757,
+          "unit_direction": [
+            -0.36761427897327853,
+            -0.06120734990576752,
+            -0.9279619616193702
+          ],
+          "vector_world_m": [
+            -0.06938348505589954,
+            -0.011552269567327467,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.47738288799799844,
+          "unit_direction": [
+            0.9719065591570453,
+            -0.018831039391230327,
+            0.23461251506038397
+          ],
+          "vector_world_m": [
+            0.4639715600745878,
+            -0.008989615968589604,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.666122795625316,
+        "target_object_to_goal_m": [
+          0.1991722754430773,
+          -0.01915377190992762,
+          0.0
+        ]
+      },
+      "inference_seed": 510501018,
+      "initial_state_hash": "2ee191ae2c6819278b593c0f25f229a7abc05fff036a77d8bb5193a6dc3dba58",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_018_410501018.npz",
+      "seed": 410501018,
+      "sha256": "c3c925066c78c30b4bf1af85a2b60c3de1dd4a14656ea76a004ce4a7f146ed2b",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.06479928463151047,
+          0.589835844058662,
+          0.0005,
+          0.3991722754430773,
+          0.5808462280900724,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_C_019_410501019",
+      "factors": {
+        "a": -0.049498611336980795,
+        "b": 0.5707286531089959
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.18331613536118121,
+          "unit_direction": [
+            -0.2950248304919392,
+            0.011731740925098124,
+            -0.9554175608853277
+          ],
+          "vector_world_m": [
+            -0.05408281176136987,
+            0.002150617407447597,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4644505633799498,
+          "unit_direction": [
+            0.9679145702937269,
+            -0.07064277774941662,
+            0.2411451483338539
+          ],
+          "vector_world_m": [
+            0.44954846747658345,
+            -0.03281007792444113,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.647766698741131,
+        "target_object_to_goal_m": [
+          0.20004985613960263,
+          -0.02927134689100408,
+          0.0
+        ]
+      },
+      "inference_seed": 510501019,
+      "initial_state_hash": "5120464648e734b81a83c161e0c59f28bb85298f3b1ae8bc8f4239baa5cb0721",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_C_019_410501019.npz",
+      "seed": 410501019,
+      "sha256": "21b2c23a5d98dda0da9a9c51bcb4564d326f160c9d6495b15cc1c24c46b0400c",
+      "split": "C",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.049498611336980795,
+          0.603538731033437,
+          0.0005,
+          0.40004985613960264,
+          0.5707286531089959,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_stick-push_dev_E_000_410502000",
+      "factors": {
+        "a": -0.07664058075049059,
+        "b": 0.55272780939349
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19321393603170653,
+          "unit_direction": [
+            -0.4203877983291569,
+            0.03973109254914292,
+            -0.9064742353210132
+          ],
+          "vector_world_m": [
+            -0.08122478117487966,
+            0.007676600774259912,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.49210835920798895,
+          "unit_direction": [
+            0.9670036112599769,
+            -0.11448069099543307,
+            0.22759215100563523
+          ],
+          "vector_world_m": [
+            0.4758705604853472,
+            -0.056336905006759364,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6853222952396955,
+        "target_object_to_goal_m": [
+          0.19922997973485662,
+          -0.04727219060651,
+          0.0
+        ]
+      },
+      "inference_seed": 510502000,
+      "initial_state_hash": "235f83e2ac7d7ab9f0b407e3ca8b35859c4a6c0270c6841b23bdd5353bbb42d3",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_000_410502000.npz",
+      "seed": 410502000,
+      "sha256": "725c73a82a5b2ac43ea302be6065ccc3eb01ceafa27a1d4e2921a5e6c779a722",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07664058075049059,
+          0.6090647144002493,
+          0.0005,
+          0.39922997973485663,
+          0.55272780939349,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_E_001_410502001",
+      "factors": {
+        "a": -0.07521995632833686,
+        "b": 0.5981617300049499
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19296963743809586,
+          "unit_direction": [
+            -0.41355810070549,
+            -0.07205772828839896,
+            -0.9076218271586373
+          ],
+          "vector_world_m": [
+            -0.07980415675272594,
+            -0.013904953702425171,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4888432013211666,
+          "unit_direction": [
+            0.973154848679911,
+            0.021844571127358017,
+            0.2291123200594883
+          ],
+          "vector_world_m": [
+            0.4757201316099031,
+            0.010678570081385619,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6818128387592625,
+        "target_object_to_goal_m": [
+          0.20050017528156627,
+          -0.0018382699950501014,
+          0.0
+        ]
+      },
+      "inference_seed": 510502001,
+      "initial_state_hash": "32e5a7cde74cc2a43cfef837ab2439afda7e677b1c25a5488fe6e8ca394207fe",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_001_410502001.npz",
+      "seed": 410502001,
+      "sha256": "4a89381a0b090edf40c544b572e13e64582797179ac40577bd9f1aa377def7bd",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07521995632833686,
+          0.5874831599235643,
+          0.0005,
+          0.4005001752815663,
+          0.5981617300049499,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_E_002_410502002",
+      "factors": {
+        "a": -0.033034622599502045,
+        "b": 0.5528322746679933
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1798781318207756,
+          "unit_direction": [
+            -0.2091350551793212,
+            -0.09062486415019355,
+            -0.9736784185206641
+          ],
+          "vector_world_m": [
+            -0.03761882302389112,
+            -0.016301431259848398,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.44890931063909273,
+          "unit_direction": [
+            0.9657072193055001,
+            -0.07185060976398215,
+            0.24949360003371385
+          ],
+          "vector_world_m": [
+            0.4335149620976272,
+            -0.03225440769814769,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6287874424598683,
+        "target_object_to_goal_m": [
+          0.20048033949812516,
+          -0.04716772533200664,
+          0.0
+        ]
+      },
+      "inference_seed": 510502002,
+      "initial_state_hash": "3369e8e3cb3bf63bb2154816e7eb67553803b642423bef5e04bc4ef503dec608",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_002_410502002.npz",
+      "seed": 410502002,
+      "sha256": "7df1d4a23ec2fe5784eb1ef4dff5f99fe5c2e88894526641d05d3e6a36aabc51",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.033034622599502045,
+          0.585086682366141,
+          0.0005,
+          0.40048033949812517,
+          0.5528322746679933,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_stick-push_dev_E_003_410502003",
+      "factors": {
+        "a": -0.03496633454179975,
+        "b": 0.5968577553703311
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17962504581188654,
+          "unit_direction": [
+            -0.22018385458121678,
+            -0.028213143093655118,
+            -0.9750503006196831
+          ],
+          "vector_world_m": [
+            -0.03955053496618883,
+            -0.005067787120695111,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4500351542221447,
+          "unit_direction": [
+            0.9685363040230295,
+            0.0011941930757959028,
+            0.24886944708482703
+          ],
+          "vector_world_m": [
+            0.43587538495075007,
+            0.0005374288650368264,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6296602000340312,
+        "target_object_to_goal_m": [
+          0.2009090504089503,
+          -0.0031422446296688333,
+          0.0
+        ]
+      },
+      "inference_seed": 510502003,
+      "initial_state_hash": "7833e89f8fbc5b9209c2d34a564a289bf5180746ad09a4f01a3820143ec80007",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_003_410502003.npz",
+      "seed": 410502003,
+      "sha256": "36b16cf10c245855a1b60c21c56c7b13519b4f72921768b5ce7f7ffdaff643de",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.03496633454179975,
+          0.5963203265052943,
+          0.0005,
+          0.4009090504089503,
+          0.5968577553703311,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_stick-push_dev_E_004_410502004",
+      "factors": {
+        "a": -0.07846392491832263,
+        "b": 0.5556894199099325
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19421769336507447,
+          "unit_direction": [
+            -0.42760329351973436,
+            0.06270025778087963,
+            -0.9017893884080069
+          ],
+          "vector_world_m": [
+            -0.0830481253427117,
+            0.012177499439598005,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.49572052970450636,
+          "unit_direction": [
+            0.9671209798308105,
+            -0.11675165680581018,
+            0.22593375357434156
+          ],
+          "vector_world_m": [
+            0.4794217244100706,
+            -0.057876193155654954,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6899382230695809,
+        "target_object_to_goal_m": [
+          0.20095779949174797,
+          -0.0443105800900675,
+          0.0
+        ]
+      },
+      "inference_seed": 510502004,
+      "initial_state_hash": "81d5a4e7a19714c669f48e51435f326fb1a31676d383881910770c0df1f833d9",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_004_410502004.npz",
+      "seed": 410502004,
+      "sha256": "c1169f6ae4dcaeac2bac2bea07a01df6764edf3afffacbfbd63ca119ba3e458f",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07846392491832263,
+          0.6135656130655874,
+          0.0005,
+          0.400957799491748,
+          0.5556894199099325,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_E_005_410502005",
+      "factors": {
+        "a": -0.07655460941976984,
+        "b": 0.5933704457673992
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19321160013452973,
+          "unit_direction": [
+            -0.41994792128248737,
+            0.043912818808635345,
+            -0.9064851944487553
+          ],
+          "vector_world_m": [
+            -0.08113880984415892,
+            0.008484465988434109,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.49064204552558105,
+          "unit_direction": [
+            0.9730161954843262,
+            -0.03363375397097716,
+            0.22827232403212488
+          ],
+          "vector_world_m": [
+            0.4774026564819484,
+            -0.01650213384702437,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6838536456601108,
+        "target_object_to_goal_m": [
+          0.20084804706217857,
+          -0.0066295542326008094,
+          0.0
+        ]
+      },
+      "inference_seed": 510502005,
+      "initial_state_hash": "e97e353bb70582d2a91397861ac714a4af557c871bf2511c5c2ba45dbb28231f",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_005_410502005.npz",
+      "seed": 410502005,
+      "sha256": "a2084a5952ee30546c40ecf5a6ca7a7acfad97d89bf49264e92ca43242cd8e64",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07655460941976984,
+          0.6098725796144235,
+          0.0005,
+          0.4008480470621786,
+          0.5933704457673992,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_E_006_410502006",
+      "factors": {
+        "a": -0.03186766031976966,
+        "b": 0.5554029898145633
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17920714338210494,
+          "unit_direction": [
+            -0.2034062931656479,
+            0.05885184956041074,
+            -0.9773240709733538
+          ],
+          "vector_world_m": [
+            -0.03645186074415874,
+            0.010546671842474598,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4505108680074834,
+          "unit_direction": [
+            0.960441855658848,
+            -0.12548375559490768,
+            0.24860665514098004
+          ],
+          "vector_world_m": [
+            0.4326894940635857,
+            -0.05653179565390076,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6297180113895884,
+        "target_object_to_goal_m": [
+          0.20082183374381601,
+          -0.044597010185436714,
+          0.0
+        ]
+      },
+      "inference_seed": 510502006,
+      "initial_state_hash": "0459169e3d226752515cae23f35f4698b170b6fec15125d16f649275b0934dcd",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_006_410502006.npz",
+      "seed": 410502006,
+      "sha256": "856e2b78d66ff92f91b12c7c18782725b68d23d3f77c9230e981444ed0d06428",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.03186766031976966,
+          0.611934785468464,
+          0.0005,
+          0.400821833743816,
+          0.5554029898145633,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_stick-push_dev_E_007_410502007",
+      "factors": {
+        "a": -0.03697372348192774,
+        "b": 0.5985679590458477
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1803260617522376,
+          "unit_direction": [
+            -0.23045988750875132,
+            0.059520068124011054,
+            -0.9712598013610811
+          ],
+          "vector_world_m": [
+            -0.04155792390631682,
+            0.010733019480027806,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4521783740194949,
+          "unit_direction": [
+            0.9683756225283985,
+            -0.029973070007070297,
+            0.24768986407822174
+          ],
+          "vector_world_m": [
+            0.43787851443500736,
+            -0.013553174060169537,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6325044357717324,
+        "target_object_to_goal_m": [
+          0.20090479095307961,
+          -0.0014320409541522805,
+          0.0
+        ]
+      },
+      "inference_seed": 510502007,
+      "initial_state_hash": "ba61ccab630727432bfaf553dc7545f885468c829f8ea568a80eb2dd878dc813",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_007_410502007.npz",
+      "seed": 410502007,
+      "sha256": "b5a5c813fad07c0d42405a750bdc6c67f9ce0d71aafe6e592896796c4bf4f9d2",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.03697372348192774,
+          0.6121211331060172,
+          0.0005,
+          0.4009047909530796,
+          0.5985679590458477,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_stick-push_dev_E_008_410502008",
+      "factors": {
+        "a": -0.07872905074816028,
+        "b": 0.5517175998438428
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19429591174983332,
+          "unit_direction": [
+            -0.42879569838720927,
+            0.05970578820501537,
+            -0.901426351899834
+          ],
+          "vector_world_m": [
+            -0.08331325117254935,
+            0.011600590556035906,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4945120605554856,
+          "unit_direction": [
+            0.9661016531631439,
+            -0.12390214359859424,
+            0.22648588160658886
+          ],
+          "vector_world_m": [
+            0.4777489192117673,
+            -0.0612711043381825,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6888079723053189,
+        "target_object_to_goal_m": [
+          0.19901986846360703,
+          -0.048282400156157146,
+          0.0
+        ]
+      },
+      "inference_seed": 510502008,
+      "initial_state_hash": "6d8b810498664516953c8898b12096a076d993edca02c6c3cd3a12cb660848e4",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_008_410502008.npz",
+      "seed": 410502008,
+      "sha256": "f90c5082ab149f6b3abba089550e5219af825f1bddeeffef45b40b995b1b4445",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07872905074816028,
+          0.6129887041820253,
+          0.0005,
+          0.39901986846360704,
+          0.5517175998438428,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_E_009_410502009",
+      "factors": {
+        "a": -0.07448731470071357,
+        "b": 0.5938741766848816
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19217930340804293,
+          "unit_direction": [
+            -0.4114465695466425,
+            -0.012036067986194462,
+            -0.911354406076874
+          ],
+          "vector_world_m": [
+            -0.07907151512510265,
+            -0.0023130831613586977,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.48731933470987465,
+          "unit_direction": [
+            0.9731725643679137,
+            -0.01067237314284981,
+            0.2298287632414157
+          ],
+          "vector_world_m": [
+            0.47424580662567434,
+            -0.005200853779749104,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6794986381179176,
+        "target_object_to_goal_m": [
+          0.19975849192496076,
+          -0.0061258233151183505,
+          0.0
+        ]
+      },
+      "inference_seed": 510502009,
+      "initial_state_hash": "efc141f5c4fb4e8132059d11336f1bc33be522337fa56c0fea41ee4fe9a3b99e",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_009_410502009.npz",
+      "seed": 410502009,
+      "sha256": "9c2ba055f79ae121fd366188a5f3b259e1d363b730db3729003c93340b5fa7dd",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07448731470071357,
+          0.5990750304646307,
+          0.0005,
+          0.39975849192496077,
+          0.5938741766848816,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_E_010_410502010",
+      "factors": {
+        "a": -0.03571241787160517,
+        "b": 0.5566989298569125
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1803243009479337,
+          "unit_direction": [
+            -0.2234674865459724,
+            -0.08184288448716547,
+            -0.9712692853764326
+          ],
+          "vector_world_m": [
+            -0.04029661829599425,
+            -0.014758260932710598,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.45069413478754117,
+          "unit_direction": [
+            0.966351178844413,
+            -0.06641072187565937,
+            0.24850556365193704
+          ],
+          "vector_world_m": [
+            0.4355288084502032,
+            -0.029930922836366336,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6310184357354749,
+        "target_object_to_goal_m": [
+          0.199816390578598,
+          -0.04330107014308748,
+          0.0
+        ]
+      },
+      "inference_seed": 510502010,
+      "initial_state_hash": "32e95bef9cfe6c5bb2f65fa57ceb361783f5b5dc9c4daaf0c126d3f13b3a5c0e",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_010_410502010.npz",
+      "seed": 410502010,
+      "sha256": "f8c9d261f1a23aeeb3b694929e5072f628fb368fb5b47f4bdaf2b64d37d02e27",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.03571241787160517,
+          0.5866298526932788,
+          0.0005,
+          0.399816390578598,
+          0.5566989298569125,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_stick-push_dev_E_011_410502011",
+      "factors": {
+        "a": -0.03290500620948027,
+        "b": 0.5963822425252362
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17922245475448362,
+          "unit_direction": [
+            -0.20917695098655864,
+            0.03529673895689219,
+            -0.977240576007247
+          ],
+          "vector_world_m": [
+            -0.03748920663386934,
+            0.00632596820068243,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.44745260836449846,
+          "unit_direction": [
+            0.9678355337590806,
+            -0.025325227945044534,
+            0.2503058377721287
+          ],
+          "vector_world_m": [
+            0.4330605340483472,
+            -0.011331839301435664,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6266750631189821,
+        "target_object_to_goal_m": [
+          0.20015552783886692,
+          -0.003617757474763783,
+          0.0
+        ]
+      },
+      "inference_seed": 510502011,
+      "initial_state_hash": "5a01367877220955196838cd8c118e8a47d3de9350dec669479ca8151fb7886d",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_011_410502011.npz",
+      "seed": 410502011,
+      "sha256": "2c0f761c91a50da2a43538a76e69a1b767522e5d89b84e86ffcb72ea57fe22c9",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.03290500620948027,
+          0.6077140818266719,
+          0.0005,
+          0.40015552783886693,
+          0.5963822425252362,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_stick-push_dev_E_012_410502012",
+      "factors": {
+        "a": -0.07872665862276038,
+        "b": 0.5518647628753172
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19439612656884472,
+          "unit_direction": [
+            -0.4285623408121005,
+            -0.06784117878677201,
+            -0.9009616498489124
+          ],
+          "vector_world_m": [
+            -0.08331085904714945,
+            -0.013188062378012955,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.49221648259707784,
+          "unit_direction": [
+            0.9709661241473583,
+            -0.0738197310682156,
+            0.22754215667272112
+          ],
+          "vector_world_m": [
+            0.4779255303487303,
+            -0.03633528837265931,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6866126091659226,
+        "target_object_to_goal_m": [
+          0.19919887172596995,
+          -0.04813523712468282,
+          0.0
+        ]
+      },
+      "inference_seed": 510502012,
+      "initial_state_hash": "3383c731015166ac47740095ce1486ea1b9ee84f48880c1efec3aa038704f12b",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_012_410502012.npz",
+      "seed": 410502012,
+      "sha256": "2096e480732d33eeffc7a0d300db54a30016338a304d908ddff97dafcac76583",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07872665862276038,
+          0.5882000512479765,
+          0.0005,
+          0.39919887172596996,
+          0.5518647628753172,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_E_013_410502013",
+      "factors": {
+        "a": -0.0752217038574817,
+        "b": 0.5974901013440823
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1927545983623245,
+          "unit_direction": [
+            -0.4140285365947955,
+            0.054442032551193224,
+            -0.9086343797022358
+          ],
+          "vector_world_m": [
+            -0.07980590428187077,
+            0.010493952118433847,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4889386036126476,
+          "unit_direction": [
+            0.9729653650263598,
+            -0.029435115767096853,
+            0.22906761538659337
+          ],
+          "vector_world_m": [
+            0.4757203269394583,
+            -0.014391964400340962,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6816932019749722,
+        "target_object_to_goal_m": [
+          0.20049862308197658,
+          -0.002509898655917664,
+          0.0
+        ]
+      },
+      "inference_seed": 510502013,
+      "initial_state_hash": "84a103209e82e5bdfbabe781d66a87fd1e933075619fec93ae16f4d2778d01d6",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_013_410502013.npz",
+      "seed": 410502013,
+      "sha256": "5bd521b6867b72c83c35479eff429705a9eef7fbb261f20755c4c9097e0f1de7",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.0752217038574817,
+          0.6118820657444233,
+          0.0005,
+          0.4004986230819766,
+          0.5974901013440823,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_E_014_410502014",
+      "factors": {
+        "a": -0.032403316410417014,
+        "b": 0.5566231224895191
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1790979277291643,
+          "unit_direction": [
+            -0.20652118817778506,
+            -0.03195887079801505,
+            -0.9779200526683927
+          ],
+          "vector_world_m": [
+            -0.03698751683480609,
+            -0.0057237675324885995,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4477788130220203,
+          "unit_direction": [
+            0.9642802398838127,
+            -0.08718863525608982,
+            0.2501234912034398
+          ],
+          "vector_world_m": [
+            0.43178426123576263,
+            -0.03904122360398177,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6268767407511846,
+        "target_object_to_goal_m": [
+          0.19938094482534563,
+          -0.043376877510480916,
+          0.0
+        ]
+      },
+      "inference_seed": 510502014,
+      "initial_state_hash": "08257b4dc4fe5c4d46f14502dc9777a374ed1182f9a541220ea1603ff5529026",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_014_410502014.npz",
+      "seed": 410502014,
+      "sha256": "0095b1e4ce1d896eb6aae944051e1e3dbafd5740855d158564fb9974f432e33d",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.032403316410417014,
+          0.5956643460935008,
+          0.0005,
+          0.39938094482534564,
+          0.5566231224895191,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_stick-push_dev_E_015_410502015",
+      "factors": {
+        "a": -0.030552746450817504,
+        "b": 0.5961683359692417
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17895101418113482,
+          "unit_direction": [
+            -0.19634952635496572,
+            0.059568074603496154,
+            -0.978722896425854
+          ],
+          "vector_world_m": [
+            -0.035136946875206576,
+            0.010659767363113137,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4453062459187519,
+          "unit_direction": [
+            0.9671969485815213,
+            -0.03565982998306783,
+            0.2515123042321641
+          ],
+          "vector_world_m": [
+            0.43069884223690935,
+            -0.015879545019860886,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6242572600998867,
+        "target_object_to_goal_m": [
+          0.20014609578609183,
+          -0.003831664030758297,
+          0.0
+        ]
+      },
+      "inference_seed": 510502015,
+      "initial_state_hash": "156c6b325a941901860b56e6e89a38244dd04b4867923dfb6454ceb9aade5ac1",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_015_410502015.npz",
+      "seed": 410502015,
+      "sha256": "f3d8b76a59080244268f102f984db9d25b89aaa5f583510ab913c2993686b592",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.030552746450817504,
+          0.6120478809891026,
+          0.0005,
+          0.40014609578609184,
+          0.5961683359692417,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_stick-push_dev_E_016_410502016",
+      "factors": {
+        "a": -0.07529516362149805,
+        "b": 0.5511654575809125
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19302642115286736,
+          "unit_direction": [
+            -0.4138260636486993,
+            -0.07385937632699435,
+            -0.9073548267208426
+          ],
+          "vector_world_m": [
+            -0.07987936404588712,
+            -0.014256811080982534,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4901437925130164,
+          "unit_direction": [
+            0.9707736082840215,
+            -0.07337815048048225,
+            0.22850437302442364
+          ],
+          "vector_world_m": [
+            0.47581865803587564,
+            -0.035965844964094384,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6831702136658837,
+        "target_object_to_goal_m": [
+          0.20052349441437756,
+          -0.04883454241908747,
+          0.0
+        ]
+      },
+      "inference_seed": 510502016,
+      "initial_state_hash": "30e61e80bd787e0659eef77ec4009b1b1561f5e49484ffecbdf853e3cd4db14f",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_016_410502016.npz",
+      "seed": 410502016,
+      "sha256": "e98a1aac22851057412ddfe73cf8fb6abba7dc1b9ae89505de83aef474032530",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07529516362149805,
+          0.5871313025450069,
+          0.0005,
+          0.40052349441437757,
+          0.5511654575809125,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_stick-push_dev_E_017_410502017",
+      "factors": {
+        "a": -0.07640769998964356,
+        "b": 0.5944638400606209
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19336613094181385,
+          "unit_direction": [
+            -0.418852567507823,
+            -0.06449776055731188,
+            -0.9057607661933675
+          ],
+          "vector_world_m": [
+            -0.08099190041403263,
+            -0.012471682413378926,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.48888559019976413,
+          "unit_direction": [
+            0.9733385287785531,
+            0.01134704920581456,
+            0.22909245485070556
+          ],
+          "vector_world_m": [
+            0.47585118110607305,
+            0.0055474088480104156,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.682251721141578,
+        "target_object_to_goal_m": [
+          0.19944348111642946,
+          -0.0055361599393790595,
+          0.0
+        ]
+      },
+      "inference_seed": 510502017,
+      "initial_state_hash": "7928c3f1ca47a7c3b48f34e9105f4f96243f79ee281410e404c283ea10b90bbd",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_017_410502017.npz",
+      "seed": 410502017,
+      "sha256": "2ef9c10af06f06d1cdf5f3fd80461803374c393f8f126a7ff188caa8c1b19101",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.07640769998964356,
+          0.5889164312126105,
+          0.0005,
+          0.39944348111642947,
+          0.5944638400606209,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_stick-push_dev_E_018_410502018",
+      "factors": {
+        "a": -0.030280609108143026,
+        "b": 0.5564236016992794
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17903863327938732,
+          "unit_direction": [
+            -0.19473344324588338,
+            0.07153819931343675,
+            -0.9782439226085656
+          ],
+          "vector_world_m": [
+            -0.0348648095325321,
+            0.01280810143234612,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4486804655704447,
+          "unit_direction": [
+            0.9597447557751102,
+            -0.12876115140338243,
+            0.2496208517961777
+          ],
+          "vector_world_m": [
+            0.4306187238499692,
+            -0.057772613359056146,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.627719098849832,
+        "target_object_to_goal_m": [
+          0.20033811474182617,
+          -0.043576398300720576,
+          0.0
+        ]
+      },
+      "inference_seed": 510502018,
+      "initial_state_hash": "f092319889db4db512a023cf4333cb1bddc2e55c3b11335c7f286e09c7226fd3",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_018_410502018.npz",
+      "seed": 410502018,
+      "sha256": "3a07b94754b30a09fefbc212fdaa76e7e5c9b770b9c6a220f2c04175ea270e74",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.030280609108143026,
+          0.6141962150583355,
+          0.0005,
+          0.4003381147418262,
+          0.5564236016992794,
+          0.132
+        ]
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_stick-push_dev_E_019_410502019",
+      "factors": {
+        "a": -0.03295225849357544,
+        "b": 0.5932821721505465
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17920251419175676,
+          "unit_direction": [
+            -0.20946390784338215,
+            -0.030218920100973552,
+            -0.9773493173778298
+          ],
+          "vector_world_m": [
+            -0.03753645891796452,
+            -0.0054153064582542765,
+            -0.17514345491770433
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.4473339119832701,
+          "unit_direction": [
+            0.9681309602146158,
+            -0.0060148245977141995,
+            0.2503722543713357
+          ],
+          "vector_world_m": [
+            0.4330778097449237,
+            -0.0026906350171886917,
+            0.112
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6265364261750268,
+        "target_object_to_goal_m": [
+          0.20012555125134823,
+          -0.006717827849453517,
+          0.0
+        ]
+      },
+      "inference_seed": 510502019,
+      "initial_state_hash": "5c9cbe4d7840323e6744875dcbad193b409dd8e608f7b49f154900481a910455",
+      "path": "assets/exp1/evaluation/dev/stick-push/e1_stick-push_dev_E_019_410502019.npz",
+      "seed": 410502019,
+      "sha256": "de32a9fe09088ce75502581415e5e2c0b6d52be19ce6162b54e9a4e3218f2bf7",
+      "split": "E",
+      "stage": "dev",
+      "task": "stick-push",
+      "task_name": "stick-push-v3",
+      "task_params": {
+        "rand_vec": [
+          -0.03295225849357544,
+          0.5959728071677352,
+          0.0005,
+          0.40012555125134824,
+          0.5932821721505465,
+          0.132
+        ]
+      }
+    }
+  ],
+  "sampling": "predeclared PCG64 independent uniform factors and nuisance variables; no rejection or score selection",
+  "schema_version": "experiment1.evaluation.v1",
+  "seed_base": 410000000,
+  "task": "stick-push",
+  "original_manifest_sha256": "a860e7825b778ccd9776da87a41fb64af9569bd80794793458ccc945a0d91fe4",
+  "hash": "cb2a77ce69a6728a5552d611fe9c54f0e18ce13e935c303dfbe98d3c8e9495b9"
+}

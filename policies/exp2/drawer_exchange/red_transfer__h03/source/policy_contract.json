@@ -1,0 +1,24 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "red_transfer__h03",
+  "skill_id": "red_transfer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "phase": {"type": "string", "enum": ["drawer_release_to_red", "red_grasp_transport_place", "red_release_to_blue", "blue_pickup"]},
+      "primary_object": {"type": "string", "enum": ["red"]},
+      "successor_object": {"type": "string", "enum": ["blue"]},
+      "destination": {"type": "string", "enum": ["red_goal"]}
+    },
+    "required": ["phase", "primary_object", "successor_object", "destination"]
+  },
+  "parameter_semantics": "phase is high-level semantic intent selected from observable responsibility, not elapsed time: drawer_release_to_red opens/retreats and approaches red; red_grasp_transport_place closes on red and carries/descends; red_release_to_blue opens, clears red, and transits toward blue; blue_pickup approaches/closes/lifts blue. Object and destination identifiers select current observed red, blue, and red_goal relations in metres and world SE(3) poses.",
+  "observation_dependencies": ["qpos", "qvel", "tcp_pose", "red_pose", "blue_pose", "drawer_position", "drawer_velocity", "red_goal", "blue_goal"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 44], "phase": [4]},
+  "action_dimension": 7,
+  "output_semantics": "Each slot is [dx,dy,dz,rx,ry,rz,gripper]. Translation is metres in the TCP frame frozen from the newest causal observation at chunk construction. Rotation is a relative rotation vector in radians for target orientation in that same frame. The decoder composes the relative pose with the causal chunk TCP and calls panda_kinematics.solve_ik from freshly measured joints. Gripper preserves the demonstrated scalar and common nonnegative=open, negative=close semantics. Slots represent t-1 through t+14; execution uses slots 1 through 8.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "Encode demonstrated commanded-TCP FK relative to the causal chunk TCP, decode by exact SE(3) composition, solve IK from measured joints, and compare world TCP position metres, rotation radians, and gripper scalar. Rotation-vector log/exp is exact on valid encoded labels up to numerical tolerance; nonunique joints are judged only in task space."},
+  "cut_relation": "Four contiguous bindings per demonstration cover [230,445), [445,620), [620,780), and [780,850), so every assigned action is supervised exactly once. This retains complete [230,470) overlap with open_drawer and [600,850) overlap with blue_insert while supplying coarse semantic phase intent."
+}

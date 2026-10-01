@@ -1,0 +1,22 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "grasp_lift_stage__h03",
+  "skill_id": "grasp_lift_stage",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "source_object": {"type": "string", "enum": ["container"]},
+      "destination_object": {"type": "string", "enum": ["bowl"]}
+    },
+    "required": ["source_object", "destination_object"]
+  },
+  "parameter_semantics": "source_object selects the observed manipulated container used in phase and co-motion features; destination_object selects the observed bowl whose pose is the per-chunk Cartesian action frame. These are semantic references, not phase labels or actuator inputs.",
+  "observation_dependencies": ["bowl_pose", "container_pose", "particle_positions", "qpos", "qvel", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 61]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an absolute Cartesian TCP target expressed in the destination bowl pose frozen at chunk construction: bowl-frame position xyz in metres, bowl-frame orientation as the first two rotation-matrix columns (6D), and one native gripper scalar. The decoder projects 6D to SO(3), left-composes the frozen bowl pose, and calls panda_kinematics.solve_ik from fresh measured joints. Slots represent t-1 through t+14; execution uses slots 1 through 8. The gripper scalar retains >=0 open and <0 close semantics. A training-only masked auxiliary classifies causal open/approach, closed-low, or closed-lifted state and does not alter decoding.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "Compose an encoded bowl-frame target with the same chunk bowl pose and compare FK of IK output to the demonstrated commanded TCP in metres/radians, with unchanged gripper scalar. Robust Gram-Schmidt only projects sampled 6D rotations; encoded labels are exact."},
+  "cut_relation": "Uses all twelve assigned [0,360) segments and retains the complete [180,360) action-supervised successor overlap. The causal phase auxiliary refines conditioning without changing the cut, future access, success definition, or handoff responsibility."
+}

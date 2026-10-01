@@ -1,0 +1,99 @@
+{
+  "contract": {
+    "box_center": [
+      -0.575,
+      -0.2
+    ],
+    "box_half_xy": [
+      0.125,
+      0.16
+    ],
+    "box_wall_top": 0.05,
+    "control_hz": 20,
+    "cover_open_definition": "cover hinge angle (lid_position) strictly greater than cover_open_rad",
+    "cover_open_rad": 0.9,
+    "description": "Open the hinged cover and leave the peg in the box. The task is complete when the cover is open and the peg is still inside the box.",
+    "head_x_interval": [
+      -0.145,
+      -0.09
+    ],
+    "head_yz_tolerance": 0.009,
+    "hinge": [
+      -0.45,
+      -0.2,
+      0.066
+    ],
+    "hole_center": [
+      -0.12,
+      0.18,
+      0.1
+    ],
+    "hole_half_depth": 0.04,
+    "hole_half_width": 0.019,
+    "hole_outer_half": 0.065,
+    "lid_handle_local": [
+      -0.17,
+      0,
+      0.028
+    ],
+    "lid_hinge_axis": [
+      0,
+      1,
+      0
+    ],
+    "lid_max_angle": 1.85,
+    "minimum_axis_alignment": 0.985,
+    "peg_half": [
+      0.06,
+      0.014,
+      0.014
+    ],
+    "peg_in_box_definition": "peg center xy inside box_center +/- box_half_xy and peg center z below box_wall_top + 0.01 m",
+    "peg_initial_quaternion": [
+      0.7071067811865476,
+      0,
+      0,
+      0.7071067811865476
+    ],
+    "peg_lifted_definition": "peg center z at least peg_lifted_m",
+    "peg_lifted_m": 0.15,
+    "predicates": [
+      "cover_open",
+      "peg_in_box"
+    ],
+    "robot": "panda",
+    "schema": "appl.cartesian_ik.task_goals.v1",
+    "success_expression": "cover_open AND peg_in_box",
+    "target": [
+      -0.18,
+      0.18,
+      0.1
+    ],
+    "task_id": "covered_peg_assembly"
+  },
+  "expert_goals": {
+    "cover_open": true,
+    "peg_in_box": true,
+    "success": true
+  },
+  "expert_success": true,
+  "goal": "open_keep_peg",
+  "id": "P-G1b",
+  "initial_goals": {
+    "cover_open": false,
+    "peg_in_box": true,
+    "success": false
+  },
+  "initial_sha256": "131c87307300b1b70d273afcdf6042df60c892fd537723a36c2b744e0d1d51e6",
+  "kind": "goal",
+  "lid_position": null,
+  "name": "open_cover_keep_peg_in_box",
+  "peg_pose": null,
+  "prepared": 1790299858.9296505,
+  "robot_qpos": null,
+  "seed": 24093205,
+  "stages": [
+    "open"
+  ],
+  "task": "covered_peg_assembly"
+}

@@ -1,0 +1,301 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/buffer_swap/buffer_red/dataset.json",
+    "dataset_sha256": "7243549f8adb237331d3cf8986658f9c7dcb84c097c0da3e82e56a91dc3de4ed",
+    "experiment_version": "APPL_v4_cartesian",
+    "heuristic": {
+      "applicability": "Prefer when planner supplies a free destination differing from demonstrated center, or red is held/near center and accurate lower/release/retreat matters more than large red displacement. It remains valid through overlap if target/destination are reachable and collision-free.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            100,
+            120,
+            160,
+            180,
+            200,
+            220,
+            240,
+            260,
+            280,
+            300,
+            320,
+            340,
+            380,
+            420,
+            450,
+            479
+          ],
+          "trajectory_id": "demo10100"
+        },
+        {
+          "indices": [
+            0,
+            100,
+            120,
+            160,
+            200,
+            220,
+            240,
+            260,
+            280,
+            300,
+            320,
+            340,
+            360,
+            400,
+            420,
+            440,
+            460,
+            479
+          ],
+          "trajectory_id": "demo10103"
+        },
+        {
+          "indices": [
+            0,
+            100,
+            120,
+            160,
+            200,
+            220,
+            240,
+            250,
+            260,
+            280,
+            300,
+            320,
+            340,
+            400,
+            420,
+            440,
+            460,
+            479
+          ],
+          "trajectory_id": "demo10105"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Normal open/clear entry or supervised held-red/carry/lower entry. Supplied buffer must be a reachable free tabletop pose; target red, successor blue.",
+        "exit_conditions": "Core is red settled at supplied buffer with open fingers and clear TCP; later segment cue is blue closure/lift while red remains there.",
+        "failure_signatures": "Red is outside supplied region, elevated/following after open, buffer occupied, IK has significant residual/limit contact, or blue moves before red settles.",
+        "overlap_role": "All release, retreat, transit, blue approach, close and lift actions remain supervised; successor features identify blue.",
+        "successor_readiness": "Switch when red is stable at actual supplied destination and gripper open/clear; later switch through blue lift is supported. Keep causal history."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"target_object\",\"successor_object\",\"buffer_pose_world\"],\"properties\":{\"target_object\":{\"type\":\"string\",\"enum\":[\"red\"]},\"successor_object\":{\"type\":\"string\",\"enum\":[\"blue\"]},\"buffer_pose_world\":{\"type\":\"array\",\"items\":{\"type\":\"number\"},\"minItems\":7,\"maxItems\":7}}},\"parameter_semantics\":\"target_object selects red_pose; successor_object selects blue_pose; buffer_pose_world is destination frame [x,y,z,qw,qx,qy,qz] in world metres/wxyz. Training uses [-0.181,0,0.02,1,0,0,0]. It directly defines action encoding/decoding and relational inputs.\"}",
+      "limitations": "No target-displacement invariance; far-shifted red can be outside target-to-buffer support, so use red-frame policy. Destination can be occupied/unreachable or physically unsuitable; no contact/collision truth or scripted repair exists. Rotation-vector labels assume no adverse pi branch change. No failed placement/release recovery is shown. Prefer causal residual prior for phase ambiguity.",
+      "pipeline_implications": "Inputs contain destination-frame TCP/red/blue poses, TCP-to-object vectors, scaled world destination/TCP and Panda qpos/qvel. chunk_context stores supplied destination. encode_targets emits destination-local translation, SO(3) rotation vector and gripper. decode composes world pose and calls IK from fresh joints. Standard backbone remains unchanged; normalize seven-dimensional authorized labels only.",
+      "rationale": "Observed: sampled red starts converge on red near (-0.181,0,0.020), command low TCP near (-0.190,0,0.023) around 260-280, open, and retreat vertically around 300-340; red then stays fixed while blue is acquired at 420-479. Expected benefit: labels inverse(T_buffer) T_tcp_command make carry endpoint, lowering, opening and retreat transform with a supplied buffer pose by construction. qpos/qvel, TCP world position and destination world position remain because destination shift affects reachability. Acquisition is learned from target-to-destination relations, not declared invariant.",
+      "statement": "Buffer-destination-frame policy: diffuse TCP targets as destination-frame translation, rotation vector and gripper, retaining world robot configuration and object graph relations. Prefer when the free buffer pose is shifted or placement/release precision dominates.",
+      "training_bindings": "[{\"trajectory_id\":\"demo10100\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"Full responsibility plus all 220 overlap actions.\"},{\"trajectory_id\":\"demo10101\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"Full responsibility plus all 210 overlap actions.\"},{\"trajectory_id\":\"demo10102\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10103\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10104\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10105\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 230 overlap actions retained.\"},{\"trajectory_id\":\"demo10106\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10107\",\"start\":0,\"stop\":490,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"Full later-stop occurrence and all 230 overlap actions.\"},{\"trajectory_id\":\"demo10108\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10109\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10110\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"},{\"trajectory_id\":\"demo10111\",\"start\":0,\"stop\":480,\"context_start\":0,\"call_args\":{\"target_object\":\"red\",\"successor_object\":\"blue\",\"buffer_pose_world\":[-0.181,0.0,0.02,1.0,0.0,0.0,0.0]},\"rationale\":\"All assigned and 220 overlap actions retained.\"}]"
+    },
+    "heuristic_index": 3,
+    "normalization": {
+      "path": "provenance/relocated/8ca68e5f0699c3f4",
+      "sha256": "a7b3cf25f71119bff5e5dbff8a8e733b5142452226e64786554479dc9eb9d9c6"
+    },
+    "plan_hash": "6ff90d860db25d097efcfc9bbe61fa3421abe180b8b3d234811997a8e283064a",
+    "policy_id": "buffer_red__h03",
+    "prior_plan_path": "assets/exp2/prior_plans/buffer_swap/buffer_red.json",
+    "prior_plan_sha256": "3b8bbb1254980c784b6bebafb2ca009e43414de34aa851ea557e05e2893ebac0",
+    "skill_id": "buffer_red",
+    "sources": {
+      "demo10100": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10100.json",
+        "sha256": "8143fbe3be71a1c631f5c7749d18b35e22bc92139fcfff7b5ebbf518d6fc335a"
+      },
+      "demo10101": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10101.json",
+        "sha256": "799625b2044bcc28a7a6eea51a4740935e9cf0d9f22b8374ff1e1fd6775609bf"
+      },
+      "demo10102": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10102.json",
+        "sha256": "fa8a632a17305449d85b05f19a29a04268ec6859c9c22eedc08f8a9e98a25917"
+      },
+      "demo10103": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10103.json",
+        "sha256": "bc5327538d11b7263aa843cfbf7cca57e277f228ab83827e6a6be39d17fb7359"
+      },
+      "demo10104": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10104.json",
+        "sha256": "ab4fdca4a826e13907c3634c17d0cedd822e5736cf37113947d7cd86e096a9a8"
+      },
+      "demo10105": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10105.json",
+        "sha256": "8dca03afe82b1247c339dba887d9f2bd2f2de158810338259d17bdcde391146f"
+      },
+      "demo10106": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10106.json",
+        "sha256": "835849cc15e004b22d320f6fdc36d9c0bcc18a5019712e0ea572dff0a4b0c51a"
+      },
+      "demo10107": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10107.json",
+        "sha256": "2ee06e92d7a0502499d2696e463e66a9bc5e58f2c9beab9b4819cfe9a6a4f7a0"
+      },
+      "demo10108": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10108.json",
+        "sha256": "a267623fe0603dff6f918dfd6f2d08e3da5b313580763e0a482af84e38ab43d6"
+      },
+      "demo10109": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10109.json",
+        "sha256": "5e77ab47c4b0b7e0c67997b120e9215fcf9a4473429c62e0207c5dee631be8a6"
+      },
+      "demo10110": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10110.json",
+        "sha256": "cd8edf45f317ef134effd4d03d206a23dba900ec9d39034ba19d0f51242e60a0"
+      },
+      "demo10111": {
+        "path": "assets/exp2/demonstrations/buffer_swap/demo10111.json",
+        "sha256": "66f8244ef8020adfb90b028d50deb30d29f68dc21258d3981de4adebf3412646"
+      }
+    },
+    "subgoal": "From an open, clear gripper with red in the initially blue region, approach red from above, close around it, lift and carry it to the free central area, lower it to the table, open, and retreat. The core responsibility is red-to-buffer relocation. The tail is deliberately extended through approach, grasp, and initial lift of blue so a late handoff remains action-supervised."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/9d994e540f43e10f",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "d2847bd6de0d85539f5765ca97ade85cbba091c7d0d31e96e9cd627cf84a2875",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 7,
+      "physical_gpu": 5,
+      "uuid": "GPU-13ce441a-9b9f-d327-08cf-e7e9f728b580"
+    },
+    "effective_action_targets": 4052,
+    "final_weights_sha256": "575e0f1a0bc7fbde69ca715761b8e3280f8d9b185aed069b2c08ca1a225b4d51",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 5.729804515838623,
+        "step": 1
+      },
+      {
+        "l2_norm": 1.9070243835449219,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "36916f6d85a72e8721116ec9622e0ca2e9e751bb513705f0f824be4448f4b67b",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 5770,
+        "duplicated_actions": 0,
+        "unique_actions": 5770
+      },
+      "contract": {
+        "action_dimension": 7,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "buffer_pose_world": {
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 7,
+              "minItems": 7,
+              "type": "array"
+            },
+            "successor_object": {
+              "enum": [
+                "blue"
+              ],
+              "type": "string"
+            },
+            "target_object": {
+              "enum": [
+                "red"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "target_object",
+            "successor_object",
+            "buffer_pose_world"
+          ],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "FK command poses are converted by inverse(buffer) composition and SO(3) log, then exactly reconstructed by buffer composition and exponential map before shared IK. The independent check compares world TCP position, rotation and gripper.",
+          "mode": "task_space",
+          "tolerance": 0.01
+        },
+        "cut_relation": "All actions in every assigned [0,stop) occurrence remain supervised, including 210-230 actions overlapping place_blue from red lowering and release through blue closure and initial lift.",
+        "input_shapes": {
+          "features": [
+            2,
+            57
+          ]
+        },
+        "observation_dependencies": [
+          "qpos",
+          "qvel",
+          "tcp_pose",
+          "red_pose",
+          "blue_pose"
+        ],
+        "output_semantics": "Each slot is [local_x,local_y,local_z,rotvec_x,rotvec_y,rotvec_z,gripper], a Cartesian TCP pose in the supplied buffer destination frame. Translation is metres and rotation vector is radians. decode_action exponentiates the local rotation, composes buffer_pose_world, then exclusively calls panda_kinematics.solve_ik from fresh measured qpos. Native gripper sign is preserved. Slots are t-1..t+14 and execution uses slots 1..8.",
+        "parameter_semantics": "target_object selects observed red_pose; successor_object selects observed blue_pose; buffer_pose_world is the destination frame [x,y,z,qw,qx,qy,qz] in world metres/wxyz. Training binds [-0.181,0,0.02,1,0,0,0]. The pose directly defines action encoding, decoding and relational inputs.",
+        "policy_id": "buffer_red__h03",
+        "skill_id": "buffer_red",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "5e7ec5f496a97ab9b94a9644e766117cac7121afb42e9e519d4fde449df65dc1",
+      "PRIOR.md": "d2513c80a4ba6117e7c45b1c9bfa797ec35618c657e8abb796f602a496b928fa",
+      "adapters.py": "7f376a66f991e065bd898b5ccf52996955512b1dcf0cd8f8085605b176c7faf3",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "a37add8da38ed3fa9a00be7f463cdc096f7769433f7c2a287d8cc39d530e4d78",
+      "policy.py": "b4f3a7c5dc2dd906248e53d38b20a963623aa17a553bed33d7ea8379e731a9a4",
+      "policy_contract.json": "eb4a06f3ce72ceb94474b80d84b408eb3e67b2785419c685f7f20cd6a18c5c1a",
+      "training_bindings.json": "4abf55b856bc91132ce27bb4c5407175dde1c28d12ebb6b1f3d5cb8327f74bce"
+    },
+    "trainable_parameters": 17140871,
+    "training_elapsed_seconds": 4.017775184009224,
+    "weight_l2_change": 0.20495795175561973
+  },
+  "files": {
+    "HANDOFF.json": "5e7ec5f496a97ab9b94a9644e766117cac7121afb42e9e519d4fde449df65dc1",
+    "PRIOR.md": "d2513c80a4ba6117e7c45b1c9bfa797ec35618c657e8abb796f602a496b928fa",
+    "adapters.py": "7f376a66f991e065bd898b5ccf52996955512b1dcf0cd8f8085605b176c7faf3",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+    "pipeline.json": "a37add8da38ed3fa9a00be7f463cdc096f7769433f7c2a287d8cc39d530e4d78",
+    "policy.py": "b4f3a7c5dc2dd906248e53d38b20a963623aa17a553bed33d7ea8379e731a9a4",
+    "policy_contract.json": "eb4a06f3ce72ceb94474b80d84b408eb3e67b2785419c685f7f20cd6a18c5c1a",
+    "training_bindings.json": "4abf55b856bc91132ce27bb4c5407175dde1c28d12ebb6b1f3d5cb8327f74bce"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "v1": {
+    "files": {
+      "HANDOFF.json": "5e7ec5f496a97ab9b94a9644e766117cac7121afb42e9e519d4fde449df65dc1",
+      "PRIOR.md": "d2513c80a4ba6117e7c45b1c9bfa797ec35618c657e8abb796f602a496b928fa",
+      "adapters.py": "7f376a66f991e065bd898b5ccf52996955512b1dcf0cd8f8085605b176c7faf3",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "a37add8da38ed3fa9a00be7f463cdc096f7769433f7c2a287d8cc39d530e4d78",
+      "policy.py": "b4f3a7c5dc2dd906248e53d38b20a963623aa17a553bed33d7ea8379e731a9a4",
+      "policy_contract.json": "eb4a06f3ce72ceb94474b80d84b408eb3e67b2785419c685f7f20cd6a18c5c1a",
+      "training_bindings.json": "4abf55b856bc91132ce27bb4c5407175dde1c28d12ebb6b1f3d5cb8327f74bce"
+    },
+    "folder": "provenance/relocated/3d758fa992cb60f1",
+    "version": "17f23836bb5a5898bc89b9b84678e13a2e3d5e00f832156c4a28c65cbf971406"
+  },
+  "version": "2caa4770280ef4eed63a66e4084d01a1396090633c178596748ed28b4c1b302b"
+}

@@ -1,0 +1,49 @@
+{
+  "title": "Relational hand-handle-goal encoder with joint action/contact-dynamics diffusion",
+  "coverage_gap": "Two LL/HH demonstrations provide many approach/contact/opening transitions but almost no independent layout combinations. Pure action imitation can memorize the layout-correlated path and miss the distinction between a nearby hand and a hand that actually moves the handle. There are no failure/recovery demonstrations or large-yaw examples.",
+  "reusable_regularity": "Use shared learned directed relation messages among hand, handle and goal, rather than treating every raw coordinate as an unrelated scalar. Contact-relative displacement and handle motion are reusable outcomes of actions. Jointly denoising these future geometric quantities with native action4 may make the action model represent contact-to-motion causality and distinguish approach from opening without a hand-coded hinge or stage partition. This is a learned relational/outcome prior, not a fitted articulation model.",
+  "dependencies_preserved": [
+    "Each node has world position, cabinet-relative goal displacement, motion, and node identity; handle nodes additionally have full current/native-previous orientation represented by two rotation columns, and hand nodes have current/native-previous aperture.",
+    "Directed edges carry current and native-previous relative positions, relative motion and distances in cabinet coordinates, plus world displacement. Robot/world anisotropy, cabinet yaw and fixed-gripper effects are not removed.",
+    "A deterministic 28-feature geometry bypass retains explicit hand-handle and handle-goal relations, hand and handle motion, aperture, cabinet yaw, world hand/goal positions and handle pose. Both whole causal observations are processed.",
+    "The cabinet obstacle remains located/oriented through goal, observed handle pose and cabinet yaw. No obstacle oracle, collision planner, simulator hinge field or absent object2 state is introduced."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact two-episode evidence scope; no development states or measurements."},
+    {"path": "task_materials.json", "use": "Identical causal raw fields, world translation actions, fixed native rotation, handle geom center and allowed xyzw/yaw inputs."},
+    {"path": "support_summary.json", "use": "One episode per observed cell, 105 and 115 transitions, constant gripper command and substantial translational variation; interaction phase must be inferred from geometry and motion rather than action-gripper labels."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Separated hand and handle with fixed cabinet and goal/world context."},
+    {"path": "images/frame_02_demo_00_step_029.png", "use": "Hand aligned above stationary handle; mere xy proximity is not yet opening."},
+    {"path": "images/frame_04_demo_00_step_059.png", "use": "Interaction produces handle and door motion."},
+    {"path": "images/frame_07_demo_00_step_103.png", "use": "Hand remains related to the moving handle late in opening."},
+    {"path": "images/frame_08_demo_01_step_012.png", "use": "A corresponding approach in the second layout."},
+    {"path": "images/frame_15_demo_01_step_115.png", "use": "Comparable open-door outcome in HH."},
+    {"path": "trajectories/demo_00.json", "rows_read": "obs 0:4,29:32,44:48,74:77; actions 38:46", "use": "Observable hand/handle motion changes across the interaction; motivates future contact-relative and object-displacement labels from complete support observations."},
+    {"path": "trajectories/demo_01.json", "rows_read": "obs 56:59", "use": "Near-height hand motion and emerging handle motion are distinct causal quantities."}
+  ],
+  "expected_failure_signature": [
+    "Joint diffusion can learn spurious future handle motion from only successful demonstrations: an action chunk may assume contact before the real handle moves, causing low-yaw/IID competence but failure to recover after a miss.",
+    "Without a radial action-frame prior, large-yaw extrapolation can still rotate translations incorrectly despite the relational features. Native world-action output intentionally tests this limitation.",
+    "The six auxiliary channels may compete with scarce action data or propagate erroneous generated geometry into denoising. If this dominates, both approach precision and opening consistency may degrade rather than improve.",
+    "Learned edge attention may collapse to world layout identity instead of contact/goal relations because N=2 does not independently cover those factors."
+  ],
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history [B,2,41] and raw_current [B,41] from common observations. Normalized history is accepted; the representation uses metric raw fields with declared fixed scales. No fitted geometry or runtime state cache.",
+    "slices": {"hand": [0,3], "gripper": [3,4], "handle": [4,7], "handle_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_gripper": [21,22], "previous_handle": [22,25], "previous_handle_quaternion_xyzw": [25,29], "goal": [36,39], "cabinet_sin_cos_yaw": [39,41]},
+    "action_frame": "Identity encode/decode inherited from CandidateDesign. The first four joint channels are exactly native world_dx, world_dy, world_dz, gripper, with native xyz scale 0.01 m and unchanged gripper actuator semantics. Only the host clips the native cube and executes four of sixteen actions. The appended geometry uses the observed fixed chunk-start cabinet frame, not a future frame, and is never decoded into a planner/controller.",
+    "inference": "Conditioning is strictly causal. The host's single common diffusion generator initializes all ten channels; the same U-Net jointly generates actions and auxiliary geometry over 16 DDIM steps. No ground-truth future observation or training mask is read at inference; predicted geometry is discarded after sampling and only action4 is executed."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_geometry",
+      "shape": "[windows,16,6]",
+      "source": "For support window starting at t, horizon k=0..15 uses obs[t+k+1] only when the corresponding action exists. First three channels are future hand_xyz - future handle_xyz, rotated by cabinet yaw at obs[t] and divided by 0.1 m. Last three are future handle_xyz - handle_xyz at obs[t], in that same chunk-start cabinet frame, divided by 0.2 m.",
+      "padding": "Invalid tail labels are zero; no index beyond terminal obs[T] is read. The common action validity mask supplies all auxiliary loss validity, never conditioning.",
+      "loss": "Append after untouched encoded action4. Additional loss = 0.2 * sum(mask * squared auxiliary epsilon error)/(mask.sum()*6), with a denominator floor of 1 for the empty-mask case. Fixed common action epsilon loss remains weight 1 with denominator mask.sum()*4, not diluted over ten channels. No unmasked auxiliary regression or modified action loss."
+    }
+  ],
+  "support_fit": "No additional support-fit statistics. Future training labels are constructed from only the exact D_N windows and are not stored on the deployed design. Deployment state is empty; all learned modules and fixed node-identity buffer are reconstructed in build_modules and restored by host checkpoints.",
+  "architecture": "Three typed nodes with 26 input features, shared 26->64->24 node encoder. All nine directed edges use 13 geometric features plus sender/receiver embeddings, a shared 61->64->24 message MLP, learned scalar softmax attention over senders, and shared 48->64->24 residual node update. Flatten three 24-dimensional nodes plus 28 explicit features to condition_dim=100 per observation. Exactly one unchanged common DP at diffusion_action_dim=10. All learned modules participate in the joint public-plus-auxiliary loss; full system remains under the public 3x B0 capacity check.",
+  "parents": [],
+  "change_summary": ["Initial independent scientific design: shared relational message passing and jointly generated future contact/motion channels, with native-world actions. No fitted circle, explicit phase gates, extra demonstrations, pretraining or performance feedback."]
+}

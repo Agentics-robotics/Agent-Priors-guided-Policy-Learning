@@ -1,0 +1,803 @@
+{
+  "candidate_config": {
+    "action_dimension": 11,
+    "action_frame": "freshly reconstructed stationary closed-lid hinge root",
+    "auxiliary_loss": false,
+    "backbone": "standard DiffusionBackbone",
+    "condition_dimension": 80,
+    "gripper_diffusion_dimension_weight": 2.0,
+    "gripper_representation": "two learned scores decoded by argmax",
+    "prior_plan_hash": "af39fe4104e2d5bcf50c001c75b9051373863ba13f2d55468d3c829f70dcb985",
+    "rotation_representation": "6D"
+  },
+  "contract": {
+    "action_dimension": 11,
+    "call_args_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "lid_angle_field": {
+          "enum": [
+            "lid_position"
+          ],
+          "type": "string"
+        },
+        "lid_pose_field": {
+          "enum": [
+            "lid_pose"
+          ],
+          "type": "string"
+        },
+        "release_angle_rad": {
+          "maximum": 1.85,
+          "minimum": 1.5,
+          "type": "number"
+        }
+      },
+      "required": [
+        "lid_pose_field",
+        "lid_angle_field",
+        "release_angle_rad"
+      ],
+      "type": "object"
+    },
+    "conversion_check": {
+      "description": "For a demonstration label, root-relative encode followed by decode with the matching pre-action lid pose and angle reconstructs the commanded world TCP target. The shared IK result is independently checked by FK; the maximum of position error in metres, rotation error in radians and decoded gripper scalar error must be at most 0.005. Exact one-hot [open,close] labels decode to the demonstrated +/-1 scalar. SO(3) projection is exact for encoded rotation matrices and regularizes only sampled degeneracy.",
+      "mode": "task_space",
+      "tolerance": 0.005
+    },
+    "cut_relation": "Uses every assigned action in each of the twelve [0,950) segments. It preserves approach, grasp closure, hinge pull, learned release and retreat, including all 2,520 action-supervised steps in the twelve [740,950) overlaps with retrieve_peg_from_box; only the Cartesian/root and gripper representations and dimension weighting change.",
+    "input_shapes": {
+      "features": [
+        2,
+        40
+      ]
+    },
+    "observation_dependencies": [
+      "lid_pose",
+      "lid_position",
+      "lid_velocity",
+      "peg_pose",
+      "hole_pose",
+      "tcp_pose",
+      "qpos",
+      "qvel"
+    ],
+    "output_semantics": "Each prediction slot is [stationary-root-frame TCP translation xyz in metres, stationary-root-frame TCP rotation as the first two rotation-matrix columns (6D), learned open score, learned close score]. At training slot s the root is reconstructed from that action's pre-action lid_pose and lid_position. At execution, slots 1..8 (current t through t+7) are each converted with the fresh current observation: T_world_root = T_world_lid_current * Rot(public local hinge axis,-lid_position_current), then T_world_tcp = T_world_root * T_root_tcp. The 6D rotation is projected to SO(3) by Gram-Schmidt with a deterministic finite fallback. The world target is passed only to panda_kinematics.solve_ik from freshly measured qpos. open_score >= close_score decodes to native +1 and otherwise to native -1, preserving the common nonnegative-open/negative-close rule.",
+    "parameter_semantics": "lid_pose_field names the observed world lid hinge/body pose in metres and unit wxyz; lid_angle_field names its positive scalar opening angle in radians. Together with the public local hinge axis they reconstruct the stationary installation frame T_world_root = T_world_lid * Rot(axis,-angle) at every causal frame and fresh decode. release_angle_rad is the caller's nominal release/open intent in radians, bound to 1.73 for training; it conditions angle and release-margin features but is not a decoder threshold or direct actuator command.",
+    "policy_id": "open_hinged_lid__h04",
+    "skill_id": "open_hinged_lid",
+    "temporal": {
+      "control_hz": 20,
+      "execution_steps": 8,
+      "history_steps": 2,
+      "prediction_horizon": 16,
+      "prediction_start_offset": -1
+    },
+    "version": "appl.flexible.sol.v1"
+  },
+  "normalizer": {
+    "action_min": [
+      -0.10941914469003677,
+      -1.045608401298523,
+      -2.195700168609619,
+      -2.9850871562957764,
+      -1.4776201248168945,
+      0.48105621337890625,
+      -1.9503978490829468,
+      -1.0
+    ],
+    "action_scale": [
+      1.214817799627781,
+      2.281601667404175,
+      2.637236148118973,
+      1.957373023033142,
+      1.500498678535223,
+      2.2779898643493652,
+      3.188074827194214,
+      2.0
+    ],
+    "fields": {
+      "hole_pose": [
+        0,
+        7
+      ],
+      "lid_pose": [
+        7,
+        14
+      ],
+      "lid_position": [
+        14,
+        15
+      ],
+      "lid_velocity": [
+        15,
+        16
+      ],
+      "peg_pose": [
+        16,
+        23
+      ],
+      "qpos": [
+        23,
+        32
+      ],
+      "qvel": [
+        32,
+        41
+      ],
+      "target_pose": [
+        41,
+        48
+      ],
+      "tcp_pose": [
+        48,
+        55
+      ]
+    },
+    "fit_ids": [
+      "demo12200",
+      "demo12201",
+      "demo12202",
+      "demo12203",
+      "demo12204",
+      "demo12205",
+      "demo12206",
+      "demo12207",
+      "demo12208",
+      "demo12209",
+      "demo12210",
+      "demo12211"
+    ],
+    "fit_samples": 18574,
+    "mean": [
+      -0.11999999731779099,
+      0.18000000715255737,
+      0.10000000149011612,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.4500003755092621,
+      -0.20000016689300537,
+      0.06599980592727661,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.8809239268302917,
+      3.4116154462099075,
+      -0.4035306051373482,
+      -0.01290980726480484,
+      0.26201270893216133,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.4978662319481373,
+      0.09569483995437622,
+      -0.8771602511405945,
+      -2.00702828168869,
+      -0.7263228064402938,
+      1.6203027814626694,
+      -0.3555224537849426,
+      0.0263293138705194,
+      0.02631643135100603,
+      0.012704789638519287,
+      -0.4766572117805481,
+      -0.18522657454013824,
+      0.015972718596458435,
+      -0.06963366270065308,
+      -0.1046568751335144,
+      -0.009826377034187317,
+      -0.01909559965133667,
+      0.4995950013399124,
+      -0.18000000715255737,
+      0.18000000715255737,
+      0.10000000149011612,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.4316926747560501,
+      -0.09760579466819763,
+      0.26600655168294907,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "observation_clipping": false,
+    "quaternion_normalization": "unit_component_bounds",
+    "raw_std": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      7.603080758354396e-08,
+      3.748059813608803e-08,
+      4.165051880322943e-08,
+      0.10175199842301057,
+      4.350258583338014e-08,
+      0.2492125280123911,
+      2.8174761832405053e-10,
+      0.5470805743292173,
+      0.4263720730655001,
+      0.11835934235673955,
+      0.12689006650362747,
+      0.14394400708299512,
+      0.10428536069016917,
+      0.018353381570241283,
+      0.00417110147621514,
+      0.23985630203874853,
+      0.2596753443847281,
+      0.6558120994861121,
+      0.596668303273818,
+      0.5786881786238325,
+      0.3598815640793204,
+      0.65556979859987,
+      0.8743439866607848,
+      0.011025273148808726,
+      0.011047341518632599,
+      0.0685017550415349,
+      0.13318764201551592,
+      0.10487704601045869,
+      0.10341996643708705,
+      0.07054186196021073,
+      0.12016322477427983,
+      0.11196725965798168,
+      0.053177526848552,
+      0.0760304773341198,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.11478414426954975,
+      0.13712064233484497,
+      0.12971233240562074,
+      0.20529634372452057,
+      0.16501671082842853,
+      0.23596295375420673,
+      0.2003206814437138
+    ],
+    "std": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.8809239268302917,
+      3.7142957895994186,
+      0.22216390818357468,
+      0.19486752897500992,
+      0.2360127978026867,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.6073275022208691,
+      1.1404020190238953,
+      1.318524181842804,
+      0.9779759049415588,
+      0.7494374150410295,
+      1.1384757906198502,
+      1.5931511521339417,
+      0.013670685235410929,
+      0.013683567754924297,
+      0.2787379026412964,
+      0.8932201266288757,
+      0.46422259509563446,
+      0.27279312908649445,
+      0.3142153322696686,
+      0.38710471987724304,
+      0.27684418857097626,
+      0.3979501724243164,
+      0.8225701302289963,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.21986685693264008,
+      0.27959591150283813,
+      0.2378545179963112,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "public_context": {
+    "capabilities": {
+      "automatic_ik_service": false,
+      "causal_history_across_switches": true,
+      "contact_truth": false,
+      "future_states": "training labels only",
+      "learned_images": false,
+      "parameter_budget": 64000000,
+      "public_robot_chain": true,
+      "typed_call_arguments": true,
+      "variable_learned_action_dimension": true
+    },
+    "geometry": {
+      "box_center": [
+        -0.575,
+        -0.2
+      ],
+      "box_half_xy": [
+        0.125,
+        0.16
+      ],
+      "box_wall_top": 0.05,
+      "control_hz": 20,
+      "description": "Open the hinged cover, retrieve the peg, turn it to align with the square hole and insert it.",
+      "head_x_interval": [
+        -0.145,
+        -0.09
+      ],
+      "head_yz_tolerance": 0.009,
+      "hinge": [
+        -0.45,
+        -0.2,
+        0.066
+      ],
+      "hole_center": [
+        -0.12,
+        0.18,
+        0.1
+      ],
+      "hole_half_depth": 0.04,
+      "hole_half_width": 0.019,
+      "hole_outer_half": 0.065,
+      "lid_handle_local": [
+        -0.17,
+        0,
+        0.028
+      ],
+      "lid_hinge_axis": [
+        0,
+        1,
+        0
+      ],
+      "lid_max_angle": 1.85,
+      "minimum_axis_alignment": 0.985,
+      "peg_half": [
+        0.06,
+        0.014,
+        0.014
+      ],
+      "peg_initial_quaternion": [
+        0.7071067811865476,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "robot": "panda",
+      "target": [
+        -0.18,
+        0.18,
+        0.1
+      ],
+      "task_id": "covered_peg_assembly"
+    },
+    "native_action": {
+      "arm": "seven absolute Panda joint targets in radians",
+      "control_hz": 20,
+      "dimension": 8,
+      "gripper": "nonnegative opens (+1), negative closes (-1); common binary executor"
+    },
+    "observation_fields": {
+      "hole_pose": [
+        0,
+        7
+      ],
+      "lid_pose": [
+        7,
+        14
+      ],
+      "lid_position": [
+        14,
+        15
+      ],
+      "lid_velocity": [
+        15,
+        16
+      ],
+      "peg_pose": [
+        16,
+        23
+      ],
+      "qpos": [
+        23,
+        32
+      ],
+      "qvel": [
+        32,
+        41
+      ],
+      "target_pose": [
+        41,
+        48
+      ],
+      "tcp_pose": [
+        48,
+        55
+      ]
+    },
+    "observation_semantics": "Only declared observed vectors; positions in world metres, pose quaternions wxyz.",
+    "robot": {
+      "arm_joint_order": [
+        "panda_joint1",
+        "panda_joint2",
+        "panda_joint3",
+        "panda_joint4",
+        "panda_joint5",
+        "panda_joint6",
+        "panda_joint7"
+      ],
+      "base_link": "panda_link0",
+      "base_position_world": [
+        -0.85,
+        0.0,
+        0.0
+      ],
+      "base_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "frames": "URDF parent-origin then local joint rotation; world/base translation as supplied",
+      "tcp_chain": [
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link1",
+          "limits": {
+            "effort": 87.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.175
+          },
+          "name": "panda_joint1",
+          "parent": "panda_link0",
+          "q_index": 0,
+          "rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            0.0,
+            0.333
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link2",
+          "limits": {
+            "effort": 87.0,
+            "lower": -1.7628,
+            "upper": 1.7628,
+            "velocity": 2.175
+          },
+          "name": "panda_joint2",
+          "parent": "panda_link1",
+          "q_index": 1,
+          "rpy": [
+            -1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link3",
+          "limits": {
+            "effort": 87.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.175
+          },
+          "name": "panda_joint3",
+          "parent": "panda_link2",
+          "q_index": 2,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            -0.316,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link4",
+          "limits": {
+            "effort": 87.0,
+            "lower": -3.0718,
+            "upper": -0.0698,
+            "velocity": 2.175
+          },
+          "name": "panda_joint4",
+          "parent": "panda_link3",
+          "q_index": 3,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0825,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link5",
+          "limits": {
+            "effort": 12.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.61
+          },
+          "name": "panda_joint5",
+          "parent": "panda_link4",
+          "q_index": 4,
+          "rpy": [
+            -1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            -0.0825,
+            0.384,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link6",
+          "limits": {
+            "effort": 12.0,
+            "lower": -0.0175,
+            "upper": 3.7525,
+            "velocity": 2.61
+          },
+          "name": "panda_joint6",
+          "parent": "panda_link5",
+          "q_index": 5,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link7",
+          "limits": {
+            "effort": 12.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.61
+          },
+          "name": "panda_joint7",
+          "parent": "panda_link6",
+          "q_index": 6,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.088,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "child": "panda_link8",
+          "name": "panda_joint8",
+          "parent": "panda_link7",
+          "rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "type": "fixed",
+          "xyz": [
+            0.0,
+            0.0,
+            0.107
+          ]
+        },
+        {
+          "child": "panda_hand",
+          "name": "panda_hand_joint",
+          "parent": "panda_link8",
+          "rpy": [
+            0.0,
+            0.0,
+            -0.7853981633974483
+          ],
+          "type": "fixed",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "child": "panda_hand_tcp",
+          "name": "panda_hand_tcp_joint",
+          "parent": "panda_hand",
+          "rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "type": "fixed",
+          "xyz": [
+            0.0,
+            0.0,
+            0.1034
+          ]
+        }
+      ],
+      "tcp_link": "panda_hand_tcp",
+      "urdf_sha256": "524c6986dbbabe244e05801f262862205e880834d01459b06ee273016d0579ba",
+      "urdf_source": "environments/exp2/.pixi/envs/default/lib/python3.11/site-packages/mani_skill/assets/robots/panda/panda_v2.urdf"
+    },
+    "scene_identifiers": {
+      "goals": [
+        "target_pose"
+      ],
+      "objects": [
+        "hole",
+        "lid",
+        "peg"
+      ]
+    },
+    "schema": "appl.flexible.sol.v1",
+    "task_id": "covered_peg_assembly",
+    "temporal": {
+      "control_hz": 20,
+      "execution_steps": 8,
+      "history_steps": 2,
+      "prediction_horizon": 16,
+      "prediction_start_offset": -1
+    }
+  },
+  "representation_normalizer": {
+    "center": [
+      -0.06763027608394623,
+      0.011448375880718231,
+      0.21147793531417847,
+      0.4437747597694397,
+      0.5,
+      -0.0660022646188736,
+      0.4318743646144867,
+      -0.49259597063064575,
+      -0.46479910612106323,
+      0.5,
+      0.5
+    ],
+    "fit": "valid training labels only; midpoint/half-range, constant dimension scale 1",
+    "inference_used": false,
+    "scale": [
+      0.13376303017139435,
+      0.18855172395706177,
+      0.17949259281158447,
+      0.5562252402305603,
+      0.5,
+      0.08187934756278992,
+      0.5681256055831909,
+      0.5074040293693542,
+      0.5351191759109497,
+      0.5,
+      0.5
+    ],
+    "valid_labels": 181128
+  },
+  "skill_id": "open_hinged_lid",
+  "training": {
+    "action_scale_floor": 0.01,
+    "batch_size": 128,
+    "checkpoint_every": 2000,
+    "clip_sample": true,
+    "denoising_inference_steps": 100,
+    "denoising_train_steps": 100,
+    "down_dims": [
+      128,
+      256,
+      512
+    ],
+    "ema_decay": 0.999,
+    "execution_steps": 8,
+    "groups": 8,
+    "horizon": 16,
+    "kernel_size": 5,
+    "learning_rate": 0.0001,
+    "lr_schedule": "cosine",
+    "max_grad_norm": 1,
+    "observation_normalization": "limits",
+    "observation_std_floor": 0.001,
+    "observation_steps": 2,
+    "quaternion_normalization": "unit_component_bounds",
+    "sampler": "ddpm",
+    "seeds": [
+      0
+    ],
+    "selection": "last EMA at predeclared budget",
+    "timestep_embed_dim": 128,
+    "updates": 20000,
+    "warmup_steps": 500,
+    "weight_decay": 1e-06
+  }
+}

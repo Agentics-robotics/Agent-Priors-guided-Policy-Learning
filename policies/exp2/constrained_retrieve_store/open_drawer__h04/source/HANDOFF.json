@@ -1,0 +1,15 @@
+{
+  "policy_id": "open_drawer__h04",
+  "entry_conditions": "Drawer is closed or in a causally recognizable demonstrated approach/early-opening state, target_pose is reliable, the block remains low and undisturbed in the tunnel, and the measured arm configuration can reach the target-relative path. The standard entry has drawer_position near 0, low drawer velocity, open fingers and TCP high near world (-0.384, 0, 0.442).",
+  "exit_conditions": "Drawer is approximately 0.300 m open with low velocity, fingers are observably open after release, TCP has safely cleared the handle/drawer and is moving above or toward the tunnel, and the block remains at its entry pose.",
+  "overlap_role": "Every trajectory directly supervises actions 300:440, a 140-action (7.0 s) overlap covering post-handle retreat, free-space turn and initial descent. Demonstrated drawer progress makes the position decoder fully fresh-TCP-relative in this overlap.",
+  "successor_readiness": "Switch to retrieve_tunnel_block only after stable full opening, handle release and sufficient arm clearance. The overlap supports a switch shortly after release or later above the tunnel; retain both causal history frames across the switch.",
+  "failure_signatures": "Drawer_position fails to reach 0.29 m or reaches the stop and later regresses below 0.29 m; the gripper repeatedly changes sign or remains closed after full opening; TCP returns toward the handle; the block moves; target/body position branches strongly disagree; or IK reports large residual, nonconvergence or limit contact. Fingers alone do not prove contact.",
+  "continuation_guidance": "Continue while observed progress, finger state, TCP relation and motion remain compatible with a demonstrated phase and IK diagnostics remain feasible. Near full opening the representation automatically favors fresh-TCP residual position. Terminate and hand off on semantic readiness rather than elapsed time; stop rather than claim recovery after a missed handle or phase-inconsistent state.",
+  "limitations": "Guidance does not change the fixed success definition. Drawer-frame equivariance covers early and pulling position only, not full orientation or the independently displaced block tail. The progress blend has no hysteresis, and no demonstration establishes recovery, collision avoidance or large-displacement reachability.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[0,140,160,165,180,220,240,250,265,280,300,340,380,420,439]},
+    {"trajectory_id":"demo12101","indices":[0,160,165,180,220,250,265,300,340,420,439]},
+    {"trajectory_id":"demo12102","indices":[0,160,220,250,265,300,420,439]}
+  ]
+}

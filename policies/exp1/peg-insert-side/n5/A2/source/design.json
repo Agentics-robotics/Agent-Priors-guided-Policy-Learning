@@ -1,0 +1,44 @@
+{
+  "title": "Learned reach/insert factorization with causal stage routing",
+  "coverage_gap": "The five correlated LL/HH demonstrations do not show the range of relative peg-to-box lateral offsets in C/E. Their lengths are 77-91 actions, and a much longer lateral transfer can break a policy that encodes demonstration time or absolute y as a proxy for stage. A2 tests learned interaction-specific features and geometric phase supervision rather than a single deterministic feature expansion.",
+  "reusable_regularity": "Reach/grasp, lift/transport, and aligned insertion are recombinable interaction regimes. Separate 20-input reach and insertion encoders use hand-to-grasp versus goal-to-head information. A learned causal three-way router weights the encoders, while ungated metric skip features and a nonzero gate floor permit corrections. A training-only short-horizon hand/head displacement head encourages features to describe real motion instead of only fitting a stage label.",
+  "dependencies_preserved": [
+    "Reach encoder sees hand/peg relative position, their native previous-step displacements, aperture, grasp height and xyzw orientation.",
+    "Insertion encoder sees the provided goal relative to the provided pegHead, the head-to-grasp offset, peg motion, aperture, absolute heights and orientation. It cannot replace the box by the initial peg position.",
+    "A world encoder and direct coarse absolute hand/goal xyz preserve robot reachability, fixed-world insertion direction and table/box placement. No full translation or rotation invariance is asserted.",
+    "Both causal observations are encoded. Native previous quaternion and aperture are also retained in the ungated path. Only explicitly absent object2 channels are dropped.",
+    "Router predictions are soft and based on observed contact proximity, aperture, vertical state, transverse alignment and motion. No phase oracle, future label, demonstration index or elapsed timestep is an inference input."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact D5 scope; no additional demonstrations or feedback."},
+    {"path": "task_materials.json", "use": "Separate pegGrasp/head channels, native history and fixed world action semantics; independent evaluation factors."},
+    {"path": "support_summary.json", "use": "Three LL/two HH episodes, episode lengths and aperture/height ranges; narrow layout coverage."},
+    {"path": "images/frame_04_demo_01_step_034.png", "use": "Approach above the peg with open gripper in the HH demonstration."},
+    {"path": "images/frame_05_demo_01_step_062.png", "use": "Grasped peg during low-height transport, before final insertion."},
+    {"path": "images/frame_06_demo_01_step_090.png", "use": "Distinct raised insertion geometry at the box opening."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 44:53 and64:69; actions40:64", "use": "Aperture near 0.3-0.5 during contact, hand/grasp separation around 0.025-0.03 m, later head height approaches goal; supports surrogate contact and alignment labels, not simulator contact truth."},
+    {"path": "trajectories/demo_01.json", "rows": "obs62:65", "use": "HH example has aperture about0.305 and coherent hand/head transport, motivating shared motion supervision."},
+    {"path": "contracts.py", "scope": "public", "use": "All learned modules created in build_modules; future labels restricted to training_targets/training_loss."},
+    {"path": "learning.py", "scope": "public", "use": "Common action loss and valid-mask conventions; auxiliary losses do not modify the public denoiser or recipe."}
+  ],
+  "expected_failure_signature": [
+    "A closed but empty or slipping grasp can be misclassified as transport by the surrogate router; expect lift/insert motion without corresponding pegHead movement.",
+    "If the router learns the short support chronology instead of its geometric inputs, longer E transport should trigger insertion prematurely or fail to transition when alignment is reached.",
+    "The learned bottlenecks and auxiliary displacement regression can overfit D5. In that case phase confidence may be high while the action y sign is wrong on positive goal-to-head offsets; this candidate does not impose lateral reflection symmetry.",
+    "A sufficiently biased short-horizon motion target can hurt multimodal recovery even if it helps ordinary support transitions. No performance has yet been observed."
+  ],
+  "required_runtime_fields": {
+    "context": ["raw_history [B,2,42]"],
+    "source_slices_each_observation": {"hand_xyz": [0,3], "gripper": [3,4], "pegGrasp_xyz": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_pegGrasp_xyz": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal_xyz": [36,39], "pegHead_xyz": [39,42]},
+    "not_required": ["phase labels", "future displacements", "task step", "contact sensor", "images", "simulator state"]
+  },
+  "training_only_targets": [
+    {"name": "phase_distribution", "source": "Each exact D5 chunk-start observation obs[t]. Contact surrogate: aperture<0.5 and ||pegGrasp-hand||<0.065 m. Aligned surrogate: |goal_y-head_y|<0.035 and |goal_z-head_z|<0.035 m. Labels are approach/close, contact-but-not-aligned transport, contact-and-aligned insertion, with0.05 smoothing. These are designer surrogates, not reward or simulator phase labels.", "loss": "0.05 times cross entropy on predicted probabilities, normalized by valid first-action masks. Labels are never supplied to condition or denoise."},
+    {"name": "future_delta4", "source": "obs[t+4].hand_xyz-obs[t].hand_xyz and obs[t+4].pegHead_xyz-obs[t].pegHead_xyz, divided by0.04 m. Support-only endpoint padding is ignored if fewer than four actions remain.", "loss": "0.1 times SmoothL1 over six coordinates, divided by6*sum(mask[:,3]); denominator floored safely for an empty valid set. The head reads learned causal conditioning, never future data. It is skipped at inference."}
+  ],
+  "action_frame_semantics": "Identity native world xyz and gripper action4. No action reweighting, residual controller, rotation, clipping or chunk-length change. Public action epsilon loss remains weight1 with mask.sum()*4 denominator.",
+  "architecture": "One factory DP with per-observation condition_dim116 and native diffusion_action_dim4. Reach and insertion MLPs20-64-32, world MLP6-32-16, stage MLP10-32-3; all SiLU. Concatenate two softly weighted32-vectors, world16, phase probabilities3 and ungated geometry33. Auxiliary motion head116-64-6 is jointly trained. No additional optimizer or pretraining.",
+  "support_fit_statistics": "None. Fixed physical scales and declared surrogate thresholds. training_targets uses only current D5 and does not cache labels in deployment state.",
+  "parents": [],
+  "change_summary": "Initial independent design. Adds jointly trained modular causal encoding, soft stage routing and masked stage/motion supervision; retains native action frame. This is not a performance-driven revision of A1 and no development feedback was used."
+}

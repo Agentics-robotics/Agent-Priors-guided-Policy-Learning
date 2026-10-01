@@ -1,0 +1,14 @@
+{
+  "policy_id": "place_red__h02",
+  "entry_conditions": "Blue is low over or settled in its goal, red is visible in the central buffer, and state is finite. Prefer this model later when red motion is consistent with attachment or when red_goal translation is the principal variation; attachment is not asserted as contact truth.",
+  "exit_conditions": "The unchanged exit is red_at_goal AND blue_at_goal. Demonstrations additionally show table-supported blocks, open fingers and high TCP retreat, but these do not change success evaluation.",
+  "overlap_role": "All actions remain supervised, including roughly 230-240 shared actions spanning final blue lower/open, retreat, transit, red approach/closure and initial lift. The destination representation does not trim the predecessor overlap.",
+  "successor_readiness": "This is terminal and has no successor. Continue/replan until the framework observes both supplied goal predicates, avoiding unnecessary post-success motion.",
+  "failure_signatures": "Red does not track the TCP after closure, destination-relative IK is unconverged, red is opened outside full containment, blue moves from its goal, or retreat disturbs either block.",
+  "continuation_guidance": "Prefer place_red__h01 when an unheld red source is strongly displaced and place_red__h03 when early release timing or moderate TCP tracking state is uncertain. A gripper sign or apparent lift alone does not establish contact or success.",
+  "limitations": "Translated goals can be unreachable or collision-inducing. Source displacement, missed grasp, slip and unstable blue are not corrected by a destination frame, and no recovery from unseen errors is established.",
+  "evidence": [
+    {"trajectory_id":"demo10100","indices":[860,880,900,920,940,960,980,1000,1020,1040]},
+    {"trajectory_id":"demo10104","indices":[850,860,880,900,920,940,960,980,1020,1056]}
+  ]
+}

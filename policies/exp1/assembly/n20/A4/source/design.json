@@ -1,0 +1,41 @@
+{
+  "title": "Stage-routed world grasp and canonical-frame carry diffusion",
+  "coverage_gap": "All initial designs fit IID and A2/A3 solve C, but extrapolated cross-sign layouts remain a gap. Development A2 succeeds in E LL/HH and fails HL/LH, while A3 succeeds in E HL/HH and fails LL/LH. Thus there is complementary support for stage-structured encoding and transport canonicalization. Only success and native_truncated categories were supplied; no stage-specific development trajectories establish the actual cause of any failure.",
+  "reusable_regularity": "Combine A2's causal stage-supervised grasp/carry factorization with A3's ring-to-peg horizontal action frame. Keep the grasp encoder in world axes and exactly preserve a world-aligned action frame while the ring is near its support-rest height. Rotate the carry branch, its orientation and velocity vectors, its direct goal edge, and native xyz actions into a common frame once the ring rises. This tests whether pickup regularity and long lateral transport regularity can compose without joint future-state diffusion. The heading is a coordinate transform, not a planner or a hardcoded action policy.",
+  "dependencies_preserved": [
+    "The handle, ring center and goal remain distinct measured entities. The grasp encoder receives hand-to-handle, previous grasp relation, observed handle-ring offset, orientation, heights, aperture and velocities in world axes.",
+    "Carry features contain ring-goal, hand-goal, hand-handle and handle-ring edges, current orientation and hand/handle velocity, all with horizontal vectors in the causal start frame. No perfect-attachment assumption is imposed.",
+    "Ungated skips preserve world hand and previous hand xyz, world grasp edge, local ring-goal edge, world hand/ring/goal heights, aperture history and frame cosine/sine. The peg, table/gravity, fixed gripper axes and robot/workspace dependence remain visible.",
+    "Stage inference still uses only causal distance magnitudes, heights, aperture and motion, with a nonzero 0.2 floor on each relation branch. No support stage labels, elapsed time or future states enter inference. Absent object2 zeros are omitted."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exact twenty support episodes and no other demonstrations"},
+    {"path": "task_materials.json", "detail": "Diagonal support and extrapolated cross-cell layout definitions; all raw pose channels and native control semantics"},
+    {"path": "trajectories/demo_00.json", "detail": "obs 26-29 show ring near z0.019 during grasp; obs45-47 show ring z0.151-0.165 at lift/transport transition. actions27-45 are vertical-only lift. These support an exactly world-aligned near-table frame and a smoothly enabled carry frame before transport."},
+    {"path": "trajectories/demo_18.json", "detail": "obs57-59 demonstrate elevated, attached transport with distinct hand, handle and ring positions"},
+    {"path": "images/frame_01_demo_01_step_032.png", "detail": "World-fixed gripper at the offset handle during pickup"},
+    {"path": "images/frame_14_demo_18_step_057.png", "detail": "Ring elevated during transport toward the peg"},
+    {"source": "User revision-phase development_feedback message", "feedback_hash": "6b8a00d83884209d4f6e632827dbf60e5db218aae21e98dd5d142f0c64c2172a", "detail": "A1 score0.475; A2/A3 score0.75 each. A2 E HH5/5 LL5/5 HL0/5 LH0/5; A3 E HH5/5 HL5/5 LL0/5 LH0/5; both C20/20. Failure categories are only success and native_truncated. These data motivate the hybrid but do not prove a transport or grasp failure mechanism."},
+    {"source": "Frozen A2 submission", "submission_hash": "b562bc6ca62d7c4b85f89c0e27aba596b2ca30df2e86aae7e45c9e89de27a58c", "detail": "Actual parent for stage head, world-grasp encoder, separate carry encoder, skips and support-stage auxiliary loss"},
+    {"source": "Frozen A3 submission", "submission_hash": "8772db14a6e29480986df07a2e65032bd8db7270c216f7038e1020bf11fa567f", "detail": "Actual parent for causal ring-goal heading, orthonormal encode/decode and frame-aware vectors; its joint future-edge diffusion is deliberately not inherited"}
+  ],
+  "expected_failure_signature": "The hybrid hypothesis predicts retaining C and E diagonal competence while recovering some cross-sign E transports, especially the HL cell A3 solved. E LH, unsolved by all initial candidates, is the strongest falsification case for combining low-nut pickup with long positive lateral transport. If E diagonal success falls, frame/encoder interactions have damaged the retained grasp/stage behavior. If cross-sign E remains unsolved despite correct pickup, canonicalization and stage factorization are insufficient. We cannot determine those phases from the current aggregate feedback and do not claim that they were observed. Future slip/recovery and near-goal frame drift remain risks.",
+  "required_runtime_fields": {
+    "input": "Only context.raw_history [B,2,42] and context.raw_current [B,42], plus one D_N-fitted scalar rest height",
+    "slices": ["0:3 hand", "3:4 gripper", "4:7 handle", "7:11 wxyz", "18:21 previous hand", "21:22 previous gripper", "22:25 previous handle", "36:39 goal", "39:42 ring center"],
+    "frame_definition": "At chunk start dx=goal_x-ring_x and dy=goal_y-ring_y. Let u=clamp((ring_z-rest_height-0.03)/(0.10-0.03),0,1), lift=u^2*(3-2*u), theta=lift*atan2(dx,sqrt(dy^2+0.05^2)). c=cos(theta), s=sin(theta); columns are (c,-s,0), (s,c,0), (0,0,1). This C1 smoothstep is exactly zero near table instead of A3's nonzero sigmoid tail. All carry vectors in both historical observations use the one current chunk-start frame. The world grasp branch is intentionally not rotated.",
+    "action_frame": "Encoded xyz=[c*ax-s*ay,s*ax+c*ay,az]; decoded xyz=[c*ux+s*uy,-s*ux+c*uy,uz]. Native 0.01 m translation scale and scalar gripper remain unchanged. All16 actions use the same causal frame even if lift will occur inside the chunk. No local action clipping or action offset, future frame or action correction. Only the public executor clips decoded native world actions and executes the common four-action prefix."
+  },
+  "training_only_targets": [
+    {
+      "name": "support_stage",
+      "source": "Unchanged A2 extraction from native actions of exact D_N: ordered events gripper>0.3, then dz>0.5, then horizontal norm>0.25, then dz<-0.5 define approach0/closure1/lift2/transport3/descent4. Align one-hot labels to t-1 and t, repeating initial observation label as in the public history.",
+      "loss": "0.15 times NLL of causal stage probabilities, summed over the two history entries and independently normalized by 2*mask[:,0].sum(), with only empty-denominator clamping. Common encoded-action epsilon loss remains weight1 and mask.sum()*4 denominator. No joint auxiliary diffusion channels or future-state loss.",
+      "inference_isolation": "Labels are returned to the dataset and never retained on the model. The stage head always predicts from raw observations, including in training conditioning. No teacher-forcing at inference."
+    }
+  ],
+  "support_fit": "Median initial ring z over this exact D_N only; stored/restored as rest_height_m. No development-fitted geometry/statistics, external pretraining, pretrained parent weights or ensemble. A4 is one new initialized model and one formal training slot.",
+  "architecture": "A2 MLP widths retained: grasp26->96->32, carry28->96->32, stage14->64->5. Condition width88 adds frame cosine/sine to A2's86 and makes only carry vectors frame-local. One common action4 U-Net, frozen noise/sampling schedules, optimizer, update budget and executor.",
+  "parents": ["A2", "A3"],
+  "change_summary": "One feedback-driven hybrid revision. Keep A2's stage targets/loss, learned routing, world grasp features and widths; add A3's orthonormal action/carry frame and axes. Replace the frame sigmoid with a compact smoothstep that is exactly inactive at pickup; discard A3 joint future-edge diffusion. This is newly trained code, not editing a frozen parent, selecting a checkpoint, loading parent weights or combining trained policies. q3 was A2 by the latency tie-break, not by IID or training losses. No extra rollouts, optimizer debug or performance search used."
+}

@@ -1,0 +1,41 @@
+{
+  "instance": "assembly__N10__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A2",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A2",
+      "feedback_hash": "320cff78e9df2871580f544b3f424daccb45d7f0cec759ca28730bf2a3505938",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: A2 uniquely maximizes the frozen equal-distribution score: 0.5*0.6000000000000001 + 0.5*0.35 = 0.47500000000000003. A1 scores 0.375 and A3 scores 0.25. C and E rates already use equal cell weights. All three completed and are eligible; no tie-break is needed. IID success, training curves and baselines were not used to select.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "6eee4d4b6b14180e1608b672c760199d279c440a00defc5c7d084e04c8e8cf39",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "Updated q4 after the reported exact recovery of the same frozen A4 submission (3b3e46749f7490d132e6a4310cbcedc59313706f44ed98da736cbd74b0a032a0): A4 is now completed and uniquely maximizes the unchanged fixed rule. Its equal-cell C rate is (1.0+1.0)/2=1.0 and E rate is (1.0+0.0+0.0+0.8)/4=0.45, giving 0.5*1.0+0.5*0.45=0.725. Other eligible scores remain A2=0.47500000000000003, A1=0.375, A3=0.25. No tie-break is needed. This supersedes the earlier q4 choice based on A4's then-failed status; q3 remains A2 and the prior failure/selection records remain preserved. Selection uses only the updated C/E development results, not IID, training curves or hidden tests. No code/design changes, new candidate or further training are requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "b377ad7a57de7461944c9d3a3b2e072e4859594740eb3a1e2808f5b311261a57",
+    "A2": "d498b9bf577e66dbfb6f0cd6271b69f68451a93d6b7da46adb54bc73e040f205",
+    "A3": "65b9a562e841392935a097a16d7a3b4433da39df6d1cc8165d752295806f50ce",
+    "A4": "3b3e46749f7490d132e6a4310cbcedc59313706f44ed98da736cbd74b0a032a0"
+  },
+  "feedback_hashes": {
+    "initial": "b232bfc2108eed98f59e25a50c982dc0fbe9a042609d8bb3bcdb783e5dd1d2da",
+    "final": "3bc9e519fe21426f23d578d18e0a78b049a487de19e7b9d2559525cdb73ae6ce"
+  }
+}

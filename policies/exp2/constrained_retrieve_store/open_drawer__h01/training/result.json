@@ -1,0 +1,107 @@
+{
+  "checkpoint": "provenance/relocated/d9d4da53c39ac8f3",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "88a9e61e986e2671892f8fdb8465bc814d25eb55f2604c3652927190a08d5d1b",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 0,
+    "physical_gpu": 3,
+    "uuid": "GPU-211ca63e-6f90-7281-b43a-e1facc953f2b"
+  },
+  "effective_action_targets": 40346523,
+  "final_weights_sha256": "54443bb6e8c332ed0dc91de16ca5f07fae4b272c575f7ddfafa2fdde98ab6596",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 2.911403179168701,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.1721794605255127,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.0641849040985107,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.17098721861839294,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "d8d47a6ada79097831e98580ec5eee2e8e6391fc6806a960c24e6be71ed3d5cb",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5280,
+      "duplicated_actions": 0,
+      "unique_actions": 5280
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "open_stop_m": {
+            "maximum": 0.35,
+            "minimum": 0.25,
+            "type": "number"
+          }
+        },
+        "required": [
+          "open_stop_m"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "FK command poses are transformed into the observed drawer frame and exactly recomposed before verified Panda IK. The check compares world TCP position in metres, rotation angle in radians and gripper scalar; only 6D Gram-Schmidt projection and nonunique IK are applied.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "Preserves actions 0:440 for all twelve assigned occurrences, including the complete action-supervised 300:440 overlap with retrieve_tunnel_block. It refines the invocation contract only by making every Cartesian label drawer-frame relative; no action or phase is removed.",
+      "input_shapes": {
+        "features": [
+          2,
+          47
+        ]
+      },
+      "observation_dependencies": [
+        "drawer_position",
+        "drawer_velocity",
+        "object_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is [px,py,pz,r1x,r1y,r1z,r2x,r2y,r2z,g]: an absolute commanded TCP pose expressed in the freshly observed target_pose frame, with position in metres, the first two rotation-matrix columns as 6D rotation, and native gripper scalar g. At each physical slot the decoder Gram-Schmidt projects the 6D value to SO(3), composes target_pose_world * represented_pose, and solves IK from freshly measured joints. Slots represent t-1 through t+14; execution uses slots 1 through 8. The gripper sign retains the common nonnegative-open/negative-close rule.",
+      "parameter_semantics": "open_stop_m is the intended drawer travel/open stop in metres, bound to 0.300 m in every authorized demonstration. It normalizes causal drawer progress. target_pose is the observed world-frame rigid drawer reference, object_pose is the tunnel block, and pose quaternions are wxyz.",
+      "policy_id": "open_drawer__h01",
+      "skill_id": "open_drawer",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "97a5085e219cad1ee82f820b71967811ddf99244aa4ae923d804d68dd2975e2d",
+    "PRIOR.md": "d5879f7be8f8345480b6f242838aa1d54003204b8af3e090224a72d488db6c91",
+    "adapters.py": "7b985ea53f0f06da7bbc5a6b28c29a794fd2967c3137a04e9a2415161b3b69ad",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "f4b27f85b4dfaf197b2990c7dfdf63a4ba59f88b7570a2936e37233339733c16",
+    "policy.py": "0df82012e6749bf2b5ed25fb539785c34178409209232fc8f3510a276971a20b",
+    "policy_contract.json": "453c5736fbe9b967beadf45ce588364b970e34a5837b7cacc9b619a1bf27b5b1",
+    "training_bindings.json": "ba10b0a2a46aef3c8f9bc3c5deee06352afc676c47e719f4c93d9e1a7a4dbfcb"
+  },
+  "trainable_parameters": 17000202,
+  "training_elapsed_seconds": 653.1994348459411,
+  "weight_l2_change": 27.025586976188254
+}

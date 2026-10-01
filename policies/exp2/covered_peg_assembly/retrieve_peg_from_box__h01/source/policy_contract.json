@@ -1,0 +1,31 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "retrieve_peg_from_box__h01",
+  "skill_id": "retrieve_peg_from_box",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "No high-level parameters. The executor supplies two causal observations, oldest first. The observed peg pose is resolved afresh for every decoded action; only the first episode observation may be duplicated for initial padding.",
+  "observation_dependencies": ["peg_pose", "lid_pose", "lid_position", "lid_velocity", "qpos", "qvel", "tcp_pose"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 56]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [peg-frame TCP translation xyz in metres, peg-frame TCP rotation as the first two rotation-matrix columns (6D), native gripper scalar]. The reference peg pose is the observed pose before that action in training and the fresh current observed pose in decoding. Decode projects 6D rotation by safe Gram-Schmidt, left-composes the relative target with the world peg pose, and calls panda_kinematics.solve_ik from freshly measured qpos. Slots are t-1 through t+14 and execution uses slots 1 through 8. Gripper values >=0 open and values <0 close under the common executor.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Compare FK of decoded joints to the demonstrated commanded TCP target in position and rotation, plus gripper scalar. Valid encoded rotations round-trip exactly apart from numerical precision; 6D projection only regularizes degenerate sampled rotations. IK residuals and limit contacts are reported rather than hidden."
+  },
+  "cut_relation": "Uses every assigned [740,1270) action from all twelve trajectories, preserving incoming [740,950) and outgoing [1120,1270) action-supervised overlaps. Peg framing refines the action coordinates without changing the responsibility or success definition."
+}

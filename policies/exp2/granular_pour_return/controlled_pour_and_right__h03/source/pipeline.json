@@ -1,0 +1,17 @@
+{
+  "policy_id": "controlled_pour_and_right__h03",
+  "skill_id": "controlled_pour_and_right",
+  "heuristic_index": 3,
+  "prior_summary": "Commanded TCP labels are converted to desired source-container increments using each observation's rigid container-to-TCP transform; decoding reattaches source motion through the fresh grasp transform before IK.",
+  "applicable_conditions": "Prefer when the source is securely and rigidly held but the observed container-to-TCP relation is unusual, or the predecessor provides a modestly displaced entry. Container, TCP and bowl poses must be reliable and compensated targets reachable.",
+  "termination_guidance": "Hand off only after at least ten particles are observed settled, the source itself is approximately upright and held, and outbound motion has begun. Nominal return_place_release readiness is near action 1680 within [1460,1740).",
+  "limitations": "The rigid-transform assumption fails for slip or grasp loss, and compensation can amplify pose noise. Source-local increments are not an absolute large-displacement destination anchor; h01 covers that case. Particle phase ambiguity is handled more explicitly by h02. Training grasps are nominal, so unusual-grasp benefit is expected, not demonstrated.",
+  "config": {
+    "action_representation": "current_container_local_source_increment_rotation6d_gripper",
+    "input_feature_dimension_per_frame": 130,
+    "grasp_compensation": "fresh_observed_container_to_tcp_transform",
+    "orientation_projection": "safe_gram_schmidt",
+    "backbone": "standard_diffusion_backbone",
+    "auxiliary_loss": "none"
+  }
+}

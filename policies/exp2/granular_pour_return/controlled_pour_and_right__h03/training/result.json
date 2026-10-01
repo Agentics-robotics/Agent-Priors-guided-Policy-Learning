@@ -1,0 +1,99 @@
+{
+  "checkpoint": "provenance/relocated/c8aab7a5c0264719",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "25615f3bebd2f4007c6fdebb814b649424e609ba0e6bb6a74c8b5e0fd4399d4a",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 0,
+    "physical_gpu": 3,
+    "uuid": "GPU-211ca63e-6f90-7281-b43a-e1facc953f2b"
+  },
+  "effective_action_targets": 40786319,
+  "final_weights_sha256": "6cc0b63ae58482affa1c3197e4b6affee2e4188035ea67cc479e31c7895232ab",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.9457340240478516,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.9905946254730225,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.104873180389404,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.1520005613565445,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "2be2a896fbf61955bbe9fe6d076dc74a7be1c98f0bf28bccae2ffdf95c845c0b",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 18720,
+      "duplicated_actions": 0,
+      "unique_actions": 18720
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For each label reconstruct desired source pose and then TCP through the same observed rigid grasp transform, solve IK, and compare FK position, rotation and gripper scalar with the demonstrated commanded TCP target.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Source-motion relabeling covers every assigned [180,1740) action in all twelve trajectories. It retains full action-supervised incoming [180,360) and outgoing [1460,1740) overlaps without changing responsibility.",
+      "input_shapes": {
+        "features": [
+          2,
+          130
+        ]
+      },
+      "observation_dependencies": [
+        "bowl_pose",
+        "container_pose",
+        "particle_positions",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is [desired source-container translation in metres in the current container frame, desired source increment orientation as 6D rotation columns, native gripper scalar]. Labels derive desired source pose from the commanded TCP and observed rigid container-to-TCP transform. At execution the source increment is composed with the fresh container pose and then with the fresh observed container-to-TCP transform to form a world TCP target. Safe Gram-Schmidt projects orientation, and solve_ik uses fresh measured joints. Slots are t-1 through t+14; slots 1-8 execute.",
+      "parameter_semantics": "No caller parameters. The executor supplies two causal observations. Container, TCP, bowl and target poses use world metres and wxyz quaternions. The observed container-to-TCP transform is treated as a measured rigid grasp relation, not as proof of grasp.",
+      "policy_id": "controlled_pour_and_right__h03",
+      "skill_id": "controlled_pour_and_right",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "92e62ab8300c5b18098baf10b6ab32bdd500e7e45616d2599bf3b6d44eb98351",
+    "PRIOR.md": "d291bc3d01b6da16db145c2724337fee8a138d64a8c113be238ea3b90dba1423",
+    "adapters.py": "26f478ef8b2d0248e7c1e1cc5647e31468c66f3b0de365200f8c661b9fc3b2d1",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "fd54c93fca664eb219285a7cf3bee55988e396f591e16855e3cb5503d79ce36e",
+    "policy.py": "923b795de1876a5c2b802b591e77e53884375cb70ae93e2f7bbad15325c1742c",
+    "policy_contract.json": "a78027e1ec3374ac2d7d92f449c0fada338251c71bbbe8222ec1fbf609a6a2c3",
+    "training_bindings.json": "4c89e6d2536aecea0790af3ca40165b04583c8e32c2128053bee4a5be6a8d04f"
+  },
+  "trainable_parameters": 18190090,
+  "training_elapsed_seconds": 699.5265548960306,
+  "weight_l2_change": 34.03624093411808
+}

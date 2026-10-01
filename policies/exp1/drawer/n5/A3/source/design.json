@@ -1,0 +1,48 @@
+{
+  "title": "Joint action-and-geometric-consequence diffusion with shared relational encoding",
+  "coverage_gap": "The five LL/HH support paths cannot independently teach all cabinet positions and orientations or recovery behaviors. Action imitation alone need not represent whether a command simply moves the hand or actually moves the drawer. The missing interaction distinction is especially consequential when yaw is extrapolated.",
+  "reusable_regularity": "Hand-handle and handle-goal relations are reusable edges of the manipulation problem. Share one learned encoder over three role-ordered relation/motion edges, and jointly denoise local action4 with six future geometric-relation channels. A successful interaction sequence should jointly explain approaching the handle and decreasing drawer-goal displacement. The generated relation channels are hypotheses from the same diffusion process, never future observations or a search-based plan.",
+  "dependencies_preserved": [
+    "Three ordered edges are handle minus hand, goal minus handle, and goal minus hand. Each carries its full three-dimensional current value and causal one-step change in the cabinet basis. An uncompressed edge bypass preserves exact metric information alongside shared learned embeddings.",
+    "Absolute world current/previous hand and handle positions, world goal, both object quaternions, unit yaw, and current/previous/difference gripper aperture remain available. The cabinet frame is not imposed as a full symmetry of fixed-gripper contact or robot reach.",
+    "Three-dimensional relative heights and world heights preserve table and cabinet dependence. The supplied drawer pose and yaw are the only cabinet geometry channels; no unobserved obstacle state or collision oracle is introduced.",
+    "The only omitted native channels are the declared absent object2. Two whole causal observations are used exactly as in the common policy."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exactly the five complete support trajectories define all training-only consequence labels."},
+    {"path": "task_materials.json", "use": "Yaw-corrected handle, xyzw object pose, cabinet sin/cos, fixed native orientation, common two-observation history and four-dimensional world action semantics."},
+    {"path": "support_summary.json", "use": "All layouts have approximately .128 m initial interaction-to-goal distance, with yaw-dependent x/y components; there are three LL and two HH episodes and no mixed-sign training cell."},
+    {"path": "images/frame_14_demo_04_step_058.png", "use": "Visible hand near the still-closed drawer handle, a different geometric relation from a completed pull."},
+    {"path": "images/frame_15_demo_04_step_088.png", "use": "The drawer has translated and the hand remains near its handle; both relations, not only hand motion, characterize the consequence."},
+    {"path": "images/frame_01_demo_00_step_030.png", "use": "Elevated approach motivates retaining vertical relation dynamics rather than modeling only planar drawer progress."},
+    {"path": "trajectories/demo_04.json", "field": "obs", "rows_inclusive": [65,72], "use": "Hand moves for several steps while handle is stationary; handle starts moving between states 70 and 71. This supports explicitly distinguishing hand-handle change from actual goal-handle change."},
+    {"path": "trajectories/demo_01.json", "field": "obs", "rows_inclusive": [70,75], "use": "Moving-handle evidence in the opposite yaw sign, with nonzero world-x and world-y displacement."},
+    {"path": "PUBLIC_CONTRACT.md", "scope": "public", "use": "Permits joint diffusion with encoded native action4 first and separately mask-normalized auxiliary channels."},
+    {"path": "learning.py", "scope": "public", "use": "Factory supports extra diffusion channels, inference samples all channels and decodes only the first four, and future labels are isolated from causal context."}
+  ],
+  "expected_failure_signature": [
+    "If the small dataset teaches imagined drawer progress without robust physical engagement, rollout behavior can pull with no actual handle motion; re-observed handle-goal residual will remain large despite repeated pull attempts.",
+    "If the additional joint channels distract the frozen-capacity denoiser, action quality can degrade even in familiar layouts, particularly near the approach-to-pull transition or padded episode ends.",
+    "If canonicalization is insufficient for fixed-world gripper contact at large yaw, the model can reach a geometrically reasonable area but slide off or miss the handle. Joint consequence supervision is not a collision model or a guarantee of extrapolation. No performance results have been obtained."
+  ],
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history[B,2,41] and chunk-start raw_current[B,41] from the common runtime observation",
+    "slices": {"hand": [0,3], "gripper": [3,4], "handle": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_gripper": [21,22], "previous_handle": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal": [36,39], "cabinet_sin_cos": [39,41]},
+    "condition": "94 features per observation: 18 metric relation/change edge components, 48 learned shared-edge embedding components and 28 world/orientation/aperture components. Fixed scales; no time, support retrieval, phase oracle, future truth or inference-only auxiliary target.",
+    "action_frame": "First four diffusion channels are Rz(yaw_chunk_start)^T times native world xyz and unchanged native gripper. The same fixed chunk-start Rz decodes all sixteen actions; no use of predicted future pose to choose an action frame. No action rescaling or local clipping. Public executor clips the decoded native cube, uses the unchanged .01 m/native-unit controller and executes four actions.",
+    "inference_auxiliary_channels": "Channels 4:10 are sampled geometric hypotheses within the host's ten-channel DDIM process. There is no separate predictor rollout, optimizer, planner, score-based sample choice or oracle. Only the decoded first four action channels are executed."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_relations",
+      "shape": "[number_of_windows,16,6] float32",
+      "source_fields": "For support window start t and offset k with t+k<T, read the actual support obs[t+k+1,0:3] hand and obs[t+k+1,4:7] handle. Use only obs[t,36:39] goal and obs[t,39:41] yaw for target reference and frame.",
+      "definition": "Channels 0:3 are R_start^T*(handle_next-hand_next)/.1m. Channels 3:6 are R_start^T*(goal_start-handle_next)/.1m. Terminal obs[T] is a valid next state for the last real action. Slots with t+k>=T are filled with zero and receive no direct auxiliary loss. No observed future quaternion or future yaw chooses the basis.",
+      "loss": "Append these six targets after encoded action4 and predict their epsilon with the same common U-Net. Extra loss=.25*sum(mask[...,None]*(epsilon_aux-noise_aux)^2)/(6*sum(mask)), with safe zero-mask denominator. Action epsilon retains its independent public weight 1 and denominator 4*sum(mask), unaffected by joint channel count. No loss forces gripper to be a translational quantity."
+    }
+  ],
+  "architecture": "Shared learned edge MLP 6->64->16 with SiLU, applied identically to three ordered edges for both observations; direct metric/world bypass; exactly one frozen common DP(condition_dim=94, diffusion_action_dim=10). No additional denoiser modifications. All encoder and diffusion parameters enter the joint masked loss.",
+  "support_fit": "No fitted statistics, retained episodes, pretrained weights or training-label cache in deployment state. Fixed .1 m relation/effect, .01 m one-step motion and .5 m absolute-world scales. All consequence targets are derived by training_targets only from this exact D_5. Common raw normalization is untouched but condition uses the identically supplied raw fields.",
+  "parents": [],
+  "change_summary": "Third independent pre-feedback hypothesis: joint action/effect diffusion and a shared relation encoder, rather than only A1's deterministic kinematic transform or A2's supervised phase mixture. Shares the physically motivated yaw action basis with A1, but changes the generative target space and representation learning. Initial implementation with no structural repair or performance feedback."
+}

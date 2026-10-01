@@ -1,0 +1,14 @@
+{
+  "policy_id": "buffer_red__h01",
+  "entry_conditions": "Open clear gripper with red observed and reachable, or an action-supervised intermediate approach, hold, carry, lower or release state. target_object must be red, successor_object blue, and buffer_pose_world must denote the free area.",
+  "exit_conditions": "Core exit: red is visibly stationary near the supplied buffer, the gripper is open and TCP is clear. Overlap exit may be later when red remains stationary and blue is closed on and beginning to lift.",
+  "overlap_role": "All assigned actions are retained. The shared tail covers final red lowering/release, opening, retreat, transit to blue, blue contact/closure and initial lift: 210 actions in demo10101 and 220-230 in the other measured occurrences.",
+  "successor_readiness": "Switch to place_blue after observed red stability and open/clear fingers. A later switch through blue initial lift is supervised. Preserve both causal observations across the switch.",
+  "failure_signatures": "Red fails to co-move after close, remains elevated or follows TCP after opening, lands outside the free center, or becomes unobservable; blue is disturbed before red settles; IK reports material residual or limit contact.",
+  "continuation_guidance": "If red is displaced but still visible and reachable, replan this policy so the red anchor refreshes. If red is settled, prefer successor handoff rather than repeating acquisition. Unseen miss/drop/collision states require high-level reassessment.",
+  "limitations": "Closed fingers do not prove grasp. The object frame does not guarantee collision freedom, reachability or recovery, and a bad red observation shifts every decoded TCP target.",
+  "evidence": [
+    {"trajectory_id":"demo10100","indices":[0,40,80,100,120,160,200,220,240,260,280,320,420,450,479]},
+    {"trajectory_id":"demo10103","indices":[0,40,80,100,120,160,200,220,240,260,280,320,420,440,479]}
+  ]
+}

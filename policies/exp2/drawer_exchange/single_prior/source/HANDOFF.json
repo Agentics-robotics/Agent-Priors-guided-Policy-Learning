@@ -1,0 +1,28 @@
+{
+  "policy_id": "single_prior_cartesian",
+  "entry_conditions": "Full-task entry is any causally observed drawer_exchange state from which the remaining demonstrated order is still physically recoverable: all required structured fields are available, the objects and drawer are within Panda reach, and no caller-selected stage is assumed. The normal demonstrated entry has a closed drawer, red inside it, blue on the table, open gripper, and the common home configuration; intermediate full-task states are conditioned directly rather than handed to another policy.",
+  "exit_conditions": "Full-task exit is exactly the unchanged evaluator conjunction in one observation: drawer_position > 0.26 m; the red block, using its rotated extents, is fully inside the outside pad and its center z is in (0.014, 0.031) m; and the blue block is fully inside the cavity centered at drawer_origin_world + [-drawer_position, 0, 0] with center z in (0.053, 0.074) m. No release, speed, clearance, sustained hold, or additional retreat is required.",
+  "overlap_role": "There is no skill overlap or segmented handoff. All twelve complete demonstrations, including approach, contact, transport, release, and post-placement motion, supervise this one model; the reference-frame score is an internal learned action component, not a runtime policy or stage selection.",
+  "successor_readiness": "No learned successor exists because this policy owns the complete task. Once the exact exit conjunction is observed the framework may stop immediately; before then, the same policy remains responsible for replanning from the latest two causal observations.",
+  "failure_signatures": "Observable failures include drawer_position staying below 0.26 m; an anchor_margin near zero followed by a Cartesian target jump between source and destination origins; gripper-sign chatter near a block; TCP-block separation growing while a closed gripper is transporting (likely lost grasp); red resting outside pad containment or wrong z; blue resting outside the moving cavity or wrong z; repeated object poses with oscillating TCP targets; rotation_projected becoming true often; ik_converged false, growing IK residuals, or joint-limit contacts.",
+  "continuation_guidance": "Use only repeated calls to this same policy with fresh causal observations and execute the framework-owned slots 1..8. Do not supply a stage, choose an object, override the learned origin, infer contact truth, or insert scripted recovery. Continue only while the scene remains reachable and safe; exact evaluator success, not the internal origin score, decides completion.",
+  "limitations": "This document is descriptive and is not a runtime controller. Training shows one manipulation order, limited yaw variation, a fixed drawer geometry, and modest initial-position variation. The translation-equivariant decoder cannot ensure that the learned origin score remains correct out of distribution, that shifted paths avoid collisions, that a grasp persists, or that IK remains feasible. There is no demonstrated recovery from dropped blocks, drawer re-closing, large rotations, occlusion, or objects outside the reachable workspace.",
+  "evidence": [
+    {
+      "trajectory_id": "demo1000",
+      "indices": [0, 137, 171, 240, 377, 446, 480, 549, 618, 755, 824, 893, 961, 996, 1030]
+    },
+    {
+      "trajectory_id": "demo1001",
+      "indices": [0, 97, 195, 293, 391, 489, 587, 685, 783, 881, 979]
+    },
+    {
+      "trajectory_id": "demo1002",
+      "indices": [0, 151, 303, 455, 607, 759, 911]
+    },
+    {
+      "trajectory_id": "demo1004",
+      "indices": [0, 152, 304, 456, 608, 760, 912]
+    }
+  ]
+}

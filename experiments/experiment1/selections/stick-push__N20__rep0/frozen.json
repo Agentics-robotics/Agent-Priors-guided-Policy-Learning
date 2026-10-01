@@ -1,0 +1,41 @@
+{
+  "instance": "stick-push__N20__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A1",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A1",
+      "feedback_hash": "c959ed8298f734786e23f9d6a592f809d443e4cf21c5ff742478114cd224b613",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: all three completed, valid candidates have the same frozen objective, 0.5*dev_C_success+0.5*dev_E_success=1.0, with success in every equally weighted C and E subcondition. Apply the first tie-break: A1 fixed-method latency is 0.10404845999437384 s, lower than A2 0.10644499450427247 s and A3 0.10710104800091358 s. Therefore select A1. Parameter count also favors A1 but is not needed to resolve this tie. IID success, training curves, training time and hidden test are not selection criteria. The 20/20 C and 20/20 E outcomes have finite-sample uncertainty and establish no accuracy superiority among these candidates.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A1",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A1",
+      "feedback_hash": "ffea220436ddf8ebefdff62f758faf9821ebc92f6c3669afb9b75e76e7087f4c",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: A1–A4 are valid completed candidates and each has equally subcondition-weighted dev_C_success=1.0 and dev_E_success=1.0, so each frozen primary score is 1.0. The first tie-break selects A1: fixed-method latency 0.10404845999437384 s versus A2 0.10644499450427247 s, A3 0.10710104800091358 s, and A4 0.10851978699793108 s. A4 has fewer complete-system parameters (4,696,644 versus A1 4,861,508), but parameters are a later tie-break and cannot override its higher latency. A4 preserved observed success but did not realize the hypothesized latency improvement; this negative efficiency result remains recorded. IID, training curves, training duration and hidden test did not select. No further code edits, designs, checkpoints or training are requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "e887126634a628a6313eb491858d3858000c9d4c043d0c9dae2928d8136d13fc",
+    "A2": "7aa0920731baf62176b7fa826ac623ad3d5a79fd1e13a47f185f6f98b73b9eef",
+    "A3": "0cc88f300d513f42ef0dcc72ed4aaaeafeeed288587c3881f9d82bfb24116201",
+    "A4": "2f3820a3e5b2a891af227112eabb2d4fa38d74c933d63bf3e8d35f553238b791"
+  },
+  "feedback_hashes": {
+    "initial": "f0c0732a76bc0b90903fe09fc6359114a1009c3ead0b6343135c3f2c3458cefc",
+    "final": "674199472e32a960da57ea5f7c246dd8c63d8132085ed19b43f9403d93e37c59"
+  }
+}

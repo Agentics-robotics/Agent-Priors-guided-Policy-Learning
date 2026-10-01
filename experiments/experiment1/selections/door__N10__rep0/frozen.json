@@ -1,0 +1,41 @@
+{
+  "instance": "door__N10__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A1",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A1",
+      "feedback_hash": "b7a3f643d9a72a193da19aff7e26508eef98359101e2c66b9f9f3027aa25b15a",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: among the three valid completed candidates, the frozen equal-distribution score is A1=0.5*1.0+0.5*1.0=1.0, A2=0.5*1.0+0.5*0.75=0.875, and A3=0.5*1.0+0.5*0.55=0.775. Each reported distribution is balanced and its subconditions have equal weights. A1 is the unique score maximizer; no tie-break is needed. IID and training losses are not selection criteria. A2's five E failures are all LL; A3's nine E failures are in HH/LH, with native truncation as the only failure category. Those aggregates do not establish the contact-level cause. The revision will retain A1's successful static cabinet action frame and investigate a compact, information-preserving kinematic encoding rather than add the unsupported articulated-frame or joint-trajectory complexity. A1's 20/20 C and 20/20 E are finite development evidence, not proof of perfect generalization.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A1",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A1",
+      "feedback_hash": "20b96b006c46bd63bcc51c119ed0910814c8d695c7e5d13cba28c4461cb103f9",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: all A1-A4 are valid and completed. With equal subcondition weights, scores are A1=0.5*1.0+0.5*1.0=1.000, A2=0.5*1.0+0.5*0.75=0.875, A3=0.5*1.0+0.5*0.55=0.775, A4=0.5*1.0+0.5*1.0=1.000. A1 and A4 tie on the primary criterion. The first frozen tie-break selects A1 because its fixed-method inference latency is 0.10144887399656 s, lower than A4's 0.11190260300645605 s. A4 has fewer parameters (4596292 versus 4682308), but parameter count is only the next tie-break and cannot override latency. A4 retained the observed C/E success while its proposed latency benefit was not realized; this negative cost result remains recorded. IID, training loss, intermediate checkpoints and hidden tests are not used for selection. No further code edits or training are requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "a79952b45fec8e936845eb3f8de10d2c42e7cb49f0026b8038e5b3bd6a8ee408",
+    "A2": "dcc6c29b54a12d77b50ce62a7e07c4fac7f0eb92d6542db544d9006409d65966",
+    "A3": "123f6808a3dc226718001f709fe83be6a4b2caf14601402eaba124c9b9940a46",
+    "A4": "7f3242daf99fce503db40d1a828a5c76d84dc69f366d3c7e12ebffa3316b4756"
+  },
+  "feedback_hashes": {
+    "initial": "da23030d6d72b6547dc2006a69905342324c73e75e4390674254381f9641439e",
+    "final": "a15b3344d8306c8c9b69073bb12a99d68119f953c7f2b7c3af669cf4d9fd85f1"
+  }
+}

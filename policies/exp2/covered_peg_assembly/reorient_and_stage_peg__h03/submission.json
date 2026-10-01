@@ -1,0 +1,301 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/covered_peg_assembly/reorient_and_stage_peg/dataset.json",
+    "dataset_sha256": "4014116a35d762f089a674edd8ef7555125889863de854487a05527f4784ec47",
+    "experiment_version": "APPL_v4_cartesian_new_task",
+    "heuristic": {
+      "applicability": "Prefer for a still-grasped but off-timing intermediate state produced by a neighboring skill, when the current measured TCP pose is reliable and scene displacement is modest. It is designed for receding-horizon local correction across lift, turn, transport, alignment, and descent without relying on a memorized absolute phase clock.",
+      "evidence": [
+        {
+          "indices": [
+            1120,
+            1140,
+            1200,
+            1240,
+            1280,
+            1320,
+            1360,
+            1380,
+            1400,
+            1420,
+            1440,
+            1460,
+            1480
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            1120,
+            1220,
+            1270,
+            1340,
+            1380,
+            1400,
+            1420,
+            1440,
+            1460,
+            1480
+          ],
+          "trajectory_id": "demo12205"
+        },
+        {
+          "indices": [
+            1120,
+            1180,
+            1220,
+            1270,
+            1300,
+            1340,
+            1360,
+            1380,
+            1400,
+            1420,
+            1440,
+            1460,
+            1480
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Use after closed-grasp retrieval or at an intermediate shared state when the two causal frames provide TCP/peg motion direction and peg-to-hole geometry. The policy does not require the nominal index-1120 phase, but its training support contains only successful-path intermediate states.",
+        "exit_conditions": "Terminate or hand off when observed peg/hole relations show near-axis alignment and y/z centering with descent to the insertion height, using the shared [1380,1500) region for a multi-chunk transition.",
+        "failure_signatures": "Local chunks oscillate or fail to reduce geometric error, TCP-relative targets accumulate drift, peg/TCP coupling is lost, clearance decreases near the box, a large scene displacement requires a globally different route, or IK is unconverged/at limits. Successful demonstrations do not establish recovery from these errors.",
+        "overlap_role": "Supervise every action in [1120,1500), preserving 7.5 s incoming and 6.0 s outgoing overlap. Replanning after each 8 executed actions reanchors local displacements while the framework retains the two-frame history across switches.",
+        "successor_readiness": "The insertion successor is ready when the peg is held, aligned, centered and at/descending toward hole height. If intermediate state is sound but the hole itself moved, prefer the destination-frame prior before or during outgoing overlap."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{},\"required\":[]},\"parameter_semantics\":\"No high-level numeric parameters. The caller supplies an empty object and chooses this policy for off-timing but still valid intermediate states. Each replan anchors actions to the newest measured tcp_pose; the anchor remains fixed for that sampled 8-action execution chunk.\"}",
+      "limitations": "TCP-relative chunks are locally well conditioned but not globally translation invariant to a moved destination; long-range corrections still depend on observed relative geometry learned from narrow successful demonstrations. Reanchoring cannot repair a lost grasp, dropped peg, collision, or unreachable state. A fixed anchor within each chunk may accumulate execution/model error. Use the hole-frame policy for fixture displacement and the peg-frame policy for a reliably held but displaced source.",
+      "pipeline_implications": "Use as the phase/handoff-robust alternative when causal motion and geometry are reliable but nominal progress is not. Recompute the TCP anchor after every 8 executed slots, never advance state during denoising, keep slots 1-8 only, preserve incoming/outgoing action overlap, and monitor peg coupling and IK residuals before continuing.",
+      "rationale": "The demonstrations traverse qualitatively different phases inside one long slice: low lift at 1120, clearance/high lift around 1220-1270, simultaneous transport and turning around 1270-1380, and aligned descent/early insertion around 1380-1500. Timing differs: demo12205 still has peg y about 0.160 at 1380, whereas demo12208 is nearly centered at y 0.180 and begins descent earlier; end x also ranges about -0.252 to -0.185. A policy keyed mainly to absolute trajectories can issue the wrong phase after a neighboring policy hands off at a different successful intermediate state. Diffusing chunk-start-TCP-relative translation and rotation-vector targets, while conditioning on two-frame relative geometry, geometric clearance/alignment/progress cues, qpos and qvel, emphasizes the correction from the actual causal state. Reanchoring each execution chunk limits accumulated frame error. Expected robustness is to valid off-timing states represented by demonstrations, not unseen-error recovery.",
+      "statement": "Receding local-twist prior: diffuse each commanded TCP target as a chunk-start TCP-frame translation and exponential-coordinate rotation plus gripper, conditioned on two-frame robot/object state and explicit geometric phase cues. Reanchor at each 8-action replan to target handoff timing and intermediate-state ambiguity.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with incoming [1120,1270) and outgoing [1380,1500) overlap.\"},{\"trajectory_id\":\"demo12201\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12202\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12203\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12204\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12205\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full supervision retaining the late-centering phase variant in outgoing overlap.\"},{\"trajectory_id\":\"demo12206\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12207\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12208\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full supervision retaining the earlier-centering/descent phase variant.\"},{\"trajectory_id\":\"demo12209\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12210\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"},{\"trajectory_id\":\"demo12211\",\"start\":1120,\"stop\":1500,\"context_start\":1119,\"call_args\":{},\"rationale\":\"Full multi-phase supervision with both action overlaps.\"}]"
+    },
+    "heuristic_index": 3,
+    "normalization": {
+      "path": "provenance/relocated/b11807ac2cdb2323",
+      "sha256": "5d50ce2e025ef83183ac172a24c1b19ea7482f651c1c6fa09f34f83bd3887b24"
+    },
+    "observation_fields": {
+      "hole_pose": [
+        0,
+        7
+      ],
+      "lid_pose": [
+        7,
+        14
+      ],
+      "lid_position": [
+        14,
+        15
+      ],
+      "lid_velocity": [
+        15,
+        16
+      ],
+      "peg_pose": [
+        16,
+        23
+      ],
+      "qpos": [
+        23,
+        32
+      ],
+      "qvel": [
+        32,
+        41
+      ],
+      "target_pose": [
+        41,
+        48
+      ],
+      "tcp_pose": [
+        48,
+        55
+      ]
+    },
+    "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+    "policy_id": "reorient_and_stage_peg__h03",
+    "prior_plan_path": "assets/exp2/prior_plans/covered_peg_assembly/reorient_and_stage_peg.json",
+    "prior_plan_sha256": "ebd0d5bc2547a4c34bcc82464527ef3ca78a5d5f35b23c0e509c789640f71101",
+    "skill_id": "reorient_and_stage_peg",
+    "sources": {
+      "demo12200": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12200.json",
+        "sha256": "e7ccc303ea6b6ddd3150e2336c6b06b3f89a66d478909e3f9555eb3d6ccc85f1"
+      },
+      "demo12201": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12201.json",
+        "sha256": "aa9e1f1d14f676f5b4c9fb52ee6bbbb5d86865d82adcc051e3256482461f1016"
+      },
+      "demo12202": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12202.json",
+        "sha256": "4ad5e3ce9117f56008597389c45a799aff1857f683091069d582e024a00b32a7"
+      },
+      "demo12203": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12203.json",
+        "sha256": "c43ecf548e80a87d465fbc947e98d191dffd25cc4966f83e2698dd7a8a2cf8af"
+      },
+      "demo12204": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12204.json",
+        "sha256": "35eea2d5c8fc6e02c992c923db4e580d473d5583edcd45cfee79e682782c5a09"
+      },
+      "demo12205": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12205.json",
+        "sha256": "b4b9855dac2b9f0e836ea063d38694af37abba89371fcae59fffa7d65c4dfb3c"
+      },
+      "demo12206": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12206.json",
+        "sha256": "6a64bcc76a39a6dc2f1119c5e5983a5686835cdf2ae5a0899ab8f39da92ef407"
+      },
+      "demo12207": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12207.json",
+        "sha256": "58410156c6edfad3658ce632cf8ebe122570c51412ba53f8631c9e78a14c5397"
+      },
+      "demo12208": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12208.json",
+        "sha256": "1522c1f09079f05ace6825ff5221ebf74ca8c45941a00050c53b579b43e84d5b"
+      },
+      "demo12209": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12209.json",
+        "sha256": "2a6dc540f7c4c6e6cb92c1fe50c106da8f71123c6b3ede06a790bf8ca0c3d31b"
+      },
+      "demo12210": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12210.json",
+        "sha256": "dd077218ff68ac6e93b28dc73234d21ac2a16c937de945465c9970deb9ad4ac4"
+      },
+      "demo12211": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12211.json",
+        "sha256": "0440e3242bad2dbcefe176eab207fd19647109b019c55702ff1906862c9e4b5d"
+      }
+    },
+    "subgoal": "Maintain the peg grasp while lifting to clearance, turning the peg into the square-hole axis, transporting it above the target, and staging it through descent and the first part of insertion."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/f1cbbf3dc1ab173c",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "499f72bab264a3d5c7f9bef00bafaa8540c7a742333e8f14f43c3175ecb9c10d",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 4,
+      "physical_gpu": 7,
+      "uuid": "GPU-26720468-40e8-2514-a0ae-83b4635e346a"
+    },
+    "effective_action_targets": 4076,
+    "final_weights_sha256": "c51eed4c88fd71dd137bb6b8936eb4c89459e7975ce3ae12c0bae708ddb1907e",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 3.523609161376953,
+        "step": 1
+      },
+      {
+        "l2_norm": 2.0846657752990723,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "cbddbf2b46fc8de0676f932ab234f82b79a86cf6872c7dc58d57df3c1793ce2d",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 4560,
+        "duplicated_actions": 0,
+        "unique_actions": 4560
+      },
+      "contract": {
+        "action_dimension": 7,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "required": [],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "Encode/decode demonstration targets through the chunk TCP frame and exponential coordinates; decoded IK FK must match commanded TCP position/rotation and unchanged gripper within maximum error 0.005. Nonunique IK is permitted and explicit solver diagnostics are returned.",
+          "mode": "task_space",
+          "tolerance": 0.005
+        },
+        "cut_relation": "Preserves every action in each assigned [1120,1500) segment, including incoming [1120,1270) and outgoing [1380,1500) overlap. Reanchoring occurs only at the framework's replan boundary; temporal slots and masks are unchanged.",
+        "input_shapes": {
+          "features": [
+            2,
+            73
+          ]
+        },
+        "observation_dependencies": [
+          "hole_pose",
+          "lid_pose",
+          "lid_position",
+          "lid_velocity",
+          "peg_pose",
+          "qpos",
+          "qvel",
+          "target_pose",
+          "tcp_pose"
+        ],
+        "output_semantics": "Each slot is an unnormalized Cartesian target [translation(3 metres), rotation vector(3 radians), gripper(1)] for T_chunk_start_tcp^-1*T_command. The chunk anchor is the newest causal tcp_pose and is fixed during the sampled chunk. Slots are t-1 through t+14 and execution uses slots 1-8. Decoding applies the SO(3) exponential map, composes with the anchor, and calls panda_kinematics.solve_ik from freshly measured qpos. Gripper is passed through unchanged.",
+        "parameter_semantics": "No high-level numeric parameters. The caller passes an empty object and selects this policy for a valid but off-timing intermediate state. At every replan, the newest measured tcp_pose is the chunk action anchor.",
+        "policy_id": "reorient_and_stage_peg__h03",
+        "skill_id": "reorient_and_stage_peg",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "36612a1cb42d3a7f6186c5a0750d2c414682eb2c2d95d0a17781ef0cc8eaf3d4",
+      "PRIOR.md": "c077b8a3b94f7667837ef194c9e36810e92972349c563234fec5f1cf974a4898",
+      "adapters.py": "3ea8294a7dc61589356387653fb5ee3bd7dfacc91300c6ba0c5194a1683f85f7",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "e4ca78a6dc4c90880bbcda789901798f267a5bb7f08b56f654b3d41bd560e458",
+      "policy.py": "59744197548d59bee4b2313bec8d21c682b5b558ce0a287701de7864c58db6d6",
+      "policy_contract.json": "724c4c07e55f4ababe0deb4bc7ec1ed1d49e6fedd23c64bd197bbb4f6a7cb9fc",
+      "training_bindings.json": "5d57610a1d48cc802d909dcd78cdea115db4c41f0c0b24eb349cb1e4cb593631"
+    },
+    "trainable_parameters": 17370247,
+    "training_elapsed_seconds": 3.9109189119189978,
+    "weight_l2_change": 0.20671557336609458
+  },
+  "files": {
+    "HANDOFF.json": "36612a1cb42d3a7f6186c5a0750d2c414682eb2c2d95d0a17781ef0cc8eaf3d4",
+    "PRIOR.md": "c077b8a3b94f7667837ef194c9e36810e92972349c563234fec5f1cf974a4898",
+    "adapters.py": "3ea8294a7dc61589356387653fb5ee3bd7dfacc91300c6ba0c5194a1683f85f7",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "pipeline.json": "e4ca78a6dc4c90880bbcda789901798f267a5bb7f08b56f654b3d41bd560e458",
+    "policy.py": "59744197548d59bee4b2313bec8d21c682b5b558ce0a287701de7864c58db6d6",
+    "policy_contract.json": "724c4c07e55f4ababe0deb4bc7ec1ed1d49e6fedd23c64bd197bbb4f6a7cb9fc",
+    "training_bindings.json": "5d57610a1d48cc802d909dcd78cdea115db4c41f0c0b24eb349cb1e4cb593631"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "v1": {
+    "files": {
+      "HANDOFF.json": "36612a1cb42d3a7f6186c5a0750d2c414682eb2c2d95d0a17781ef0cc8eaf3d4",
+      "PRIOR.md": "c077b8a3b94f7667837ef194c9e36810e92972349c563234fec5f1cf974a4898",
+      "adapters.py": "3ea8294a7dc61589356387653fb5ee3bd7dfacc91300c6ba0c5194a1683f85f7",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "e4ca78a6dc4c90880bbcda789901798f267a5bb7f08b56f654b3d41bd560e458",
+      "policy.py": "59744197548d59bee4b2313bec8d21c682b5b558ce0a287701de7864c58db6d6",
+      "policy_contract.json": "724c4c07e55f4ababe0deb4bc7ec1ed1d49e6fedd23c64bd197bbb4f6a7cb9fc",
+      "training_bindings.json": "5d57610a1d48cc802d909dcd78cdea115db4c41f0c0b24eb349cb1e4cb593631"
+    },
+    "folder": "provenance/relocated/a318efecb074d561",
+    "version": "c182f8b6b2e32215dd1a47de76c50262c54db7bef370ad4495dceefcdc2963ce"
+  },
+  "version": "9749b91c2d1ae99235b821c9a73985c41ca941c3456c410c4faf65dbaa1844fa"
+}

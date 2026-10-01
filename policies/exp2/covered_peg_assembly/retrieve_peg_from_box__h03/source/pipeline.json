@@ -1,0 +1,18 @@
+{
+  "policy_id": "retrieve_peg_from_box__h03",
+  "skill_id": "retrieve_peg_from_box",
+  "heuristic_index": 3,
+  "prior_summary": "World Cartesian targets are conditioned on explicit causal phase geometry and motion: peg and lid-handle relations, fingers, peg height, co-motion proxy, lid state, and robot configuration.",
+  "applicable_conditions": "Prefer as the broad early-to-late/default policy when uncertainty is chiefly whether the hand is still releasing the lid, clearing/open-approaching, closing near the peg, or carrying it. Observable geometry should remain within successful-demonstration support.",
+  "termination_guidance": "Use combined evidence rather than a single phase cue: closed fingers, peg above the wall, and low recent change in peg-to-TCP relation while both move. Then hand off within the supervised outgoing lift overlap.",
+  "limitations": "Phase cues are deterministic observations, not contact truth. World-absolute targets extrapolate poorly to large peg displacement and can be unreachable from changed qpos. Demonstrations contain no failed-grasp negatives or recovery behavior.",
+  "config": {
+    "action_reference": "world",
+    "action_rotation": "6d",
+    "action_dimension": 10,
+    "input_feature_dimension_per_frame": 72,
+    "phase_features": ["tcp_in_peg", "tcp_to_lid_handle", "finger_width", "finger_motion", "peg_height_above_wall", "peg_tcp_relative_motion", "lid_angle_velocity"],
+    "backbone": "standard_diffusion_backbone",
+    "auxiliary_loss": false
+  }
+}

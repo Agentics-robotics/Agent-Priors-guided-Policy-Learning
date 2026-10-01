@@ -1,0 +1,68 @@
+{
+  "cut_plan_sha256": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "priors": [
+    {
+      "applicability": "Prefer align_and_insert_peg__h04 when the peg is visibly retained in a closed grasp and clear of the box, the observed hole may be displaced from its demonstrated world pose, or the predecessor may have delivered a modestly different but rigid peg-to-TCP grasp offset. The peg should already be near axis alignment and the transported approach, descent, and +hole-x insertion path should appear reachable and collision-free. The current hole_pose, peg_pose, tcp_pose, qpos, and qvel must be available and reliable. Use h01 when the grasp transform is known to match nominal and simple hole-frame TCP transport is preferred; use h02 for small TCP tracking/intermediate-state corrections near the demonstrated fixture; use h03 when switch-time phase ambiguity near the demonstrated workspace is the dominant concern.",
+      "evidence": [
+        {
+          "indices": [
+            1380,
+            1400,
+            1420,
+            1440,
+            1460,
+            1480,
+            1500,
+            1520,
+            1540,
+            1554
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            1380,
+            1400,
+            1420,
+            1440,
+            1460,
+            1480,
+            1500,
+            1520,
+            1540,
+            1558
+          ],
+          "trajectory_id": "demo12205"
+        },
+        {
+          "indices": [
+            1380,
+            1400,
+            1440,
+            1460,
+            1480,
+            1490,
+            1500,
+            1520,
+            1538
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "The peg is observably closed-grasped and clear of the box; peg and TCP move as a rigid pair over the two causal frames; the peg is nearly axis aligned and above, approaching, or already engaging the observed hole; and the destination-relative route is plausibly reachable. Demonstrated entries are at index 1380 with peg z about 0.420-0.428 m, mostly y near 0.18 m, with demo12205 at y about 0.1595 m providing the largest observed incoming correction.",
+        "exit_conditions": "Keep the unchanged task success definition: the +x peg head must be in [-0.145,-0.09] m, peg y/z must be within 0.009 m of the hole center, axis alignment must be at least 0.985, and the terminal inserted pose must be stable. A rigid-transform estimate or closed gripper alone is not success.",
+        "failure_signatures": "The observed peg-to-TCP transform changes materially across replans, indicating slip or loss of grasp; the transformed TCP goal is unreachable or produces IK non-convergence/limit contacts; peg y/z or axis error persists; descent or +hole-x advance occurs while offset and causes collision or jamming; peg and TCP separate; or the policy stalls without entering the head-x interval. No demonstrated retract-and-retry behavior covers these failures.",
+        "overlap_role": "All twelve full [start,stop) segments remain supervised. In particular [1380,1500), 120 actions or 6.0 s per trajectory and 1,440 actions total, overlaps reorient_and_stage_peg. It includes incoming correction, high-to-low descent, insertion-line engagement, and initial +x advancement, so h04 can be called before contact or after insertion has begun without losing action supervision.",
+        "successor_readiness": "There is no learned successor. Continue closed-gripper stabilization until the framework's unchanged success evaluator confirms head position, lateral/vertical tolerance, axis alignment, and stability. If rigid-grasp consistency is lost or IK/contact failure is observed, do not treat this policy as a demonstrated recovery controller."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"destination_object\":{\"type\":\"string\",\"enum\":[\"hole\"]},\"held_object\":{\"type\":\"string\",\"enum\":[\"peg\"]}},\"required\":[\"destination_object\",\"held_object\"]},\"parameter_semantics\":\"destination_object names the currently observed destination pose used as the action reference frame; for every binding it is 'hole' and resolves hole_pose in world metres with wxyz orientation at each causal frame, target-label slot, and decode step. held_object names the currently observed rigidly grasped object whose commanded virtual pose is learned; for every binding it is 'peg' and resolves peg_pose. The adapter combines these arguments with the observed tcp_pose to estimate the causal peg-to-TCP grasp transform. The caller supplies semantic object names only, never poses, formulas, code, or actuator commands.\"}",
+      "limitations": "The twelve demonstrations keep the hole at one world pose and contain nominal successful insertions only. The policy assumes accurate object/TCP poses and a rigid grasp between replans; contact truth is unavailable. A dropped or slipping peg invalidates the conversion. Destination-relative geometry and grasp compensation do not guarantee collision clearance, contact feasibility, dynamics, or Panda reachability after a large displacement or extreme grasp offset. IK may be unconverged or touch limits and must be reported. The model has no supervision for collision, jamming, retraction, regrasp, or retry. It retains the demonstrated approach ordering and can still choose an unsafe descent from a severe unseen misalignment.",
+      "pipeline_implications": "Add h04 beside, not in place of, h01-h03. The high-level selector should prefer it for an observed moved hole or a modest changed rigid peg-to-TCP transform, while monitoring two-frame rigidity and IK diagnostics. It independently trains one unchanged Diffusion Policy backbone from the complete assigned segments with H2/16/8 at 20 Hz. The learned 10D action is a desired virtual peg pose in the fresh hole frame plus gripper; decode converts that object target to a world TCP target using the fresh observed peg-to-TCP transform and then calls the shared IK solver from measured joints. No new success condition, scripted completion, policy-internal recurrent state, or recovery responsibility is introduced.",
+      "rationale": "The original three policies each passed all 12 available in-distribution replay-entry validations, so the evidence does not expose a nominal failure for simple retuning. A distinct remaining structural risk is that TCP-space trajectories preserve the demonstrated grasp offset even when the predecessor delivers the securely held peg with a different rigid pose relative to the TCP. h04 moves the learning target to task geometry: for each demonstrated command, encode the virtual peg pose that would result under the observed pre-action TCP-to-peg transform, and express that pose in the observed hole frame. At execution, decode the desired peg pose through the freshly observed inverse grasp transform to obtain a world TCP target. This gives exact geometric equivariance to hole displacement and compensates a changed rigid grasp transform by construction, while absolute world hole/TCP channels and qpos/qvel retain workspace, velocity, posture, and reachability dependencies. It covers final correction, descent, insertion, and stabilization. The expected benefit under moved holes or changed rigid grasp offsets is unconfirmed because validation contains no such interventions.",
+      "statement": "Rigid-grasp object-goal retargeting prior: diffuse the desired commanded peg pose relative to the observed square hole, not the TCP pose itself, then use the freshly observed peg-to-TCP transform to convert each sampled object goal into a world-frame Cartesian TCP target before verified Panda IK. The complete alignment, descent, +hole-x insertion, and stable hold trajectory is invariant by construction to destination displacement and is retargeted for a modest changed rigid grasp offset.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":1380,\"stop\":1555,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full precision insertion segment, including the 120-action predecessor overlap, final alignment, descent, +hole-x insertion, and stabilization.\"},{\"trajectory_id\":\"demo12201\",\"start\":1380,\"stop\":1552,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full assigned segment preserves nominal approach, engagement, insertion, stable hold, and action-supervised overlap.\"},{\"trajectory_id\":\"demo12202\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full assigned segment covers the high aligned entry through successful insertion and terminal stabilization, including overlap.\"},{\"trajectory_id\":\"demo12203\",\"start\":1380,\"stop\":1552,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full assigned segment retains correction, descent, insertion, hold, and all predecessor-overlap actions.\"},{\"trajectory_id\":\"demo12204\",\"start\":1380,\"stop\":1546,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full assigned segment supplies object-goal labels for approach through stable success and preserves overlap.\"},{\"trajectory_id\":\"demo12205\",\"start\":1380,\"stop\":1559,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full segment includes the largest observed incoming lateral/orientation correction before the common descent, insertion, and hold.\"},{\"trajectory_id\":\"demo12206\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full assigned insertion responsibility and all 120 overlapping actions remain supervised.\"},{\"trajectory_id\":\"demo12207\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full segment preserves high entry, controlled descent, +hole-x advancement, and stable terminal commands.\"},{\"trajectory_id\":\"demo12208\",\"start\":1380,\"stop\":1539,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full segment includes an earlier completion progression and retained stable tail while preserving predecessor overlap.\"},{\"trajectory_id\":\"demo12209\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full assigned range supplies nominal object-goal approach, insertion, and stabilization labels with overlap.\"},{\"trajectory_id\":\"demo12210\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full assigned range retains every precision and overlap action without trimming.\"},{\"trajectory_id\":\"demo12211\",\"start\":1380,\"stop\":1546,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full assigned segment covers final alignment, descent, insertion, and hold with substantial action-supervised overlap.\"}]"
+    }
+  ],
+  "skill_id": "align_and_insert_peg"
+}

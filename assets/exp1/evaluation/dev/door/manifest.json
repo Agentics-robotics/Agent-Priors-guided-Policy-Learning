@@ -1,0 +1,2819 @@
+{
+  "counts": {
+    "C": 20,
+    "E": 20,
+    "IID": 10
+  },
+  "hidden_from_runtime_api": true,
+  "historical_novelty": "New declared seeds; task/support/layout semantics were historically exposed.",
+  "paired_across_n_and_systems": true,
+  "phase": "dev",
+  "records": [
+    {
+      "cell": "LL",
+      "episode_id": "e1_door_dev_IID_000_410300000",
+      "factors": {
+        "a": 0.03202515792043117,
+        "b": -9.046821664065419
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.20078287750020363,
+          "unit_direction": [
+            0.912523264041993,
+            0.34180406127866914,
+            -0.22465813200406282
+          ],
+          "vector_world_m": [
+            0.18321904674022946,
+            0.06862840296478712,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.560540599961692,
+          "unit_direction": [
+            -0.9443726435746493,
+            -0.3288773480612921,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5293592082167431,
+            -0.1843491059960869,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.7613234774618957
+      },
+      "inference_seed": 510300000,
+      "initial_state_hash": "a5ebb44153c07698fca5fcdf93474d8c74715bea568258fb0eca0f7b1d88a9ff",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_IID_000_410300000.npz",
+      "seed": 410300000,
+      "sha256": "6999caa848481dbe9b8bb8740f92f6d6d8deac5571ba4ffc20dcbc0ce91049ec",
+      "split": "IID",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03202515792043117,
+          0.9045689913506753,
+          0.15
+        ],
+        "yaw_degrees": -9.046821664065419
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_door_dev_IID_001_410300001",
+      "factors": {
+        "a": 0.06421840856275611,
+        "b": 5.471036720267334
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.28892354241838347,
+          "unit_direction": [
+            0.9318598834177838,
+            0.3275101203919865,
+            -0.15612263998991535
+          ],
+          "vector_world_m": [
+            0.26923625855464794,
+            0.094625384161524,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.8317748532951943,
+            -0.5551131356991635,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.4662435752991367,
+            -0.3111634501314254,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8494641423800756
+      },
+      "inference_seed": 510300001,
+      "initial_state_hash": "4dd8519591c8222f8fb159bb321adb7b54b3b531cd889524edb2c80857fcab64",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_IID_001_410300001.npz",
+      "seed": 410300001,
+      "sha256": "b308fe0d4754947492a334d29b13f71156618eeaf4443d54fd56716681dfb46b",
+      "split": "IID",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.06421840856275611,
+          0.8840258829270403,
+          0.15
+        ],
+        "yaw_degrees": 5.471036720267334
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_door_dev_IID_002_410300002",
+      "factors": {
+        "a": 0.038951227803406756,
+        "b": -6.799613622144934
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.22094847806439577,
+          "unit_direction": [
+            0.9016689465798119,
+            0.3812010918347571,
+            -0.20415395748709195
+          ],
+          "vector_world_m": [
+            0.19922238146473642,
+            0.08422580107737554,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.9307507214234232,
+            -0.36565433755088583,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5217235678014635,
+            -0.20496410174936863,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.7814890780260879
+      },
+      "inference_seed": 510300002,
+      "initial_state_hash": "0497add104a7bfec38de31d6f6e9510eb9c18b3f2a0d834a3ea84c1cf15e5feb",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_IID_002_410300002.npz",
+      "seed": 410300002,
+      "sha256": "c38e7605043493b6e2bc95f09e2a9d9025ae8d8fbafc3db02e87ba6d1288b4bc",
+      "split": "IID",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.038951227803406756,
+          0.9138777724071968,
+          0.15
+        ],
+        "yaw_degrees": -6.799613622144934
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_door_dev_IID_003_410300003",
+      "factors": {
+        "a": 0.06832137546007566,
+        "b": 7.552384182334427
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.3029889729128069,
+          "unit_direction": [
+            0.9242225773012581,
+            0.35163736934745826,
+            -0.14887507543245543
+          ],
+          "vector_world_m": [
+            0.2800292494393355,
+            0.10654224537634771,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.560540599961692,
+          "unit_direction": [
+            -0.8110652983117503,
+            -0.5849556238506228,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.4546350289237773,
+            -0.32789137634419396,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8635295728744989
+      },
+      "inference_seed": 510300003,
+      "initial_state_hash": "5458666095db69a5bc32de6dd26226bc79ee98b260e6ad2b5b434ab4037728de",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_IID_003_410300003.npz",
+      "seed": 410300003,
+      "sha256": "a762cf322c527d4391720c4ad6eb6030ee00541d90c7eb65aa90862d7e9480ba",
+      "split": "IID",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.06832137546007566,
+          0.8882063004219543,
+          0.15
+        ],
+        "yaw_degrees": 7.552384182334427
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_door_dev_IID_004_410300004",
+      "factors": {
+        "a": 0.038276263112559133,
+        "b": -5.442130345109901
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.21877772031980142,
+          "unit_direction": [
+            0.9320363904635596,
+            0.2979901560674045,
+            -0.20617961523531642
+          ],
+          "vector_world_m": [
+            0.20390879676071386,
+            0.06519360702216859,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.9218270270183474,
+            -0.3876015121984367,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5167214747857676,
+            -0.21726638419377087,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.7793183202814937
+      },
+      "inference_seed": 510300004,
+      "initial_state_hash": "abf065c65176a59104222d1aba3d71bf6792b9e8e186a8b58635bd6512ef7ba9",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_IID_004_410300004.npz",
+      "seed": 410300004,
+      "sha256": "559164d748549707b19a1b7c95c6dbc479af580eb5b538d3472e45d84d648e98",
+      "split": "IID",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.038276263112559133,
+          0.8908760361049698,
+          0.15
+        ],
+        "yaw_degrees": -5.442130345109901
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_door_dev_IID_005_410300005",
+      "factors": {
+        "a": 0.06870359151500431,
+        "b": 9.879828300329542
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.32075602518256885,
+          "unit_direction": [
+            0.8964885805531766,
+            0.42015686443124023,
+            -0.14062871047214748
+          ],
+          "vector_world_m": [
+            0.2875541137198001,
+            0.13476784578813605,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616924,
+          "unit_direction": [
+            -0.7866409389491157,
+            -0.617410749152664,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.4409441838729663,
+            -0.3460837917528322,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8812966251442612
+      },
+      "inference_seed": 510300005,
+      "initial_state_hash": "08ecf9f22629eb38d176e6c228d7a5e66fe71ac7198e93b1282a19ca2e56b6bf",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_IID_005_410300005.npz",
+      "seed": 410300005,
+      "sha256": "633c4ab9fba9082cde9cb3d9578f56ec5cc3d2feaf4e5231ec6b8ffd55c0363f",
+      "split": "IID",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.06870359151500431,
+          0.9074994776112904,
+          0.15
+        ],
+        "yaw_degrees": 9.879828300329542
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_door_dev_IID_006_410300006",
+      "factors": {
+        "a": 0.03612161080253317,
+        "b": -9.507086164413213
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.19936545621995516,
+          "unit_direction": [
+            0.9300824044943421,
+            0.2894049512694307,
+            -0.2262553756947256
+          ],
+          "vector_world_m": [
+            0.1854263028941674,
+            0.057697350142143944,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.9469840593847204,
+            -0.32128054916417853,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.53082301280167,
+            -0.1800907917845106,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.7599060561816474
+      },
+      "inference_seed": 510300006,
+      "initial_state_hash": "95575d1045382193e4912769bb87f7d4b5d418b81a2b3b21552c7cae5f3c9ded",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_IID_006_410300006.npz",
+      "seed": 410300006,
+      "sha256": "e3a39d5b370b928ab683ef6e676961cc3f6fad66c850aa64ab5e6f5eb9c84eb4",
+      "split": "IID",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03612161080253317,
+          0.8948817429261277,
+          0.15
+        ],
+        "yaw_degrees": -9.507086164413213
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_door_dev_IID_007_410300007",
+      "factors": {
+        "a": 0.06840713971806181,
+        "b": 8.14531913662188
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.3059765487317071,
+          "unit_direction": [
+            0.921537992051738,
+            0.3592139272874855,
+            -0.14742144907696325
+          ],
+          "vector_world_m": [
+            0.28196901433313815,
+            0.10991103772778721,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.8049684651856348,
+            -0.5933175962810165,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.4512175064253982,
+            -0.3325786013871901,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8665171486933992
+      },
+      "inference_seed": 510300007,
+      "initial_state_hash": "b3250b35d63dac194d7e0428c119141c59ff293bf92181254d45455bfd42f1bf",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_IID_007_410300007.npz",
+      "seed": 410300007,
+      "sha256": "f003944f2b101cc49cac1b940265dcd62fcf64c5f269a77ef5fd903c61f22312",
+      "split": "IID",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.06840713971806181,
+          0.8893271447970515,
+          0.15
+        ],
+        "yaw_degrees": 8.14531913662188
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_door_dev_IID_008_410300008",
+      "factors": {
+        "a": 0.03453283763540131,
+        "b": -5.669408022242071
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2136616052872341,
+          "unit_direction": [
+            0.9326631992890809,
+            0.2925220482093069,
+            -0.21111657444001902
+          ],
+          "vector_world_m": [
+            0.19927431635243256,
+            0.06250073040231019,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.560540599961692,
+          "unit_direction": [
+            -0.923357286384157,
+            -0.38394182069850863,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5175792472887752,
+            -0.21521497852472643,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.7742022052489261
+      },
+      "inference_seed": 510300008,
+      "initial_state_hash": "3c711f2d05fd1a2ddee07322aa2276d41f2f1f32f16bbe7ca1ae15f2800ba17f",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_IID_008_410300008.npz",
+      "seed": 410300008,
+      "sha256": "da53d213b9a0eae1d514696b61909b9e142f83dc07d8bc63cff4bdd5b5c336e5",
+      "split": "IID",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03453283763540131,
+          0.8888565992463745,
+          0.15
+        ],
+        "yaw_degrees": -5.669408022242071
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_door_dev_IID_009_410300009",
+      "factors": {
+        "a": 0.06468501492354041,
+        "b": 7.311014888876829
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.30565820913775776,
+          "unit_direction": [
+            0.90176385654601,
+            0.40625554799917807,
+            -0.14757498686144144
+          ],
+          "vector_world_m": [
+            0.2756315254570113,
+            0.12417534325370716,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.560540599961692,
+          "unit_direction": [
+            -0.8135223302023791,
+            -0.5815336776680189,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.4560122950538753,
+            -0.3259732365779605,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8661988090994498
+      },
+      "inference_seed": 510300009,
+      "initial_state_hash": "6e1fbcd7ca4a3f8177962e638bc7f7d39e52f3067da18dc0be57941faad22711",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_IID_009_410300009.npz",
+      "seed": 410300009,
+      "sha256": "38cfdcc598ab0ea5888bf308a52b0b466e6dcc60a248157ace61f277e59f05f0",
+      "split": "IID",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.06468501492354041,
+          0.9067489671683571,
+          0.15
+        ],
+        "yaw_degrees": 7.311014888876829
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_C_000_410301000",
+      "factors": {
+        "a": 0.036039969643518056,
+        "b": 8.872549406140138
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.28192025264899623,
+          "unit_direction": [
+            0.8933158973901096,
+            0.41998381611279023,
+            -0.16000094272672655
+          ],
+          "vector_world_m": [
+            0.2518438434875845,
+            0.1184019435470074,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.560540599961692,
+          "unit_direction": [
+            -0.7973731068384099,
+            -0.6034866431751924,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.44695999970052064,
+            -0.3382787650342899,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8424608526106883
+      },
+      "inference_seed": 510301000,
+      "initial_state_hash": "97134b9f9947076d5aabd36640b0cde8b4c53508b38f883665280e732f7ddf3b",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_000_410301000.npz",
+      "seed": 410301000,
+      "sha256": "6fc6ea41238786cab056969c46688a0a90cc0b58870dc2043aa5cf6ed746adef",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.036039969643518056,
+          0.8950349521765449,
+          0.15
+        ],
+        "yaw_degrees": 8.872549406140138
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_C_001_410301001",
+      "factors": {
+        "a": 0.06349948431466068,
+        "b": -5.991702885036831
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2482643225135426,
+          "unit_direction": [
+            0.9142385862839542,
+            0.36215469376226855,
+            -0.18169145586811308
+          ],
+          "vector_world_m": [
+            0.22697282323952483,
+            0.0899100896919891,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.9255023803172373,
+            -0.37874179070592134,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5187816595289984,
+            -0.21230015059286278,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8088049224752347
+      },
+      "inference_seed": 510301001,
+      "initial_state_hash": "df53ff79b2c344b7f37d774837ccd8e955a9ee257045a5b222ae8a669dcb1a69",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_001_410301001.npz",
+      "seed": 410301001,
+      "sha256": "4f5eeff19da65ec73457f5b94b8331237108bb57be822e71d517a25b9875edbe",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.06349948431466068,
+          0.9172148693088635,
+          0.15
+        ],
+        "yaw_degrees": -5.991702885036831
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_C_002_410301002",
+      "factors": {
+        "a": 0.03555869649788225,
+        "b": 7.053749148760428
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.26999164652359614,
+          "unit_direction": [
+            0.9099892273797074,
+            0.3794828308491046,
+            -0.1670700067146489
+          ],
+          "vector_world_m": [
+            0.24568948981898234,
+            0.10245719432838507,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.8161252848708461,
+            -0.5778750032615014,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.457471356825411,
+            -0.32392240103106684,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8305322464852882
+      },
+      "inference_seed": 510301002,
+      "initial_state_hash": "de30d83d7b31866bb116e9b489e85975a0c4708090e340c803087606531a8e91",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_002_410301002.npz",
+      "seed": 410301002,
+      "sha256": "b2f29aa217e1377c69006de543cbde41ed7b8c36e262abe0cacbd35489978abe",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03555869649788225,
+          0.8859967503462408,
+          0.15
+        ],
+        "yaw_degrees": 7.053749148760428
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_C_003_410301003",
+      "factors": {
+        "a": 0.0667395632775688,
+        "b": -9.30628576450076
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.22827222229359279,
+          "unit_direction": [
+            0.9500485197262756,
+            0.2415791090220512,
+            -0.19760400868915715
+          ],
+          "vector_world_m": [
+            0.21686968688465516,
+            0.05514580007616976,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.9458522772221634,
+            -0.3245973962829148,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5301886029492443,
+            -0.18195001925842824,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.788812822255285
+      },
+      "inference_seed": 510301003,
+      "initial_state_hash": "9fc407428aaf19e0961e77c009acfa72327e96524ee418f4bbfd17be7bee1002",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_003_410301003.npz",
+      "seed": 410301003,
+      "sha256": "a02b9ed1670db919d6676dd2c9ac9df80cdd41a6d8b03279c172b7bbe19d96d0",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.0667395632775688,
+          0.891789422551679,
+          0.15
+        ],
+        "yaw_degrees": -9.30628576450076
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_C_004_410301004",
+      "factors": {
+        "a": 0.035707238029599464,
+        "b": 7.24790366344638
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2742013533114362,
+          "unit_direction": [
+            0.898806804836217,
+            0.4063058176684652,
+            -0.1645050458462307
+          ],
+          "vector_world_m": [
+            0.24645404225161863,
+            0.11140960506300279,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.8141623951274328,
+            -0.580637231290211,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.45637107743097943,
+            -0.3254707419875107,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8347419532731284
+      },
+      "inference_seed": 510301004,
+      "initial_state_hash": "6c2d1be0c25ff262a9bbb9615989722910de84a34e92f8e97cb1dc4b085cb6f3",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_004_410301004.npz",
+      "seed": 410301004,
+      "sha256": "cef0f242bd5ba7a59cacd4c47b0ad23d26f612abe2357b7ea7c737d2fd787acf",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.035707238029599464,
+          0.894220525806872,
+          0.15
+        ],
+        "yaw_degrees": 7.24790366344638
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_C_005_410301005",
+      "factors": {
+        "a": 0.06661790493229158,
+        "b": -7.190659143007675
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2375030740598377,
+          "unit_direction": [
+            0.9487343434372378,
+            0.2526500821544864,
+            -0.1899238836219514
+          ],
+          "vector_world_m": [
+            0.2253273230324858,
+            0.060005171173161065,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.560540599961692,
+          "unit_direction": [
+            -0.9332246269604844,
+            -0.35929346728609596,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5231102922954561,
+            -0.2013985757148648,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.7980436740215298
+      },
+      "inference_seed": 510301005,
+      "initial_state_hash": "a5225b8ee61f249d6e53478d239e43609dc70330163225628be9c57ad6f3b375",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_005_410301005.npz",
+      "seed": 410301005,
+      "sha256": "c9a11f022836b79514230147637590e98b94d58a145f52756b580e03c1ab4d35",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.06661790493229158,
+          0.8907769604469845,
+          0.15
+        ],
+        "yaw_degrees": -7.190659143007675
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_C_006_410301006",
+      "factors": {
+        "a": 0.03681542709303358,
+        "b": 9.38887809218972
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2926614312815381,
+          "unit_direction": [
+            0.8685448329565644,
+            0.47103528294490954,
+            -0.15412863252965928
+          ],
+          "vector_world_m": [
+            0.25418957394525254,
+            0.1378538600907615,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.560540599961692,
+          "unit_direction": [
+            -0.7919024017854345,
+            -0.6106476775084471,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.44389344740791237,
+            -0.34229281551579877,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8532020312432301
+      },
+      "inference_seed": 510301006,
+      "initial_state_hash": "42104096529f354509a73fcb31c0331c856a91d648a05d74bb6be79b1538f946",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_006_410301006.npz",
+      "seed": 410301006,
+      "sha256": "3870537b269586b6347b368c318138dd153fb881ec57d36ac3e38450e20a244e",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03681542709303358,
+          0.9124937228530858,
+          0.15
+        ],
+        "yaw_degrees": 9.38887809218972
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_C_007_410301007",
+      "factors": {
+        "a": 0.06156104986261142,
+        "b": -6.621125585589612
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23637118457355283,
+          "unit_direction": [
+            0.9414958566956156,
+            0.27779161688570775,
+            -0.19083335508503993
+          ],
+          "vector_world_m": [
+            0.2225424909182346,
+            0.0656619335478773,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.9296071192131387,
+            -0.368552036906933,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5210825323323931,
+            -0.20658837988491596,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.7969117845352451
+      },
+      "inference_seed": 510301007,
+      "initial_state_hash": "e151010e845d55b53d3bbf0fc3c6e35a20b8ef690f02c6f03fbcd5b8118b16fd",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_007_410301007.npz",
+      "seed": 410301007,
+      "sha256": "62614e5b9d9544c1b42387fd06f727b84ed5357f95b82e5239aaca9dc64898c8",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.06156104986261142,
+          0.8947992400722719,
+          0.15
+        ],
+        "yaw_degrees": -6.621125585589612
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_C_008_410301008",
+      "factors": {
+        "a": 0.03367193343419083,
+        "b": 9.103273684021655
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.29159152714875514,
+          "unit_direction": [
+            0.8579800459061937,
+            0.48983666446697166,
+            -0.1546941594588404
+          ],
+          "vector_world_m": [
+            0.25017971184894605,
+            0.14283222104537663,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.7949364690042777,
+            -0.6066926818802175,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.4455941652670869,
+            -0.3400758798935052,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8521321271104473
+      },
+      "inference_seed": 510301008,
+      "initial_state_hash": "827f5f191242310c44d7453014c618c9410ff19922ea8be0d365817e7e8b22e4",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_008_410301008.npz",
+      "seed": 410301008,
+      "sha256": "f72ca6c2fa0ef04da3a63e4012ebc803977a0c9d9b015040d402ce66abc62b7a",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03367193343419083,
+          0.9185763308331103,
+          0.15
+        ],
+        "yaw_degrees": 9.103273684021655
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_C_009_410301009",
+      "factors": {
+        "a": 0.06226303934103109,
+        "b": -9.611070362463598
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.22042875418048113,
+          "unit_direction": [
+            0.9578584255941817,
+            0.20157288229848683,
+            -0.204635308879274
+          ],
+          "vector_world_m": [
+            0.21113953943500255,
+            0.04443245932162421,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.9475655808512813,
+            -0.3195613712355951,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5311489791934265,
+            -0.1791271227569815,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.7809693541421733
+      },
+      "inference_seed": 510301009,
+      "initial_state_hash": "9ad0b00e86744f5b1d6226911472111c6601f2058f1b76d9b1f306847b6c4c35",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_009_410301009.npz",
+      "seed": 410301009,
+      "sha256": "4ff5501cd08ced1f10ad29230983e6b9a1364610bf3086f3021ae71527bae6d3",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.06226303934103109,
+          0.8818957514416199,
+          0.15
+        ],
+        "yaw_degrees": -9.611070362463598
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_C_010_410301010",
+      "factors": {
+        "a": 0.03976738310669007,
+        "b": 9.518774853334985
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.293945484961568,
+          "unit_direction": [
+            0.8761275677128422,
+            0.45700321856154325,
+            -0.15345534633231026
+          ],
+          "vector_world_m": [
+            0.25753374277955043,
+            0.1343340327090703,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.7905159525079711,
+            -0.6124414493079442,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.4431162862981067,
+            -0.3432982974364833,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8544860849232602
+      },
+      "inference_seed": 510301010,
+      "initial_state_hash": "7002c2862ea8753908b4cf57b0278628ff5cf6232bc2b16bd0e480df651d0b1b",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_010_410301010.npz",
+      "seed": 410301010,
+      "sha256": "406f092249a0566ed231807642e6f6def8bb7e19cfb020eae24515848640fd46",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03976738310669007,
+          0.9084702430800089,
+          0.15
+        ],
+        "yaw_degrees": 9.518774853334985
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_C_011_410301011",
+      "factors": {
+        "a": 0.0643233677540219,
+        "b": -6.127937951610388
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.24340415753969427,
+          "unit_direction": [
+            0.9336695845740232,
+            0.3064601708533808,
+            -0.18531937438348892
+          ],
+          "vector_world_m": [
+            0.22725905865367643,
+            0.07459367970603792,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.9264003166849912,
+            -0.3765401084160197,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5192849893193066,
+            -0.2110660182811563,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8039447575013864
+      },
+      "inference_seed": 510301011,
+      "initial_state_hash": "c9a7470065e0f9636d1087e5cefe451becf8a90aaaa75b74b7bf8ffff1e5e027",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_011_410301011.npz",
+      "seed": 410301011,
+      "sha256": "1e631828d1a9b2f6b68bd02a8ec8a9bc7be575afcf4ab265cf5431168059294c",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.0643233677540219,
+          0.90229741920736,
+          0.15
+        ],
+        "yaw_degrees": -6.127937951610388
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_C_012_410301012",
+      "factors": {
+        "a": 0.03267975711489006,
+        "b": 5.674375498299005
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.26343735010011776,
+          "unit_direction": [
+            0.9048205528633134,
+            0.3898476456450092,
+            -0.17122669272391894
+          ],
+          "vector_world_m": [
+            0.2383635287624348,
+            0.10270043071149093,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.8297995610582265,
+            -0.5580615454119507,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.4651363438035271,
+            -0.31281615348076397,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8239779500618098
+      },
+      "inference_seed": 510301012,
+      "initial_state_hash": "d90029741a58a033f5b1aa0564c48f19b6b1d064b3556fc93b8a8154e4e2f243",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_012_410301012.npz",
+      "seed": 410301012,
+      "sha256": "ad47bc8586a84808d1494928fdfbbfb94ae0a39c8921c12ac7592742270f24ae",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03267975711489006,
+          0.8913558837891833,
+          0.15
+        ],
+        "yaw_degrees": 5.674375498299005
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_C_013_410301013",
+      "factors": {
+        "a": 0.061551159236083244,
+        "b": -5.762927192340468
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2369879028657849,
+          "unit_direction": [
+            0.9533196147962727,
+            0.23442191725109193,
+            -0.19033674568251016
+          ],
+          "vector_world_m": [
+            0.22592521627138654,
+            0.05555515855511284,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616919,
+          "unit_direction": [
+            -0.9239827326651178,
+            -0.38243419007288265,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5179298353223487,
+            -0.21436989034931736,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.7975285028274768
+      },
+      "inference_seed": 510301013,
+      "initial_state_hash": "f666d9c0f23ee6e16dc32630c7f39f740d80c800ab2788bed34acac440688431",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_013_410301013.npz",
+      "seed": 410301013,
+      "sha256": "23a071df86dc6adf97d303952a4e5db2090a3ae4e6c2d92d955ba0c8bcafad4d",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.061551159236083244,
+          0.8821871039296036,
+          0.15
+        ],
+        "yaw_degrees": -5.762927192340468
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_C_014_410301014",
+      "factors": {
+        "a": 0.036306461104131,
+        "b": 6.998729680707587
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.27204724547549486,
+          "unit_direction": [
+            0.9052186516393006,
+            0.39126337165508135,
+            -0.16580761962414156
+          ],
+          "vector_world_m": [
+            0.2462622407315133,
+            0.1064421225142197,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.8166798250350682,
+            -0.577091035609366,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.457782199101767,
+            -0.3234829553329883,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8325878454371871
+      },
+      "inference_seed": 510301014,
+      "initial_state_hash": "9f8aa7ea1c79b8c4b5f435867383225f4c04a9a9978cf4602b50e4d09520e038",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_014_410301014.npz",
+      "seed": 410301014,
+      "sha256": "ea477e4f16b0cb75fc566ef8cac078e603eff1d2db25e367c7d864bfd810fdfe",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.036306461104131,
+          0.8901877790715298,
+          0.15
+        ],
+        "yaw_degrees": 6.998729680707587
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_C_015_410301015",
+      "factors": {
+        "a": 0.06680196278797276,
+        "b": -7.07084774007957
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23992994791115196,
+          "unit_direction": [
+            0.9419027949053053,
+            0.2783416346523763,
+            -0.1880028174486163
+          ],
+          "vector_world_m": [
+            0.22599068851899834,
+            0.06678249390364954,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.932471267333221,
+            -0.3612441495692027,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5226880036380032,
+            -0.20249201233217212,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8004705478728441
+      },
+      "inference_seed": 510301015,
+      "initial_state_hash": "b1ccc444c527949795d21565d801e455d713eff2bde2bdac247c6f97e647f288",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_015_410301015.npz",
+      "seed": 410301015,
+      "sha256": "b2ba995ccc164eb27ad47ca1e201bee977399a4dbbc25f80f8c7ce615ccb1953",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.06680196278797276,
+          0.8972123180608346,
+          0.15
+        ],
+        "yaw_degrees": -7.07084774007957
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_C_016_410301016",
+      "factors": {
+        "a": 0.03853544468631824,
+        "b": 6.242423835050737
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.2783955570041727,
+          "unit_direction": [
+            0.8838699935311792,
+            0.4387723685481178,
+            -0.16202667414307992
+          ],
+          "vector_world_m": [
+            0.24606547916838714,
+            0.12215227793999339,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.8242260727575708,
+            -0.5662608771464188,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.46201217732759803,
+            -0.3174122118104877,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8389361569658649
+      },
+      "inference_seed": 510301016,
+      "initial_state_hash": "cad31a215c14a621fd62f74235ec900712a4b5eaef88bb13e1064e4f665a6637",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_016_410301016.npz",
+      "seed": 410301016,
+      "sha256": "125b94119c1bd6583867763f08541cef77eb09e1f969447378eb2ffe5374d9b6",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03853544468631824,
+          0.9087138989978258,
+          0.15
+        ],
+        "yaw_degrees": 6.242423835050737
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_C_017_410301017",
+      "factors": {
+        "a": 0.06876512959160831,
+        "b": -8.27384456297567
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.23587545579540078,
+          "unit_direction": [
+            0.9458766784755167,
+            0.26219592935935515,
+            -0.19123442091712473
+          ],
+          "vector_world_m": [
+            0.22310909266165227,
+            0.0618455843453366,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.9398499554628154,
+            -0.34158756010215585,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5268240579090961,
+            -0.191473695879113,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.796416055757093
+      },
+      "inference_seed": 510301017,
+      "initial_state_hash": "32ddfe826ca6cb5a0eefe1e84d502835d2056b53384366ab42af77fdb295dddf",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_017_410301017.npz",
+      "seed": 410301017,
+      "sha256": "7f096ab674d3814730a04e21d87cb8d5b590264fad536fe5c0fa02920aa36356",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.06876512959160831,
+          0.8956632902199243,
+          0.15
+        ],
+        "yaw_degrees": -8.27384456297567
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_C_018_410301018",
+      "factors": {
+        "a": 0.030126484339020886,
+        "b": 9.086854631503005
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.27246507537168907,
+          "unit_direction": [
+            0.905012463515931,
+            0.3918475837965642,
+            -0.16555335077738662
+          ],
+          "vector_world_m": [
+            0.24658428908418614,
+            0.10676478145334511,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.7951102941761627,
+            -0.6064648547897032,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.44569160133322383,
+            -0.33994817355950074,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.8330056753333812
+      },
+      "inference_seed": 510301018,
+      "initial_state_hash": "c1f09cffa2bec74be18c17ed108bbc3b47072a1d39c09af4e5e84c3419397ccc",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_018_410301018.npz",
+      "seed": 410301018,
+      "sha256": "11fb049fa298827d0140a51efdfe402d1fb26d3cc11d5c255c18c5d569ad9870",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.030126484339020886,
+          0.8825722416415367,
+          0.15
+        ],
+        "yaw_degrees": 9.086854631503005
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_C_019_410301019",
+      "factors": {
+        "a": 0.06096815995842258,
+        "b": -9.59635409860414
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.22745060184330507,
+          "unit_direction": [
+            0.9228610016897569,
+            0.33014787009519936,
+            -0.19831781420684794
+          ],
+          "vector_world_m": [
+            0.2099052902520506,
+            0.07509233175043839,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.9474834711345443,
+            -0.31980474031326517,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5311029533635442,
+            -0.17926354100579084,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.7879912018049973
+      },
+      "inference_seed": 510301019,
+      "initial_state_hash": "930d41dbdada634c49e6551e1d79a4b65cea945e14a7555a54f099c400e29825",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_C_019_410301019.npz",
+      "seed": 410301019,
+      "sha256": "2b42b7e7c1e54567b6953497243670770d33a42173a65a843c80971d30d39e8c",
+      "split": "C",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.06096815995842258,
+          0.9125162001237376,
+          0.15
+        ],
+        "yaw_degrees": -9.59635409860414
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_door_dev_E_000_410302000",
+      "factors": {
+        "a": 0.010582301335628498,
+        "b": -33.19286034453369
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.09785907824031527,
+          "unit_direction": [
+            0.6898098820626805,
+            0.31779531593798044,
+            -0.6505139996776012
+          ],
+          "vector_world_m": [
+            0.06750415921971449,
+            0.031099156686780538,
+            -0.06365870039087079
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.996277316707013,
+            0.08620619592044289,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5584538848351739,
+            0.04832207278166023,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6583996782020074
+      },
+      "inference_seed": 510302000,
+      "initial_state_hash": "3aa473f3ff7132042a4b02fdcc0998430be366d6238b6bb70bb693719d4b25fb",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_000_410302000.npz",
+      "seed": 410302000,
+      "sha256": "40f1c2cdb354c4255d6f18c2a7de24a7af16a3389a2003d1eeb8ba4b686869c5",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.010582301335628498,
+          0.9126187481407442,
+          0.15
+        ],
+        "yaw_degrees": -33.19286034453369
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_E_001_410302001",
+      "factors": {
+        "a": 0.000597778627422898,
+        "b": 33.1404432857025
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.3639626847527093,
+          "unit_direction": [
+            0.7389577860881786,
+            0.6622549724866842,
+            -0.1239344253882624
+          ],
+          "vector_world_m": [
+            0.26895305974357175,
+            0.24103609777708523,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.47887704630164823,
+            -0.8778819821168499,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.26843002684180894,
+            -0.4920884929513385,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.9245032847144015
+      },
+      "inference_seed": 510302001,
+      "initial_state_hash": "b11d8da58e8c6a643633b43eeae960c3183e04b07a9b6609bb04faf45039d4ec",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_001_410302001.npz",
+      "seed": 410302001,
+      "sha256": "ea991c80a4354107e1607a3ded4206e4efc67595765649097237e0f5584967e5",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.000597778627422898,
+          0.9116030804379559,
+          0.15
+        ],
+        "yaw_degrees": 33.1404432857025
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_E_002_410302002",
+      "factors": {
+        "a": 0.09886507020127566,
+        "b": -33.23656919506243
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.147458206218365,
+          "unit_direction": [
+            0.9512556016419336,
+            0.03921480062316981,
+            -0.3059002774711528
+          ],
+          "vector_world_m": [
+            0.1402704446732911,
+            0.005782544157103442,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.9962112632686302,
+            0.08696619421775217,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5584168592011933,
+            0.04874808268320385,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.7079988061800573
+      },
+      "inference_seed": 510302002,
+      "initial_state_hash": "dc29b773c96c147f1115e1e01444d7bfda394bf31eb5e5f95119be85a7bce8cd",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_002_410302002.npz",
+      "seed": 410302002,
+      "sha256": "76476452d9c5107f0b8989ee0238b03bf8dd44d97ea7cc56697547ab25885f95",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.09886507020127566,
+          0.8849594903617459,
+          0.15
+        ],
+        "yaw_degrees": -33.23656919506243
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_door_dev_E_003_410302003",
+      "factors": {
+        "a": 0.0805660442569982,
+        "b": 36.887996771173704
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.43141188606224146,
+          "unit_direction": [
+            0.8179173576187709,
+            0.5657551137655514,
+            -0.10455786605538375
+          ],
+          "vector_world_m": [
+            0.3528592698933588,
+            0.2440734806789545,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.560540599961692,
+          "unit_direction": [
+            -0.4204742471037736,
+            -0.9073044734390516,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.23569288673999,
+            -0.5085809938894531,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.9919524860239335
+      },
+      "inference_seed": 510302003,
+      "initial_state_hash": "84bc8d1d0ab820b1acb21ae7608bb7500b5e9d055f11d87dafec302ba4c178aa",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_003_410302003.npz",
+      "seed": 410302003,
+      "sha256": "4c47ab0a5f80e9098864e8086c70e55599c677a94a88e5e19c9bacd2383444b0",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.0805660442569982,
+          0.8966530725267825,
+          0.15
+        ],
+        "yaw_degrees": 36.887996771173704
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_door_dev_E_004_410302004",
+      "factors": {
+        "a": 0.017454692427043693,
+        "b": -35.97774326193095
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.07135602670159592,
+          "unit_direction": [
+            0.7576913513359486,
+            -0.05648087478351295,
+            -0.6501643845170182
+          ],
+          "vector_world_m": [
+            0.054065844297496245,
+            -0.004030250809181846,
+            -0.04639314718202303
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.560540599961692,
+          "unit_direction": [
+            -0.9909122695241646,
+            0.1345097546889049,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5554465580684771,
+            0.07539817859401876,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6318966266632879
+      },
+      "inference_seed": 510302004,
+      "initial_state_hash": "5d7f3c0c4820bbc032291e4a3badf19389c0c96e3a2b4f78d48fe4cd630e0639",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_004_410302004.npz",
+      "seed": 410302004,
+      "sha256": "d263d5d763da01a51b89a1ea1d725af144b4002e8c7935c836d897d8450025c7",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.017454692427043693,
+          0.8833532854557362,
+          0.15
+        ],
+        "yaw_degrees": -35.97774326193095
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_E_005_410302005",
+      "factors": {
+        "a": 0.001391142244772976,
+        "b": 34.83801785031826
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.3613103424289255,
+          "unit_direction": [
+            0.7519186484865227,
+            0.6473270177834268,
+            -0.12484421534783371
+          ],
+          "vector_world_m": [
+            0.2716759843633604,
+            0.2338859464588251,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.560540599961692,
+          "unit_direction": [
+            -0.45266055923423215,
+            -0.891682913436022,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.25373462145215153,
+            -0.49982447527301727,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.9218509423906176
+      },
+      "inference_seed": 510302005,
+      "initial_state_hash": "f714ab5282a16617c62109b1d9e9b5ec59632ac1d04c2301ac9fd2431dd8a363",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_005_410302005.npz",
+      "seed": 410302005,
+      "sha256": "0fa269313cee8a10459667f14a95c96926863a84aca0ba9918444ae575d1262a",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.001391142244772976,
+          0.8963370272258752,
+          0.15
+        ],
+        "yaw_degrees": 34.83801785031826
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_E_006_410302006",
+      "factors": {
+        "a": 0.09381311621970159,
+        "b": -35.65881063757592
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.13201819403113232,
+          "unit_direction": [
+            0.9350004560798323,
+            0.09503346417337553,
+            -0.34167643731711056
+          ],
+          "vector_world_m": [
+            0.12343707162994452,
+            0.012546146312691353,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.9916456523277846,
+            0.1289918610587596,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.55585764890522,
+            0.07230517518805235,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6925587939928246
+      },
+      "inference_seed": 510302006,
+      "initial_state_hash": "3633123160d7d273caa2e1b8210d7e26b20fa08778bc284d2d37df9851af308c",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_006_410302006.npz",
+      "seed": 410302006,
+      "sha256": "de84e7827fc7c83bb44fb6537f298d198a9e795b3a7e8b610bc1c1ee7f2d99f3",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.09381311621970159,
+          0.8934185682262061,
+          0.15
+        ],
+        "yaw_degrees": -35.65881063757592
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_door_dev_E_007_410302007",
+      "factors": {
+        "a": 0.08394184485821364,
+        "b": 35.266257457168926
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.4300404341163941,
+          "unit_direction": [
+            0.8247489615744338,
+            0.555686028827544,
+            -0.10489131397674013
+          ],
+          "vector_world_m": [
+            0.35467540147251475,
+            0.23896746106941213,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.44598336921561077,
+            -0.8950412473082412,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.24999178535305538,
+            -0.5017069577566229,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.9905810340780863
+      },
+      "inference_seed": 510302007,
+      "initial_state_hash": "2b156bd2acee13f0a17a8619eed5d899885b4b115908ebe2f743a6f8bee92ed7",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_007_410302007.npz",
+      "seed": 410302007,
+      "sha256": "fe6aa09359217dc9f1d8564068a571324bf9b7f027b241dde0571947c6ab066a",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.08394184485821364,
+          0.8993624316168447,
+          0.15
+        ],
+        "yaw_degrees": 35.266257457168926
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_door_dev_E_008_410302008",
+      "factors": {
+        "a": 0.002034847437103258,
+        "b": -35.80107304968734
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.0819069573496626,
+          "unit_direction": [
+            0.5239284681330355,
+            0.3483231581123735,
+            -0.7772836919699223
+          ],
+          "vector_world_m": [
+            0.0429133866936466,
+            0.028530090055409962,
+            -0.06366494220676872
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.9913223158786564,
+            0.1314536649963681,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5556764056980361,
+            0.07368511624422747,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6424475573113547
+      },
+      "inference_seed": 510302008,
+      "initial_state_hash": "06fe9846097ded573b38764bae6332e0671e7c1ccac79673a913eb1cd7f8c6a4",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_008_410302008.npz",
+      "seed": 410302008,
+      "sha256": "ccf4ac4b1124c2abdaba7caa1cf2b60825161d84af11871a44223fdb60cd427d",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.002034847437103258,
+          0.9101770776200172,
+          0.15
+        ],
+        "yaw_degrees": -35.80107304968734
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_E_009_410302009",
+      "factors": {
+        "a": 0.01646782410691233,
+        "b": 36.92562046485831
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.37546613243438415,
+          "unit_direction": [
+            0.7691628627948278,
+            0.6276587509241376,
+            -0.12013735008570775
+          ],
+          "vector_world_m": [
+            0.28879460530573287,
+            0.2356646036980824,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.560540599961692,
+          "unit_direction": [
+            -0.4198783683581486,
+            -0.9075803853019847,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.23535887251041296,
+            -0.5087356536906381,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.9360067323960761
+      },
+      "inference_seed": 510302009,
+      "initial_state_hash": "7e54e270e45049848d28854bd9f3a2b26a91a4c3a7e4eea34237b4efb63eaa92",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_009_410302009.npz",
+      "seed": 410302009,
+      "sha256": "569d92a9d6ebd6b29579847061265608629b8dd5b25ccc24ee8edb84d79585e8",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.01646782410691233,
+          0.888062370930358,
+          0.15
+        ],
+        "yaw_degrees": 36.92562046485831
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_E_010_410302010",
+      "factors": {
+        "a": 0.09108896637400993,
+        "b": -35.727589580234635
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1285420043761476,
+          "unit_direction": [
+            0.9362141441367431,
+            0.01853146537715695,
+            -0.3509411077506889
+          ],
+          "vector_world_m": [
+            0.12034284261263652,
+            0.002382071703606936,
+            -0.04511067340825914
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.991490093599935,
+            0.13018215812157946,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5557704519225819,
+            0.07297238501777803,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6890826043378397
+      },
+      "inference_seed": 510302010,
+      "initial_state_hash": "f2835a509487d6b05669457a4d1a1d153c2b287a4dcb058e014defc84768475e",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_010_410302010.npz",
+      "seed": 410302010,
+      "sha256": "a3dfe1f90a951f77f1a77823ee0752e508a4f564d048f17363126a9a759e0437",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.09108896637400993,
+          0.8832519803251428,
+          0.15
+        ],
+        "yaw_degrees": -35.727589580234635
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_door_dev_E_011_410302011",
+      "factors": {
+        "a": 0.08370946740244842,
+        "b": 33.111965096242166
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.4328313949415055,
+          "unit_direction": [
+            0.8133197692709261,
+            0.5724073682055464,
+            -0.10421495927690809
+          ],
+          "vector_world_m": [
+            0.35203033026703834,
+            0.24775587965520263,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.4793133279859522,
+            -0.8776438535163515,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.26867458043888104,
+            -0.49195501220274723,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.9933719949031978
+      },
+      "inference_seed": 510302011,
+      "initial_state_hash": "94c9e73e2db00105f973368e1e6cf4f8cf93e85da847abc7b679bb4f0e3db701",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_011_410302011.npz",
+      "seed": 410302011,
+      "sha256": "bbbd98276cd31eb19f188912856a8240c4a0fc84257416a0adab2f9b47a0d6d7",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.08370946740244842,
+          0.9184585151059966,
+          0.15
+        ],
+        "yaw_degrees": 33.111965096242166
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_door_dev_E_012_410302012",
+      "factors": {
+        "a": 0.005848397614301506,
+        "b": -36.8783471083826
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.07836499703520604,
+          "unit_direction": [
+            0.49998438367802844,
+            0.3018088793033452,
+            -0.811743196122863
+          ],
+          "vector_world_m": [
+            0.03918127474457802,
+            0.023651251931805506,
+            -0.06361225315751684
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.9886756542084615,
+            0.15006815376844873,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5541928443775295,
+            0.08411929294850973,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6389055969968982
+      },
+      "inference_seed": 510302012,
+      "initial_state_hash": "4418110f10b7309578f6fe9339260516a4b6c224722eee16f929bbc2ed9170b8",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_012_410302012.npz",
+      "seed": 410302012,
+      "sha256": "f0c582ebbd283c88b80ba54fd7a830df77cb1b9f66b33c958596061fb12d9752",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.005848397614301506,
+          0.9056831355619114,
+          0.15
+        ],
+        "yaw_degrees": -36.8783471083826
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_E_013_410302013",
+      "factors": {
+        "a": 0.016159882629797798,
+        "b": 36.976723310554334
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.38333766401324837,
+          "unit_direction": [
+            0.7526838005641392,
+            0.647781419331331,
+            -0.11767042592516393
+          ],
+          "vector_world_m": [
+            0.2885320498488708,
+            0.24831901607765894,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.4190687187904195,
+            -0.9079545191976062,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.23490503105595945,
+            -0.508945370928956,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.9438782639749406
+      },
+      "inference_seed": 510302013,
+      "initial_state_hash": "472e0d8487418aa27927aa66a1e573e45e62466daa4cbd887f1a422e6c67a1a8",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_013_410302013.npz",
+      "seed": 410302013,
+      "sha256": "bb83f2ef5655a811ffff4ac8539f2f35540888189436e7ca1cc795cd7620f337",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.016159882629797798,
+          0.9004697825726853,
+          0.15
+        ],
+        "yaw_degrees": 36.976723310554334
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_E_014_410302014",
+      "factors": {
+        "a": 0.09390102857998255,
+        "b": -34.4784548372674
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.14007577705737573,
+          "unit_direction": [
+            0.922893332816246,
+            0.21111517223839646,
+            -0.3220221736062193
+          ],
+          "vector_world_m": [
+            0.12927500073530693,
+            0.0295721217998951,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.9940924156535964,
+            0.1085369482710705,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5572291590878349,
+            0.06083936610187701,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.700616377019068
+      },
+      "inference_seed": 510302014,
+      "initial_state_hash": "4fbc5bfd459ff228de3a7bc5f20ad47d31f89a89581d9c6a1f9fa0584bb08bd2",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_014_410302014.npz",
+      "seed": 410302014,
+      "sha256": "e6f0db0adc220077c3eb37cc3c86c5b6763d192a2b0ddbc931662a93b02e55a1",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.09390102857998255,
+          0.9096805629024659,
+          0.15
+        ],
+        "yaw_degrees": -34.4784548372674
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_door_dev_E_015_410302015",
+      "factors": {
+        "a": 0.08441396911694056,
+        "b": 36.563018370519764
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.43602148006199315,
+          "unit_direction": [
+            0.8174193331414702,
+            0.5666773481290217,
+            -0.10345248631141515
+          ],
+          "vector_world_m": [
+            0.35641238746763126,
+            0.2470834960488214,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.4256136353414869,
+            -0.9049049858473561,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.23857372250619396,
+            -0.5072359836752036,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.9965620800236854
+      },
+      "inference_seed": 510302015,
+      "initial_state_hash": "dbe0ad8e28c536a09387192e7603e00ec2f821855bacd28c90f13a5d149a05a3",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_015_410302015.npz",
+      "seed": 410302015,
+      "sha256": "64cb0e29af0c53413db82c6f80b8980d988af9946adfac8d84b079da749cb621",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.08441396911694056,
+          0.901232689042862,
+          0.15
+        ],
+        "yaw_degrees": 36.563018370519764
+      }
+    },
+    {
+      "cell": "LL",
+      "episode_id": "e1_door_dev_E_016_410302016",
+      "factors": {
+        "a": 0.01904334369679978,
+        "b": -34.57879040808449
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.07413546328924905,
+          "unit_direction": [
+            0.7803975950434775,
+            -0.01575215662421923,
+            -0.6250851647672039
+          ],
+          "vector_world_m": [
+            0.05785513725836398,
+            -0.0011677934291413061,
+            -0.04634097828525324
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.9939008230914295,
+            0.11027762174701998,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5571217636780895,
+            0.061815084256423125,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.6346760632509412
+      },
+      "inference_seed": 510302016,
+      "initial_state_hash": "c85d9cf8830824df1bbef1217e1a82196f4db9ae5d65524970cb1e168f6e4807",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_016_410302016.npz",
+      "seed": 410302016,
+      "sha256": "5dfeaefd80e304620e6e7c3a0702efca68a6f655abfe40ea6cf14efab34897bb",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.01904334369679978,
+          0.8828218044470216,
+          0.15
+        ],
+        "yaw_degrees": -34.57879040808449
+      }
+    },
+    {
+      "cell": "LH",
+      "episode_id": "e1_door_dev_E_017_410302017",
+      "factors": {
+        "a": 0.008136131774970284,
+        "b": 36.67517988095353
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.376297926470626,
+          "unit_direction": [
+            0.744721894092625,
+            0.6565211758258135,
+            -0.1198717904737576
+          ],
+          "vector_world_m": [
+            0.28023730454433193,
+            0.24704755714731086,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.42384139013992894,
+            -0.9057364274468883,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.2375803071176334,
+            -0.5077020404482384,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.9368385264323181
+      },
+      "inference_seed": 510302017,
+      "initial_state_hash": "92191c400e045dbf65769e142f3afa537f2a4957584ecf0c9aa655b70a12558e",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_017_410302017.npz",
+      "seed": 410302017,
+      "sha256": "477d228e1240cdd0f4193a8668f706161bfb781346d0fb0293576744381f959e",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.008136131774970284,
+          0.9006552146740067,
+          0.15
+        ],
+        "yaw_degrees": 36.67517988095353
+      }
+    },
+    {
+      "cell": "HL",
+      "episode_id": "e1_door_dev_E_018_410302018",
+      "factors": {
+        "a": 0.09799518143152253,
+        "b": -33.54107318248096
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1453736266611596,
+          "unit_direction": [
+            0.9487524029896072,
+            0.059925182337960986,
+            -0.310286722795559
+          ],
+          "vector_world_m": [
+            0.1379235776260892,
+            0.008711541084800656,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616921,
+          "unit_direction": [
+            -0.9957350062229877,
+            0.09225940267585972,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.5581498977910928,
+            0.051715140928033754,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.7059142266228517
+      },
+      "inference_seed": 510302018,
+      "initial_state_hash": "24fd61b0224237157702b44b104b91526a3c3355308c51e7f86fa7f1c448b805",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_018_410302018.npz",
+      "seed": 410302018,
+      "sha256": "3490eb6c022d583ceb06c58f46378eef1dec1f1e4456dd15ca533c6988bcd582",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.09799518143152253,
+          0.8881289791476219,
+          0.15
+        ],
+        "yaw_degrees": -33.54107318248096
+      }
+    },
+    {
+      "cell": "HH",
+      "episode_id": "e1_door_dev_E_019_410302019",
+      "factors": {
+        "a": 0.09632841906159702,
+        "b": 34.114086427965965
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.4352172009900773,
+          "unit_direction": [
+            0.8405453896001236,
+            0.5317343683919978,
+            -0.10364366595571378
+          ],
+          "vector_world_m": [
+            0.36581981176687983,
+            0.23141994348179196,
+            -0.04510750619759632
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.5605405999616923,
+          "unit_direction": [
+            -0.4638905298409853,
+            -0.8858925309109733,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.2600294759136132,
+            -0.49657873077841896,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.9957578009517696
+      },
+      "inference_seed": 510302019,
+      "initial_state_hash": "c36dcfb8c862050a2e9cc4c5ccb8fdceac7be7c83eab6236cf19d7474ac87fee",
+      "path": "assets/exp1/evaluation/dev/door/e1_door_dev_E_019_410302019.npz",
+      "seed": 410302019,
+      "sha256": "b8301815af7f7417721508517031ce60d43cf6d1a8e932c4ff20390abff958e5",
+      "split": "E",
+      "stage": "dev",
+      "task": "door",
+      "task_name": "door-open-v3",
+      "task_params": {
+        "base_position": [
+          0.09632841906159702,
+          0.8973390245201911,
+          0.15
+        ],
+        "yaw_degrees": 34.114086427965965
+      }
+    }
+  ],
+  "sampling": "predeclared PCG64 independent uniform factors and nuisance variables; no rejection or score selection",
+  "schema_version": "experiment1.evaluation.v1",
+  "seed_base": 410000000,
+  "task": "door",
+  "original_manifest_sha256": "9e0951c197249daac5d492e2c3a229c5022349306814dc776dc57b40ad269dce",
+  "hash": "bc72725871a32d5056c2dd3801654d5a29900f7531c5ce59915992f81e71349c"
+}

@@ -1,0 +1,16 @@
+{
+  "policy_id": "reorient_and_stage_peg__h02",
+  "skill_id": "reorient_and_stage_peg",
+  "heuristic_index": 2,
+  "prior_summary": "Peg-frame SE(3) action targets and two-frame attachment geometry make the lift/reorientation/transport chunk transform with a rigidly displaced held peg while retaining hole relation and Panda configuration.",
+  "applicable_conditions": "Prefer when peg and TCP enter displaced together, two causal frames show a stable peg-to-TCP transform, the gripper remains closed, and the observed hole is still reachable.",
+  "termination_guidance": "Hand off when the peg is approximately identity-oriented and centered above the hole with descent underway; the complete [1380,1500) insertion overlap is retained for a multi-chunk transition.",
+  "limitations": "A peg observation is not contact truth. This policy is inappropriate after a drop or slipping grasp, and peg anchoring alone does not solve a large change in peg-to-hole relation, obstacle layout, or arm reachability.",
+  "config": {
+    "action_frame": "chunk_peg_pose",
+    "rotation_encoding": "6d",
+    "feature_dimension_per_frame": 66,
+    "backbone": "standard_diffusion_backbone",
+    "auxiliary_loss_weight": 0.0
+  }
+}

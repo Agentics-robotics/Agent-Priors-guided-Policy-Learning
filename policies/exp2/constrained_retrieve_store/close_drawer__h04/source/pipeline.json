@@ -1,0 +1,21 @@
+{
+  "policy_id": "close_drawer__h04",
+  "skill_id": "close_drawer",
+  "heuristic_index": 4,
+  "prior_summary": "A Cartesian Diffusion Policy whose action frame follows observed block translation only in the open-drawer, TCP-near-block release neighborhood and otherwise equals the observed drawer-attached target_pose frame.",
+  "applicable_conditions": "Prefer at an early placement-to-closure handoff when the drawer is near fully open, object_pose is reliable, the TCP is close to the block, and block/TCP displacement relative to the demonstrated drawer location is the main concern. It remains defined at later valid close-drawer phases because its interaction gate becomes zero.",
+  "termination_guidance": "Terminate only under the unchanged physical guidance: drawer_position below 0.025 m and nearly stationary, block inside the drawer near floor height, fingers open, and TCP high and clear. The interaction gate is not a success predicate.",
+  "limitations": "The analytic gate is not contact detection and can select the wrong frame for a noisy, bouncing, far-away, or handle-adjacent block. It does not cover missed grasp, jam, obstruction, changed handle geometry, collision, or unreachable IK, and its out-of-distribution benefit is unconfirmed.",
+  "config": {
+    "architecture": "DiffusionBackbone",
+    "condition_dimension": 84,
+    "action_dimension": 10,
+    "action_frame": "adaptive_interaction_anchor",
+    "gate": {
+      "open_start_m": 0.24,
+      "open_full_m": 0.28,
+      "tcp_object_full_m": 0.08,
+      "tcp_object_zero_m": 0.16
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "title": "Gravity-preserving transport chart with joint hand/tool outcome diffusion",
+  "coverage_gap": "The diagonal support covers only a narrow family of negative lateral peg-to-box displacements. C and especially E change both transport distance and horizontal direction, including lateral sign. Action-only imitation can also confuse moving the empty hand with successfully carrying the peg.",
+  "reusable_regularity": "Use a chunk-fixed horizontal orthonormal frame whose first axis points from the current observed pegHead toward the goal, whose second is its horizontal perpendicular and whose third is world up. Relative geometry and translational actions are expressed in that same frame. Jointly diffuse action4 and six future cumulative hand/pegHead displacement channels. Motion-outcome co-denoising encourages the common network to distinguish acquisition from actual tool transport without a discrete stage rule, dynamics rollout, planner, or future inference observation.",
+  "dependencies_preserved": [
+    "The chart is a coordinate change, not an assertion of arbitrary task rotation symmetry: raw world hand and goal coordinates, world xyzw current/previous quaternions, world heights, world yz pegHead-goal errors, and the chart cosine/sine remain conditioning inputs.",
+    "The fixed world x insertion axis is recoverable in chart coordinates as [cosine,-sine,0]. World gravity remains chart z. The robot workspace and box placement are not discarded.",
+    "Separate pegGrasp and pegHead positions, their difference, hand/object finite differences and current/previous aperture preserve grasp geometry and motion coupling.",
+    "All translations in both history observations and all sixteen action/outcome steps use one frame derived only from the latest chunk-start observation. Predicted future tool states never define a new frame.",
+    "Object2 is omitted only under the declared absent-zero schema. No simulator geometry, contacts, reward, success flags or collision-free path information are requested."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact support identities and N20 evidence boundary."},
+    {"path": "task_materials.json", "use": "C/E factor recombinations, fixed end-effector orientation, world control semantics, explicit pegHead channel and pegGrasp object point."},
+    {"path": "support_summary.json", "use": "LL/HH cell counts and inspected initial hand/interaction/goal vectors; the recorded straight segments are geometric descriptors, not collision-free paths."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Actual frame shows separated hand/peg/box and a fixed tabletop with a side-facing opening."},
+    {"path": "images/frame_02_demo_02_step_050.png", "use": "Actual acquisition frame motivates distinguishing hand motion from peg motion."},
+    {"path": "images/frame_03_demo_03_step_072.png", "use": "Actual frame shows held peg aligned toward the box rather than an arbitrary rotated goal."},
+    {"path": "images/frame_15_demo_19_step_077.png", "use": "Actual late support frame corroborates the held-tool insertion configuration."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 0:12,40:52,60:69; actions 0:24,34:59,59:77", "use": "Early hand motion with almost stationary peg, later coupled hand/peg transport, and subsequent lateral/vertical corrections motivate joint cumulative motion targets. Initial head-to-goal horizontal vector is about [-0.253,-0.059] m, not the hand-to-peg vector."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 0:3", "use": "Another diagonal layout has a shifted goal and peg but the same reset hand; initial head-to-goal horizontal vector is about [-0.284,-0.049] m."},
+    {"path": "contracts.py", "scope": "public", "use": "Joint diffusion keeps encoded native action4 first and allows training-only future labels with causal chunk-start encode/decode."},
+    {"path": "learning.py", "scope": "public", "use": "Common action-only epsilon denominator, separately normalized auxiliary loss, inference sampling all joint channels but decoding only the first four."}
+  ],
+  "expected_failure_signature": [
+    "An excessive learned rotation-invariance bias would produce diagonal approaches into the box face instead of final world-x insertion, especially in large-lateral-offset E cells. Retained world-axis features are intended to prevent, not guarantee against, that failure.",
+    "Because the chart depends on the goal even during initial acquisition, poor handling of world-axis metadata could reintroduce box-dependent grasp errors across C layouts.",
+    "Outcome/action coupling may be wrong after a missed grasp: generated tool motion can remain optimistic while the actual peg stays on the table. A repeated empty-hand carry is the observable failure.",
+    "Ten joint diffusion channels increase modeling burden at the same optimizer budget; auxiliary fitting can hurt action fidelity near closure or short terminal windows.",
+    "A near-zero horizontal head-goal displacement makes the heading poorly determined; the deterministic world-axis fallback is finite and invertible but may cause a chart discontinuity. Inspected support keeps a substantial horizontal separation through the reported late rows."
+  ],
+  "required_runtime_fields": {
+    "raw_history": "[B,2,42] causal_context raw_history using hand 0:3, aperture 3:4, pegGrasp 4:7, quaternion xyzw 7:11, previous hand 18:21, previous aperture 21:22, previous pegGrasp 22:25, previous quaternion 25:29, goal 36:39 and pegHead 39:42.",
+    "raw_current": "The current chunk-start observation only defines horizontal heading from goal[36:38]-pegHead[39:41]. At norm<=1e-6 m use world x and y. Both history rows may use the current chunk frame; neither uses data beyond the chunk start.",
+    "action_semantics": "For c=cosine and s=sine, encode [world_dx,world_dy,world_dz,grip] as [c*dx+s*dy,-s*dx+c*dy,dz,grip]; decode by the transpose. No action mean subtraction, scaling, gripper rotation, action clipping or per-future-step frame change. Native displacement remains 0.01 m per action unit. Public executor alone clips world action4 and executes four of sixteen.",
+    "normalization": "Fixed metric scales from config, no extra fitted statistics or data. No future motion labels or masks enter condition, denoise or decode."
+  },
+  "training_only_targets": [
+    {
+      "name": "world_outcome_displacements",
+      "source": "For every exact D_N window at t and offset k=0..15, obs[t+k+1,0:3]-obs[t,0:3] for hand and obs[t+k+1,39:42]-obs[t,39:42] for pegHead. If t+k+1>T, repeat obs[T] solely to give a finite padded tensor.",
+      "shape": "[number_of_windows,16,6]; hand cumulative xyz followed by pegHead cumulative xyz in world metres.",
+      "diffusion_mapping": "Rotate both displacement vectors in the causal chunk-start chart and divide by 0.1 m. Append after the unchanged encoded action4, giving joint dimension 10.",
+      "loss": "0.2 times auxiliary epsilon squared error on channels 4:10, multiplied elementwise by the common valid-step mask and divided by mask.sum()*6 (clamped to one for empty masks). All padded timesteps are excluded. The separate action epsilon loss remains weight 1 with denominator mask.sum()*4; never averaged over all ten channels.",
+      "inference": "All ten channels are sampled from the host-owned diffusion noise and denoised jointly. Only the first four are decoded and executed; sampled outcomes are not ground-truth conditioning, action replacements or inputs to a planner. No target cache is stored on the deployed model."
+    }
+  ],
+  "parents": [],
+  "change_summary": "Initial independent scientific design: 55 deterministic chart/world features per observation, a single common U-Net with ten joint diffusion channels, invertible chunk-start yaw action mapping and a masked six-channel outcome objective. No stage gating, additional learned encoder, structural repairs or performance feedback at authoring."
+}

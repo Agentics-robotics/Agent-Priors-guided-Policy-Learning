@@ -1,0 +1,42 @@
+{
+  "title": "Support-fitted hinge chart with causal soft regime experts",
+  "coverage_gap": "Only five demonstrations of a curved handle path are available, with cabinet position and yaw correlated. The same opening angle occurs at different world coordinates, and unseen yaw values should change the tangent direction without changing the underlying hinge constraint. Support also has a visible approach/lower/pull progression that should not be represented by an episode clock.",
+  "reusable_regularity": "Fit a shared planar circle to observed handle-minus-goal positions after de-yawing each observation. Its center is a support-estimated pivot offset, not a simulator field. Express control and hand/handle errors in radial, positive-CCW tangent and vertical axes at the current handle. A 54D geometry chart, a learned softmax mixture of three 32D experts, and the three gate probabilities give 89D conditioning per observation. The experts can specialize in approach, lowering and opening, but no semantic assignment or hard switch is imposed. They learn only through the common diffusion loss.",
+  "dependencies_preserved": [
+    "World hand, handle, goal and previous hand positions are explicit, and handle motion retains previous handle position. Fixed gripper/world orientation and reachability are not quotiented out.",
+    "Cabinet yaw, cabinet-relative radial direction, signed goal angular relation, current and previous full 6D handle attitudes, current/previous gripper aperture and radial fit residuals remain available. Deviations from the fitted circle are not projected away.",
+    "Observed goal and yaw anchor the fitted cabinet pivot; handle pose retains panel orientation and location. No obstacle planner, environment state or runtime hinge oracle is accessed. Absent object2 zeros are omitted."
+  ],
+  "evidence_refs": [
+    {"path":"bundle.json","detail":"Statistics limited to the five identified complete support episodes."},
+    {"path":"task_materials.json","detail":"Goal, handle pose and cabinet yaw are shared runtime fields; action is world translation with fixed gripper orientation."},
+    {"path":"support_summary.json","detail":"3 LL/2 HH; handle z is fixed in support; initial handle-to-goal distance is the same about 0.56054m in all five episodes. This motivates testing a shared de-yawed geometry, not claiming its correctness outside support."},
+    {"path":"images/frame_00_demo_00_step_000.png","detail":"Closed panel and spatially separate robot before approach."},
+    {"path":"images/frame_01_demo_00_step_036.png","detail":"Hand above handle before the opening motion."},
+    {"path":"images/frame_02_demo_00_step_073.png","detail":"Panel rotates while the hand follows the handle."},
+    {"path":"images/frame_05_demo_01_step_076.png","detail":"Partially opened panel and contact in the second layout."},
+    {"path":"images/frame_06_demo_01_step_112.png","detail":"Large late opening angle rather than a pure translation."},
+    {"path":"trajectories/demo_00.json","detail":"Obs rows 0:4,33:38,50:56,73:76 show stationary handle during approach followed by planar curved motion with changing quaternion; actions50:56 show pulling."},
+    {"path":"contracts.py","scope":"public","detail":"fit_support statistics and deployment restoration; chunk-start-only action mapping."}
+  ],
+  "expected_failure_signature": [
+    "If the goal-to-pivot offset is not rigid across reset yaw/translation, extrapolated frame directions will be wrong even when the predicted radial/tangent actions match support; handle-relative radial errors or stalled/slipping pulls should appear.",
+    "Near the pivot the polar chart is ill-conditioned. A deterministic cabinet-axis fallback ensures finite values but does not solve that representational failure.",
+    "If soft experts learn a clock proxy or collapse to one expert, transitions from lowering to pulling may be premature or delayed on unfamiliar initial reach distances.",
+    "An accurate local hinge model cannot remove fixed-gripper contact anisotropy, world-cube clipping, table or arm reach limitations. E failures can remain after successful C decorrelation."
+  ],
+  "required_runtime_fields": {
+    "source":"raw_history [B,2,41] and raw_current [B,41] only, plus frozen support circle statistics",
+    "slices":{"hand":"0:3 and 18:21","gripper":"3:4 and 21:22","handle":"4:7 and 22:25","handle_quaternion_xyzw":"7:11 and 25:29","goal":"36:39","cabinet_sin_cos":"39:41"},
+    "normalization":"Fixed physical scales: contact 0.1m, world/span 0.5m, per-step motion 0.01m, circle residual 0.05m; unit angular, aperture and attitude features. No narrow support-variance scaling.",
+    "action_frame":"At chunk start, reconstruct pivot XY as goal XY plus Rz(yaw) times the fitted center. Unit radial points from pivot to observed handle; tangent is positive CCW, z is world z. Encode xyz with the transpose of this orthogonal basis, decode with its inverse, in unchanged native 0.01m units. The basis is frozen for all sixteen actions, not updated with future truth. Gripper remains identical, and only the common executor clips in world coordinates."
+  },
+  "training_only_targets": [],
+  "support_fit": {
+    "sources":"Every current D_5 obs[0:T], excluding final obs[T], using only handle4:7, goal36:39 and yaw39:41; no action fitting and no extra episodes.",
+    "procedure":"Concatenate cabinet-frame XY handle-minus-goal points p, solve [2px,2py,1] times [cx,cy,k] = px^2+py^2 by numpy least squares. Store center, mean radius, radial RMS and row count as JSON. RMS is an auditable support statistic, not an evaluation score. No numerical fit quality is claimed before host fitting.",
+    "deployment":"Restore JSON before build_modules; register the fitted center as a buffer. Retain no observations, actions, windows, paths or future labels."
+  },
+  "parents": [],
+  "change_summary": "Initial independent design: support-estimated kinematic circle, moving radial/tangent action chart, and learned soft geometric regime experts. Unlike a fixed cabinet-frame chart this factors opening progress through a hinge estimate. No performance feedback or action planner; common DP and action epsilon loss unchanged."
+}

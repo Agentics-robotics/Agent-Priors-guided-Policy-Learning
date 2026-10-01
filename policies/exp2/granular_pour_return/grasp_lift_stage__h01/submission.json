@@ -1,0 +1,289 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/granular_pour_return/grasp_lift_stage/dataset.json",
+    "dataset_sha256": "7b544610e4641eb9110526a7be294b984b06e50d994efeacfddbac26dac0bb49",
+    "experiment_version": "APPL_v4_cartesian_new_task",
+    "heuristic": {
+      "applicability": "Prefer when the source container is upright and observable but its table pose is displaced from the narrow demonstrated initial range, especially before handle acquisition. Replan every execution chunk so the source anchor and source-to-bowl relation are current. The source and requested bowl must remain within Panda reach and the observed geometry must still identify the same handle layout.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            80,
+            120,
+            140,
+            148,
+            160,
+            180,
+            220,
+            280,
+            320,
+            340,
+            359
+          ],
+          "trajectory_id": "demo12300"
+        },
+        {
+          "indices": [
+            0,
+            120,
+            132,
+            136,
+            140,
+            160,
+            180,
+            220,
+            280,
+            320,
+            340,
+            359
+          ],
+          "trajectory_id": "demo12303"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Container upright on the table, gripper open, container selected as source and bowl selected as destination; the current container pose, TCP pose, and measured Panda joints must be finite and reachable. It may also continue after closure when container/TCP co-motion is visible.",
+        "exit_conditions": "Closed fingers, source/TCP co-motion, source clear of the table and staged near the observed bowl-relative high pose with only the demonstrated small initial tilt.",
+        "failure_signatures": "Open fingers after attempted closure, TCP not at the handle relationship, source not following TCP, particles moving independently, IK nonconvergence or joint-limit contact. A successful demonstration does not establish recovery from an unseen miss or slip.",
+        "overlap_role": "All actions [180,360) remain supervised and overlap controlled_pour_and_right: closed-gripper lift, upright carry, bowl staging, and the first small tilt.",
+        "successor_readiness": "Nominally switch to controlled_pour_and_right after upright staging above the bowl; shared supervision permits switching any time after a clearly closed, co-moving and lifted source."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"container\"]},\"destination_object\":{\"type\":\"string\",\"enum\":[\"bowl\"]}},\"required\":[\"source_object\",\"destination_object\"]},\"parameter_semantics\":\"source_object names the currently observed manipulated source pose used as the per-chunk Cartesian action frame; destination_object names the currently observed bowl pose used to condition source-to-destination transport. Both arguments are semantic observation selectors, not actuator commands.\"}",
+      "limitations": "The invariant directly covers handle approach and grasp motion under source-pose displacement, and each 0.4 s carry replan is source anchored; it does not make reachability, collision clearance, grasp contact, or a fixed bowl destination translation invariant. The twelve demonstrations vary initial source center only about 15 mm in x and 12 mm in y, contain no failed grasps/slips, and use one bowl pose. Large source rotations, occlusion, large mid-chunk slip, or unreachable placements remain unsupported. The TCP-delta prior better covers local intermediate-state error; the phase-aware bowl prior better covers ambiguous already-grasped carry states.",
+      "pipeline_implications": "The high-level agent should select this policy for displaced-source acquisition while monitoring finger closure plus container/TCP co-motion. It must not infer contact from closure alone. Resolve source and destination poses at every replan, preserve two-frame history across switches, execute slots 1..8, and reject or escalate explicit IK failures rather than silently treating them as success.",
+      "rationale": "Observed demonstrations place the source only at x=-0.443 to -0.458 m and y=-0.202 to -0.214 m. At demo12300 indices 120-160 the commanded TCP settles at the handle while the source remains table-supported, action 148 commands closure, and by 180 the source has lifted. Expressing every commanded TCP target in the current chunk-start source frame removes memorization of the demonstrated source world position from handle acquisition. Conditioning on the current bowl pose and source-to-bowl transform retains the non-invariant transport dependency. Rotation is represented continuously in 6D; the standard DP backbone is unchanged.",
+      "statement": "Chunk-start source-frame Cartesian targets for displacement-equivariant handle acquisition and source-conditioned transport.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12301\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12302\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12303\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized occurrence including earlier closure; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12304\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12305\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12306\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized occurrence including earlier closure and higher index-180 lift; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12307\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12308\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12309\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12310\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"},{\"trajectory_id\":\"demo12311\",\"start\":0,\"stop\":360,\"context_start\":0,\"call_args\":{\"source_object\":\"container\",\"destination_object\":\"bowl\"},\"rationale\":\"Full authorized grasp-lift-stage supervision; [180,360) preserves successor overlap.\"}]"
+    },
+    "heuristic_index": 1,
+    "normalization": {
+      "path": "provenance/relocated/b3141fbf4dee2e06",
+      "sha256": "52a649835b92c470fb6692de6991ba7c8ccd357aa4bb4ad2c6069c971f630101"
+    },
+    "observation_fields": {
+      "bowl_pose": [
+        0,
+        7
+      ],
+      "container_pose": [
+        7,
+        14
+      ],
+      "particle_positions": [
+        14,
+        50
+      ],
+      "qpos": [
+        50,
+        59
+      ],
+      "qvel": [
+        59,
+        68
+      ],
+      "target_pose": [
+        68,
+        75
+      ],
+      "tcp_pose": [
+        75,
+        82
+      ]
+    },
+    "plan_hash": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+    "policy_id": "grasp_lift_stage__h01",
+    "prior_plan_path": "assets/exp2/prior_plans/granular_pour_return/grasp_lift_stage.json",
+    "prior_plan_sha256": "b818e4edee31bfa5b064c011864f2833014e6a97ef777dafdf4e489a017851eb",
+    "skill_id": "grasp_lift_stage",
+    "sources": {
+      "demo12300": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12300.json",
+        "sha256": "21e58673a2d41af543f449b6c1bac1ddbf07c90cd1b3768efebe3b218b3ee197"
+      },
+      "demo12301": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12301.json",
+        "sha256": "1c649d39da186987da23fd7a5747e0e55521fac9fd32b20ba073029707c89ef3"
+      },
+      "demo12302": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12302.json",
+        "sha256": "b7b05183c5c26cf55369fd8013ae041085f557a36ebf9a82c9b9916920766aa9"
+      },
+      "demo12303": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12303.json",
+        "sha256": "24c3aeca48398d027456f5e3577b77135dc1b2be53a9a2b3c57a78efc9b761e5"
+      },
+      "demo12304": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12304.json",
+        "sha256": "048c023f0839c4630bb8a8d104c6c149816d94ca47ce5cc79ee2ad30390a4268"
+      },
+      "demo12305": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12305.json",
+        "sha256": "1c4493143c0d144d4fd44267328d7599720c6f6dd95aec6149609f9c8ff44203"
+      },
+      "demo12306": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12306.json",
+        "sha256": "e6c8a2014257ee090527799729078620a59713086e606f831d45cfcba4b1c7a4"
+      },
+      "demo12307": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12307.json",
+        "sha256": "c5530ad3cb09b0118fc5b715af9e6f87caca9d776f81ba10adf224458278d793"
+      },
+      "demo12308": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12308.json",
+        "sha256": "c1945edb8ae947d2f27ea872462c6eca2419d48f993377584f907da7e121c69a"
+      },
+      "demo12309": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12309.json",
+        "sha256": "ead11ff403366336ff24d395ccc9f795108d9d8d23f34736fbba145119718243"
+      },
+      "demo12310": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12310.json",
+        "sha256": "907dd172d12814e6c2ad53331c17252a3b90cab83dfca74130dcca54109a5957"
+      },
+      "demo12311": {
+        "path": "assets/exp2/demonstrations/granular_pour_return/demo12311.json",
+        "sha256": "e9123001777c449f99e1b1e8a0f1d4e6244bd84c9ee1cfc0978e0b44e8eaf3a1"
+      }
+    },
+    "subgoal": "Approach the container handle at the declared local grasp site, close the fingers, infer a secure grasp from finger closure and container/TCP co-motion, lift the particle-filled source clear of the table, and carry it upright to a high pose above the bowl. Maintain handle contact after closure and avoid disturbing the bowl or spilling particles. Approximate entry: open gripper, source upright on the table. Approximate exit: closed gripper, source near (-0.259,0.224,0.400) m above the bowl with only a small initial tilt."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/341c95e1dc52e04a",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "62ee909f39c7d84077346f8ed64a76b0f94de9e66b734bb15fe3f2ba91419e69",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 7,
+      "physical_gpu": 5,
+      "uuid": "GPU-13ce441a-9b9f-d327-08cf-e7e9f728b580"
+    },
+    "effective_action_targets": 4006,
+    "final_weights_sha256": "390d96225a70a8da1a43cf30c293151f4f2288f005d649e440027ef3762a6121",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 5.217506408691406,
+        "step": 1
+      },
+      {
+        "l2_norm": 2.5728933811187744,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "1e6c4b507549c52993cfbb09c0c7385bf143b1b8b06ef795c07ad5cfccb3c1dd",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 4320,
+        "duplicated_actions": 0,
+        "unique_actions": 4320
+      },
+      "contract": {
+        "action_dimension": 10,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "destination_object": {
+              "enum": [
+                "bowl"
+              ],
+              "type": "string"
+            },
+            "source_object": {
+              "enum": [
+                "container"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "source_object",
+            "destination_object"
+          ],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "Compare FK of IK output to the demonstrated commanded world TCP target in metres/radians and compare the unchanged gripper scalar. The only projection is robust Gram-Schmidt of the learned 6D rotation; exact encoded targets are already valid rotations.",
+          "mode": "task_space",
+          "tolerance": 0.005
+        },
+        "cut_relation": "Uses every assigned [0,360) occurrence without trimming and preserves the complete action-supervised [180,360) overlap with controlled_pour_and_right. The implementation refines the approved source-frame invocation contract at each 8-step replan.",
+        "input_shapes": {
+          "features": [
+            2,
+            51
+          ]
+        },
+        "observation_dependencies": [
+          "bowl_pose",
+          "container_pose",
+          "particle_positions",
+          "qpos",
+          "qvel",
+          "tcp_pose"
+        ],
+        "output_semantics": "Each slot is an absolute Cartesian TCP target expressed in the source-container pose frozen at chunk construction: source-frame position xyz in metres, source-frame orientation as the first two rotation-matrix columns (6D), and one native gripper scalar. The decoder projects 6D to SO(3), left-composes the frozen chunk-start source pose to obtain a world TCP target, and calls panda_kinematics.solve_ik from freshly measured joints. Slots represent t-1 through t+14; execution uses slots 1 through 8. Gripper values retain the native >=0 open, <0 close rule.",
+        "parameter_semantics": "source_object selects the currently observed manipulated source pose used as the per-chunk Cartesian frame; destination_object selects the observed bowl pose used in source-to-destination conditioning. Both are semantic observation selectors, not actuator commands.",
+        "policy_id": "grasp_lift_stage__h01",
+        "skill_id": "grasp_lift_stage",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "0483bff02fb6a52bacba5243f8bc78aef838720930e9925289e23906e0fc9032",
+      "PRIOR.md": "9ab7cbc195df87784aab18985c9cb329567ac7901391f21cc6e147f2a46eec9f",
+      "adapters.py": "1b73fa07a328da9c9543810e0e48c19385125f84bb148ec851372311c48d64f1",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "9de95e5d431495f15a0e6313005f5914ae766a296fe459d44e9e159379c46017",
+      "policy.py": "c0aff292a4794caefa7d53a493d50cb35ba91bc12782045df4587eea9445fd38",
+      "policy_contract.json": "20979f547a2cd823f5c6559aa147cb1d84e956803da46a79b1814b5773729314",
+      "training_bindings.json": "e4fd57487be5b9b68b0ac6f16c9be95d49040d50c2f434f448105871530e90ae"
+    },
+    "trainable_parameters": 17057546,
+    "training_elapsed_seconds": 2.9769773941952735,
+    "weight_l2_change": 0.20473886516566217
+  },
+  "files": {
+    "HANDOFF.json": "0483bff02fb6a52bacba5243f8bc78aef838720930e9925289e23906e0fc9032",
+    "PRIOR.md": "9ab7cbc195df87784aab18985c9cb329567ac7901391f21cc6e147f2a46eec9f",
+    "adapters.py": "1b73fa07a328da9c9543810e0e48c19385125f84bb148ec851372311c48d64f1",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+    "pipeline.json": "9de95e5d431495f15a0e6313005f5914ae766a296fe459d44e9e159379c46017",
+    "policy.py": "c0aff292a4794caefa7d53a493d50cb35ba91bc12782045df4587eea9445fd38",
+    "policy_contract.json": "20979f547a2cd823f5c6559aa147cb1d84e956803da46a79b1814b5773729314",
+    "training_bindings.json": "e4fd57487be5b9b68b0ac6f16c9be95d49040d50c2f434f448105871530e90ae"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "v1": {
+    "files": {
+      "HANDOFF.json": "0483bff02fb6a52bacba5243f8bc78aef838720930e9925289e23906e0fc9032",
+      "PRIOR.md": "9ab7cbc195df87784aab18985c9cb329567ac7901391f21cc6e147f2a46eec9f",
+      "adapters.py": "1b73fa07a328da9c9543810e0e48c19385125f84bb148ec851372311c48d64f1",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "9de95e5d431495f15a0e6313005f5914ae766a296fe459d44e9e159379c46017",
+      "policy.py": "c0aff292a4794caefa7d53a493d50cb35ba91bc12782045df4587eea9445fd38",
+      "policy_contract.json": "20979f547a2cd823f5c6559aa147cb1d84e956803da46a79b1814b5773729314",
+      "training_bindings.json": "e4fd57487be5b9b68b0ac6f16c9be95d49040d50c2f434f448105871530e90ae"
+    },
+    "folder": "provenance/relocated/2ffea5a1d1ca4efb",
+    "version": "8fb6cc3ed5e73c0baa0ecf71712195b79d2819000daadc696ed80f661c1acd0b"
+  },
+  "version": "d2515f1c3c56d602d9a654b6b57b6b01878ad29dbe3c8e2e1fc0d5982320f02b"
+}

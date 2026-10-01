@@ -1,0 +1,38 @@
+{
+  "title": "Lift-evidence-gated interaction chart: separating acquisition from transport",
+  "coverage_gap": "The q3 feedback selects A2 uniquely: equal-distribution score 0.825 (C 0.85, E 0.80) versus A1 0.125 and A3 0.250. A2 still has nine truncations over all 50 development episodes, including C HL success 0.7 versus LH 1.0 and E HH 0.6. There are no failure-state traces in the feedback, so these small-cell differences do not establish a cause. The revision tests a specific remaining vulnerability of A2: its proximity/aperture-based attachment proxy can introduce goal-dependent chart orientation while the object is still resting on the surface.",
+  "reusable_regularity": "Acquisition and transport should have different conditional dependencies: closeness and gripper closure can justify starting a lift, but object elevation supplies additional evidence before orienting a transport frame toward a remote goal. Retain A2's original soft phase features for deciding motions, while multiplying only the frame's goal-blend weight by smooth causal lift evidence. This gives a goal-independent frame at resting height and recovers the successful A2 chart once the object is elevated. The model still receives the true goal in ungated relations and can learn anticipatory actions. This is an action-coordinate prior, not a grasp oracle, safety guarantee or command generator.",
+  "dependencies_preserved": [
+    "Retains A2's 88 conditioning dimensions, original four-way phase descriptor and phase products. The attachment proxy used in those descriptors is not lift-gated, so acquisition-to-lift conditioning is not circularly delayed until after lift occurs.",
+    "Native wall center and half sizes, frame orientation c/s, signed native box face offsets, top clearances and local relations preserve world/obstacle dependencies and the asymmetric wall x position. No reflection symmetry is imposed to explain development cell differences.",
+    "Current/previous hand and object motion, both apertures, both native object quaternions and independent goal coordinates remain available. No relevant input is replaced by a remembered demonstration layout; object2 is absent per the shared schema.",
+    "The frame is computed once from raw_current at each chunk start and is shared across the two observations and sixteen encoded/decoded actions. No future truth or phase label is consulted at inference.",
+    "A4 is freshly initialized and trained by the outer runner under the full frozen budget. It does not load A2 weights or select an earlier checkpoint."
+  ],
+  "evidence_refs": [
+    "Session revision development_feedback for A1/A2/A3: scores 0.125/0.825/0.250, A2 C and E cells, native_truncated counts, fixed-method latency and training curves. Feedback contains no failure-state trajectories; IID was not used to select q3.",
+    "q3 record_selection in this session: A2 is the unique eligible score maximizer",
+    "A2 immutable submission f054fab910f9ff7a0cb6c6942950e99a7ed53d2a64b354bb8344b1d88044b9b0: parent code/config and chart/phase design",
+    "bundle.json: exact two-episode support membership",
+    "task_materials.json: raw object center z and gripper fields, wall geometry, fixed native action4 and layout intervals",
+    "support_summary.json: two episodes, 79/84 transitions, native action gripper ranges and object heights",
+    "trajectories/demo_00.json: obs rows 23-30 show aperture reducing from about 0.73 to 0.39 while the object is initially near 0.0194 m and then begins rising; actions rows 0-78 establish open acquisition commands followed by closing/lifting",
+    "trajectories/demo_01.json: obs/action rows 0-5 confirm an open acquisition prefix; obs rows 47-52 show lifted hand/object co-motion",
+    "images/frame_10_demo_01_step_029.png",
+    "images/frame_03_demo_00_step_033.png",
+    "images/frame_04_demo_00_step_044.png",
+    "images/frame_06_demo_00_step_066.png",
+    "PUBLIC_CONTRACT.md, contracts.py, learning.py and language_policy.json"
+  ],
+  "expected_failure_signature": "If premature goal influence during closure contributes to A2's residual truncations, A4 should improve robustness when pickup and transport directions disagree. If those failures instead come from vertical placement or unrelated policy errors, there may be no gain. Delaying the chart can also hurt: basis rotation may occur too late or too rapidly during the first centimeters of lift, reducing C/E success. A pushed or tilted object can create false lift evidence, and a different support surface height would violate the fitted resting-height assumption. Aggregate development feedback cannot yet distinguish these mechanisms.",
+  "required_runtime_fields": {
+    "input": "raw_current [B,45] for the chunk-frozen frame and raw_history [B,2,45] for conditioning: hand 0:3 and 18:21, aperture 3:4 and 21:22, object 4:7 and 22:25, xyzw quaternions 7:11 and 25:29, goal 36:39, wall center 39:42 and half sizes 42:45",
+    "support_fit": "fit_support uses only this exact D_N. Pool obs[0:T,6] where aligned native actions[0:T,3] <= 0.10, which selects the demonstrated open-acquisition prefix, and take its scalar median as rest_center_z_m. If that subset is empty, use the median initial object z across the supplied episodes. Persist only that scalar and its sample count; no labels or trajectories. Restoration runs before module building on a fresh deployment object.",
+    "frame_revision": "Let f=clamp((current_object_z-rest_center_z_m)/0.04,0,1), lift=f*f*(3-2*f), and weight=attachment*lift. Replace A2's attachment weight only in direction=(1-weight)*(object_xy-hand_xy+[0,0.02])+weight*(goal_xy-object_xy). The 0.04 m confirmation span is a fixed local length-scale hypothesis, not fitted to development successes. At/below resting height, the chart direction does not depend on the goal. The fitted median comes only from support, not development observations.",
+    "action_frame": "Exactly A2's invertible rotation law after the revised direction is normalized: c=direction_y/norm, s=direction_x/norm; lateral=c*world_dx-s*world_dy, forward=s*world_dx+c*world_dy, native z and gripper unchanged. Inverse x=c*lateral+s*forward, y=-s*lateral+c*forward. Vanishing direction falls back to c=1,s=0. Units remain native 0.01 m/action and host alone clips in the world action cube.",
+    "conditioning_and_training": "88 deterministic conditioning channels; one common factory DP with diffusion_action_dim=4. No auxiliary target/loss, learned encoder, additional model parameters, optimizer change or scheduler change relative to A2. All predicted commands remain learned by the DP."
+  },
+  "training_only_targets": [],
+  "parents": ["A2"],
+  "change_summary": "One focused feedback-based scientific revision of A2: add exact-D_N resting-height estimation/restoration and smooth lift evidence multiplying only the chunk-frame transport blend. All nine original A2 configuration values, the 88-dimensional phase-feature construction, identity z/gripper semantics and action-only common diffusion objective are retained. A1/A3 motivated preserving the simpler successful chart rather than adding predictive channels or a learned encoder; their code is not inherited. No submitted parent files were edited, no extra performance debug or pretraining occurred, and no measured improvement is claimed."
+}

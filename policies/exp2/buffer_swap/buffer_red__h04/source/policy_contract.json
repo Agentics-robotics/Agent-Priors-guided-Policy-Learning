@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "buffer_red__h04",
+  "skill_id": "buffer_red",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["target_object", "successor_object", "buffer_pose_world"],
+    "properties": {
+      "target_object": {"type": "string", "enum": ["red"]},
+      "successor_object": {"type": "string", "enum": ["blue"]},
+      "buffer_pose_world": {"type": "array", "items": {"type": "number"}, "minItems": 7, "maxItems": 7}
+    }
+  },
+  "parameter_semantics": "target_object selects the observed red pose used as the acquisition position anchor and phase object; successor_object selects the observed blue pose used as the overlap position anchor; buffer_pose_world is [x,y,z,qw,qx,qy,qz] in world metres/wxyz and supplies the intended free-center transport/release anchor. Training binds [-0.181,0,0.02,1,0,0,0]. All three arguments enter causal features, anchor selection, encoding and decoding.",
+  "observation_dependencies": ["qpos", "qvel", "tcp_pose", "red_pose", "blue_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 66]},
+  "action_dimension": 7,
+  "output_semantics": "Each slot is [anchor_x,anchor_y,anchor_z,rotvec_x,rotvec_y,rotvec_z,gripper]. The first three values are a target TCP position in metres in the chunk-frozen active anchor: observed red for phase 0 acquisition/initial lift, supplied buffer for phases 1-2 transport/release, and observed blue for phase 3 overlap. rotvec is radians for R_target*R_chunk_tcp^T in world axes. The decoder composes the frozen semantic position anchor and chunk-start TCP orientation, then calls panda_kinematics.solve_ik from fresh measured qpos; gripper sign is native. Slots are t-1..t+14 and slots 1..8 execute.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "Command FK position is encoded with inverse active-anchor rotation/translation and exactly recomposed; command orientation is encoded by the SO(3) log relative to chunk-start TCP and recomposed by the exponential map. The independent check compares world TCP position, rotation and gripper after shared IK."},
+  "cut_relation": "Every assigned action in all 12 [0,stop) segments supervises semantic-anchor diffusion and a causal phase target. The 210-230 action overlap with place_blue remains action-supervised from red lowering/release through blue acquisition and initial lift."
+}

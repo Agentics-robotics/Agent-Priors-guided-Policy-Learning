@@ -1,0 +1,106 @@
+{
+  "dataset": "assets/exp2/datasets/covered_peg_assembly/full_task_dp/dataset.json",
+  "dataset_sha256": "1ecca0005b5d40b1265305396b91cca5063ee121ccb800f6b48496ed528a6b04",
+  "experiment_version": "CartesianIK_peg_DP_cartesian",
+  "heuristic": {
+    "statement": "Developer fixed ordinary Cartesian DP, no API prior design."
+  },
+  "heuristic_index": 1,
+  "normalization": {
+    "path": "assets/exp2/tasks/covered_peg_assembly/normalization.json",
+    "sha256": "5d50ce2e025ef83183ac172a24c1b19ea7482f651c1c6fa09f34f83bd3887b24"
+  },
+  "observation_fields": {
+    "hole_pose": [
+      0,
+      7
+    ],
+    "lid_pose": [
+      7,
+      14
+    ],
+    "lid_position": [
+      14,
+      15
+    ],
+    "lid_velocity": [
+      15,
+      16
+    ],
+    "peg_pose": [
+      16,
+      23
+    ],
+    "qpos": [
+      23,
+      32
+    ],
+    "qvel": [
+      32,
+      41
+    ],
+    "target_pose": [
+      41,
+      48
+    ],
+    "tcp_pose": [
+      48,
+      55
+    ]
+  },
+  "plan_hash": "f9522aa4f1435765fb4b907d9ad17b87f3cb28314e655e8323f21b1bec45761b",
+  "policy_id": "cartesian_dp",
+  "scientific_design_owner": "Developer fixed baseline",
+  "skill_id": "full_task",
+  "sources": {
+    "demo12200": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12200.json",
+      "sha256": "e7ccc303ea6b6ddd3150e2336c6b06b3f89a66d478909e3f9555eb3d6ccc85f1"
+    },
+    "demo12201": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12201.json",
+      "sha256": "aa9e1f1d14f676f5b4c9fb52ee6bbbb5d86865d82adcc051e3256482461f1016"
+    },
+    "demo12202": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12202.json",
+      "sha256": "4ad5e3ce9117f56008597389c45a799aff1857f683091069d582e024a00b32a7"
+    },
+    "demo12203": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12203.json",
+      "sha256": "c43ecf548e80a87d465fbc947e98d191dffd25cc4966f83e2698dd7a8a2cf8af"
+    },
+    "demo12204": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12204.json",
+      "sha256": "35eea2d5c8fc6e02c992c923db4e580d473d5583edcd45cfee79e682782c5a09"
+    },
+    "demo12205": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12205.json",
+      "sha256": "b4b9855dac2b9f0e836ea063d38694af37abba89371fcae59fffa7d65c4dfb3c"
+    },
+    "demo12206": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12206.json",
+      "sha256": "6a64bcc76a39a6dc2f1119c5e5983a5686835cdf2ae5a0899ab8f39da92ef407"
+    },
+    "demo12207": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12207.json",
+      "sha256": "58410156c6edfad3658ce632cf8ebe122570c51412ba53f8631c9e78a14c5397"
+    },
+    "demo12208": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12208.json",
+      "sha256": "1522c1f09079f05ace6825ff5221ebf74ca8c45941a00050c53b579b43e84d5b"
+    },
+    "demo12209": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12209.json",
+      "sha256": "2a6dc540f7c4c6e6cb92c1fe50c106da8f71123c6b3ede06a790bf8ca0c3d31b"
+    },
+    "demo12210": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12210.json",
+      "sha256": "dd077218ff68ac6e93b28dc73234d21ac2a16c937de945465c9970deb9ad4ac4"
+    },
+    "demo12211": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12211.json",
+      "sha256": "0440e3242bad2dbcefe176eab207fd19647109b019c55702ff1906862c9e4b5d"
+    }
+  },
+  "subgoal": "Complete the entire supplied task with one learned policy."
+}

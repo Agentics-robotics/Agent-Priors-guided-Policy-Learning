@@ -1,0 +1,64 @@
+{
+  "title": "Local acquisition readiness with carry-gated destination geometry",
+  "coverage_gap": "A2 is the unique q3 winner (C=0.50, E=0.50, score=0.500), versus A1=0.375 and A3=0.275. A2 succeeds in all sampled high-nut C/E cases, including E-HL where A1 fails, but C-LH is 0/10 and E-LL and E-LH are each 0/5. All failures are reported as native truncations, with no stage-localized trajectories. The remaining low-nut/direction asymmetry is compatible with acquisition/goal entanglement, but it does not prove a grasp failure. This revision tests that hypothesis rather than claiming a diagnosed cause.",
+  "reusable_regularity": "Acquisition at a handle should be primarily controlled by local grasp geometry and measured closure readiness, not by the direction of a distant insertion target. Fit a static hand-to-site binding offset and the planar error at observed first closing commands using D_N only. Expose a smooth readiness feature and separate approach from close/lift conditioning. Keep A2's regularized carry-bearing action coordinates, while suppressing destination direction before a measured lift unless the peg is locally relevant. The diffusion policy still predicts all commands; these operations are coordinate/feature choices, not an expert controller, finite-state executor or planner.",
+  "dependencies_preserved": [
+    "The grasp error is site plus a D_N-fitted binding offset minus hand. Hand/site/ring geometry, body orientation and measured motion remain available independent of the destination gate.",
+    "World hand position, hand/ring/peg heights, yaw cosine/sine and rotated body axes retain robot reach, fixed gripper orientation, gravity/table and native axis dependencies. No hand or object pose is forced onto the fitted offset.",
+    "Goal directions are attenuated, not assumed irrelevant everywhere: they reappear with actual ring lift or peg proximity. Proximity uses the minimum planar peg distance to hand, handle site and ring. Full direction weight is restored within 0.10 m and ramps to zero at 0.16 m when not carrying. Peg height, hand-peg distance and ring-peg distance remain available even outside that local region.",
+    "This is explicitly a local acquisition prior, not an exact global symmetry: distant peg x/y directions are intentionally not reconstructible while the ring is unlifted and the peg is outside the locality envelope. The hypothesis is that those directions are unnecessary for safe local acquisition in this supported assembly layout. The nearby-obstacle path guards against discarding physically relevant peg geometry; it is not a collision guarantee.",
+    "After lift, ring-to-peg and hand-to-peg vectors determine transfer/alignment in the chunk-start carry frame, preserving the dependency that helped A2 on E-HL.",
+    "Both causal observations, native previous translational/aperture fields and observed ring displacement are used. Absent object2 and redundant native-previous quaternion are omitted. No episode clock, reset factors, reward, success oracle, future labels or simulator handles occur at inference."
+  ],
+  "evidence_refs": [
+    {"source": "revision user message: development_feedback; q3 selection ledger", "feedback_hash": "115d0428275178325417ab15fb88a903288d30f8d08d37aee9cbcab83f12d7a9", "detail": "A1 score 0.375, A2 score 0.500, A3 score 0.275. A2 C-HL 10/10 and E-HL 5/5, but C-LH 0/10 and E-LL/E-LH both 0/5. Failure categories report truncation only. These are development results, not hidden test measurements."},
+    {"path": "bundle.json", "detail": "Exact assembly__N2__rep0 D_N remains the same two support episodes; no new demonstrations"},
+    {"path": "task_materials.json", "detail": "Nut/peg x factors vary independently outside the two training cells; goal is forward of the acquisition area; native hand, handle site, ring center and peg goal fields are available"},
+    {"path": "trajectories/demo_00.json", "detail": "actions 0:40 show the first closing command at t=14. obs 13:16 shows the hand approaching a stationary handle, with handle-hand planar separation near 0.04 m at that event. obs 46:51 and 72:76 show a much more stable carried hand/site relation after ring lift."},
+    {"path": "trajectories/demo_01.json", "detail": "actions 0:22 show first closing at t=17 rather than t=14. obs 17:19 has handle-hand planar separation again near 0.04 m, despite a different absolute hand x and elapsed time. obs 50:53 demonstrates carried binding geometry."},
+    {"path": "images/frame_01_demo_00_step_012.png", "detail": "Above-handle acquisition before the low grasp stage, inspected during revision"},
+    {"path": "images/frame_02_demo_00_step_024.png", "detail": "Subsequent low grasp at the handle rather than the ring center"},
+    {"path": "images/frame_04_demo_00_step_048.png", "detail": "Raised physical ring after acquisition"},
+    {"path": "images/frame_06_demo_00_step_072.png", "detail": "Elevated ring approaching peg alignment, supporting retention of A2's carrying geometry"},
+    {"path": "images/frame_15_demo_01_step_092.png", "detail": "Ring-over-peg final relationship of the second support episode"}
+  ],
+  "expected_failure_signature": [
+    "If the remaining failures are mostly positive-direction transport rather than acquisition entanglement, this revision may leave C-LH and low-nut E failures unchanged. This would count against the tested local-acquisition explanation.",
+    "The two support closing events and fitted carried offset may be insufficient for fast/short approaches. Early or late closure, or a missed lift despite correct local geometry, would falsify the readiness transfer assumption.",
+    "If distant peg direction is actually necessary during acquisition, target-direction gating can make performance worse. Peg interference before lift or a drop followed by poor recovery would challenge the chosen locality envelope.",
+    "The compact lift ramp assumes visible ring lift is useful evidence of carrying; a bumped or slipping ring can still activate it incorrectly. No new failure/recovery demonstrations are supplied.",
+    "A2's saturation and fixed-gripper yaw asymmetries remain. Loss of its E-HL successes would indicate that stronger phase separation damaged a previously useful carry representation."
+  ],
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history [B,2,42] and raw_current [B,42], plus explicitly restored D_N support-fit scalars and one 3-vector",
+    "slices": {"hand_xyz": [0,3], "gripper": [3,4], "handle_site_xyz": [4,7], "body_quaternion_wxyz": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_handle_site_xyz": [22,25], "goal_xyz": [36,39], "ring_center_xyz": [39,42]},
+    "representation": "54 physical-scale features per row. Acquisition readiness is a sigmoid of fitted closing-event radius minus current planar grasp error. Five soft phase coordinates split approach, close/lift, raised low-clearance carry, high-clearance transfer, and planar alignment; they condition rather than execute the policy. Current grasp geometry, gated destination geometry, safety proximity, body axes, kinematics and physical ranges are retained.",
+    "action_frame": "Retain A2's yaw algebra: d=goal-ring, u=carry*d_x, v=sqrt(d_y^2+0.04^2), sine=u/sqrt(u^2+v^2), cosine=v/sqrt(u^2+v^2). Local xyz=(cosine*world_x-sine*world_y, sine*world_x+cosine*world_y, world_z); inverse is the transpose. The carry weight now uses a compact smoothstep of ring height above the D_N rest reference (starts at +0.006 m, spans 0.030 m), multiplied by A2's closed-aperture sigmoid. Thus acquisition below this lift band is exactly in world axes. A single causal latest-observation frame is held for all 16 actions and both observation rows. Native xyz units remain 0.01 m; gripper is never rotated, shifted or rescaled. The host alone clips the decoded native cube and executes four actions.",
+    "history": "Earlier-row ring displacement is zero and later-row displacement is the actual two-observation difference. No future trajectory updates a frame or a stage."
+  },
+  "training_only_targets": [
+    {
+      "name": "support-fit closing-event geometry, not a per-window inference target",
+      "source": "For each exact D_N episode, take the first native gripper command above the midpoint of that episode's minimum and maximum gripper commands, and measure the contemporaneous planar error site + fitted binding offset - hand. The median of the two event radii is stored as one scalar.",
+      "use": "Only a static scale for a causal observation-derived readiness feature. Event indices, commanded gripper labels and episode trajectories are not stored for deployment. No future action or event label is an inference input. No auxiliary loss or joint diffusion channel is added."
+    }
+  ],
+  "support_fit": {
+    "scope": "Only exact supplied D_N; binding statistics use obs[0:T] and closing-event geometry uses current obs at real action indices. No terminal observation enters these statistics.",
+    "rest_height": "Median initial ring-center z across the two episodes, retained from A2.",
+    "binding_offset": "Componentwise median hand_xyz minus handle_site_xyz among D_N observations whose ring z exceeds that episode's initial z by 0.06 m and whose aperture is below 0.7. This is a robust physical relation statistic, not learned weights or a control policy.",
+    "closure_radius": "Median planar fitted-grasp error at each episode's first above-midpoint closing command; the readiness smoothing width is fixed at 0.006 m.",
+    "deployment": "JSON state contains rest_ring_z_m, hand_minus_site_m, closure_radius_m and their observation/event counts. Explicit restoration precedes module construction. Defaults merely make the interface defined if no binding/closing events exist; the supplied trajectories contain both.",
+    "fixed_constants": "The 0.16-to-0.10 m peg locality envelope and compact lift ramp are new finite feature-design choices, not tuned success thresholds. Other physical scales and A2 bearing/clearance/alignment widths are retained."
+  },
+  "architecture": "Exactly one unchanged common DP factory call with condition_dim=54 and diffusion_action_dim=4. No extra learned modules, joint future channels, optimizer changes, checkpoint choices, warm start or extra updates. The common action epsilon loss remains weight one and normalized by mask.sum()*4.",
+  "parents": ["A2"],
+  "change_summary": [
+    "One new revision slot based on the completed A1-A3 development feedback; A1-A3 remain immutable and all negative results remain recorded.",
+    "Retain A2's chunk-start regularized yaw mapping, world/robot dependencies, physical scales and no-auxiliary-loss architecture. Do not reuse A3's joint-diffusion/encoder package, which had lower development score; no isolated causal claim about its components is made.",
+    "Replace the sigmoid lift gate by a compact smoothstep gate so acquisition has exactly zero carry-induced yaw and destination-direction leakage below the lift band.",
+    "Add D_N-fitted binding offset and closing-event radius; split acquisition into geometric approach and closure-readiness coordinates rather than using elapsed time or hidden contact state.",
+    "Replace A2's ungated destination directions by carry-or-local-peg relevance, while retaining global height and scalar proximity and explicit local obstacle directions. Conditioning grows from 49 to 54 dimensions.",
+    "These structural changes are a single untested revision hypothesis, not a claim of improved development success. No performance-driven repeated debug or additional training is requested."
+  ]
+}

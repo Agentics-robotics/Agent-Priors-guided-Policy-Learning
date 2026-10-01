@@ -1,0 +1,41 @@
+{
+  "instance": "peg-insert-side__N10__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A3",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A3",
+      "feedback_hash": "8e72ae28fe1509cfb6fb5700f60832717e9280c9d524b51c348b1e5b82d8d891",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: all three candidates are valid and completed the fixed 20,000 updates. With equal subcondition weights, A1 scores 0.5*0.80 + 0.5*0.75 = 0.775; A2 scores 0.5*1.00 + 0.5*0.50 = 0.750; A3 scores 0.5*1.00 + 0.5*1.00 = 1.000. A3 uniquely maximizes the frozen C/E objective, so no latency/parameter/ID tie-break is needed. IID success and training losses do not select. A3 had 20/20 C and 20/20 E successes; A1 failures were concentrated in LH, and A2 failed both off-diagonal E cells. Those aggregates motivate retaining A3's bearing representation in the single new A4 slot, without claiming they isolate the cause of its advantage.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A3",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A3",
+      "feedback_hash": "4880c2328541bcf5dc987df6685fddde132ee0d568ac59f280f4e62397157b67",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: all A1-A4 are valid and completed the fixed training budget. Using equal subcondition weights within C and E, scores are A1=0.775, A2=0.750, A3=1.000 and A4=1.000. A3 and A4 tie on the primary objective, each with 20/20 C and 20/20 E successes. The first frozen tie-break selects A3 because its fixed-method inference latency is 0.10068948450498283 s, lower than A4's 0.10420955249719555 s. A4's smaller parameter count (4,761,156 versus A3's 4,764,299) is a later tie-break and cannot override latency. IID results, training curves, training time and hidden test do not select. A4 retained development success without joint-state diffusion, but did not improve the measured latency tie-break. No further designs, edits, checks or training are requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "f97a48cab1cb081bde9383dfd67cc1eea8f8c5ffa6462b59eaf080804a5d0c53",
+    "A2": "0a646f22f9e03c5c86a516797063dbc2ef4cf594e404fd817fd5d8dbe14a805b",
+    "A3": "ad4885376d82fd10c39c80b970d330378f02201113c119da897dd0e393060926",
+    "A4": "4374b50b1c9cba037c6f1865cf3c8a0f2d84288ea55e196afd9f6611f1fd86d4"
+  },
+  "feedback_hashes": {
+    "initial": "fcabcd14e6bb09d12db0819033c97838362f3dd3fd7a3117835c2fb077af2d23",
+    "final": "69821d18250ca310a1a125ad3231c4f125ef4bba937705cfb4138019de5287c1"
+  }
+}

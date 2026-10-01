@@ -1,0 +1,695 @@
+{
+  "candidate_config": {
+    "action_dimension": 10,
+    "active_reference": "nearest_tcp_object_3d",
+    "auxiliary_loss": false,
+    "backbone": "standard_diffusion_backbone",
+    "feature_dimension": 69,
+    "rotation": "relative_6d"
+  },
+  "contract": {
+    "action_dimension": 10,
+    "call_args_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "destination": {
+          "enum": [
+            "red_goal"
+          ],
+          "type": "string"
+        },
+        "handoff_object": {
+          "enum": [
+            "blue"
+          ],
+          "type": "string"
+        },
+        "target_object": {
+          "enum": [
+            "red"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_object",
+        "destination",
+        "handoff_object"
+      ],
+      "type": "object"
+    },
+    "conversion_check": {
+      "description": "Compare decoded IK FK TCP to the demonstrated commanded TCP after active-object relative pose roundtrip; report metres, radians, gripper error and IK diagnostics. Gram-Schmidt is the only rotation projection.",
+      "mode": "task_space",
+      "tolerance": 0.005
+    },
+    "cut_relation": "Covers every assigned [start,stop) action in all 12 segments. It preserves the roughly 230-240 action place_blue overlap: blue lowering/opening and retreat are blue-relative, followed by transit, red approach/closure and initial lift, then full red placement and terminal retreat.",
+    "input_shapes": {
+      "features": [
+        2,
+        69
+      ]
+    },
+    "observation_dependencies": [
+      "qpos",
+      "qvel",
+      "tcp_pose",
+      "red_pose",
+      "blue_pose",
+      "red_goal",
+      "blue_goal"
+    ],
+    "output_semantics": "Each slot is [x,y,z metres, rotation-6D, gripper scalar] for a TCP pose in the causally selected active-object frame. The active frame is blue when its 3D TCP distance is strictly less than red's, otherwise red; labels select from each pre-action observation and decoding selects from the fresh current observation. Rotation-6D is projected by Gram-Schmidt, the relative transform is composed into world, and supplied Panda IK converts it from freshly measured joints. Slot 0 represents t-1 and execution uses slots 1..8 for t..t+7. Gripper values preserve native sign semantics.",
+    "parameter_semantics": "target_object selects the currently observed red_pose as intended pickup/manipulation frame; destination selects observed red_goal in world metres; handoff_object selects blue_pose and blue_goal for predecessor release. Poses are world metres and wxyz and are resolved causally. Values are scene identifiers, not actuator commands.",
+    "policy_id": "place_red__h01",
+    "skill_id": "place_red",
+    "temporal": {
+      "control_hz": 20,
+      "execution_steps": 8,
+      "history_steps": 2,
+      "prediction_horizon": 16,
+      "prediction_start_offset": -1
+    },
+    "version": "appl.flexible.sol.v1"
+  },
+  "normalizer": {
+    "action_min": [
+      -0.2343524545431137,
+      -0.30000001192092896,
+      -0.37018775939941406,
+      -2.3465895652770996,
+      -0.07652236521244049,
+      1.7999999523162842,
+      0.20494018495082855,
+      -1.0
+    ],
+    "action_scale": [
+      0.6740963608026505,
+      1.1044613122940063,
+      0.4687919467687607,
+      0.720576286315918,
+      0.3607903867959976,
+      1.0187928676605225,
+      1.0313521772623062,
+      2.0
+    ],
+    "fit_ids": [
+      "demo10100",
+      "demo10101",
+      "demo10102",
+      "demo10103",
+      "demo10104",
+      "demo10105",
+      "demo10106",
+      "demo10107",
+      "demo10108",
+      "demo10109",
+      "demo10110",
+      "demo10111"
+    ],
+    "fit_samples": 12742,
+    "mean": [
+      0.10300818830728531,
+      0.2515135705471039,
+      -0.13569393381476402,
+      -1.9867907762527466,
+      0.10387740284204483,
+      2.3083841800689697,
+      0.7206118032336235,
+      0.029132600873708725,
+      0.029117200523614883,
+      -0.0181141197681427,
+      -0.0040053874254226685,
+      -0.0608988031744957,
+      4.690885543823242e-05,
+      -0.008618012070655823,
+      0.0006293207406997681,
+      -0.05130034685134888,
+      -0.11267200857400894,
+      -0.138304702937603,
+      -0.284317322075367,
+      -0.0010196715593338013,
+      0.2288362793624401,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.2683628499507904,
+      -0.007287532091140747,
+      0.1587982252240181,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.35033775866031647,
+      0.0024403706192970276,
+      0.15927460510283709,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.3499999940395355,
+      0.20000000298023224,
+      0.019999999552965164,
+      -0.3499999940395355,
+      -0.20000000298023224,
+      0.019999999552965164
+    ],
+    "observation_clipping": false,
+    "quaternion_normalization": "unit_component_bounds",
+    "raw_std": [
+      0.19981821296376195,
+      0.2707345540939676,
+      0.11867264347019314,
+      0.242945212422374,
+      0.07903660243203407,
+      0.2638457949835455,
+      0.32495075543790247,
+      0.01079591106881989,
+      0.010813905408762594,
+      0.06768472021305381,
+      0.18693973382995252,
+      0.060784475703863,
+      0.1079022259326777,
+      0.047706912622521414,
+      0.1671927350097447,
+      0.09865336486587703,
+      0.019299030956548408,
+      0.022625783889109984,
+      0.07697754560643832,
+      0.15341255675683768,
+      0.1158166913659454,
+      0.0021794434489396165,
+      5.420221627394529e-06,
+      0.001713936764461127,
+      0.0008885119535924142,
+      0.07856426837886056,
+      0.11253436497073104,
+      0.09974600490973008,
+      5.177133775060946e-06,
+      0.0017734603662376048,
+      0.0003477999666247766,
+      0.0011130625700671878,
+      0.0052618280116084664,
+      0.196233531093255,
+      0.0806361910815877,
+      3.4493961740934763e-06,
+      0.001110398855977527,
+      0.0006257235647095081,
+      0.0016244016406196978,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "std": [
+      0.3367348238825798,
+      0.5515135824680328,
+      0.23429835215210915,
+      0.3579038381576538,
+      0.18039193004369736,
+      0.5083842277526855,
+      0.515671618282795,
+      0.010867398232221603,
+      0.010882798582315445,
+      0.24810129404067993,
+      0.4322650879621506,
+      0.20714733749628067,
+      0.4086150527000427,
+      0.22378580272197723,
+      0.39285703003406525,
+      0.34887802600860596,
+      0.24402793496847153,
+      0.2696821168065071,
+      0.09955012053251266,
+      0.20966103672981262,
+      0.21312754228711128,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.09201648831367493,
+      0.20326320827007294,
+      0.1387993022799492,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.012018010020256042,
+      0.20717451721429825,
+      0.1392754940316081,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "public_context": {
+    "capabilities": {
+      "automatic_ik_service": false,
+      "causal_history_across_switches": true,
+      "contact_truth": false,
+      "future_states": "training targets only",
+      "learned_images": false,
+      "parameter_budget": 64000000,
+      "public_robot_chain": true,
+      "typed_call_arguments": true,
+      "variable_learned_action_dimension": true
+    },
+    "fixtures": {
+      "fixtures": [],
+      "goal_half_xy_m": [
+        0.06,
+        0.06
+      ],
+      "goals": {
+        "blue": [
+          -0.35,
+          -0.2,
+          0.02
+        ],
+        "red": [
+          -0.35,
+          0.2,
+          0.02
+        ]
+      },
+      "object_half_m": 0.02
+    },
+    "native_action": {
+      "arm": "seven absolute joint position targets in radians",
+      "control_hz": 20,
+      "dimension": 8,
+      "gripper": "nonnegative opens (+1), negative closes (-1); common binary executor"
+    },
+    "observation_fields": {
+      "blue_goal": [
+        44,
+        47
+      ],
+      "blue_pose": [
+        32,
+        39
+      ],
+      "drawer_position": [
+        39,
+        40
+      ],
+      "drawer_velocity": [
+        40,
+        41
+      ],
+      "qpos": [
+        0,
+        9
+      ],
+      "qvel": [
+        9,
+        18
+      ],
+      "red_goal": [
+        41,
+        44
+      ],
+      "red_pose": [
+        25,
+        32
+      ],
+      "tcp_pose": [
+        18,
+        25
+      ]
+    },
+    "observation_semantics": "Structured raw state, metres/radians, world poses wxyz; no images in learned model",
+    "robot": {
+      "arm_joint_order": [
+        "panda_joint1",
+        "panda_joint2",
+        "panda_joint3",
+        "panda_joint4",
+        "panda_joint5",
+        "panda_joint6",
+        "panda_joint7"
+      ],
+      "base_link": "panda_link0",
+      "base_position_world": [
+        -0.85,
+        0.0,
+        0.0
+      ],
+      "base_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "frames": "URDF parent-origin then local joint rotation; world/base translation as supplied",
+      "tcp_chain": [
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link1",
+          "limits": {
+            "effort": 87.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.175
+          },
+          "name": "panda_joint1",
+          "parent": "panda_link0",
+          "q_index": 0,
+          "rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            0.0,
+            0.333
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link2",
+          "limits": {
+            "effort": 87.0,
+            "lower": -1.7628,
+            "upper": 1.7628,
+            "velocity": 2.175
+          },
+          "name": "panda_joint2",
+          "parent": "panda_link1",
+          "q_index": 1,
+          "rpy": [
+            -1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link3",
+          "limits": {
+            "effort": 87.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.175
+          },
+          "name": "panda_joint3",
+          "parent": "panda_link2",
+          "q_index": 2,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            -0.316,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link4",
+          "limits": {
+            "effort": 87.0,
+            "lower": -3.0718,
+            "upper": -0.0698,
+            "velocity": 2.175
+          },
+          "name": "panda_joint4",
+          "parent": "panda_link3",
+          "q_index": 3,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0825,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link5",
+          "limits": {
+            "effort": 12.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.61
+          },
+          "name": "panda_joint5",
+          "parent": "panda_link4",
+          "q_index": 4,
+          "rpy": [
+            -1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            -0.0825,
+            0.384,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link6",
+          "limits": {
+            "effort": 12.0,
+            "lower": -0.0175,
+            "upper": 3.7525,
+            "velocity": 2.61
+          },
+          "name": "panda_joint6",
+          "parent": "panda_link5",
+          "q_index": 5,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link7",
+          "limits": {
+            "effort": 12.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.61
+          },
+          "name": "panda_joint7",
+          "parent": "panda_link6",
+          "q_index": 6,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.088,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "child": "panda_link8",
+          "name": "panda_joint8",
+          "parent": "panda_link7",
+          "rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "type": "fixed",
+          "xyz": [
+            0.0,
+            0.0,
+            0.107
+          ]
+        },
+        {
+          "child": "panda_hand",
+          "name": "panda_hand_joint",
+          "parent": "panda_link8",
+          "rpy": [
+            0.0,
+            0.0,
+            -0.7853981633974483
+          ],
+          "type": "fixed",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "child": "panda_hand_tcp",
+          "name": "panda_hand_tcp_joint",
+          "parent": "panda_hand",
+          "rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "type": "fixed",
+          "xyz": [
+            0.0,
+            0.0,
+            0.1034
+          ]
+        }
+      ],
+      "tcp_link": "panda_hand_tcp",
+      "urdf_sha256": "524c6986dbbabe244e05801f262862205e880834d01459b06ee273016d0579ba",
+      "urdf_source": "environments/exp2/.pixi/envs/default/lib/python3.11/site-packages/mani_skill/assets/robots/panda/panda_v2.urdf"
+    },
+    "scene_identifiers": {
+      "goals": [
+        "red_goal",
+        "blue_goal"
+      ],
+      "objects": [
+        "red",
+        "blue"
+      ]
+    },
+    "schema": "appl.flexible.sol.v1",
+    "task_id": "buffer_swap",
+    "temporal": {
+      "control_hz": 20,
+      "execution_steps": 8,
+      "history_steps": 2,
+      "prediction_horizon": 16,
+      "prediction_start_offset": -1
+    }
+  },
+  "representation_normalizer": {
+    "center": [
+      0.014025125652551651,
+      0.03047514706850052,
+      0.1266380101442337,
+      0.9999824166297913,
+      -0.0013473329599946737,
+      -0.0029235854744911194,
+      -0.0013513003941625357,
+      -0.9999710321426392,
+      -0.0020830517169088125,
+      0.0
+    ],
+    "fit": "valid training labels only; midpoint/half-range, constant dimension scale 1",
+    "inference_used": false,
+    "scale": [
+      0.08214788138866425,
+      0.09582396596670151,
+      0.15366943180561066,
+      1.7523765563964844e-05,
+      0.007027546875178814,
+      0.005100667476654053,
+      0.00702408142387867,
+      2.8520822525024414e-05,
+      0.008547342382371426,
+      1.0
+    ],
+    "valid_labels": 83720
+  },
+  "skill_id": "place_red",
+  "training": {
+    "action_scale_floor": 0.01,
+    "batch_size": 128,
+    "checkpoint_every": 2000,
+    "clip_sample": true,
+    "denoising_inference_steps": 100,
+    "denoising_train_steps": 100,
+    "down_dims": [
+      128,
+      256,
+      512
+    ],
+    "ema_decay": 0.999,
+    "execution_steps": 8,
+    "groups": 8,
+    "horizon": 16,
+    "kernel_size": 5,
+    "learning_rate": 0.0001,
+    "lr_schedule": "cosine",
+    "max_grad_norm": 1,
+    "observation_normalization": "limits",
+    "observation_std_floor": 0.001,
+    "observation_steps": 2,
+    "quaternion_normalization": "unit_component_bounds",
+    "sampler": "ddpm",
+    "seeds": [
+      0
+    ],
+    "selection": "last EMA at predeclared budget",
+    "timestep_embed_dim": 128,
+    "updates": 20000,
+    "warmup_steps": 500,
+    "weight_decay": 1e-06
+  }
+}

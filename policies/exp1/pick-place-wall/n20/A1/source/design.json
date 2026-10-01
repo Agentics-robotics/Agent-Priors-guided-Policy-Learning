@@ -1,0 +1,30 @@
+{
+  "title": "World-axis relational DP with explicit wall faces",
+  "coverage_gap": "D20 contains ten LL and ten HH object_x/goal_x pairs and no LH or HL. Independent lateral reach and carry errors are not covered by absolute-coordinate correlation. Larger E offsets also make a support-standardized near-zero goal-minus-object x channel unreliable.",
+  "reusable_regularity": "Make object-minus-hand, goal-minus-object and goal-minus-hand explicit in common physical units, rather than asking a network to subtract independently standardized coordinates. Use fixed metre scales without support-variance amplification or feature clipping. Signed box-face distances expose above/beside/before-wall configurations; all decisions and the complete action sequence are still learned by the single common DP. Canonicalizing quaternion sign preserves physical rotation.",
+  "dependencies_preserved": [
+    "World axes and gravity remain distinguished; this is not an unjustified obstacle-free or rotation-invariant policy.",
+    "Wall center, all three half sizes, and hand/object/goal relative to the wall recover their complete world positions. Extra absolute z channels expose the tabletop/vertical relation.",
+    "Current and native previous hand/object positions are recoverable from positions plus one-step differences. Both gripper apertures and both object quaternions remain available in each of the two causal observations.",
+    "Object2 channels are omitted only because task_materials declares object2_present=false and the read support rows show absent zeros. No active physical entity is dropped."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exact pick-place-wall__N20__rep0 bundle: 20 episodes, no dev/test states."},
+    {"path": "task_materials.json", "detail": "LL/HH training, crossed C and four extrapolation cells; runtime pose, wall and native action definitions."},
+    {"path": "support_summary.json", "detail": "cell_counts and demo_00 through demo_05 entries read: x motion much smaller than y/z; wall center (0.1,0.75,0.06), half size (0.12,0.01,0.06)."},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Initial object, hand, wall and far-side goal are distinct entities."},
+    {"path": "images/frame_02_demo_02_step_050.png", "detail": "Lifted object on the hand side of the wall."},
+    {"path": "images/frame_03_demo_03_step_075.png", "detail": "Transport toward the goal beyond the wall."},
+    {"path": "trajectories/demo_01.json", "field": "obs", "rows": [20, 27], "detail": "Descending hand, still-tabletop object and closing aperture motivate explicit hand-object geometry and motion."},
+    {"path": "trajectories/demo_00.json", "field": "obs", "rows": [60, 65], "detail": "Carried object remains below the hand, above wall top; lateral wall-boundary dependence is retained."}
+  ],
+  "expected_failure_signature": "If explicit relations alone do not overcome the narrow lateral training actions, crossed layouts should show accurate grasp followed by insufficient x transfer toward the independent goal. If phase ambiguity is the bottleneck, it should instead hesitate or switch lift/transport incorrectly near contact, despite correct wall-relative geometry. No success improvement is claimed in advance.",
+  "required_runtime_fields": [
+    {"source": "causal_context.raw_history [B,2,45]", "slices": {"hand": [0,3], "gripper": [3,4], "object": [4,7], "object_quaternion_xyzw": [7,11], "native_previous_hand": [18,21], "native_previous_gripper": [21,22], "native_previous_object": [22,25], "native_previous_quaternion_xyzw": [25,29], "goal": [36,39], "wall_center": [39,42], "wall_half_size": [42,45]}, "semantics": "All from shared deployment observations, no time, stage oracle, reward or future fields."}
+  ],
+  "action_frame_semantics": "Identity encode/decode of [world_dx,world_dy,world_dz,gripper]. Translation retains 0.01 m/native unit; gripper is untouched and is not a vector. Only host clips the native cube and executes four of sixteen actions.",
+  "training_only_targets": [],
+  "support_statistics": "No candidate support fitting. Fixed dimensional scales are representation hyperparameters, not fitted statistics. Host common normalization and action epsilon loss remain unchanged; this representation reads raw causal context.",
+  "parents": [],
+  "change_summary": "Initial independent design: deterministic 57-channel relational conditioning, one untouched common action4 DP, no auxiliary head, no action transform. No performance feedback used and no pre-check structural edits."
+}

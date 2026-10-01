@@ -1,0 +1,114 @@
+{
+  "contract": {
+    "box_center": [
+      -0.575,
+      -0.2
+    ],
+    "box_half_xy": [
+      0.125,
+      0.16
+    ],
+    "box_wall_top": 0.05,
+    "control_hz": 20,
+    "cover_open_definition": "cover hinge angle (lid_position) strictly greater than cover_open_rad",
+    "cover_open_rad": 0.9,
+    "description": "Open the hinged cover, retrieve the peg, turn it to align with the square hole and insert it.",
+    "head_x_interval": [
+      -0.145,
+      -0.09
+    ],
+    "head_yz_tolerance": 0.009,
+    "hinge": [
+      -0.45,
+      -0.2,
+      0.066
+    ],
+    "hole_center": [
+      -0.12,
+      0.18,
+      0.1
+    ],
+    "hole_half_depth": 0.04,
+    "hole_half_width": 0.019,
+    "hole_outer_half": 0.065,
+    "lid_handle_local": [
+      -0.17,
+      0,
+      0.028
+    ],
+    "lid_hinge_axis": [
+      0,
+      1,
+      0
+    ],
+    "lid_max_angle": 1.85,
+    "minimum_axis_alignment": 0.985,
+    "peg_half": [
+      0.06,
+      0.014,
+      0.014
+    ],
+    "peg_in_box_definition": "peg center xy inside box_center +/- box_half_xy and peg center z below box_wall_top + 0.01 m",
+    "peg_initial_quaternion": [
+      0.7071067811865476,
+      0,
+      0,
+      0.7071067811865476
+    ],
+    "peg_lifted_definition": "peg center z at least peg_lifted_m",
+    "peg_lifted_m": 0.15,
+    "predicates": [
+      "peg_head_inserted",
+      "peg_axis_aligned"
+    ],
+    "robot": "panda",
+    "schema": "appl.cartesian_ik.task_goals.v1",
+    "success_expression": "peg_head_inserted AND peg_axis_aligned",
+    "target": [
+      -0.18,
+      0.18,
+      0.1
+    ],
+    "task_id": "covered_peg_assembly"
+  },
+  "demo": "demo12203",
+  "expert_goals": {
+    "peg_axis_aligned": true,
+    "peg_head_inserted": true,
+    "success": true
+  },
+  "expert_success": true,
+  "goal": "standard",
+  "id": "P-S1",
+  "initial_goals": {
+    "peg_axis_aligned": false,
+    "peg_head_inserted": false,
+    "success": false
+  },
+  "initial_sha256": "6422f45df7a81f397373384678438be40ff7a886b28f0e6e30eb148e95cfdd30",
+  "kind": "start",
+  "lid_position": 1.3996853828430176,
+  "name": "cover_already_open",
+  "peg": "layout",
+  "peg_pose": null,
+  "phase": "retrieve_peg",
+  "prepared": 1790299842.623234,
+  "robot_qpos": [
+    0.21871402859687805,
+    0.9747860431671143,
+    -0.7234028577804565,
+    -1.1124697923660278,
+    -0.6373631358146667,
+    0.4825633466243744,
+    -1.9472321271896362,
+    0.039999958127737045,
+    0.03999994322657585
+  ],
+  "seed": 24093200,
+  "stages": [
+    "retrieve",
+    "align",
+    "insert"
+  ],
+  "task": "covered_peg_assembly"
+}

@@ -1,0 +1,73 @@
+{
+  "cut_plan_sha256": "a9fba2a55520353eef0f232a80fe6fefabff1f74b3712258fccdbe335cfa1dd8",
+  "priors": [
+    {
+      "applicability": "Prefer H04 when current drawer zero-opening pose and observed red pose are reliable, and reachable cabinet or red displacement is the dominant expected variation. It accepts the nominal closed-drawer entry and physically coherent intermediate states represented by the retained segment. The drawer frame is used while opening/releasing; the red frame is used only after the drawer is sufficiently open and the TCP is either safely high over red or already in the red XY neighborhood. Prefer h03 instead for nominal geometry when object-frame calibration or the geometric switch cues are unreliable. H04 assumes the supplied local -X drawer opening convention and a reachable Panda configuration.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            140,
+            160,
+            180,
+            200,
+            230,
+            240,
+            280,
+            300,
+            350,
+            400,
+            445,
+            460
+          ],
+          "trajectory_id": "demo1000"
+        },
+        {
+          "indices": [
+            0,
+            140,
+            180,
+            230,
+            240,
+            280,
+            300,
+            350,
+            400,
+            445,
+            469
+          ],
+          "trajectory_id": "demo1001"
+        },
+        {
+          "indices": [
+            0,
+            140,
+            230,
+            240,
+            280,
+            300,
+            350,
+            400,
+            445,
+            469
+          ],
+          "trajectory_id": "demo1005"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer closed or nearly closed, TCP high and free, gripper open, red supported inside the drawer and blue outside; or a physically coherent intermediate state whose drawer/TCP/red geometry matches one of the retained phases. Caller drawer calibration, red observation and gate parameters must be reliable.",
+        "exit_conditions": "Nominal switch cue is drawer_position safely above the strict 0.26-m task threshold with negligible drawer velocity, front contact relinquished, and closed fingers accompanied by observable red/TCP upward co-motion. An earlier switch after drawer opening and red exposure is retained by overlap.",
+        "failure_signatures": "Drawer at or below 0.26 m, continued drawer motion, repeated frame changes, a target jump near the gate, TCP returning toward or dragging the front, red/TCP XY error not shrinking during descent, finger closure without red/TCP co-motion, red drop, or IK residual/limit contacts. Demonstrations do not prove recovery from these failures.",
+        "overlap_role": "Every demonstration supervises actions 230:470 in both open_drawer and red_transfer: 240 actions, 12.0 s per occurrence, 2,880 actions total. H04 retains drawer release, retreat, red approach/descent, closure and initial lift, so red_transfer can receive on either side of the active-frame transition and red contact.",
+        "successor_readiness": "red_transfer may receive once drawer_position exceeds 0.26 m and red is exposed; its overlap begins at 230 while the gripper is still releasing the front. The cleaner nominal handoff is near 470 when closed fingers and red/TCP upward co-motion are observed. The active-frame gate is guidance, not proof of readiness."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"drawer_origin_world_m\":{\"type\":\"array\",\"items\":{\"type\":\"number\"},\"minItems\":3,\"maxItems\":3},\"drawer_orientation_wxyz\":{\"type\":\"array\",\"items\":{\"type\":\"number\"},\"minItems\":4,\"maxItems\":4},\"desired_open_position_m\":{\"type\":\"number\",\"exclusiveMinimum\":0.26},\"red_phase_min_open_m\":{\"type\":\"number\",\"exclusiveMinimum\":0.26},\"red_phase_clearance_m\":{\"type\":\"number\",\"exclusiveMinimum\":0.0},\"red_phase_xy_radius_m\":{\"type\":\"number\",\"exclusiveMinimum\":0.0}},\"required\":[\"drawer_origin_world_m\",\"drawer_orientation_wxyz\",\"desired_open_position_m\",\"red_phase_min_open_m\",\"red_phase_clearance_m\",\"red_phase_xy_radius_m\"]},\"parameter_semantics\":\"drawer_origin_world_m is the current world origin in metres of the drawer at drawer_position=0; drawer_orientation_wxyz is its unit wxyz orientation and defines local -X opening translation; desired_open_position_m is the intended opening, demonstrated at 0.300 m; red_phase_min_open_m is the minimum observed opening for red-frame eligibility, demonstrated at 0.280 m; red_phase_clearance_m is the minimum world-Z TCP-above-red clearance for the high-retreat branch, demonstrated at 0.280 m; red_phase_xy_radius_m is the world-XY TCP/red radius retaining red-frame use during descent/grasp, demonstrated at 0.140 m. All are intent/calibration parameters, not actuator commands; fresh physical state determines the gate and targets.\"}",
+      "limitations": "The expected displacement benefit is unconfirmed because validation contains no shifted drawer or red poses. A hard observable gate can switch at the wrong time or reinterpret a predicted slot under a different frame if execution departs from nominal geometry. No demonstration establishes chattering recovery, missed-contact recovery, a blocked drawer, a drop, collision avoidance or alternative approach sides. Noisy red pose can move the late target; inaccurate drawer calibration can move the early target. Independent displacement can make a relationally correct target unreachable or colliding. The switch thresholds are supported only by nominal trajectories. Closed fingers do not prove grasp, and IK diagnostics do not prove safe contact.",
+      "pipeline_implications": "Implement deterministic drawer-frame, red-frame and active-frame helpers in adapters.py. build_inputs returns two frames of 49 finite physical/normalized relational features and records only finite caller parameters in chunk_context. encode_targets obtains commanded TCP poses by panda_kinematics.commanded_tcp_poses and, for each slot, uses that slot's pre-action observation to select the active frame and emit [position3, rotation6, gripper1]. decode_action recomputes the gate from the fresh current observation, composes the active frame with the sampled relative pose, projects 6D rotation by stable Gram-Schmidt, and invokes panda_kinematics.solve_ik from measured qpos, reporting convergence, residuals, limits, posture diagnostics, active frame and target pose. The framework fits representation normalization on valid 10D labels. policy.py flattens [2,49] into the unchanged standard DiffusionBackbone condition; compute_loss is masked epsilon loss with differentiable zero prior_loss. All [0,470) actions and the 230:470 overlap remain supervised with H2/16/8 at 20 Hz and the fixed training recipe.",
+      "rationale": "Observed validation favors h03 for nominal geometry (12/12 final drawer retention) over h01 (3/12) and h02 (6/12), but no original was evaluated out of distribution. H03's world targets do not constructively follow a moved cabinet, and h01's single drawer frame does not constructively follow an independently displaced red block. H04 is therefore a complementary library member rather than an asserted nominal improvement. In demo1000 the drawer is closed at 0, the TCP reaches the front near 140, drawer motion is evident at 160/180/200, opening is 0.300 m by 230, the front is released by 240, retreat rises through 280 to about z=0.369 m at 300, and the later path aligns with red at 400/445 before lift. Demo1001 has red y near -0.077 m and demo1005 near -0.055 m while preserving those responsibilities. These observations support the two relational phases and the nominal gate values, but they do not demonstrate shifted scenes or recovery.",
+      "statement": "Phase-adaptive dual-object-frame Cartesian diffusion. H04 learns one absolute TCP target per slot in an observable active frame: the articulated drawer frame through approach, front acquisition, pull, release and early retreat, then the observed red-block frame through red approach, closure and initial lift. The red frame becomes active only when drawer_position is at least the caller's red_phase_min_open_m and either TCP height above red is at least red_phase_clearance_m or TCP/red XY distance is at most red_phase_xy_radius_m. The same gate and frame construction are used for demonstration labels and fresh-state decoding. This makes the responsible early motion equivariant by construction to reachable displacement/rotation of the calibrated drawer anchor, and makes the later pickup continuation equivariant by construction to independent reachable displacement/rotation of red. Causal inputs retain qpos/qvel, finger state, drawer progress/velocity, drawer-relative TCP/red geometry, red-relative TCP geometry and the gate. Demonstrated commands are represented as active-frame position in metres, active-frame 6D rotation, and unchanged gripper scalar. Decoding maps the target to a world TCP pose and calls only the verified Panda IK from fresh joints. The standard DiffusionBackbone and masked diffusion objective are unchanged; there is no auxiliary loss or synthetic augmentation.",
+      "training_bindings": "[{\"trajectory_id\":\"demo1000\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3,\"red_phase_min_open_m\":0.28,\"red_phase_clearance_m\":0.28,\"red_phase_xy_radius_m\":0.14},\"rationale\":\"Supervises the full assigned occurrence and complete 230:470 red_transfer overlap; calibrated parameters select drawer frame through release/early retreat and red frame for pickup.\"},{\"trajectory_id\":\"demo1001\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3,\"red_phase_min_open_m\":0.28,\"red_phase_clearance_m\":0.28,\"red_phase_xy_radius_m\":0.14},\"rationale\":\"Supervises the full assigned occurrence and complete 230:470 overlap with lower demonstrated red Y.\"},{\"trajectory_id\":\"demo1002\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3,\"red_phase_min_open_m\":0.28,\"red_phase_clearance_m\":0.28,\"red_phase_xy_radius_m\":0.14},\"rationale\":\"Supervises the full assigned occurrence and complete 230:470 overlap.\"},{\"trajectory_id\":\"demo1003\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3,\"red_phase_min_open_m\":0.28,\"red_phase_clearance_m\":0.28,\"red_phase_xy_radius_m\":0.14},\"rationale\":\"Supervises the full assigned occurrence and complete 230:470 overlap.\"},{\"trajectory_id\":\"demo1004\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3,\"red_phase_min_open_m\":0.28,\"red_phase_clearance_m\":0.28,\"red_phase_xy_radius_m\":0.14},\"rationale\":\"Supervises the full assigned occurrence and complete 230:470 overlap.\"},{\"trajectory_id\":\"demo1005\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3,\"red_phase_min_open_m\":0.28,\"red_phase_clearance_m\":0.28,\"red_phase_xy_radius_m\":0.14},\"rationale\":\"Supervises the full assigned occurrence and complete 230:470 overlap with higher demonstrated red Y and corresponding pickup path.\"},{\"trajectory_id\":\"demo1006\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3,\"red_phase_min_open_m\":0.28,\"red_phase_clearance_m\":0.28,\"red_phase_xy_radius_m\":0.14},\"rationale\":\"Supervises the full assigned occurrence and complete 230:470 overlap.\"},{\"trajectory_id\":\"demo1007\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3,\"red_phase_min_open_m\":0.28,\"red_phase_clearance_m\":0.28,\"red_phase_xy_radius_m\":0.14},\"rationale\":\"Supervises the full assigned occurrence and complete 230:470 overlap.\"},{\"trajectory_id\":\"demo1008\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3,\"red_phase_min_open_m\":0.28,\"red_phase_clearance_m\":0.28,\"red_phase_xy_radius_m\":0.14},\"rationale\":\"Supervises the full assigned occurrence and complete 230:470 overlap.\"},{\"trajectory_id\":\"demo1009\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3,\"red_phase_min_open_m\":0.28,\"red_phase_clearance_m\":0.28,\"red_phase_xy_radius_m\":0.14},\"rationale\":\"Supervises the full assigned occurrence and complete 230:470 overlap.\"},{\"trajectory_id\":\"demo1010\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3,\"red_phase_min_open_m\":0.28,\"red_phase_clearance_m\":0.28,\"red_phase_xy_radius_m\":0.14},\"rationale\":\"Supervises the full assigned occurrence and complete 230:470 overlap.\"},{\"trajectory_id\":\"demo1011\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3,\"red_phase_min_open_m\":0.28,\"red_phase_clearance_m\":0.28,\"red_phase_xy_radius_m\":0.14},\"rationale\":\"Supervises the full assigned occurrence and complete 230:470 overlap.\"}]"
+    }
+  ],
+  "skill_id": "open_drawer"
+}

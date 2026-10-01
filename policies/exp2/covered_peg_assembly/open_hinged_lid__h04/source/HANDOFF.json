@@ -1,0 +1,14 @@
+{
+  "policy_id": "open_hinged_lid__h04",
+  "entry_conditions": "Observed lid_pose and lid_position coherently describe a closed or partly open one-axis lid, the peg remains in the box, and the TCP is free or plausibly aligned with the handle. Two causal frames and measured qpos/qvel are valid. The stationary-root transformed path must remain reachable and collision-free; finger closure alone does not establish contact.",
+  "exit_conditions": "Physical observations show open fingers, TCP more than handle-contact distance and clear of the moving panel, lid_position stably above closed with small lid_velocity, and unchanged peg_pose. Learned open score is not sufficient.",
+  "overlap_role": "All [740,950) actions in all twelve trajectories remain supervised: 210 actions per trajectory and 2,520 total. This includes final closed-gripper pull, open command near 759, settling, lift/retreat and transit toward box access. The reconstructed root is stationary on both sides of release.",
+  "successor_readiness": "retrieve_peg_from_box is ready only after observed box exposure, open fingers, TCP clearance and low lid velocity with the peg still stationary. Preserve both causal frames across the switch. Prefer later takeover while the released panel is moving.",
+  "failure_signatures": "The reconstructed root or world target drifts with lid angle; TCP-to-handle error grows; fingers close without synchronized lid motion; opening stalls or reverses; the gripper opens early or remains closed after maximum opening; IK repeatedly reports nonconvergence or limit contacts; TCP does not clear the panel; or the peg moves.",
+  "continuation_guidance": "Continue while coherent root-relative geometry shows approach or synchronized opening, and through learned release until physical clearance is established. Prefer h02 for a strongly off-path TCP or unusual robot entry. Near nominal placement h03 remains the separate world/phase option; h01 remains available when direct moving-body contact geometry is preferred. Stop or switch on incoherent root estimates or repeated IK failure rather than treating decoder output as recovery.",
+  "limitations": "Training has one lid installation and essentially one initial arm state, without missed-grasp, lost-contact or collision recovery. Rigid-displacement invariance is constructed but unvalidated. Pose/angle/axis disagreement corrupts the root. Large transforms may be unreachable or blocked. Mode weighting cannot guarantee release timing, and no contact-truth or safety signal is available.",
+  "evidence": [
+    {"trajectory_id": "demo12200", "indices": [0, 180, 200, 219, 220, 240, 260, 700, 740, 750, 759, 760, 770, 790, 810, 850, 900, 949]},
+    {"trajectory_id": "demo12208", "indices": [0, 180, 200, 219, 220, 260, 700, 740, 750, 759, 760, 770, 790, 810, 850, 900, 949]}
+  ]
+}

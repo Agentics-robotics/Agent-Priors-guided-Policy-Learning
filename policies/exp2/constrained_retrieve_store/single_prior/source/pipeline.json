@@ -1,0 +1,22 @@
+{
+  "policy_id": "single_prior_cartesian",
+  "skill_id": "full_task",
+  "heuristic_index": 1,
+  "prior_summary": "Single full-task DDPM with Cartesian TCP positions expressed in a smooth causal blend of the observed block frame and an observed target-derived drawer-handle anchor; this makes block approach/carry motion and drawer interaction translation-relative without runtime stages.",
+  "applicable_conditions": "Use for constrained_retrieve_store when object_pose, target_pose, drawer state, robot state, and TCP pose have the declared semantics; the displaced block and all requested TCP poses must remain reachable through the fixed tunnel and drawer geometry.",
+  "termination_guidance": "The unchanged task completion condition is that the retrieved block is inside the drawer and the drawer is closed below 0.025 m; the demonstrated policy then opens the gripper and retreats. This text is documentation, not a runtime controller or extra success rule.",
+  "limitations": "Training contains one strategy and only about 12 mm initial x/y block-position spread. The prior handles translations while its active reference remains semantically correct, but not arbitrary object rotation, topology changes, unreachable positions, severe contact perturbations, or a changed target-to-handle offset. No contact truth is observed.",
+  "config": {
+    "training_updates": 60000,
+    "batch_size": 128,
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "execution_steps": 8,
+    "control_hz": 20,
+    "action_dimension": 10,
+    "drawer_anchor_offset_from_target_m": [-0.27, 0.0, 0.065],
+    "reference_temperature_m": 0.04,
+    "backbone": "published DiffusionBackbone 128/256/512",
+    "auxiliary_loss": "none"
+  }
+}

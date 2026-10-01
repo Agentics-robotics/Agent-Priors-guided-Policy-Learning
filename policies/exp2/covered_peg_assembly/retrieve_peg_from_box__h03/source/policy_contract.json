@@ -1,0 +1,31 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "retrieve_peg_from_box__h03",
+  "skill_id": "retrieve_peg_from_box",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "No high-level parameters. Phase is inferred only from two causal observations, oldest first. The framework may duplicate the initial episode frame; no future state, contact truth, action history, or hidden phase variable is supplied.",
+  "observation_dependencies": ["peg_pose", "lid_pose", "lid_position", "lid_velocity", "qpos", "qvel", "tcp_pose"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 72]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [world-frame TCP position xyz in metres, world-frame TCP rotation as first two rotation-matrix columns (6D), native gripper scalar]. Decode projects 6D rotation by safe Gram-Schmidt and calls panda_kinematics.solve_ik from freshly measured qpos. The action is intentionally world absolute to retain demonstrated world/reachability structure while the causal input exposes phase. Prediction slots are t-1 through t+14 and execution uses slots 1 through 8; gripper >=0 opens and <0 closes.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Compare FK of decoded joints with the demonstrated commanded world TCP pose in metres/radians and compare the gripper scalar. Valid 6D labels round-trip; degenerate sampled rotations are deterministically projected. IK diagnostics are explicit."
+  },
+  "cut_relation": "All twelve assigned [740,1270) segments are unchanged. This preserves every action in the 210-action incoming and 150-action outgoing overlaps while refining causal observations for lid-release, approach, closure, and lift phase discrimination."
+}

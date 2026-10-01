@@ -1,0 +1,152 @@
+{
+  "task_id": "buffer_swap",
+  "policy_id": "buffer_red__h03",
+  "skill_id": "buffer_red",
+  "source": "policies/exp2/buffer_swap/buffer_red__h03/source",
+  "manifest": "policies/exp2/buffer_swap/buffer_red__h03/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/buffer_swap/buffer_red__h03/assignment.json",
+  "training_spec": "policies/exp2/buffer_swap/buffer_red__h03/training/spec.json",
+  "dataset": "assets/exp2/datasets/buffer_swap/buffer_red/dataset.json",
+  "normalization": "assets/exp2/tasks/buffer_swap/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/buffer_swap/buffer_red__h03/model.pt",
+    "sha256": "c06990cbc3f4961f60ad25418e95d52a0802f6fa8ea7841b011f8ccb7245d0b6",
+    "source_sha256": "c06990cbc3f4961f60ad25418e95d52a0802f6fa8ea7841b011f8ccb7245d0b6",
+    "size_bytes": 343096774,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 0,
+    "demos": 12,
+    "in_distribution_success": "0/12",
+    "exit_rule": "red inside the central buffer region at the final state",
+    "guidance": "Observed reliability: none—0/12 in-distribution runs passed, and no run ever met the red-containment predicate. Do not select this policy for production runtime, including its intended moved-buffer/placement-dominant use: buffer relocation has no out-of-distribution result, and the policy failed even with the fixed training buffer and segment entries. Failure is red not reaching the supplied free region; also stop for red remaining elevated/following after opening, buffer occupancy, blue motion before red settles, or material IK residual/limit contact. If used only as an explicit unvalidated experiment, require a finite, free, plausibly reachable buffer and direct visual verification. Its documented handoff is to place_blue only after red is visibly stable at the actual supplied destination with open/clear fingers and TCP, while preserving both causal observations; later blue-lift handoff is described but not validated by a successful run here. Prefer buffer_red__h02 instead and request high-level replanning after a failed release or placement."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/assignment.json",
+      "sha256": "b6acc15c2cd57d0c58fd72bcb3520e5cd9122691ba46b68cb583c196fac05b54",
+      "source_sha256": "68e2380ac685c070294e0e78236031af30acc392fef47f0e36597f1ad2f9e3a1",
+      "size_bytes": 11416,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/handoff_evidence.json",
+      "sha256": "6e8230dc649b1edf2afe6c09bd06cb620f0982dd17d4e86219a632e2cc57621a",
+      "source_sha256": "6e8230dc649b1edf2afe6c09bd06cb620f0982dd17d4e86219a632e2cc57621a",
+      "size_bytes": 92797,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/source/HANDOFF.json",
+      "sha256": "5e7ec5f496a97ab9b94a9644e766117cac7121afb42e9e519d4fde449df65dc1",
+      "source_sha256": "5e7ec5f496a97ab9b94a9644e766117cac7121afb42e9e519d4fde449df65dc1",
+      "size_bytes": 1960,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/source/PRIOR.md",
+      "sha256": "d2513c80a4ba6117e7c45b1c9bfa797ec35618c657e8abb796f602a496b928fa",
+      "source_sha256": "d2513c80a4ba6117e7c45b1c9bfa797ec35618c657e8abb796f602a496b928fa",
+      "size_bytes": 4442,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/source/adapters.py",
+      "sha256": "7f376a66f991e065bd898b5ccf52996955512b1dcf0cd8f8085605b176c7faf3",
+      "source_sha256": "7f376a66f991e065bd898b5ccf52996955512b1dcf0cd8f8085605b176c7faf3",
+      "size_bytes": 3990,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/source/panda_posture.py",
+      "sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+      "source_sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+      "size_bytes": 715015,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/source/pipeline.json",
+      "sha256": "a37add8da38ed3fa9a00be7f463cdc096f7769433f7c2a287d8cc39d530e4d78",
+      "source_sha256": "a37add8da38ed3fa9a00be7f463cdc096f7769433f7c2a287d8cc39d530e4d78",
+      "size_bytes": 1196,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/source/policy.py",
+      "sha256": "b4f3a7c5dc2dd906248e53d38b20a963623aa17a553bed33d7ea8379e731a9a4",
+      "source_sha256": "b4f3a7c5dc2dd906248e53d38b20a963623aa17a553bed33d7ea8379e731a9a4",
+      "size_bytes": 889,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/source/policy_contract.json",
+      "sha256": "eb4a06f3ce72ceb94474b80d84b408eb3e67b2785419c685f7f20cd6a18c5c1a",
+      "source_sha256": "eb4a06f3ce72ceb94474b80d84b408eb3e67b2785419c685f7f20cd6a18c5c1a",
+      "size_bytes": 2097,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/source/training_bindings.json",
+      "sha256": "4abf55b856bc91132ce27bb4c5407175dde1c28d12ebb6b1f3d5cb8327f74bce",
+      "source_sha256": "4abf55b856bc91132ce27bb4c5407175dde1c28d12ebb6b1f3d5cb8327f74bce",
+      "size_bytes": 3226,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/submission.json",
+      "sha256": "3c18f27c6b88b3dfda260181151830de465a421aca3da2185e013d5967e2bab0",
+      "source_sha256": "8d328d8ac4596ea32f7be78ca9435d90eb1bc34c70cebd1c9a5f719d1b87a55b",
+      "size_bytes": 18627,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/training/adapter_checks.json",
+      "sha256": "bd707984dd0fbeb40b7377389513a90b622388d66fa553d00acd935ed2d1bea0",
+      "source_sha256": "bd707984dd0fbeb40b7377389513a90b622388d66fa553d00acd935ed2d1bea0",
+      "size_bytes": 195,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/training/result.json",
+      "sha256": "d7f961078db4977bb6c8d471406ac591a6613bfc0c56e6ae5594906a751e4d6a",
+      "source_sha256": "f4bfbaad1eb52af36494856fc83f17f0d7fcc1188cfeb52b6df8321cdcd79b8d",
+      "size_bytes": 4700,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/training/spec.json",
+      "sha256": "f6a162903bb9508cf4ca44992e80dc73a9ab7ea4f69e33df8905ceb7d1ec66f3",
+      "source_sha256": "f6a162903bb9508cf4ca44992e80dc73a9ab7ea4f69e33df8905ceb7d1ec66f3",
+      "size_bytes": 16103,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/buffer_red__h03/prior_plan.json",
+      "sha256": "3b8bbb1254980c784b6bebafb2ca009e43414de34aa851ea557e05e2893ebac0",
+      "source_sha256": "3b8bbb1254980c784b6bebafb2ca009e43414de34aa851ea557e05e2893ebac0",
+      "size_bytes": 24702,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/buffer_swap/task.json",
+  "completion_contract": "assets/exp2/tasks/buffer_swap/completion_contract.json",
+  "public_context": "assets/exp2/tasks/buffer_swap/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/buffer_swap/prompts/hl.md",
+  "prior_plan": "policies/exp2/buffer_swap/buffer_red__h03/prior_plan.json"
+}

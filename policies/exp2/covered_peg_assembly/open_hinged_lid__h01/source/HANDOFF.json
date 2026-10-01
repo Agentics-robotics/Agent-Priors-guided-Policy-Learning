@@ -1,0 +1,14 @@
+{
+  "policy_id": "open_hinged_lid__h01",
+  "entry_conditions": "Lid is observed closed or partly open, the peg is stationary in the box, and the TCP is free or plausibly aligned with the handle. The selected lid_pose must be valid and measured Panda joints must admit IK to the transformed relative targets.",
+  "exit_conditions": "Observed fingers are open, TCP is clear of the lid, lid_position remains well above closed and lid_velocity is small; peg_pose remains unchanged.",
+  "overlap_role": "All actions [740,950) in every trajectory are supervised. This 210-action/10.5-second overlap includes final closed-gripper swing, opening/release, retreat and transit toward box access, so retrieve_peg_from_box can take over before or after settling.",
+  "successor_readiness": "Prefer the later handoff cue of open fingers, clear TCP and low lid velocity. Earlier takeover is possible once the box is exposed, but the receiver must observe adequate moving-panel clearance.",
+  "failure_signatures": "IK residuals or limit contacts grow after a scene transform; fingers close without synchronized lid motion; lid angle stalls or reverses; peg pose changes; or the post-release TCP follows the settling lid instead of clearing it.",
+  "continuation_guidance": "Continue this policy while reliable lid pose equivariance is useful and contact-like synchronized opening persists. If the lid has been released but is moving, prefer phase-aware h03 near nominal placement; if TCP/joints are off the nominal path but local corrections remain valid, prefer h02. Preserve both causal frames across any switch.",
+  "limitations": "Guidance uses observable proxies only; no contact-truth signal exists. Successful demonstrations do not establish recovery from missed handle contact, unseen collisions, bad lid pose estimates or unreachable displaced assemblies.",
+  "evidence": [
+    {"trajectory_id":"demo12200","indices":[0,180,200,220,240,300,500,620,700,740,750,760,770,800,820,900,940,949]},
+    {"trajectory_id":"demo12208","indices":[0,200,220,500,740,760,770,820,900,949]}
+  ]
+}

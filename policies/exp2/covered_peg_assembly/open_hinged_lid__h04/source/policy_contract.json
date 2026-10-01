@@ -1,0 +1,45 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "open_hinged_lid__h04",
+  "skill_id": "open_hinged_lid",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {
+      "lid_pose_field": {
+        "type": "string",
+        "enum": ["lid_pose"]
+      },
+      "lid_angle_field": {
+        "type": "string",
+        "enum": ["lid_position"]
+      },
+      "release_angle_rad": {
+        "type": "number",
+        "minimum": 1.5,
+        "maximum": 1.85
+      }
+    },
+    "required": ["lid_pose_field", "lid_angle_field", "release_angle_rad"],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "lid_pose_field names the observed world lid hinge/body pose in metres and unit wxyz; lid_angle_field names its positive scalar opening angle in radians. Together with the public local hinge axis they reconstruct the stationary installation frame T_world_root = T_world_lid * Rot(axis,-angle) at every causal frame and fresh decode. release_angle_rad is the caller's nominal release/open intent in radians, bound to 1.73 for training; it conditions angle and release-margin features but is not a decoder threshold or direct actuator command.",
+  "observation_dependencies": ["lid_pose", "lid_position", "lid_velocity", "peg_pose", "hole_pose", "tcp_pose", "qpos", "qvel"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 40]
+  },
+  "action_dimension": 11,
+  "output_semantics": "Each prediction slot is [stationary-root-frame TCP translation xyz in metres, stationary-root-frame TCP rotation as the first two rotation-matrix columns (6D), learned open score, learned close score]. At training slot s the root is reconstructed from that action's pre-action lid_pose and lid_position. At execution, slots 1..8 (current t through t+7) are each converted with the fresh current observation: T_world_root = T_world_lid_current * Rot(public local hinge axis,-lid_position_current), then T_world_tcp = T_world_root * T_root_tcp. The 6D rotation is projected to SO(3) by Gram-Schmidt with a deterministic finite fallback. The world target is passed only to panda_kinematics.solve_ik from freshly measured qpos. open_score >= close_score decodes to native +1 and otherwise to native -1, preserving the common nonnegative-open/negative-close rule.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "For a demonstration label, root-relative encode followed by decode with the matching pre-action lid pose and angle reconstructs the commanded world TCP target. The shared IK result is independently checked by FK; the maximum of position error in metres, rotation error in radians and decoded gripper scalar error must be at most 0.005. Exact one-hot [open,close] labels decode to the demonstrated +/-1 scalar. SO(3) projection is exact for encoded rotation matrices and regularizes only sampled degeneracy."
+  },
+  "cut_relation": "Uses every assigned action in each of the twelve [0,950) segments. It preserves approach, grasp closure, hinge pull, learned release and retreat, including all 2,520 action-supervised steps in the twelve [740,950) overlaps with retrieve_peg_from_box; only the Cartesian/root and gripper representations and dimension weighting change."
+}

@@ -1,0 +1,10 @@
+{
+  "policy_id": "red_transfer__h04",
+  "skill_id": "red_transfer",
+  "heuristic_index": 4,
+  "prior_summary": "Phase-routed semantic-anchor action diffusion uses world, observed red, observed red_goal, chunk-start TCP, or observed blue frames for the corresponding drawer-clear, red-acquire, red-place/release, bridge, and blue-acquire responsibilities.",
+  "applicable_conditions": "Prefer when the drawer is open, the current semantic phase is observable with high confidence, and displacement of red, the outside pad, or blue is the dominant variation. Use drawer_clear only at the handle-release/high-retreat entry and bridge_to_blue only after red release and vertical clearance.",
+  "termination_guidance": "Advance phases from physical relationships rather than time. Continue through red placement and release, clear red, and retain the blue acquisition overlap. Nominally hand off after red remains on the pad, drawer_position remains strictly above 0.26 m, and blue/TCP initial-lift co-motion is visible.",
+  "limitations": "Wrong-phase calls change action-frame semantics. Anchors are frozen per chunk; noisy or moving anchors, unreachable displacement, collision, changed contacts, missed grasps and off-pad recovery are unsupported. The short TCP-relative bridge is not blue-displacement invariant until blue_acquire, and no OOD validation is available.",
+  "config": {"phase_anchors":{"drawer_clear":"world","red_acquire":"red_se3","red_place_release":"red_goal_world_axes","bridge_to_blue":"chunk_start_tcp_se3","blue_acquire":"blue_se3"},"action_rotation":"anchor_relative_6d","action_dimension":10,"feature_dimension_per_frame":53,"phase_dimension":5,"backbone":"standard_diffusion_backbone","auxiliary_loss":false}
+}

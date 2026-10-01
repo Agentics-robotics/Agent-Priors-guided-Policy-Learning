@@ -1,0 +1,41 @@
+{
+  "instance": "stick-push__N5__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A1",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A1",
+      "feedback_hash": "7f9a8eb3f591faede0cbd2fc183514bc7845bd731e62499d19b9e227afed74b0",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: All three eligible completed candidates have equal-subcondition dev_C=1.0 and dev_E=1.0, hence frozen score 0.5*C+0.5*E=1.0. The first tie-break selects A1: fixed-method latency 0.10132629299914697 s, versus A3 0.10361592249682872 s and A2 0.10616329000185942 s. Parameter count is not reached (although A3 has fewer parameters). IID results and training curves did not select. Each C/E estimate is based on 20 episodes, so the tie is empirical rather than proof of equal population performance.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A1",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A1",
+      "feedback_hash": "e5471396c40d201c9a6c99eb2d9c393868957aa7c6c08f19913d5369a4e4ae65",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: A1, A2 and A3 are eligible completed candidates with equal-subcondition dev_C=1.0 and dev_E=1.0, so each scores 1.0. A4 has C=(0.5+1.0)/2=0.75 and E=(0.0+0.0+0.6+1.0)/4=0.4, scoring 0.575; its smaller parameter count cannot override lower success. Among the three score-1.0 candidates, the first tie-break selects A1 with fixed-method latency 0.10132629299914697 s, below A3 0.10361592249682872 s and A2 0.10616329000185942 s. No parameter or ID tie-break is reached. IID and training curves do not select. A4's negative revision result remains recorded: C 15/20, E 8/20, with E HH and HL both 0/5; aggregate feedback reports truncations but does not identify the physical failure stage. No further edits, checks or training are requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "0932205698ab11e574d88c291154db86462648e3a78b36707dda60f140fc3d79",
+    "A2": "4763ae685a84d60aaa4f6d3c46c62b396e5e4871513cc2af6c045efd6bbf8156",
+    "A3": "301af3d7a98c13724cd94abe568e23177b303f33f110123a13af5cdac2aad3c1",
+    "A4": "7e3a1496b6d8f225276f44818574c6929e29e36c9b097c4dc08ae0ca219daaef"
+  },
+  "feedback_hashes": {
+    "initial": "28ab4b8c0c83067cc7435b2de2510266fdbdcfec36aab388af3cc4e3825641a2",
+    "final": "786db0282da9c6856ae6cccd60b8d1bd2907c66cf4e41f789f4f5819bc4d2a1f"
+  }
+}

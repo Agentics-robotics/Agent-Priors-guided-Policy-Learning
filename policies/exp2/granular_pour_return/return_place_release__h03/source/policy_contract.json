@@ -1,0 +1,32 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "return_place_release__h03",
+  "skill_id": "return_place_release",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "source_object": {"type": "string", "enum": ["container"]},
+      "destination": {"type": "string", "enum": ["target_pose"]}
+    },
+    "required": ["source_object", "destination"]
+  },
+  "parameter_semantics": "source_object selects observed container_pose and destination selects observed target_pose. They are symbolic scene identities used in causal geometric features. Positions use world metres and orientations use wxyz quaternions before deterministic matrix conversion.",
+  "observation_dependencies": ["container_pose", "target_pose", "tcp_pose", "qpos", "qvel"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {"features": [2, 67]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an absolute world-frame TCP pose target: 3 position coordinates in metres, the first two columns of the world rotation matrix (6D), and the native gripper scalar. Prediction slots are t-1 through t+14 and slots 1 through 8 execute. decode_action orthonormalizes 6D rotation and calls panda_kinematics.solve_ik from fresh measured qpos. During training only, a shared causal condition encoder also predicts 16 future open/closed labels under masks; these logits do not script, gate, or replace the diffused gripper action.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Compare the represented absolute world target after 6D SO(3) projection with FK of the IK result using maximum position error in metres, rotation error in radians, and unchanged gripper scalar error. Demonstrated world rotations are valid, so projection only resolves sampled 6D outputs."
+  },
+  "cut_relation": "The complete frozen [start,stop) action range is supervised for all twelve occurrences, including the 280-action [1460,1740) predecessor overlap, placement/opening, retreat, and terminal hold. The auxiliary label supports phase features but does not narrow or redefine the skill."
+}

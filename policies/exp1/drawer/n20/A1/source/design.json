@@ -1,0 +1,37 @@
+{
+  "title": "Cabinet-frame relational diffusion with explicit robot/world context",
+  "coverage_gap": "D20 contains ten LL and ten HH layouts: cabinet x and yaw sign co-vary. C reverses that association and E has both larger translation and roughly 35 degree yaw, versus 5-10 degree support yaw. A world-coordinate network can confound lateral reach with cabinet orientation.",
+  "reusable_regularity": "Hand-to-handle approach, handle-to-goal travel and observed motion can be expressed in the rigid cabinet yaw frame. The support goal-minus-initial-handle vector is 0.128 m along negative cabinet y in demos 00-04 in the inspected summary. An orthogonal frame change removes the need to learn that rotation from the correlated support. This is an approximate action/geometry regularity, not a claim that the fixed-orientation robot or native action cube is rotationally symmetric.",
+  "dependencies_preserved": [
+    "Current and embedded previous hand/handle positions yield cabinet-local relative approach, remaining travel and one-control-step displacements. Both whole causal observations are separately transformed.",
+    "Absolute world hand, handle and goal positions remain in the condition, retaining robot reach and vertical/table relationships. Raw cabinet yaw and current/previous object quaternion retain cabinet orientation versus the fixed gripper.",
+    "Current/previous aperture is retained, with no forced gripper action despite the support's constant -1 command. Object2 channels alone are omitted because the schema declares them absent zeros.",
+    "Cabinet pose and handle/goal geometry are retained; no collision-free path or unobserved obstacle state is assumed."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact current drawer__N20__rep0 support identities and evidence scope."},
+    {"path": "task_materials.json", "use": "Yaw sin/cos slices, corrected handle point, absent object2, fixed native orientation and control semantics; correlated support and extrapolation ranges."},
+    {"path": "support_summary.json", "use": "Cell counts and inspected demo 00-04 geometry descriptors: constant 0.128 m initial handle-to-goal length along rotated negative y; action gripper mean -1 and standard deviation zero."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 0-3, 32-41, 63-66; actions 0-19 and 56-69", "use": "Stationary handle during approach, hand descent and the change to pulling; small observed-step differences compared to reach distances."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Robot, cabinet, handle and tabletop layout at reset."},
+    {"path": "images/frame_01_demo_01_step_031.png", "use": "Elevated approach above the closed drawer; robot geometry is world-fixed."},
+    {"path": "images/frame_02_demo_02_step_059.png", "use": "Near-handle descent/contact configuration."},
+    {"path": "images/frame_06_demo_07_step_089.png", "use": "Open drawer and hand moving away from cabinet."},
+    {"path": "PUBLIC_CONTRACT.md", "use": "One frozen DP, two causal observations, action4-first, native executor-only clipping."}
+  ],
+  "expected_failure_signature": [
+    "If approximate yaw equivariance breaks at large yaw because the gripper cannot rotate, E should show correct gross approach but lateral contact loss during pull.",
+    "If the network still exploits absolute world pose, crossed C cells should show lateral approach errors despite correct local inputs.",
+    "No explicit stage bottleneck is present: near the descend-to-pull transition the model may hesitate or pull before contact. These are hypotheses, not measured outcomes."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,41] and raw_current [B,41] only; normalized history is provided by the common host but replaced by deterministic physical features",
+    "slices": {"hand": [0,3], "aperture": [3,4], "handle": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_handle": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal": [36,39], "cabinet_sin_cos_yaw": [39,41]},
+    "feature_dimensions": 36,
+    "action_frame": "For all 16 translations use R_z(yaw_at_chunk_start)^T times native world action xyz. Decode with R_z from the same raw_current yaw. Gripper stays identical. No position origin is applied to action vectors; one native action unit remains 0.01 m. No candidate clipping or horizon integration.",
+    "scales": "Relative positions /0.1 m, observed native-step displacements /0.01 m, absolute world positions relative to [0,0.6,0] /0.5 m; yaw, quaternions and aperture unstandardized. These fixed unit choices avoid amplification of near-constant support yaw cos or goal coordinates; they do not alter host normalization or action loss."
+  },
+  "training_only_targets": [],
+  "parents": [],
+  "change_summary": "Initial standalone geometric candidate. One common DP conditioned on 36 deterministic features, no learned auxiliary encoder or head, no support-fit state, no auxiliary loss. All native action4 epsilon loss and mask rules remain unchanged. No performance feedback was available."
+}

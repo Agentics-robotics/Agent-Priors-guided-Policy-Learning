@@ -1,0 +1,133 @@
+{
+  "task_id": "covered_peg_assembly",
+  "policy_id": "dp",
+  "skill_id": "full_task",
+  "source": "policies/exp2/covered_peg_assembly/dp/source",
+  "manifest": "policies/exp2/covered_peg_assembly/dp/manifest.json",
+  "author": "RepositoryAgent",
+  "methods": [
+    "dp"
+  ],
+  "assignment": "policies/exp2/covered_peg_assembly/dp/assignment.json",
+  "training_spec": "policies/exp2/covered_peg_assembly/dp/training/spec.json",
+  "dataset": "assets/exp2/datasets/covered_peg_assembly/full_task_dp/dataset.json",
+  "normalization": "assets/exp2/tasks/covered_peg_assembly/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/covered_peg_assembly/dp/model.pt",
+    "sha256": "451f35c5769352339eb3c239b7524b730eefa36156d6ce6a7d059889b6ae8cad",
+    "source_sha256": "451f35c5769352339eb3c239b7524b730eefa36156d6ce6a7d059889b6ae8cad",
+    "size_bytes": 342572678,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 4,
+    "demos": 12,
+    "in_distribution_success": "4/12",
+    "exit_rule": "standard task success (first occurrence)",
+    "guidance": "No final guidance recorded."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/assignment.json",
+      "sha256": "3ad03ecad608cff44215ac6e0ef838d7e5a2d5d5353405592159e5666a365033",
+      "source_sha256": "99b6ede96e8dcc1d74c435b6b9c7742aef7c3463d2717e3574363af832b110cb",
+      "size_bytes": 3523,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/source/HANDOFF.json",
+      "sha256": "a3e7e9b25cbd22bc29594ef33d2afcbd0cf8ba8195f2d6bcf44e4f2a0e714426",
+      "source_sha256": "a3e7e9b25cbd22bc29594ef33d2afcbd0cf8ba8195f2d6bcf44e4f2a0e714426",
+      "size_bytes": 1580,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/source/PRIOR.md",
+      "sha256": "34165c8194863bf13bf8619bd10dfc5deaffc86f1b79f619236eb9a63918249c",
+      "source_sha256": "34165c8194863bf13bf8619bd10dfc5deaffc86f1b79f619236eb9a63918249c",
+      "size_bytes": 969,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/source/adapters.py",
+      "sha256": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+      "source_sha256": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+      "size_bytes": 2083,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/source/panda_posture.py",
+      "sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+      "source_sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+      "size_bytes": 1041625,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/source/pipeline.json",
+      "sha256": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+      "source_sha256": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+      "size_bytes": 328,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/source/policy.py",
+      "sha256": "da9a594d200d69473ded51a6dde8ce4b7098a144ab66be4b79027a7cc975a527",
+      "source_sha256": "da9a594d200d69473ded51a6dde8ce4b7098a144ab66be4b79027a7cc975a527",
+      "size_bytes": 749,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/source/policy_contract.json",
+      "sha256": "b640b95c3b889710941de6ad30f934b04da7e5602e9243808eb278e6d08d7379",
+      "source_sha256": "b640b95c3b889710941de6ad30f934b04da7e5602e9243808eb278e6d08d7379",
+      "size_bytes": 1353,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/source/training_bindings.json",
+      "sha256": "037d8a5e3b9e68784b0b210b1f08e30712f72e11d5d4aaac494108ba120cebd0",
+      "source_sha256": "037d8a5e3b9e68784b0b210b1f08e30712f72e11d5d4aaac494108ba120cebd0",
+      "size_bytes": 2307,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/submission.json",
+      "sha256": "775f1d83c45a0adbaaa4368fc3acc8ae4a983e2922818fd3f23694b22ed41136",
+      "source_sha256": "78672d9411578c7a2ab4a6f652a2293198dacb842d2ca561b74eeb0dbc3033e2",
+      "size_bytes": 6110,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/training/adapter_checks.json",
+      "sha256": "f596c00cf051f0523b3b7327f3c9dbe7e6dbf434173809989c4b5eb2d1575ccb",
+      "source_sha256": "f596c00cf051f0523b3b7327f3c9dbe7e6dbf434173809989c4b5eb2d1575ccb",
+      "size_bytes": 196,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/training/result.json",
+      "sha256": "1d0f3fd4b0cbc80581eeeda3001651969b831c150992dc18af68a6996688cecb",
+      "source_sha256": "83657657c9ed76ab646ebd1af6fb19af5e45c37e4f8ece03e9b3063a8172fbe1",
+      "size_bytes": 3617,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/dp/training/spec.json",
+      "sha256": "99e99913f71f8a2909ea04df1cad5c480d851437c36d5bbf32c04facc558145d",
+      "source_sha256": "99e99913f71f8a2909ea04df1cad5c480d851437c36d5bbf32c04facc558145d",
+      "size_bytes": 16612,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/covered_peg_assembly/task.json",
+  "completion_contract": "assets/exp2/tasks/covered_peg_assembly/completion_contract.json",
+  "public_context": "assets/exp2/tasks/covered_peg_assembly/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/covered_peg_assembly/prompts/hl.md"
+}

@@ -1,0 +1,10 @@
+{
+  "policy_id": "grasp_lift_stage__h04",
+  "skill_id": "grasp_lift_stage",
+  "heuristic_index": 4,
+  "prior_summary": "Predict redundant fresh-source and fresh-bowl relative TCP positions with absolute world 6D orientation, then causally blend the two reconstructed positions from source elevation and finger closure before verified IK.",
+  "applicable_conditions": "Prefer when source displacement is a concern but accurate source and bowl poses are observed, and when finger width plus source elevation reliably separate open/low acquisition from clear-lift transport. The handle geometry must match and all targets must remain reachable.",
+  "termination_guidance": "Use physical finger closure, source/TCP co-motion, table clearance, upright posture and bowl-relative staging for handoff. Do not use the deterministic phase weight as contact evidence. The complete [180,360) overlap supports controlled_pour_and_right entry after secure lift or nominal high staging.",
+  "limitations": "The causal blend is a phase proxy, not contact truth; dual labels may cost sample efficiency. No miss/slip recovery, obstacle avoidance or unreachable displacement is established. Absolute world orientation assumes the demonstrated grasp geometry and gravity direction remain relevant.",
+  "config": {"action_frame": "dual_fresh_source_destination_position_world_orientation", "action_encoding": "source_xyz_destination_xyz_world_rotation6d_gripper", "feature_dimension_per_frame": 80, "action_dimension": 13, "closed_width_start_m": 0.05, "closed_width_ramp_m": 0.02, "lift_offset_above_destination_origin_m": 0.003, "lift_ramp_m": 0.04}
+}

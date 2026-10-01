@@ -1,0 +1,290 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/covered_peg_assembly/retrieve_peg_from_box/dataset.json",
+    "dataset_sha256": "6aec05eb5e330a76522a01aeb46931d87228819d90676d3eb50539a9c19d7fb7",
+    "experiment_version": "APPL_v4_cartesian_new_task",
+    "heuristic": {
+      "applicability": "Prefer when the policy is entered at an intermediate state whose TCP pose or arm configuration differs from the nominal demonstrated timing, while the required motion is still release/clear, approach, close, or lift. Local increments are intended for small-to-moderate execution-state errors, not arbitrary recovery.",
+      "evidence": [
+        {
+          "indices": [
+            740,
+            760,
+            770,
+            800,
+            850,
+            900,
+            950,
+            990,
+            1020,
+            1040,
+            1060,
+            1080,
+            1100,
+            1120,
+            1140,
+            1180,
+            1200,
+            1220,
+            1240,
+            1270
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            740,
+            770,
+            950,
+            990,
+            1020,
+            1060,
+            1080,
+            1100,
+            1120,
+            1180,
+            1220,
+            1270
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Peg remains in the box or is already securely moving with the closed gripper. Use for an early or late incoming switch when two causal frames expose current TCP, joints, fingers, lid, and peg state.",
+        "exit_conditions": "Exit after a sequence of local lifts has put the co-moving peg above the wall; initial transport/turn may be underway within outgoing overlap.",
+        "failure_signatures": "Local increments oscillate or accumulate drift; peg-relative alignment does not improve; closure occurs while offset; peg fails to rise with TCP; a large object displacement requires local motions outside demonstrated support; IK repeatedly fails or touches limits.",
+        "overlap_role": "All 210 incoming overlap actions and 150 outgoing overlap actions per trajectory are supervised. Current-TCP-relative targets allow the shared behavior to continue from the actual hand pose rather than assuming the exact boundary configuration.",
+        "successor_readiness": "Switch to reorient_and_stage_peg once peg/TCP co-motion and closed fingers persist and peg height has cleared the walls; the outgoing [1120,1270) lift gives substantial shared supervision."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false},\"parameter_semantics\":\"No high-level parameters. Each represented action is a Cartesian displacement from the action-time measured TCP; deployment decoding uses the fresh measured TCP and joints. History is two causal frames, oldest first.\"}",
+      "limitations": "The per-step local transform is feedback-like but does not prove stability and is not a recovery controller. Demonstrations do not contain misses, drops, regrasp, or blocked-lid failures. Large sampled increments can be infeasible; IK diagnostics remain explicit. Object displacement is only observed/conditioned, not canceled by this action representation, so the peg-frame policy covers that failure better. Repeated 8-step chunks can accumulate positional or orientation error.",
+      "pipeline_implications": "Use as the entry-state and local-correction specialist when current TCP/qpos differs from nominal but the scene remains reachable. Replan every 8 actions with fresh two-frame state. Prefer the peg-frame policy for clear peg displacement, and the explicit phase/world policy when active-object ambiguity at lid release or grasp closure dominates. Handoff requires object motion, not gripper sign alone.",
+      "rationale": "The assigned segment admits switches throughout a long 530-action behavior. Demonstrated TCP changes sharply from lid release near (-0.390,-0.199,0.228) at index 770, through clearance and approach, to grasp near z=0.029 at 1080-1100 and lift above z=0.43 by 1240. Deployment can enter between these nominal states. Mechanism: encode each commanded target as translation and rotation-vector displacement from that action's measured TCP, plus gripper scalar; decode the displacement from the fresh current TCP and solve IK from fresh qpos. Inputs retain world/object geometry, qpos/qvel, and two-frame relative motion. This cancels current hand-pose offset in the action conversion and should reduce open-loop dependence on exact incoming arm state. It differs from peg anchoring: it handles local state mismatch but has no constructed peg-displacement invariance.",
+      "statement": "Current-TCP incremental Cartesian prior for perturbed hand configurations and intermediate-state handoffs.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12201\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12202\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12203\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12204\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12205\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12206\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12207\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12208\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; inspected offset occurrence.\"},{\"trajectory_id\":\"demo12209\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12210\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"},{\"trajectory_id\":\"demo12211\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full segment with incoming and outgoing action overlap; per-action TCP-relative labels.\"}]"
+    },
+    "heuristic_index": 2,
+    "normalization": {
+      "path": "provenance/relocated/b11807ac2cdb2323",
+      "sha256": "5d50ce2e025ef83183ac172a24c1b19ea7482f651c1c6fa09f34f83bd3887b24"
+    },
+    "observation_fields": {
+      "hole_pose": [
+        0,
+        7
+      ],
+      "lid_pose": [
+        7,
+        14
+      ],
+      "lid_position": [
+        14,
+        15
+      ],
+      "lid_velocity": [
+        15,
+        16
+      ],
+      "peg_pose": [
+        16,
+        23
+      ],
+      "qpos": [
+        23,
+        32
+      ],
+      "qvel": [
+        32,
+        41
+      ],
+      "target_pose": [
+        41,
+        48
+      ],
+      "tcp_pose": [
+        48,
+        55
+      ]
+    },
+    "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+    "policy_id": "retrieve_peg_from_box__h02",
+    "prior_plan_path": "assets/exp2/prior_plans/covered_peg_assembly/retrieve_peg_from_box.json",
+    "prior_plan_sha256": "2bd8f7c73a51b62c800b619c33e0871c9fe1abf5e81e22c197af399dbd9d4ba2",
+    "skill_id": "retrieve_peg_from_box",
+    "sources": {
+      "demo12200": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12200.json",
+        "sha256": "e7ccc303ea6b6ddd3150e2336c6b06b3f89a66d478909e3f9555eb3d6ccc85f1"
+      },
+      "demo12201": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12201.json",
+        "sha256": "aa9e1f1d14f676f5b4c9fb52ee6bbbb5d86865d82adcc051e3256482461f1016"
+      },
+      "demo12202": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12202.json",
+        "sha256": "4ad5e3ce9117f56008597389c45a799aff1857f683091069d582e024a00b32a7"
+      },
+      "demo12203": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12203.json",
+        "sha256": "c43ecf548e80a87d465fbc947e98d191dffd25cc4966f83e2698dd7a8a2cf8af"
+      },
+      "demo12204": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12204.json",
+        "sha256": "35eea2d5c8fc6e02c992c923db4e580d473d5583edcd45cfee79e682782c5a09"
+      },
+      "demo12205": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12205.json",
+        "sha256": "b4b9855dac2b9f0e836ea063d38694af37abba89371fcae59fffa7d65c4dfb3c"
+      },
+      "demo12206": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12206.json",
+        "sha256": "6a64bcc76a39a6dc2f1119c5e5983a5686835cdf2ae5a0899ab8f39da92ef407"
+      },
+      "demo12207": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12207.json",
+        "sha256": "58410156c6edfad3658ce632cf8ebe122570c51412ba53f8631c9e78a14c5397"
+      },
+      "demo12208": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12208.json",
+        "sha256": "1522c1f09079f05ace6825ff5221ebf74ca8c45941a00050c53b579b43e84d5b"
+      },
+      "demo12209": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12209.json",
+        "sha256": "2a6dc540f7c4c6e6cb92c1fe50c106da8f71123c6b3ede06a790bf8ca0c3d31b"
+      },
+      "demo12210": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12210.json",
+        "sha256": "dd077218ff68ac6e93b28dc73234d21ac2a16c937de945465c9970deb9ad4ac4"
+      },
+      "demo12211": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12211.json",
+        "sha256": "0440e3242bad2dbcefe176eab207fd19647109b019c55702ff1906862c9e4b5d"
+      }
+    },
+    "subgoal": "After exposing the box, release and clear the lid if necessary, approach the peg with open fingers, close a stable grasp, and lift the peg above the box walls."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/7d41e45aa5b32bcd",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "e6d9440877847da3e4ce61bc37b0f3df2abe52c850784dd196c885a4e0834966",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 4,
+      "physical_gpu": 7,
+      "uuid": "GPU-26720468-40e8-2514-a0ae-83b4635e346a"
+    },
+    "effective_action_targets": 4067,
+    "final_weights_sha256": "95728ef8b9627b5edbbb39311ceeda9181c3313b1cd0d1c6fad2a7abd4350c0c",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 5.370517253875732,
+        "step": 1
+      },
+      {
+        "l2_norm": 2.2903997898101807,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "19ebeef2940d886fdea64d5b913dd9328d42cac1bb5742228cf6b31abf13f70c",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 6360,
+        "duplicated_actions": 0,
+        "unique_actions": 6360
+      },
+      "contract": {
+        "action_dimension": 7,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "required": [],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "Round-trip each demonstrated commanded TCP through the current-TCP relative SE(3) transform, then compare decoded-joint FK position and rotation and the gripper scalar. IK residual and limit diagnostics remain visible.",
+          "mode": "task_space",
+          "tolerance": 0.005
+        },
+        "cut_relation": "Every assigned [740,1270) action remains supervised in all twelve occurrences, including incoming [740,950) and outgoing [1120,1270) overlaps. The local Cartesian representation changes coordinates, not responsibility, labels, timing, or success criteria.",
+        "input_shapes": {
+          "features": [
+            2,
+            56
+          ]
+        },
+        "observation_dependencies": [
+          "peg_pose",
+          "lid_pose",
+          "lid_position",
+          "lid_velocity",
+          "qpos",
+          "qvel",
+          "tcp_pose"
+        ],
+        "output_semantics": "Each slot is [current-TCP-frame translation xyz in metres, current-TCP-frame rotation vector xyz in radians, native gripper scalar]. Training uses inverse(T_world_tcp_before_action) times the demonstrated commanded TCP pose. Decode left-composes the relative transform with the fresh measured world TCP pose, then calls panda_kinematics.solve_ik from fresh qpos. Slots are t-1 through t+14; execution uses slots 1 through 8. Gripper >=0 opens and <0 closes.",
+        "parameter_semantics": "No high-level parameters. Each represented target is relative to the measured TCP immediately before its action; decoding resolves the fresh measured TCP and joints. Two causal frames are oldest first, with only initial-episode duplication allowed.",
+        "policy_id": "retrieve_peg_from_box__h02",
+        "skill_id": "retrieve_peg_from_box",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "54540616d4d146e576a782ca49fbe17c31cffeb2f17c4c7c52102c75c742fa71",
+      "PRIOR.md": "9854cf1567f39d05a607f2e5648ae8bcc7d1d5da9f32a00b23b47c63877b5441",
+      "adapters.py": "9ec9496f5360658c97ec64c31fed8d8b4c050ba41d55247a4f9353a4d6ff9240",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "65a6a0e480d4b0244659806bfe16b8a5b5093ea37a0ff9102c6d028b51daacc2",
+      "policy.py": "e37fdcce66cec5b56bc93841960558c877b18376d97db5b1e20f18930e67d411",
+      "policy_contract.json": "bcb5ac1977c2e58812433105a7006fa5308755d06185c585b2ba91c3429f0d8d",
+      "training_bindings.json": "7b0d6c6cab5c7fb01821cb084bfa1c6fc69703c134569dcd4d3220e2cb58779a"
+    },
+    "trainable_parameters": 17126535,
+    "training_elapsed_seconds": 3.1939773049671203,
+    "weight_l2_change": 0.20510970420562602
+  },
+  "files": {
+    "HANDOFF.json": "54540616d4d146e576a782ca49fbe17c31cffeb2f17c4c7c52102c75c742fa71",
+    "PRIOR.md": "9854cf1567f39d05a607f2e5648ae8bcc7d1d5da9f32a00b23b47c63877b5441",
+    "adapters.py": "9ec9496f5360658c97ec64c31fed8d8b4c050ba41d55247a4f9353a4d6ff9240",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "pipeline.json": "65a6a0e480d4b0244659806bfe16b8a5b5093ea37a0ff9102c6d028b51daacc2",
+    "policy.py": "e37fdcce66cec5b56bc93841960558c877b18376d97db5b1e20f18930e67d411",
+    "policy_contract.json": "bcb5ac1977c2e58812433105a7006fa5308755d06185c585b2ba91c3429f0d8d",
+    "training_bindings.json": "7b0d6c6cab5c7fb01821cb084bfa1c6fc69703c134569dcd4d3220e2cb58779a"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "v1": {
+    "files": {
+      "HANDOFF.json": "54540616d4d146e576a782ca49fbe17c31cffeb2f17c4c7c52102c75c742fa71",
+      "PRIOR.md": "9854cf1567f39d05a607f2e5648ae8bcc7d1d5da9f32a00b23b47c63877b5441",
+      "adapters.py": "9ec9496f5360658c97ec64c31fed8d8b4c050ba41d55247a4f9353a4d6ff9240",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "65a6a0e480d4b0244659806bfe16b8a5b5093ea37a0ff9102c6d028b51daacc2",
+      "policy.py": "e37fdcce66cec5b56bc93841960558c877b18376d97db5b1e20f18930e67d411",
+      "policy_contract.json": "bcb5ac1977c2e58812433105a7006fa5308755d06185c585b2ba91c3429f0d8d",
+      "training_bindings.json": "7b0d6c6cab5c7fb01821cb084bfa1c6fc69703c134569dcd4d3220e2cb58779a"
+    },
+    "folder": "provenance/relocated/1121f1e7000fe18a",
+    "version": "c4b983da31f603a45d615f9499b27e0781e0652404c61385bef4077a06fb68c6"
+  },
+  "version": "4bc2ea0734b0d7bd12ef2336f865b66115bc1313c1eec91d572632711051e146"
+}

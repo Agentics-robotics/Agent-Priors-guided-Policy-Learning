@@ -1,0 +1,17 @@
+{
+  "policy_id": "open_drawer__h03",
+  "skill_id": "open_drawer",
+  "heuristic_index": 3,
+  "prior_summary": "Diffuse every Cartesian command simultaneously in drawer and block frames, then use fresh drawer stability and measured finger width to route drawer contact through target_pose and released departure through object_pose.",
+  "applicable_conditions": "Prefer when the tunnel block is displaced, late handoff must remain block-relative, and both target_pose and object_pose are reliable with phase order consistent with approach-pull-release.",
+  "termination_guidance": "Hand off once the object route is active, the drawer stays fully open/stable, fingers remain open, and the arm has clearance in the shared block-relative departure corridor.",
+  "limitations": "The hard causal route can be wrong under unseen phase order or noisy anchors. Nineteen-dimensional redundant diffusion is harder, and large anchor displacements remain subject to reachability and collision constraints.",
+  "config": {
+    "action_frames": ["fresh target_pose", "fresh object_pose"],
+    "action_layout": "drawer pose 9 + object pose 9 + gripper 1",
+    "object_route": {"drawer_fraction_min": 0.98, "drawer_abs_velocity_max_mps": 0.02, "finger_width_min_m": 0.06},
+    "input_feature_dimension_per_frame": 58,
+    "standard_backbone_unchanged": true,
+    "augmentation": "none"
+  }
+}

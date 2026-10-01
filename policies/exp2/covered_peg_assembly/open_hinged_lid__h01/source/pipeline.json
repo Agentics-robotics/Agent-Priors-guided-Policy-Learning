@@ -1,0 +1,18 @@
+{
+  "policy_id": "open_hinged_lid__h01",
+  "skill_id": "open_hinged_lid",
+  "heuristic_index": 1,
+  "prior_summary": "Moving-lid SE(3) equivariance: predict each Cartesian TCP target in the currently observed lid body frame, while conditioning on lid-relative geometry and measured robot configuration.",
+  "applicable_conditions": "Prefer when the observed lid/handle assembly is displaced or rigidly reoriented relative to training, from closed-lid approach through handle contact and opening, provided measured qpos still makes the transformed targets reachable.",
+  "termination_guidance": "Terminate only from physical observations: fingers open, TCP clear of the panel, lid_position well above closed with low lid_velocity, and peg_pose unchanged. Do not terminate from diffusion time or a closed gripper alone.",
+  "limitations": "Relative targets do not create reachability, collision avoidance, contact truth or missed-grasp recovery. Fresh moving-lid decoding can couple post-release retreat to lid settling; prefer h03 near nominal placement when release phase is the main uncertainty, or h02 for unusual TCP entry states.",
+  "config": {
+    "backbone": "standard DiffusionBackbone",
+    "condition_dimension": 76,
+    "action_dimension": 10,
+    "action_frame": "fresh observed lid body",
+    "rotation_representation": "6D",
+    "auxiliary_loss": false,
+    "prior_plan_hash": "a4a6a00bd785dd359bc4a614b9f5f2a1151c47a5e759fc8fd856dc5eb68bb43c"
+  }
+}

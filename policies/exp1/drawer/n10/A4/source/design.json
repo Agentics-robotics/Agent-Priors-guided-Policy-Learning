@@ -1,0 +1,45 @@
+{
+  "title": "Compact two-edge joint diffusion with scalar drawer progress",
+  "coverage_gap": "A3 has no observed development failures: C=20/20 and E=20/20 under the frozen score. This does not establish universal transfer or identify the causal source of its gain over A1 (E=11/20) and A2 (E=5/20). A4 tests whether the successful relational/joint prior can retain C/E coverage with less geometric and auxiliary redundancy, rather than claiming to repair an observed A3 failure.",
+  "reusable_regularity": "The three entities form a chain: hand-to-goal equals hand-to-handle plus handle-to-goal, including their causal differences. Encode only the two independent typed edges. Support handle motion follows the observed drawer outward axis (sin(yaw),-cos(yaw),0), so model its future scalar progress jointly with full 3D hand displacement and cabinet action4. This keeps joint movement consequences while eliminating two nearly constant handle-displacement targets and the redundant edge/fusion representation.",
+  "dependencies_preserved": [
+    "Full signed 3D hand-handle and handle-goal geometry, native-previous geometry and changes remain in the encoder. The omitted hand-goal edge is algebraically reconstructible, not an omitted physical entity.",
+    "The same 26-dimensional world bypass as A3 retains hand and goal world coordinates, world hand/handle displacements, both object xyzw quaternions, yaw, both apertures and heights. The current-edge bypass keeps all handle position components; scalar auxiliary projection does not remove transverse or vertical runtime handle information.",
+    "Fixed world gripper orientation, robot reachability, gravity/table height and cabinet-front layout remain available. The cabinet frame is only a compatible representation, not a claim of full robot rotation symmetry.",
+    "No obstacle oracle, simulator internals, planner, new demonstration, synthetic trajectory, action override or rule-based success detector is used. Absent object2 zeros alone are excluded."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Same exact ten demonstration identities for drawer__N10__rep0; no new support for the revision"},
+    {"path": "task_materials.json", "detail": "Runtime yaw-corrected handle and sin/cos yaw; full present state schema; fixed world end-effector orientation"},
+    {"path": "support_summary.json", "detail": "Initial handle-goal vector is aligned with (sin(yaw),-cos(yaw),0) in inspected LL and HH entries; LL/HH support only"},
+    {"path": "trajectories/demo_00.json", "detail": "obs 74-78: negative-x/negative-y handle movement consistent with outward axis and constant handle z=0.09 m; earlier 58-64 stationary handle despite hand descent"},
+    {"path": "trajectories/demo_07.json", "detail": "obs 74-78: positive-x/negative-y handle motion with sin/cos=(0.15293577,0.98823613), negligible cabinet-transverse displacement and constant z=0.09 m"},
+    {"path": "images/frame_01_demo_00_step_060.png", "detail": "Inspected actual near-handle pre-opening frame"},
+    {"path": "images/frame_12_demo_07_step_090.png", "detail": "Inspected actual extended-drawer frame supports distinguishing hand motion from drawer-axis progress"},
+    {"source": "Revision-phase development_feedback message and q3 record_selection", "feedback_hash": "6fde380d85efbd68f89d4d27dc18e7c27335705da027b280455b8db1b36190a5", "detail": "Frozen scores A1=0.775, A2=0.625, A3=1.0. A3 succeeds in every C/E cell; A1 E failures are concentrated in off-diagonal cells. These are aggregate outcomes, not inspected rollout failure states. A3 is selected by the prescribed rule."}
+  ],
+  "expected_failure_signature": [
+    "The compression hypothesis predicts retention of A3-like C/E success with fewer complete-system parameters and possibly lower fixed-method latency. No A4 performance or latency has been measured at design time, and the latency prediction is uncertain because the frozen U-Net dominates cost.",
+    "If the redundant third edge or learned fusion in A3 helps nonlinear contact representation, A4 may lose E off-diagonal robustness despite retaining the information algebraically.",
+    "Dropping transverse/vertical handle auxiliary channels may remove useful regularization. Failure could show adequate reaching but ineffective pulling, or renewed off-support joint violations; aggregate feedback cannot establish such mechanisms without rollout evidence.",
+    "Only successful support motion is available. As in A3, predicted axial movement may be optimistic when the fixed-orientation gripper slips. The revision does not assume its scalar imagined progress is physical truth."
+  ],
+  "required_runtime_fields": {
+    "source": "Only shared causal_context.raw_history [B,2,41], raw_current [B,41], learned weights and host-owned diffusion variables",
+    "slices": {"hand_xyz": [0,3], "gripper": [3,4], "handle_xyz": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_handle_xyz": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal_xyz": [36,39], "cabinet_sin_cos_yaw": [39,41]},
+    "conditioning": "Two typed 11-feature edges (3 current local coordinates, 3 previous, 3 causal changes, 2 role bits) share an 11-64-16 SiLU encoder. Concatenate the two tokens (32), six current-edge coordinates and A3's 26 world features: [B,2,64]. No separate learned fusion. Same physical scales as A3, no new support statistics.",
+    "action_semantics": "Retain A3 cabinet action4 at diffusion channels 0:4. Encode normalized native xyz by chunk-start R_z^T; decode with R_z using the same normalized observed sin/cos for all 16 steps. Gripper is untouched. No clipping or rescaling: host retains native world cube clipping, 0.01 m xyz scale, fixed end-effector orientation, 80 Hz and four-action execution.",
+    "joint_inference": "The one common factory U-Net denoises eight channels from host-owned noise. Auxiliary channels 4:8 are sampled, never supplied as future truth, and are discarded for execution. No planning, latent rollout feedback or substitution into causal conditioning."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_motion",
+      "shape": "[number_of_windows,16,4]",
+      "source": "For window (episode,t) and valid j, three hand coordinates are R_z(t)^T*(obs[t+j+1,0:3]-obs[t,0:3])/0.1. The fourth is dot((sin(yaw_t),-cos(yaw_t),0), obs[t+j+1,4:7]-obs[t,4:7])/0.1. Frames and anchors use only obs[t]. Unavailable suffixes are zero padded.",
+      "use": "Append after encoded action4. Apply a separate auxiliary epsilon MSE with mask[...,None], denominator mask.sum()*4 and aggregate weight 0.2. The dimensional reduction intentionally changes per-auxiliary-coordinate weighting relative to A3's six-channel mean, but the public action loss remains completely unchanged at weight 1 and denominator mask.sum()*4."
+    }
+  ],
+  "support_fit": "No additional fit statistics, weight reuse or cached labels. Empty deployment state. New seeded initialization and exactly one new fixed-budget training slot; all layers are registered in build_modules.",
+  "parents": ["A3"],
+  "change_summary": "Revision from actual parent A3 after q3 selection. Remove the redundant third relation; replace three 24-d tokens plus a 48-d fusion with two shared 16-d tokens and no fusion, reducing condition_dim 83 to 64. Replace 3D future handle displacement by its observed outward-axis scalar, reducing diffusion_action_dim 10 to 8. Retain 3D hand targets, cabinet action mapping, world dependencies, physical scales and joint-loss aggregate weight. This is one bundled compression hypothesis, not an isolated causal ablation of each change. A1-A3 remain immutable; no new checkpoint choice or performance-driven debug is performed."
+}

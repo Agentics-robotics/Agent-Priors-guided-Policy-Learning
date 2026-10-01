@@ -1,0 +1,238 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        1460,
+        1680,
+        1740,
+        1840,
+        1860,
+        1953
+      ],
+      "trajectory_id": "demo12300"
+    },
+    {
+      "indices": [
+        1460,
+        1680,
+        1740,
+        1840,
+        1860,
+        1945
+      ],
+      "trajectory_id": "demo12301"
+    },
+    {
+      "indices": [
+        1460,
+        1680,
+        1740,
+        1840,
+        1860,
+        1952
+      ],
+      "trajectory_id": "demo12302"
+    },
+    {
+      "indices": [
+        1460,
+        1680,
+        1740,
+        1840,
+        1860,
+        1935
+      ],
+      "trajectory_id": "demo12303"
+    },
+    {
+      "indices": [
+        1460,
+        1680,
+        1740,
+        1840,
+        1860,
+        1947
+      ],
+      "trajectory_id": "demo12304"
+    },
+    {
+      "indices": [
+        1460,
+        1680,
+        1740,
+        1840,
+        1860,
+        1949
+      ],
+      "trajectory_id": "demo12305"
+    },
+    {
+      "indices": [
+        1460,
+        1680,
+        1740,
+        1840,
+        1860,
+        1935
+      ],
+      "trajectory_id": "demo12306"
+    },
+    {
+      "indices": [
+        1460,
+        1680,
+        1740,
+        1840,
+        1860,
+        1946
+      ],
+      "trajectory_id": "demo12307"
+    },
+    {
+      "indices": [
+        1460,
+        1680,
+        1740,
+        1840,
+        1860,
+        1944
+      ],
+      "trajectory_id": "demo12308"
+    },
+    {
+      "indices": [
+        1460,
+        1680,
+        1740,
+        1840,
+        1860,
+        1947
+      ],
+      "trajectory_id": "demo12309"
+    },
+    {
+      "indices": [
+        1460,
+        1680,
+        1740,
+        1840,
+        1860,
+        1950
+      ],
+      "trajectory_id": "demo12310"
+    },
+    {
+      "indices": [
+        1460,
+        1680,
+        1740,
+        1840,
+        1860,
+        1953
+      ],
+      "trajectory_id": "demo12311"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "The particles are already settled in the bowl and the emptied source is still securely grasped above the bowl. Through the shared entry it may retain a moderate tilt at index 1460 or be upright and beginning outbound motion near index 1680. The intended manipulated object is the source container; the particles already released into the bowl are not a new grasp target.",
+    "exit_conditions": "The source rests upright on the table inside the marked return region, the gripper is open, and the TCP has retreated to approximately (-0.460,-0.280,0.280) m. Final observed source centers are near (-0.470,-0.281 to -0.282,0.000) m with upright orientations, while the particle positions remain in the bowl.",
+    "failure_signatures": "Do not release while the source is elevated, tilted beyond the upright requirement, outside the return region, or still moving. Observable failures include container z remaining above the support, source motion after finger opening, fingers staying closed after setdown, or TCP failing to clear the placed source. If fewer than ten particles are in the bowl at entry, this nominal return skill does not demonstrate corrective repouring. No placement or release recovery episode is present.",
+    "overlap_role": "Actions [1460,1740) overlap controlled_pour_and_right, covering late righting and the full change from bowl-centered hold to outbound target-directed travel. Later actions include descent, inferred table contact, opening around 1840-1860 depending on the run, and retreat. The placed source being released remains the object to protect during retreat; there is no successor object.",
+    "successor_readiness": "This is the terminal skill. The framework may evaluate the unchanged success definition after the source is upright in its marked region, at least ten of twelve particles are in the bowl, the source z is within 0.015 m, and the arm has cleared. Final stationary supervision is retained to make that terminal state stable."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Return, place, release, and retreat",
+  "original_demonstration_count": 12,
+  "plan_hash": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "This skill owns completion of source righting, upright transport to target_pose, controlled descent, table placement, release, and collision-free retreat. At observation 1460 the source is still roughly 42-44 degrees tilted but the particles are already settled in the bowl; around 1680 it is upright and outbound. Observation 1740 shows the source elevated near the target, 1840 shows placement or release onset, 1860 shows open fingers and a source at z approximately zero, and each final boundary shows the TCP retreated to about 0.280 m while the source stays put. Demo12300 front images at 1840 and 1900 corroborate descent, release, and retreat. Table contact is inferred from z and stationarity because contact truth is unavailable.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "demo12300: right the emptied source, transport it to target_pose, descend, set down, open, and retreat; actions [1460,1953), with final observation 1953.",
+      "start": 1460,
+      "stop": 1953,
+      "trajectory_id": "demo12300"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "demo12301: return the emptied source, place it upright in the marked region, release, and retreat; actions [1460,1945).",
+      "start": 1460,
+      "stop": 1945,
+      "trajectory_id": "demo12301"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "demo12302: return/place/release the emptied source for this run and retreat to the terminal TCP pose; actions [1460,1952).",
+      "start": 1460,
+      "stop": 1952,
+      "trajectory_id": "demo12302"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "demo12303: finish righting, return the emptied source, place and release it slightly earlier than several runs, then retreat; actions [1460,1935).",
+      "start": 1460,
+      "stop": 1935,
+      "trajectory_id": "demo12303"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "demo12304: return the emptied source to the marked region, set down, release, and retreat; actions [1460,1947).",
+      "start": 1460,
+      "stop": 1947,
+      "trajectory_id": "demo12304"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "demo12305: return the emptied source, place it upright, open the gripper, and retreat; actions [1460,1949).",
+      "start": 1460,
+      "stop": 1949,
+      "trajectory_id": "demo12305"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "demo12306: finish righting during the shared entry, return/place/release the source, and retreat; actions [1460,1935).",
+      "start": 1460,
+      "stop": 1935,
+      "trajectory_id": "demo12306"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "demo12307: return the emptied source to target_pose, place upright, release, and retreat; actions [1460,1946).",
+      "start": 1460,
+      "stop": 1946,
+      "trajectory_id": "demo12307"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "demo12308: return and place the source; gripper opening is already commanded at observation 1840, followed by retreat; actions [1460,1944).",
+      "start": 1460,
+      "stop": 1944,
+      "trajectory_id": "demo12308"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "demo12309: return/place/release with this run's slightly different wrist and final yaw, then retreat; actions [1460,1947).",
+      "start": 1460,
+      "stop": 1947,
+      "trajectory_id": "demo12309"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "demo12310: return the emptied source, place it upright in the marked region, release, and retreat; actions [1460,1950).",
+      "start": 1460,
+      "stop": 1950,
+      "trajectory_id": "demo12310"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "demo12311: right, return, place, release, and retreat the emptied source, ending in a stationary terminal state; actions [1460,1953).",
+      "start": 1460,
+      "stop": 1953,
+      "trajectory_id": "demo12311"
+    }
+  ],
+  "skill_id": "return_place_release",
+  "subgoal": "Finish righting the emptied source, carry it upright to the marked return region centered at target_pose, lower until supported, open the gripper only after placement, and retreat without recontact. Maintain the source grasp through transport and descent. Approximate entry: emptied source still grasped above the bowl, possibly moderately tilted. Approximate exit: source upright and stationary inside the return region near z=0, gripper open, TCP clear above the target."
+}

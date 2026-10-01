@@ -1,0 +1,18 @@
+{
+  "policy_id": "open_hinged_lid__h02",
+  "skill_id": "open_hinged_lid",
+  "heuristic_index": 2,
+  "prior_summary": "Fresh-TCP incremental correction: diffuse local SE(3) command corrections and re-anchor every executed slot to the freshly measured TCP before IK.",
+  "applicable_conditions": "Prefer for collision-free entries or replans whose TCP/joints differ from the nominal demonstrated path, including a partly open lid, when lid/handle-relative geometry remains trustworthy and required corrections are locally reachable.",
+  "termination_guidance": "Terminate from observed open fingers, accumulated TCP clearance, stable open lid and unchanged peg. Preserve causal history at takeover so release and retreat trends remain visible.",
+  "limitations": "Local labels do not establish recovery from a missed handle or lost contact. Small corrections can accumulate error or stall, orientation corrections may oscillate under bad state estimates, and IK/collision feasibility remains configuration dependent. Use h01 for large assembly displacement and h03 when release phase dominates near nominal placement.",
+  "config": {
+    "backbone": "standard DiffusionBackbone",
+    "condition_dimension": 72,
+    "action_dimension": 7,
+    "action_frame": "fresh measured TCP",
+    "rotation_representation": "rotation vector",
+    "auxiliary_loss": false,
+    "prior_plan_hash": "a4a6a00bd785dd359bc4a614b9f5f2a1151c47a5e759fc8fd856dc5eb68bb43c"
+  }
+}

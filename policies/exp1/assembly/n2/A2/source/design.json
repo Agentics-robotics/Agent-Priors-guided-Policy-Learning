@@ -1,0 +1,46 @@
+{
+  "title": "Causal carry-bearing coordinates with soft clearance stages",
+  "coverage_gap": "The two support layouts need only small lateral transfer compared with roughly 0.2 m forward transport. Opposite-sign and extrapolated x factors demand new lateral directions and lengths. A world-action denoiser may memorize the observed y-dominant transfer instead of recomposing direction from ring and peg.",
+  "reusable_regularity": "After a visible lift with a nearly closed gripper, horizontal carrying can be expressed as forward motion in a frame determined by the ring-to-peg bearing. Use a chunk-start orthonormal yaw mapping, continuously reverting toward native world axes at acquisition and near alignment. Soft acquisition/lift/transport/alignment weights expose clearance and contact structure but never choose an action or execute a state machine. The diffusion model still learns every command.",
+  "dependencies_preserved": [
+    "The bearing comes from goal_xyz minus physical ring_center_xyz, not from the handle site. Handle-hand and handle-ring vectors remain separate.",
+    "The yaw only affects x and y. Gravity, hand/ring/peg heights, and the native z command are retained.",
+    "Body orientation axes are expressed in the same frame. Cosine and sine plus world hand position preserve native gripper orientation, axis-specific actuation, robot reach and world boundaries; this is not an assertion of exact rotation symmetry of the robot.",
+    "All ungated grasp and alignment vectors remain available alongside gated copies, so an erroneous soft stage need not remove the correct relation.",
+    "The peg is retained both geometrically and as a height/clearance dependency. There is no planner, collision oracle, success label, hidden reset factor or environment handle.",
+    "Absent object2 channels and the redundant native-previous quaternion are not used; native-previous translational kinematics, aperture change, current body axes from both raw observation rows, and measured ring motion are causal."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Only this assembly N=2 evidence bundle is used"},
+    {"path": "task_materials.json", "detail": "Independent nut_x and peg_goal_x at development; forward goal-y interval; fixed-orientation native xyz/gripper control and ring-center source field"},
+    {"path": "support_summary.json", "detail": "LL and HH only; initial ring-center z 0.02 m; small lateral nut-to-peg separation compared with forward separation"},
+    {"path": "trajectories/demo_00.json", "detail": "actions 0:40 show approach, closure and positive-z lift; actions 42:87 show forward carry followed by descent. obs 46:51 has ring z roughly 0.158 to 0.180 m versus peg goal z 0.1 m; obs 72:76 has near alignment while elevated"},
+    {"path": "trajectories/demo_01.json", "detail": "obs 50:53 and actions 47:55 show positive lateral transfer, contrasting demo_00's negative lateral transfer; both share y-dominant carrying"},
+    {"path": "images/frame_02_demo_00_step_024.png", "detail": "Low hand at the offset grasp site"},
+    {"path": "images/frame_04_demo_00_step_048.png", "detail": "Ring lifted for clearance before transport"},
+    {"path": "images/frame_06_demo_00_step_072.png", "detail": "Elevated ring approaching peg, supporting separate planar alignment and height cues"},
+    {"path": "images/frame_15_demo_01_step_092.png", "detail": "Lowered ring over the peg in the second episode"}
+  ],
+  "expected_failure_signature": [
+    "A slipped ring lifted briefly or an unusual aperture could produce the wrong carry weight; errors should then coincide with frame/stage changes rather than simply absolute x.",
+    "Near-target frame regularization trades exact bearing alignment for smoothness; residual lateral oscillation or failure to descend would challenge the 0.04 m stabilizer and soft-alignment hypothesis.",
+    "At extreme lateral offsets, the native cube and fixed gripper break yaw symmetry. Saturation, altered transport speed or orientation-dependent grasp errors could remain even with correct ring-relative bearing.",
+    "This model has no recovery supervision beyond D_N. Missed grasps can still lead to repeated acquisition or inappropriate motion despite retaining ungated geometry."
+  ],
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history [B,2,42] and raw_current [B,42]; no stored episode phase or time index",
+    "slices": {"hand_xyz": [0,3], "gripper": [3,4], "handle_site_xyz": [4,7], "body_quaternion_wxyz": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_handle_site_xyz": [22,25], "goal_xyz": [36,39], "ring_center_xyz": [39,42]},
+    "representation": "49 physical-scale features per row. Both observation rows are expressed in the same latest chunk-start frame; soft stage features are computed from each available raw row. Earlier-row ring velocity is zero and later-row velocity is their observed difference.",
+    "action_frame": "Let d=goal-ring at the chunk start, c=lifted_sigmoid*closed_sigmoid, u=c*d_x, v=sqrt(d_y^2+0.04^2). Set sine=u/sqrt(u^2+v^2), cosine=v/sqrt(u^2+v^2). Local xyz=(cosine*world_x-sine*world_y, sine*world_x+cosine*world_y, world_z). Decode by the transpose. The identical orthonormal frame is fixed for all 16 actions, both encode and decode; no future pose or iterative frame updates. Native xyz scale is unchanged. Gripper passes through exactly. Encoded components are not clipped; only the host clips decoded native action4."
+  },
+  "training_only_targets": [],
+  "support_fit": {
+    "source": "Median obs[0,41] over precisely the two supplied complete D_N episodes",
+    "purpose": "Nonlearned initial ring-height reference for the lift sigmoid; not a time/phase lookup",
+    "deployment_state": "One JSON scalar rest_ring_z_m, explicitly restored before build_modules",
+    "other_constants": "Metric smoothing widths and aperture/clearance feature centers are fixed design choices motivated by observed phases, not tuned performance statistics or success rules."
+  },
+  "architecture": "Exactly one unmodified common DP with condition_dim=49 and action_dim=4. No auxiliary losses or outside learned controller. Common action epsilon mask normalization and update budget are unchanged.",
+  "parents": [],
+  "change_summary": ["Initial independent scientific design: a causal, soft carry-dependent yaw action representation and clearance-stage feature factorization, rather than identity-action passive relations. No development feedback used."]
+}

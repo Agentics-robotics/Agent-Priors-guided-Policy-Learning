@@ -1,0 +1,299 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/covered_peg_assembly/align_and_insert_peg/dataset.json",
+    "dataset_sha256": "9249213e5d1915185d1f90acd07fb9cb6482642ea69297a0fb798eadd92a13ec",
+    "experiment_version": "APPL_v4_cartesian_new_task",
+    "heuristic": {
+      "applicability": "Prefer when the observed square-hole fixture has translated or rotated relative to the demonstrations, while the peg remains securely closed-grasped, axis-near-aligned, and the requested hole-relative Cartesian path is reachable from the measured Panda joints. This is the primary displacement prior and covers high final alignment, descent, initial engagement, full +hole-x insertion, and terminal stabilization.",
+      "evidence": [
+        {
+          "indices": [
+            1380,
+            1400,
+            1420,
+            1440,
+            1460,
+            1480,
+            1500,
+            1520,
+            1540,
+            1554
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            1380,
+            1400,
+            1440,
+            1460,
+            1480,
+            1500,
+            1520,
+            1558
+          ],
+          "trajectory_id": "demo12205"
+        },
+        {
+          "indices": [
+            1380,
+            1500,
+            1545
+          ],
+          "trajectory_id": "demo12202"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Peg is visibly retained in a closed grasp and clear of the box; peg axis is near the hole axis; current hole, peg, TCP, and measured joints are finite. The demonstrated entry is high above the fixture, with peg z about 0.420-0.428 m, including an observed y-offset case near 0.160 m in demo12205.",
+        "exit_conditions": "Keep the supplied task success definition unchanged: peg head x in [-0.145,-0.09], y/z within 0.009 m of the hole criterion, axis alignment at least 0.985, and a stable held pose. Demonstrated terminal peg centers are about (-0.182,0.1767-0.1769,0.0982-0.0983) m only for the demonstrated fixture pose; this prior transports the relation with the observed hole.",
+        "failure_signatures": "IK nonconvergence or limit contact after a large fixture move; peg/TCP relative-pose separation; descent while laterally or angularly misaligned; fixture collision or stalled +hole-x progress. Nominal data do not support jam recovery.",
+        "overlap_role": "Train every assigned action. The [1380,1500) interval overlaps reorient_and_stage_peg by 120 actions (6 s) in each of 12 demonstrations, retaining alignment, descent, and early engagement supervision for switch-time tolerance.",
+        "successor_readiness": "There is no learned successor. Continue stabilization until the unchanged success geometry is observed; otherwise report failure rather than opening the gripper."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{\"destination_object\":{\"type\":\"string\",\"enum\":[\"hole\"]},\"held_object\":{\"type\":\"string\",\"enum\":[\"peg\"]}},\"required\":[\"destination_object\",\"held_object\"],\"additionalProperties\":false},\"parameter_semantics\":\"destination_object selects the currently observed hole_pose as the moving Cartesian reference; held_object selects the currently observed peg_pose for grasp and alignment features. Values are semantic scene identifiers, not actuator commands.\"}",
+      "limitations": "Hole-relative equivariance cannot make a translated fixture reachable or collision-free. Absolute hole pose and measured qpos/qvel remain inputs for robot/workspace dependence, but the demonstrations contain one fixed hole pose and only successful insertions. The policy has no contact truth and no evidence for dropped pegs, large orientation errors, collision recovery, or jam retries.",
+      "pipeline_implications": "The high-level agent should route displaced but reachable fixtures here. Resolve hole_pose fresh in build_inputs and at every decoded execution step, retain measured joints for IK, keep the gripper closed, and stop only under the supplied success evaluator. If relative grasp integrity degrades, prefer the TCP-residual prior only when the peg is still visibly held; do not infer recovery support.",
+      "rationale": "The largest expected deployment shift is fixture displacement: all 12 training holes are at the same world pose, so world targets can memorizeize it. Encoding commanded TCP poses in the observed hole frame makes the complete align-descend-insert-hold trajectory equivariant to hole SE(3) displacement by construction. Observed qpos/qvel and absolute hole pose preserve reachability and robot-configuration dependence rather than asserting full task invariance.",
+      "statement": "Hole-frame SE(3) Cartesian trajectory prior: diffuse absolute TCP targets as hole-relative translation plus projected 6D rotation and gripper command, while conditioning on hole-relative TCP/peg/goal geometry, grasp geometry, absolute hole pose, and measured Panda state.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":1380,\"stop\":1555,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full precision segment; includes the 1380-1500 supervised overlap, insertion, and stable hold.\"},{\"trajectory_id\":\"demo12201\",\"start\":1380,\"stop\":1552,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full precision segment and incoming overlap are retained.\"},{\"trajectory_id\":\"demo12202\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full precision segment and incoming overlap are retained.\"},{\"trajectory_id\":\"demo12203\",\"start\":1380,\"stop\":1552,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full precision segment and incoming overlap are retained.\"},{\"trajectory_id\":\"demo12204\",\"start\":1380,\"stop\":1546,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full precision segment and incoming overlap are retained.\"},{\"trajectory_id\":\"demo12205\",\"start\":1380,\"stop\":1559,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full segment retains the observed extra y correction, common overlap, insertion, and hold.\"},{\"trajectory_id\":\"demo12206\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full precision segment and incoming overlap are retained.\"},{\"trajectory_id\":\"demo12207\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full precision segment and incoming overlap are retained.\"},{\"trajectory_id\":\"demo12208\",\"start\":1380,\"stop\":1539,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full precision segment and incoming overlap are retained.\"},{\"trajectory_id\":\"demo12209\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full precision segment and incoming overlap are retained.\"},{\"trajectory_id\":\"demo12210\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full precision segment and incoming overlap are retained.\"},{\"trajectory_id\":\"demo12211\",\"start\":1380,\"stop\":1546,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\"},\"rationale\":\"Full precision segment and incoming overlap are retained.\"}]"
+    },
+    "heuristic_index": 1,
+    "normalization": {
+      "path": "provenance/relocated/b11807ac2cdb2323",
+      "sha256": "5d50ce2e025ef83183ac172a24c1b19ea7482f651c1c6fa09f34f83bd3887b24"
+    },
+    "observation_fields": {
+      "hole_pose": [
+        0,
+        7
+      ],
+      "lid_pose": [
+        7,
+        14
+      ],
+      "lid_position": [
+        14,
+        15
+      ],
+      "lid_velocity": [
+        15,
+        16
+      ],
+      "peg_pose": [
+        16,
+        23
+      ],
+      "qpos": [
+        23,
+        32
+      ],
+      "qvel": [
+        32,
+        41
+      ],
+      "target_pose": [
+        41,
+        48
+      ],
+      "tcp_pose": [
+        48,
+        55
+      ]
+    },
+    "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+    "policy_id": "align_and_insert_peg__h01",
+    "prior_plan_path": "assets/exp2/prior_plans/covered_peg_assembly/align_and_insert_peg.json",
+    "prior_plan_sha256": "39b5878a672c573b9cb66da51aa9ccb1503f4789da1aa0bb40f14db750196cb2",
+    "skill_id": "align_and_insert_peg",
+    "sources": {
+      "demo12200": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12200.json",
+        "sha256": "e7ccc303ea6b6ddd3150e2336c6b06b3f89a66d478909e3f9555eb3d6ccc85f1"
+      },
+      "demo12201": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12201.json",
+        "sha256": "aa9e1f1d14f676f5b4c9fb52ee6bbbb5d86865d82adcc051e3256482461f1016"
+      },
+      "demo12202": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12202.json",
+        "sha256": "4ad5e3ce9117f56008597389c45a799aff1857f683091069d582e024a00b32a7"
+      },
+      "demo12203": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12203.json",
+        "sha256": "c43ecf548e80a87d465fbc947e98d191dffd25cc4966f83e2698dd7a8a2cf8af"
+      },
+      "demo12204": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12204.json",
+        "sha256": "35eea2d5c8fc6e02c992c923db4e580d473d5583edcd45cfee79e682782c5a09"
+      },
+      "demo12205": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12205.json",
+        "sha256": "b4b9855dac2b9f0e836ea063d38694af37abba89371fcae59fffa7d65c4dfb3c"
+      },
+      "demo12206": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12206.json",
+        "sha256": "6a64bcc76a39a6dc2f1119c5e5983a5686835cdf2ae5a0899ab8f39da92ef407"
+      },
+      "demo12207": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12207.json",
+        "sha256": "58410156c6edfad3658ce632cf8ebe122570c51412ba53f8631c9e78a14c5397"
+      },
+      "demo12208": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12208.json",
+        "sha256": "1522c1f09079f05ace6825ff5221ebf74ca8c45941a00050c53b579b43e84d5b"
+      },
+      "demo12209": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12209.json",
+        "sha256": "2a6dc540f7c4c6e6cb92c1fe50c106da8f71123c6b3ede06a790bf8ca0c3d31b"
+      },
+      "demo12210": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12210.json",
+        "sha256": "dd077218ff68ac6e93b28dc73234d21ac2a16c937de945465c9970deb9ad4ac4"
+      },
+      "demo12211": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12211.json",
+        "sha256": "0440e3242bad2dbcefe176eab207fd19647109b019c55702ff1906862c9e4b5d"
+      }
+    },
+    "subgoal": "Keep the peg grasped, complete axis/lateral alignment over the square hole, descend to the insertion line, drive the peg along +x until the supplied head-position and alignment criteria are met, and stabilize."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/4b18a3f466d339c9",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "fb084a1f78788f168588631a1552e708187127f8328acf0c4df9adb9cb947977",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 1,
+      "physical_gpu": 2,
+      "uuid": "GPU-7a6705f2-1132-637d-000e-c94d37e2f0a2"
+    },
+    "effective_action_targets": 3985,
+    "final_weights_sha256": "1ddc6d930d2cb61e600d0a3e74c530b2fb1931290db72eff0f9484ad1aac260e",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 3.5535247325897217,
+        "step": 1
+      },
+      {
+        "l2_norm": 1.6980879306793213,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "cefb720ce27cd64420bebed94f3578d3537eca35e417ff351808946227fe800e",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 2014,
+        "duplicated_actions": 0,
+        "unique_actions": 2014
+      },
+      "contract": {
+        "action_dimension": 10,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "destination_object": {
+              "enum": [
+                "hole"
+              ],
+              "type": "string"
+            },
+            "held_object": {
+              "enum": [
+                "peg"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "destination_object",
+            "held_object"
+          ],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "For valid demonstration labels, hole_T_tcp is reconstructed (with the 6D SO(3) projection), transformed by the matching observed world_T_hole, and solved by shared IK. Compare FK TCP position, rotation angle, and unchanged gripper scalar to the demonstrated commanded target; nonunique joints are allowed.",
+          "mode": "task_space",
+          "tolerance": 0.005
+        },
+        "cut_relation": "Uses all assigned [start,stop) actions for every trajectory, including the complete [1380,1500) incoming overlap, and changes only the Cartesian coordinate representation and causal conditioning.",
+        "input_shapes": {
+          "features": [
+            2,
+            63
+          ]
+        },
+        "observation_dependencies": [
+          "hole_pose",
+          "peg_pose",
+          "qpos",
+          "qvel",
+          "target_pose",
+          "tcp_pose"
+        ],
+        "output_semantics": "Each slot is an absolute TCP target expressed in the freshly observed destination/hole frame: translation xyz in metres, rotation as the first two columns of a relative rotation matrix (6D), then the native gripper scalar. The decoder projects 6D to SO(3), left-composes the current world_T_hole at that execution step, and invokes panda_kinematics.solve_ik from fresh measured qpos. Prediction slots are t-1 through t+14; execution uses slots 1 through 8. No scripted task motion is added.",
+        "parameter_semantics": "destination_object selects the currently observed hole_pose as the moving Cartesian reference. held_object selects the currently observed peg_pose for grasp and alignment features. Both are semantic scene identifiers, not actuator values.",
+        "policy_id": "align_and_insert_peg__h01",
+        "skill_id": "align_and_insert_peg",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "8c103def457e527b931bf8aa149ecdc6bc8b41020f1bcd7202a7a40bdd5fb334",
+      "PRIOR.md": "79f4636329369f068a7c553bca04c38d7f5aa4cd0d971c82d16ab55956e447e7",
+      "adapters.py": "2bcfcb4d0064d6d0c6caf9a27b7627a552d486cab8d3997da40533455654a7ce",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "0482125908d98da6b98d022519da3dfa7c1cdf4176cb10f00cd129ba962042f7",
+      "policy.py": "5748b71199b258736c7efc7a1eb979fbfd8968cb4fefce5a0fba1f0b6343b10a",
+      "policy_contract.json": "8186bf67cd217b3b1f706676ce0de9dc32240300c434e0734d2c80e00919c2a6",
+      "training_bindings.json": "b4de2f976d1faa162937f95a6adb7e2abe769978b98fe45e41868ade39bc27e0"
+    },
+    "trainable_parameters": 17229578,
+    "training_elapsed_seconds": 3.065919468179345,
+    "weight_l2_change": 0.20512711693390479
+  },
+  "files": {
+    "HANDOFF.json": "8c103def457e527b931bf8aa149ecdc6bc8b41020f1bcd7202a7a40bdd5fb334",
+    "PRIOR.md": "79f4636329369f068a7c553bca04c38d7f5aa4cd0d971c82d16ab55956e447e7",
+    "adapters.py": "2bcfcb4d0064d6d0c6caf9a27b7627a552d486cab8d3997da40533455654a7ce",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "pipeline.json": "0482125908d98da6b98d022519da3dfa7c1cdf4176cb10f00cd129ba962042f7",
+    "policy.py": "5748b71199b258736c7efc7a1eb979fbfd8968cb4fefce5a0fba1f0b6343b10a",
+    "policy_contract.json": "8186bf67cd217b3b1f706676ce0de9dc32240300c434e0734d2c80e00919c2a6",
+    "training_bindings.json": "b4de2f976d1faa162937f95a6adb7e2abe769978b98fe45e41868ade39bc27e0"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "v1": {
+    "files": {
+      "HANDOFF.json": "8c103def457e527b931bf8aa149ecdc6bc8b41020f1bcd7202a7a40bdd5fb334",
+      "PRIOR.md": "79f4636329369f068a7c553bca04c38d7f5aa4cd0d971c82d16ab55956e447e7",
+      "adapters.py": "2bcfcb4d0064d6d0c6caf9a27b7627a552d486cab8d3997da40533455654a7ce",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "0482125908d98da6b98d022519da3dfa7c1cdf4176cb10f00cd129ba962042f7",
+      "policy.py": "5748b71199b258736c7efc7a1eb979fbfd8968cb4fefce5a0fba1f0b6343b10a",
+      "policy_contract.json": "8186bf67cd217b3b1f706676ce0de9dc32240300c434e0734d2c80e00919c2a6",
+      "training_bindings.json": "b4de2f976d1faa162937f95a6adb7e2abe769978b98fe45e41868ade39bc27e0"
+    },
+    "folder": "provenance/relocated/2880ef4e86300cf7",
+    "version": "a4730b0396115ac500c9ccc96a0d2a9a045abbad6169feee1a3cba3fba1fb4f4"
+  },
+  "version": "6f937c7634d18b0e9fb8eca3d1a82a4d3aaf41d615c3f58039bcc99e26eefefd"
+}

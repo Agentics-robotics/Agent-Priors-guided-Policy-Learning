@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "retrieve_tunnel_block__h02",
+  "skill_id": "retrieve_tunnel_block",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "object_pose_field": {"type": "string", "enum": ["object_pose"]},
+      "destination_pose_field": {"type": "string", "enum": ["target_pose"]},
+      "tunnel_clearance_m": {"type": "number", "minimum": 0.16, "maximum": 0.16}
+    },
+    "required": ["object_pose_field", "destination_pose_field", "tunnel_clearance_m"]
+  },
+  "parameter_semantics": "object_pose_field selects the observed block world pose used in causal relations; destination_pose_field selects the observed destination world pose; tunnel_clearance_m is the 0.16 m world-z clearance used as a phase feature. The learned Cartesian displacement is always referenced to the freshly measured TCP and is not an HL actuator argument.",
+  "observation_dependencies": ["drawer_position", "drawer_velocity", "object_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 52]},
+  "action_dimension": 7,
+  "output_semantics": "Each slot is [translation x,y,z metres in the fresh measured TCP body frame, relative TCP rotation vector x,y,z radians, gripper scalar]. decode composes measured_world_TCP @ represented_delta at that execution slot and calls panda_kinematics.solve_ik from fresh measured joints. Gripper >=0 opens and <0 closes. The sequence is feedback-style rather than accumulated: each slot is resolved from that slot's fresh TCP. Slots represent t-1..t+14 and execution uses 1..8.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "Encoding relative to each pre-action measured TCP and decoding from the same observation must recover demonstrated command FK TCP and gripper within 0.01 maximum metres/radians/scalar; IK diagnostics remain explicit."},
+  "cut_relation": "Supervises every assigned action [300,840) for all demonstrations, including [300,440) predecessor and [680,840) successor overlap; no action is trimmed for the local-delta representation."
+}

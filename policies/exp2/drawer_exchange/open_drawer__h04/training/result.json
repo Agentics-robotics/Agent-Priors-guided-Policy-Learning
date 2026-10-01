@@ -1,0 +1,139 @@
+{
+  "checkpoint": "weights/exp2/drawer_exchange/open_drawer__h04/model.pt",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "058bfa78f5d696c5d271d88682092b8601b9f4ac5b83bfa2019f947d13229cc4",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 0,
+    "physical_gpu": 3,
+    "uuid": "GPU-211ca63e-6f90-7281-b43a-e1facc953f2b"
+  },
+  "effective_action_targets": 40381518,
+  "final_weights_sha256": "1a767061943495ad65221725cc85b1c04c76677971c58f269c66f5114465889d",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 2.7642276287078857,
+      "step": 1
+    },
+    {
+      "l2_norm": 2.727741003036499,
+      "step": 2
+    },
+    {
+      "l2_norm": 2.821763038635254,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.2364491969347,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "3b5e8c2cc524d6ec43b72e3ce6154f96b4e915a165498fd61962ec03825a8732",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5640,
+      "duplicated_actions": 0,
+      "unique_actions": 5640
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "desired_open_position_m": {
+            "exclusiveMinimum": 0.26,
+            "type": "number"
+          },
+          "drawer_orientation_wxyz": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "drawer_origin_world_m": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          },
+          "red_phase_clearance_m": {
+            "exclusiveMinimum": 0.0,
+            "type": "number"
+          },
+          "red_phase_min_open_m": {
+            "exclusiveMinimum": 0.26,
+            "type": "number"
+          },
+          "red_phase_xy_radius_m": {
+            "exclusiveMinimum": 0.0,
+            "type": "number"
+          }
+        },
+        "required": [
+          "drawer_origin_world_m",
+          "drawer_orientation_wxyz",
+          "desired_open_position_m",
+          "red_phase_min_open_m",
+          "red_phase_clearance_m",
+          "red_phase_xy_radius_m"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For a valid demonstration label, active-frame encoding followed by decoding against the same pre-action observation reconstructs the demonstrated commanded world TCP pose. The framework checks FK position in metres, rotation angle in radians and unchanged gripper scalar; nonunique IK is allowed. Gram-Schmidt only projects sampled non-orthogonal 6D rotations.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "Covers every assigned action in each [0,470) segment. It retains high approach, drawer-front acquisition and pull, release and retreat, red approach/closure and initial lift, including all 240 action-supervised steps 230:470 overlapping red_transfer in every demonstration.",
+      "input_shapes": {
+        "features": [
+          2,
+          49
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "red_pose",
+        "drawer_position",
+        "drawer_velocity"
+      ],
+      "output_semantics": "Each slot is an absolute TCP target relative to the active frame at that slot's pre-action state: position [3] in metres, rotation as the first two columns [6] of the active-frame rotation matrix, and native gripper scalar [1]. The articulated drawer frame is active unless drawer_position is at least red_phase_min_open_m and either TCP-minus-red world-Z clearance is at least red_phase_clearance_m or TCP/red world-XY distance is at most red_phase_xy_radius_m; then the observed red pose is active. Prediction slots are t-1 through t+14 and execution uses slots 1 through 8 for t through t+7. At each physical execution step the active frame is recomputed from the fresh observation, 6D rotation is projected by Gram-Schmidt, the represented target is transformed to a world TCP pose, and panda_kinematics.solve_ik produces absolute arm-joint targets from freshly measured qpos. The gripper scalar is appended unchanged and the common executor maps its sign to open or close.",
+      "parameter_semantics": "drawer_origin_world_m is the current world-frame origin in metres of the drawer at drawer_position=0. drawer_orientation_wxyz is its unit wxyz orientation and defines local -X opening translation. desired_open_position_m is the intended opening in metres, bound to the demonstrated 0.300 m. red_phase_min_open_m is the minimum observed opening for red-frame eligibility, bound to 0.280 m. red_phase_clearance_m is the minimum world-Z TCP-above-red clearance for the high-retreat branch, bound to 0.280 m. red_phase_xy_radius_m is the world-XY TCP/red radius retaining red-frame use during approach, descent and lift, bound to 0.140 m. These are calibration and intent values; fresh physical observations select the active frame.",
+      "policy_id": "open_drawer__h04",
+      "skill_id": "open_drawer",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "bacbbd0069030e624a31886c1de2abde02fb542f4f56dbbed3b325c62bde26ef",
+    "PRIOR.md": "8b3677e4156bb0ce2c404a51900a69165b98b9a1f1d19e2f3d8edf2438d418ae",
+    "adapters.py": "015eb1a5199f2b3c7a320e780d267d3bc229dd85c2102fd86209ebb073456c5f",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+    "pipeline.json": "60c35774dd5d50aa2b0db337301160b160050b0ed08b52afa7fd7939feb5b737",
+    "policy.py": "07a3ed019e1c14d99221fc46d443621b762fd64e1fb04064773dec9d32f4fa67",
+    "policy_contract.json": "eebb9b64c9051f2c264ff9d06b9feeb859341d354905cea4940ba9d6d9e09cdb",
+    "training_bindings.json": "e48261961e591fbb543adb8d8abdfc374fe7934341158b672db7e6c6e1ee2167"
+  },
+  "trainable_parameters": 17028874,
+  "training_elapsed_seconds": 532.7398743790109,
+  "weight_l2_change": 32.45694399180206
+}

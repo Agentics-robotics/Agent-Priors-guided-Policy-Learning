@@ -1,0 +1,34 @@
+{
+  "title": "Multiscale signed contact-chain conditioning",
+  "coverage_gap": "The exact N10 support has five LL and five HH layouts; it lacks the LH/HL peg_y versus box_y recombinations and all specified extrapolation ranges. A policy using absolute peg_y as a proxy for box_y can fit this support without learning the correct independent grasp and insertion errors.",
+  "reusable_regularity": "Represent the manipulation as signed world-frame hand-to-pegGrasp and pegHead-to-goal edges. Both metric and smooth fine-scale coordinates are supplied; the fine features improve resolution near contact without erasing long distances. There is no hard stage switch or scripted action. A shared DP learns motion from these 48 features per observation. The observed approximately 0.13 m head/grasp separation makes those two sites noninterchangeable. Fixed metric scales avoid dividing nearly constant quaternion or goal-height channels by tiny fitted standard deviations.",
+  "dependencies_preserved": [
+    "hand, pegGrasp, pegHead and goal remain distinct; the head-to-grasp vector preserves rigid shape and possible orientation changes",
+    "world axes and separate absolute hand/world coordinates are retained; relative edges plus hand recover all current positions, including the goal identifying the fixed-orientation box",
+    "world z heights of hand, grasp, head and goal preserve gravity, tabletop clearance and elevated hole geometry",
+    "current and previous object orientation are represented by two rotation columns and their difference; equivalent quaternion signs give identical rotations",
+    "native current-versus-previous hand/peg step displacements, gripper aperture/change and both whole causal observations retain contact and motion dependencies",
+    "goal-to-hand and insertion transverse distances expose the box relation; no collision-free-path or unseen obstacle information is assumed"
+  ],
+  "evidence_refs": [
+    "bundle.json: exact peg-insert-side__N10__rep0 support identities and evidence scope",
+    "task_materials.json: 42-dimensional observation schema, pegGrasp and pegHead sites, native world action4, LL/HH training and C/E factors",
+    "support_summary.json: cell_counts LL=5 HH=5, demo_00 hand-to-interaction distance about 0.211 m and interaction-to-goal distance about 0.400 m",
+    "images/frame_00_demo_00_step_000.png: separated peg and side-facing box; hand above table",
+    "images/frame_01_demo_00_step_056.png: hand contacting/carrying the peg near the tabletop",
+    "images/frame_03_demo_01_step_091.png: carried peg at the raised side opening",
+    "trajectories/demo_00.json: obs[0:4] distinguishes grasp from head by roughly (-0.13,0,-0.01) m; obs[48:54] shows aperture and object movement during pickup; obs[64:76] shows lifted insertion approach",
+    "PUBLIC_CONTRACT.md and contracts.py: causal conditioning and unchanged action4 loss/executor contract"
+  ],
+  "expected_failure_signature": "If relative coordinates alone are insufficient, failures should concentrate at lift/transport transitions and at small transverse insertion errors, rather than simple initial reaching. Large opposite-sign peg/box offsets may cause premature lateral transport while the peg is low because no explicit stage or collision model is imposed. The model can still exploit absolute hand/world correlations, so extrapolation is not guaranteed. These are pre-feedback predictions, not measured outcomes.",
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,42], shared deployment observation only",
+    "slices": {"hand": [0,3], "gripper": [3,4], "pegGrasp": [4,7], "peg_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_gripper": [21,22], "previous_pegGrasp": [22,25], "previous_peg_quaternion_xyzw": [25,29], "goal": [36,39], "pegHead": [39,42]},
+    "omitted": "Only the declared absent object2 zero blocks are discarded. No reset factors, time index, success signal, future observation or simulator state is read.",
+    "action_frame": "Identity encode/decode: [world_dx, world_dy, world_dz, gripper]. Translation units remain native 0.01 m per action unit; gripper is unchanged. Only the executor clips native actions, and it executes the common first four of sixteen predictions."
+  },
+  "training_only_targets": [],
+  "support_fit": "None. Constants are physical representation scales, not learned statistics. The host's D_N normalizer is unchanged; this representation uses raw causal observations for metric differences.",
+  "parents": [],
+  "change_summary": "Initial pre-feedback design. Replaces raw normalized conditioning with a deterministic 48-dimensional contact-chain representation; no added learned modules, extra losses, action mappings, or changes to the shared DP/training budget."
+}

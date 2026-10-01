@@ -1,0 +1,59 @@
+{
+  "buffer": [
+    -0.18,
+    0,
+    0.02
+  ],
+  "control_hz": 20,
+  "description": "Exchange the regions of the two blocks: the red block goes into the marked region where the blue block normally starts and the blue block into the marked region where the red block starts. The blue block has been set aside outside all marked regions. The task is complete when both blocks are in their goal regions.",
+  "fixtures": [],
+  "goal_half_xy_m": [
+    0.06,
+    0.06
+  ],
+  "goal_z_tolerance_m": 0.011,
+  "goals": {
+    "blue": [
+      -0.35,
+      -0.2,
+      0.02
+    ],
+    "red": [
+      -0.35,
+      0.2,
+      0.02
+    ]
+  },
+  "id_half_width_m": 0.012,
+  "initial": {
+    "blue": [
+      -0.35,
+      0.2,
+      0.02
+    ],
+    "red": [
+      -0.35,
+      -0.2,
+      0.02
+    ]
+  },
+  "object_half_m": 0.02,
+  "ood_inner_m": 0.022,
+  "ood_outer_m": 0.04,
+  "program": [
+    [
+      "red",
+      "buffer"
+    ],
+    [
+      "blue",
+      "blue"
+    ],
+    [
+      "red",
+      "red"
+    ]
+  ],
+  "shared_xy": false,
+  "task_id": "buffer_swap"
+}

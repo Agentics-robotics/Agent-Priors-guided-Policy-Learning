@@ -1,0 +1,152 @@
+{
+  "task_id": "covered_peg_assembly",
+  "policy_id": "align_and_insert_peg__h01",
+  "skill_id": "align_and_insert_peg",
+  "source": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/source",
+  "manifest": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/assignment.json",
+  "training_spec": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/training/spec.json",
+  "dataset": "assets/exp2/datasets/covered_peg_assembly/align_and_insert_peg/dataset.json",
+  "normalization": "assets/exp2/tasks/covered_peg_assembly/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/covered_peg_assembly/align_and_insert_peg__h01/model.pt",
+    "sha256": "cc7465223e7d94bc6a65fe56bf52aaa4019c37938d88f907cbe89fc9554a0682",
+    "source_sha256": "cc7465223e7d94bc6a65fe56bf52aaa4019c37938d88f907cbe89fc9554a0682",
+    "size_bytes": 344872198,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 12,
+    "demos": 12,
+    "in_distribution_success": "12/12",
+    "exit_rule": "standard task success at the final state (peg head inserted and axis aligned)",
+    "guidance": "**Observed reliability:** Passed 12/12 in-distribution runs from the exactly replayed training-segment entry at step 1380; task success first appeared at policy step 107–147 and was still true at the fixed final check. All runs had zero reported IK-unconverged steps, no gripper changes, and a closed final gripper. **Use when:** the peg is visibly secure in a closed grasp, clear of the box, nearly axis-aligned, and the hole-relative route is reachable; prefer this simple hole-frame TCP prior when nominal grasp geometry is expected. Its moved-hole equivariance is an intended structural property, not validated moved-fixture evidence. **Avoid/recognize failure:** do not use as recovery for slips/drops, severe angular error, collision, jam, or uncertain reachability. Stop on IK nonconvergence/limit contact, peg–TCP separation, descent with persistent lateral/angular error, fixture collision, or stalled +hole-x progress. **Handoff:** there is no learned successor. Keep the gripper closed and stabilize until the unchanged geometric-and-stability evaluator passes; IK convergence alone is not completion. If the route becomes unreachable or grasp integrity degrades, stop or hand off rather than release. Structurally, use h02 for modest local tracking error, h03 for timing ambiguity near the nominal workspace, or h04 for a consistently changed rigid grasp transform; none of those transfers has OOD validation evidence."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/assignment.json",
+      "sha256": "ddef5d99ada95193964a26ea3202b0e205b3426754ade9cdbd2b7f9bb41757c6",
+      "source_sha256": "c3f94f6fe5a0bd73ee0f44e361bf224d437b70b53fc0a7c402ad12be53ea8343",
+      "size_bytes": 11434,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/handoff_evidence.json",
+      "sha256": "0c9fb7f1b7c00b1d242fda4883182c1c5d06b364bef50d8c1ad101a70fb32453",
+      "source_sha256": "0c9fb7f1b7c00b1d242fda4883182c1c5d06b364bef50d8c1ad101a70fb32453",
+      "size_bytes": 106008,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/source/HANDOFF.json",
+      "sha256": "8c103def457e527b931bf8aa149ecdc6bc8b41020f1bcd7202a7a40bdd5fb334",
+      "source_sha256": "8c103def457e527b931bf8aa149ecdc6bc8b41020f1bcd7202a7a40bdd5fb334",
+      "size_bytes": 1905,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/source/PRIOR.md",
+      "sha256": "79f4636329369f068a7c553bca04c38d7f5aa4cd0d971c82d16ab55956e447e7",
+      "source_sha256": "79f4636329369f068a7c553bca04c38d7f5aa4cd0d971c82d16ab55956e447e7",
+      "size_bytes": 4130,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/source/adapters.py",
+      "sha256": "2bcfcb4d0064d6d0c6caf9a27b7627a552d486cab8d3997da40533455654a7ce",
+      "source_sha256": "2bcfcb4d0064d6d0c6caf9a27b7627a552d486cab8d3997da40533455654a7ce",
+      "size_bytes": 4210,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/source/panda_posture.py",
+      "sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+      "source_sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+      "size_bytes": 1041625,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/source/pipeline.json",
+      "sha256": "0482125908d98da6b98d022519da3dfa7c1cdf4176cb10f00cd129ba962042f7",
+      "source_sha256": "0482125908d98da6b98d022519da3dfa7c1cdf4176cb10f00cd129ba962042f7",
+      "size_bytes": 1179,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/source/policy.py",
+      "sha256": "5748b71199b258736c7efc7a1eb979fbfd8968cb4fefce5a0fba1f0b6343b10a",
+      "source_sha256": "5748b71199b258736c7efc7a1eb979fbfd8968cb4fefce5a0fba1f0b6343b10a",
+      "size_bytes": 934,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/source/policy_contract.json",
+      "sha256": "8186bf67cd217b3b1f706676ce0de9dc32240300c434e0734d2c80e00919c2a6",
+      "source_sha256": "8186bf67cd217b3b1f706676ce0de9dc32240300c434e0734d2c80e00919c2a6",
+      "size_bytes": 2102,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/source/training_bindings.json",
+      "sha256": "b4de2f976d1faa162937f95a6adb7e2abe769978b98fe45e41868ade39bc27e0",
+      "source_sha256": "b4de2f976d1faa162937f95a6adb7e2abe769978b98fe45e41868ade39bc27e0",
+      "size_bytes": 2629,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/submission.json",
+      "sha256": "81235ade79ac66c753f681204b6d8a53135766ffe55403a1064d8809dbc513e3",
+      "source_sha256": "856da9c3da4c274e8ae189ef77228b1d13b7cd9c5206c8b377ecb4d97fbb4b4d",
+      "size_bytes": 18553,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/training/adapter_checks.json",
+      "sha256": "54e0f73581bb092150f954f7b8f52f056ef1939ea2ecdf1946ac864c873b14b8",
+      "source_sha256": "54e0f73581bb092150f954f7b8f52f056ef1939ea2ecdf1946ac864c873b14b8",
+      "size_bytes": 194,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/training/result.json",
+      "sha256": "8529fd0430959fa1e700fdacbaca3024bd61ad2833c2bc1e1ed07ed0730b6ac6",
+      "source_sha256": "a6cfadfdeda95282c6cc16779fbece908547873097297ee8d934e2f2ee8ebdf1",
+      "size_bytes": 4614,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/training/spec.json",
+      "sha256": "4a075d3a9df091501d9a2e7880f7e53754c8a927d40bc38165689c1cc91ee318",
+      "source_sha256": "4a075d3a9df091501d9a2e7880f7e53754c8a927d40bc38165689c1cc91ee318",
+      "size_bytes": 17847,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/prior_plan.json",
+      "sha256": "39b5878a672c573b9cb66da51aa9ccb1503f4789da1aa0bb40f14db750196cb2",
+      "source_sha256": "39b5878a672c573b9cb66da51aa9ccb1503f4789da1aa0bb40f14db750196cb2",
+      "size_bytes": 23534,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/covered_peg_assembly/task.json",
+  "completion_contract": "assets/exp2/tasks/covered_peg_assembly/completion_contract.json",
+  "public_context": "assets/exp2/tasks/covered_peg_assembly/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/covered_peg_assembly/prompts/hl.md",
+  "prior_plan": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h01/prior_plan.json"
+}

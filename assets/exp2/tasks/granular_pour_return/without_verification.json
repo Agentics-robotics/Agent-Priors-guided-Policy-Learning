@@ -1,0 +1,402 @@
+{
+  "_path": "assets/exp2/tasks/granular_pour_return/without_verification.json",
+  "api": {
+    "base_url": "https://api.openai.com/v1",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "service_tier": "default",
+    "timeout_seconds": 1800
+  },
+  "completion_contract": "assets/exp2/tasks/granular_pour_return/completion_contract.json",
+  "cut_schema": "assets/exp2/tasks/granular_pour_return/cut_schema/cut.schema.json",
+  "dataset": "provenance/relocated/ba4021da7c555ca3",
+  "design": {
+    "max_api_calls": 128,
+    "max_checks": 5,
+    "max_output_tokens": 32768,
+    "max_tool_calls": 384
+  },
+  "devices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "engine_variant": "dynamic_observation_fields",
+  "episodes": [
+    {
+      "center": [
+        -0.45,
+        -0.21
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "db7d736c9008b113be633b6b0ec9370406822481acea746c162f96e25e552595",
+      "layout": {
+        "container": [
+          -0.46601023990405377,
+          -0.19534212961757869,
+          0.003
+        ]
+      },
+      "moved_body": "container",
+      "original_ood_layout": {
+        "container": [
+          -0.4740204798081076,
+          -0.18868425923515741,
+          0.003
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093100,
+      "task": "granular_pour_return"
+    },
+    {
+      "center": [
+        -0.45,
+        -0.21
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "eaddfc09f5b5ae1efb2ac1efe173ee77128bb9750780117c334f0a66ddd330c9",
+      "layout": {
+        "container": [
+          -0.4361535370796306,
+          -0.1958521068636587,
+          0.003
+        ]
+      },
+      "moved_body": "container",
+      "original_ood_layout": {
+        "container": [
+          -0.4303070741592612,
+          -0.1897042137273174,
+          0.003
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093101,
+      "task": "granular_pour_return"
+    },
+    {
+      "center": [
+        -0.45,
+        -0.21
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "e6ef0b1b6061edea20fa4d2a4b50f3c3c5086bdeac315764b3d1c3c0edff8633",
+      "layout": {
+        "container": [
+          -0.45904507127588673,
+          -0.22465966388315642,
+          0.003
+        ]
+      },
+      "moved_body": "container",
+      "original_ood_layout": {
+        "container": [
+          -0.46009014255177344,
+          -0.23131932776631287,
+          0.003
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093102,
+      "task": "granular_pour_return"
+    },
+    {
+      "center": [
+        -0.45,
+        -0.21
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "9249bdfa330a2240de4022d08a50721f8ce9de52327e90b5eaa7af1f49dfb938",
+      "layout": {
+        "container": [
+          -0.46492105366414005,
+          -0.19681079439867002,
+          0.003
+        ]
+      },
+      "moved_body": "container",
+      "original_ood_layout": {
+        "container": [
+          -0.47184210732828,
+          -0.19162158879734004,
+          0.003
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093103,
+      "task": "granular_pour_return"
+    },
+    {
+      "center": [
+        -0.45,
+        -0.21
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "9d5a7dd1974239c0c4627e5d9f7bca9c0c63ee5960069424eb15f305456e6f44",
+      "layout": {
+        "container": [
+          -0.43301934483470605,
+          -0.2239310306125501,
+          0.003
+        ]
+      },
+      "moved_body": "container",
+      "original_ood_layout": {
+        "container": [
+          -0.42403868966941205,
+          -0.22986206122510017,
+          0.003
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093104,
+      "task": "granular_pour_return"
+    },
+    {
+      "center": [
+        -0.45,
+        -0.21
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "79d28ef97a3f01cb4a9bc9103a1d27d999d15cae84163642d3e7bbd0763bcbdb",
+      "layout": {
+        "container": [
+          -0.46413262643919717,
+          -0.22762498699609537,
+          0.003
+        ]
+      },
+      "moved_body": "container",
+      "original_ood_layout": {
+        "container": [
+          -0.47026525287839427,
+          -0.23724997399219075,
+          0.003
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093105,
+      "task": "granular_pour_return"
+    },
+    {
+      "center": [
+        -0.45,
+        -0.21
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "1e8e12c06ee7f6bd031211d18c88bc88602e42a7d494fdc31749a21f0e63fef1",
+      "layout": {
+        "container": [
+          -0.43661659986510093,
+          -0.20667272735003506,
+          0.003
+        ]
+      },
+      "moved_body": "container",
+      "original_ood_layout": {
+        "container": [
+          -0.43123319973020185,
+          -0.20667272735003506,
+          0.003
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093106,
+      "task": "granular_pour_return"
+    },
+    {
+      "center": [
+        -0.45,
+        -0.21
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "a5ba542fb03a64247792682beca2b424d228aebe6a3744a14505af17074f62b3",
+      "layout": {
+        "container": [
+          -0.4654150860104971,
+          -0.21752502054059258,
+          0.003
+        ]
+      },
+      "moved_body": "container",
+      "original_ood_layout": {
+        "container": [
+          -0.4728301720209942,
+          -0.21752502054059258,
+          0.003
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093107,
+      "task": "granular_pour_return"
+    }
+  ],
+  "evaluation": {
+    "context_recent_turns": 6,
+    "diagnostic_seeds": [],
+    "feedback_protocol": "api_conditions_v1",
+    "hide_step_budget": true,
+    "max_api_calls": 128,
+    "max_invocation_steps": 300,
+    "max_steps": 5000,
+    "ood_seeds": [
+      24093100,
+      24093101,
+      24093102,
+      24093103,
+      24093104,
+      24093105,
+      24093106,
+      24093107
+    ],
+    "output": "provenance/relocated/f95120e9184263fc",
+    "seeds": []
+  },
+  "experiment_version": "CartesianIK_pour_APPL_v4_cartesian",
+  "framework_sha256": "8291cf0d32ec5d72f360920cd63180e9d73e16ae470218b765edb2048fb6a183",
+  "ik_revision": {
+    "invalid_v1_results": "provenance/relocated/63b321f37d097ff6",
+    "v1_configuration": "provenance/relocated/0246f4862bc5c7bd",
+    "v1_output": "provenance/relocated/3da966200b93a3f4"
+  },
+  "interface_path": "assets/exp2/tasks/granular_pour_return/interface.md",
+  "kinematics": {
+    "path": "provenance/relocated/60f0ffcf85ab61f4",
+    "posture": {
+      "path": "provenance/relocated/cbf5cbb0a691372f",
+      "sha256": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40"
+    },
+    "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "version": "v2"
+  },
+  "method": "APPL_v4_cartesian",
+  "normalization": {
+    "directory": "provenance/relocated/9ae4f5e0e407b5e2",
+    "scope": "full_training_demonstrations",
+    "train_ids": [
+      "demo12300",
+      "demo12301",
+      "demo12302",
+      "demo12303",
+      "demo12304",
+      "demo12305",
+      "demo12306",
+      "demo12307",
+      "demo12308",
+      "demo12309",
+      "demo12310",
+      "demo12311"
+    ]
+  },
+  "output": "provenance/relocated/c10a9fbe47672e4e",
+  "prior_schema": "assets/exp2/tasks/granular_pour_return/prior_schema/priors.schema.json",
+  "prompts": {
+    "cut": "assets/exp2/tasks/granular_pour_return/prompts/without_verification_cut.md",
+    "hl": "assets/exp2/tasks/granular_pour_return/prompts/without_verification_hl.md",
+    "train": "assets/exp2/tasks/granular_pour_return/prompts/without_verification_train.md"
+  },
+  "public_context": "assets/exp2/tasks/granular_pour_return/public_context.json",
+  "schema": "appl.flexible.sol.v1",
+  "segmentation": {
+    "max_api_calls": 64,
+    "max_output_tokens": 65536,
+    "max_plan_versions": 16,
+    "max_skills": 16,
+    "max_tool_calls": 160
+  },
+  "sources": {
+    "demo12300": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12300.json",
+      "sha256": "21e58673a2d41af543f449b6c1bac1ddbf07c90cd1b3768efebe3b218b3ee197"
+    },
+    "demo12301": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12301.json",
+      "sha256": "1c649d39da186987da23fd7a5747e0e55521fac9fd32b20ba073029707c89ef3"
+    },
+    "demo12302": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12302.json",
+      "sha256": "b7b05183c5c26cf55369fd8013ae041085f557a36ebf9a82c9b9916920766aa9"
+    },
+    "demo12303": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12303.json",
+      "sha256": "24c3aeca48398d027456f5e3577b77135dc1b2be53a9a2b3c57a78efc9b761e5"
+    },
+    "demo12304": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12304.json",
+      "sha256": "048c023f0839c4630bb8a8d104c6c149816d94ca47ce5cc79ee2ad30390a4268"
+    },
+    "demo12305": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12305.json",
+      "sha256": "1c4493143c0d144d4fd44267328d7599720c6f6dd95aec6149609f9c8ff44203"
+    },
+    "demo12306": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12306.json",
+      "sha256": "e6c8a2014257ee090527799729078620a59713086e606f831d45cfcba4b1c7a4"
+    },
+    "demo12307": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12307.json",
+      "sha256": "c5530ad3cb09b0118fc5b715af9e6f87caca9d776f81ba10adf224458278d793"
+    },
+    "demo12308": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12308.json",
+      "sha256": "c1945edb8ae947d2f27ea872462c6eca2419d48f993377584f907da7e121c69a"
+    },
+    "demo12309": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12309.json",
+      "sha256": "ead11ff403366336ff24d395ccc9f795108d9d8d23f34736fbba145119718243"
+    },
+    "demo12310": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12310.json",
+      "sha256": "907dd172d12814e6c2ad53331c17252a3b90cab83dfca74130dcca54109a5957"
+    },
+    "demo12311": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12311.json",
+      "sha256": "e9123001777c449f99e1b1e8a0f1d4e6244bd84c9ee1cfc0978e0b44e8eaf3a1"
+    }
+  },
+  "study_output": "provenance/relocated/503e610fa715ae0b",
+  "study_version": "CartesianIK_Pour_Sol_20260925",
+  "task_id": "granular_pour_return",
+  "task_spec": "assets/exp2/tasks/granular_pour_return/task.json",
+  "training": {
+    "action_scale_floor": 0.01,
+    "batch_size": 128,
+    "checkpoint_every": 2000,
+    "clip_sample": true,
+    "denoising_inference_steps": 100,
+    "denoising_train_steps": 100,
+    "down_dims": [
+      128,
+      256,
+      512
+    ],
+    "ema_decay": 0.999,
+    "execution_steps": 8,
+    "groups": 8,
+    "horizon": 16,
+    "kernel_size": 5,
+    "learning_rate": 0.0001,
+    "lr_schedule": "cosine",
+    "max_grad_norm": 1,
+    "observation_normalization": "limits",
+    "observation_std_floor": 0.001,
+    "observation_steps": 2,
+    "quaternion_normalization": "unit_component_bounds",
+    "sampler": "ddpm",
+    "seeds": [
+      0
+    ],
+    "selection": "last EMA at predeclared budget",
+    "timestep_embed_dim": 128,
+    "updates": 20000,
+    "warmup_steps": 500,
+    "weight_decay": 1e-06
+  },
+  "training_details_path": "assets/exp2/tasks/granular_pour_return/training_details.md"
+}

@@ -1,0 +1,15 @@
+{
+  "policy_id": "return_place_release__h01",
+  "skill_id": "return_place_release",
+  "heuristic_index": 1,
+  "prior_summary": "Destination-frame absolute Cartesian targets make upright return transport, descent, placement, and retreat equivariant to the observed return destination pose while retaining measured robot configuration and world goal information.",
+  "applicable_conditions": "Prefer after the emptied source is securely held and upright or nearly upright, especially when target_pose is displaced from training but remains reachable. The full tilted entry is trained, but displacement invariance is claimed for the target-directed upright portion.",
+  "termination_guidance": "Terminate only after the observed source is upright and stationary at table height inside the unchanged return bounds, fingers are open, and TCP clearance is approximately the demonstrated 0.28 m. This is guidance, not a modified success definition.",
+  "limitations": "One nominal destination and successful paths only; no evidence for large shifts, obstacles, unreachable targets, lost-grasp recovery, corrective repouring, or release recovery. Early righting also transforms with the destination and is not the preferred displaced-goal entry regime.",
+  "config": {
+    "reference_frame": "observed target_pose at chunk replan",
+    "action_encoding": "position plus rotation_6d plus gripper",
+    "condition_features_per_frame": 63,
+    "backbone": "standard DiffusionBackbone"
+  }
+}

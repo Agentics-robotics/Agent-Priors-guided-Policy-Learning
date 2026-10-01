@@ -1,0 +1,44 @@
+{
+  "title": "Joint action/contact-motion diffusion with a causally predicted mode mixture",
+  "coverage_gap": "Five correlated-layout successes provide limited contact and transition coverage. World-coordinate shortcuts are one problem, but the same near-handle position can mean descending to acquire or ascending with an attached ring. Independent action denoising need not represent whether the nut actually follows the hand or whether alignment precedes descent.",
+  "reusable_regularity": "Generate action and object/contact evolution jointly in the unchanged temporal U-Net. Append seven geometric channels: future ring displacement from the observed chunk-start ring, future handle-minus-hand vector and future aperture. Their supervised denoising encourages actions to share a representation with their physical consequences. Separately, a small observation-only mode predictor softly mixes five learned conditioning experts; it is trained with descriptive support-action mode labels but never teacher-forced. These are conditioning experts, not additional policies or denoisers. Direct metric geometry is retained beside the mixture.",
+  "dependencies_preserved": [
+    "Conditioning distinguishes RoundNut-8 handle from physical ring center and includes hand-handle, goal-ring and ring-handle signed vectors, not just distances.",
+    "World hand xyz, absolute handle/ring/goal heights, current and native-previous unit wxyz quaternions, aperture/change, hand/handle finite differences and their relative-motion norm retain fixed orientation, workspace, table/peg clearance and contact/slip dependencies.",
+    "Goal is the runtime peg-location field; its world position is recoverable from retained relations and world hand. No new obstacle channel, simulator collision query or success/grasp oracle is used. Only the declared absent object2 channels are dropped.",
+    "All action channels stay in the native world frame. Ring motion targets are translations anchored at a causal ring position, while hand-handle targets are same-time vectors. Gripper command and aperture are separate scalars, never rotated or treated as translation."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "exact five complete trajectories in assembly__N5__rep0, with no performance feedback"},
+    {"path": "task_materials.json", "detail": "source observation slices and control definitions, including the extra common physical ring-center channel"},
+    {"path": "support_summary.json", "detail": "446 transitions with gripper actions ranging from 0 to .6, ring elevation spanning tabletop through about .20 m, only LL and HH support"},
+    {"path": "trajectories/demo_00.json", "detail": "actions 0-9 are open approach; actions 25-26 are closed downward acquisition followed by sustained positive-z lift at 27-38; actions 48-72 move mainly forward and settle, then at 73 the z command becomes -1. Obs 28-35 show aperture decreasing and ring/hand beginning coupled ascent, obs 58-62 show raised transport, and obs 83-87 show descent near the peg."},
+    {"path": "trajectories/demo_01.json", "detail": "obs 44-46 show simultaneous handle and ring ascent with aperture near .49; these are geometric consequences available as support training targets"},
+    {"path": "images/frame_01_demo_00_step_030.png", "detail": "grasp-stage geometry differs from raised transport despite similar hand-handle proximity"},
+    {"path": "images/frame_02_demo_00_step_060.png", "detail": "nut held above the table en route to the peg"},
+    {"path": "images/frame_06_demo_01_step_092.png", "detail": "ring near the peg at terminal support state"},
+    {"path": "contracts.py", "detail": "training_targets and joint diffusion_targets may append channels after action4; inference context excludes labels and masks"},
+    {"path": "learning.py", "detail": "action epsilon objective isolated on first four channels, host samples all joint channels, checks training-label isolation and fresh deployment restoration"},
+    {"path": "diffusion_policy.py", "detail": "mask shape [B,16] and masked epsilon denominator; common DDPM/DDIM semantics remain unchanged"}
+  ],
+  "expected_failure_signature": [
+    "A learned mode gate can confuse empty closure with attachment: it may predict the lifting mode while the generated ring motion is a hallucination and the actual ring stays down.",
+    "Joint auxiliary denoising may spend scarce capacity on the five support trajectories rather than robust control, producing smooth plausible motion forecasts but worse crossed-layout action correction.",
+    "Abrupt support-action transitions can make mode supervision noisy near acquisition, transport-to-descent or chunk boundaries; resulting behavior would chatter vertically or hover before lowering.",
+    "The support has little lateral motion independent of layout. Joint motion generation is not a physics solver and may still under-correct goal-ring x in LH/HL or E. These are hypotheses, not measured outcomes."
+  ],
+  "required_runtime_fields": {
+    "source": "condition uses only causal_context.raw_history [B,2,42]; denoise receives only that conditioning, the host's noisy joint sample, diffusion timestep, and causal context",
+    "slices": {"hand": [0,3], "aperture": [3,4], "handle": [4,7], "object_quaternion_wxyz": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_handle": [22,25], "previous_object_quaternion_wxyz": [25,29], "goal": [36,39], "ring_center": [39,42]},
+    "action_frame": "Identity action encode/decode. Joint channels 0:4 are exactly the native world dx,dy,dz,gripper commands; native xyz scale .01 m per unit and gripper semantics are unchanged. The host jointly samples 11 channels, takes the first four for decoding, and alone clips/executes four of sixteen native actions. No generated geometric channel is converted to a waypoint or sent to a controller.",
+    "no_future_conditioning": "Mode probabilities are always predicted from raw causal geometry, including during training. No mode labels or future observations enter condition, encode/decode, or denoise. At inference auxiliary future channels start from host diffusion noise and are generated, never clamped to truth."
+  },
+  "training_only_targets": [
+    {"name": "future_geometry", "shape": "[windows,16,7]", "source_fields": "For action offset k, j=min(t+k+1,T). Channels 0:3=(obs[j,39:42]-obs[t,39:42])/.1; channels 3:6=(obs[j,4:7]-obs[j,0:3])/.1; channel 6=2*obs[j,3]-1. These are observed support consequences, not simulator internals.", "mask": "Offsets k<T-t are valid. End padding repeats terminal geometry but is excluded from loss by the common [B,16] action-validity mask. Auxiliary epsilon squared error has its own denominator 7*mask.sum(), protected for an all-zero auxiliary mask, and weight .25."},
+    {"name": "mode", "shape": "[windows] int64", "source_fields": "At chunk t: mode 0 if native action gripper<.3; else mode 2 if action z>.5; else mode 1 if observed ring z<.06 m; else mode 4 if action z<-.5; else mode 3. These indicate open approach, low closed, upward closed, raised non-descending closed, and downward closed. The .3 and .5 constants lie between observed command regimes, and .06 m separates table-near from lifted configurations; none are optimized thresholds or evaluator labels.", "mask": "Cross entropy from the current observation's predicted logits is multiplied by mask[:,0], divided by that mask's valid count, and weighted .05. No labels are used as inference inputs."}
+  ],
+  "support_fit": "No deployment support-fit statistics or cached episodes. training_targets constructs arrays only for the host training dataset from this exact D5, without storing them on the candidate. All physical feature scales are fixed, with no external data/pretraining.",
+  "parents": [],
+  "change_summary": "Initial independent design: 35 direct metric features, learned 32-dimensional phase latent, five 35-to-16 conditioning experts with soft predicted-mode mixing, five logits, for 88 conditioning channels. One common DP jointly diffuses 11 channels. Adds separately normalized geometry epsilon and mode cross-entropy losses. Identity action frame. No performance-driven revisions.",
+  "loss_and_capacity": "Common action4 epsilon coefficient is exactly 1 with denominator mask.sum()*4, regardless of seven appended channels. Additional nonnegative loss is .25 times valid-normalized auxiliary geometry epsilon plus .05 times valid-normalized mode CE. Every learned parameter participates in the joint loss; the frozen optimizer, 20000 updates, two observations, sixteen-step horizon, four-step execution and single common U-Net are unchanged. Complete parameter cap is 3x B0."
+}

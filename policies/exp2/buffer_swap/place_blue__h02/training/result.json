@@ -1,0 +1,122 @@
+{
+  "checkpoint": "provenance/relocated/52b4646a8a41a509",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "6fee842775cbc1b8873192185fc5f8768546b7b515b91ea5b39403162aca0131",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 0,
+    "physical_gpu": 3,
+    "uuid": "GPU-211ca63e-6f90-7281-b43a-e1facc953f2b"
+  },
+  "effective_action_targets": 40499299,
+  "final_weights_sha256": "8e88f88b1f78fa3663136e396d3a5d9ce5d23068c005c8a9ba674feef5c13bab",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.885456085205078,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.985006809234619,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.851818084716797,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.29191386699676514,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "e53bc059498af1f55cf3b690a00990666bb33b1699fe6f07bab716fdcf9a8011",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 7100,
+      "duplicated_actions": 0,
+      "unique_actions": 7100
+    },
+    "contract": {
+      "action_dimension": 8,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "context_object": {
+            "enum": [
+              "red"
+            ],
+            "type": "string"
+          },
+          "destination_goal": {
+            "enum": [
+              "blue_goal"
+            ],
+            "type": "string"
+          },
+          "target_object": {
+            "enum": [
+              "blue"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "target_object",
+          "destination_goal",
+          "context_object"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Adding the observed goal translation and normalizing the demonstrated unit quaternion recovers each command FK world TCP target. Quaternion unit/canonical projection is declared; the independent check compares position, rotation angle and gripper while allowing nonunique IK.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "Every action of every assigned slice is supervised, preserving the full blue relocation responsibility plus 210-230 action predecessor overlaps and 230-240 action successor overlaps. Goal anchoring changes coordinates, not cuts or success semantics.",
+      "input_shapes": {
+        "features": [
+          2,
+          45
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "blue_pose",
+        "red_pose",
+        "blue_goal",
+        "red_goal"
+      ],
+      "output_semantics": "Each slot is [goal-relative world dx,dy,dz in metres, world qw,qx,qy,qz, gripper]. The observed blue_goal position is fixed for one sampled chunk. Slots represent t-1 through t+14 and host execution uses slots 1..8. decode_action normalizes and canonicalizes the quaternion, adds the chunk goal translation, constructs a world TCP pose, invokes panda_kinematics.solve_ik from fresh qpos, and appends the native gripper scalar.",
+      "parameter_semantics": "target_object selects blue for goal-relative conditioning; destination_goal selects the observed world point defining the per-replan translation frame; context_object selects buffered red. Positions are world metres and rotations are world-frame wxyz. Training binds blue, blue_goal and red.",
+      "policy_id": "place_blue__h02",
+      "skill_id": "place_blue",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "ef539dc310c37c33e095176150194882c5ed49d6cbc710b32f3fe5951f6e38df",
+    "PRIOR.md": "af4fc6e0844c50e951d659502f7a3f6323bf882616c6307717799fcb9feb3130",
+    "adapters.py": "cf7ddd90159097f2e8e34da71e5838c6ed1a3322accc79bedd0f1ad00be54dc7",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "88d597cca69ff2a8b85125b60aa985cd4737ddf410a5d286a2d2446f69fcaf05",
+    "policy.py": "7afa4c27f2434e946c1416a3cac8b9ae26cdfabcc56dc0c3cb95d61acdbf9794",
+    "policy_contract.json": "4a31fd9ba94e030e172719de7761faa81e11ae037c6d549b42fd34b712059f26",
+    "training_bindings.json": "68b684a95e67225ad9cb168760eb34e173d5fc1de79aa4c6db2ab93e6472884c"
+  },
+  "trainable_parameters": 16969736,
+  "training_elapsed_seconds": 701.7853609640151,
+  "weight_l2_change": 34.54030104720767
+}

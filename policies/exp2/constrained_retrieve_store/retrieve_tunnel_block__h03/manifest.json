@@ -1,0 +1,152 @@
+{
+  "task_id": "constrained_retrieve_store",
+  "policy_id": "retrieve_tunnel_block__h03",
+  "skill_id": "retrieve_tunnel_block",
+  "source": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/source",
+  "manifest": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/assignment.json",
+  "training_spec": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/training/spec.json",
+  "dataset": "assets/exp2/datasets/constrained_retrieve_store/retrieve_tunnel_block/dataset.json",
+  "normalization": "assets/exp2/tasks/constrained_retrieve_store/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/model.pt",
+    "sha256": "c5d42860972b6a78ec4c8361de3eb74bb36e2de89220a7b956d244949fd86857",
+    "source_sha256": "c5d42860972b6a78ec4c8361de3eb74bb36e2de89220a7b956d244949fd86857",
+    "size_bytes": 346879110,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 12,
+    "demos": 12,
+    "in_distribution_success": "12/12",
+    "exit_rule": "block outside the tunnel footprint with its bottom above the tunnel roof (or already inside the drawer) and drawer_position > 0.26 at the final state",
+    "guidance": "Preferred default when extraction/lift/transfer phase ambiguity or premature below-roof transfer is the main concern: it passed 12/12 in-distribution runs, ended with drawer_position about 0.300 throughout, and had zero IK-unconverged steps. Use only with training-like world/tunnel geometry, an open stable drawer, a valid target_pose, and a low tunnel block; its narrow guard conservatively caps destination-directed +x motion when closed-near-object proxies indicate the block is below 0.16 m. Avoid if target_pose/geometry is unreliable, if a valid unseen maneuver intentionally requires low transfer, or if failed-grasp recovery is needed; use h01 only for the unvalidated displaced-block specialization and h02 for a major valid TCP/configuration mismatch. Failure signs are closed fingers without object/TCP coupling, repeated guard intervention while the block stays low, failure to rise, drop, destination drift, drawer_position <=0.26, or persistent IK nonconvergence/limits. Hand off in 680:840 once coupling persists, the block is outside with its bottom above the roof (or already inside), drawer_position >0.26, the guard is inactive, and transfer is directed toward the drawer."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/assignment.json",
+      "sha256": "65fbf796bffe3336986ebc39267669ba5829e1aa87dcff09cdcb2f175297b103",
+      "source_sha256": "a5dbc218bd83398d1759985fd5698425744a07909a7b9308ff1232eb52933ce1",
+      "size_bytes": 13010,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/handoff_evidence.json",
+      "sha256": "c3815bef938f6af1501d5b027541bc98e245cb570cfec0e1591b1fff6ea295fd",
+      "source_sha256": "c3815bef938f6af1501d5b027541bc98e245cb570cfec0e1591b1fff6ea295fd",
+      "size_bytes": 117529,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/source/HANDOFF.json",
+      "sha256": "59ccbdd46263c8e7bb48c6698353466cff9141b423987c9e5d55c793a5bc3e03",
+      "source_sha256": "59ccbdd46263c8e7bb48c6698353466cff9141b423987c9e5d55c793a5bc3e03",
+      "size_bytes": 1786,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/source/PRIOR.md",
+      "sha256": "042d17def01201b479b5c484bebb66784f274bbf6cddc2827d9070ded9a7cb23",
+      "source_sha256": "042d17def01201b479b5c484bebb66784f274bbf6cddc2827d9070ded9a7cb23",
+      "size_bytes": 4572,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/source/adapters.py",
+      "sha256": "79c23f69dd7c96c745aa51be3f2edcd0035993234ff3dbc2dbf4cc453c068e8f",
+      "source_sha256": "79c23f69dd7c96c745aa51be3f2edcd0035993234ff3dbc2dbf4cc453c068e8f",
+      "size_bytes": 7743,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/source/panda_posture.py",
+      "sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "source_sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "size_bytes": 903317,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/source/pipeline.json",
+      "sha256": "4bdbe974cb00ae902507b21755cdd5ace610ee2ea6046379660e990f7ce18822",
+      "source_sha256": "4bdbe974cb00ae902507b21755cdd5ace610ee2ea6046379660e990f7ce18822",
+      "size_bytes": 1397,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/source/policy.py",
+      "sha256": "344af08569a23540d60c2b67daa9c98df9156a4ef63c67c64cfa70f48f5af1cc",
+      "source_sha256": "344af08569a23540d60c2b67daa9c98df9156a4ef63c67c64cfa70f48f5af1cc",
+      "size_bytes": 944,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/source/policy_contract.json",
+      "sha256": "2c8cb28e3ed6aaa3ff7d432feb4b5b422aef46adad2c7a6a196107422f75ac01",
+      "source_sha256": "2c8cb28e3ed6aaa3ff7d432feb4b5b422aef46adad2c7a6a196107422f75ac01",
+      "size_bytes": 2487,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/source/training_bindings.json",
+      "sha256": "be5ed805fb9a281c646f2719139d9dcd9788a05cc21cac5f69f7d04555eca4d9",
+      "source_sha256": "be5ed805fb9a281c646f2719139d9dcd9788a05cc21cac5f69f7d04555eca4d9",
+      "size_bytes": 2987,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/submission.json",
+      "sha256": "079a2513beb4b951308696bc21d871b259608bedb116c2b4515a4d2adf6003c3",
+      "source_sha256": "30e1ac9857e1a36a3b435e20e06f31a1978a9f56a75e7131fc4d51bd0f9c22a3",
+      "size_bytes": 20574,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/training/adapter_checks.json",
+      "sha256": "f97641bddca4738f65c0eb165709075b9a2ec1dcb698a5f4b1b77d48eccf392e",
+      "source_sha256": "f97641bddca4738f65c0eb165709075b9a2ec1dcb698a5f4b1b77d48eccf392e",
+      "size_bytes": 193,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/training/result.json",
+      "sha256": "673da8cd6ff8be5688824129b2539de694e926cb77ded3d166e49dd0e7c527a0",
+      "source_sha256": "c145e8365abf927bef4d4f8bef485d1c0eb8454593c04693b4445b546df220a3",
+      "size_bytes": 5199,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/training/spec.json",
+      "sha256": "57573b9d44124e473286d4dfcd44dad9f473ff6ccc6bd993e1f97c40cab65fc5",
+      "source_sha256": "57573b9d44124e473286d4dfcd44dad9f473ff6ccc6bd993e1f97c40cab65fc5",
+      "size_bytes": 17155,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/prior_plan.json",
+      "sha256": "e6dd88682734d84a30b5fbb6969202fa81c8eb0105785423713824cbdfdfe53b",
+      "source_sha256": "e6dd88682734d84a30b5fbb6969202fa81c8eb0105785423713824cbdfdfe53b",
+      "size_bytes": 27306,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/constrained_retrieve_store/task.json",
+  "completion_contract": "assets/exp2/tasks/constrained_retrieve_store/completion_contract.json",
+  "public_context": "assets/exp2/tasks/constrained_retrieve_store/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/constrained_retrieve_store/prompts/hl.md",
+  "prior_plan": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h03/prior_plan.json"
+}

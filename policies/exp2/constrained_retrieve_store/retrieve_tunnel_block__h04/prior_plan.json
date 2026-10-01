@@ -1,0 +1,61 @@
+{
+  "cut_plan_sha256": "388b2863018f5e4ec92a10a0b6a0efd22bb0182ef311ace074f29094ca4f82f2",
+  "priors": [
+    {
+      "applicability": "Prefer h04 when the approached block may be translated beyond the narrow demonstrated x/y range, the open drawer destination pose is reliable, and the skill starts at the normal open-gripper entry or a valid low extraction/lift intermediate state. The low branch is intended for a block whose bottom has not yet cleared the fixed 0.16 m tunnel roof; the destination branch increasingly governs over the first 0.04 m of bottom clearance. Use existing h02 instead when a large predecessor TCP/configuration mismatch is the principal variation and the block is near nominal support; use h03 when conservative prevention of premature below-roof transfer is more important than block-displacement equivariance.",
+      "evidence": [
+        {
+          "indices": [
+            300,
+            420,
+            520,
+            540,
+            560,
+            600,
+            620,
+            640,
+            660,
+            680,
+            700,
+            780,
+            820,
+            839
+          ],
+          "trajectory_id": "demo12100"
+        },
+        {
+          "indices": [
+            300,
+            420,
+            520,
+            540,
+            560,
+            600,
+            640,
+            660,
+            680,
+            700,
+            780,
+            820,
+            839
+          ],
+          "trajectory_id": "demo12101"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer_position is above 0.26 and stable, target_pose denotes the open drawer destination, object_pose is finite and low in or near the tunnel, and the gripper is open/free of the drawer at normal entry. A mid-skill entry is valid only when observed TCP/object geometry and finger state plausibly match approach, extraction or lift support; closed fingers alone do not establish a grasp.",
+        "exit_conditions": "The observed block is outside the tunnel footprint, its bottom is above the 0.16 m tunnel roof, fingers remain closed, object and TCP motion stay coupled, and destination-directed transfer has begun while the drawer remains open.",
+        "failure_signatures": "Object/TCP candidates disagree substantially near the blend band; destination-directed motion begins while the block bottom is below the roof; fingers close without coupled object motion; the block stays low, remains in the tunnel or drops; the drawer is disturbed; or IK repeatedly reports nonconvergence or limits.",
+        "overlap_role": "All [300,840) actions are action-supervised in every trajectory. Actions [300,440) provide 140 predecessor-overlap steps for early post-open retreat/approach starts; [680,840) provide 160 successor-overlap steps covering final lift, reorientation and transfer.",
+        "successor_readiness": "The placement successor is ready during [680,840) after the block bottom is observably above 0.16 m, the destination branch dominates, object/TCP coupling persists under closed fingers, and transfer toward target_pose is underway."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"object_pose_field\":{\"type\":\"string\",\"enum\":[\"object_pose\"]},\"destination_pose_field\":{\"type\":\"string\",\"enum\":[\"target_pose\"]},\"tunnel_clearance_m\":{\"type\":\"number\",\"minimum\":0.16,\"maximum\":0.16}},\"required\":[\"object_pose_field\",\"destination_pose_field\",\"tunnel_clearance_m\"]},\"parameter_semantics\":\"object_pose_field selects the observed manipulated block whose fresh world position anchors the translation-equivariant low-motion candidate and supplies clearance; destination_pose_field selects the fresh observed drawer destination frame for the post-clear candidate; tunnel_clearance_m is the fixed world-z tunnel roof height in metres. Bindings use object_pose, target_pose and 0.16.\"}",
+      "limitations": "No validation result is out of distribution, so the expected displacement benefit is unverified. The representation requires accurate object position/height and destination pose. Its 19-D redundant target can produce disagreeing sampled candidates, and the analytic blend is not contact estimation. Object translation anchoring does not rotate with the block and intentionally stops dominating after clearance. No contact truth or failed-grasp retry is available; IK reachability, collision freedom and drawer preservation are not guaranteed.",
+      "pipeline_implications": "Register one independent 19-D Diffusion Policy with the unchanged public backbone, condition dimension 144 from two 72-channel causal frames, and no auxiliary head. Each command supervises both pose candidates, so every valid mask applies to all 19 channels and there is no future-dependent branch mask. At decode, reconstruct both candidates from fresh observations, blend them by observed bottom clearance, call verified solve_ik once from fresh joints, append the common gripper scalar, and report candidate disagreement, blend weight and complete IK diagnostics. Keep H2/16/8, 20 Hz, DDPM/EMA recipe and all original segment/overlap bindings.",
+      "rationale": "Observed validation gives h01 5/12 final passes with nonzero IK-unconverged steps in 10 runs, while h02 and h03 each pass 12/12 with zero reported IK-unconverged steps. This does not identify a cause, but motivates limiting exclusive dependence on a fresh moving object frame. Demonstrations show the block low during approach/grasp and negative-x extraction (demo12100 indices 540-620), crossing roof clearance during lift (640-660), and then reorienting/transferring toward the drawer (680-839). h04 therefore combines an object-position anchor where displacement invariance is needed with a destination anchor after clearance, while supervising both at every slot to avoid a future-phase decoding mismatch. The expected benefit is falsifiable and not claimed as observed performance.",
+      "statement": "Dual-reference clearance blend prior: learn each Cartesian command redundantly as a world-axis TCP translation offset from the observed block plus world 6D orientation, and as a full destination-frame TCP pose. During low approach, grasp, horizontal extraction and early lift, decode the object-position candidate so translating the block translates the commanded TCP by construction without inheriting block rotation. Once the observed block bottom clears the 0.16 m roof, continuously blend over 0.04 m to the destination candidate for reorientation and transfer. Share one learned gripper scalar and retain measured joints, TCP motion, tunnel margins and drawer geometry in the causal condition.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12100\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence; retain 300:440 predecessor and 680:840 successor action-supervised overlap.\"},{\"trajectory_id\":\"demo12101\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps; includes a different block x/y and grasp timing.\"},{\"trajectory_id\":\"demo12102\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12103\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12104\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12105\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12106\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12107\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12108\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12109\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12110\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12111\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"}]"
+    }
+  ],
+  "skill_id": "retrieve_tunnel_block"
+}

@@ -1,0 +1,15 @@
+{
+  "policy_id": "open_drawer__h03",
+  "entry_conditions": "Nominal cabinet calibration and any causally recognizable demonstrated phase from closed/high/free through open/front-release/red approach. Drawer progress, finger state and TCP/object relations must be physically coherent; phase prediction is not entry proof.",
+  "exit_conditions": "Drawer_position safely above strict 0.26 m, near-zero drawer motion, front relinquished, and red closed upon with observable TCP/red upward co-motion for the nominal handoff.",
+  "overlap_role": "All actions 0:470 remain supervised. The release/retreat, red approach, close and lift classes include every 230:470 overlap action shared with red_transfer, 2,880 overlap actions total.",
+  "successor_readiness": "An early red_transfer switch is supported after drawer opening/red exposure at 230. The nominal stronger switch follows the close/lift phase when red and TCP co-move near 470.",
+  "failure_signatures": "Actions inconsistent with drawer progress/finger state; drawer below threshold after pull; continued front drag; TCP/red misalignment; closure without red co-motion; drop during lift; or IK nonconvergence. A phase class is never physical proof.",
+  "continuation_guidance": "Continue only while causal cues agree with one demonstrated successful phase. Use the 230:470 overlap to switch before or after release/contact. Replan on incoherent or unseen failure states rather than trusting the auxiliary classifier.",
+  "limitations": "Guidance assumes nominal cabinet calibration and successful-occurrence phases. It adds no task-success condition, contact truth or recovery demonstration and does not cover displaced drawers, collisions or unreachable absolute targets.",
+  "evidence": [
+    {"trajectory_id":"demo1000","indices":[0,80,120,140,160,200,230,240,260,300,320,360,400,445,470]},
+    {"trajectory_id":"demo1001","indices":[140,150,230,240,300,320,400,440,445,469]},
+    {"trajectory_id":"demo1005","indices":[140,145,230,240,300,400,440,445,469]}
+  ]
+}

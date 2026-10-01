@@ -1,0 +1,24 @@
+{
+  "policy_id": "single_prior_cartesian",
+  "entry_conditions": "Full-task entry accepts the normal reset and causally observed intermediate states of the same scene. Required observations are two frames of lid, peg, hole, target, TCP, qpos and qvel (the framework duplicates only the first episode frame). No stage, selected object, contact flag or caller intent is required.",
+  "exit_conditions": "Exit only on the framework's unchanged covered-peg success test: the cover was opened and the peg is inserted with head x in [-0.145,-0.09], head y/z error no more than 0.009 m, and axis alignment at least 0.985. A closed gripper, open-looking lid, low diffusion loss or destination reference weight is not an exit condition.",
+  "overlap_role": "There is no runtime policy overlap or segmented handoff. Every demonstrated action from reset through final insertion is supervised once by this one policy. The continuous lid/peg/target coordinate blend is an internal action representation and does not invoke, select or switch policies.",
+  "successor_readiness": "No learned successor is expected because this policy owns the full task. External success evaluation may stop after the exact completion contract is met; otherwise the framework may continue replanning the same policy from fresh causal observations.",
+  "failure_signatures": "Observable warnings are: IK converged=false or rising reported pose residuals/limit contacts; lid_position failing to increase while the gripper is near the handle; finger width closing without peg-to-TCP motion locking; peg height failing to rise after source closure; peg-target relative position or orientation ceasing to improve during transfer; reference weights rapidly changing after a drop; the peg returning toward the box; or final peg y/z and axis alignment remaining outside tolerance.",
+  "continuation_guidance": "Replan this same model every eight executed controls using the newest two causal states and a newly resolved reference. Keep the current chunk reference fixed while decoding its slots and always seed shared IK from freshly measured joints. Do not infer contact or force a later phase from elapsed time; if observations leave demonstrated support, diagnostics should be treated as failure evidence rather than permission for a scripted recovery.",
+  "limitations": "Demonstrations cover a narrow family of successful trajectories and only about 12 mm variation in initial peg x/y. The prior is equivariant to the active reference pose but cannot guarantee reachability, collision avoidance, contact maintenance, grasp success or insertion under large/independent scene changes. The analytic blend has no hysteretic memory beyond observed geometry, contact truth is unavailable, and target-relative transport can be unsafe if target_pose is inconsistent with hole_pose. Rotation blending and 6D projection do not model force/compliance.",
+  "evidence": [
+    {"trajectory_id": "demo12200", "indices": [0, 200, 250, 760, 820, 980, 1100, 1180, 1220, 1400, 1504]},
+    {"trajectory_id": "demo12201", "indices": [0, 282, 705, 846, 987, 1128, 1269, 1410]},
+    {"trajectory_id": "demo12202", "indices": [0, 280, 702, 842, 983, 1123, 1264, 1404]},
+    {"trajectory_id": "demo12203", "indices": [0, 221, 665, 886, 1108, 1330]},
+    {"trajectory_id": "demo12204", "indices": [0, 220, 662, 883, 1104, 1325]},
+    {"trajectory_id": "demo12205", "indices": [0, 222, 668, 890, 1113, 1336]},
+    {"trajectory_id": "demo12206", "indices": [0, 220, 662, 882, 1103, 1324]},
+    {"trajectory_id": "demo12207", "indices": [0, 220, 662, 882, 1103, 1324]},
+    {"trajectory_id": "demo12208", "indices": [0, 219, 659, 879, 1099, 1319]},
+    {"trajectory_id": "demo12209", "indices": [0, 220, 662, 882, 1103, 1324]},
+    {"trajectory_id": "demo12210", "indices": [0, 220, 662, 882, 1103, 1324]},
+    {"trajectory_id": "demo12211", "indices": [0, 220, 662, 883, 1104, 1325]}
+  ]
+}

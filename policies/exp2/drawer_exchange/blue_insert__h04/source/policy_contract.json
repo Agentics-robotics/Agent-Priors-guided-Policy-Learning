@@ -1,0 +1,22 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "blue_insert__h04",
+  "skill_id": "blue_insert",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "source_object": {"type": "string", "enum": ["blue"]},
+      "destination_field": {"type": "string", "enum": ["blue_goal"]}
+    },
+    "required": ["source_object", "destination_field"]
+  },
+  "parameter_semantics": "source_object selects the causally observed blue_pose position b in world metres; destination_field selects the calibrated blue_goal position g in world metres. The selected endpoints are resolved and frozen at each chunk replan. They are semantic frame selectors, not arbitrary coordinates or actuator commands.",
+  "observation_dependencies": ["qpos", "qvel", "tcp_pose", "red_pose", "blue_pose", "drawer_position", "drawer_velocity", "red_goal", "blue_goal"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 53]},
+  "action_dimension": 11,
+  "output_semantics": "Each unnormalized slot is [alpha, residual_x_m, residual_y_m, residual_z_m, world_rotation_6d(6), gripper]. At chunk sampling, b is the selected causal blue position and g is blue_goal. The world TCP position is b + clip(alpha,0,1)*(g-b) + residual. Label alpha is the clipped 3-D orthogonal projection of the demonstrated commanded TCP position onto the b-to-g segment; when squared endpoint separation is at most 1e-4 m^2, alpha is defined as 1. Rotation is world aligned and projected from 6-D to SO(3). Gripper retains demonstrated scalar/sign semantics. Slot 0 is t-1 and execution uses slots 1..8 for t..t+7. decode_action calls panda_kinematics.solve_ik from freshly measured joints.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "For encoded labels, clipped progress plus residual reconstructs the demonstrated commanded world TCP position exactly, including the near-coincident endpoint convention. Compare decoded FK position in metres, rotation angle in radians and gripper scalar to that commanded target. Joint nonuniqueness is allowed; sampled alpha is projected to [0,1] and sampled 6-D rotation to SO(3)."},
+  "cut_relation": "Covers every action in all twelve assigned [600,stop) segments without trimming. It preserves the complete 250-action [600,850) overlap per trajectory with red_transfer, totaling 3,000 supervised overlap actions through red release, transit, blue approach, closure and lift."
+}

@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "align_and_insert_peg__h03",
+  "skill_id": "align_and_insert_peg",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {
+      "destination_object": {"type": "string", "enum": ["hole"]},
+      "held_object": {"type": "string", "enum": ["peg"]},
+      "phase_strategy": {"type": "string", "enum": ["geometry_inferred"]}
+    },
+    "required": ["destination_object", "held_object", "phase_strategy"],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "destination_object and held_object select observed hole_pose and peg_pose for geometric progress features. phase_strategy selects the declared causal approach/insert/stabilize classifier; it is intent metadata and never a caller-supplied phase label or actuator value.",
+  "observation_dependencies": ["hole_pose", "peg_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 86]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an absolute world-frame TCP target: xyz metres, world rotation represented by its first two matrix columns (6D), and native gripper scalar. The decoder projects 6D to SO(3) and invokes panda_kinematics.solve_ik from fresh measured qpos. Prediction slots are t-1 through t+14; execution uses slots 1 through 8. A learned three-class stage head conditions diffusion but does not alter or script decoded targets.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "Reconstruct each demonstrated world TCP command from xyz and projected 6D rotation, solve with shared IK from the matching measured joints, and compare FK position, rotation angle, and preserved gripper scalar to the demonstrated commanded target."},
+  "cut_relation": "All assigned align-descend-insert-stabilize actions and the complete [1380,1500) overlap are retained. Causal stage labels refine phase representation without changing cuts, success criteria, or future inference inputs."
+}

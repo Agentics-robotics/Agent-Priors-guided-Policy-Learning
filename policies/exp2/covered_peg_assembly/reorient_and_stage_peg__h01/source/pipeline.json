@@ -1,0 +1,16 @@
+{
+  "policy_id": "reorient_and_stage_peg__h01",
+  "skill_id": "reorient_and_stage_peg",
+  "heuristic_index": 1,
+  "prior_summary": "Hole-frame SE(3) action and observation coordinates make transport, staging, descent and early insertion targets move with the freshly observed hole pose while retaining measured Panda configuration.",
+  "applicable_conditions": "Prefer when hole_pose is reliable and the fixture has moved relative to training, the fingers remain closed, two frames indicate peg/TCP coupling, and the transformed path appears reachable.",
+  "termination_guidance": "Continue until the peg is near hole-axis alignment, y/z centered and descending toward hole height; transfer to align_and_insert_peg anywhere in the retained [1380,1500) overlap when successor readiness is observable.",
+  "limitations": "Hole-frame equivariance does not guarantee reachability, collision avoidance, contact, or recovery. It is weak for a displaced/slipping peg with an unchanged hole and for obstacle arrangements that do not move with the hole.",
+  "config": {
+    "action_frame": "chunk_hole_pose",
+    "rotation_encoding": "6d",
+    "feature_dimension_per_frame": 57,
+    "backbone": "standard_diffusion_backbone",
+    "auxiliary_loss_weight": 0.0
+  }
+}

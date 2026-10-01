@@ -1,0 +1,29 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "close_drawer__h03",
+  "skill_id": "close_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "No high-level arguments. The fixed closed-destination frame is deterministically T_target_pose times a +drawer_position translation along target local x. Drawer units are metres. The future drawer delta is a masked training-only auxiliary label and is never an inference input or success signal.",
+  "observation_dependencies": ["drawer_position", "drawer_velocity", "object_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {"features": [2, 42]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [closed-destination-frame xyz metres, world-frame TCP rotation 6D, native gripper scalar]. The destination is recomputed from each action observation for labels and the fresh current observation for decoding. Translation is transformed by the destination frame; world rotation 6D is Gram-Schmidt projected; the world target is converted only by panda_kinematics.solve_ik from fresh qpos. Gripper >=0 opens and <0 closes. Slots are t-1 through t+14 and execution uses 1 through 8.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Compare decoded IK FK against the demonstrated commanded TCP and unchanged gripper. Destination-relative translation and world rotation exactly reconstruct labels apart from SO(3) Gram-Schmidt and reported IK residual; unconverged IK is not replaced."
+  },
+  "cut_relation": "All actions [900,1330) in all 12 trajectories are supervised. The 260 actions [900,1160) remain true overlap with placement; the auxiliary mask never trims action diffusion supervision."
+}

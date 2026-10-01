@@ -1,0 +1,170 @@
+{
+  "cut_plan_sha256": "a9fba2a55520353eef0f232a80fe6fefabff1f74b3712258fccdbe335cfa1dd8",
+  "priors": [
+    {
+      "applicability": "Prefer when the high-level agent has a reliable current drawer anchor pose and drawer_position, and the drawer is closed, partly open, or being pulled with the TCP plausibly near the front. It is especially relevant when the cabinet anchor differs from training or the policy is entered after some opening progress. The supplied anchor must describe the same articulated drawer convention as training.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            120,
+            140,
+            160,
+            180,
+            200,
+            220,
+            230,
+            240,
+            280,
+            300
+          ],
+          "trajectory_id": "demo1000"
+        },
+        {
+          "indices": [
+            0,
+            150,
+            180,
+            215,
+            230,
+            240,
+            300
+          ],
+          "trajectory_id": "demo1001"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer closed or partly open with a reliable anchor and drawer_position; TCP high/free or plausibly at the front; gripper state observable; red supported in the drawer and blue outside. Reachability remains a high-level responsibility.",
+        "exit_conditions": "Nominal exit is drawer_position safely above the unchanged strict 0.26-m task threshold, drawer velocity near zero, front contact released, and observable red/TCP co-motion after closure and initial lift. A closed gripper alone is not proof of grasp.",
+        "failure_signatures": "Drawer remains at or below 0.26, drawer moves without matching TCP/front geometry, anchor estimate jumps, fingers drag or miss the front, red/TCP XY remain misaligned on descent, fingers close without red co-motion, IK is unconverged, or red drops during lift.",
+        "overlap_role": "Retains all actions 0:470. The 230:470 portion in every one of 12 trajectories is action-supervised overlap with red_transfer: front release, retreat, red approach/descent, closure and initial lift (240 actions per occurrence, 2,880 total).",
+        "successor_readiness": "red_transfer may receive once drawer_position is above 0.26 and red is exposed; nominal readiness is stronger when fingers are closed and red/TCP co-motion is observed by about 470. The overlap supports switches before or after release/contact."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"drawer_origin_world_m\":{\"type\":\"array\",\"items\":{\"type\":\"number\"},\"minItems\":3,\"maxItems\":3},\"drawer_orientation_wxyz\":{\"type\":\"array\",\"items\":{\"type\":\"number\"},\"minItems\":4,\"maxItems\":4},\"desired_open_position_m\":{\"type\":\"number\",\"exclusiveMinimum\":0.26}},\"required\":[\"drawer_origin_world_m\",\"drawer_orientation_wxyz\",\"desired_open_position_m\"]},\"parameter_semantics\":\"drawer_origin_world_m is the current world-frame origin, in metres, of the drawer at drawer_position=0; drawer_orientation_wxyz is its current unit wxyz orientation and defines local -X opening translation; desired_open_position_m is the intended scalar opening in metres (bound to the demonstrated 0.300 m). The executor supplies fresh drawer_position and robot/object observations.\"}",
+      "limitations": "Rigid frame equivariance does not establish a grasp or recover a missed front. Large shifts/rotations can be unreachable or collide, and only one drawer orientation and one approximately 0.300-m terminal opening are demonstrated. The post-opening red pickup is represented relative to the drawer but is not invariant by construction to independent red displacement within the drawer; observed red variation is only about x 0.093-0.108 and y -0.077 to -0.055 before opening. Fresh-frame decoding can also propagate a bad drawer pose estimate. The alternative tcp_increment_servo is less sensitive to anchor error for local motion, while phase_conditioned_world targets stage ambiguity at nominal calibration. Successful demonstrations do not prove unseen-error recovery.",
+      "pipeline_implications": "The caller supplies drawer_origin_world_m, drawer_orientation_wxyz, and desired_open_position_m. The executor still supplies fresh drawer_position and measured joints. Use this policy for displaced drawer geometry or partial-opening entries. For a nominal cabinet but a perturbed TCP or tracking lag, prefer tcp_increment_servo; for an uncertain nominal phase with reliable world calibration, phase_conditioned_world is the complementary choice. The standard Diffusion Policy backbone is retained because the needed invariant is implemented in input/target/decode coordinates, not by changing temporal modeling.",
+      "rationale": "Observed evidence: in demo1000 the TCP settles near the closed drawer front by 140, the fingers are closed and drawer_position is 0.0106 at 160, and TCP, red, and drawer then translate together mainly along world -X until drawer_position reaches 0.300 by 220-230. The TCP remains at the open front through release at 240 and retreats upward by 280-300. Demo1001 shows the same relation while red Y differs. The demonstrations have a single cabinet anchor and nearly identical approach/pull timing, so memorized world targets are a likely failure if the drawer anchor or entry opening differs. The policy will express every commanded Cartesian pose as position plus 6D rotation in the currently observed drawer frame. That frame is formed from the caller-supplied drawer origin/orientation and translated by the fresh drawer_position along drawer local -X for every label and every decoded action. This makes the approach, front acquisition, pull tracking, release, and initial retreat equivariant by construction to a supplied rigid drawer-anchor displacement and reactive to intermediate drawer opening. Robot qpos/qvel, TCP-to-drawer, red-to-drawer, drawer velocity and desired opening remain inputs, preserving reachability, articulation and contact-relevant dependencies. No synthetic augmentation is used; demonstrated commanded TCP poses remain physically valid labels. Expected benefit, not observed success: less world-position extrapolation for reachable shifted/partially open drawers.",
+      "statement": "Drawer-frame Cartesian tracking for displaced or partially open drawers",
+      "training_bindings": "[{\"trajectory_id\":\"demo1000\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full assigned segment; preserves 230:470 overlap with red_transfer.\"},{\"trajectory_id\":\"demo1001\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full assigned segment; preserves 230:470 overlap with red_transfer.\"},{\"trajectory_id\":\"demo1002\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full assigned segment; preserves 230:470 overlap with red_transfer.\"},{\"trajectory_id\":\"demo1003\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full assigned segment; preserves 230:470 overlap with red_transfer.\"},{\"trajectory_id\":\"demo1004\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full assigned segment; preserves 230:470 overlap with red_transfer.\"},{\"trajectory_id\":\"demo1005\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full assigned segment; preserves 230:470 overlap with red_transfer.\"},{\"trajectory_id\":\"demo1006\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full assigned segment; preserves 230:470 overlap with red_transfer.\"},{\"trajectory_id\":\"demo1007\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full assigned segment; preserves 230:470 overlap with red_transfer.\"},{\"trajectory_id\":\"demo1008\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full assigned segment; preserves 230:470 overlap with red_transfer.\"},{\"trajectory_id\":\"demo1009\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full assigned segment; preserves 230:470 overlap with red_transfer.\"},{\"trajectory_id\":\"demo1010\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full assigned segment; preserves 230:470 overlap with red_transfer.\"},{\"trajectory_id\":\"demo1011\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full assigned segment; preserves 230:470 overlap with red_transfer.\"}]"
+    },
+    {
+      "applicability": "Prefer when drawer/red geometry is near demonstrated support but the current TCP, joint configuration, or tracking lag differs modestly from the nominal path, including a handoff-produced entry state. It is also a local alternative when the drawer anchor estimate is less trustworthy but observed TCP/object relations are coherent.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            120,
+            140,
+            160,
+            200,
+            230,
+            240,
+            260,
+            280,
+            300,
+            320,
+            400,
+            445,
+            470
+          ],
+          "trajectory_id": "demo1000"
+        },
+        {
+          "indices": [
+            0,
+            145,
+            180,
+            230,
+            240,
+            280,
+            400,
+            445,
+            469
+          ],
+          "trajectory_id": "demo1005"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer closed, partly open, or just opened; current TCP and joints are finite and reachable; object relations are coherent; gripper state is observable. Prefer modest deviation from a demonstrated approach/contact/transition rather than arbitrary recovery states.",
+        "exit_conditions": "Nominal switch cue is drawer_position above 0.26 with near-zero drawer velocity, front released, and red aligned, closed upon, and observably co-moving upward with the TCP. These cues do not change task success.",
+        "failure_signatures": "Repeated local commands without drawer progress, unexpected drawer motion, increasing TCP-to-front or TCP-to-red error, closed fingers without object co-motion, red drop, accumulated pose drift, IK nonconvergence or limit contact.",
+        "overlap_role": "Every segment action 0:470 is supervised. Indices 230:470 duplicate the red_transfer receiving responsibility with physical actions on both sides of handle release and red pickup, totaling 2,880 overlap actions.",
+        "successor_readiness": "red_transfer can accept after drawer opening and red exposure because it is trained from 230; the clean nominal handoff is red/TCP co-motion with closed fingers near 470."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"drawer_origin_world_m\":{\"type\":\"array\",\"items\":{\"type\":\"number\"},\"minItems\":3,\"maxItems\":3},\"drawer_orientation_wxyz\":{\"type\":\"array\",\"items\":{\"type\":\"number\"},\"minItems\":4,\"maxItems\":4},\"desired_open_position_m\":{\"type\":\"number\",\"exclusiveMinimum\":0.26}},\"required\":[\"drawer_origin_world_m\",\"drawer_orientation_wxyz\",\"desired_open_position_m\"]},\"parameter_semantics\":\"drawer_origin_world_m (world metres at drawer_position=0) and unit drawer_orientation_wxyz calibrate relational causal inputs; desired_open_position_m is intended scalar drawer opening in metres and is bound to 0.300 m. Learned actions are not caller increments: they are policy-produced transforms composed with each fresh measured TCP.\"}",
+      "limitations": "Local increments do not make long-range object displacement invariant and can accumulate drift when repeatedly applied off-distribution. A nominal increment can push after missed contact, and fresh-TCP composition cannot infer contact truth. The demonstrations do not cover alternative approach sides, blocked pulls, dropped objects, or recovery. Large TCP offsets, rotations, singular/limit-near joints and collisions remain unsafe or unreachable. drawer_frame_tracking covers reliable anchor displacement; phase_conditioned_world supplies explicit phase supervision. Any unconverged IK result is reported, not hidden.",
+      "pipeline_implications": "The caller supplies drawer calibration and intended opening only to construct relational observations; each action is decoded from the fresh measured TCP. The high-level agent should use this prior for local geometric perturbations and switch away if repeated increments do not cause expected drawer/red co-motion. drawer_frame_tracking better covers a known displaced drawer anchor; phase_conditioned_world better covers nominal geometry with uncertain stage. The standard backbone is unchanged; the prior is entirely in causal relational inputs and the Cartesian target converter.",
+      "rationale": "Observed evidence: demo1000 contains long free-space motion into the front (0-140), contact-constrained pulling (160-230), release and vertical retreat (240-300), a large reorientation/translation toward red (320-445), and initial lift by 470. Measured TCP and commanded TCP are close but not identical during motion, and final robot qpos differs across the red-Y variants (for example demo1000 versus demo1005). A predecessor or physical tracking can therefore produce a feasible TCP/joint state not exactly on the memorized path. The policy learns each target as the local SE(3) transform from that slot's measured TCP to the demonstrated commanded TCP: local translation, local rotation vector, and gripper scalar. At execution each slot is composed with the freshly measured TCP before shared IK. This preserves current robot configuration through qpos/qvel and IK while making the commanded correction local rather than an absolute world waypoint. Inputs include the drawer and red expressed relative to the current TCP, drawer progress/velocity and joint state. No action history, future state, contact truth or augmentation is used. Expected benefit, not demonstration evidence: tolerance to modest reachable TCP offsets, servo lag, and handoff arm-configuration variation.",
+      "statement": "Fresh-TCP local SE(3) increment servo for arm-entry and tracking perturbations",
+      "training_bindings": "[{\"trajectory_id\":\"demo1000\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full segment and complete overlap; local transforms use each action observation.\"},{\"trajectory_id\":\"demo1001\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full segment and complete overlap; local transforms use each action observation.\"},{\"trajectory_id\":\"demo1002\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full segment and complete overlap; local transforms use each action observation.\"},{\"trajectory_id\":\"demo1003\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full segment and complete overlap; local transforms use each action observation.\"},{\"trajectory_id\":\"demo1004\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full segment and complete overlap; local transforms use each action observation.\"},{\"trajectory_id\":\"demo1005\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full segment and complete overlap; local transforms use each action observation.\"},{\"trajectory_id\":\"demo1006\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full segment and complete overlap; local transforms use each action observation.\"},{\"trajectory_id\":\"demo1007\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full segment and complete overlap; local transforms use each action observation.\"},{\"trajectory_id\":\"demo1008\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full segment and complete overlap; local transforms use each action observation.\"},{\"trajectory_id\":\"demo1009\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full segment and complete overlap; local transforms use each action observation.\"},{\"trajectory_id\":\"demo1010\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full segment and complete overlap; local transforms use each action observation.\"},{\"trajectory_id\":\"demo1011\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{\"drawer_origin_world_m\":[0.19,0.0,0.035],\"drawer_orientation_wxyz\":[1.0,0.0,0.0,0.0],\"desired_open_position_m\":0.3},\"rationale\":\"Full segment and complete overlap; local transforms use each action observation.\"}]"
+    },
+    {
+      "applicability": "Prefer at the nominal calibrated cabinet location when drawer progress, finger state, TCP/object relations and motion cues are reliable but the high-level switch may land before/after release or before/after red contact. This model avoids moving all targets with a possibly noisy drawer frame and can exploit the observed red-Y variation directly.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            80,
+            120,
+            140,
+            160,
+            200,
+            230,
+            240,
+            260,
+            300,
+            320,
+            360,
+            400,
+            445,
+            470
+          ],
+          "trajectory_id": "demo1000"
+        },
+        {
+          "indices": [
+            140,
+            150,
+            230,
+            240,
+            300,
+            320,
+            400,
+            440,
+            445,
+            469
+          ],
+          "trajectory_id": "demo1001"
+        },
+        {
+          "indices": [
+            140,
+            145,
+            230,
+            240,
+            300,
+            400,
+            440,
+            445,
+            469
+          ],
+          "trajectory_id": "demo1005"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Nominal drawer calibration; any causally recognizable demonstrated phase from closed/high/free through open/front-release/red approach. Observed state must be physically coherent; phase prediction is not an entry proof.",
+        "exit_conditions": "Drawer_position safely above strict 0.26 m, near-zero drawer motion, front relinquished, and red closed upon with observable TCP/red upward co-motion for nominal handoff.",
+        "failure_signatures": "Stage oscillation or actions inconsistent with drawer progress/finger state, drawer below threshold after pull, continued front drag after opening, TCP/red misalignment, closure without red co-motion, drop during lift, or IK nonconvergence. Such signatures are monitoring cues, not demonstrated recovery capabilities.",
+        "overlap_role": "All actions 0:470 are retained. The phase labels include release/retreat, red approach, closure and lift within the full 230:470 action-supervised overlap shared with red_transfer in every trajectory.",
+        "successor_readiness": "An early switch is supported after drawer opening/red exposure at 230; the nominal robust switch is after the close/lift phase when red and TCP co-move near 470."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{},\"required\":[]},\"parameter_semantics\":\"No caller parameters. The fixed intent is the assigned open_drawer segment; causal executor observations determine relational condition and phase. Initial history padding duplicates the first observation.\"}",
+      "limitations": "World targets can fail under drawer/cabinet displacement; drawer_frame_tracking covers that failure. Index-derived phase labels describe successful nominal occurrences and may not classify unseen failure/recovery states. The auxiliary classifier does not observe contact truth, does not gate execution by itself, and cannot prove grasp. The 12 demonstrations have nearly identical drawer timing, a single cabinet calibration and no failed pulls or drops. Absolute poses can be unreachable from changed configurations; shared IK reports this. tcp_increment_servo is the alternative for local configuration deviation.",
+      "pipeline_implications": "No caller arguments are required; all intent is the fixed open_drawer responsibility and all inputs are causal observations. The high-level agent may invoke at any represented nominal phase but must monitor physical cues rather than trust a predicted phase as contact proof. Use drawer_frame_tracking for a known shifted drawer anchor and tcp_increment_servo for modest off-path TCP/tracking perturbations. The standard U-Net backbone and H2/16/8 timing stay unchanged; only a trainable causal condition encoder and training-only auxiliary classifier are added and saved with the model/EMA.",
+      "rationale": "Observed evidence: nominal execution changes responsibility several times despite one continuous segment: high free-space handle approach (0-140), gripper closure and articulated pull (about 145-230), opening/release and retreat (230-300), reorientation and red-relative approach/descent (320-445), then closure and lift (445-470). Drawer position, finger width/velocity, TCP-to-drawer geometry, TCP-to-red geometry and red/TCP co-motion are causal observable cues. Demo1001 and demo1005 show red-dependent Y differences after 320 while drawer timing remains nearly identical. Deployment can enter at an intermediate state, making stage confusion a likely failure. This policy uses world position plus 6D world rotation and gripper as its action, but a registered per-frame MLP encodes relational causal features for the unchanged diffusion backbone. A registered five-class auxiliary head predicts the supervised occurrence phase (approach, pull, release/retreat, red approach, red close/lift) from the same causal condition. Masked cross-entropy at weight 0.05 supplies a real gradient through the condition encoder in addition to diffusion loss; the label is never an inference input. Expected benefit, not established recovery: sharper conditioning on observable stage when invoked mid-segment.",
+      "statement": "Phase-supervised relational conditioning with world Cartesian pose targets",
+      "training_bindings": "[{\"trajectory_id\":\"demo1000\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{},\"rationale\":\"Full segment; phase labels use source index and all 230:470 overlap actions remain supervised.\"},{\"trajectory_id\":\"demo1001\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{},\"rationale\":\"Full segment; phase labels use source index and all 230:470 overlap actions remain supervised.\"},{\"trajectory_id\":\"demo1002\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{},\"rationale\":\"Full segment; phase labels use source index and all 230:470 overlap actions remain supervised.\"},{\"trajectory_id\":\"demo1003\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{},\"rationale\":\"Full segment; phase labels use source index and all 230:470 overlap actions remain supervised.\"},{\"trajectory_id\":\"demo1004\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{},\"rationale\":\"Full segment; phase labels use source index and all 230:470 overlap actions remain supervised.\"},{\"trajectory_id\":\"demo1005\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{},\"rationale\":\"Full segment; phase labels use source index and all 230:470 overlap actions remain supervised.\"},{\"trajectory_id\":\"demo1006\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{},\"rationale\":\"Full segment; phase labels use source index and all 230:470 overlap actions remain supervised.\"},{\"trajectory_id\":\"demo1007\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{},\"rationale\":\"Full segment; phase labels use source index and all 230:470 overlap actions remain supervised.\"},{\"trajectory_id\":\"demo1008\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{},\"rationale\":\"Full segment; phase labels use source index and all 230:470 overlap actions remain supervised.\"},{\"trajectory_id\":\"demo1009\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{},\"rationale\":\"Full segment; phase labels use source index and all 230:470 overlap actions remain supervised.\"},{\"trajectory_id\":\"demo1010\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{},\"rationale\":\"Full segment; phase labels use source index and all 230:470 overlap actions remain supervised.\"},{\"trajectory_id\":\"demo1011\",\"start\":0,\"stop\":470,\"context_start\":0,\"call_args\":{},\"rationale\":\"Full segment; phase labels use source index and all 230:470 overlap actions remain supervised.\"}]"
+    }
+  ],
+  "skill_id": "open_drawer"
+}

@@ -1,0 +1,14 @@
+{
+  "policy_id": "blue_insert__h02",
+  "entry_conditions": "drawer_position is strictly above 0.26 m and blue is outside or appears carried; red is on or being released over its pad; destination_field resolves to the current blue_goal. Prefer specialized entry after closed-finger blue/TCP co-motion.",
+  "exit_conditions": "The unchanged simultaneous task condition holds: drawer open, red fully on pad at valid z, and blue fully inside the cavity at valid z in one observation. Release and high retreat are not extra success conditions.",
+  "overlap_role": "All [600,stop) actions remain supervised, including 250 [600,850) actions per trajectory shared with red_transfer. This permits receiving control during red release, transit, blue approach, closure or lift despite destination specialization.",
+  "successor_readiness": "There is no learned successor. Continue through demonstrated release/retreat if needed and then hand to framework evaluation. If blue remains outside and source displacement dominates, the blue-frame policy is the preferred continuation.",
+  "failure_signatures": "blue_goal is inconsistent with an open drawer; IK fails or contacts limits; blue fails to follow a closed TCP; TCP/blue approaches lip or wall; drawer falls to 0.26 m or below; red containment is lost; or blue extent/center/z misses final bounds.",
+  "continuation_guidance": "Use while a carried blue block approaches and enters the drawer. Replan to refresh the observed destination every chunk. Switch to the blue-frame source policy for a far-displaced free block, or abort/replan on suspected drop/collision rather than assume recovery.",
+  "limitations": "The goal is a point, not drawer geometry; world orientation does not adapt to rotated drawers; reachability remains configuration dependent; and closed fingers/proximity do not prove contact. No insertion recovery was demonstrated.",
+  "evidence": [
+    {"trajectory_id":"demo1000","indices":[850,890,910,930,950,970,990,1010,1030,1050]},
+    {"trajectory_id":"demo1001","indices":[880,900,920,940,960,980,1000,1020,1040,1060]}
+  ]
+}

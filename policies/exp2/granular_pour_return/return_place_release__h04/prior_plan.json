@@ -1,0 +1,73 @@
+{
+  "cut_plan_sha256": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+  "priors": [
+    {
+      "applicability": "Prefer when the emptied container is still securely held but its observed pose or source/TCP relation is displaced from the narrow demonstrated handoff cluster, including moderate tilt or upright outbound motion. Container pose, TCP pose, destination pose, and joints must be reliable, and the Cartesian targets must remain reachable. Do not invoke after a lost grasp or when container pose tracking is unreliable; use h01 when destination displacement is the dominant variation, h02 when TCP-local correction is preferable without trusting a source anchor, and h03 near nominal support when release phase ambiguity dominates.",
+      "evidence": [
+        {
+          "indices": [
+            1460,
+            1580,
+            1640,
+            1680,
+            1720,
+            1740,
+            1800,
+            1820,
+            1830,
+            1840,
+            1850,
+            1860,
+            1880,
+            1900,
+            1920
+          ],
+          "trajectory_id": "demo12300"
+        },
+        {
+          "indices": [
+            1460,
+            1680,
+            1740,
+            1800,
+            1820,
+            1830,
+            1840,
+            1850,
+            1860,
+            1880,
+            1900,
+            1934
+          ],
+          "trajectory_id": "demo12303"
+        },
+        {
+          "indices": [
+            1460,
+            1680,
+            1740,
+            1820,
+            1840,
+            1860,
+            1900
+          ],
+          "trajectory_id": "demo12308"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Particles are already settled in the bowl and the emptied source remains securely grasped. Entry may be the demonstrated moderate tilt near index 1460 or an upright/outbound state within the shared interval, including a translated or rotated but reachable source pose whose container/TCP relation is still consistent with a grasp.",
+        "exit_conditions": "The source is observed upright and stationary on the table inside the marked return region, the fingers are open, and the TCP has retreated clear without moving or recontacting the source.",
+        "failure_signatures": "Stop or switch on increasing container/TCP separation, source motion inconsistent with the TCP while the gripper is closed, oscillating source-relative commands, lack of destination progress, repeated IK non-convergence or limit contact, opening while elevated/tilted/out of bounds, source motion after opening, or retreat recontact. A lost source must not be chased by this source-anchored policy.",
+        "overlap_role": "All actions in [1460,1740) remain supervised in every occurrence, preserving 280 actions of substantial overlap with controlled_pour_and_right. This trains source-relative late righting and outbound transport at multiple possible handoff phases before placement, opening, and retreat.",
+        "successor_readiness": "This is terminal. Evaluation is ready only after physical observations show upright in-bounds support, open fingers, source stationarity, and TCP clearance; a predicted source-relative pose or gripper sign alone is not readiness."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"container\"]},\"destination\":{\"type\":\"string\",\"enum\":[\"target_pose\"]}},\"required\":[\"source_object\",\"destination\"]},\"parameter_semantics\":\"source_object selects the observed container_pose used as the fresh Cartesian reference for every executed slot; destination selects target_pose for causal goal-relative conditioning. Both are symbolic scene identities resolved from physical observations. Positions are world metres and orientations are wxyz before deterministic matrix conversion.\"}",
+      "limitations": "Only successful nominal paths are available, with no contact truth or examples of slip, lost grasp, collision, failed support, regrasp, repouring, or release recovery. Fresh source anchoring can chase a free or noisy object and may be less stable than TCP anchoring. It does not guarantee destination reachability or collision avoidance. Exact source-displacement equivariance applies to source-coupled target reconstruction; final fixed-destination behavior still depends on learned destination-relative conditioning. IK diagnostics expose but do not repair infeasibility.",
+      "pipeline_implications": "Add h04 as an independent model beside the three immutable policies; do not replace them. The high-level agent should select h04 for reliable-source, off-cluster handoffs; h01 for destination displacement after righting; h02 for feasible unusual states where fresh TCP increments are safer than a source anchor; and h03 for nominal support/release phase uncertainty. Replan every eight actions and terminate from observed support, opening, stationarity, and clearance. No backbone or success-rule change is required.",
+      "rationale": "All h01-h03 policies passed 12/12 in-distribution validation runs, so h04 is not justified as a repair of a measured nominal failure. The uncovered deployment risk is a held source translated or rotated relative to the tightly clustered demonstrated entry poses. Demo12300 shows the source/TCP pair righting from 1460 through 1680, moving rapidly toward the return area by 1740, descending through 1800-1840, opening at 1850, and retreating through 1920; demo12303 opens earlier at 1840. Encoding each commanded TCP as T_source_before_action^-1*T_command and decoding as T_fresh_source*T_relative makes local grasp/righting/carry and post-release clearance geometry move with the observed source by construction. Destination-in-source features still expose the fixed placement error, while world source/destination poses and joints retain reachability and robot-configuration dependencies. This differs from h01's destination frame, h02's TCP increments, and h03's world/phase mechanism, and therefore has a distinct expected failure under source-pose noise or lost grasp.",
+      "statement": "Fresh source-object-frame SE(3) targets: diffuse a commanded TCP pose relative to the observed container immediately before each demonstrated action, and reconstruct every executed world TCP target from the freshly observed container pose. This targets displaced held-source handoffs and source/TCP tracking mismatch while preserving the complete return, place, release, and retreat responsibility.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":1460,\"stop\":1953,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; includes action-supervised [1460,1740) predecessor overlap and terminal hold.\"},{\"trajectory_id\":\"demo12301\",\"start\":1460,\"stop\":1945,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut with shared late-righting and outbound actions.\"},{\"trajectory_id\":\"demo12302\",\"start\":1460,\"stop\":1952,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut with shared late-righting and outbound actions.\"},{\"trajectory_id\":\"demo12303\",\"start\":1460,\"stop\":1935,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including this run's earlier release and retreat.\"},{\"trajectory_id\":\"demo12304\",\"start\":1460,\"stop\":1947,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with predecessor overlap.\"},{\"trajectory_id\":\"demo12305\",\"start\":1460,\"stop\":1949,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with predecessor overlap.\"},{\"trajectory_id\":\"demo12306\",\"start\":1460,\"stop\":1935,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including late righting, release, and retreat.\"},{\"trajectory_id\":\"demo12307\",\"start\":1460,\"stop\":1946,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with predecessor overlap.\"},{\"trajectory_id\":\"demo12308\",\"start\":1460,\"stop\":1944,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including observed opening by index 1840 and retreat.\"},{\"trajectory_id\":\"demo12309\",\"start\":1460,\"stop\":1947,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut retaining this run's wrist and final-yaw variation.\"},{\"trajectory_id\":\"demo12310\",\"start\":1460,\"stop\":1950,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with predecessor overlap.\"},{\"trajectory_id\":\"demo12311\",\"start\":1460,\"stop\":1953,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut through stable terminal hold.\"}]"
+    }
+  ],
+  "skill_id": "return_place_release"
+}

@@ -1,0 +1,203 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        620,
+        700,
+        860,
+        1064
+      ],
+      "trajectory_id": "demo10100"
+    },
+    {
+      "indices": [
+        620,
+        850,
+        1064
+      ],
+      "trajectory_id": "demo10101"
+    },
+    {
+      "indices": [
+        620,
+        850,
+        1060
+      ],
+      "trajectory_id": "demo10102"
+    },
+    {
+      "indices": [
+        620,
+        850,
+        1065
+      ],
+      "trajectory_id": "demo10103"
+    },
+    {
+      "indices": [
+        610,
+        850,
+        1057
+      ],
+      "trajectory_id": "demo10104"
+    },
+    {
+      "indices": [
+        610,
+        850,
+        1056
+      ],
+      "trajectory_id": "demo10105"
+    },
+    {
+      "indices": [
+        620,
+        850,
+        1059
+      ],
+      "trajectory_id": "demo10106"
+    },
+    {
+      "indices": [
+        630,
+        860,
+        1071
+      ],
+      "trajectory_id": "demo10107"
+    },
+    {
+      "indices": [
+        620,
+        850,
+        1058
+      ],
+      "trajectory_id": "demo10108"
+    },
+    {
+      "indices": [
+        620,
+        850,
+        1063
+      ],
+      "trajectory_id": "demo10109"
+    },
+    {
+      "indices": [
+        620,
+        850,
+        1064
+      ],
+      "trajectory_id": "demo10110"
+    },
+    {
+      "indices": [
+        620,
+        850,
+        1061
+      ],
+      "trajectory_id": "demo10111"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Blue is descending to or settled in the blue goal, generally z=0.024-0.055; gripper may still be closed before opening. Red is stationary in the central buffer. Blue is the object being released; red is the intended next pickup.",
+    "exit_conditions": "Both blocks are observably table-supported and fully inside their opposite targets: blue near (-0.35,-0.20,0.02) and red near (-0.35,+0.20,0.02). Gripper is open and TCP is retreated high. This preserves the supplied success expression red_at_goal AND blue_at_goal.",
+    "failure_signatures": "Blue is not stable or not fully contained; red is absent from the buffer, slips during transport, or is released outside the red goal; the gripper remains attached; red or blue is displaced during retreat. No demonstrated evidence supports recovery from unseen errors.",
+    "overlap_role": "The shared predecessor range covers final blue lowering and opening, retreat, transit to the buffered red, red approach/contact/closure, and initial red lift. This lets the terminal skill enter before or after blue release without confusing blue release context with the intended red operation. There is no successor skill.",
+    "successor_readiness": "Terminal readiness is the framework's unchanged success evaluation after both goal predicates are observed. The demonstrations end with an open gripper and clear TCP, although clearance and release are not additional supplied success requirements."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Move buffered red block to red goal",
+  "original_demonstration_count": 12,
+  "plan_hash": "6ff90d860db25d097efcfc9bbe61fa3421abe180b8b3d234811997a8e283064a",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "The buffered-red move has a different source and scene state from the first red move and is terminal, so it is separately trained. Entry is deliberately early while blue is still descending or being released at its goal: selected starts show blue at z approximately 0.024-0.055 with red stationary in the center (demo10104:610, demo10107:630). The intended object is red; blue is the object still being released. Final observations show blue near (-0.352,-0.200,0.020), red near (-0.351,+0.195 to +0.196,0.020), gripper open, and TCP retreated to about z=0.300.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Begin while blue is low over its goal; release/retreat, pick buffered red, place it in the +y red goal, and retreat.",
+      "start": 620,
+      "stop": 1064,
+      "trajectory_id": "demo10100"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Begin during blue lowering/release; move central red to its red goal and finish clear.",
+      "start": 620,
+      "stop": 1064,
+      "trajectory_id": "demo10101"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Begin with blue near the target surface; release it, acquire buffered red, place red at goal, and retreat.",
+      "start": 620,
+      "stop": 1060,
+      "trajectory_id": "demo10102"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Begin during blue final lowering; relocate buffered red to the red goal and retreat.",
+      "start": 620,
+      "stop": 1065,
+      "trajectory_id": "demo10103"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Begin earlier while blue descends through about 0.055 m; release blue, then move buffered red to the red goal.",
+      "start": 610,
+      "stop": 1057,
+      "trajectory_id": "demo10104"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Begin while blue descends through about 0.049 m; release/retreat and complete buffered-red placement.",
+      "start": 610,
+      "stop": 1056,
+      "trajectory_id": "demo10105"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Begin with blue near the goal surface; release it, move central red to goal, and retreat.",
+      "start": 620,
+      "stop": 1059,
+      "trajectory_id": "demo10106"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Begin later in this occurrence when blue reaches about 0.028 m; release blue, then place buffered red at the red goal.",
+      "start": 630,
+      "stop": 1071,
+      "trajectory_id": "demo10107"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Begin while blue is near the goal surface; complete release and buffered-red relocation.",
+      "start": 620,
+      "stop": 1058,
+      "trajectory_id": "demo10108"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Begin during blue final lowering; acquire buffered red, place it at the red goal, and retreat.",
+      "start": 620,
+      "stop": 1063,
+      "trajectory_id": "demo10109"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Begin while blue descends near its goal; release/retreat and place red at the red goal.",
+      "start": 620,
+      "stop": 1064,
+      "trajectory_id": "demo10110"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Begin with blue low over its goal; finish blue release, relocate buffered red, and retreat.",
+      "start": 620,
+      "stop": 1061,
+      "trajectory_id": "demo10111"
+    }
+  ],
+  "skill_id": "place_red",
+  "subgoal": "Accept the scene while blue is finishing its goal release, ensure the gripper retreats clear, approach the red block in the central buffer, close from above, lift and carry red to the red goal near (-0.35,+0.20), lower it, open, and retreat. This terminal responsibility completes the unchanged success condition red_at_goal AND blue_at_goal."
+}

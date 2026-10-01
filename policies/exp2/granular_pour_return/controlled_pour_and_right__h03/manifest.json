@@ -1,0 +1,152 @@
+{
+  "task_id": "granular_pour_return",
+  "policy_id": "controlled_pour_and_right__h03",
+  "skill_id": "controlled_pour_and_right",
+  "source": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/source",
+  "manifest": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/assignment.json",
+  "training_spec": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/training/spec.json",
+  "dataset": "assets/exp2/datasets/granular_pour_return/controlled_pour_and_right/dataset.json",
+  "normalization": "assets/exp2/tasks/granular_pour_return/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/granular_pour_return/controlled_pour_and_right__h03/model.pt",
+    "sha256": "25615f3bebd2f4007c6fdebb814b649424e609ba0e6bb6a74c8b5e0fd4399d4a",
+    "source_sha256": "25615f3bebd2f4007c6fdebb814b649424e609ba0e6bb6a74c8b5e0fd4399d4a",
+    "size_bytes": 364083334,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 6,
+    "demos": 12,
+    "in_distribution_success": "6/12",
+    "exit_rule": "at least ten particles in the bowl and the container upright at the final state",
+    "guidance": "**Measured scope/reliability:** Passed 6/12 (50%) fixed-protocol runs from its own demonstrated segment entry at action 180, the lowest final-state rate in the library. All runs transferred all 12 particles, but six ended with `container_upright=false`. In three failed runs the exit rule had been met earlier and was lost by the final state, so do not assume an achieved upright state will persist if this policy continues.\n\n**Use when:** Selectively, when the source is demonstrably rigid with the TCP and a secure but atypical source-to-TCP transform makes source-motion compensation useful. Reliable source/TCP poses and reachable compensated targets are mandatory. The benefit for unusual grasps is structural/documented rather than measured; training grasp variation was modest.\n\n**Avoid/switch when:** Do not use as the nominal default. Avoid it if rigidity is doubtful, the transform changes rapidly, pose noise makes compensation implausible, the bowl is substantially displaced (h01 is designated), or discharge phase is ambiguous (h02 is designated). Abort rather than compensate harder after slip, grasp loss, spill, collision, or IK failure; no such recovery was demonstrated.\n\n**Recognize failure:** The main measured failure is successful transfer followed by absent or lost source uprightness. Monitor the source orientation itself, not only TCP orientation, and watch for rapid source-to-TCP transform change, particles remaining as righting begins, particles outside the bowl, collision, or non-converged IK.\n\n**Handoff:** Once at least 10 particles are settled, the source itself is upright and securely held, and outbound motion has begun, hand off to `return_place_release` rather than relying on h03 to preserve that state. Nominal readiness is near action 1680 and the supervised overlap is [1460,1740)."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/assignment.json",
+      "sha256": "4502a0716b123335899f120aa36e98bc006cd67ec1a312f9b7b0bd3a4aeabd71",
+      "source_sha256": "30b1cc14e53c7a9c3d1ccc0dc8b0de311bde66cc3b9e2fb8b23e5761b7815a51",
+      "size_bytes": 12130,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/handoff_evidence.json",
+      "sha256": "273e003b31b0d1c15156dbe29b7e6f606380dc212207de37632fda365ecfcf37",
+      "source_sha256": "273e003b31b0d1c15156dbe29b7e6f606380dc212207de37632fda365ecfcf37",
+      "size_bytes": 214129,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/source/HANDOFF.json",
+      "sha256": "92e62ab8300c5b18098baf10b6ab32bdd500e7e45616d2599bf3b6d44eb98351",
+      "source_sha256": "92e62ab8300c5b18098baf10b6ab32bdd500e7e45616d2599bf3b6d44eb98351",
+      "size_bytes": 2179,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/source/PRIOR.md",
+      "sha256": "d291bc3d01b6da16db145c2724337fee8a138d64a8c113be238ea3b90dba1423",
+      "source_sha256": "d291bc3d01b6da16db145c2724337fee8a138d64a8c113be238ea3b90dba1423",
+      "size_bytes": 5744,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/source/adapters.py",
+      "sha256": "26f478ef8b2d0248e7c1e1cc5647e31468c66f3b0de365200f8c661b9fc3b2d1",
+      "source_sha256": "26f478ef8b2d0248e7c1e1cc5647e31468c66f3b0de365200f8c661b9fc3b2d1",
+      "size_bytes": 7492,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/source/panda_posture.py",
+      "sha256": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+      "source_sha256": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+      "size_bytes": 1309417,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/source/pipeline.json",
+      "sha256": "fd54c93fca664eb219285a7cf3bee55988e396f591e16855e3cb5503d79ce36e",
+      "source_sha256": "fd54c93fca664eb219285a7cf3bee55988e396f591e16855e3cb5503d79ce36e",
+      "size_bytes": 1612,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/source/policy.py",
+      "sha256": "923b795de1876a5c2b802b591e77e53884375cb70ae93e2f7bbad15325c1742c",
+      "source_sha256": "923b795de1876a5c2b802b591e77e53884375cb70ae93e2f7bbad15325c1742c",
+      "size_bytes": 971,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/source/policy_contract.json",
+      "sha256": "a78027e1ec3374ac2d7d92f449c0fada338251c71bbbe8222ec1fbf609a6a2c3",
+      "source_sha256": "a78027e1ec3374ac2d7d92f449c0fada338251c71bbbe8222ec1fbf609a6a2c3",
+      "size_bytes": 2053,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/source/training_bindings.json",
+      "sha256": "4c89e6d2536aecea0790af3ca40165b04583c8e32c2128053bee4a5be6a8d04f",
+      "source_sha256": "4c89e6d2536aecea0790af3ca40165b04583c8e32c2128053bee4a5be6a8d04f",
+      "size_bytes": 2571,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/submission.json",
+      "sha256": "efca9b014b1c7cbff15b57143f86ab625d62f2126003b0b3bf9e712382aa8b4b",
+      "source_sha256": "68dc62fd351a1d444592ef904f8bbf3654ac478bd2fb32f780ed1d6011b11eb9",
+      "size_bytes": 18947,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/training/adapter_checks.json",
+      "sha256": "fbd727e8d774eea9c833bd78de9a79924caf4f919e6f72eca24ad8e0e7b6e6bd",
+      "source_sha256": "fbd727e8d774eea9c833bd78de9a79924caf4f919e6f72eca24ad8e0e7b6e6bd",
+      "size_bytes": 195,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/training/result.json",
+      "sha256": "45bb1a72e32a621c66da0f934abddc4c1cfa767d18864f9e7241b6a0a7964dda",
+      "source_sha256": "e3fb7f94c060559561da9b1b644a721f9dc7b35066b891758ec075eb926dda9a",
+      "size_bytes": 4356,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/training/spec.json",
+      "sha256": "1f9544361cff7803343e5d8eb80166bd451bf8122a741c26c897ac4ea91eefbf",
+      "source_sha256": "1f9544361cff7803343e5d8eb80166bd451bf8122a741c26c897ac4ea91eefbf",
+      "size_bytes": 20040,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/prior_plan.json",
+      "sha256": "3f37229577285c09d8f4a6bf34ca69f28ee3d5c1c15d40d40531e0ec45bdc526",
+      "source_sha256": "3f37229577285c09d8f4a6bf34ca69f28ee3d5c1c15d40d40531e0ec45bdc526",
+      "size_bytes": 24201,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/granular_pour_return/task.json",
+  "completion_contract": "assets/exp2/tasks/granular_pour_return/completion_contract.json",
+  "public_context": "assets/exp2/tasks/granular_pour_return/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/granular_pour_return/prompts/hl.md",
+  "prior_plan": "policies/exp2/granular_pour_return/controlled_pour_and_right__h03/prior_plan.json"
+}

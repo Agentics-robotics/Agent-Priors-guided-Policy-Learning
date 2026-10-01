@@ -1,0 +1,256 @@
+{
+  "fitted_actions": "All original native targets once, before segmentation.",
+  "fitted_observations": "T causal observations per complete original demonstration; no terminal/future/test states.",
+  "inference_or_validation_data_used": false,
+  "normalizer": {
+    "action_min": [
+      -0.8016708493232727,
+      -1.1566071510314941,
+      -2.0651588439941406,
+      -2.7257754802703857,
+      -0.2474699467420578,
+      1.777525782585144,
+      -2.2141671180725098,
+      -1.0
+    ],
+    "action_scale": [
+      1.9339657425880432,
+      1.8924670815467834,
+      2.429379254579544,
+      1.470602035522461,
+      1.8936772793531418,
+      1.32626211643219,
+      3.1456204652786255,
+      2.0
+    ],
+    "fields": {
+      "drawer_position": [
+        0,
+        1
+      ],
+      "drawer_velocity": [
+        1,
+        2
+      ],
+      "object_pose": [
+        2,
+        9
+      ],
+      "qpos": [
+        9,
+        18
+      ],
+      "qvel": [
+        18,
+        27
+      ],
+      "target_pose": [
+        27,
+        34
+      ],
+      "tcp_pose": [
+        34,
+        41
+      ]
+    },
+    "fit_ids": [
+      "demo12100",
+      "demo12101",
+      "demo12102",
+      "demo12103",
+      "demo12104",
+      "demo12105",
+      "demo12106",
+      "demo12107",
+      "demo12108",
+      "demo12109",
+      "demo12110",
+      "demo12111"
+    ],
+    "fit_samples": 16104,
+    "mean": [
+      0.15000000596046448,
+      0.07784827426075935,
+      -0.2529394179582596,
+      -0.20124635891988873,
+      0.24029039219021797,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.16498520970344543,
+      -0.21285545825958252,
+      -0.8504943400621414,
+      -1.9905027151107788,
+      0.699410617351532,
+      2.440157651901245,
+      -0.640598475933075,
+      0.02353117219172418,
+      0.023493348388001323,
+      -0.008452042937278748,
+      0.00325089693069458,
+      -0.012603119015693665,
+      0.0022652745246887207,
+      -0.014961004257202148,
+      -0.000804901123046875,
+      0.011274978518486023,
+      -0.06281585246324539,
+      -0.04978868365287781,
+      -0.025000005960464478,
+      0.0,
+      0.06300000101327896,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.3848428353667259,
+      -0.1999990907497704,
+      0.25965097174048424,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "observation_clipping": false,
+    "quaternion_normalization": "unit_component_bounds",
+    "raw_std": [
+      0.12686188937206894,
+      0.02303412998998655,
+      0.21776523397095365,
+      0.1933752977570188,
+      0.10361465419963449,
+      0.13335391122264725,
+      0.016575029130465987,
+      0.3281557485377693,
+      0.018687451817517818,
+      0.4015806949785908,
+      0.5292072936728881,
+      0.7853598224585472,
+      0.4699190088785813,
+      0.5658052544265139,
+      0.35936214149834816,
+      0.833551824865271,
+      0.013067686458913586,
+      0.013092443371169032,
+      0.0992296103501541,
+      0.12686805972705273,
+      0.11752788482465555,
+      0.1288826923880755,
+      0.09698540068309104,
+      0.11314215368526737,
+      0.15288258470845273,
+      0.03367804821780819,
+      0.03510079574733896,
+      0.12686188942339957,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.1723445078000367,
+      0.18062421289121675,
+      0.11834925420919928,
+      0.013566894926856492,
+      0.11560774532885554,
+      0.3321217294439486,
+      0.22387090057476422
+    ],
+    "std": [
+      0.15000000596046448,
+      0.1691536270081997,
+      0.3846847862005234,
+      0.20637958450242877,
+      0.17729146406054497,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.9665442407131195,
+      0.9423480033874512,
+      1.2145274132490158,
+      0.7352954149246216,
+      0.9467460513114929,
+      0.6622655391693115,
+      1.571909487247467,
+      0.016468826914206147,
+      0.016506650717929006,
+      0.3308926969766617,
+      0.2909928858280182,
+      0.3363586515188217,
+      0.32834264636039734,
+      0.3204825520515442,
+      0.31726011633872986,
+      0.32675208151340485,
+      0.2630976364016533,
+      0.27215084433555603,
+      0.15000000596046448,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.24483684450387955,
+      0.20764974085614085,
+      0.18336108699440956,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "normalizer_sha256": "73cc5db0d84f2d2ed79c836db4c08a596f5b799eddb8db91dc939e655cc498dd",
+  "schema": "appl.shared_normalization.dynamic.v1",
+  "scope": "full_training_demonstrations",
+  "sources": {
+    "demo12100": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12100.json",
+      "sha256": "391a897312690daa7abf863f2708fc783c18975f8b6e5a358208033ffb8f1957"
+    },
+    "demo12101": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12101.json",
+      "sha256": "493d417d97f6c7ad95744837844bd6c4ae5865d62c56ac753277daa0ef37663e"
+    },
+    "demo12102": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12102.json",
+      "sha256": "3113517600968988726041c14c18f2a8f07f3b06f70887911beafbdb50fddcf6"
+    },
+    "demo12103": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12103.json",
+      "sha256": "02bab38901c57544525be9b29344ccf005563d4416ed167f66128b5a5cc81175"
+    },
+    "demo12104": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12104.json",
+      "sha256": "093692525af6e2ecae6406548c5baf4b761414df3f199d46ecb9f1bf9cbdcf59"
+    },
+    "demo12105": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12105.json",
+      "sha256": "171a227e85dbc24fdc02a5653b5f677ec9fa03f98b8c18bcd5d0fa89978c743d"
+    },
+    "demo12106": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12106.json",
+      "sha256": "e8d3a501485c37a1134c80025e27714a62eec64d3dc046ec3dad4b8d21edd786"
+    },
+    "demo12107": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12107.json",
+      "sha256": "54c168dfa58464cbe2d3cf6957c1b5ccb1bc087f1574e257907ca3716472fbef"
+    },
+    "demo12108": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12108.json",
+      "sha256": "563deff02e2d882b12ce7f02696248d76d7c8d11b568c455db1a3f49279bc655"
+    },
+    "demo12109": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12109.json",
+      "sha256": "3e6f6b1a656eaaa9ffad9f931d7137e7995671ae4000d59dd2313c72c62aa4ce"
+    },
+    "demo12110": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12110.json",
+      "sha256": "3e3a501cbb93d5f0e8b65b1850b5e257913d811ea29c3b7aa09063cbf45a7729"
+    },
+    "demo12111": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12111.json",
+      "sha256": "f1079f7e5f2fa2b2ee03e8e6d480a28e03ea0ad78de362c753d5fa28ce890ed9"
+    }
+  }
+}

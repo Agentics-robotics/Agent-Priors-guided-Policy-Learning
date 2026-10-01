@@ -1,0 +1,93 @@
+{
+  "composition": "only the last skill, in a scene where the block was never retrieved or stored",
+  "contract": {
+    "cavity_half_xy": [
+      0.172,
+      0.182
+    ],
+    "control_hz": 20,
+    "description": "Close the drawer and leave the block in the low tunnel. The task is complete when the drawer is closed and the block is still inside the tunnel.",
+    "drawer_closed_threshold": 0.025,
+    "drawer_goal_local": [
+      -0.065,
+      0,
+      0.028
+    ],
+    "drawer_open_definition": "drawer_position strictly greater than drawer_open_m",
+    "drawer_open_m": 0.26,
+    "drawer_origin": [
+      0.19,
+      0.0,
+      0.035
+    ],
+    "drawer_travel": 0.3,
+    "object_half_m": 0.02,
+    "object_in_tunnel_definition": "block footprint inside tunnel_center +/- tunnel_half_xy, center z within 0.011 m of tunnel_floor_top + object_half_m",
+    "object_z_interval": [
+      0.053,
+      0.074
+    ],
+    "predicates": [
+      "drawer_closed",
+      "object_in_tunnel"
+    ],
+    "robot": "panda",
+    "schema": "appl.cartesian_ik.task_goals.v1",
+    "success_expression": "drawer_closed AND object_in_tunnel",
+    "task_id": "constrained_retrieve_store",
+    "tunnel_center": [
+      -0.37,
+      -0.4
+    ],
+    "tunnel_clear_height": 0.16,
+    "tunnel_floor_top": 0.06,
+    "tunnel_half_xy": [
+      0.1,
+      0.145
+    ],
+    "tunnel_wall_thickness": 0.008
+  },
+  "drawer": "open",
+  "drawer_position": 0.29999619722366333,
+  "expert_goals": {
+    "drawer_closed": true,
+    "object_in_tunnel": true,
+    "success": true
+  },
+  "expert_planner_error": null,
+  "expert_success": true,
+  "goal": "close_keep_block",
+  "id": "C-N2",
+  "id_layout": {
+    "object": [
+      -0.441652545404335,
+      -0.3969725945299534,
+      0.08
+    ]
+  },
+  "initial_goals": {
+    "drawer_closed": false,
+    "object_in_tunnel": true,
+    "success": false
+  },
+  "initial_sha256": "66e3fda4da7e66aa66e19725e583d8089c72a86a78597917dbbba19a122bb3ad",
+  "kind": "compose",
+  "name": "drawer_preopened_close_keep_block",
+  "object_pose": [
+    -0.441652545404335,
+    -0.3969725945299534,
+    0.08,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "prepared": 1790328494.6954355,
+  "robot_qpos": null,
+  "seed": 24093404,
+  "stages": [
+    "close"
+  ],
+  "suite": "compose",
+  "task": "constrained_retrieve_store"
+}

@@ -1,0 +1,24 @@
+{
+  "budget_factor": 1.5,
+  "demos": 12,
+  "exit_rule": "cover open (> 0.9 rad) with the TCP released from the lid handle (> 0.10 m) and the peg moved < 1 cm from its entry position at the final state",
+  "passed": 12,
+  "per_demo": {
+    "demo12200": true,
+    "demo12201": true,
+    "demo12202": true,
+    "demo12203": true,
+    "demo12204": true,
+    "demo12205": true,
+    "demo12206": true,
+    "demo12207": true,
+    "demo12208": true,
+    "demo12209": true,
+    "demo12210": true,
+    "demo12211": true
+  },
+  "policy": "open_hinged_lid__h04",
+  "skill": "open_hinged_lid",
+  "success_rate": 1.0,
+  "task": "covered_peg_assembly"
+}

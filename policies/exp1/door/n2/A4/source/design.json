@@ -1,0 +1,45 @@
+{
+  "title": "Compact distance-preserving cabinet contact geometry",
+  "coverage_gap": "The support remains just one LL and one HH demonstration. Development feedback now shows A1 at 20/20 C and 20/20 E, A2 at 20/20 C and 19/20 E, and A3 at 20/20 C and 6/20 E. No A1 failure mechanism was observed. A4 therefore tests whether A1's redundant coordinates can be removed while preserving its successful physical bias and reducing conditioning cost; it does not invent a failure-specific repair.",
+  "reusable_regularity": "A compact contact-and-motion tuple plus cabinet orientation and world anchors determines the physically present raw state. Keep explicitly useful nonlinear contact/goal distances, but remove alternate coordinates that are exactly derivable. This favors direct metric relations over a larger collection of correlated geometric views. Cabinet-aligned translation actions, quaternion sign invariance and fixed physical scales are retained from A1. Stage discovery remains learned entirely by the common DP.",
+  "dependencies_preserved": [
+    "World hand position, world goal position and cabinet sin/cos remain direct conditioning channels; fixed robot orientation, workspace anisotropy and cabinet obstacle placement are not marginalized out.",
+    "The local current hand-handle and goal-handle vectors and local hand/handle increments retain all current/native-previous position information. Given world goal g and cabinet R, o=g-R*v_goal; h and native previous h/o are recoverable from retained relations and increments. World h is also explicitly retained rather than requiring this reconstruction.",
+    "Both current and native-previous handle orientations remain as first/third rotation columns in the cabinet frame. Both apertures remain. Contact and goal distances remain explicit for stage discrimination. Both whole causal observations are used.",
+    "Goal/handle/hand heights and the obstacle's cabinet yaw are preserved. No fitted hinge, new sensor, simulator state, planner or oracle is introduced. The absent object2 zero fields remain omitted."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Same exact two support episodes; no extra support in revision."},
+    {"path": "task_materials.json", "use": "Causal raw field layout, observed yaw, native world action semantics and fixed end-effector orientation."},
+    {"path": "support_summary.json", "use": "Only LL/HH support, near-constant cabinet cosine, and matching initial handle-goal length motivate retained metric cabinet geometry rather than empirical yaw normalization."},
+    {"path": "images/frame_02_demo_00_step_029.png", "use": "Above-handle alignment: retain the scalar contact distance and vertical component rather than dropping all derived phase-relevant invariants."},
+    {"path": "images/frame_04_demo_00_step_059.png", "use": "Contact and opening motivate retaining causal handle/hand increments."},
+    {"path": "images/frame_07_demo_00_step_103.png", "use": "Large changing handle orientation while cabinet/world remain fixed: preserve both pose history and world anchors."},
+    {"path": "trajectories/demo_00.json", "rows_read": "obs 0:4,29:32,44:48,74:77; actions 38:46", "use": "Native previous fields are sufficient to form explicit velocity and contact relations without a trajectory-time input."},
+    {"source": "revision message development_feedback and q3 record_selection", "feedback_hash": "851e60ff58025b2a426d176b892f2f5d6c47b4f3196f95643ad600211b736def", "use": "Frozen scores A1=1.000, A2=0.975, A3=0.650 select A1. A1 latency 0.1032762465 s and 4746820 parameters motivate a compact revision at the observed success ceiling. A2 has one E-LL native truncation; A3 has fourteen E truncations. Aggregate feedback does not localize contact failures and multiple design differences prevent attributing the contrast to auxiliary loss alone."},
+    {"source": "frozen A1 candidate authored in this session", "submission_hash": "6f2b753e57fecf24562d103e0e4da835b886f1222903229ec2b26322b62cfe39", "use": "Actual implementation parent: retain action frame, physical scales and geometric dependencies; ablate ten redundant conditioning channels."}
+  ],
+  "expected_failure_signature": [
+    "If redundant world relative vectors were crucial for the DP to compensate world-fixed gripper/control-cube effects, A4 may lose large-yaw E success while keeping C success. Information equivalence does not guarantee equally easy learning from N=2.",
+    "If the extra previous-contact or aperture-difference features eased optimization, removing them may worsen descent/opening timing despite retaining the underlying current/previous quantities.",
+    "A4 may preserve success but not improve measured inference latency: the fixed U-Net sampling loop dominates cost, so fewer features do not guarantee a faster fixed-method measurement.",
+    "Even matching A1's finite development success would not establish universal robustness; each C/E distribution has only twenty development episodes."
+  ],
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history [B,2,41] and raw_current [B,41], with fixed configuration-derived metric scales. Common normalized history is accepted but raw metric geometry is used.",
+    "slices": {"hand": [0,3], "gripper": [3,4], "handle": [4,7], "handle_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_gripper": [21,22], "previous_handle": [22,25], "previous_handle_quaternion_xyzw": [25,29], "goal": [36,39], "cabinet_sin_cos_yaw": [39,41]},
+    "action_frame": "Identical semantics to A1: encode the native xyz vector by Rz(cabinet_yaw_at_chunk_start)^T, decode by Rz from that same causal context for all 16 steps. No translation, gain, gripper rotation, local clipping or future-frame conditioning. Native xyz units stay 0.01 m per unit; gripper retains [a3,-a3] control semantics. Only the host clips after decoding and executes four actions.",
+    "conditioning": "36 features per observation: 12 contact/goal/motion vector components, 12 current/native-previous pose column components, 2 apertures, 2 scalar distances, and 8 explicit world hand/goal/yaw components. No learned encoder, phase gate, time counter or deployment state cache."
+  },
+  "training_only_targets": [],
+  "support_fit": "None; empty deployment-state dictionary. Fixed metric scale buffers are created only in build_modules from the same config as A1. There are no stored examples or support-fitted constants.",
+  "architecture": "One unchanged common factory DP at condition_dim=36 and diffusion_action_dim=4, retrained from the public seeded initialization for the full fixed budget. The U-Net internals, optimizer, horizon, noise schedule and common epsilon action loss are unchanged. There is no auxiliary loss and no checkpoint/weight reuse from A1.",
+  "parents": ["A1"],
+  "change_summary": [
+    "Revision after the single permitted A1-A3 feedback round; q3 recorded as A1 by the frozen C/E rule, not IID or training loss.",
+    "Reduce conditioning dimension 46->36. Remove native-previous local hand-handle vector (3), explicit aperture difference (1), and duplicate world hand-handle/goal-handle vectors (6). Keep all source physical dependencies, explicit distances, full pose history and world anchors.",
+    "The removed previous-contact vector equals current contact minus hand increment plus handle increment in the same cabinet frame; aperture difference is derivable from the two apertures; world vectors are inverse rotations of retained local vectors.",
+    "Vectorize the eight cabinet-frame vector transforms and the two quaternion-to-column conversions in one batched computation. This is an implementation/conditioning efficiency change, not a change in control semantics.",
+    "Do not import A2's support-fitted circle/phase experts or A3's graph/joint future-state channels. Their feedback informs parsimony but does not prove any one component harmful. A1-A3 remain immutable; A4 is one fresh scientific training slot."
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "task_id": "drawer",
+  "n_demos": 2,
+  "policy_id": "B0_vanilla_dp",
+  "instance_id": "drawer__N2__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/drawer/n2/B0_vanilla_dp/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/drawer/n2/B0_vanilla_dp/model.pt",
+    "sha256": "b726ce934f03933e89998df1b68aa0f6e9f812ced2a219dd8e92bb17e9ca9a36",
+    "source_sha256": "b726ce934f03933e89998df1b68aa0f6e9f812ced2a219dd8e92bb17e9ca9a36",
+    "size_bytes": 75672003,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/drawer/n2/B0_vanilla_dp/normalizer.json",
+  "config": "policies/exp1/drawer/n2/B0_vanilla_dp/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/drawer/n2/B0_vanilla_dp/complete.json",
+      "sha256": "617d79b3b1b50f492f51b6bc8646ba55f1ca192df8c296570f6703362fc2449c",
+      "source_sha256": "617d79b3b1b50f492f51b6bc8646ba55f1ca192df8c296570f6703362fc2449c",
+      "size_bytes": 1337,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n2/B0_vanilla_dp/config.json",
+      "sha256": "97f871f54519f2affd7bfae1281c9017e18bccb91a667bc426a2aa24e66aa2c3",
+      "source_sha256": "97f871f54519f2affd7bfae1281c9017e18bccb91a667bc426a2aa24e66aa2c3",
+      "size_bytes": 7992,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n2/B0_vanilla_dp/identity.json",
+      "sha256": "a4ec464e73f2bf628e50d6f3256f96d4deee603fb745ce0c2c05280a84bb9644",
+      "source_sha256": "a4ec464e73f2bf628e50d6f3256f96d4deee603fb745ce0c2c05280a84bb9644",
+      "size_bytes": 808,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n2/B0_vanilla_dp/latency.json",
+      "sha256": "80023b86fe6714d5ce87f9a3628ba798f1f7da2e1321185a81a9a464c333b7b9",
+      "source_sha256": "80023b86fe6714d5ce87f9a3628ba798f1f7da2e1321185a81a9a464c333b7b9",
+      "size_bytes": 767,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n2/B0_vanilla_dp/normalizer.json",
+      "sha256": "d1aa83aa8e6d743b1b6f28d559474f02c627028f7d3898a51b93f070bdeb7cc9",
+      "source_sha256": "d1aa83aa8e6d743b1b6f28d559474f02c627028f7d3898a51b93f070bdeb7cc9",
+      "size_bytes": 2265,
+      "transformation": "none"
+    }
+  ]
+}

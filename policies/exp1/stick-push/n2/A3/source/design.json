@@ -1,0 +1,42 @@
+{
+  "title": "Causal goal-axis frame with joint action-relation diffusion",
+  "coverage_gap": "D_2 does not show independent stick and goal variation or the extrapolated target directions. It also sparsely covers the transition from approaching a free tool to maintaining a grasped offset and moving the pushed object. Training an action-only denoiser in world coordinates need not discover either directional reuse or those coupled geometric constraints.",
+  "reusable_regularity": "Express translation commands and relative geometry in a horizontal frame whose forward axis is the observed pushed-object-to-goal displacement at chunk start. Keep world vertical fixed. Use one fixed frame for the entire sixteen-action chunk, both whole observation histories and both native subframes. Simultaneously diffuse action4 and nine next-state relation coordinates (hand-stick, stick-pushed-object, pushed-object-goal). The joint distribution is a learned coupling of actions with contact/transport geometry, not a planner, trajectory lookup, deterministic controller or inference-time future-state conditioning.",
+  "dependencies_preserved": {
+    "world_and_robot": "The frame is an invertible coordinate choice, not an assertion of exact workspace rotational symmetry. Absolute current and previous hand anchors remain in world coordinates, frame cosine/sine is explicitly conditioned, and z is the native gravity axis. Fixed end-effector orientation and the world action cube remain relevant.",
+    "objects": "The chain plus hand anchors and frame recovers both native positions. Current/previous xyzw quaternions are transformed by the inverse frame yaw and retained, so tool/fixture orientation relative to the intended displacement is visible. Object2 uses the declared insertion-site-plus-offset observation and its all-zero quaternion stays an all-zero placeholder under rotation; no physical orientation is invented.",
+    "goal": "The complete goal relative vector, its frame direction and world anchor remain recoverable; no mean target or sampled factor label replaces it.",
+    "obstacles": "Both observed objects and their relative geometry remain available. No hidden body poses, contact forces, table collision queries, simulated paths or additional obstacle channels are introduced. The frame is not a collision-free path.",
+    "history": "Every rotation is derived from raw_current at chunk start. Previous poses are expressed in that same frame, not a changing frame that confounds velocity with frame motion. Native one-step displacement and aperture change are explicit."
+  },
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Only the two current-support episodes and their provided images/trajectories are used."},
+    {"path": "task_materials.json", "detail": "World xyz displacement plus scalar gripper, fixed rotation, goal/object2 observation definitions and C/E factor directions."},
+    {"path": "support_summary.json", "detail": "Initial pushed-object-to-goal vectors approximately [0.1995,-0.0301,0] and [0.2001,-0.0146,0] define nearby but distinct horizontal directions. Pushed-object y has very little observed variation, cautioning against assuming exact yaw symmetry."},
+    {"path": "trajectories/demo_00.json", "detail": "Read obs 20:35 and 43:51 and actions 25:45,45:57: hand-stick offset stabilizes during lift, then the positive-x action persists while approaching the second object. This motivates coupled relation/action modeling, not a direct hand-to-goal point model."},
+    {"path": "trajectories/demo_01.json", "detail": "Read obs 22:27 and 43:48 show a similar raised hand-tool offset at different stick and target placements."},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Actual inspected tabletop view with raised pushed assembly and nearby tool/robot."},
+    {"path": "images/frame_05_demo_00_step_050.png", "detail": "Actual inspected lifted-tool stage near the assembly."},
+    {"path": "images/frame_07_demo_00_step_070.png", "detail": "Actual inspected later interaction supports retaining both objects rather than treating only the stick as the goal object."},
+    {"path": "images/frame_15_demo_01_step_073.png", "detail": "Actual inspected late second-demo frame; world fixture and robot constraints are not rotated by changing target_y."},
+    {"path": "PUBLIC_CONTRACT.md", "scope": "public", "detail": "Joint diffusion is permitted with encoded native action4 first; gripper is not a translation vector; native clipping remains outside the candidate."},
+    {"path": "learning.py", "scope": "public", "detail": "Shared diffusion generator samples all joint channels at inference, action4 is decoded, and the fixed action epsilon loss remains separate from auxiliary epsilon loss."}
+  ],
+  "expected_failure_signature": "If the task is predominantly world-axis constrained, goal-axis generalization may be inappropriate: extrapolated target_y could induce unnecessary sideways tool commands, a missed fixture, or early grasp errors despite a correct forward push component. The exposed world frame and relative orientations allow, but do not guarantee, learning that correction. Joint relation diffusion may learn nominal contact geometry even when a grasp actually fails, causing confident transport without a tool. A further failure is increased denoising error/latency from nine auxiliary channels at the unchanged budget. No outcome is claimed.",
+  "required_runtime_fields": {
+    "source": "Only shared causal_context.raw_history [B,2,39] and raw_current [B,39]. No cached trajectory, episode ID, time index or future labels.",
+    "fields": ["current.hand_xyz[0:3]", "current.gripper[3:4]", "current.object_xyz[4:7]", "current.object_quaternion[7:11]", "current.object2_xyz[11:14]", "current.object2_quaternion[14:18]", "previous native fields[18:36]", "goal_xyz[36:39]"],
+    "condition": "54 physical-scale channels per observation: two 21-channel pose/relation/quaternion blocks, ten finite-difference channels and two chunk-frame horizontal direction components. Scales are fixed physical constants; no fitted statistics or learned external encoder.",
+    "action_frame": "Let (c,s)=normalize(goal_xy-object2_xy) at chunk start, falling back to world +x only below 1e-6 m. Encode (a_x,a_y,a_z,a_g) as (c*a_x+s*a_y,-s*a_x+c*a_y,a_z,a_g). Decode by the inverse horizontal rotation. No translations of displacement actions, scaling, per-step re-framing, sample clipping or gripper rotation occur. Only the host clips the decoded world action cube and executes four of sixteen. Local translations can legitimately exceed individual [-1,1] coordinates."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_relations_world",
+      "source_fields": "For each exact D_N window (episode,t) and each valid action j with t+j<T: next observation obs[t+j+1] provides stick_xyz-hand_xyz, object2_xyz-stick_xyz, goal_xyz-object2_xyz. Nine world-meter values are rotated into the causal chunk-start frame, not a future-derived frame, then scaled by grasp/tool/goal metric scales. Padded entries are zeros and excluded from loss.",
+      "joint_layout": "Channels 0:4 are exactly encoded native action4. Channels 4:7 are next hand-to-stick relative coordinates, 7:10 next stick-to-pushed-object coordinates, 10:13 next pushed-object-to-goal coordinates. All are jointly noised by the shared scheduler. At deployment all thirteen channels start as host-generated noise; auxiliary channels are generated latent outcomes and discarded after sampling, never observations or a condition hook input.",
+      "loss": "Additional 0.25 times auxiliary epsilon squared error, normalized separately by 9 times sum(public action mask intersect relation_valid), with denominator floor 1 for empty masks. The fixed action epsilon loss retains weight 1 and denominator mask.sum()*4; no auxiliary error is added to its denominator or its channels."
+    }
+  ],
+  "parents": [],
+  "change_summary": "Initial independent scientific candidate: causal invertible action/observation yaw frame and a 13-channel common U-Net jointly diffusing actions and interaction relations. No learned motion-head or interaction gate, no support fitting, and no use of candidate performance. No structural repair before the initial check."
+}

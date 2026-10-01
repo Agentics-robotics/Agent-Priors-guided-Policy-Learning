@@ -1,0 +1,114 @@
+{
+  "checkpoint": "provenance/relocated/7a7760d2f35ed943",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "8ee8c85cf39562ce77bf3ec8e9829b4a49c8193b058504f0ff4749e17bb67dc1",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 2,
+    "physical_gpu": 0,
+    "uuid": "GPU-3a21dde0-fd97-6ab3-4abb-5c98696a4bc3"
+  },
+  "effective_action_targets": 40205168,
+  "final_weights_sha256": "fab2ad519537c92cc84648ced9f8e24a8eb25d26c9111cb7dbfdc3e0ea3933c8",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 5.217506408691406,
+      "step": 1
+    },
+    {
+      "l2_norm": 5.281630516052246,
+      "step": 2
+    },
+    {
+      "l2_norm": 5.188405990600586,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.17024075984954834,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "1e6c4b507549c52993cfbb09c0c7385bf143b1b8b06ef795c07ad5cfccb3c1dd",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 4320,
+      "duplicated_actions": 0,
+      "unique_actions": 4320
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination_object": {
+            "enum": [
+              "bowl"
+            ],
+            "type": "string"
+          },
+          "source_object": {
+            "enum": [
+              "container"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_object",
+          "destination_object"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Compare FK of IK output to the demonstrated commanded world TCP target in metres/radians and compare the unchanged gripper scalar. The only projection is robust Gram-Schmidt of the learned 6D rotation; exact encoded targets are already valid rotations.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Uses every assigned [0,360) occurrence without trimming and preserves the complete action-supervised [180,360) overlap with controlled_pour_and_right. The implementation refines the approved source-frame invocation contract at each 8-step replan.",
+      "input_shapes": {
+        "features": [
+          2,
+          51
+        ]
+      },
+      "observation_dependencies": [
+        "bowl_pose",
+        "container_pose",
+        "particle_positions",
+        "qpos",
+        "qvel",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is an absolute Cartesian TCP target expressed in the source-container pose frozen at chunk construction: source-frame position xyz in metres, source-frame orientation as the first two rotation-matrix columns (6D), and one native gripper scalar. The decoder projects 6D to SO(3), left-composes the frozen chunk-start source pose to obtain a world TCP target, and calls panda_kinematics.solve_ik from freshly measured joints. Slots represent t-1 through t+14; execution uses slots 1 through 8. Gripper values retain the native >=0 open, <0 close rule.",
+      "parameter_semantics": "source_object selects the currently observed manipulated source pose used as the per-chunk Cartesian frame; destination_object selects the observed bowl pose used in source-to-destination conditioning. Both are semantic observation selectors, not actuator commands.",
+      "policy_id": "grasp_lift_stage__h01",
+      "skill_id": "grasp_lift_stage",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "0483bff02fb6a52bacba5243f8bc78aef838720930e9925289e23906e0fc9032",
+    "PRIOR.md": "9ab7cbc195df87784aab18985c9cb329567ac7901391f21cc6e147f2a46eec9f",
+    "adapters.py": "1b73fa07a328da9c9543810e0e48c19385125f84bb148ec851372311c48d64f1",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "9de95e5d431495f15a0e6313005f5914ae766a296fe459d44e9e159379c46017",
+    "policy.py": "c0aff292a4794caefa7d53a493d50cb35ba91bc12782045df4587eea9445fd38",
+    "policy_contract.json": "20979f547a2cd823f5c6559aa147cb1d84e956803da46a79b1814b5773729314",
+    "training_bindings.json": "e4fd57487be5b9b68b0ac6f16c9be95d49040d50c2f434f448105871530e90ae"
+  },
+  "trainable_parameters": 17057546,
+  "training_elapsed_seconds": 581.476924754912,
+  "weight_l2_change": 31.50334481049652
+}

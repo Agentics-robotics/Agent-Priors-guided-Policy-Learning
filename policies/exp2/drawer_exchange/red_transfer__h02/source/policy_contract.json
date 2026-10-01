@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "red_transfer__h02",
+  "skill_id": "red_transfer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "destination": {"type": "string", "enum": ["red_goal"]},
+      "carried_object": {"type": "string", "enum": ["red"]},
+      "successor_object": {"type": "string", "enum": ["blue"]}
+    },
+    "required": ["destination", "carried_object", "successor_object"]
+  },
+  "parameter_semantics": "destination selects the current observed red_goal world point in metres as the translational origin; carried_object selects red for goal-relative state relations; successor_object selects blue for overlap conditioning. Identifiers are resolved from each causal observation and do not encode scripted poses.",
+  "observation_dependencies": ["qpos", "qvel", "tcp_pose", "red_pose", "blue_pose", "drawer_position", "drawer_velocity", "red_goal", "blue_goal"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 50], "intent": [3]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [dx,dy,dz,r1x,r1y,r1z,r2x,r2y,r2z,gripper]. DXYZ is a metre offset in world-aligned axes from red_goal frozen from the newest causal observation at chunk construction. The six rotation values are the first two columns of absolute world TCP orientation. The decoder adds the frozen goal translation, applies safe Gram-Schmidt rotation projection, and calls panda_kinematics.solve_ik from freshly measured joints. Gripper is the demonstrated scalar with nonnegative=open and negative=close. Slots represent t-1 through t+14; slots 1 through 8 execute.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "Encode demonstrated commanded-TCP FK as a goal offset and world 6D rotation, decode to the same world target, solve IK from measured joints, and compare TCP position metres, rotation radians, and gripper scalar. Valid encoded 6D rotations survive projection exactly; nonunique joints are judged in task space."},
+  "cut_relation": "All twelve authorized [230,850) segments remain supervised, including [230,470) open_drawer overlap and [600,850) blue_insert overlap. Goal-centered labels emphasize red transport/descent/release without deleting pickup or successor-transition supervision."
+}

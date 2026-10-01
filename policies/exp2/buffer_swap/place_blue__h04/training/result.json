@@ -1,0 +1,130 @@
+{
+  "checkpoint": "weights/exp2/buffer_swap/place_blue__h04/model.pt",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "f51066d9676d262110e25f1e968408e086aa47ca26d701e9d6d9a27f5e07a05a",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 7,
+    "physical_gpu": 5,
+    "uuid": "GPU-13ce441a-9b9f-d327-08cf-e7e9f728b580"
+  },
+  "effective_action_targets": 40499299,
+  "final_weights_sha256": "0787e4732233f8694a33d081bb31d08ed16e3f5409f7bc39769aac440b969fbf",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.086135387420654,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.152012348175049,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.223852157592773,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.2212991714477539,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "1f31db831f37948acb7144ff2f8ca64651618752bde7243bb8a6f8679e7fc13e",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 7100,
+      "duplicated_actions": 0,
+      "unique_actions": 7100
+    },
+    "contract": {
+      "action_dimension": 13,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "context_object": {
+            "enum": [
+              "red"
+            ],
+            "type": "string"
+          },
+          "destination_goal": {
+            "enum": [
+              "blue_goal"
+            ],
+            "type": "string"
+          },
+          "source_region": {
+            "enum": [
+              "red_goal"
+            ],
+            "type": "string"
+          },
+          "target_object": {
+            "enum": [
+              "blue"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "target_object",
+          "destination_goal",
+          "context_object",
+          "source_region"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For supervised labels, the one-hot landmark weight selects the same per-slot pre-action anchor subtracted by encode_targets, so fresh-anchor composition exactly recovers the demonstrated command FK position; 6D projection recovers its rotation. The independent check compares world TCP position, rotation angle, and gripper while allowing nonunique IK. Sampled weights and rotations use the declared simplex and Gram-Schmidt projections.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "All actions in all twelve assigned slices are supervised. The representation retains predecessor red release through blue approach/close/lift, the complete blue-to-blue-goal relocation, and successor blue release through buffered-red approach/close/lift; only Cartesian coordinates and an action-supervised landmark label change.",
+      "input_shapes": {
+        "features": [
+          2,
+          55
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "blue_pose",
+        "red_pose",
+        "blue_goal",
+        "red_goal"
+      ],
+      "output_semantics": "Each slot is [anchor-relative dx,dy,dz in world metres; world TCP rotation as the first two rotation-matrix columns; native gripper scalar; blue,blue_goal,red anchor weights]. Training anchor weights are one-hot labels selected from that slot's causal pre-action geometry: red when TCP is clearly nearer red, otherwise blue before 0.72 source-to-goal progress, otherwise blue_goal. Decode clips and normalizes the three learned weights to a simplex, blends freshly observed world landmark translations, adds the learned offset, projects 6D orientation by Gram-Schmidt, and calls panda_kinematics.solve_ik from fresh qpos. Slots represent t-1 through t+14; execution uses slots 1 through 8 beginning at current t. No predicted-state accumulation or scripted phase transition is used.",
+      "parameter_semantics": "target_object selects the observed blue pose and blue translation anchor; destination_goal selects the observed blue-goal point and goal anchor; context_object selects the observed buffered-red pose and red anchor; source_region selects the observed initially-red region used to compute causal blue transport progress. Poses and points are in world coordinates, positions and learned offsets are metres, orientation is world-frame 6D, and training binds blue, blue_goal, red, and red_goal.",
+      "policy_id": "place_blue__h04",
+      "skill_id": "place_blue",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "62aa9bf618ba76d7617bef335d0c58b7d79308e09ddf52e4b794ceed3159767a",
+    "PRIOR.md": "1597c5905c0a7da4cae566f95c96a3febf2bd451720b8db478ca671e3c33ea14",
+    "adapters.py": "ee61d81f67e420711e9931bed0ed04719c2af91766c82bde076cb6a8e808fb61",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+    "pipeline.json": "b3a14ec0c053b29189fdc63e4838d421a2ae115d7cedcb6fdad04c3883ac2a5f",
+    "policy.py": "b0e8e40463f90ab72f00244a727a09ed43444bc907065378f3260d2c73dd8659",
+    "policy_contract.json": "1fa9c3bee15e6cd6da8647d6d4cc7bc5f5180d8c589eb2457a1ba8ffcfad5cb7",
+    "training_bindings.json": "3ec7fa22924bc165215f62f540f1395d91a88acc2a5ba839652d7934372f0213"
+  },
+  "trainable_parameters": 17117581,
+  "training_elapsed_seconds": 548.4349275650457,
+  "weight_l2_change": 36.05622596655613
+}

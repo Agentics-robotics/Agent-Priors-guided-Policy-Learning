@@ -1,0 +1,238 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        0,
+        140,
+        160,
+        180,
+        320,
+        360
+      ],
+      "trajectory_id": "demo12300"
+    },
+    {
+      "indices": [
+        0,
+        140,
+        160,
+        180,
+        320,
+        360
+      ],
+      "trajectory_id": "demo12301"
+    },
+    {
+      "indices": [
+        0,
+        140,
+        160,
+        180,
+        320,
+        360
+      ],
+      "trajectory_id": "demo12302"
+    },
+    {
+      "indices": [
+        0,
+        140,
+        160,
+        180,
+        320,
+        360
+      ],
+      "trajectory_id": "demo12303"
+    },
+    {
+      "indices": [
+        0,
+        140,
+        160,
+        180,
+        320,
+        360
+      ],
+      "trajectory_id": "demo12304"
+    },
+    {
+      "indices": [
+        0,
+        140,
+        160,
+        180,
+        320,
+        360
+      ],
+      "trajectory_id": "demo12305"
+    },
+    {
+      "indices": [
+        0,
+        140,
+        160,
+        180,
+        320,
+        360
+      ],
+      "trajectory_id": "demo12306"
+    },
+    {
+      "indices": [
+        0,
+        140,
+        160,
+        180,
+        320,
+        360
+      ],
+      "trajectory_id": "demo12307"
+    },
+    {
+      "indices": [
+        0,
+        140,
+        160,
+        180,
+        320,
+        360
+      ],
+      "trajectory_id": "demo12308"
+    },
+    {
+      "indices": [
+        0,
+        140,
+        160,
+        180,
+        320,
+        360
+      ],
+      "trajectory_id": "demo12309"
+    },
+    {
+      "indices": [
+        0,
+        140,
+        160,
+        180,
+        320,
+        360
+      ],
+      "trajectory_id": "demo12310"
+    },
+    {
+      "indices": [
+        0,
+        140,
+        160,
+        180,
+        320,
+        360
+      ],
+      "trajectory_id": "demo12311"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "The particle-filled source container is upright on the table, with observed initial centers spanning approximately x=-0.443 to -0.458 m and y=-0.202 to -0.214 m; the Panda starts away from it with open fingers. The container, not the bowl, is the intended manipulated object. The bowl, particles, target pose, robot state, and TCP pose are observation context.",
+    "exit_conditions": "The fingers are closed around the source handle, the container has co-moved with the TCP without visible loss, and it is staged above the bowl near (-0.259, 0.224, 0.400) m. At index 360 the container is only slightly tilted (about 6-11 degrees across demonstrations) and the particles remain in the source.",
+    "failure_signatures": "Do not hand off if the fingers are open, the TCP is not aligned with the handle, the container fails to follow the TCP, the source is still table-supported, or particles move independently before a secure lift. Contact truth is unavailable, so closure plus container/TCP co-motion is the observable grasp cue. The demonstrations contain no failed grasp or slip recovery, so recovery from those unseen errors is not established.",
+    "overlap_role": "Actions [180,360) are shared with controlled_pour_and_right. They supervise continued closed-gripper lift from 0.024-0.060 m, the carry to the bowl, staging around index 320, and the first small tilt. This lets the pour skill receive either shortly after lift-off or after nominal staging.",
+    "successor_readiness": "controlled_pour_and_right is ready once the gripper is closed and the source is clearly lifted; nominal switching should occur after upright staging above the bowl, while the shared region permits earlier or later switching."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Grasp, lift, and stage the filled source",
+  "original_demonstration_count": 12,
+  "plan_hash": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "This skill owns handle approach, inferred contact, closure, lift, and collision-clear transport to the pour staging pose. In demo12300, observation 140 shows open fingers at the handle, 160 shows closed fingers, 180 shows the source lifted to z=0.029 m, and 320-360 show arrival over the bowl at z about 0.400 m. The other demonstrations show the same responsibility with grasp timing variation: demos 12303 and 12306 are already commanding closure by index 140, while all are closed and lifted by 180. Front images from demo12300 at 140 and 160 confirm the handle-side approach; the state vectors provide the supervised pose and gripper evidence.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "demo12300: acquire the filled container initially at (-0.449,-0.213), close on its handle, lift, and stage it above the bowl; actions [0,360) are supervised and observation 360 is the exit boundary.",
+      "start": 0,
+      "stop": 360,
+      "trajectory_id": "demo12300"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "demo12301: acquire the filled container initially at (-0.454,-0.210), then lift and stage above the bowl; includes its demonstrated grasp timing and actions [0,360).",
+      "start": 0,
+      "stop": 360,
+      "trajectory_id": "demo12301"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "demo12302: acquire the filled container initially at (-0.451,-0.202), then lift and stage above the bowl; actions [0,360) with boundary observation 360.",
+      "start": 0,
+      "stop": 360,
+      "trajectory_id": "demo12302"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "demo12303: acquire the filled container initially at (-0.444,-0.211); closure begins earlier than in several other runs, then the source is lifted and staged; actions [0,360).",
+      "start": 0,
+      "stop": 360,
+      "trajectory_id": "demo12303"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "demo12304: acquire the filled container initially at (-0.457,-0.208), lift it upright, and stage over the bowl; actions [0,360).",
+      "start": 0,
+      "stop": 360,
+      "trajectory_id": "demo12304"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "demo12305: acquire the filled container initially at (-0.458,-0.206), lift it, and stage over the bowl; actions [0,360).",
+      "start": 0,
+      "stop": 360,
+      "trajectory_id": "demo12305"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "demo12306: acquire the filled container initially at (-0.443,-0.210); this occurrence has earlier closure and a higher source at index 180, then stages over the bowl; actions [0,360).",
+      "start": 0,
+      "stop": 360,
+      "trajectory_id": "demo12306"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "demo12307: acquire the filled container initially at (-0.457,-0.214), lift it, and stage over the bowl; actions [0,360).",
+      "start": 0,
+      "stop": 360,
+      "trajectory_id": "demo12307"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "demo12308: acquire the filled container initially at (-0.445,-0.208), lift it, and stage over the bowl; actions [0,360).",
+      "start": 0,
+      "stop": 360,
+      "trajectory_id": "demo12308"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "demo12309: acquire the filled container initially at (-0.454,-0.210), lift it, and stage over the bowl; actions [0,360).",
+      "start": 0,
+      "stop": 360,
+      "trajectory_id": "demo12309"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "demo12310: acquire the filled container initially at (-0.449,-0.211), lift it, and stage over the bowl; actions [0,360).",
+      "start": 0,
+      "stop": 360,
+      "trajectory_id": "demo12310"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "demo12311: acquire the filled container initially at (-0.451,-0.209), lift it, and stage over the bowl; actions [0,360).",
+      "start": 0,
+      "stop": 360,
+      "trajectory_id": "demo12311"
+    }
+  ],
+  "skill_id": "grasp_lift_stage",
+  "subgoal": "Approach the container handle at the declared local grasp site, close the fingers, infer a secure grasp from finger closure and container/TCP co-motion, lift the particle-filled source clear of the table, and carry it upright to a high pose above the bowl. Maintain handle contact after closure and avoid disturbing the bowl or spilling particles. Approximate entry: open gripper, source upright on the table. Approximate exit: closed gripper, source near (-0.259,0.224,0.400) m above the bowl with only a small initial tilt."
+}

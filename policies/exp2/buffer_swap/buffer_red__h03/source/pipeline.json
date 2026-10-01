@@ -1,0 +1,10 @@
+{
+  "policy_id": "buffer_red__h03",
+  "skill_id": "buffer_red",
+  "heuristic_index": 3,
+  "prior_summary": "Buffer-destination-frame Cartesian diffusion makes carry endpoint, lowering, opening and retreat transform with the supplied free-buffer pose while retaining object relations, world position and Panda configuration.",
+  "applicable_conditions": "Prefer when the planner intentionally moves the free buffer, or red is held/near center and accurate placement/release is the dominant risk, provided target and destination are reachable and collision-free.",
+  "termination_guidance": "Require red visibly stable at the actual supplied buffer plus open/clear fingers. The action-supervised tail allows a later switch during blue closure and initial lift.",
+  "limitations": "Not invariant to red displacement during acquisition. A moved buffer may be occupied, unreachable or unsupported; there is no contact/collision truth or failed-placement recovery. Rotation-vector labels retain branch assumptions from training.",
+  "config": {"action_frame": "buffer_destination", "rotation_representation": "rotation_vector", "feature_dimension": 57, "action_dimension": 7, "backbone": "standard"}
+}

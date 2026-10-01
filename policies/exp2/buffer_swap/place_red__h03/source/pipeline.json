@@ -1,0 +1,10 @@
+{
+  "policy_id": "place_red__h03",
+  "skill_id": "place_red",
+  "heuristic_index": 3,
+  "prior_summary": "Fresh-TCP body-frame SE(3) residual targets are recomposed from the measured TCP for every executed slot, feedback-recentering moderate handoff and tracking offsets.",
+  "applicable_conditions": "Prefer at the early place_blue handoff or after modest IK/tracking state mismatch while object-goal relations remain near demonstrated phases. Large source displacement favors h01 and dominant shifted destination after lift favors h02.",
+  "termination_guidance": "Use the unchanged red_at_goal AND blue_at_goal expression. Local action magnitude and gripper sign do not establish grasp or success; demonstrated opening and high retreat are guidance only.",
+  "limitations": "Local residuals may accumulate error over long transport and cannot repair missed contact, slip, unstable blue, unseen obstacles or unreachable IK. Large source/goal displacement is not made invariant and unseen-error recovery is unproven.",
+  "config": {"backbone":"standard_diffusion_backbone","feature_dimension":61,"action_dimension":7,"reference_frame":"fresh_measured_tcp_body","rotation":"relative_rotation_vector","auxiliary_loss":false}
+}

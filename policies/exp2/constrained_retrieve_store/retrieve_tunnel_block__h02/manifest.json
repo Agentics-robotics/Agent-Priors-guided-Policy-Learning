@@ -1,0 +1,152 @@
+{
+  "task_id": "constrained_retrieve_store",
+  "policy_id": "retrieve_tunnel_block__h02",
+  "skill_id": "retrieve_tunnel_block",
+  "source": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/source",
+  "manifest": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/assignment.json",
+  "training_spec": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/training/spec.json",
+  "dataset": "assets/exp2/datasets/constrained_retrieve_store/retrieve_tunnel_block/dataset.json",
+  "normalization": "assets/exp2/tasks/constrained_retrieve_store/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/model.pt",
+    "sha256": "c59b68740a974480693a4fb3c309c26c7dfdcc07f382f0c4dcdbc9fd3f0e5b2a",
+    "source_sha256": "c59b68740a974480693a4fb3c309c26c7dfdcc07f382f0c4dcdbc9fd3f0e5b2a",
+    "size_bytes": 341663942,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 12,
+    "demos": 12,
+    "in_distribution_success": "12/12",
+    "exit_rule": "block outside the tunnel footprint with its bottom above the tunnel roof (or already inside the drawer) and drawer_position > 0.26 at the final state",
+    "guidance": "Preferred default on states matching this policy's demonstrated segment entry: it passed 12/12 in-distribution runs, finished with drawer_position about 0.300 in every run, and reported zero IK-unconverged steps. Use with an open stable drawer, a low block near demonstrated tunnel support, finite collision-free arm state, and two causal frames retained across switching. Its fresh-TCP body-delta representation is the documented choice when a valid predecessor TCP/configuration mismatch is the main variation, but that unusual-handoff benefit itself was not exercised by the nearly fixed training entries. Avoid relying on it for large block displacement, global path/collision guarantees, or failed-grasp recovery. Detect failure from local-correction drift away from block/destination, phase oscillation, fingers closing without block/TCP coupling, failure to rise, drawer_position <=0.26, or repeated IK nonconvergence/limits. Hand off during the 680:840 overlap after persistent closed-finger coupling, tunnel exit, block-bottom clearance above 0.16 m (or block already inside), drawer_position >0.26, and destination-directed motion; closure alone is insufficient."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/assignment.json",
+      "sha256": "be22d552f34c707dc7b379355ef467df892a88e9e0e75734a69d6cd097c95ef6",
+      "source_sha256": "72f17f44aec8d37c2d97825c5f62fb0327abad331c0f2e9183ab28bbe1cb3620",
+      "size_bytes": 12908,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/handoff_evidence.json",
+      "sha256": "c3815bef938f6af1501d5b027541bc98e245cb570cfec0e1591b1fff6ea295fd",
+      "source_sha256": "c3815bef938f6af1501d5b027541bc98e245cb570cfec0e1591b1fff6ea295fd",
+      "size_bytes": 117529,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/source/HANDOFF.json",
+      "sha256": "77432bc8f6e4dd5983ff88aa0d3736a41408a8c86b6395acb3816d89d1070f1f",
+      "source_sha256": "77432bc8f6e4dd5983ff88aa0d3736a41408a8c86b6395acb3816d89d1070f1f",
+      "size_bytes": 1866,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/source/PRIOR.md",
+      "sha256": "355747f2e8844c86a5311bf1a30a568acf9cedb9487880d94f789d69afa67571",
+      "source_sha256": "355747f2e8844c86a5311bf1a30a568acf9cedb9487880d94f789d69afa67571",
+      "size_bytes": 4091,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/source/adapters.py",
+      "sha256": "9d1a93208ea220c2283fccfcc98e2a3d2c510c876d9daa3e4a9cf1d20991d5b3",
+      "source_sha256": "9d1a93208ea220c2283fccfcc98e2a3d2c510c876d9daa3e4a9cf1d20991d5b3",
+      "size_bytes": 4396,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/source/panda_posture.py",
+      "sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "source_sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "size_bytes": 903317,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/source/pipeline.json",
+      "sha256": "152009b92bebb5cc8737327ccc9de818e4647ef2fc2d3f8c019522c1d5445ef2",
+      "source_sha256": "152009b92bebb5cc8737327ccc9de818e4647ef2fc2d3f8c019522c1d5445ef2",
+      "size_bytes": 1257,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/source/policy.py",
+      "sha256": "3af9646b2098afc64dbbc30ef700beecd33b10b0cbfb6426fa5a94603300395c",
+      "source_sha256": "3af9646b2098afc64dbbc30ef700beecd33b10b0cbfb6426fa5a94603300395c",
+      "size_bytes": 935,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/source/policy_contract.json",
+      "sha256": "5e9ae99f638fa187618bb2492b1fe0ad49a37496d81bc26fdaab1348e5ad0d27",
+      "source_sha256": "5e9ae99f638fa187618bb2492b1fe0ad49a37496d81bc26fdaab1348e5ad0d27",
+      "size_bytes": 2259,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/source/training_bindings.json",
+      "sha256": "a538cf5af9f1daf97c5dcd7a4335a34ac837e7e3b9d35a9f8c949d6fb2eb079e",
+      "source_sha256": "a538cf5af9f1daf97c5dcd7a4335a34ac837e7e3b9d35a9f8c949d6fb2eb079e",
+      "size_bytes": 3153,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/submission.json",
+      "sha256": "66e1608b56886011014c9ad41cf820f0a233feff08ff3008e46c194f022c2b03",
+      "source_sha256": "8f9d22e9af8a9eb01790088d3027bd610271de603d2cad3d6ef02a535c6b9ffe",
+      "size_bytes": 20248,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/training/adapter_checks.json",
+      "sha256": "4f1a6b411227f774233774ab2c16ffabe5735cb570d426a522a1f06481a18e5a",
+      "source_sha256": "4f1a6b411227f774233774ab2c16ffabe5735cb570d426a522a1f06481a18e5a",
+      "size_bytes": 194,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/training/result.json",
+      "sha256": "5bb3f8124bd83f1ce6bdc2fbbc23b53c1d7435ac462e9f47abc179f69c132c87",
+      "source_sha256": "76e7b6a792c49a8d610f8f030e77c5b5514318d73f71a8d8cd839de5e0f4d64f",
+      "size_bytes": 4841,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/training/spec.json",
+      "sha256": "cc823dbe7a2bb1d393f225a4bdc3445104842080de0007155764e6b294073769",
+      "source_sha256": "cc823dbe7a2bb1d393f225a4bdc3445104842080de0007155764e6b294073769",
+      "size_bytes": 16766,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/prior_plan.json",
+      "sha256": "e6dd88682734d84a30b5fbb6969202fa81c8eb0105785423713824cbdfdfe53b",
+      "source_sha256": "e6dd88682734d84a30b5fbb6969202fa81c8eb0105785423713824cbdfdfe53b",
+      "size_bytes": 27306,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/constrained_retrieve_store/task.json",
+  "completion_contract": "assets/exp2/tasks/constrained_retrieve_store/completion_contract.json",
+  "public_context": "assets/exp2/tasks/constrained_retrieve_store/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/constrained_retrieve_store/prompts/hl.md",
+  "prior_plan": "policies/exp2/constrained_retrieve_store/retrieve_tunnel_block__h02/prior_plan.json"
+}

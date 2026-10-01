@@ -1,0 +1,133 @@
+{
+  "task_id": "constrained_retrieve_store",
+  "policy_id": "dp",
+  "skill_id": "full_task",
+  "source": "policies/exp2/constrained_retrieve_store/dp/source",
+  "manifest": "policies/exp2/constrained_retrieve_store/dp/manifest.json",
+  "author": "RepositoryAgent",
+  "methods": [
+    "dp"
+  ],
+  "assignment": "policies/exp2/constrained_retrieve_store/dp/assignment.json",
+  "training_spec": "policies/exp2/constrained_retrieve_store/dp/training/spec.json",
+  "dataset": "assets/exp2/datasets/constrained_retrieve_store/full_task_dp/dataset.json",
+  "normalization": "assets/exp2/tasks/constrained_retrieve_store/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/constrained_retrieve_store/dp/model.pt",
+    "sha256": "b7e3f7235da02500e7d0306c8642c459d9994b2927be7666bf7852e7827ff2e4",
+    "source_sha256": "b7e3f7235da02500e7d0306c8642c459d9994b2927be7666bf7852e7827ff2e4",
+    "size_bytes": 338557894,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 1,
+    "demos": 12,
+    "in_distribution_success": "1/12",
+    "exit_rule": "standard task success (first occurrence)",
+    "guidance": "No final guidance recorded."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/assignment.json",
+      "sha256": "59ad3358ac4c4e800f027d11b619f101d9deb845fdba9a286041c8d4c29bba20",
+      "source_sha256": "3cc9fc8864bdcc35981e2dc53c9a3edbafd11235de95c3b17b89ff3d87db3d5b",
+      "size_bytes": 3523,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/source/HANDOFF.json",
+      "sha256": "905333e4202fc0304a1165994a72987c1a7c644fe9744eee35845b4fae8f3fcf",
+      "source_sha256": "905333e4202fc0304a1165994a72987c1a7c644fe9744eee35845b4fae8f3fcf",
+      "size_bytes": 1580,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/source/PRIOR.md",
+      "sha256": "34165c8194863bf13bf8619bd10dfc5deaffc86f1b79f619236eb9a63918249c",
+      "source_sha256": "34165c8194863bf13bf8619bd10dfc5deaffc86f1b79f619236eb9a63918249c",
+      "size_bytes": 969,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/source/adapters.py",
+      "sha256": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+      "source_sha256": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+      "size_bytes": 2083,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/source/panda_posture.py",
+      "sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "source_sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "size_bytes": 903317,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/source/pipeline.json",
+      "sha256": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+      "source_sha256": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+      "size_bytes": 328,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/source/policy.py",
+      "sha256": "da9a594d200d69473ded51a6dde8ce4b7098a144ab66be4b79027a7cc975a527",
+      "source_sha256": "da9a594d200d69473ded51a6dde8ce4b7098a144ab66be4b79027a7cc975a527",
+      "size_bytes": 749,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/source/policy_contract.json",
+      "sha256": "00045d8e9844cf8b40ed0e5322800ba50a2d6b12aea06b8c7daa3a02c72a02ce",
+      "source_sha256": "00045d8e9844cf8b40ed0e5322800ba50a2d6b12aea06b8c7daa3a02c72a02ce",
+      "size_bytes": 1329,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/source/training_bindings.json",
+      "sha256": "90c07187e35ae7cf173611086fc7faaceb0c22b986128c5a00b80626d2741680",
+      "source_sha256": "90c07187e35ae7cf173611086fc7faaceb0c22b986128c5a00b80626d2741680",
+      "size_bytes": 2307,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/submission.json",
+      "sha256": "b572762f5ea47a30777ca90943ed40b990ae42b2d740d7decc2d7a4bb3f2bdc2",
+      "source_sha256": "89a8ea93cce9355efab5a35ced3b135321ca252525b7a78185411411c71ac3cf",
+      "size_bytes": 6094,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/training/adapter_checks.json",
+      "sha256": "bc70f1ae4a52310c75a013b0a4cdc920edc1ee5f6c06401921cfdb9f44fde7ca",
+      "source_sha256": "bc70f1ae4a52310c75a013b0a4cdc920edc1ee5f6c06401921cfdb9f44fde7ca",
+      "size_bytes": 195,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/training/result.json",
+      "sha256": "2bcd57e00fd8205bcc23c2ecde7a76a9021acda8b16b6d56464922dc33d92e32",
+      "source_sha256": "c40c8fce8f58eabdfa2feb16569a564cf630bfec79c65ce544c6e0c7774cff6c",
+      "size_bytes": 3583,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/dp/training/spec.json",
+      "sha256": "48688e516377db090aeed7c24f50a351d0eacc4cffab4e868dca12e5cb3195f7",
+      "source_sha256": "48688e516377db090aeed7c24f50a351d0eacc4cffab4e868dca12e5cb3195f7",
+      "size_bytes": 15412,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/constrained_retrieve_store/task.json",
+  "completion_contract": "assets/exp2/tasks/constrained_retrieve_store/completion_contract.json",
+  "public_context": "assets/exp2/tasks/constrained_retrieve_store/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/constrained_retrieve_store/prompts/hl.md"
+}

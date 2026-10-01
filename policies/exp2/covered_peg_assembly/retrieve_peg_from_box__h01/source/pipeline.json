@@ -1,0 +1,17 @@
+{
+  "policy_id": "retrieve_peg_from_box__h01",
+  "skill_id": "retrieve_peg_from_box",
+  "heuristic_index": 1,
+  "prior_summary": "Peg-frame Cartesian targets make approach, grasp alignment, and carried lift equivariant to the freshly observed peg pose.",
+  "applicable_conditions": "Prefer after observable lid release and clearance, especially when peg_pose is displaced beyond the narrow demonstrated in-box range. The peg must remain observed and the resulting approach must be reachable without box-wall interference.",
+  "termination_guidance": "Continue through the shared lift. Exit to reorient_and_stage_peg only when fingers are closed, peg height is above the wall with margin, and two causal frames show approximately stable peg-to-TCP pose while both move.",
+  "limitations": "Early lid release is not the constructed invariant. Peg framing does not remove arm reachability, box/lid clearance, contact, or grasp dependencies. Training has no failed-grasp, drop, or regrasp recovery examples.",
+  "config": {
+    "action_reference": "fresh_observed_peg_pose",
+    "action_rotation": "6d",
+    "action_dimension": 10,
+    "input_feature_dimension_per_frame": 56,
+    "backbone": "standard_diffusion_backbone",
+    "auxiliary_loss": false
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "checkpoint": "provenance/relocated/a9262e22faa7f058",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "f87f8458d005425aef7034beb7d027dc52f9dc3ecef6d1476ddf1cea2a6d568b",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 3,
+    "physical_gpu": 1,
+    "uuid": "GPU-98220a3d-407e-9de2-bdc8-c061c57a041c"
+  },
+  "effective_action_targets": 40349563,
+  "final_weights_sha256": "8a8733f3ca69f85c0ee7cafc5ff85ff242f656a0b408410762562c31b0822e60",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.514549255371094,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.451123237609863,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.269307613372803,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.3810426592826843,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "f2a376ded8f30f78001bdc4e82479c71e6a6b4cee957a1b545cf85effb6669d9",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5312,
+      "duplicated_actions": 0,
+      "unique_actions": 5312
+    },
+    "contract": {
+      "action_dimension": 7,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination": {
+            "enum": [
+              "red_goal"
+            ],
+            "type": "string"
+          },
+          "handoff_object": {
+            "enum": [
+              "blue"
+            ],
+            "type": "string"
+          },
+          "target_object": {
+            "enum": [
+              "red"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "target_object",
+          "destination",
+          "handoff_object"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Compare FK of decoded IK against the demonstrated commanded TCP after exact pre-action TCP relative-pose log/exp roundtrip. Report position, rotation, gripper and IK diagnostics; no clipping or scripted correction is applied.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Binds every assigned action in all 12 full segments. The complete 230-240 action place_blue overlap receives fresh-TCP residual supervision for blue lower/open, retreat, transit, red approach/closure and initial lift before the remaining red placement.",
+      "input_shapes": {
+        "features": [
+          2,
+          61
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "red_pose",
+        "blue_pose",
+        "red_goal",
+        "blue_goal"
+      ],
+      "output_semantics": "Each slot is [translation x,y,z metres in the current measured TCP frame, relative TCP rotation vector x,y,z radians, native gripper scalar]. Labels use that slot's pre-action measured TCP; each execution decode composes the represented SE(3) transform with the fresh current TCP, then supplied IK converts the resulting world target from fresh qpos. Slot 0 is t-1 and slots 1..8 execute t..t+7. Gripper sign semantics are unchanged.",
+      "parameter_semantics": "target_object, destination and handoff_object select red_pose, red_goal, blue_pose and blue_goal for causal relational conditioning. Learned translations are metres and rotations radians in the fresh measured TCP frame; arguments never provide actuator values or hidden phase.",
+      "policy_id": "place_red__h03",
+      "skill_id": "place_red",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "13f7c481ed50646f76ee8bdf02a166ffc1e57d3fb7ef6720986566a4061bd076",
+    "PRIOR.md": "0c5dda755e35c33236abdf134bb9de613b27fbb2c4187d413ec1288fcafad932",
+    "adapters.py": "81d893a98529dc4eecd25351d92ed4e28c09179d46a5c74af53280a1f721b427",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "57c4847df554e29fbc07b275c089b5226d0462d2ae4cac4800a5c1199fd4bc0d",
+    "policy.py": "31155e9c498f64057a540ac5412e70d43eb447eded5801c7f94db803bad265fe",
+    "policy_contract.json": "8ef36531b2018794a9b1d6d7128df78a9103c7c09e3c67078bc4c8a7419c38ce",
+    "training_bindings.json": "35667d615515c9c8a0eb9728b2d944b043a212a64b9adb26f6d94ec40a850dda"
+  },
+  "trainable_parameters": 17198215,
+  "training_elapsed_seconds": 617.9033923409879,
+  "weight_l2_change": 30.42973399584997
+}

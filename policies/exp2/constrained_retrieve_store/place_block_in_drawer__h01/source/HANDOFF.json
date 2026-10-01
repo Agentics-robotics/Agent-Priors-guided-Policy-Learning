@@ -1,0 +1,15 @@
+{
+  "policy_id": "place_block_in_drawer__h01",
+  "entry_conditions": "Drawer is open and stable; fingers are closed; block is outside and above the tunnel; two causal frames indicate block and TCP translate together; the measured Panda posture is plausibly reachable.",
+  "exit_conditions": "Block is inside the cavity at drawer-floor height and no longer follows the TCP after opening; the TCP has begun an upward retreat, or control transfers earlier within the supervised release overlap.",
+  "overlap_role": "All 680:1160 actions are supervised. The 680:840 overlap supplies 160 actions shared with retrieval, and 900:1160 supplies 260 actions shared with closing, including release, settling, retreat, reorientation and handle approach.",
+  "successor_readiness": "The destination-frame or phase-aware place policy may take over during lowering/release. close_drawer may take over in 900:1160 only after object floor height and detachment are supported by observation; the late boundary has the free gripper at the handle.",
+  "failure_signatures": "Object stops following TCP before the cavity; object/TCP relative pose changes abruptly while fingers are closed; object pose is unreliable; the block settles outside the cavity; post-release motion toward the handle shifts with an off-centre object; IK is unconverged or at limits.",
+  "continuation_guidance": "Use this policy for the displaced attached transport. Once the object is deposited, switch to place_block_in_drawer__h02 for destination/handle anchoring, or place_block_in_drawer__h03 when release phase is locally ambiguous. A dropped object is not an authorized recovery state.",
+  "limitations": "Closed fingers and common motion are only proxies for attachment. Demonstrations are successful releases, not recovery data. Rigid equivariance does not ensure collision clearance or reachability, and object-relative post-release commands are intentionally not preferred.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[680,700,780,800,820,840,860,880,900,920]},
+    {"trajectory_id":"demo12102","indices":[680,700,780,820,840,860,880,900,905,920]},
+    {"trajectory_id":"demo12104","indices":[680,700,840,860,880,895,900,920]}
+  ]
+}

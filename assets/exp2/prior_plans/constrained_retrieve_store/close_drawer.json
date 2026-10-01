@@ -1,0 +1,228 @@
+{
+  "cut_plan_sha256": "388b2863018f5e4ec92a10a0b6a0efd22bb0182ef311ace074f29094ca4f82f2",
+  "priors": [
+    {
+      "applicability": "Prefer when target_pose is finite and is the current drawer-attached observed frame, the drawer is open or partly closed, and the whole drawer/handle/block arrangement may be displaced from the demonstrations while remaining reachable. Valid early entries include a block still descending/releasing or already settled; observed examples span object z about 0.063 to 0.124 at index 900. The prior covers the entire assigned 900:1330 responsibility and all 260 actions of overlap 900:1160 with place_block_in_drawer.",
+      "evidence": [
+        {
+          "indices": [
+            900,
+            920,
+            960,
+            1080,
+            1140,
+            1160,
+            1180,
+            1200,
+            1240,
+            1260,
+            1300,
+            1330
+          ],
+          "trajectory_id": "demo12100"
+        },
+        {
+          "indices": [
+            900,
+            910,
+            960,
+            1080,
+            1140,
+            1150,
+            1180,
+            1220,
+            1240,
+            1260,
+            1330
+          ],
+          "trajectory_id": "demo12102"
+        },
+        {
+          "indices": [
+            900,
+            920,
+            960,
+            1080,
+            1140,
+            1150,
+            1180,
+            1220,
+            1240,
+            1260,
+            1330
+          ],
+          "trajectory_id": "demo12104"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer is open near 0.300 and target_pose is observed; at early overlap entry the block may still descend/release, while later entry has the block settled near z 0.063 and an opening/open gripper retreating.",
+        "exit_conditions": "Drawer_position is below the unchanged 0.025 threshold and nearly stationary, object remains inside near z 0.063, fingers are open, and TCP has retreated high and clear near z 0.358.",
+        "failure_signatures": "Object still coupled when drawer begins moving, object outside cavity, missed or open fingers at handle, drawer stalled above 0.025, object leaving the drawer, IK residual/limit failure, or hand trapped at the handle.",
+        "overlap_role": "Supervise every action 900:1160 in all 12 trajectories, not just context. This 260-action overlap teaches completion of release, cavity clearance, handle approach and handle acquisition before closure.",
+        "successor_readiness": "Terminal skill: report readiness only from observed closed, stationary drawer plus open, retreated hand; preserve the framework success definition."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false},\"parameter_semantics\":\"No high-level arguments. The executor supplies the two causal observations and fresh decode observation; target_pose is the observed moving drawer frame in world metres with wxyz quaternion.\"}",
+      "limitations": "The covariance assumes target_pose moves rigidly with the relevant drawer frame and that handle geometry relative to it is unchanged. It does not create supervision for an object outside the cavity, a changed handle offset, severe rotation causing collision/unreachability, failed physical contact, or a jam. If target_pose is unreliable or local execution error dominates instead of scene displacement, prefer the TCP-local phase-conditioned prior. If the drawer is already partly closed or closure progress/stopping is the main ambiguity, the fixed closed-destination prior supplies the stronger progress representation. All observed runs are successful; none demonstrates recovery after losing the handle.",
+      "pipeline_implications": "No caller-supplied pose is needed: target_pose is resolved from each causal observation and again from the fresh state in decode_action. Use the unchanged DiffusionBackbone. Action dimension is 10: relative position 3 m, relative rotation 6D, gripper 1. Targets come from FK of native command labels. IK is the only Cartesian-to-native arm conversion, with convergence, residual and joint-limit diagnostics. HL should switch to this prior when drawer-frame displacement is the dominant uncertainty and should not infer contact from gripper command alone.",
+      "rationale": "Most likely failure targeted: translation or rotation of the drawer assembly, hence of the placed block and approached handle, outside the nearly fixed demonstrations. The observed target_pose tracks the articulated drawer: in demo12100 its x coordinate changes from about -0.175 at drawer_position 0.300 to 0.123 at 0.0022, while handle-contact TCP x changes from about -0.448 to -0.142. Learn each commanded Cartesian pose as T_target(current action state)^-1 T_command, with target-frame xyz, target-frame rotation in continuous 6D, and the native gripper scalar. At deployment decode against the freshly observed target_pose for every executed slot, then solve IK from freshly measured joints. Build inputs from two causal frames using TCP and object poses expressed in that same moving target frame, drawer position/velocity, qpos/qvel and finger state; retaining qpos preserves reachability/configuration dependence. This makes the demonstrated release, clearance, handle approach, push, release and retreat covariant to displacement of the drawer frame by construction, rather than expecting a network to extrapolate world coordinates. Expected benefit is displacement transfer, not observed success: demonstrations themselves contain only millimetre-scale lateral variation and do not prove it.",
+      "statement": "Moving-drawer-frame SE(3) targets for displacement-invariant release, handle approach, closure, and retreat",
+      "training_bindings": "[{\"trajectory_id\":\"demo12100\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12101\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12102\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12103\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12104\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12105\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12106\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12107\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12108\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12109\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12110\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12111\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"}]"
+    },
+    {
+      "applicability": "Prefer when scene displacement is modest or target_pose is available only as an input landmark, but TCP pose, finger state or drawer progress differs from the nominal handoff/intermediate trajectory. It is especially suitable for early-overlap switching between descending/releasing and settled/retreating states, or replanning from a partly executed approach/closure while geometry remains reachable. It still trains every action 900:1330 and the full 900:1160 overlap.",
+      "evidence": [
+        {
+          "indices": [
+            900,
+            920,
+            940,
+            960,
+            1000,
+            1040,
+            1080,
+            1100,
+            1120,
+            1140,
+            1160,
+            1180,
+            1200,
+            1220,
+            1240,
+            1260,
+            1280,
+            1300,
+            1330
+          ],
+          "trajectory_id": "demo12100"
+        },
+        {
+          "indices": [
+            900,
+            910,
+            920,
+            940,
+            960,
+            1080,
+            1120,
+            1140,
+            1150,
+            1160,
+            1170,
+            1180,
+            1200,
+            1220,
+            1240,
+            1260,
+            1280,
+            1300,
+            1330
+          ],
+          "trajectory_id": "demo12102"
+        },
+        {
+          "indices": [
+            900,
+            920,
+            940,
+            960,
+            1080,
+            1100,
+            1120,
+            1140,
+            1150,
+            1160,
+            1180,
+            1200,
+            1220,
+            1240,
+            1260,
+            1280,
+            1300,
+            1330
+          ],
+          "trajectory_id": "demo12104"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer is open or partly closed, causal TCP/q/finger/drawer observations are finite, and either release completion or later phase can be inferred from physical state; early valid entry remains constrained to block over/inside the cavity.",
+        "exit_conditions": "Drawer below 0.025 and nearly stationary, object remains inside, gripper open, TCP high and clear.",
+        "failure_signatures": "Local corrections drift away from handle, phase cues conflict, object remains coupled as closure starts, fingers miss handle, drawer stops above threshold, or IK is infeasible.",
+        "overlap_role": "Actions 900:1160 in all demonstrations directly supervise local corrections through release completion, retreat/reorientation, handle approach and acquisition, giving action-supervised tolerance to predecessor switch timing.",
+        "successor_readiness": "Terminal readiness requires observed closure and retreat, not a predicted phase or gripper sign."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false},\"parameter_semantics\":\"No high-level arguments. All phase/progress cues are computed causally from two observed frames; each executed Cartesian correction is composed with the freshly measured world tcp_pose.\"}",
+      "limitations": "A local correction does not by itself encode a globally fixed handle or closed destination, so repeated errors, a large drawer displacement, or an unseen phase may accumulate drift. Fresh composition can preserve an existing global offset if the network emits only nominal local motion. The moving-drawer-frame prior covers large drawer displacement; the fixed closed-destination prior covers partly closed/stopping ambiguity. No contact truth is observed, and successful labels do not establish recovery from a missed grasp, jam or block interference. Rotation-vector support can also be difficult near pi, though demonstrated local increments are small.",
+      "pipeline_implications": "Keep the standard DiffusionBackbone unchanged. Action dimension is 7: current-TCP-frame position delta, current-TCP-frame rotation vector, and gripper. FK of each native command supplies the target; each label is relative to its own action_observation TCP, while each decode composes with the fresh current tcp_pose before shared IK. The chunk does not update hidden phase state during denoising. Inputs retain absolute qpos/qvel plus causal relational progress features so local invariance does not discard robot configuration or articulated contact dependencies. HL should prefer this model for execution-state mismatch rather than large fixture displacement.",
+      "rationale": "Most likely failure targeted: the predecessor switches at a different release/retreat state, or execution begins between nominal phases, so an absolute trajectory aliases release, handle approach, closure and final retreat. Demonstrations show materially different index-900 states: demo12100 still has the object at z 0.124 and fingers around 0.018 each, demo12102 has z 0.079 and fingers around 0.032, and demo12104 is already settled at z 0.063 with nearly open fingers. Yet all later converge to a low handle pose around z 0.129, close from about 0.300 to 0.0022, and retreat. Learn each action as the SE(3) correction from that slot's measured TCP to its commanded TCP: local translation 3 m, local rotation vector 3 rad, gripper 1. Decode each executed slot relative to the fresh measured TCP, providing a feedback-like local correction when the realized intermediate TCP differs from the nominal future. Two-frame inputs explicitly expose drawer progress/velocity, finger width/change, TCP and object relative to target_pose, TCP-object separation, and qpos/qvel. These causal phase cues distinguish release, high clearance, handle acquisition, closure and final retreat without future observations or hidden phase memory.",
+      "statement": "TCP-local residual motion with causal phase features for variable handoff and intermediate execution states",
+      "training_bindings": "[{\"trajectory_id\":\"demo12100\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12101\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12102\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12103\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12104\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12105\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12106\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12107\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12108\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12109\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12110\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"},{\"trajectory_id\":\"demo12111\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap.\"}]"
+    },
+    {
+      "applicability": "Prefer when drawer_position is already below the open value, closure progress or stopping is the main uncertainty, and target_pose plus drawer_position define a stable reachable closed destination. It remains valid from early release because all 900:1330 labels are supervised, but its intended advantage is the 1140:1330 handle/closure/release interval. The observed drawer can move from about 0.300 through intermediate 0.29, 0.19, 0.08 or 0.025 values to about 0.0022.",
+      "evidence": [
+        {
+          "indices": [
+            1140,
+            1160,
+            1180,
+            1200,
+            1220,
+            1240,
+            1260,
+            1280,
+            1300,
+            1330
+          ],
+          "trajectory_id": "demo12100"
+        },
+        {
+          "indices": [
+            1140,
+            1150,
+            1160,
+            1170,
+            1180,
+            1200,
+            1220,
+            1240,
+            1260,
+            1280,
+            1300,
+            1330
+          ],
+          "trajectory_id": "demo12102"
+        },
+        {
+          "indices": [
+            1140,
+            1150,
+            1160,
+            1180,
+            1200,
+            1220,
+            1240,
+            1260,
+            1280,
+            1300,
+            1330
+          ],
+          "trajectory_id": "demo12104"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Block is inside the open or partly closed drawer, or still completing a valid release during 900:1160 overlap; target_pose and drawer_position must form a finite destination frame.",
+        "exit_conditions": "Observed drawer_position below 0.025 with negligible velocity, block enclosed near z 0.063, fingers open, and TCP retreated high and clear.",
+        "failure_signatures": "Predicted/observed closure response disagrees, drawer stalls above 0.025, handle contact is lost, block moves out of the cavity, destination frame is inconsistent, or IK reports large residual/limit contact.",
+        "overlap_role": "All 900:1160 actions remain supervised, including release, clearance and handle acquisition; this avoids a brittle closure-only receiver despite the prior's progress emphasis.",
+        "successor_readiness": "Terminal readiness is based on observed state only. Auxiliary output is representation training support and is not a success or contact predicate."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false},\"parameter_semantics\":\"No high-level arguments. The fixed closed-destination frame is deterministically derived from observed target_pose and drawer_position in metres; future drawer change is a masked training-only auxiliary label.\"}",
+      "limitations": "The fixed-frame construction assumes prismatic motion along target local x and accurate target_pose/drawer_position. The auxiliary learns demonstrated response under demonstrated actions and cannot sense contact truth, external jams, a displaced handle relative to the drawer, or a block obstructing closure. It may be less responsive to local TCP perturbations than the TCP-local prior and less naturally invariant to moving-frame-relative contact than the moving-drawer prior. The auxiliary cannot prove future motion and must not be used as success. Severe fixture displacement remains subject to IK/collision feasibility.",
+      "pipeline_implications": "Action dimension is 10: T_closed-relative translation 3, world rotation 6D, gripper 1. Decode recomputes T_closed from the fresh target_pose and drawer_position, constructs a world TCP target, then calls shared IK from measured q. A trainable MLP condition encoder and scalar closure-delta head are registered, optimized, checkpointed and EMA-tracked; the encoder conditions the unchanged DiffusionBackbone. encode_targets emits closure_delta = drawer_position after slot 8 minus current slot-1 drawer_position and a mask requiring both slots valid. compute_loss reports diffusion loss and weighted auxiliary prior loss separately. HL should prefer this model for partially completed closure, not infer contact merely because the auxiliary predicts motion.",
+      "rationale": "Most likely failure targeted: phase ambiguity during active closure, including entry with the drawer partly closed or failure to continue to the supplied 0.025 threshold before release/retreat. In the observed closure, drawer_position and the drawer-attached target_pose move together: target_pose.x + drawer_position stays approximately 0.125 m (for example -0.175+0.300 open and 0.123+0.002 closed). Construct a fixed closed-destination frame T_closed = T_target times a +drawer_position translation on the target local x axis. Learn translation relative to this fixed destination, world-frame rotation in continuous 6D, and gripper. Inputs include two-frame TCP/object coordinates in T_closed, drawer closure error/velocity, finger width, and qpos/qvel. Add a registered shared encoder ahead of the standard DiffusionBackbone and an auxiliary head that predicts the demonstrated drawer-position change over execution slots 1:8 from the causal condition. Its masked MSE target uses only authorized future observations during training, while inference uses no future and does not need the head output. A small auxiliary weight gives a real gradient into the same encoder used by diffusion, encouraging a progress/contact-response representation while preserving the main diffusion objective. Expected benefit is better differentiation of approach, moving closure, threshold stop, release and retreat; it is not evidence of jam recovery.",
+      "statement": "Fixed closed-destination Cartesian targets with a shared learned closure-response auxiliary",
+      "training_bindings": "[{\"trajectory_id\":\"demo12100\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap and closure-response labels when valid.\"},{\"trajectory_id\":\"demo12101\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap and closure-response labels when valid.\"},{\"trajectory_id\":\"demo12102\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap and closure-response labels when valid.\"},{\"trajectory_id\":\"demo12103\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap and closure-response labels when valid.\"},{\"trajectory_id\":\"demo12104\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap and closure-response labels when valid.\"},{\"trajectory_id\":\"demo12105\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap and closure-response labels when valid.\"},{\"trajectory_id\":\"demo12106\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap and closure-response labels when valid.\"},{\"trajectory_id\":\"demo12107\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap and closure-response labels when valid.\"},{\"trajectory_id\":\"demo12108\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap and closure-response labels when valid.\"},{\"trajectory_id\":\"demo12109\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap and closure-response labels when valid.\"},{\"trajectory_id\":\"demo12110\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap and closure-response labels when valid.\"},{\"trajectory_id\":\"demo12111\",\"start\":900,\"stop\":1330,\"context_start\":899,\"call_args\":{},\"rationale\":\"Full assigned segment; includes 900:1160 supervised placement overlap and closure-response labels when valid.\"}]"
+    }
+  ],
+  "skill_id": "close_drawer"
+}

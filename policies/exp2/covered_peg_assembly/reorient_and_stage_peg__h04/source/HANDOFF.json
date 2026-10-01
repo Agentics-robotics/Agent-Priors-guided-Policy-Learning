@@ -1,0 +1,24 @@
+{
+  "policy_id": "reorient_and_stage_peg__h04",
+  "entry_conditions": "Enter after retrieval when fingers are closed, the cover is open, peg_pose is plausibly attached to tcp_pose, and their relative transform is stable over both causal frames. Entry can occur during low lift or later on the demonstrated successful lift/turn route; apparent coupling is not proof of contact.",
+  "exit_conditions": "Hand off when the peg remains held, is nearly identity/hole-axis oriented, has small hole-relative y/z error, and has descended toward hole height with healthy IK diagnostics. The supervised responsibility includes early +x insertion but does not add a new success rule.",
+  "overlap_role": "All [1120,1500) actions are supervised. Incoming [1120,1270) supplies 150 shared actions with retrieve_peg_from_box from low lift through clearance and initial turning. Outgoing [1380,1500) supplies 120 shared actions with align_and_insert_peg through final alignment, descent and early insertion.",
+  "successor_readiness": "align_and_insert_peg can take over after stable coupling, near hole-axis alignment and lateral centering are observed. Index 1380 can still contain lateral error, notably peg y about 0.160 m in demo12205 versus about 0.180 m in demo12208, so retain h04 until centering if needed.",
+  "failure_signatures": "Stop or switch if peg-to-TCP geometry changes within or across chunks, fingers open, clearance is lost, the peg approaches the fixture before alignment, hole-relative y/z or rotation error grows, the cover collapses, or IK reports nonconvergence or limit contact. A dropped or slipping peg is outside this policy.",
+  "continuation_guidance": "Refresh the observed hole anchor and T_tcp^-1*T_peg at every eight-action replan, preserve both causal frames across switches, and execute only slots 1-8. Monitor coupling and IK diagnostics. Prefer timely transfer through outgoing overlap instead of continued execution after a valid staged state.",
+  "limitations": "The rigid grasp transform is a causal geometric proxy without contact truth and is fixed for one execution chunk. Hole-frame covariance cannot guarantee box/lid clearance, arm reachability or insertion contact under displacement. Demonstrations provide no reacquisition, collision, bad-grasp, unreachable-target or post-success recovery labels.",
+  "evidence": [
+    {
+      "trajectory_id": "demo12200",
+      "indices": [1120, 1140, 1200, 1240, 1270, 1320, 1380, 1420, 1460, 1499]
+    },
+    {
+      "trajectory_id": "demo12205",
+      "indices": [1120, 1270, 1380, 1420, 1460, 1499]
+    },
+    {
+      "trajectory_id": "demo12208",
+      "indices": [1120, 1270, 1380, 1420, 1460, 1499]
+    }
+  ]
+}

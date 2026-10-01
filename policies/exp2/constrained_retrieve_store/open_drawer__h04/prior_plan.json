@@ -1,0 +1,73 @@
+{
+  "cut_plan_sha256": "388b2863018f5e4ec92a10a0b6a0efd22bb0182ef311ace074f29094ca4f82f2",
+  "priors": [
+    {
+      "applicability": "Prefer open_drawer__h04 when target_pose is a reliable rigid reference for a drawer whose placement may be translated or rotated relative to training, especially when the high-level agent also wants fresh-state local behavior near the open stop and through departure. Invoke from a closed or partly opening drawer with the block still undisturbed and with a reachable arm configuration near the demonstrated approach/pull manifold. The early target-frame position branch is intended for approach, handle alignment and most of the pull; the fresh-TCP branch dominates only near full opening and remains active through release, clearance and the 300:440 departure overlap.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            140,
+            160,
+            165,
+            180,
+            220,
+            240,
+            250,
+            265,
+            280,
+            300,
+            340,
+            380,
+            420,
+            439
+          ],
+          "trajectory_id": "demo12100"
+        },
+        {
+          "indices": [
+            0,
+            160,
+            165,
+            180,
+            220,
+            250,
+            265,
+            300,
+            340,
+            420,
+            439
+          ],
+          "trajectory_id": "demo12101"
+        },
+        {
+          "indices": [
+            0,
+            160,
+            220,
+            250,
+            265,
+            300,
+            420,
+            439
+          ],
+          "trajectory_id": "demo12102"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer is closed or in an observed approach/early-opening state, target_pose is available and credible, the block remains low in the tunnel, and the measured arm pose is reachable without an unseen collision. The standard demonstrated entry is drawer_position near 0, low velocity, open fingers and TCP high near world (-0.384, 0, 0.442).",
+        "exit_conditions": "Drawer_position is about 0.300 m and stable, fingers are observably open after release, TCP has cleared the handle/drawer and is moving above or toward the tunnel, and the block remains at its entry pose.",
+        "failure_signatures": "Drawer_position never reaches 0.29 m, reaches the open stop and later regresses below 0.29 m, the gripper repeatedly changes sign or stays closed after full opening, the TCP returns toward the handle after release, the block moves, or IK reports an unconverged/unreachable composed target. The progress blend can be unreliable if drawer progress is noisy or an unseen state is phase-inconsistent.",
+        "overlap_role": "All actions 300:440 in every trajectory remain directly supervised: 140 actions (7.0 s) of post-handle retreat, free-space turn and initial tunnel descent. In this interval the progress blend is fully on the fresh-current-TCP branch, matching the representation intended to remain locally stable after opening while preserving successor overlap.",
+        "successor_readiness": "Switch to retrieve_tunnel_block after the drawer is open and nearly stationary, fingers are open, and the TCP has safe clearance. The shared 300:440 tail supports switching shortly after release or later above the tunnel; preserve the two causal history frames across the switch."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"open_stop_m\":{\"type\":\"number\",\"minimum\":0.25,\"maximum\":0.35}},\"required\":[\"open_stop_m\"]},\"parameter_semantics\":\"open_stop_m is the intended drawer travel/open stop in metres, bound to 0.300 m for all authorized demonstrations. It normalizes drawer position and sets the causal representation blend: drawer-frame commanded position dominates through 0.90 of travel, a smooth blend is used from 0.90 to 0.98, and fresh measured-TCP residual position dominates at and above 0.98. target_pose and tcp_pose are observed world poses in metres with wxyz quaternions; no future or contact truth is supplied.\"}",
+      "limitations": "The only validation evidence is in-distribution and does not test displaced drawers or perturbed entries. Target-frame equivariance covers commanded position during approach and most of the pull; commanded orientation remains a fresh-TCP body correction, so full rigid-pose equivariance is not guaranteed. Near-stop blending is not hysteretic and may be ambiguous under noisy/nonmonotone drawer progress. Relative coordinates do not ensure reachability, collision clearance, handle contact or a successful grasp. The demonstrations do not establish recovery from a missed handle, premature release, severe tracking error, disturbed block or unseen phase order. The block-approach tail is not made object-frame invariant, so large independent block displacement is better handled by the existing dual-anchor policy h03.",
+      "pipeline_implications": "Add h04 as an independent alternative, not a replacement for h01-h03. The high-level agent should select it when drawer displacement and near-stop continuation are both concerns and target_pose is trustworthy. h02 remains the evidence-backed in-distribution default and is preferable for small intermediate TCP deviations without a displaced-drawer requirement; h03 remains preferable when independent block displacement in the overlap is the main concern. Terminate by semantic observations rather than elapsed time, and hand off within the supervised 300:440 overlap once successor readiness holds.",
+      "rationale": "Validation showed h02's fresh-current-TCP residual policy passing all 12 demonstrated entries, while the fully drawer-relative h01 passed 6/12 and several h01 failures reached or nearly reached the stop before ending below the threshold. This does not identify a cause, but it motivates retaining explicit drawer anchoring only where it supplies the needed displacement invariant and using fresh-state residual control near the stop/departure. The new 10D label redundantly encodes the same demonstrated command position in target-frame absolute coordinates and in measured-TCP body residual coordinates, plus a body rotation correction and gripper scalar. A causal smooth progress blend decodes these two exact position labels; therefore demonstration labels remain physically identical under either branch. This targets translated/rotated drawer-position paths by construction through approach and most of pull, and targets near-stop/late-state mismatch with the mechanism used by the strongest validated original. It is an unconfirmed design hypothesis, not a claim of improvement.",
+      "statement": "Hybrid drawer-equivariant / fresh-TCP Cartesian policy: learn two exact coordinate descriptions of each commanded TCP position, use drawer target-frame position for displacement-equivariant approach and pull, smoothly change to fresh measured-TCP residual position near the open stop, and always express orientation as a fresh-TCP body rotation correction. Preserve robot state, target world pose, relative block geometry, causal drawer motion and full successor overlap in conditioning.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12100\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12101\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12102\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12103\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12104\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12105\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12106\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12107\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12108\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12109\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12110\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"},{\"trajectory_id\":\"demo12111\",\"start\":0,\"stop\":440,\"context_start\":0,\"call_args\":{\"open_stop_m\":0.3},\"rationale\":\"Supervise all opening phases and the complete 300:440 successor overlap with exact dual-coordinate Cartesian labels.\"}]"
+    }
+  ],
+  "skill_id": "open_drawer"
+}

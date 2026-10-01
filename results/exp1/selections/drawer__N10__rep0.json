@@ -1,0 +1,41 @@
+{
+  "instance": "drawer__N10__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A3",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A3",
+      "feedback_hash": "6fde380d85efbd68f89d4d27dc18e7c27335705da027b280455b8db1b36190a5",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3 under the frozen equal-distribution/equal-cell rule: A1 scores 0.5*1.0+0.5*0.55=0.775; A2 scores 0.5*1.0+0.5*0.25=0.625; A3 scores 0.5*1.0+0.5*1.0=1.000. All three are completed and eligible. A3 is the unique maximum, so no tie-break is needed (its reported latency is also lowest). IID results and training losses do not select. A3 succeeds in every development C/E cell, whereas A1's remaining E failures concentrate in HL/LH; the revision will use A3 as its actual parent without asserting which of its bundled mechanisms caused the observed gain.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "f6f9a51071b055488e32df9693bcc9a9ed4b6932171f2c7b231990c45dd99e46",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4 under the frozen rule: all four candidates are valid/completed. Equal-cell C/E scores are A1=0.775, A2=0.625, A3=1.000, A4=1.000. A3 and A4 both achieve C=20/20 and E=20/20, so the prescribed first tie-break is lower fixed-method inference latency. A4 has 0.10799023650179151 s versus A3's 0.1086960584980261 s, selecting A4. A4 also has fewer complete-system parameters (4,879,448 versus 5,020,626), although the parameter tie-break is not needed. IID, training loss, training duration and hidden-test outcomes do not select. The reported development result supports retention under this compression on the evaluated cells, not a claim of universal reliability or a statistically established latency improvement.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "f7d7b87a55d0716fa1eb494af4e41085a5046b778e8fc7288064d96e699db60e",
+    "A2": "dbae0c225ab355da14fd1f1f93d6c4669072a614926b402fe43a00c9a2b67551",
+    "A3": "3bad35ed6566fc0cdffe2ed8a7fd224883bea810c634f55f91e312ac25d10363",
+    "A4": "ceed8d3f5346eb2905cb145914ebff4e85787fae56bc80255865efc1601db505"
+  },
+  "feedback_hashes": {
+    "initial": "2711d01ab0bbb6928ea0ac4b171c52b9e3bbd0adc81522499c3b1cbe29029948",
+    "final": "69aa81434d7fbdeca8d4e3b79adf5fe553c6ca6e48752016755c958f8c319b13"
+  }
+}

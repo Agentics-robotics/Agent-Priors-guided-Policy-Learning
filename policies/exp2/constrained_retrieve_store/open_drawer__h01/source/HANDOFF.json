@@ -1,0 +1,15 @@
+{
+  "policy_id": "open_drawer__h01",
+  "entry_conditions": "Drawer closed or on a demonstrated opening trajectory, target_pose observable, compatible drawer velocity and reachable arm configuration; normal entry has open fingers and high TCP near the drawer approach.",
+  "exit_conditions": "Drawer near open_stop_m=0.300 m with near-zero velocity, fingers open after release, TCP clear and moving above/toward the tunnel, and the block unmoved.",
+  "overlap_role": "Actions 300:440 are supervised for all twelve occurrences: 140 actions (7.0 s) covering post-handle retreat, free-space turn and initial tunnel descent shared with retrieve_tunnel_block.",
+  "successor_readiness": "Switch to retrieve_tunnel_block when the drawer is open and stable, the handle is released and the arm has clearance. The retained tail permits a later switch when already over the tunnel.",
+  "failure_signatures": "Drawer remains below the open stop, velocity remains large, fingers stay closed, TCP does not clear the drawer, block moves, or IK reports material residual/limit contact. No demonstrated trial establishes missed-handle recovery.",
+  "continuation_guidance": "Continue this policy through drawer-relative clearance if target_pose remains reliable; prefer the dual-anchor policy or successor once independent block-relative departure is needed. Preserve both causal frames across any switch.",
+  "limitations": "These conditions guide the high-level agent and do not add success criteria. Finger width is not contact truth, and relative decoding does not guarantee reachability or collision clearance under large displacement.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[160,220,260,280,300,340]},
+    {"trajectory_id":"demo12101","indices":[160,250,260,280,300,340]},
+    {"trajectory_id":"demo12102","indices":[160,250,260,280,300,340]}
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "checkpoint": "provenance/relocated/b4a283e0320a9768",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "b7e3f7235da02500e7d0306c8642c459d9994b2927be7666bf7852e7827ff2e4",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 5,
+    "physical_gpu": 6,
+    "uuid": "GPU-283f4385-fbd4-b7ca-81ca-ba0fb6993fad"
+  },
+  "effective_action_targets": 122273481,
+  "final_weights_sha256": "f6e099e5b669ebdab30b1b8485f24c96c71d17262fff49d7e871590b85d30157",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 2.3634767532348633,
+      "step": 1
+    },
+    {
+      "l2_norm": 2.340146064758301,
+      "step": 2
+    },
+    {
+      "l2_norm": 2.1288537979125977,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.110357865691185,
+      "step": 60000
+    }
+  ],
+  "initial_weights_sha256": "5bfaf3ad752c07d058b51fc9d847232942a22e05bcc361d447d17396aa33f6be",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 60000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 16104,
+      "duplicated_actions": 0,
+      "unique_actions": 16104
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Shared damped least-squares IK; converged tolerance 1e-4 m and 1e-3 rad.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "No segmentation; complete original trajectories.",
+      "input_shapes": {
+        "features": [
+          2,
+          41
+        ]
+      },
+      "observation_dependencies": [
+        "drawer_position",
+        "drawer_velocity",
+        "object_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Per slot: world TCP position xyz in metres (3), first and second columns of the world TCP rotation matrix (6), native gripper scalar (1). Labels are FK of the demonstrated seven-joint command. Decoding orthonormalizes the 6D rotation and applies the shared panda_kinematics.solve_ik from the measured joints; residuals are reported.",
+      "parameter_semantics": "No runtime semantic parameters; full-task ordinary Cartesian DP.",
+      "policy_id": "cartesian_dp",
+      "skill_id": "full_task",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 7680000,
+  "source_hashes": {
+    "HANDOFF.json": "905333e4202fc0304a1165994a72987c1a7c644fe9744eee35845b4fae8f3fcf",
+    "PRIOR.md": "34165c8194863bf13bf8619bd10dfc5deaffc86f1b79f619236eb9a63918249c",
+    "adapters.py": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+    "policy.py": "da9a594d200d69473ded51a6dde8ce4b7098a144ab66be4b79027a7cc975a527",
+    "policy_contract.json": "00045d8e9844cf8b40ed0e5322800ba50a2d6b12aea06b8c7daa3a02c72a02ce",
+    "training_bindings.json": "90c07187e35ae7cf173611086fc7faaceb0c22b986128c5a00b80626d2741680"
+  },
+  "trainable_parameters": 16914186,
+  "training_elapsed_seconds": 1537.2744556490798,
+  "weight_l2_change": 48.69388050383393
+}

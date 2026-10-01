@@ -1,0 +1,39 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "single_prior_cartesian",
+  "skill_id": "full_task",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "There are no caller parameters. The single binding means: execute the complete granular_pour_return task from causal observed state. Object, bowl and return poses are resolved from each observation in world metres with wxyz pose quaternions; no caller selects an object, stage or controller.",
+  "observation_dependencies": [
+    "bowl_pose",
+    "container_pose",
+    "particle_positions",
+    "qpos",
+    "qvel",
+    "target_pose",
+    "tcp_pose"
+  ],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 141]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each prediction slot is [dx,dy,dz,r1x,r1y,r1z,r2x,r2y,r2z,g]. Position is in world metres relative to a fresh-observation continuous relational anchor: a normalized blend of current container, bowl and marked-return origins. The blend is determined only from current container elevation/uprightness and observed particle geometry. The six rotation values are the first two columns of the desired TCP rotation in the current observed container frame and are projected by Gram-Schmidt; g preserves the demonstrated native gripper scalar. Slots represent t-1 through t+14 and execution uses slots 1 through 8. For every executed slot, the fresh current observation reconstructs a world TCP pose; panda_kinematics.solve_ik converts it from freshly measured qpos to seven absolute Panda joint targets. The relational anchor is a coordinate conversion, not a scripted action or stage controller.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.01,
+    "description": "Encode uses FK of each demonstrated seven-joint command. Decode reconstructs the same world TCP translation and rotation before shared damped least-squares IK. The check takes the maximum of FK position error in metres, rotation angle in radians and gripper scalar error. Rotation 6D receives only the declared Gram-Schmidt projection; IK returns its best limit-respecting solution and reports convergence, residuals and limit contacts without silent substitution."
+  },
+  "cut_relation": "One policy and one empty-argument invocation contract cover every action [0,stop) of every complete original demonstration. There are no cuts, segment selectors, stage labels, policy switches or caller-selected objects."
+}

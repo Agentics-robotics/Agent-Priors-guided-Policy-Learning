@@ -1,0 +1,41 @@
+{
+  "instance": "peg-insert-side__N5__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A3",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A3",
+      "feedback_hash": "b487fea8d866015c6b36da9b791f62644717bc77be23051fb895b35279fff8a2",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: Among the eligible completed A1-A3 candidates, the fixed equally weighted C/E score is A1=0.5*0.55+0.5*0.50=0.525, A2=0.5*0.60+0.5*0.70=0.65, and A3=0.5*1.00+0.5*0.75=0.875. Each distribution already uses equal cell weights. A3 is the unique maximizer, so latency/parameter/ID tie-breakers are not needed. IID scores and training curves did not select. A3 still has a recorded E-HL failure (0/5), which will motivate the single new revision, not edits to this frozen candidate.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "435cc24e436b51a6c57e70f7d6c2bf3699b039f435b220fc554f044e20ed3746",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: All four candidates are eligible and completed their fixed 20,000 updates. Applying only the frozen equal-cell-weight C/E rule gives A1=0.525, A2=0.65, A3=0.875, A4=0.5*1.0+0.5*0.8=0.90. A4 is the unique maximizer, so tie-breakers are not invoked; neither IID nor training losses select. A4 retains C-HL10/10 and C-LH10/10, and its E cell mean is (LL1.0+LH0.8+HL0.4+HH1.0)/4=0.8. Relative to A3, E-HL increases from0/5 to2/5 while E-LH decreases from5/5 to4/5, yielding only one net additional E success; the small development sample does not establish a general performance advantage or causal mechanism. All failures and the unsuccessful parts of the revision remain recorded. Select frozen A4 submission dbe880f9852144898e2496ae966d6df1b4bb27ee1a3cd39b36f300a0c651df1e; no further edits, candidates, training, or test access.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "811523865e77e773e31a1e2d216005497cfc14abfc9e5ada5fd1530f1b36b79f",
+    "A2": "043723c76f06237f87403dbe87cfd92e6dac95f551f043a00f778ff0328e6c58",
+    "A3": "b17e3f1754bff49775c1793bb97fde7753c44235afe60d7928732b4fee01c4c0",
+    "A4": "dbe880f9852144898e2496ae966d6df1b4bb27ee1a3cd39b36f300a0c651df1e"
+  },
+  "feedback_hashes": {
+    "initial": "9299b5d75a1e38f6b7b93e8484688299c309eba48ea6b12ea02a43abaa154f8e",
+    "final": "ddf9b5820fc610151f2b2b35b9b3435632b7a4893d3014c88d5169d4449149a2"
+  }
+}

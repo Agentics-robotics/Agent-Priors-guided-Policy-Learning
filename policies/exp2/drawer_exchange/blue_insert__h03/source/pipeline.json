@@ -1,0 +1,10 @@
+{
+  "policy_id": "blue_insert__h03",
+  "skill_id": "blue_insert",
+  "heuristic_index": 3,
+  "prior_summary": "Fresh-TCP local SE(3) targets reduce dependence on an absolute trajectory, while a registered causal encoder and masked five-class phase loss organize red-release, blue-approach, held-carry, insertion/release and retreat cues.",
+  "applicable_conditions": "Prefer with drawer_position > 0.26 m when predecessor switch timing, TCP configuration or small tracking deviations are uncertain. Two causal frames must be retained across the switch; source_object is blue and destination_field blue_goal.",
+  "termination_guidance": "Terminate only on the unchanged simultaneous evaluator expression. Do not use the auxiliary phase prediction, gripper state or TCP retreat as success proof.",
+  "limitations": "Local increments can drift and provide no global collision-free route. Phase labels are heuristic observable categories, not contact truth. Large source/destination displacement is only conditioned. Drops, re-grasps, wall impacts and recovery are absent.",
+  "config": {"action_frame": "fresh_current_tcp", "rotation": "local_rotation_vector", "encoder_dimension": 128, "phase_classes": 5, "phase_loss_weight": 0.05, "augmentation": "none", "backbone": "standard_after_encoder"}
+}

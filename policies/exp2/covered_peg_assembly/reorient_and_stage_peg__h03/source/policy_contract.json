@@ -1,0 +1,31 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "reorient_and_stage_peg__h03",
+  "skill_id": "reorient_and_stage_peg",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {},
+    "required": []
+  },
+  "parameter_semantics": "No high-level numeric parameters. The caller passes an empty object and selects this policy for a valid but off-timing intermediate state. At every replan, the newest measured tcp_pose is the chunk action anchor.",
+  "observation_dependencies": ["hole_pose", "lid_pose", "lid_position", "lid_velocity", "peg_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 73]
+  },
+  "action_dimension": 7,
+  "output_semantics": "Each slot is an unnormalized Cartesian target [translation(3 metres), rotation vector(3 radians), gripper(1)] for T_chunk_start_tcp^-1*T_command. The chunk anchor is the newest causal tcp_pose and is fixed during the sampled chunk. Slots are t-1 through t+14 and execution uses slots 1-8. Decoding applies the SO(3) exponential map, composes with the anchor, and calls panda_kinematics.solve_ik from freshly measured qpos. Gripper is passed through unchanged.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Encode/decode demonstration targets through the chunk TCP frame and exponential coordinates; decoded IK FK must match commanded TCP position/rotation and unchanged gripper within maximum error 0.005. Nonunique IK is permitted and explicit solver diagnostics are returned."
+  },
+  "cut_relation": "Preserves every action in each assigned [1120,1500) segment, including incoming [1120,1270) and outgoing [1380,1500) overlap. Reanchoring occurs only at the framework's replan boundary; temporal slots and masks are unchanged."
+}

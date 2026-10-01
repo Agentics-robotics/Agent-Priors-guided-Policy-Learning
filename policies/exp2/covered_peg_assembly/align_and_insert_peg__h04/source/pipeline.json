@@ -1,0 +1,17 @@
+{
+  "policy_id": "align_and_insert_peg__h04",
+  "skill_id": "align_and_insert_peg",
+  "heuristic_index": 4,
+  "prior_summary": "Diffuse the desired peg pose in the observed hole frame, then convert that object goal through the freshly observed peg-to-TCP transform. This transports the complete insertion trajectory with a moved destination and retargets it for a modest changed rigid grasp offset.",
+  "applicable_conditions": "Prefer when the peg is visibly retained and moves rigidly with the TCP, the hole may be displaced from the demonstrated world pose, or the incoming rigid peg-to-TCP grasp offset may differ modestly. The peg should be clear of the box, near axis alignment, and on a plausibly reachable collision-free route to the observed hole.",
+  "termination_guidance": "Use only the unchanged task evaluator: peg-head x in the supplied interval, y/z within 0.009 m, axis alignment at least 0.985, and a stable held pose. Neither an estimated rigid transform nor successful IK is completion.",
+  "limitations": "The demonstrations use one hole pose and nominal successes only. Accurate object/TCP observations and a rigid grasp are assumed. No contact truth or supervision covers slip, drop, collision, jam, retraction, regrasp, or retry; transported targets may be unreachable or unsafe after large changes.",
+  "config": {
+    "action_frame": "observed_hole_virtual_peg",
+    "grasp_transform": "fresh_observed_peg_to_tcp",
+    "translation_units": "metres",
+    "rotation_representation": "6d_projected",
+    "gripper": "native_scalar",
+    "backbone": "standard_diffusion_policy"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "policy_id": "place_red__h04",
+  "entry_conditions": "Blue is descending to or supported in blue_goal, red is observable and table-supported in the central buffer, and robot/scene state is finite. Prefer for a reachable translated red source outside the 0.12 m horizontal red_goal switch radius; strongest use begins after blue is stable and before red pickup.",
+  "exit_conditions": "The unchanged exit is red_at_goal AND blue_at_goal. Demonstrations additionally show table-supported blocks, open fingers and high TCP retreat, but these do not alter framework success.",
+  "overlap_role": "Every assigned action remains supervised, including approximately 230-240 actions shared with place_blue: final blue lowering/opening, retreat, transit, red approach/contact/closure and initial lift. Blue and red translation anchors directly cover this overlap before the destination anchor takes over after lift.",
+  "successor_readiness": "This skill is terminal and has no successor. Replan or continue only until the framework observes both supplied goal predicates, avoiding unnecessary post-success motion.",
+  "failure_signatures": "A wrong geometric phase appears as TCP motion tied to blue, red or red_goal at the wrong time. Other signatures are missed red contact, a low or slipping red that does not support the expected switch, red left in the buffer, release outside full rotated containment, repeated gripper changes, blue displaced from goal, nonzero IK residuals or limit contacts.",
+  "continuation_guidance": "Prefer h02 if destination geometry is the principal variation or red already lies near red_goal; prefer h03 for moderate TCP/configuration mismatch when source displacement is not dominant. Do not treat gripper closure, object height or anchor identity as proof of attachment. No original validation establishes recovery from unseen errors.",
+  "limitations": "The fixed memoryless rule can be ambiguous for unusual low transport, slip, pose noise at a switch, an already-near-goal source or changed nearest-object ordering. Translation anchoring does not solve yaw variation, collision, unstable blue, arbitrary recovery or unreachable IK.",
+  "evidence": [
+    {"trajectory_id":"demo10100","indices":[620,640,700,740,800,820,840,860,900,960,980,1040]},
+    {"trajectory_id":"demo10104","indices":[610,630,690,730,790,810,830,850,890,950,970,1030]}
+  ]
+}

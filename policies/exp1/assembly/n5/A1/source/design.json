@@ -1,0 +1,37 @@
+{
+  "title": "Metric relation DP with distinct grasp and insertion geometry",
+  "coverage_gap": "This exact D5 has three LL and two HH demonstrations (446 transitions) and no crossed nut-x/goal-x examples. Absolute nut and goal coordinates can become a shortcut for the required transport displacement, and coordinate-wise support standardization can greatly magnify rare lateral errors at extrapolated layouts.",
+  "reusable_regularity": "Separate the handle-to-hand grasp relation from the goal-to-ring insertion relation. Present signed world vectors directly at fixed metric scales, plus smooth contact, elevation and alignment features, rather than ask the denoiser to discover coordinate subtraction from five episodes. Distances and soft proximities supply continuous causal stage cues without a state machine or prescribed actions. Conditioning has 41 scalars per observation and no learned encoder beyond the common U-Net.",
+  "dependencies_preserved": [
+    "Current hand world xyz is retained (0.3 m scale, y centered at 0.7 m), preserving workspace/robot-base dependence instead of asserting exact global translation symmetry.",
+    "Handle-hand, ring-handle, goal-ring and goal-hand vectors retain distinct interaction points and all goal coordinates. Absolute handle, ring and goal heights retain the table/gravity and peg-height dependence.",
+    "Current and native-previous hand/handle motion, aperture and aperture change distinguish approach, grasp and lift. Both current and native-previous unit wxyz quaternions are sign-canonicalized, not discarded. Object2 channels are omitted only because task_materials explicitly declares them absent zeros.",
+    "Axes remain world aligned, so gravity, fixed gripper orientation, peg approach direction and the native world action cube are not falsely rotation invariant. No collision-free planner or obstacle oracle is assumed. Peg position is the declared goal field."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "assembly__N5__rep0, exactly the five listed complete support episodes; no performance feedback"},
+    {"path": "task_materials.json", "detail": "observation field slices, RoundNut-8 handle site versus ring center, goal, fixed native orientation and control semantics; correlated training cells"},
+    {"path": "support_summary.json", "detail": "LL=3, HH=2, 446 transitions; constant goal-z and narrow lateral variation motivate fixed metric scaling rather than small per-coordinate standard deviations"},
+    {"path": "trajectories/demo_00.json", "detail": "obs rows 0-7: handle x about .108 versus ring x -.022, an approximately .13 m offset; obs 28-35: aperture closes and ring height rises; obs 58-62: raised ring travels toward goal; obs 83-87: ring descends near peg"},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "table, nut/handle, peg and fixed-orientation gripper at initial layout"},
+    {"path": "images/frame_01_demo_00_step_030.png", "detail": "gripper at the handle, motivating a separate grasp relation"},
+    {"path": "images/frame_02_demo_00_step_060.png", "detail": "raised nut in transport, not a table-plane-only task"},
+    {"path": "images/frame_06_demo_01_step_092.png", "detail": "ring over the peg at late assembly"},
+    {"path": "PUBLIC_CONTRACT.md", "detail": "one common DP, causal raw history, fixed action loss, permitted representation hooks"}
+  ],
+  "expected_failure_signature": [
+    "If direct relations do not overcome D5 correlation, crossed layouts will show correct grasp followed by insufficient or wrong-signed lateral transport despite an explicit goal-ring error.",
+    "Soft contact cues can mistake a closed empty gripper close to the handle for a grasp; predicted lift then leaves the ring on the table.",
+    "Physical proximity scales (.03 m grasp, .04 m alignment, .075 m lift midpoint) are design constants suggested by observed geometric ranges, not measured optimal thresholds. Atypical tilt or slip could produce premature descent or hovering."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,42] only; each observation's native previous fields are also causal",
+    "slices": {"hand": [0,3], "aperture": [3,4], "handle": [4,7], "quaternion_wxyz": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_handle": [22,25], "previous_quaternion_wxyz": [25,29], "goal": [36,39], "ring_center": [39,42]},
+    "action_frame": "Identity encoding and decoding: first three channels are native world xyz delta commands (0.01 m per unit); fourth is unchanged gripper command. Only the public executor clips the decoded native cube and executes four of sixteen steps."
+  },
+  "training_only_targets": [],
+  "support_fit": "None. All feature scales are fixed physical constants; no external fitted statistics, trajectories or weights are stored. The host still supplies its unchanged normalized observations, while this representation uses the identical causal raw fields.",
+  "parents": [],
+  "change_summary": "Initial design: deterministic 41-dimensional metric relation representation, identity native actions, no auxiliary loss and one frozen common DP. No performance-based revisions.",
+  "loss_and_capacity": "Only the common masked action4 epsilon loss, coefficient 1 and denominator mask.sum()*4. Common optimizer/update/horizon budget unchanged. No parameters outside the shared DP."
+}

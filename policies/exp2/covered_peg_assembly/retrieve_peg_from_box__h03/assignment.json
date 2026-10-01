@@ -1,0 +1,171 @@
+{
+  "dataset": "assets/exp2/datasets/covered_peg_assembly/retrieve_peg_from_box/dataset.json",
+  "dataset_sha256": "6aec05eb5e330a76522a01aeb46931d87228819d90676d3eb50539a9c19d7fb7",
+  "experiment_version": "APPL_v4_cartesian_new_task",
+  "heuristic": {
+    "applicability": "Prefer for the full early-to-late skill when uncertainty is chiefly which demonstrated phase is active: still holding/releasing the lid, open approach, near-peg closure, or carrying lift. Observable two-frame geometry and motion must remain within successful-demonstration support.",
+    "evidence": [
+      {
+        "indices": [
+          740,
+          750,
+          760,
+          770,
+          800,
+          850,
+          900,
+          950,
+          990,
+          1020,
+          1040,
+          1060,
+          1080,
+          1100,
+          1120,
+          1140,
+          1180,
+          1200,
+          1220,
+          1240,
+          1270
+        ],
+        "trajectory_id": "demo12200"
+      },
+      {
+        "indices": [
+          740,
+          770,
+          850,
+          950,
+          990,
+          1020,
+          1040,
+          1060,
+          1080,
+          1100,
+          1120,
+          1140,
+          1180,
+          1200,
+          1220,
+          1240,
+          1270
+        ],
+        "trajectory_id": "demo12208"
+      }
+    ],
+    "handoff": {
+      "entry_conditions": "Either the fingers are still coupled to the observed lid handle near the open-lid boundary, or the lid is released and the peg remains in the box. Two causal frames must be available across the switch.",
+      "exit_conditions": "Closed fingers, peg above the box rim, and peg/TCP co-motion indicate readiness; this policy may continue into initial turn through index 1270.",
+      "failure_signatures": "The inferred phase is inconsistent with geometry (for example, returning to lid while open near peg); premature close; descent while still near the lid handle; stationary peg under lift; changing peg/TCP offset; wall-stalled motion; or persistent IK residual/limits.",
+      "overlap_role": "Explicit phase observables are trained on every action in [740,950) and [1120,1270), preserving robust early and late switches rather than narrowing to the central grasp.",
+      "successor_readiness": "The successor is ready when explicit causal features agree: fingers are closed, peg is above the wall, and the last two frames show peg/TCP co-motion. This remains guidance because no contact truth is available."
+    },
+    "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false},\"parameter_semantics\":\"No high-level parameters. The policy infers phase only from the two causal public observations. The first episode frame may be duplicated by the framework; no future, contact truth, or hidden phase state is supplied.\"}",
+    "limitations": "World-absolute targets preserve demonstrated robot/world geometry and can extrapolate poorly when peg position moves beyond support; the peg-frame prior is the displacement specialist. Deterministic phase cues are not contact truth and successful demonstrations provide no failed-grasp negatives. Co-motion over two frames can be ambiguous while stationary. This policy cannot establish grasp success, recover a drop, or guarantee lid/box collision avoidance. Absolute Cartesian targets may be unreachable from substantially changed qpos; the current-TCP policy better addresses modest hand-state offsets.",
+    "pipeline_implications": "Use as the broad phase-disambiguation/default policy, particularly for early lid-held entries. Prefer the peg-frame policy once the lid is observably released and peg displacement dominates, or the local-increment policy when hand configuration mismatch dominates. Terminate only on combined closed-finger, height, and co-motion cues; do not equate a phase feature or negative gripper command with contact.",
+    "rationale": "The demonstrations include a discrete active-object and gripper transition: demo12200 holds the lid at 740-750, opens at 760-770, clears at 800-950, descends at 990-1080, closes at 1100, and lifts at 1120-1240. The same ordering occurs in demo12208 despite a shifted peg and different lift timing. Mechanism: retain a world-absolute Cartesian target (position, 6-D rotation, gripper), but construct causal inputs around explicit transferable phase observables: TCP relative to peg, TCP relative to the kinematically computed lid handle, finger width/opening change, peg height above box wall, two-frame peg/TCP relative-pose change, lid angle/velocity, and qpos/qvel. The unchanged diffusion backbone sees these cues plus world poses. This should reduce aliasing between visually/geometrically similar portions while retaining world reachability context. It targets phase errors rather than displacement or local-state errors.",
+    "statement": "Phase-observable world-Cartesian prior for active-object and grasp/lift ambiguity.",
+    "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12201\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12202\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12203\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12204\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12205\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12206\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12207\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12208\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps; inspected shifted-peg timing.\"},{\"trajectory_id\":\"demo12209\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12210\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12211\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Full phase sequence plus both action-supervised overlaps.\"}]"
+  },
+  "heuristic_index": 3,
+  "normalization": {
+    "path": "provenance/relocated/b11807ac2cdb2323",
+    "sha256": "5d50ce2e025ef83183ac172a24c1b19ea7482f651c1c6fa09f34f83bd3887b24"
+  },
+  "observation_fields": {
+    "hole_pose": [
+      0,
+      7
+    ],
+    "lid_pose": [
+      7,
+      14
+    ],
+    "lid_position": [
+      14,
+      15
+    ],
+    "lid_velocity": [
+      15,
+      16
+    ],
+    "peg_pose": [
+      16,
+      23
+    ],
+    "qpos": [
+      23,
+      32
+    ],
+    "qvel": [
+      32,
+      41
+    ],
+    "target_pose": [
+      41,
+      48
+    ],
+    "tcp_pose": [
+      48,
+      55
+    ]
+  },
+  "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "policy_id": "retrieve_peg_from_box__h03",
+  "prior_plan_path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h03/prior_plan.json",
+  "prior_plan_sha256": "2bd8f7c73a51b62c800b619c33e0871c9fe1abf5e81e22c197af399dbd9d4ba2",
+  "skill_id": "retrieve_peg_from_box",
+  "sources": {
+    "demo12200": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12200.json",
+      "sha256": "e7ccc303ea6b6ddd3150e2336c6b06b3f89a66d478909e3f9555eb3d6ccc85f1"
+    },
+    "demo12201": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12201.json",
+      "sha256": "aa9e1f1d14f676f5b4c9fb52ee6bbbb5d86865d82adcc051e3256482461f1016"
+    },
+    "demo12202": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12202.json",
+      "sha256": "4ad5e3ce9117f56008597389c45a799aff1857f683091069d582e024a00b32a7"
+    },
+    "demo12203": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12203.json",
+      "sha256": "c43ecf548e80a87d465fbc947e98d191dffd25cc4966f83e2698dd7a8a2cf8af"
+    },
+    "demo12204": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12204.json",
+      "sha256": "35eea2d5c8fc6e02c992c923db4e580d473d5583edcd45cfee79e682782c5a09"
+    },
+    "demo12205": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12205.json",
+      "sha256": "b4b9855dac2b9f0e836ea063d38694af37abba89371fcae59fffa7d65c4dfb3c"
+    },
+    "demo12206": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12206.json",
+      "sha256": "6a64bcc76a39a6dc2f1119c5e5983a5686835cdf2ae5a0899ab8f39da92ef407"
+    },
+    "demo12207": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12207.json",
+      "sha256": "58410156c6edfad3658ce632cf8ebe122570c51412ba53f8631c9e78a14c5397"
+    },
+    "demo12208": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12208.json",
+      "sha256": "1522c1f09079f05ace6825ff5221ebf74ca8c45941a00050c53b579b43e84d5b"
+    },
+    "demo12209": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12209.json",
+      "sha256": "2a6dc540f7c4c6e6cb92c1fe50c106da8f71123c6b3ede06a790bf8ca0c3d31b"
+    },
+    "demo12210": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12210.json",
+      "sha256": "dd077218ff68ac6e93b28dc73234d21ac2a16c937de945465c9970deb9ad4ac4"
+    },
+    "demo12211": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12211.json",
+      "sha256": "0440e3242bad2dbcefe176eab207fd19647109b019c55702ff1906862c9e4b5d"
+    }
+  },
+  "subgoal": "After exposing the box, release and clear the lid if necessary, approach the peg with open fingers, close a stable grasp, and lift the peg above the box walls.",
+  "prior_plan_original_sha256": "2bd8f7c73a51b62c800b619c33e0871c9fe1abf5e81e22c197af399dbd9d4ba2"
+}

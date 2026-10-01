@@ -1,0 +1,265 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/drawer_exchange/red_transfer/dataset.json",
+    "dataset_sha256": "b14b81ec53b9072a60b84ef34cff3eb2a7fb7cd83931cd20072cc00e63bd2622",
+    "experiment_version": "APPL_v4_cartesian",
+    "heuristic": {
+      "applicability": "Prefer when the drawer is open, the red block is exposed but displaced from its demonstrated pickup area, or execution enters before red release with a reliable current red pose. The robot and collision geometry must still admit the transformed targets. The caller identifies red, red_goal, and blue through closed typed arguments; their current observations are resolved at every replan.",
+      "evidence": [
+        {
+          "indices": [
+            230,
+            280,
+            400,
+            445,
+            470,
+            500,
+            530,
+            560,
+            600,
+            610
+          ],
+          "trajectory_id": "demo1000"
+        },
+        {
+          "indices": [
+            230,
+            400,
+            445,
+            470,
+            560,
+            600,
+            610
+          ],
+          "trajectory_id": "demo1001"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer_position is strictly above 0.26 m, red is exposed, and a current red pose is available. Entry may be as early as the closed-gripper drawer-front state or later during red approach/contact/lift.",
+        "exit_conditions": "Nominal switch after red is within the outside pad bounds and no longer follows TCP, followed by blue centered under TCP with closed fingers and observed blue/TCP co-motion on initial lift. These are handoff cues, not changes to task success.",
+        "failure_signatures": "Red fails to co-move after closure, transformed approach is unreachable, red is carried into furniture, red remains outside the pad, red still follows TCP after opening, or post-release blue approach shifts with red rather than blue.",
+        "overlap_role": "Preserves [230,470) supervision shared with open_drawer and [600,850) supervision shared with blue_insert. The first teaches drawer release through red lift; the second teaches red descent/release, retreat, blue approach/grasp, and lift.",
+        "successor_readiness": "blue_insert can receive from index 600 with red still held/touching because release context is supervised, while the cleaner nominal switch is after established blue lift near the end of the cut."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"manipulated_object\":{\"type\":\"string\",\"enum\":[\"red\"]},\"placement_target\":{\"type\":\"string\",\"enum\":[\"red_goal\"]},\"handoff_object\":{\"type\":\"string\",\"enum\":[\"blue\"]}},\"required\":[\"manipulated_object\",\"placement_target\",\"handoff_object\"]},\"parameter_semantics\":\"manipulated_object selects the observed red pose as the causal action frame; placement_target selects the observed world red_goal point in metres; handoff_object selects the observed blue pose for successor-transition conditioning. Values are identifiers, not actuator commands, and all are rebound to current observations at each replan.\"}",
+      "limitations": "The exact equivariance is only with respect to the red pose frozen at each chunk replan; object motion within an eight-step chunk, pose-estimation error, unreachable transformed poses, furniture collision, and altered grasp physics are not solved. After red release, anchoring blue-transition targets to red is not blue-displacement invariant. Prefer the phase-conditioned TCP-relative prior for an uncertain post-release entry, and use the goal-centered prior when destination displacement or pad-relative placement is the dominant change.",
+      "pipeline_implications": "Use a standard independent DiffusionBackbone with two causal relational state frames and 10-D targets: red-frame XYZ metres, relative TCP rotation in continuous 6D form, and gripper scalar. encode_targets uses FK of demonstrated native commands and the chunk-start red pose; decode_action composes the sampled relative pose with that same causal red anchor, then calls the supplied IK from freshly measured joints. All twelve [230,850) cuts remain supervised, including both overlaps. No augmentation or auxiliary loss is needed; action diffusion remains the complete objective under the fixed 20k-update recipe.",
+      "rationale": "Observed: demo1000 approaches the red center by index 400, closes at 445, shows red/TCP co-motion at 470 and 500, carries near the pad at 560, descends by 600, and releases by 610. Demo1001 starts red at a different observed XY position, approaches that position at 400, and likewise closes/lifts/transports. Across the assigned data the red initial XY range is narrow, so an absolute world target can memorize it. Expected benefit: object-frame labels make the red-relative part of the demonstrated motion exactly equivariant to a changed observed red pose, rather than merely encouraging the network to infer that transformation. This is not evidence of recovery after a missed grasp.",
+      "statement": "Red-object equivariant Cartesian targets. Learn each commanded TCP target as a pose in the currently observed red-block frame at chunk construction, with red-frame translation, a 6D relative rotation, and the native-sign gripper scalar. This targets deployment displacement of the manipulated red block beyond the demonstrated initial range. The equivariance directly covers red approach, contact, grasp, and carried-red motion up to placement; translating or rotating red translates or rotates decoded targets before IK. Retain measured Panda qpos/qvel, fingers, drawer state, and red-relative TCP, goal, and blue relations so reachability, configuration, and scene dependencies are not discarded.",
+      "training_bindings": "[{\"trajectory_id\":\"demo1000\",\"start\":230,\"stop\":850,\"context_start\":229,\"call_args\":{\"manipulated_object\":\"red\",\"placement_target\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full red transfer and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo1001\",\"start\":230,\"stop\":850,\"context_start\":229,\"call_args\":{\"manipulated_object\":\"red\",\"placement_target\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full red transfer and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo1002\",\"start\":230,\"stop\":850,\"context_start\":229,\"call_args\":{\"manipulated_object\":\"red\",\"placement_target\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full red transfer and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo1003\",\"start\":230,\"stop\":850,\"context_start\":229,\"call_args\":{\"manipulated_object\":\"red\",\"placement_target\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full red transfer and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo1004\",\"start\":230,\"stop\":850,\"context_start\":229,\"call_args\":{\"manipulated_object\":\"red\",\"placement_target\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full red transfer and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo1005\",\"start\":230,\"stop\":850,\"context_start\":229,\"call_args\":{\"manipulated_object\":\"red\",\"placement_target\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full red transfer and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo1006\",\"start\":230,\"stop\":850,\"context_start\":229,\"call_args\":{\"manipulated_object\":\"red\",\"placement_target\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full red transfer and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo1007\",\"start\":230,\"stop\":850,\"context_start\":229,\"call_args\":{\"manipulated_object\":\"red\",\"placement_target\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full red transfer and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo1008\",\"start\":230,\"stop\":850,\"context_start\":229,\"call_args\":{\"manipulated_object\":\"red\",\"placement_target\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full red transfer and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo1009\",\"start\":230,\"stop\":850,\"context_start\":229,\"call_args\":{\"manipulated_object\":\"red\",\"placement_target\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full red transfer and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo1010\",\"start\":230,\"stop\":850,\"context_start\":229,\"call_args\":{\"manipulated_object\":\"red\",\"placement_target\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full red transfer and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo1011\",\"start\":230,\"stop\":850,\"context_start\":229,\"call_args\":{\"manipulated_object\":\"red\",\"placement_target\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full red transfer and both action-supervised overlaps.\"}]"
+    },
+    "heuristic_index": 1,
+    "normalization": {
+      "path": "provenance/relocated/ccee29f31fa0be9e",
+      "sha256": "09da5c68122b88287fce192f6dce0856ea77f97b3366ea93958af3e5b6b89c43"
+    },
+    "plan_hash": "a9fba2a55520353eef0f232a80fe6fefabff1f74b3712258fccdbe335cfa1dd8",
+    "policy_id": "red_transfer__h01",
+    "prior_plan_path": "assets/exp2/prior_plans/drawer_exchange/red_transfer.json",
+    "prior_plan_sha256": "6646d768c6520ef3b2c1af3270d45f7d9cf204f024b8f191142662079dda7198",
+    "skill_id": "red_transfer",
+    "sources": {
+      "demo1000": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1000.json",
+        "sha256": "58d911a45df1915e4a74c254caf6de4e202ead11d89ed69197de0b5f0c17fde5"
+      },
+      "demo1001": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1001.json",
+        "sha256": "165f93f38197cd75050488a557609072e12ca0006771c36b72b90e8cae68f956"
+      },
+      "demo1002": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1002.json",
+        "sha256": "8c43a8c1562f90c040f0570aa1dde013fad47bbef1f786ccf8ab2ba3d766136d"
+      },
+      "demo1003": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1003.json",
+        "sha256": "01c617c320a46f6c3862737aad218921effe677e1630ab85e7a43d80e1fe082a"
+      },
+      "demo1004": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1004.json",
+        "sha256": "bfa82b20e4971095967e9981400d145771890c2a55fff0568853e2d77acf3a22"
+      },
+      "demo1005": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1005.json",
+        "sha256": "71eacabcb7799f216f03bb1e582e6aec3a42e83850c569b001de3cbc4e26778a"
+      },
+      "demo1006": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1006.json",
+        "sha256": "4d2e5f38fd0c80ef267e9ae877f9d9e1b098325ac5da5aa769b0e9abeceef06b"
+      },
+      "demo1007": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1007.json",
+        "sha256": "410c02b19c7511f551f3c69e21c88c7e386b4067ebfebc6c169e9b44e94cc930"
+      },
+      "demo1008": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1008.json",
+        "sha256": "7c7641d622180d497137b4560cadf5a4497bf22c7ffb5a5aef785fe0a1f17cc3"
+      },
+      "demo1009": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1009.json",
+        "sha256": "9ff9137a991b6a81fa0f9330449d359eeeeed398e225b1dbe22a449ea7b84d93"
+      },
+      "demo1010": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1010.json",
+        "sha256": "867210d90fa09b282d5a6190209251c0b69d6e64b6cef2bcaea97951df57711f"
+      },
+      "demo1011": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1011.json",
+        "sha256": "126c98245881a8ba6dde2da8707d8396d32d946fa4bbd62535b29d5eecc94eb7"
+      }
+    },
+    "subgoal": "Primary responsibility: after the drawer is open, acquire the exposed red block, lift and carry it to the marked outside pad, lower it, release it, and retreat. The segment then intentionally continues through the approach, contact, grasp, and initial lift of the blue block for the next handoff. Observed contact/motion: the red block is pinched with fingers near 0.018 m, carried at roughly 0.30 m height, lowered to the pad, released as the fingers open, and left at z about 0.020 m; the TCP retreats before crossing to blue. Entry observation 230 has drawer_position 0.300, TCP still at the drawer front, and fingers near 0.007 m, so the skill is supervised to release/retract before acquiring red. At exit observation 850, red is already on the pad and blue is gripped with fingers near 0.018 m and lifted to z about 0.061-0.193 m, depending on occurrence. Examples: demo1000 indices 470/560/600/610 show red lift, carry, pad descent, and release; 700/800/850 show retreat, blue approach, and blue lift. Images at demo1000 indices 560, 610, 800, and 850 support the pad and blue-pickup interpretation. Purpose/expected benefit: this isolates red placement while retaining both adjacent transitions; overlap is expected to reduce sensitivity to switching before red grasp or before blue grasp, but it does not demonstrate recovery from an off-pad release."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/b3e2337425dbe8fd",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "a6bd3bcfcf60c2701c2fc6f2a9adc168b55c0c19e8c3147dc927cc38a085ad77",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 7,
+      "physical_gpu": 5,
+      "uuid": "GPU-13ce441a-9b9f-d327-08cf-e7e9f728b580"
+    },
+    "effective_action_targets": 4053,
+    "final_weights_sha256": "0431df8d8b00489406a0ec299cee21d4cc5e42a2051c36eb41d499929ec3b957",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 3.8763389587402344,
+        "step": 1
+      },
+      {
+        "l2_norm": 2.1916675567626953,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "26eb7c39aaecba2dda677bc43bc933687b1c8867a6081d55a7e5402aeb602e9a",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 7440,
+        "duplicated_actions": 0,
+        "unique_actions": 7440
+      },
+      "contract": {
+        "action_dimension": 10,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "handoff_object": {
+              "enum": [
+                "blue"
+              ],
+              "type": "string"
+            },
+            "manipulated_object": {
+              "enum": [
+                "red"
+              ],
+              "type": "string"
+            },
+            "placement_target": {
+              "enum": [
+                "red_goal"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "manipulated_object",
+            "placement_target",
+            "handoff_object"
+          ],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "Encode FK of each demonstrated joint command in the causal red frame, decode it back to the same world TCP target, solve IK from measured joints, and compare world position in metres, rotation angle in radians, and gripper scalar. Safe 6D projection is exact for valid encoded rotations; nonunique IK is accepted only through task-space agreement.",
+          "mode": "task_space",
+          "tolerance": 0.01
+        },
+        "cut_relation": "All twelve authorized [230,850) segments are supervised without trimming. This preserves [230,470) overlap with open_drawer and [600,850) overlap with blue_insert while making the primary red-relative approach/grasp/transport labels equivariant to the observed red pose.",
+        "input_shapes": {
+          "features": [
+            2,
+            44
+          ],
+          "intent": [
+            3
+          ]
+        },
+        "observation_dependencies": [
+          "qpos",
+          "qvel",
+          "tcp_pose",
+          "red_pose",
+          "blue_pose",
+          "drawer_position",
+          "drawer_velocity",
+          "red_goal",
+          "blue_goal"
+        ],
+        "output_semantics": "Each slot is [x,y,z,r1x,r1y,r1z,r2x,r2y,r2z,gripper]. XYZ is metres in the red-block frame frozen from the newest causal observation at chunk construction. The six rotation values are the first two columns of target TCP orientation relative to that red frame. The decoder uses safe Gram-Schmidt projection, composes the relative pose with the frozen red world pose, and calls panda_kinematics.solve_ik from freshly measured joints. Gripper retains the demonstrated scalar and the executor applies nonnegative=open, negative=close. Slots represent t-1 through t+14 and execution uses slots 1 through 8.",
+        "parameter_semantics": "manipulated_object selects the current observed red SE(3) pose as the causal chunk action frame; placement_target selects the observed red_goal world point in metres; handoff_object selects the observed blue SE(3) pose for successor-transition conditioning. Identifiers are resolved from each causal observation and are not actuator inputs.",
+        "policy_id": "red_transfer__h01",
+        "skill_id": "red_transfer",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "9267eb1b9aba37545d9ae9e77e91f368ee981bf2011a9dbaaa624f81e71724fe",
+      "PRIOR.md": "98c15504daab7428791f37fd869a642ac1273540ae42e0120db7d38fbee8e291",
+      "adapters.py": "a9b2db4b2df9efffefe5987fa2544d337951a7f5c755eae118b6b40e5847080c",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "b888eb30a7847e06738d89b6712eaaaf9027668b43ae85643f2d772d37b2eeac",
+      "policy.py": "dac6d1a74f68f6d16e24295edc9d3da50ab07c43d346e105557ccb8568fa8ba0",
+      "policy_contract.json": "f631ca88e5a236e4a94ac1ae982016e4a162852b5fc38aab48ccb33f6ba3a434",
+      "training_bindings.json": "db6923343659e92a7cee15891bbb36d0c3a28c1056214d5ff374e0fc96935b7b"
+    },
+    "trainable_parameters": 16978698,
+    "training_elapsed_seconds": 3.673027755925432,
+    "weight_l2_change": 0.2043484138627946
+  },
+  "files": {
+    "HANDOFF.json": "9267eb1b9aba37545d9ae9e77e91f368ee981bf2011a9dbaaa624f81e71724fe",
+    "PRIOR.md": "98c15504daab7428791f37fd869a642ac1273540ae42e0120db7d38fbee8e291",
+    "adapters.py": "a9b2db4b2df9efffefe5987fa2544d337951a7f5c755eae118b6b40e5847080c",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+    "pipeline.json": "b888eb30a7847e06738d89b6712eaaaf9027668b43ae85643f2d772d37b2eeac",
+    "policy.py": "dac6d1a74f68f6d16e24295edc9d3da50ab07c43d346e105557ccb8568fa8ba0",
+    "policy_contract.json": "f631ca88e5a236e4a94ac1ae982016e4a162852b5fc38aab48ccb33f6ba3a434",
+    "training_bindings.json": "db6923343659e92a7cee15891bbb36d0c3a28c1056214d5ff374e0fc96935b7b"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "v1": {
+    "files": {
+      "HANDOFF.json": "9267eb1b9aba37545d9ae9e77e91f368ee981bf2011a9dbaaa624f81e71724fe",
+      "PRIOR.md": "98c15504daab7428791f37fd869a642ac1273540ae42e0120db7d38fbee8e291",
+      "adapters.py": "a9b2db4b2df9efffefe5987fa2544d337951a7f5c755eae118b6b40e5847080c",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "b888eb30a7847e06738d89b6712eaaaf9027668b43ae85643f2d772d37b2eeac",
+      "policy.py": "dac6d1a74f68f6d16e24295edc9d3da50ab07c43d346e105557ccb8568fa8ba0",
+      "policy_contract.json": "f631ca88e5a236e4a94ac1ae982016e4a162852b5fc38aab48ccb33f6ba3a434",
+      "training_bindings.json": "db6923343659e92a7cee15891bbb36d0c3a28c1056214d5ff374e0fc96935b7b"
+    },
+    "folder": "provenance/relocated/6d7de7a3478af07c",
+    "version": "3f0c2a09d54f63fb2782f66af66dd8be767ee84b3e0a35a38183bd83ddcb0090"
+  },
+  "version": "498f3f846cd1efe4a884aaf3496b1583c729da615e03142e05ccd559f196994a"
+}

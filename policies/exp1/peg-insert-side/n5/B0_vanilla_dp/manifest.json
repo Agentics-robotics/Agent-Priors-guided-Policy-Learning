@@ -1,0 +1,55 @@
+{
+  "task_id": "peg-insert-side",
+  "n_demos": 5,
+  "policy_id": "B0_vanilla_dp",
+  "instance_id": "peg-insert-side__N5__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/peg-insert-side/n5/B0_vanilla_dp/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/peg-insert-side/n5/B0_vanilla_dp/model.pt",
+    "sha256": "497736b24c42e925a5bd2c508d1565096007465f4e03094d3e4087d634ec345a",
+    "source_sha256": "497736b24c42e925a5bd2c508d1565096007465f4e03094d3e4087d634ec345a",
+    "size_bytes": 75787203,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/peg-insert-side/n5/B0_vanilla_dp/normalizer.json",
+  "config": "policies/exp1/peg-insert-side/n5/B0_vanilla_dp/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/peg-insert-side/n5/B0_vanilla_dp/complete.json",
+      "sha256": "06b9ac709265bc69c4eeca6fc4f7698895d98b48562a4ff43c241f23568455f3",
+      "source_sha256": "06b9ac709265bc69c4eeca6fc4f7698895d98b48562a4ff43c241f23568455f3",
+      "size_bytes": 1900,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n5/B0_vanilla_dp/config.json",
+      "sha256": "b86f1a7b37d20c1615ba0d633c7b1ba1a502b1dcd3231f8f18f7bf5079e455d5",
+      "source_sha256": "b86f1a7b37d20c1615ba0d633c7b1ba1a502b1dcd3231f8f18f7bf5079e455d5",
+      "size_bytes": 8098,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n5/B0_vanilla_dp/identity.json",
+      "sha256": "c2320170c19221e59b7c43e08abd5fe462bd1cda956334d2c1befcb4b30c7bff",
+      "source_sha256": "c2320170c19221e59b7c43e08abd5fe462bd1cda956334d2c1befcb4b30c7bff",
+      "size_bytes": 1360,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n5/B0_vanilla_dp/latency.json",
+      "sha256": "825189feb25d7cd393e17cdd277fa908ccf7e82603c9b6d36af562455b4c67e3",
+      "source_sha256": "825189feb25d7cd393e17cdd277fa908ccf7e82603c9b6d36af562455b4c67e3",
+      "size_bytes": 772,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n5/B0_vanilla_dp/normalizer.json",
+      "sha256": "e3cadfe9bac27db7fd88305cedeff36dee16d55ddd2a66167d08a5b88647eee6",
+      "source_sha256": "e3cadfe9bac27db7fd88305cedeff36dee16d55ddd2a66167d08a5b88647eee6",
+      "size_bytes": 2915,
+      "transformation": "none"
+    }
+  ]
+}

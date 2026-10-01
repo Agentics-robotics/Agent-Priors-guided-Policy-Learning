@@ -1,0 +1,98 @@
+{
+  "checkpoint": "provenance/relocated/c6b8023220641638",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "ff7caa52ad6bc9c8c775d1a8d568c6d0e6fcb65841c2518f56d2d6b4deddf3c3",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 7,
+    "physical_gpu": 5,
+    "uuid": "GPU-13ce441a-9b9f-d327-08cf-e7e9f728b580"
+  },
+  "effective_action_targets": 40381518,
+  "final_weights_sha256": "b3cdacb3403b0b0be413d46bf323c9a10d20d7e99b0f3095cef5c198be618ca7",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.920379877090454,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.9118993282318115,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.9342055320739746,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.23944097757339478,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "99d95508ee115ec9335b7b5d6bb30641fe2c5c4c8c3fc60e9de114678900057b",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5640,
+      "duplicated_actions": 0,
+      "unique_actions": 5640
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "World position/6D rotation labels reconstruct each demonstrated commanded TCP pose; shared IK is independently checked by FK position/rotation and unchanged gripper scalar. Gram-Schmidt projects only sampled non-orthogonal values.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "All actions in every assigned [0,470) segment are action-supervised. Auxiliary phase labels partition but do not trim the cut. Actions 230:470 remain full overlap with red_transfer across front release, retreat, red approach, closure and lift.",
+      "input_shapes": {
+        "features": [
+          2,
+          41
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "red_pose",
+        "drawer_position",
+        "drawer_velocity"
+      ],
+      "output_semantics": "Each slot is an absolute world-frame TCP target: world position [3] in metres, world rotation as the first two matrix columns [6], and native gripper scalar [1]. Prediction slots are t-1..t+14 and execution uses slots 1..8 for t..t+7. Sampled 6D rotation is projected by Gram-Schmidt. The target is passed to panda_kinematics.solve_ik from fresh measured qpos, and the gripper scalar is appended unchanged for common sign-based execution. The phase label/head does not enter decode_action.",
+      "parameter_semantics": "No caller parameters. The policy's fixed intent is the assigned open_drawer responsibility. Two causal observations determine relational condition and the training-only phase prediction; the initial observation is duplicated only by the framework at episode start.",
+      "policy_id": "open_drawer__h03",
+      "skill_id": "open_drawer",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "b60833a00b9e36a6d19a20ffb88cc83aa8f2e2cc568803bfc69b9908e1c5f6fa",
+    "PRIOR.md": "f7e6e53eca2c0782976d9ff0164a30b9fa12f851aceca31563918182bacf2eec",
+    "adapters.py": "545045c5498a7ada0aad61766440e6cedcbb9312b3528656b0cce15c7553e34d",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "be58e5f0f230b5b363d8ef6bb6b8ba1c3e225ba56b90c2f19cf7ebd51a7e4bed",
+    "policy.py": "8ffb8c3ebf2580607ceabffa7a7d3421ad11f81fac46d38ec61fa9b1d2ddeb86",
+    "policy_contract.json": "e82c3e6fc7498245c14c8ffb88616bc6f01a9b807aa9f4cd4094aa8269e7fe5d",
+    "training_bindings.json": "2511cadef1a140293f3df94f7b3b3bd2adb3c1af7a4257293dc09045797c13f0"
+  },
+  "trainable_parameters": 18316175,
+  "training_elapsed_seconds": 693.1224676559214,
+  "weight_l2_change": 28.66682671630585
+}

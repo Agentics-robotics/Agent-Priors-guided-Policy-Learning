@@ -1,0 +1,31 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "controlled_pour_and_right__h01",
+  "skill_id": "controlled_pour_and_right",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {},
+    "required": []
+  },
+  "parameter_semantics": "No caller parameters. The executor supplies two causal states in physical units. Bowl pose is a world-frame observed pose in metres and wxyz quaternion convention and is resolved afresh for preprocessing and every decoded target.",
+  "observation_dependencies": ["bowl_pose", "container_pose", "particle_positions", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 130]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [bowl-frame TCP position xyz in metres, bowl-frame TCP orientation as first two rotation-matrix columns (6D), native gripper scalar]. The bowl frame is the pose observed immediately before the labeled action in training and the fresh current bowl pose during execution. Safe Gram-Schmidt projects the 6D values to SO(3); the world target is T_world_bowl times T_bowl_tcp. panda_kinematics.solve_ik converts that world target from freshly measured qpos. Slots represent t-1 through t+14 and execution uses slots 1 through 8.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Compare FK of decoded IK joints with each demonstrated commanded TCP target, including metres, radians and gripper scalar. Rotation 6D is projected by safe Gram-Schmidt; valid labels reconstruct exactly before numerical IK tolerance."
+  },
+  "cut_relation": "All twelve assigned [180,1740) segments are supervised without trimming. This preserves incoming actions [180,360) and outgoing actions [1460,1740) while changing only the Cartesian label frame to the observed bowl."
+}

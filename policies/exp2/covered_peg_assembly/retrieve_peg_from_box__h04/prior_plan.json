@@ -1,0 +1,75 @@
+{
+  "cut_plan_sha256": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "priors": [
+    {
+      "applicability": "Prefer this policy when the hand may still be releasing the lid or is already approaching/carrying the peg, especially when the peg is translated from the narrow demonstrated in-box range. At each replan, a causal geometric rule selects the lid handle only while the low peg remains in the box, the TCP is near the handle, and the fingers are not fully open; otherwise it selects the peg center. The selected point must be observed, the corresponding Cartesian path must remain reachable, and box/lid clearance must be plausible. h03 remains preferable if broad in-support behavior is wanted without relying on the new hard reference selector; h04 is specifically intended for the conflict between unchanged lid motion and peg-following motion under peg displacement.",
+      "evidence": [
+        {
+          "indices": [
+            740,
+            760,
+            770,
+            850,
+            950,
+            990,
+            1020,
+            1060,
+            1080,
+            1100,
+            1120,
+            1140,
+            1180,
+            1200,
+            1240,
+            1270
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            740,
+            760,
+            770,
+            850,
+            950,
+            990,
+            1020,
+            1060,
+            1080,
+            1100,
+            1120,
+            1140,
+            1180,
+            1200,
+            1240,
+            1270
+          ],
+          "trajectory_id": "demo12208"
+        },
+        {
+          "indices": [
+            740,
+            950,
+            1120,
+            1270
+          ],
+          "trajectory_id": "demo12211"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Observable entry may be early or late in lid release. The peg must still require retrieval. Invocation is appropriate when two causal observations contain valid peg, lid, TCP and robot state and either the TCP remains near the lid handle with partially closed fingers or the gripper is released and can approach the peg.",
+        "exit_conditions": "Exit only when fingers are closed, peg center is above the 0.05 m box wall with margin, and two causal frames show peg and TCP moving together with an approximately stable relative pose. The fixed success definition remains peg center at least 0.15 m high (or inserted) with cover angle above 0.9 rad at scoring.",
+        "failure_signatures": "Wrong reference selection can produce an abrupt translated TCP target, continued lid attachment, lid contact, or an offset peg descent. Other failures are closure away from peg_pose, peg z remaining near 0.026 m, loss of peg/TCP co-motion, IK nonconvergence or joint-limit contact after translation, wall contact during lift, or cover angle falling below 0.9 rad after the peg is raised.",
+        "overlap_role": "Preserve all 210 incoming overlap actions [740,950) with open_hinged_lid, including lid release and clearance, and all 150 outgoing overlap actions [1120,1270) with reorient_and_stage_peg, including closed-grasp consolidation, lift, box clearance and initial transport. These remain action-supervised in every trajectory.",
+        "successor_readiness": "reorient_and_stage_peg is ready during the shared lift when the gripper is closed, peg height is safely above the wall, and two-frame peg/TCP co-motion supports carrying. Later switching is safer once lid motion has settled and the active reference is unambiguously the peg."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false},\"parameter_semantics\":\"No high-level arguments. The executor supplies two causal observations oldest first. At each 8-action replan the adapter resolves a chunk-fixed translation reference from the newest observation: the observed lid-handle point while the low peg is still in the box, TCP-to-handle distance is below the demonstrated release neighborhood, and finger width is not fully open; otherwise the observed peg center. Initial episode history may duplicate only the first observation.\"}",
+      "limitations": "The selector is a deterministic demonstration-supported rule, not learned contact or phase truth, and unseen states can make it choose the wrong reference. Translation equivariance does not cover arbitrary peg rotation, reachability, box-wall collision, lid interference or grasp mechanics. World-frame orientation intentionally retains demonstrated approach orientation. The policy does not actively hold or reopen the cover after release, so h03's observed final cover-closure signature can remain. Demonstrations provide no failed grasp, drop, regrasp, blocked lift or recovery supervision.",
+      "pipeline_implications": "Implement a 10D Cartesian action [TCP position offset from the chunk-fixed active reference in world-axis metres, world-frame TCP rotation 6D, native gripper scalar]. build_inputs keeps h03-style phase, handle, finger, peg-height, co-motion and robot-configuration features, appends the causal reference indicator, and stores the selected current reference point in chunk_context. encode_targets subtracts that one chunk reference from every demonstrated commanded TCP position in the 16-slot window while retaining commanded world orientation and gripper. decode_action adds the same fixed point, projects 6D rotation, and passes the world target only to panda_kinematics.solve_ik from fresh measured qpos. Keep the standard DiffusionBackbone, masked epsilon loss and no auxiliary head. The framework fits normalization on these represented labels only.",
+      "rationale": "The in-distribution validation observed h03 pass 8/12 with zero IK-unconverged steps and retrieve the peg in all 12; its four final failures had the peg raised but the cover closed. h01's full fresh peg-frame policy passed 0/12, so h04 does not simply repeat it. Demonstrations also expose a real frame conflict: demo12200 and shifted-peg demo12208 have nearly identical lid-release commanded TCP positions at indices 740 and 760, while at index 990 commanded TCP x shifts from about -0.6039 m to -0.6158 m with the peg. The new mechanism therefore retains h03's causal phase representation, anchors early release translation to the observed lid handle, and anchors post-release approach/grasp/lift translation to the observed peg. The anchor is fixed for one execution chunk so the reference does not move inside a sampled trajectory. Expected benefits are peg-translation transfer by construction after release and less cross-object frame contamination before release; neither is an observed out-of-distribution result.",
+      "statement": "Object-selective chunk-reference Diffusion Policy: infer an observable lid-release versus peg-retrieval reference at each causal replan, then diffuse world-axis Cartesian positions relative to that fixed reference while retaining world orientation, robot state and explicit phase geometry. This targets translated pegs without translating the independently located lid-release motion.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Supervise the complete lid-release, peg approach, grasp and lift responsibility, including both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12201\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Supervise the complete lid-release, peg approach, grasp and lift responsibility, including both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12202\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Supervise the complete lid-release, peg approach, grasp and lift responsibility, including both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12203\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Supervise the complete lid-release, peg approach, grasp and lift responsibility, including both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12204\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Supervise the complete lid-release, peg approach, grasp and lift responsibility, including both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12205\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Supervise the complete lid-release, peg approach, grasp and lift responsibility, including both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12206\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Supervise the complete lid-release, peg approach, grasp and lift responsibility, including both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12207\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Supervise the complete lid-release, peg approach, grasp and lift responsibility, including both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12208\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Supervise the offset-peg occurrence and complete responsibility, including both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12209\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Supervise the complete lid-release, peg approach, grasp and lift responsibility, including both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12210\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Supervise the complete lid-release, peg approach, grasp and lift responsibility, including both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12211\",\"start\":740,\"stop\":1270,\"context_start\":739,\"call_args\":{},\"rationale\":\"Supervise the complete lid-release, peg approach, grasp and lift responsibility, including both action-supervised overlaps.\"}]"
+    }
+  ],
+  "skill_id": "retrieve_peg_from_box"
+}

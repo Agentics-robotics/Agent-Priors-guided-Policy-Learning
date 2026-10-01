@@ -1,0 +1,14 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "open_drawer__h03",
+  "skill_id": "open_drawer",
+  "call_args_schema": {"type": "object", "additionalProperties": false, "properties": {}, "required": []},
+  "parameter_semantics": "No caller parameters. The policy's fixed intent is the assigned open_drawer responsibility. Two causal observations determine relational condition and the training-only phase prediction; the initial observation is duplicated only by the framework at episode start.",
+  "observation_dependencies": ["qpos", "qvel", "tcp_pose", "red_pose", "drawer_position", "drawer_velocity"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 41]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an absolute world-frame TCP target: world position [3] in metres, world rotation as the first two matrix columns [6], and native gripper scalar [1]. Prediction slots are t-1..t+14 and execution uses slots 1..8 for t..t+7. Sampled 6D rotation is projected by Gram-Schmidt. The target is passed to panda_kinematics.solve_ik from fresh measured qpos, and the gripper scalar is appended unchanged for common sign-based execution. The phase label/head does not enter decode_action.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "World position/6D rotation labels reconstruct each demonstrated commanded TCP pose; shared IK is independently checked by FK position/rotation and unchanged gripper scalar. Gram-Schmidt projects only sampled non-orthogonal values."},
+  "cut_relation": "All actions in every assigned [0,470) segment are action-supervised. Auxiliary phase labels partition but do not trim the cut. Actions 230:470 remain full overlap with red_transfer across front release, retreat, red approach, closure and lift."
+}

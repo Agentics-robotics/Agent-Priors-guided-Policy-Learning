@@ -1,0 +1,15 @@
+{
+  "policy_id": "close_drawer__h02",
+  "entry_conditions": "Drawer is open or partly closed and causal TCP, target, object, finger and drawer state are finite. Early entry is valid only while the block is over/inside the cavity, whether still descending/releasing or already settled and being cleared.",
+  "exit_conditions": "Drawer_position below 0.025 and nearly stationary, block inside near z 0.063, gripper open, and TCP retreated high and clear.",
+  "overlap_role": "Actions 900:1160 are supervised in all 12 runs. Their TCP-local labels cover release completion, retreat and reorientation, high traverse, handle descent and acquisition, providing 260 actions of receiver supervision under observed handoff timing variation.",
+  "successor_readiness": "Terminal readiness requires the observed closed, loaded drawer and open, retreated hand. Neither a phase cue nor a predicted local correction changes task success.",
+  "failure_signatures": "Local corrections drift from the handle, causal phase cues conflict, object remains coupled when closure starts, fingers miss the handle, drawer stalls above 0.025, object leaves the drawer, or IK reports infeasibility.",
+  "continuation_guidance": "Prefer continued TCP-local replanning when realized hand/TCP state is the main mismatch. Select the moving-drawer policy for coherent fixture displacement and the closed-destination policy when closure progress/stopping dominates. A successful demonstration is not a recovery guarantee.",
+  "limitations": "No observed contact label is available. Repeated local composition may retain global offset; unseen misses, jams, obstructions, displaced handles, collision and unreachable configurations are unsupported.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[900,920,940,960,1000,1040,1080,1100,1120,1140,1160,1180,1200,1220,1240,1260,1280,1300,1330]},
+    {"trajectory_id":"demo12102","indices":[900,910,920,940,960,1080,1120,1140,1150,1160,1170,1180,1200,1220,1240,1260,1280,1300,1330]},
+    {"trajectory_id":"demo12104","indices":[900,920,940,960,1080,1100,1120,1140,1150,1160,1180,1200,1220,1240,1260,1280,1300,1330]}
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "title": "Goal-blind causal phase gate over typed interaction encoders",
+  "coverage_gap": "With only LL/HH demonstrations, an unconstrained global encoder may use target_y as a proxy for stick_x or for progress through the nearly synchronized trajectories. This design allocates separate learned capacity to hand-stick acquisition, stick-object transport, and object-goal error, with a phase estimator that cannot observe goal position.",
+  "reusable_regularity": "A manipulation chain reuses acquisition and transport skills across goals. Separate contact, transport, goal and world MLPs are trained jointly with one common diffusion U-Net. A soft four-way causal gate emphasizes the relevant relation while never deleting the others. Training-only coarse command-mode labels orient the gate without creating an inference-time controller or a hard transition schedule.",
+  "dependencies_preserved": [
+    "Contact encoder sees current and native-previous hand-stick differences, relative and individual hand/stick motion, world heights, aperture change and stick orientations. It cannot see target_y.",
+    "Transport encoder sees object2-stick relations, both motions, vertical positions, apertures and both objects' current/native-previous quaternion channels.",
+    "Goal encoder retains goal-object2 current/previous errors, goal/object2 height and object2 motion/orientation. The world branch retains all current/previous hand/stick/object2 world positions, all current world heights including goal_z, and apertures.",
+    "Direct metric skips carry the current hand world anchor, three chain edges, aperture and current quaternion channels; all gates have positive floor .15 and their logits are included, so current world poses remain recoverable rather than made invariant to robot/table constraints. Motion skips preserve all three measured translational differences.",
+    "All offsets use the declared stick COM and observed object2 point insertion site+[0,.09,0], not an invented tool tip or center. Fixed table/robot dependence is retained via world features; there is no obstacle oracle or collision planner."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Only this exact D20 may supervise the encoder and gate."},
+    {"path": "task_materials.json", "use": "Correlated training factor cells, fixed-orientation native actuator, and available causal history fields."},
+    {"path": "support_summary.json", "use": "Ten LL and ten HH episodes with a native fixed pushed-object start; relative and world channels should be distinguished rather than globally normalized into correlated identities."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Hand starts above the tabletop acquisition area."},
+    {"path": "images/frame_01_demo_01_step_023.png", "use": "Lowered hand near the tool region motivates an acquisition representation."},
+    {"path": "images/frame_02_demo_02_step_049.png", "use": "Raised interaction configuration motivates transport as distinct from lowering."},
+    {"path": "images/frame_03_demo_03_step_072.png", "use": "Late object displacement motivates a separate goal/object relation."},
+    {"path": "trajectories/demo_00.json", "rows": "actions 0:60", "use": "Sampled commands show opening, closing while lowering, positive-z lifting, then strong positive-x driving. The coarse label thresholds separate these observed command regimes; they are not claimed as ground-truth physical contacts."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 20:32,45:53,65:73", "use": "Aperture change, lift, hand-stick co-motion and late object2 motion are causal observables relevant to phase."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 25:33", "use": "Acquisition/lift pattern also appears in the other support cell."}
+  ],
+  "expected_failure_signature": [
+    "If coarse command labels do not transfer to off-support states, the gate may remain in acquisition after an unsuccessful grasp or declare transport without holding the stick. Such failures should involve wrong transition timing rather than initial target choice.",
+    "If the training-only phase regularization makes the learned representation overconfident, recovery after a dropped tool may be poor. The positive gate floor and label smoothing mitigate but do not eliminate this risk.",
+    "If absolute kinematic constraints dominate local relations, the coarse world branch can underfit and E may fail even with plausible relation-conditioned actions. Conversely, the shared U-Net can still learn spurious factor interactions: the factorization is a bias, not a proof of disentanglement."
+  ],
+  "required_runtime_fields": [
+    "context.raw_history[B,2,39] containing current0:18, native-previous18:36 and goal36:39 for each of the two outer observations.",
+    "No demonstration command, phase label, progress index, success flag, training mask, future pose or environment state is supplied to condition or inference denoise. Inference phase probabilities come only from the goal-blind causal phase MLP."
+  ],
+  "training_only_targets": [
+    {
+      "name": "command_phase",
+      "source": "support_view[e].actions[t] for the exact D20 window start t",
+      "definition": "0 if gripper<0; otherwise 3 if world_dx>.5; otherwise 2 if world_dz>.04; otherwise 1. These denote open approach, closed acquisition, lift and drive command modes, not contact or success labels.",
+      "loss": "0.05 times four-class cross entropy with .05 label smoothing, weighted by mask[:,0] and divided by mask[:,0].sum().clamp_min(1). Scalar target per valid chunk start; no padded horizon targets are used.",
+      "inference_use": "None. Only the learned causal logits/probabilities are used; target tensor is never cached in deployment state."
+    }
+  ],
+  "action_frame_semantics": "Identity encode/decode of world dx,dy,dz,gripper. Native xyz command scale .01 m, frequency80 Hz; no phase-based action overrides or clipping. Common action epsilon weight1 and denominator mask.sum()*4 remain untouched; horizon16/execute4 unchanged.",
+  "architecture": "Four independently parameterized two-layer SiLU encoders: contact30->64->32, transport36->64->32, goal19->64->16, world24->64->16. Goal-blind phase66->64->4 uses only contact/transport input. Soft gates weight contact by phases0+1, transport by1+2+3 and goal by2+3, each with floor .15. Direct relation/world/motion skips plus logits produce condition_dim131. One standard factory U-Net, diffusion_action_dim4. All modules registered in build_modules and trained by the unchanged optimizer through action loss and/or phase loss. No dropout or test-time random stream.",
+  "support_fit_statistics": "None beyond the frozen host normalizer. Feature metric scales and command thresholds are declared constants; no extra optimizer or learned support fit.",
+  "parents": [],
+  "change_summary": ["Initial independent scientific design: learned typed encoders with causal soft phase factorization and a separately normalized training-only command-phase loss. This is not a clone or a feedback revision of the analytic candidate; no interface repairs at creation."]
+}

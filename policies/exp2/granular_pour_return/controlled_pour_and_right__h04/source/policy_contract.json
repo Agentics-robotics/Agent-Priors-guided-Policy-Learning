@@ -1,0 +1,40 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "controlled_pour_and_right__h04",
+  "skill_id": "controlled_pour_and_right",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {},
+    "required": []
+  },
+  "parameter_semantics": "No high-level arguments are accepted. The executor supplies two causal physical observations. bowl_pose is the current moving reference, container_pose is the manipulated source, tcp_pose and qpos define the current rigid-grasp transform and IK seed, particle_positions provide transfer-phase evidence, and target_pose is the observed return destination context. Positions are metres in world coordinates and pose quaternions are wxyz.",
+  "observation_dependencies": [
+    "bowl_pose",
+    "container_pose",
+    "particle_positions",
+    "qpos",
+    "qvel",
+    "target_pose",
+    "tcp_pose"
+  ],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "robot": [2, 58],
+    "particles": [2, 12, 8]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each prediction slot contains desired source-container position in metres (3) and orientation as the first two rotation-matrix columns (6), both expressed in the bowl pose observed immediately before the supervised action, followed by the demonstrated native gripper scalar (1). For labels, verified FK gives the commanded world TCP and the observed rigid container-to-TCP transform converts it to a desired container pose. At decode, safe Gram-Schmidt projects the 6D orientation; the desired source pose is composed with the fresh current bowl pose and then with the fresh observed container-to-TCP transform to produce a world TCP target. panda_kinematics.solve_ik uses freshly measured joints. Slots represent t-1 through t+14 and execution uses slots 1 through 8, beginning at current t.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "At the same observation, composing a valid bowl-frame desired source label with the bowl and observed rigid source-to-TCP transform reconstructs the demonstrated commanded world TCP target before numerical IK. Compare FK TCP position in metres, rotation angle in radians and gripper scalar after solve_ik; safe 6D projection is the only orientation projection."
+  },
+  "cut_relation": "Every assigned action in all twelve [180,1740) intervals is supervised under the same empty call contract. This preserves 180 incoming overlap actions [180,360) and 280 outgoing overlap actions [1460,1740) per trajectory, including direct source righting and initial outbound transport."
+}

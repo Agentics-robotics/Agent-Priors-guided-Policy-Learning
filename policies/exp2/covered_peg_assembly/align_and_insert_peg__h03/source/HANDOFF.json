@@ -1,0 +1,15 @@
+{
+  "policy_id": "align_and_insert_peg__h03",
+  "entry_conditions": "Peg is closed-grasped and visible; hole, target, peg, TCP, qpos, and qvel are finite. The hole should remain near the demonstrated world workspace. Entry may be early, during insertion, or late in the stable tail.",
+  "exit_conditions": "Only the unchanged supplied head-x interval, y/z tolerance, minimum axis alignment, and stable held pose define success. Inferred stabilize phase is not a success substitute.",
+  "overlap_role": "Complete assigned segments are trained. Every [1380,1500) overlap contains high approach/descent, insertion-line settling, and initial +x motion, supplying action supervision across observable phases.",
+  "successor_readiness": "There is no learned successor. Preserve the closed grasp in the stable tail, while the framework judges readiness only from unchanged task geometry and stability.",
+  "failure_signatures": "Stage logits conflict with visible geometry; absolute world targets fail to follow a moved hole; descent begins with lateral or angular error; insertion stalls; peg separates from TCP; or IK reports nonconvergence or limits. No stage denotes jam recovery.",
+  "continuation_guidance": "Use causal observations only. Select this policy for timing ambiguity near the nominal workspace; route materially displaced holes to the hole-frame model and local tracking deviations to the TCP-residual model.",
+  "limitations": "The stage head predicts deterministic nominal geometry classes, not contact or grasp truth. World targets, collisions, jams, drops, and retry behaviors outside the demonstrations are unsupported.",
+  "evidence": [
+    {"trajectory_id":"demo12200","indices":[1380,1400,1420,1440,1450,1460,1470,1480,1490,1500,1510,1520,1530,1540,1554]},
+    {"trajectory_id":"demo12205","indices":[1380,1400,1420,1440,1460,1480,1500,1520,1540,1558]},
+    {"trajectory_id":"demo12208","indices":[1380,1500,1539]}
+  ]
+}

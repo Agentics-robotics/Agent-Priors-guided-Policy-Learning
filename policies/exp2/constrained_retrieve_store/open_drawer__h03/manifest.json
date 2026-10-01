@@ -1,0 +1,152 @@
+{
+  "task_id": "constrained_retrieve_store",
+  "policy_id": "open_drawer__h03",
+  "skill_id": "open_drawer",
+  "source": "policies/exp2/constrained_retrieve_store/open_drawer__h03/source",
+  "manifest": "policies/exp2/constrained_retrieve_store/open_drawer__h03/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/constrained_retrieve_store/open_drawer__h03/assignment.json",
+  "training_spec": "policies/exp2/constrained_retrieve_store/open_drawer__h03/training/spec.json",
+  "dataset": "assets/exp2/datasets/constrained_retrieve_store/open_drawer/dataset.json",
+  "normalization": "assets/exp2/tasks/constrained_retrieve_store/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/constrained_retrieve_store/open_drawer__h03/model.pt",
+    "sha256": "7a9912c5b283292c15ffb8e24463906f601fc186eeb6cbfd864fa94c04ba59dd",
+    "source_sha256": "7a9912c5b283292c15ffb8e24463906f601fc186eeb6cbfd864fa94c04ba59dd",
+    "size_bytes": 343599942,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 10,
+    "demos": 12,
+    "in_distribution_success": "10/12",
+    "exit_rule": "drawer_position >= 0.29 and the block moved < 1 cm from its entry position at the final state",
+    "guidance": "Validated reliability: 10/12. The two failures were final drawer positions 0.2816 m after an earlier threshold crossing (demo12109) and 0.2865 m without a crossing (demo12111); all runs preserved the block and had zero IK-unconverged steps. Use when both target_pose and object_pose are valid and the dual-anchor design is needed: drawer-relative contact/opening followed by an object-relative departure. Its expected benefit for displaced anchors is by construction and was not validated out of distribution. Require phase order consistent with approach–pull–release. The object route is active only when drawer_position >=0.294 m, |drawer_velocity| <=0.02 m/s, and measured finger width >=0.06 m. Avoid with invalid/noisy anchors, an already-open/open-finger state while TCP is still at the handle, route oscillation, or small phase inconsistencies better handled by h02. Recognize failure by route instability, drawer below 0.29 m or regression after crossing, continued drawer motion, closed fingers after expected release, uncleared TCP, block movement, or IK residual/limit contact. Hand off to retrieve_tunnel_block once object routing is active, opening/stability/release persist, and arm clearance is adequate; the block-relative 300:440 overlap supports switching anywhere in that interval while retaining both causal frames."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/assignment.json",
+      "sha256": "5ae0053d94837c602ac2833af1ae045e714ec80b4ba4390fc5269c76aa17a08a",
+      "source_sha256": "12f3de92aab781b3b3c523f91d90e3001408e1ba9a9f5c251add688dc133718c",
+      "size_bytes": 13059,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/handoff_evidence.json",
+      "sha256": "c02b5dce4924939c7bc3219f0088d8c406c798c9a9ed7639ff6eaf943821ba78",
+      "source_sha256": "c02b5dce4924939c7bc3219f0088d8c406c798c9a9ed7639ff6eaf943821ba78",
+      "size_bytes": 76025,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/source/HANDOFF.json",
+      "sha256": "925f4201dc12b12afd28adbe0f5e4e0c7a886c2e2a9913a65648ed189af1193f",
+      "source_sha256": "925f4201dc12b12afd28adbe0f5e4e0c7a886c2e2a9913a65648ed189af1193f",
+      "size_bytes": 1825,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/source/PRIOR.md",
+      "sha256": "0057305f60792ef1b6a68bfd7f5852e36d9fa031c5c15258998a13d5bbe569fc",
+      "source_sha256": "0057305f60792ef1b6a68bfd7f5852e36d9fa031c5c15258998a13d5bbe569fc",
+      "size_bytes": 4272,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/source/adapters.py",
+      "sha256": "da0d18d04c6cf7eabbc05f45e0c82f45eb50c021ee9e059ffa49fefbaaa4b965",
+      "source_sha256": "da0d18d04c6cf7eabbc05f45e0c82f45eb50c021ee9e059ffa49fefbaaa4b965",
+      "size_bytes": 6310,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/source/panda_posture.py",
+      "sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "source_sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "size_bytes": 903317,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/source/pipeline.json",
+      "sha256": "521de5ca6d16e7cdde8c39d0b258d01fd0cf94b80cf7c45e1c8a3983d04e9f83",
+      "source_sha256": "521de5ca6d16e7cdde8c39d0b258d01fd0cf94b80cf7c45e1c8a3983d04e9f83",
+      "size_bytes": 1374,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/source/policy.py",
+      "sha256": "b365c3dc0d8dcd9e1e3c4917f1301699fb48a81577fbe17c2ddab69bbe8f402a",
+      "source_sha256": "b365c3dc0d8dcd9e1e3c4917f1301699fb48a81577fbe17c2ddab69bbe8f402a",
+      "size_bytes": 911,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/source/policy_contract.json",
+      "sha256": "6fc3ce75cdddbf78ce60f5fa3543278c4808c2ba0ad89096d455c1145d48938c",
+      "source_sha256": "6fc3ce75cdddbf78ce60f5fa3543278c4808c2ba0ad89096d455c1145d48938c",
+      "size_bytes": 2229,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/source/training_bindings.json",
+      "sha256": "361554b2b60c1af6139d996dc404e79fbd5c7669873ace95a905071d16770403",
+      "source_sha256": "361554b2b60c1af6139d996dc404e79fbd5c7669873ace95a905071d16770403",
+      "size_bytes": 2426,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/submission.json",
+      "sha256": "0c37fdb4dee494272ecb25fcf045a00fb0f719d7891779a3b5c96a7e2840901c",
+      "source_sha256": "c5fe30e77dacfe94e09bb88e508cf43bd0b5d1e6928ac2742db67872f6da771e",
+      "size_bytes": 20240,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/training/adapter_checks.json",
+      "sha256": "441049462e1301cf2820f5ed07b1892581e2c0f3dda005c80f87246da62d2d5c",
+      "source_sha256": "441049462e1301cf2820f5ed07b1892581e2c0f3dda005c80f87246da62d2d5c",
+      "size_bytes": 194,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/training/result.json",
+      "sha256": "4acdb56d8925f0f6851fc8f9feb710590b3ed09ba891a8e28ebb267444b63b48",
+      "source_sha256": "1519f13ef17987f7f6d4ac5339014b5a78d2be5a29693f0ec681def06db5f44b",
+      "size_bytes": 4656,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/training/spec.json",
+      "sha256": "3ca6633bb14b6fafea228a4d5bc313a916c11e85e8756e9574df0cf59c4f7442",
+      "source_sha256": "3ca6633bb14b6fafea228a4d5bc313a916c11e85e8756e9574df0cf59c4f7442",
+      "size_bytes": 17284,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/open_drawer__h03/prior_plan.json",
+      "sha256": "e822366259df2a6d60d186241d8bd084f7a2d7fa1dd554bef0de96570d1de270",
+      "source_sha256": "e822366259df2a6d60d186241d8bd084f7a2d7fa1dd554bef0de96570d1de270",
+      "size_bytes": 25777,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/constrained_retrieve_store/task.json",
+  "completion_contract": "assets/exp2/tasks/constrained_retrieve_store/completion_contract.json",
+  "public_context": "assets/exp2/tasks/constrained_retrieve_store/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/constrained_retrieve_store/prompts/hl.md",
+  "prior_plan": "policies/exp2/constrained_retrieve_store/open_drawer__h03/prior_plan.json"
+}

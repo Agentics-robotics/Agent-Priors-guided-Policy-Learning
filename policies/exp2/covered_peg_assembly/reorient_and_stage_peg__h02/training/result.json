@@ -1,0 +1,101 @@
+{
+  "checkpoint": "provenance/relocated/851e6561e2699a24",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "a620aee1c8a9983b59a219dcb447d6e049da0cdee1197f9d492a08b5776a1ba1",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 0,
+    "physical_gpu": 3,
+    "uuid": "GPU-211ca63e-6f90-7281-b43a-e1facc953f2b"
+  },
+  "effective_action_targets": 40245853,
+  "final_weights_sha256": "d37ad9687eeb421d31fb6e3fdd4cf62985420786eb031152f95f698e582f5a3e",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 2.9173429012298584,
+      "step": 1
+    },
+    {
+      "l2_norm": 2.9407880306243896,
+      "step": 2
+    },
+    {
+      "l2_norm": 2.854739189147949,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.1411270946264267,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "de506ea5f182bfac7432154900245b6958a7e1ac0e256488b0e6c8bf0e938d81",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 4560,
+      "duplicated_actions": 0,
+      "unique_actions": 4560
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For demonstration labels, decoded IK FK must reproduce the commanded TCP in position/rotation and preserve the gripper scalar within maximum error 0.005. Rotation projection is exact for encoded rotations; joint nonuniqueness is allowed and all IK diagnostics are exposed.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "All twelve assigned [1120,1500) action ranges are retained. This includes incoming retrieval overlap [1120,1270) and outgoing insertion overlap [1380,1500). Only the Cartesian label frame changes to the causal peg anchor.",
+      "input_shapes": {
+        "features": [
+          2,
+          66
+        ]
+      },
+      "observation_dependencies": [
+        "hole_pose",
+        "lid_pose",
+        "lid_position",
+        "lid_velocity",
+        "peg_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is an unnormalized Cartesian TCP target [p_peg(3 metres), R_peg_tcp first-two rotation-matrix columns(6), gripper(1)] relative to the newest causal peg_pose fixed for the sampled chunk. Slots denote t-1 through t+14; slots 1-8 execute. Decoding projects 6D orientation to SO(3), composes T_world_peg*T_peg_tcp, and calls panda_kinematics.solve_ik from freshly measured qpos. A deterministic orthogonal fallback handles only degenerate sampled 6D vectors. The native gripper scalar is passed through unchanged.",
+      "parameter_semantics": "No high-level numeric parameters. The caller passes an empty object. At each replan, the adapter resolves the newest observed peg_pose as the SE(3) action reference; this call is appropriate only after high-level selection judges the peg to be stably held.",
+      "policy_id": "reorient_and_stage_peg__h02",
+      "skill_id": "reorient_and_stage_peg",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "2f222f69825439fc2b810e0af2d784cb85cc7a765ad6865c1d5074a6306c30b4",
+    "PRIOR.md": "0cc522bc7db5be047927c1d2fa6bf0c17e0d1d12c90a1adc797526f2c8be6f67",
+    "adapters.py": "5705a232ce9b025a74a9ad8cdb829a58eaab5291b885fe27aea3971a1f37c234",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "d205c8b80bb403dbae43c5548f946f2cd0f134c9e11e45ea82cc8b81ede15831",
+    "policy.py": "311bf84fb60697a6922acf6051b43b73b0eff3e3d21ce00ff1dcebaa22a61594",
+    "policy_contract.json": "ad9c444f7421b4de3dfe98a19c42cce2fed7f8891c06b0bb96dc2822211726ac",
+    "training_bindings.json": "468d5b384e786154d4909470064e61b79b7d0b2061c316917d5e1c87854be624"
+  },
+  "trainable_parameters": 17272586,
+  "training_elapsed_seconds": 697.9632568159141,
+  "weight_l2_change": 26.776948230999892
+}

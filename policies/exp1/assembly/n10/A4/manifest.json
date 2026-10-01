@@ -1,0 +1,83 @@
+{
+  "task_id": "assembly",
+  "n_demos": 10,
+  "policy_id": "A4",
+  "instance_id": "assembly__N10__rep0",
+  "author": "RuntimePriorAPI",
+  "manifest": "policies/exp1/assembly/n10/A4/manifest.json",
+  "source": "policies/exp1/assembly/n10/A4/source",
+  "checkpoint": {
+    "path": "weights/exp1/assembly/n10/A4/model.pt",
+    "sha256": "0d9b2278d9d69f8156e91508fbe976f9a384f249912f0d4240e088e7e14c04b1",
+    "source_sha256": "0d9b2278d9d69f8156e91508fbe976f9a384f249912f0d4240e088e7e14c04b1",
+    "size_bytes": 82171795,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/assembly/n10/A4/normalizer.json",
+  "config": "policies/exp1/assembly/n10/A4/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/assembly/n10/A4/complete.json",
+      "sha256": "c8d113f614de76a1f0e7d4adef44aa1cd76ce53c551e5a9213b7ab2818c50615",
+      "source_sha256": "c8d113f614de76a1f0e7d4adef44aa1cd76ce53c551e5a9213b7ab2818c50615",
+      "size_bytes": 2589,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n10/A4/config.json",
+      "sha256": "fb53e008de7b8345f49bd408c0ccd465e1f7969c7662ae7ed82d67b1e0f70a3b",
+      "source_sha256": "fb53e008de7b8345f49bd408c0ccd465e1f7969c7662ae7ed82d67b1e0f70a3b",
+      "size_bytes": 8770,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n10/A4/identity.json",
+      "sha256": "3ee36014f072dc0847ff84c44017e90b81362a8995e1145eb1fb9b8ff0d81297",
+      "source_sha256": "3ee36014f072dc0847ff84c44017e90b81362a8995e1145eb1fb9b8ff0d81297",
+      "size_bytes": 2027,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n10/A4/latency.json",
+      "sha256": "51ef24f96b627e965b7958ab2a18338217a2010e9c8aa48b13a47021b38819ad",
+      "source_sha256": "51ef24f96b627e965b7958ab2a18338217a2010e9c8aa48b13a47021b38819ad",
+      "size_bytes": 775,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n10/A4/normalizer.json",
+      "sha256": "104253ba2ebcf5c8af39b13a66336c1ea3b5b7fd84e175cb4f36c20cfadcb4dd",
+      "source_sha256": "104253ba2ebcf5c8af39b13a66336c1ea3b5b7fd84e175cb4f36c20cfadcb4dd",
+      "size_bytes": 3615,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n10/A4/source/candidate.py",
+      "sha256": "ff8d8eb295ae2c8c993fc4a59294b93c98502b1508b92d94168971f1541e0411",
+      "source_sha256": "ff8d8eb295ae2c8c993fc4a59294b93c98502b1508b92d94168971f1541e0411",
+      "size_bytes": 7982,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n10/A4/source/config.json",
+      "sha256": "74249935b3a68461ee8b57f0c38068386e6c299a7b96ae495643522fb20a8a0e",
+      "source_sha256": "74249935b3a68461ee8b57f0c38068386e6c299a7b96ae495643522fb20a8a0e",
+      "size_bytes": 503,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n10/A4/source/design.json",
+      "sha256": "2009ce5028f914e64c4e196232d9988c25ba448073b727a63c5282831c1f7a8d",
+      "source_sha256": "2009ce5028f914e64c4e196232d9988c25ba448073b727a63c5282831c1f7a8d",
+      "size_bytes": 10477,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n10/A4/source/revision_notes.md",
+      "sha256": "f5715bc970c6d00d5205fddd180b41327c0b2833645a249110b8a565ef0e60e0",
+      "source_sha256": "f5715bc970c6d00d5205fddd180b41327c0b2833645a249110b8a565ef0e60e0",
+      "size_bytes": 3477,
+      "transformation": "none"
+    }
+  ]
+}

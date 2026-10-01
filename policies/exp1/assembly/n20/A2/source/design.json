@@ -1,0 +1,38 @@
+{
+  "title": "Stage-supervised soft routing of grasp and carry relations",
+  "coverage_gap": "LL and HH support couples pickup x to peg x. Moreover identical low vertical positions can mean approaching, grasping or descending after transport, so a single coordinate encoding may entangle subtask and layout. The exact observed action sequence has sharp, ordered gripper/vertical/lateral switches that can supervise a causal stage bottleneck without an inference oracle.",
+  "reusable_regularity": "Learn separate handle-centric grasp and ring-to-peg carry encoders, plus a five-state probability head driven only by causal distances, heights, aperture and velocities. Train its probabilities with labels extracted from support action events. Soft probabilities emphasize grasp relations in approach/closure and carry relations in lift/transport/descent; a 0.2 gate floor and ungated edge skips keep every dependency accessible. The single world-action diffusion U-Net receives both routed branches, stage probabilities and explicit world/state skips. The gate predicts stage from observations at deployment; it is not an expert controller or a persistent oracle state.",
+  "dependencies_preserved": [
+    "Separate 4:7 handle and 39:42 physical ring channels and the 36:39 goal appear in distinct branches, with the actual handle-to-ring offset and wxyz-derived rotation columns retained.",
+    "World hand and previous-hand xyz remain explicit six-channel skips; hand/ring/goal heights, current and previous aperture and both task edges are also ungated. Together these retain absolute robot/workspace, gravity/table and peg collision/alignment context.",
+    "Both branches receive hand and handle velocity and the actual grasp relation, so routing does not assume perfect attachment or suppress obstacle/goal information entirely before grasp.",
+    "Stage inputs deliberately use unsigned horizontal distances rather than nut or goal x identity. Orientation and directional edges remain available to the denoiser branches. No object2 exists in this task."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exact twenty-episode D_N, no development states or baseline source"},
+    {"path": "task_materials.json", "detail": "Train cells, two-observation history, native world action4, handle versus ring schema and fixed orientation"},
+    {"path": "support_summary.json", "detail": "Ten HH and ten LL; demo_00 and demo_01 gripper actions span 0 to 0.6 while vertical action spans -1 to 1"},
+    {"path": "trajectories/demo_00.json", "detail": "actions 0-86: open approach, closure from 14, lift from 27, lateral transport from 46, descent from 73; obs 26-29 show aperture shrinking while handle remains near table; obs 45-47 show carried ring rising"},
+    {"path": "images/frame_01_demo_01_step_032.png", "detail": "Handle grasp phase supports separate local encoder"},
+    {"path": "images/frame_02_demo_02_step_059.png", "detail": "Lifted transport differs qualitatively from table pickup"},
+    {"path": "images/frame_03_demo_03_step_093.png", "detail": "Late aligned ring at peg supports final descent mode"}
+  ],
+  "expected_failure_signature": "The stage hypothesis is falsified if new layouts produce premature lift/transport, repeated stage oscillation or early downward commands despite improved geometric alignment. Missing recovery demonstrations may make the ordered support labels fail after a dropped nut. Routing cannot guarantee extrapolation of the learned lateral carry encoder, so correct stage but wrong ring x is a distinct anticipated failure. No measured success or stage accuracy is claimed.",
+  "required_runtime_fields": {
+    "input": "context.raw_history [B,2,42]; no action labels, phase indices, masks or elapsed time in inference",
+    "slices": ["0:3 hand", "3:4 gripper", "4:7 handle", "7:11 wxyz", "18:21 previous hand", "21:22 previous gripper", "22:25 previous handle", "36:39 goal", "39:42 ring center"],
+    "action_frame": "Identity native world delta xyz, native 0.01 m per unit, and unmodified scalar gripper. Four executed actions out of sixteen and native clipping are solely host operations."
+  },
+  "training_only_targets": [
+    {
+      "name": "support_stage",
+      "source": "Exact D_N actions[T,4]. Scan each episode once: stage0 approach; first gripper>0.3 enters closure1; then first dz>0.5 enters lift2; then first horizontal action norm>0.25 enters transport3; then first dz<-0.5 enters descent4. No extra annotations or reward/source access. Align one-hot labels at t-1 and t to the two conditioning observations, repeating index0 at reset.",
+      "loss": "0.15 times categorical negative log likelihood of causal stage probabilities. Two valid history labels per valid chunk start; normalize sum by 2*mask[:,0].sum(), clamped only against an empty denominator. This independent nonnegative term does not change action epsilon weight1 or its mask.sum()*4 denominator.",
+      "inference_isolation": "Labels are returned to the host dataset and never cached on the model. At inference only the learned stage head computes probabilities from raw causal observations."
+    }
+  ],
+  "support_fit": "Only median initial ring_center z over the exact twenty support episodes is fitted, for a relative lift-height input. It is a JSON rest_height_m scalar, restored before module creation. No other support memory or pretraining.",
+  "architecture": "26->96->32 grasp MLP; 28->96->32 carry MLP; 14->64->5 stage MLP, all SiLU hidden activations. Condition width86 per observation; one unchanged action4 common DP. All learned parameters are registered in build_modules and enter the joint loss.",
+  "parents": [],
+  "change_summary": "Initial independent architecture using learned factorized branches and training-supervised causal routing, rather than only a deterministic geometry map. No action transform or joint auxiliary diffusion channels. No performance feedback used."
+}

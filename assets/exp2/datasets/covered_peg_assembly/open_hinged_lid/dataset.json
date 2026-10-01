@@ -1,0 +1,213 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        0,
+        180,
+        200,
+        220,
+        240,
+        260,
+        700,
+        740,
+        750,
+        770,
+        790,
+        810,
+        900,
+        950
+      ],
+      "trajectory_id": "demo12200"
+    },
+    {
+      "indices": [
+        0,
+        740,
+        950
+      ],
+      "trajectory_id": "demo12201"
+    },
+    {
+      "indices": [
+        0,
+        740,
+        950
+      ],
+      "trajectory_id": "demo12202"
+    },
+    {
+      "indices": [
+        0,
+        740,
+        950
+      ],
+      "trajectory_id": "demo12203"
+    },
+    {
+      "indices": [
+        0,
+        740,
+        950
+      ],
+      "trajectory_id": "demo12204"
+    },
+    {
+      "indices": [
+        0,
+        740,
+        950
+      ],
+      "trajectory_id": "demo12205"
+    },
+    {
+      "indices": [
+        0,
+        740,
+        950
+      ],
+      "trajectory_id": "demo12206"
+    },
+    {
+      "indices": [
+        0,
+        740,
+        950
+      ],
+      "trajectory_id": "demo12207"
+    },
+    {
+      "indices": [
+        0,
+        740,
+        950
+      ],
+      "trajectory_id": "demo12208"
+    },
+    {
+      "indices": [
+        0,
+        740,
+        950
+      ],
+      "trajectory_id": "demo12209"
+    },
+    {
+      "indices": [
+        0,
+        740,
+        950
+      ],
+      "trajectory_id": "demo12210"
+    },
+    {
+      "indices": [
+        0,
+        740,
+        950
+      ],
+      "trajectory_id": "demo12211"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Observed-entry cue: lid_position is near 0, the lid and peg are stationary, the peg remains inside the covered box, the gripper fingers are open near 0.04 m, and the TCP is free above the scene. The model must approach the lid handle with an open gripper, close around it, and maintain constrained handle contact while rotating the lid about its hinge.",
+    "exit_conditions": "Observable exit cue: the gripper is open after releasing the lid, the TCP is clear of the lid, lid_position remains well above closed (about 1.25-1.36 rad after settling in the demonstrations), lid_velocity is near zero, and peg_pose is still at the in-box pose. Contact is inferred from lid motion synchronized with a closed gripper; no contact-truth signal is available.",
+    "failure_signatures": "Lid_position remains near zero or reverses toward closed; lid_velocity is large at handoff; fingers remain closed on the lid; TCP has not cleared the moving panel; or the peg moves during the lid operation. These are observable risk cues, not demonstrated recovery cases.",
+    "overlap_role": "Outgoing overlap with retrieve_peg_from_box is actions [740,950), 210 actions/10.5 s in each trajectory (2,520 actions total). It includes the final closed-gripper lid swing, commanded opening/release, retreat, and transit toward the box. This lets the receiver learn both early takeover while the lid is still being released and later takeover after it has settled.",
+    "successor_readiness": "retrieve_peg_from_box is ready once the lid exposes the box and there is collision-free clearance. During the shared interval the lid is the object still being released; the peg, whose pose remains unchanged, is the successor's intended object. Prefer the later cue of open fingers and a clear TCP when lid velocity is non-negligible."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Open and release hinged lid",
+  "original_demonstration_count": 12,
+  "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "This is a separate articulated-contact responsibility: free-space approach, handle grasp, long hinge-constrained pull, release, and retreat. In demo12200, the lid is closed at 0; the gripper closes and lid motion begins around 220-260; lid_position reaches 1.71 rad at 740; the gripper is open by 770; and by 950 the lid is settled near 1.35 rad while the peg is unchanged. Front images at 220, 760, and 900 show handle approach, lid-held-open contact, and post-release clearance. The same boundary cues were inspected in every trajectory. Keeping the post-release retreat in this dataset is expected to prevent an abrupt switch near the moving panel; no unseen-error recovery is claimed.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Lid operation in demo12200: start from the closed cover, approach and grasp its handle, rotate it open, release it, and clear the panel; the peg remains untouched in the box.",
+      "start": 0,
+      "stop": 950,
+      "trajectory_id": "demo12200"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Lid operation in demo12201: open the initially closed hinged cover through handle contact, release it, and retreat; the peg remains at its initial in-box pose.",
+      "start": 0,
+      "stop": 950,
+      "trajectory_id": "demo12201"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Lid operation in demo12202: grasp the cover handle, swing the lid open, command release, and move clear while leaving the peg stationary.",
+      "start": 0,
+      "stop": 950,
+      "trajectory_id": "demo12202"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Lid operation in demo12203: perform the closed-lid approach, handle grasp, hinge rotation, release, and clearance before peg contact.",
+      "start": 0,
+      "stop": 950,
+      "trajectory_id": "demo12203"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Lid operation in demo12204: open and release the hinged cover, retaining retreat actions while the in-box peg stays untouched.",
+      "start": 0,
+      "stop": 950,
+      "trajectory_id": "demo12204"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Lid operation in demo12205: approach the handle with open fingers, pull the lid open with closed fingers, release, and retreat toward box access.",
+      "start": 0,
+      "stop": 950,
+      "trajectory_id": "demo12205"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Lid operation in demo12206: execute handle approach, grasp, articulated opening, release, and post-release clearance; peg motion is absent.",
+      "start": 0,
+      "stop": 950,
+      "trajectory_id": "demo12206"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Lid operation in demo12207: open the cover by sustained handle contact, release it near maximum opening, and move clear of the settled lid.",
+      "start": 0,
+      "stop": 950,
+      "trajectory_id": "demo12207"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Lid operation in demo12208: grasp and rotate the cover, then release and retreat; the lid later settles open and the peg remains in the box.",
+      "start": 0,
+      "stop": 950,
+      "trajectory_id": "demo12208"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Lid operation in demo12209: perform the full lid approach/grasp/open/release/clear sequence without manipulating the peg.",
+      "start": 0,
+      "stop": 950,
+      "trajectory_id": "demo12209"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Lid operation in demo12210: open the hinged cover through its handle and retain the release and clearance actions before peg pickup.",
+      "start": 0,
+      "stop": 950,
+      "trajectory_id": "demo12210"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Lid operation in demo12211: approach and grasp the handle, swing the cover open, release it, and establish free TCP clearance.",
+      "start": 0,
+      "stop": 950,
+      "trajectory_id": "demo12211"
+    }
+  ],
+  "skill_id": "open_hinged_lid",
+  "subgoal": "Expose the peg by approaching and grasping the lid handle, rotating the cover about its hinge, opening the fingers to release the lid, and retreating without disturbing the peg."
+}

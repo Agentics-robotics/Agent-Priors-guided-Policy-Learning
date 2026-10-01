@@ -1,0 +1,15 @@
+{
+  "policy_id": "close_drawer__h01",
+  "entry_conditions": "Drawer is open near 0.300 or partly closed and target_pose is finite. At early overlap entry the block may still descend/release over the cavity; later entry has the block settled near z 0.063 and an opening/open hand retreating.",
+  "exit_conditions": "Drawer_position is below the unchanged 0.025 threshold and nearly stationary, the block remains inside near z 0.063, fingers are open, and the TCP is high and clear near the observed final z 0.358.",
+  "overlap_role": "Every action 900:1160 in every trajectory is supervised. This 260-action, 13 s overlap covers release completion, cavity clearance, reorientation, handle approach and handle acquisition rather than using those states only as context.",
+  "successor_readiness": "This is terminal. Readiness is based on observed closure, retained block and hand retreat; the supplied framework success definition is unchanged.",
+  "failure_signatures": "Block remains coupled when drawer motion starts, block is outside the cavity, fingers miss/remain open at the handle, drawer stops above 0.025, block leaves during closure, IK residual or limits indicate infeasibility, or hand remains trapped.",
+  "continuation_guidance": "Continue replanning while target_pose is reliable and drawer-frame displacement is the dominant variation. Prefer the TCP-local policy for local execution-state mismatch and the fixed-destination policy when partial closure/stopping is dominant. Do not interpret a close command as contact.",
+  "limitations": "Observed successful trajectories do not demonstrate recovery from unseen contact loss, jam, obstruction, changed handle offset, severe displacement, collision, or unreachable pose.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[900,920,960,1080,1140,1160,1180,1200,1240,1260,1300,1330]},
+    {"trajectory_id":"demo12102","indices":[900,910,960,1080,1140,1150,1180,1220,1240,1260,1330]},
+    {"trajectory_id":"demo12104","indices":[900,920,960,1080,1140,1150,1180,1220,1240,1260,1330]}
+  ]
+}

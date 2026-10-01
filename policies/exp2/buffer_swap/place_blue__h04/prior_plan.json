@@ -1,0 +1,73 @@
+{
+  "cut_plan_sha256": "6ff90d860db25d097efcfc9bbe61fa3421abe180b8b3d234811997a8e283064a",
+  "priors": [
+    {
+      "applicability": "Prefer place_blue__h04 when current blue, blue_goal, and buffered red are all observed and their geometry gives a clear manipulation neighborhood, especially when blue or buffered red is translated relative to demonstrations, or when execution must traverse the predecessor/core/successor neighborhoods in one policy. Blue-anchor mode is intended for blue approach, closure, lift, and early transport; goal-anchor mode is intended for late transport, descent, release, and retreat; red-anchor mode is intended for predecessor release and successor red acquisition. If the landmark mode is ambiguous but geometry is otherwise nominal, prefer the in-distribution-validated fresh-TCP h03. For a gross source shift with a clearly isolated pickup and no need for adaptive red/goal anchoring, h01 avoids the new selector; for an already held blue near a shifted destination, h02 supplies a simpler fixed goal frame.",
+      "evidence": [
+        {
+          "indices": [
+            260,
+            280,
+            340,
+            380,
+            420,
+            440,
+            460,
+            480,
+            520,
+            560,
+            600,
+            620,
+            640,
+            680,
+            720,
+            760,
+            800,
+            840,
+            859
+          ],
+          "trajectory_id": "demo10100"
+        },
+        {
+          "indices": [
+            250,
+            270,
+            330,
+            370,
+            410,
+            430,
+            450,
+            470,
+            510,
+            550,
+            590,
+            610,
+            630,
+            650,
+            690,
+            710,
+            750,
+            790,
+            830,
+            849
+          ],
+          "trajectory_id": "demo10105"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Two causal frames show red descending to or settled at the central buffer with the TCP/gripper in the red neighborhood; blue remains in or near the initially red region. The observed geometry must make red the clear local anchor at entry. No closure or proximity is treated as contact truth.",
+        "exit_conditions": "Core exit is blue visibly settled inside blue_goal with the gripper open and TCP clear. The supported later exit is blue still fixed at goal while buffered red visibly co-moves upward with the gripper after closure.",
+        "failure_signatures": "Predicted anchor weights lack a dominant mode or switch to red while blue pickup is intended; decoded TCP lies between landmarks; blue fails to follow after closure; placement is goal-offset; red moves unexpectedly; represented offset leaves demonstrated support; or IK reports persistent residuals/limit contacts. A successful demonstration does not establish recovery from these conditions.",
+        "overlap_role": "The full assigned slices retain 210-230 predecessor-overlap actions from final red release through complete blue approach/contact/lift and 230-240 successor-overlap actions from blue descent/release through red approach/closure/lift. Red anchoring is explicitly supervised in both overlap neighborhoods, while blue and goal anchoring cover the core.",
+        "successor_readiness": "Switch to place_red after blue is visibly stationary in blue_goal and the gripper is open/clear; preserve the two causal frames. If the successor is not ready, h04 may continue through the supervised red-anchor approach, closure, and visible initial lift, but closure alone is not proof of grasp."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"target_object\":{\"type\":\"string\",\"enum\":[\"blue\"]},\"destination_goal\":{\"type\":\"string\",\"enum\":[\"blue_goal\"]},\"context_object\":{\"type\":\"string\",\"enum\":[\"red\"]},\"source_region\":{\"type\":\"string\",\"enum\":[\"red_goal\"]}},\"required\":[\"target_object\",\"destination_goal\",\"context_object\",\"source_region\"]},\"parameter_semantics\":\"target_object selects the currently observed blue pose and blue translation anchor; destination_goal selects the observed blue-goal point and goal anchor; context_object selects the observed buffered-red pose and red anchor; source_region selects the observed initially-red region used only to compute causal blue transport progress. Poses/points are world frame, positions and learned offsets are metres, orientation is world-frame 6D, and training binds blue, blue_goal, red, and red_goal.\"}",
+      "limitations": "Only translation is equivariant; object/goal rotations are not varied and world 6D orientation remains learned. Landmark mode labels are a representation choice, not contact or phase truth. Mode errors can blend distant anchors. Large shifts may be unreachable or outside residual/input support. The policy has no collision constraint, contact truth, failed-grasp recovery, or evidence for drops, wrong-object grasps, disturbed red, or unseen errors. h03's 12/12 result is in distribution only and does not validate h04's expected OOD benefit.",
+      "pipeline_implications": "Add h04 as an independent model, leaving h01-h03 immutable. The high-level agent supplies the four closed-schema symbolic selectors and preserves causal history across switches. Selection should use observable landmark geometry and IK diagnostics, not hidden phase. The decoder performs only representation conversion: simplex projection of learned anchor weights, fresh observed landmark blending, Cartesian pose construction, and verified IK. It does not script task phases or infer contact.",
+      "rationale": "Validation separates several behaviors: h03 passed 12/12 in distribution; h01 passed 7/12; h02 put blue at goal in all 12 but retained buffered red at final state in only one. Demonstrations show one long segment visiting three distinct neighborhoods: red release, blue manipulation, and red re-acquisition. A single fixed source or goal frame makes at least one neighborhood remote, while fresh-TCP increments lack gross landmark anchoring. Jointly diffusing an explicit landmark label with an anchor-relative Cartesian offset makes local motion translate with the relevant observed landmark by construction. In particular, blue approach/pickup and early transport shift with observed blue, satisfying the manipulated-object displacement objective; placement shifts with observed blue_goal; overlap motion shifts with observed red. Retaining qpos/qvel, world blue pose, relative geometry, and progress preserves configuration, reachability, and phase dependencies. Expected OOD benefit is unconfirmed.",
+      "statement": "Adaptive landmark-frame Cartesian diffusion: jointly predict a world TCP target as an offset from a learned causal anchor among current blue, observed blue_goal, and current buffered red, with source/goal progress and robot state conditioning. This targets blue-source displacement, red handoff displacement, and long-segment phase/frame conflict with distinct expected failures from the fresh-TCP policy.",
+      "training_bindings": "[{\"trajectory_id\":\"demo10100\",\"start\":260,\"stop\":860,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\",\"source_region\":\"red_goal\"},\"rationale\":\"Full assigned occurrence; supervises predecessor red-anchor overlap, blue/goal core, and successor red-anchor overlap.\"},{\"trajectory_id\":\"demo10101\",\"start\":270,\"stop\":850,\"context_start\":269,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\",\"source_region\":\"red_goal\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10102\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\",\"source_region\":\"red_goal\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10103\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\",\"source_region\":\"red_goal\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10104\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\",\"source_region\":\"red_goal\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10105\",\"start\":250,\"stop\":850,\"context_start\":249,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\",\"source_region\":\"red_goal\"},\"rationale\":\"Full assigned occurrence, earlier red-release entry, and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10106\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\",\"source_region\":\"red_goal\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10107\",\"start\":260,\"stop\":860,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\",\"source_region\":\"red_goal\"},\"rationale\":\"Full assigned occurrence and extended successor red-lift overlap.\"},{\"trajectory_id\":\"demo10108\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\",\"source_region\":\"red_goal\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10109\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\",\"source_region\":\"red_goal\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10110\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\",\"source_region\":\"red_goal\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo10111\",\"start\":260,\"stop\":850,\"context_start\":259,\"call_args\":{\"target_object\":\"blue\",\"destination_goal\":\"blue_goal\",\"context_object\":\"red\",\"source_region\":\"red_goal\"},\"rationale\":\"Full assigned occurrence and both action-supervised overlaps.\"}]"
+    }
+  ],
+  "skill_id": "place_blue"
+}

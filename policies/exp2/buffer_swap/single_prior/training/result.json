@@ -1,0 +1,99 @@
+{
+  "checkpoint": "provenance/relocated/aafd717a9d9819da",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "82ef790435332f62edeed4823e5b90a8e84d43882e67e666183be6a1f534d92b",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 6,
+    "physical_gpu": 4,
+    "uuid": "GPU-29557089-826b-ddb5-4d55-d03f2009a879"
+  },
+  "effective_action_targets": 122116203,
+  "final_weights_sha256": "fd74439bb32dcbd08932f83cc236a17eb1d7a3f3e55c2fd417cfae4f2490282f",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.9655871391296387,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.860848903656006,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.7762722969055176,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.1250518560409546,
+      "step": 60000
+    }
+  ],
+  "initial_weights_sha256": "7b51e77c0f8f44b60edf5f2e31311fda757d4ac8b002f635a18d91f2dc3cf934",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 60000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 12742,
+      "duplicated_actions": 0,
+      "unique_actions": 12742
+    },
+    "contract": {
+      "action_dimension": 14,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For an encoded demonstrated slot, anchor addition reconstructs the commanded world TCP position and valid 6D columns reconstruct its rotation. The independent check compares the shared IK solution by URDF FK in metres/radians and compares the unchanged gripper scalar. Gram-Schmidt is only a finite-sample orientation projection; no Cartesian position projection or fallback controller is applied, and IK nonconvergence is reported.",
+        "mode": "task_space",
+        "tolerance": 0.02
+      },
+      "cut_relation": "One full-task policy preserves every assigned action in each complete [0, stop) demonstration. There is exactly one binding per original trajectory, context starts at 0, and no segmentation, overlap trimming, caller-selected object, stage label, or policy switch is introduced.",
+      "input_shapes": {
+        "features": [
+          2,
+          72
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "red_pose",
+        "blue_pose",
+        "red_goal",
+        "blue_goal"
+      ],
+      "output_semantics": "Each prediction slot represents its Cartesian command at that slot's pre-action time and contains [3 anchor-relative TCP position metres, 6 world TCP rotation columns, 1 native gripper scalar, 4 anchor scores]. Anchor score argmax selects red object, blue object, observed red destination, or observed blue destination. Training positions are relative to the selected anchor in that slot's pre-action observation; decoding resolves that anchor from the freshly measured current observation, adds the learned displacement, projects the 6D orientation by Gram-Schmidt, and invokes panda_kinematics.solve_ik from fresh measured joints. Object anchors cover approaches and the temporary red transfer; destination anchors cover transport/placement after lift. Gripper >=0 opens and <0 closes under the common executor. Prediction slots are t-1 through t+14 and host execution uses slots 1 through 8 starting at current t.",
+      "parameter_semantics": "There are no caller parameters: call_args is always the empty object. Intent is fixed to the complete buffer-swap task. Inputs use measured Panda joints in radians, velocities in radians/s (finger channels in metres and metres/s), and world-frame TCP, block and observed goal poses in metres with wxyz quaternions. Every demonstration is bound once with call_args={}; the model must infer progress from causal physical state.",
+      "policy_id": "single_prior_cartesian",
+      "skill_id": "full_task",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 7680000,
+  "source_hashes": {
+    "HANDOFF.json": "3ee982ab987ae576f20f742174e6983e2651a105b02430fd2e18afdb8f8e750a",
+    "PRIOR.md": "3fd72c3b0734bc310928b2170cbc46993235aa8874f06687d9987847a8044aa4",
+    "adapters.py": "de88c07b5e6c61326ec51211548a7dd42748cab34486f3c72276a6fda053a0c8",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "b2a00df897643485c2646c7e56115e7ceded18ccd52f565973a2adaae2bb6930",
+    "policy.py": "2727bd85c292cb79abf0dbf71f6aa0ac22e59bb5296424e884faee2132f50db4",
+    "policy_contract.json": "d0331ceb26bdbab20a66a1e5bc3070319ae88eea403d1db1ffef5a1564ace92d",
+    "training_bindings.json": "afe15b3879d0d7da78489f660b90373634e78fcf984a8ca900324942b986ae96"
+  },
+  "trainable_parameters": 18268430,
+  "training_elapsed_seconds": 1478.0961812660098,
+  "weight_l2_change": 53.00154463959916
+}

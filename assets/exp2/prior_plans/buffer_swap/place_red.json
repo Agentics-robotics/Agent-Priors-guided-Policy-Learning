@@ -1,0 +1,174 @@
+{
+  "cut_plan_sha256": "6ff90d860db25d097efcfc9bbe61fa3421abe180b8b3d234811997a8e283064a",
+  "priors": [
+    {
+      "applicability": "Prefer when the buffered red pose is displaced or yawed relative to training but remains visible, table-supported, collision-free, and reachable, especially once the TCP is nearer red than blue. It is also valid from the declared early entry while blue is being released because the same causal selector uses blue as the prefix reference. High-level arguments identify target_object=red, destination=red_goal, and handoff_object=blue; observations resolve their current poses.",
+      "evidence": [
+        {
+          "indices": [
+            620,
+            640,
+            700,
+            740,
+            800,
+            820,
+            860,
+            900,
+            960,
+            980,
+            1040,
+            1063
+          ],
+          "trajectory_id": "demo10100"
+        },
+        {
+          "indices": [
+            610,
+            630,
+            680,
+            740,
+            800,
+            820,
+            850,
+            900,
+            960,
+            980,
+            1020,
+            1056
+          ],
+          "trajectory_id": "demo10104"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Blue is descending to or settled in the blue goal at the declared overlap entry, red is observable in the central free area, and both selected object poses and current Panda state are finite. The early selector should resolve blue because the TCP is near it.",
+        "exit_conditions": "Use the unchanged terminal condition: red_at_goal AND blue_at_goal. Demonstrated terminal guidance is red and blue table-supported in their opposite goals, with TCP retreated high and gripper open; this guidance does not add a success predicate.",
+        "failure_signatures": "Blue is unstable or outside its goal; the selector oscillates between objects; IK residuals are large; red does not rise after closure, separates from the TCP, or is released outside full goal containment; either object is disturbed during retreat.",
+        "overlap_role": "Supervise every assigned action. The shared prefix contains final blue lowering/opening, retreat, transit, red approach, red close, and initial red lift (about 230-240 actions per run), so the active-object selector covers both sides of the place_blue/place_red handoff rather than trimming the difficult switch.",
+        "successor_readiness": "There is no successor manipulation skill. Stop only when the framework observes its unchanged success expression; otherwise replan from causal observations within applicability rather than inferring success from gripper sign."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"target_object\":{\"type\":\"string\",\"enum\":[\"red\"]},\"destination\":{\"type\":\"string\",\"enum\":[\"red_goal\"]},\"handoff_object\":{\"type\":\"string\",\"enum\":[\"blue\"]}},\"required\":[\"target_object\",\"destination\",\"handoff_object\"]},\"parameter_semantics\":\"target_object selects the currently observed red_pose as the intended pickup/manipulation frame; destination selects the observed red_goal position in world metres; handoff_object selects blue_pose as the predecessor-release frame. Values are semantic scene identifiers, not actuator commands. Poses are world-frame metres with wxyz quaternion and are resolved causally at every build/decode.\"}",
+      "limitations": "Nearest-object switching can be discontinuous around an equidistant transit state and is not a learned contact estimator. If an object pose is noisy, occluded, physically unreachable, or the wrong object is attached, equivariance does not make the command safe or successful. A displaced red destination still requires the network to use goal-relative input; the destination-frame prior covers that case more directly. Very unusual intermediate robot tracking states are better covered by the fresh-TCP residual prior. Demonstrations do not establish recovery from slips, missed grasps, unstable blue, or unseen collisions.",
+      "pipeline_implications": "Use the unchanged standard DiffusionBackbone and independent weights. Inputs are two causal relational feature frames including arm qpos/qvel; no future, contact truth, or action history is used. encode_targets computes commanded TCP poses from demonstrated native arm commands and expresses each slot in the active object's pose at that slot's pre-action observation. decode_action reconstructs a world TCP pose from the same selector on the fresh observation and calls panda_kinematics.solve_ik from freshly measured joints; it appends the represented gripper scalar and reports convergence/residual/limits. Representation normalization is fitted only to valid relative labels. All assigned [start,stop) actions, including roughly 230-240 actions shared with place_blue, remain supervised.",
+      "rationale": "Observed: all inspected runs put the buffered red source near (-0.181, 0.000, 0.020), so the demonstrations provide essentially no source-position range. They nevertheless show the required relational structure: demo10100 releases blue at 640, retreats by 700, approaches red by 740-800, closes at 820, lifts through 860, transports through 900, lowers by 960, opens at 980, and retreats by 1040. demo10104 shows the same structure with an earlier blue entry (blue z=0.055 at 610), release at 630, red contact around 800, closure/lift at 820-850, and red release around 980. Expected benefit, not observed recovery: moving the red source changes the world TCP path but preserves target-relative approach/contact/lift geometry; active-object relative targets implement that covariance exactly for the selected frame. The blue-relative prefix also preserves the action-supervised predecessor overlap without translating blue-release commands with a displaced red block.",
+      "statement": "Manipulated-object-equivariant Cartesian Diffusion Policy. Learn each TCP target as a full pose relative to the causally observed active manipulated object: blue while the TCP is closer to the handoff blue block, then red while approaching, grasping, lifting, carrying, lowering, and releasing red. The action is [object-frame position (m), object-frame rotation 6D, native gripper scalar]. The causal nearest-object selector is recomputed from each action observation for labels and from the fresh current observation for decoding; its selected-object bit and distances are inputs. Pairwise TCP/object/goal geometry, two-frame motion, qpos and qvel retain phase, reachability, robot configuration, and blue-release context. This makes the red-relative part of the motion equivariant by construction to displacement and yaw of the buffered red block, rather than asking the network to extrapolate world coordinates.",
+      "training_bindings": "[{\"trajectory_id\":\"demo10100\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill; preserves the supervised place_blue overlap from blue release through initial red lift.\"},{\"trajectory_id\":\"demo10101\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10102\",\"start\":620,\"stop\":1060,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10103\",\"start\":620,\"stop\":1065,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10104\",\"start\":610,\"stop\":1057,\"context_start\":609,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Earlier blue-descent entry; full skill and 240-action overlap.\"},{\"trajectory_id\":\"demo10105\",\"start\":610,\"stop\":1056,\"context_start\":609,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Earlier blue-descent entry; full skill and 240-action overlap.\"},{\"trajectory_id\":\"demo10106\",\"start\":620,\"stop\":1059,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10107\",\"start\":630,\"stop\":1071,\"context_start\":629,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Later low-blue entry; full skill and 230-action overlap.\"},{\"trajectory_id\":\"demo10108\",\"start\":620,\"stop\":1058,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10109\",\"start\":620,\"stop\":1063,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10110\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"},{\"trajectory_id\":\"demo10111\",\"start\":620,\"stop\":1061,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full terminal skill and shared handoff prefix.\"}]"
+    },
+    {
+      "applicability": "Prefer once red is plausibly attached and lifted, or whenever the red destination differs from its demonstrated world position while source-to-destination transport remains reachable. It can enter at the declared early overlap and is trained on the complete segment, but the high-level agent should prefer the manipulated-object prior for a strongly displaced, unheld source and the TCP-residual prior for uncertain predecessor completion.",
+      "evidence": [
+        {
+          "indices": [
+            860,
+            880,
+            900,
+            920,
+            940,
+            960,
+            980,
+            1000,
+            1020,
+            1040
+          ],
+          "trajectory_id": "demo10100"
+        },
+        {
+          "indices": [
+            850,
+            860,
+            880,
+            900,
+            920,
+            940,
+            960,
+            980,
+            1020,
+            1056
+          ],
+          "trajectory_id": "demo10104"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Same declared skill entry: blue low over or settled in its goal, red visible in the central buffer, and current state finite. Prefer this policy later, after red motion is consistent with attachment, or when destination translation is the principal variation; no observation is treated as contact truth.",
+        "exit_conditions": "The supplied red_at_goal AND blue_at_goal expression remains the only success definition. An open gripper and high retreat are demonstrated continuation guidance, not added predicates.",
+        "failure_signatures": "Red fails to track TCP after closure, destination-relative IK is unconverged, red center is not fully contained after opening, blue moves from its goal, or retreat disturbs either block.",
+        "overlap_role": "All assigned actions are supervised, including the 230-240 action predecessor overlap of blue lower/open, retreat, red approach/closure, and initial lift. The destination representation does not shorten the cut even though its strongest invariant applies to the latter carry/place portion.",
+        "successor_readiness": "Terminal skill; no successor. Continue/replan until the unchanged framework predicate is observed, while avoiding unnecessary post-success motion."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"target_object\":{\"type\":\"string\",\"enum\":[\"red\"]},\"destination\":{\"type\":\"string\",\"enum\":[\"red_goal\"]},\"handoff_object\":{\"type\":\"string\",\"enum\":[\"blue\"]}},\"required\":[\"target_object\",\"destination\",\"handoff_object\"]},\"parameter_semantics\":\"target_object selects red_pose for source and held-object relational inputs; destination selects the currently observed red_goal translation in world metres and is the Cartesian action reference; handoff_object selects blue_pose for predecessor context. Scene identifiers are causal intent, not actuator parameters.\"}",
+      "limitations": "Destination anchoring does not by itself solve a displaced source, missed grasp, slip, or unstable blue. Translating the goal may make the Cartesian target unreachable or introduce collisions not represented in demonstrations. The action orientation remains world-referenced, so large unseen goal rotation is not covered; tabletop goals provide only position. Early blue-release actions are represented relative to red_goal and thus rely on learned relational conditioning rather than an exact blue-frame invariant. The manipulated-object prior covers source displacement; the TCP-residual prior covers moderate intermediate tracking offsets. No recovery is established.",
+      "pipeline_implications": "Use a separate standard DiffusionBackbone with the same fixed temporal recipe. build_inputs resolves target_object, destination, and handoff_object from typed arguments and builds causal relational features. encode_targets uses FK of native commands and subtracts the slot's observed red_goal position; orientation remains continuous 6D in world axes. decode_action adds the fresh observed goal translation, projects 6D to SO(3), calls the supplied IK from current qpos, and preserves binary gripper semantics. This has no auxiliary loss or backbone modification. Valid-label-only normalization and all full segments/overlaps are retained.",
+      "rationale": "Observed: after red lift, demo10100 carries red from near (-0.181,-0.005,0.273) at 860 to the goal vicinity by 920, lowers through 940-960, opens by 980, and retreats through 1000-1040. demo10104 shows the same destination-centered sequence at 850-1056. Final red centers are tightly concentrated near x=-0.351 and y=0.195-0.196 while red_goal is fixed at (-0.35,0.20,0.02), so raw world actions can overfit one marker location. Expected benefit: if the observed destination marker translates while remaining reachable, destination-relative labels preserve the demonstrated approach height, lowering, release offset, and retreat geometry. This is a predictable coordinate transformation, not evidence that displaced-goal execution succeeded.",
+      "statement": "Destination-anchored placement Diffusion Policy. Express every demonstrated Cartesian target as [TCP position relative to the observed red_goal translation frame (m), world TCP rotation 6D, native gripper scalar]. Condition on two-frame target/destination/TCP relations plus qpos/qvel and blue state. The fixed axis-aligned destination frame makes the terminal carry, lowering, release, and retreat path translation-equivariant to an observed red-goal displacement, while explicit source-to-goal geometry lets the model condition the preceding pickup/carry. This representation is intentionally destination rather than manipulated-object referenced.",
+      "training_bindings": "[{\"trajectory_id\":\"demo10100\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10101\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10102\",\"start\":620,\"stop\":1060,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10103\",\"start\":620,\"stop\":1065,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10104\",\"start\":610,\"stop\":1057,\"context_start\":609,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Earlier overlap entry and complete destination placement.\"},{\"trajectory_id\":\"demo10105\",\"start\":610,\"stop\":1056,\"context_start\":609,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Earlier overlap entry and complete destination placement.\"},{\"trajectory_id\":\"demo10106\",\"start\":620,\"stop\":1059,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10107\",\"start\":630,\"stop\":1071,\"context_start\":629,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Later overlap entry and complete destination placement.\"},{\"trajectory_id\":\"demo10108\",\"start\":620,\"stop\":1058,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10109\",\"start\":620,\"stop\":1063,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10110\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10111\",\"start\":620,\"stop\":1061,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"}]"
+    },
+    {
+      "applicability": "Prefer at the early place_blue handoff, when blue release timing or measured TCP configuration differs moderately from the median, or when IK/tracking has produced a small intermediate offset while object poses remain near demonstrated relational states. The full skill is supervised. For a large red source displacement prefer the manipulated-object policy; for a shifted destination with red already held prefer the destination policy.",
+      "evidence": [
+        {
+          "indices": [
+            620,
+            640,
+            660,
+            680,
+            700,
+            720,
+            740,
+            760,
+            780,
+            800,
+            820,
+            840,
+            860,
+            900,
+            940,
+            960,
+            980,
+            1000,
+            1020,
+            1040
+          ],
+          "trajectory_id": "demo10100"
+        },
+        {
+          "indices": [
+            610,
+            620,
+            630,
+            650,
+            680,
+            700,
+            720,
+            740,
+            760,
+            780,
+            800,
+            820,
+            840,
+            850,
+            900,
+            940,
+            960,
+            980,
+            1020,
+            1056
+          ],
+          "trajectory_id": "demo10104"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Blue is low over or supported in its goal and red is observable; measured TCP, qpos/qvel, and scene poses are finite. Moderate variation within the demonstrated release/retreat relation is acceptable, but gross instability or an unreachable configuration is not.",
+        "exit_conditions": "Unchanged success is red_at_goal AND blue_at_goal. Demonstrated open-gripper/high-retreat state is useful terminal guidance only.",
+        "failure_signatures": "Repeated local commands make no task-space progress; IK residual or limit contacts persist; blue is displaced; red does not lift with the TCP; red slips during carry; release occurs without full containment; retreat contacts an object.",
+        "overlap_role": "The complete 230-240 action shared prefix is supervised, which is especially important for this prior: it learns local corrections for final blue lower/open, retreat, transit, red approach/close, and initial lift from multiple early/late entries.",
+        "successor_readiness": "No successor skill. The high-level agent should evaluate the unchanged terminal predicates and may continue/replan if they are false; neither local action size nor gripper sign proves success."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"target_object\":{\"type\":\"string\",\"enum\":[\"red\"]},\"destination\":{\"type\":\"string\",\"enum\":[\"red_goal\"]},\"handoff_object\":{\"type\":\"string\",\"enum\":[\"blue\"]}},\"required\":[\"target_object\",\"destination\",\"handoff_object\"]},\"parameter_semantics\":\"target_object, destination, and handoff_object select red_pose, red_goal, and blue_pose for causal relational conditioning. Learned translations are metres and rotations radians in the fresh measured TCP frame; arguments never provide an actuator value or hidden phase.\"}",
+      "limitations": "Local increments can accumulate error over long transport and may be too small/narrowly distributed to extrapolate a large source or goal displacement. Fresh recentering cannot repair a missed grasp, infer contact, stabilize blue, avoid unseen obstacles, or guarantee IK feasibility. Rotation-vector labels assume demonstrated relative rotations stay away from the pi branch, as observed for the near-constant downward TCP. The object-relative and destination-relative priors cover larger geometric displacements more directly.",
+      "pipeline_implications": "Use independent weights and the unchanged standard backbone. Each of two frames supplies current-TCP-frame vectors to red, blue, and both goals, relative object heights, pose rotations, qpos/qvel, fingers, and frame-to-frame changes. encode_targets computes T_tcp(pre-action)^-1 T_command for every slot and stores translation plus SO(3) log vector and gripper. decode_action computes T_world_tcp(fresh) times the local transform, then uses panda_kinematics.solve_ik from fresh qpos. The decoder is purely representational, not a scripted recovery controller. No future inputs or auxiliary head are used; all valid masks and original action coverage remain framework-owned.",
+      "rationale": "Observed entry states are not identical: demo10100 starts with blue at z about 0.040 and descending, while demo10104 starts earlier at z about 0.055, reaches the surface around 620-630, and opens there. The inspected trajectories then contain stationary holds, long retreat/transit, contact-level approach, closure, lift, carry, lower, open, and retreat. This creates phase ambiguity from only two frames, and an adjacent learned skill can enter with moderate TCP tracking differences. Expected benefit: composing each slot from the fresh TCP makes the demonstrated local correction covariant to moderate Cartesian execution offsets and avoids blindly replaying a stale world target. It does not claim demonstrated recovery from unseen predecessor errors.",
+      "statement": "Fresh-TCP body-twist residual Diffusion Policy. Learn each slot as a local corrective target [translation in the current measured TCP frame (m), relative rotation vector in the current TCP frame (rad), native gripper scalar]. Training labels use each slot's pre-action measured TCP pose; execution composes the represented increment with the freshly measured TCP before IK, so every executed slot is feedback-recentered rather than tied to the demonstration's absolute path. Two causal relational frames, qpos/qvel, finger width, object/goal deltas, and approach distances disambiguate blue-release, transit, red pickup, carry, place, and retreat.",
+      "training_bindings": "[{\"trajectory_id\":\"demo10100\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full segment; local residual supervision includes 240-action predecessor overlap.\"},{\"trajectory_id\":\"demo10101\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full segment; local residual supervision includes predecessor overlap.\"},{\"trajectory_id\":\"demo10102\",\"start\":620,\"stop\":1060,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full segment; local residual supervision includes predecessor overlap.\"},{\"trajectory_id\":\"demo10103\",\"start\":620,\"stop\":1065,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full segment; local residual supervision includes predecessor overlap.\"},{\"trajectory_id\":\"demo10104\",\"start\":610,\"stop\":1057,\"context_start\":609,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Earlier release entry; full segment and 240-action overlap.\"},{\"trajectory_id\":\"demo10105\",\"start\":610,\"stop\":1056,\"context_start\":609,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Earlier release entry; full segment and 240-action overlap.\"},{\"trajectory_id\":\"demo10106\",\"start\":620,\"stop\":1059,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full segment; local residual supervision includes predecessor overlap.\"},{\"trajectory_id\":\"demo10107\",\"start\":630,\"stop\":1071,\"context_start\":629,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Later low-blue entry; full segment and 230-action overlap.\"},{\"trajectory_id\":\"demo10108\",\"start\":620,\"stop\":1058,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full segment; local residual supervision includes predecessor overlap.\"},{\"trajectory_id\":\"demo10109\",\"start\":620,\"stop\":1063,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full segment; local residual supervision includes predecessor overlap.\"},{\"trajectory_id\":\"demo10110\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full segment; local residual supervision includes predecessor overlap.\"},{\"trajectory_id\":\"demo10111\",\"start\":620,\"stop\":1061,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Full segment; local residual supervision includes predecessor overlap.\"}]"
+    }
+  ],
+  "skill_id": "place_red"
+}

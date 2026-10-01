@@ -1,0 +1,14 @@
+{
+  "policy_id": "open_drawer__h02",
+  "entry_conditions": "Drawer closed, partly open or just opened; finite reachable TCP/joints; coherent TCP-to-drawer and TCP-to-red relations; observable gripper. Prefer modest path deviation rather than arbitrary failure recovery.",
+  "exit_conditions": "Nominal switch cue is drawer_position safely above 0.26 m with near-zero velocity, drawer front released, and red aligned, closed upon and observably co-moving upward with the TCP.",
+  "overlap_role": "Every action 0:470 is supervised. Actions 230:470 duplicate red_transfer receiving supervision on both sides of front release and red pickup, totaling 240 actions per trajectory and 2,880 actions.",
+  "successor_readiness": "red_transfer may receive after opening and red exposure at 230; the clean nominal handoff is red/TCP co-motion with closed fingers near 470.",
+  "failure_signatures": "Repeated local motion without drawer progress; unexpected drawer motion; growing TCP-to-front or TCP-to-red error; closure without red co-motion; red drop; accumulated pose drift; IK nonconvergence or limit contact.",
+  "continuation_guidance": "Apply local increments only while observed progress is consistent with a represented approach/pull/release/pickup phase. Switch to red_transfer after opening or initial lift. Replan rather than continuing if relations diverge.",
+  "limitations": "The overlap demonstrates nominal continuation, not recovery. Local increments are not globally object-displacement invariant and do not provide contact truth, collision checking or guarantees under large configuration changes.",
+  "evidence": [
+    {"trajectory_id":"demo1000","indices":[0,120,140,160,200,230,240,260,280,300,320,400,445,470]},
+    {"trajectory_id":"demo1005","indices":[0,145,180,230,240,280,400,445,469]}
+  ]
+}

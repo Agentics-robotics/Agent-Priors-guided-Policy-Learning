@@ -1,0 +1,113 @@
+{
+  "checkpoint": "provenance/relocated/f7981bc90d9782dd",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "66d1214a64d4b4bb12b254ccdaefe605aeae5c0ceb9e0f63b310430e9560252f",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 2,
+    "physical_gpu": 0,
+    "uuid": "GPU-3a21dde0-fd97-6ab3-4abb-5c98696a4bc3"
+  },
+  "effective_action_targets": 40399946,
+  "final_weights_sha256": "57019d113025118c99423b3d5c89258cd8b26b3f1817f95b00206f6774b955e9",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 2.852668046951294,
+      "step": 1
+    },
+    {
+      "l2_norm": 2.9794633388519287,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.0130057334899902,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.357915997505188,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "34d1e3674be1322db7354b3137fc027e62de0914a32a7302883a9e6d2ad645bd",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5836,
+      "duplicated_actions": 0,
+      "unique_actions": 5836
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination": {
+            "enum": [
+              "target_pose"
+            ],
+            "type": "string"
+          },
+          "source_object": {
+            "enum": [
+              "container"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_object",
+          "destination"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Compare the represented absolute world target after 6D SO(3) projection with FK of the IK result using maximum position error in metres, rotation error in radians, and unchanged gripper scalar error. Demonstrated world rotations are valid, so projection only resolves sampled 6D outputs.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "The complete frozen [start,stop) action range is supervised for all twelve occurrences, including the 280-action [1460,1740) predecessor overlap, placement/opening, retreat, and terminal hold. The auxiliary label supports phase features but does not narrow or redefine the skill.",
+      "input_shapes": {
+        "features": [
+          2,
+          67
+        ]
+      },
+      "observation_dependencies": [
+        "container_pose",
+        "target_pose",
+        "tcp_pose",
+        "qpos",
+        "qvel"
+      ],
+      "output_semantics": "Each slot is an absolute world-frame TCP pose target: 3 position coordinates in metres, the first two columns of the world rotation matrix (6D), and the native gripper scalar. Prediction slots are t-1 through t+14 and slots 1 through 8 execute. decode_action orthonormalizes 6D rotation and calls panda_kinematics.solve_ik from fresh measured qpos. During training only, a shared causal condition encoder also predicts 16 future open/closed labels under masks; these logits do not script, gate, or replace the diffused gripper action.",
+      "parameter_semantics": "source_object selects observed container_pose and destination selects observed target_pose. They are symbolic scene identities used in causal geometric features. Positions use world metres and orientations use wxyz quaternions before deterministic matrix conversion.",
+      "policy_id": "return_place_release__h03",
+      "skill_id": "return_place_release",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "e57afe340178bfc8b6f8b479a33116b05d8d028128ac4dbaeff0d72d83511f3f",
+    "PRIOR.md": "d3d735e320e7d79dacf646351af7c9f131fc4a9a5180005f14800fe9f9d6c9c8",
+    "adapters.py": "2ce2574dc29e485c771dace4846ee1a13a07dd99e30b37b709f5e42fae4f9fab",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "4bbe37904a61f6a7cb9de31ba671ffba9707a578f903a431f008c865f61e83cf",
+    "policy.py": "2abf26f6262adfb685f8e74f9e38eacb4dd1677767156e347659ef86779515c6",
+    "policy_contract.json": "22a43a4da888522cd1be993afcd36d845727678a2d4c4868987c62fc68d65b57",
+    "training_bindings.json": "b56ebd372dd77021560dde45c27eeb0508ded6371c29e7bfcf4c38c9fbdbceaf"
+  },
+  "trainable_parameters": 18296730,
+  "training_elapsed_seconds": 705.7421936087776,
+  "weight_l2_change": 34.64641226731507
+}

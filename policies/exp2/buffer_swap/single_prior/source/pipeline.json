@@ -1,0 +1,24 @@
+{
+  "policy_id": "single_prior_cartesian",
+  "skill_id": "full_task",
+  "heuristic_index": 1,
+  "prior_summary": "A single full-task diffusion policy predicts Cartesian TCP commands in one of four learned object/destination translation frames. Relational causal inputs expose task progress while retaining measured robot configuration; fresh-anchor decoding gives direct translational equivariance for approaches and placements.",
+  "applicable_conditions": "Use from the buffer-swap episode start or an intermediate state that remains represented by the demonstrations: both blocks and both observed goals must be visible in structured state, the Panda must be able to reach them, and enough free tabletop space must remain for a temporary red placement near the demonstrated central area. No caller argument or external stage choice is accepted.",
+  "termination_guidance": "The unchanged task completion is red_at_goal AND blue_at_goal using full rotated XY containment and the supplied z tolerance. Policy output, gripper state, anchor selection, or a terminal-looking arm pose is not a replacement success predicate.",
+  "limitations": "The demonstrations use one transfer order, one central buffer neighborhood and a narrow range of tabletop starts. Translation anchoring does not ensure collision-free reachability, a grasp, recovery after a dropped or knocked block, or valid behavior when goals overlap, the central buffer is obstructed, object rotations are large, or IK cannot reach a sampled target. Object-relative temporary transport and destination-relative goal transport cover position displacement, not arbitrary scene rearrangement.",
+  "config": {
+    "scientific_prior": "learned_selected_translation_anchor",
+    "action_dimension": 14,
+    "anchor_order": ["red_object", "blue_object", "red_destination", "blue_destination"],
+    "orientation_representation": "world_rotation_6d",
+    "condition_encoder_width": 256,
+    "backbone": "standard_DiffusionBackbone_unchanged",
+    "auxiliary_objective": "none",
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "execution_steps": 8,
+    "control_hz": 20,
+    "declared_training_updates": 60000,
+    "selection": "last_EMA_seed_0"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "controlled_pour_and_right__h02",
+  "skill_id": "controlled_pour_and_right",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {},
+    "required": []
+  },
+  "parameter_semantics": "No caller parameters. Two causal observations provide measured robot state, source/bowl/TCP/goal poses and twelve world particle positions. Particle identity is intentionally removed by symmetric learned pooling.",
+  "observation_dependencies": ["bowl_pose", "container_pose", "particle_positions", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "robot": [2, 58],
+    "particles": [2, 12, 8]
+  },
+  "action_dimension": 7,
+  "output_semantics": "Each slot is [translation xyz in metres in the current TCP frame, local rotation vector xyz in radians, native gripper scalar]. Training uses inverse(T_world_tcp_before_action) times T_world_commanded_tcp. Execution composes the represented local transform with the fresh observed TCP pose, then panda_kinematics.solve_ik uses fresh measured joints. Slots represent t-1 through t+14; execution uses slots 1 through 8.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Recompose each local label from its corresponding measured pre-action TCP pose, solve IK from measured joints and compare FK target position, rotation and gripper scalar with the demonstrated commanded target."
+  },
+  "cut_relation": "Every assigned action [180,1740) in all twelve trajectories remains supervised. The particle encoder and current-TCP residual representation preserve incoming [180,360) and outgoing [1460,1740) overlaps rather than creating a phase-only recut."
+}

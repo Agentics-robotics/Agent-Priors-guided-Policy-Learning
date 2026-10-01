@@ -1,0 +1,106 @@
+{
+  "api_authored": false,
+  "assignment": {
+    "dataset": "assets/exp2/datasets/drawer_exchange/full_task_dp/dataset.json",
+    "dataset_sha256": "45047d043228e2c1d2eb20518c0d4fb09e3fe78fb58146d41c791ee8d95575bd",
+    "experiment_version": "CartesianIK_DP_cartesian",
+    "heuristic": {
+      "statement": "Developer fixed ordinary Cartesian DP, no API prior design."
+    },
+    "heuristic_index": 1,
+    "normalization": {
+      "path": "assets/exp2/tasks/drawer_exchange/normalization.json",
+      "sha256": "09da5c68122b88287fce192f6dce0856ea77f97b3366ea93958af3e5b6b89c43"
+    },
+    "plan_hash": "b10cadcf4effbd327c2cdfa768b41c59f17f48a9b58a65c3100a3ca5cd605266",
+    "policy_id": "cartesian_dp",
+    "scientific_design_owner": "Developer fixed baseline",
+    "skill_id": "full_task",
+    "sources": {
+      "demo1000": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1000.json",
+        "sha256": "58d911a45df1915e4a74c254caf6de4e202ead11d89ed69197de0b5f0c17fde5"
+      },
+      "demo1001": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1001.json",
+        "sha256": "165f93f38197cd75050488a557609072e12ca0006771c36b72b90e8cae68f956"
+      },
+      "demo1002": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1002.json",
+        "sha256": "8c43a8c1562f90c040f0570aa1dde013fad47bbef1f786ccf8ab2ba3d766136d"
+      },
+      "demo1003": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1003.json",
+        "sha256": "01c617c320a46f6c3862737aad218921effe677e1630ab85e7a43d80e1fe082a"
+      },
+      "demo1004": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1004.json",
+        "sha256": "bfa82b20e4971095967e9981400d145771890c2a55fff0568853e2d77acf3a22"
+      },
+      "demo1005": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1005.json",
+        "sha256": "71eacabcb7799f216f03bb1e582e6aec3a42e83850c569b001de3cbc4e26778a"
+      },
+      "demo1006": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1006.json",
+        "sha256": "4d2e5f38fd0c80ef267e9ae877f9d9e1b098325ac5da5aa769b0e9abeceef06b"
+      },
+      "demo1007": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1007.json",
+        "sha256": "410c02b19c7511f551f3c69e21c88c7e386b4067ebfebc6c169e9b44e94cc930"
+      },
+      "demo1008": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1008.json",
+        "sha256": "7c7641d622180d497137b4560cadf5a4497bf22c7ffb5a5aef785fe0a1f17cc3"
+      },
+      "demo1009": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1009.json",
+        "sha256": "9ff9137a991b6a81fa0f9330449d359eeeeed398e225b1dbe22a449ea7b84d93"
+      },
+      "demo1010": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1010.json",
+        "sha256": "867210d90fa09b282d5a6190209251c0b69d6e64b6cef2bcaea97951df57711f"
+      },
+      "demo1011": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1011.json",
+        "sha256": "126c98245881a8ba6dde2da8707d8396d32d946fa4bbd62535b29d5eecc94eb7"
+      }
+    },
+    "subgoal": "Complete the entire supplied task with one learned policy."
+  },
+  "files": {
+    "HANDOFF.json": "d8c175832ef5a9e33121b97b4e946007a7f04b8fa751f450b4d21d6fef3000f7",
+    "PRIOR.md": "ea31a37dc5469598e9d4f3adf1e5b4b05acf283ce7d3f4852753dcda324a1675",
+    "adapters.py": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+    "pipeline.json": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+    "policy.py": "a252e4e6c9fbf9b9b2300b43440ee2774544ee26d74c0b4a3de8ea28dc7b4ab1",
+    "policy_contract.json": "a8086fe72d0a9797e8252aeb7e2207c74044b231342c2833d1cd66c5bbc73bac",
+    "training_bindings.json": "faf7ba5147dd2eaf3b0e356479dc829c9276f28658a92875c6ba7d3750e04ae1"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "kinematics_sha256": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+  "owner": "Developer fixed baseline",
+  "v1": {
+    "files": {
+      "HANDOFF.json": "d8c175832ef5a9e33121b97b4e946007a7f04b8fa751f450b4d21d6fef3000f7",
+      "PRIOR.md": "ea31a37dc5469598e9d4f3adf1e5b4b05acf283ce7d3f4852753dcda324a1675",
+      "adapters.py": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+      "policy.py": "a252e4e6c9fbf9b9b2300b43440ee2774544ee26d74c0b4a3de8ea28dc7b4ab1",
+      "policy_contract.json": "a8086fe72d0a9797e8252aeb7e2207c74044b231342c2833d1cd66c5bbc73bac",
+      "training_bindings.json": "faf7ba5147dd2eaf3b0e356479dc829c9276f28658a92875c6ba7d3750e04ae1"
+    },
+    "folder": "provenance/relocated/77fa6e49e23c65e5",
+    "version": "68b9e9985a0b9c608ddc4dedd8388c240b54aee55309289d5d335defaafd7b22"
+  },
+  "version": "33856856815192c2c3f89da76a4b435b1158711711c762ca03c67d0a5fbe9aa4"
+}

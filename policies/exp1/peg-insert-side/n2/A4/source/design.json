@@ -1,0 +1,56 @@
+{
+  "title": "Contact-adaptive two-chart motion diffusion",
+  "coverage_gap": "Revision feedback selects A3 uniquely: equal-cell dev score0.775 versus0.25 for A1/A2. A3 has 20/20 C successes but only 0/5 E-HL and 1/5 E-LH; E-LL and E-HH are 5/5 each. This isolates an observed gap at the largest crossed relative layouts, not a proven failure stage. All nine A3 failures are reported as native_truncated. A3 changed both frame and joint supervision, so its advantage cannot be attributed uniquely to either. This revision retains the joint objective and tests a more explicitly factorized coordinate bias.",
+  "reusable_regularity": "Approach and grasp are local to the peg, while carried transport depends on the box. A destination-defined frame need not rotate the source-reaching representation before a grasp. A4 uses a peg-shaft chart for hand-to-grasp, shaft, and motion features; a head-to-goal chart for insertion displacement; and a smooth contact-cue interpolation for the action frame. The contact cue is aperture closure times hand-grasp proximity, computed from current physical observations, not an environment phase or stored schedule. It only chooses coordinates, never prescribes an action. A3's joint hand/pegHead displacement diffusion is retained unchanged except that auxiliary vectors share the new action basis.",
+  "dependencies_preserved": [
+    "Source chart uses the observed horizontal pegHead-minus-pegGrasp direction at chunk start, not a hardcoded world insertion direction. Transport chart uses observed goal_xy-minus-pegHead_xy. Both chart directions and the action direction are explicitly included in world coordinates.",
+    "The ungated target relation remains available even during approach. Low-gain absolute world hand position, all four physical heights, both chart directions, and local reach/shaft/target vectors reconstruct every present world position and the box goal; no obstacle or reach-limit dependency is removed.",
+    "World gravity/z and raw xyzw peg orientation are retained. Quaternion differences, aperture change, native hand/grasp differences, and inter-observation pegHead displacement preserve causal dynamics. Dummy object2 zeros alone are omitted.",
+    "One chunk-start action basis is shared by all sixteen encoded actions, decoded actions, and auxiliary motion targets. No future frame is used. Both histories use the same chunk-start charts, so velocity is not spuriously computed across changing charts.",
+    "The physical coupling proxy is not guaranteed contact. It uses only raw_current hand, grasp and aperture, never action labels, success, elapsed time, simulator state, or previously generated predictions."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exactly the same two D_N episodes remain the only support; no new demonstration or evaluation state was requested."},
+    {"path": "task_materials.json", "detail": "Crossed and extrapolated independent peg_y/box_y factors; physical pegHead and pegGrasp channels; native fixed-rotation action semantics."},
+    {"path": "support_summary.json", "detail": "Initial same-sign source-target displacement and nearly fixed peg orientation; only LL/HH coverage."},
+    {"path": "trajectories/demo_00.json", "detail": "Previously read rows31-34 show aperture near1 while hand descends; rows48-53 show aperture about0.46 to0.31 and hand-grasp distance about0.025-0.03 m around pickup; rows64-68 show coupled lifted motion."},
+    {"path": "trajectories/demo_01.json", "detail": "Previously read rows50-53 show the same near-grasp aperture/distance pattern; rows86-91 show aperture near0.30 while the peg remains held."},
+    {"path": "images/frame_04_demo_00_step_045.png", "detail": "Near-table grasp approach is local to the peg rather than the box heading."},
+    {"path": "images/frame_13_demo_01_step_068.png", "detail": "After pickup, held-peg transport uses the box target."},
+    {"path": "images/frame_15_demo_01_step_091.png", "detail": "Side insertion still depends on shaft and world geometry, motivating retention of chart/world basis directions."},
+    {"source": "revision user message: development_feedback", "detail": "A3 submission ea8060cfcdf924b912e35c6584aa40e4c951e15817cca7b8aab89f1832b4e5cd: dev_C1.0, dev_E0.55; crossed E-HL0/5, E-LH1/5, E-LL5/5, E-HH5/5; nine native_truncated episodes. A1/A2 dev_C0 and dev_E0.5. No failure trajectories supplied."},
+    {"source": "q3 record_selection", "detail": "Selected A3 under the frozen rule before implementing A4; feedback hash cc7f929314e0858ae2fc9c3e4b6ce39269e8013a359e2a06dfb5788f1a643d5d."}
+  ],
+  "expected_failure_signature": [
+    "Primary falsifiable hypothesis: separating source geometry from large destination-frame yaw should improve crossed E relative to A3 without sacrificing its C success. Aggregate feedback does not establish that pickup was the previous failure; A4 may therefore fail to improve.",
+    "If the physical coupling proxy changes too early, the action basis can rotate during unsecured closure and generate lateral peg disturbance. If it changes too late, transfer geometry may still extrapolate poorly in the shaft action frame.",
+    "If failures are actually due to box-face collision or insufficient lateral alignment after pickup, contact-adaptive coordinates alone may leave E-HL/E-LH failures unchanged. Shaft and world context are retained but must still be used by the learned policy.",
+    "An empty closed gripper near the peg can falsely appear coupled; a dropped peg can cause basis switching and oscillation. This is an observation proxy, not a runtime contact oracle.",
+    "A normalized blend of nearly opposed shaft and goal directions can become ill-conditioned. The deterministic source-axis fallback makes outputs finite but not necessarily behaviorally smooth in such out-of-support geometry."
+  ],
+  "required_runtime_fields": {
+    "source": "Shared causal_context.raw_history [B,2,42] and raw_current [B,42]",
+    "slices": {"hand": [0,3], "aperture": [3,4], "pegGrasp": [4,7], "peg_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_pegGrasp": [22,25], "previous_peg_quaternion_xyzw": [25,29], "goal": [36,39], "pegHead": [39,42]},
+    "normalization": "Same fixed metric0.1 m, near0.025 m, workspace0.5 m scales as A3; native displacements scaled by common native_xyz_scale_m. No common-normalizer change or fitted statistic."
+  },
+  "action_frame_semantics": {
+    "source_axis": "Normalize chunk-start pegHead_xy-pegGrasp_xy; fallback(-1,0) if norm<=0.0001 m.",
+    "transport_axis": "Normalize chunk-start goal_xy-pegHead_xy; fallback to source axis if norm<=0.0001 m.",
+    "coupling": "c=sigmoid((0.5-aperture)/0.06)*sigmoid((0.06-||hand-pegGrasp||_3D)/0.01). Constants are declared design choices motivated by the observed open~1 versus held~0.3 aperture and held hand-grasp separation~0.03 m; they were not optimized or estimated from evaluation states.",
+    "action_axis": "Normalize((1-c)*source_axis+c*transport_axis), fallback to source when blend norm<=0.0001. Transverse axis is(-axis_y,axis_x), vertical is world z. Constants for normalization are numerical fallbacks, not workspace planners.",
+    "encode_decode": "Rotate only native xyz by the chunk-start action basis; decode by exact inverse horizontal rotation. Pass native gripper scalar unchanged. No affine control prior, target action, action scaling, native clipping or actuator override is added. The public executor alone clips world action4 and executes4 of16; native translation scale0.01 m remains unchanged.",
+    "conditioning_charts": "Reach, shaft and causal displacements are in the source chart; goal-minus-head is in the transport chart. All three world basis directions and coupling are supplied explicitly. Unlike A3, not all observation relations are represented in the action chart; this is an intentional two-chart representation, not a per-step action-frame mismatch."
+  },
+  "training_only_targets": [
+    {"name": "motion_world_m", "shape": "[windows,16,6]", "source": "Unchanged from A3: exact D_N future hand and pegHead displacements obs[t+k+1]-obs[t] for each valid t+k<T, with terminal obs[T] allowed for its preceding valid transition. Zero invalid tail slots.", "mapping": "Rotate hand and head displacement by the one causal action basis and divide by0.1 m; append after encoded action4.", "inference": "Unavailable as truth. All ten channels are generated jointly by the fixed diffusion procedure and only first four decoded actions are executed. No auxiliary label or generated motion is fed into the contact cue."}
+  ],
+  "loss_and_capacity": "One unchanged common DP with action_dim10 and 48 conditioning channels per observation, versus46 for A3. Action epsilon loss remains weight1/denominator mask.sum()*4. Motion epsilon loss is exactly A3's weight0.15 with independent denominator6*mask.sum() (clamped for zero masks). No new learned encoders, mode loss, optimizer setting, update budget, scheduler change or checkpoint choice.",
+  "support_fit": "None. Empty deployment state, no episode caches or copied weights. A4 is a fresh training slot at the fixed initialization/update recipe, not continued training of A3.",
+  "parents": ["A3"],
+  "change_summary": [
+    "Feedback-informed new scientific model: replace A3's sole destination chart with source and destination charts plus a causal smoothly interpolated action frame.",
+    "Reach/shaft/velocity features now use source chart; target difference uses destination chart; replace redundant goal-minus-hand feature with explicit chart metadata, increasing condition46 to48. Preserve reconstructibility and all present physical dependencies.",
+    "Retain joint motion targets, auxiliary weight, metric scales and all common training/control machinery. Do not inherit A2's learned router or stage-label loss, which did not improve the measured selection score.",
+    "A1/A2/A3 remain immutable. Only supplied aggregate development results informed this revision; no extra optimizer steps, rollouts or performance debugging. Initial A4 implementation has no structural repairs before first check."
+  ]
+}

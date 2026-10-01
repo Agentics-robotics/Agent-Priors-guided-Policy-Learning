@@ -1,0 +1,142 @@
+{
+  "blue": "parked",
+  "composition": "skips the blue transfer: the red block goes to the blue region right after the buffer",
+  "contract": {
+    "coordinate_frame": "world",
+    "description": "Move the red block into the marked region where the blue block normally starts. The blue block has been set aside outside all marked regions; leave it where it is. The task is complete when the red block is in that region and the blue block is still at its current position.",
+    "drawer_channels": "No drawer in this task: drawer_position and drawer_velocity are fixed zero compatibility channels.",
+    "fixtures": [],
+    "full_rotated_xy_containment": true,
+    "gripper_release_required": false,
+    "half_xy_m": [
+      0.06,
+      0.06
+    ],
+    "object_half_m": 0.02,
+    "predicates": [
+      "red_at_goal",
+      "blue_at_goal"
+    ],
+    "required_observations": 1,
+    "schema": "appl.scaleup.goals.v1",
+    "success_expression": "red_at_goal AND blue_at_goal",
+    "sustained_hold_required": false,
+    "targets": {
+      "blue": [
+        -0.22,
+        0.3,
+        0.02
+      ],
+      "red": [
+        -0.35,
+        0.2,
+        0.02
+      ]
+    },
+    "task_id": "buffer_swap",
+    "tcp_clearance_required": false,
+    "units": "metres",
+    "velocity_threshold_required": false,
+    "z_tolerance_m": 0.011
+  },
+  "description": "Move the red block into the marked region where the blue block normally starts. The blue block has been set aside outside all marked regions; leave it where it is. The task is complete when the red block is in that region and the blue block is still at its current position.",
+  "drawer_position": 0.0,
+  "env_goals": {
+    "blue": [
+      -0.22,
+      0.3,
+      0.02
+    ],
+    "red": [
+      -0.35,
+      0.2,
+      0.02
+    ]
+  },
+  "expert_goals": {
+    "blue_at_goal": true,
+    "red_at_goal": true,
+    "success": true
+  },
+  "expert_planner_error": null,
+  "expert_success": true,
+  "goal": "C-B1",
+  "goals": {
+    "blue": "parked",
+    "red": "red_goal"
+  },
+  "id": "C-B1",
+  "id_layout": {
+    "blue": [
+      -0.35585227755822985,
+      0.19667702405627868,
+      0.02
+    ],
+    "red": [
+      -0.3432077893984895,
+      -0.20701345502206897,
+      0.02
+    ]
+  },
+  "initial_goals": {
+    "blue_at_goal": true,
+    "red_at_goal": false,
+    "success": false
+  },
+  "initial_sha256": "ba052b0e3d8a730247ed661a2f29fe0646b327f418727dd6b6e86fb444040020",
+  "kind": "compose",
+  "layout_note": {
+    "id_layout": {
+      "blue": [
+        -0.35585227755822985,
+        0.19667702405627868,
+        0.02
+      ],
+      "red": [
+        -0.3432077893984895,
+        -0.20701345502206897,
+        0.02
+      ]
+    },
+    "placement": {
+      "blue": "parked",
+      "red": "start"
+    }
+  },
+  "name": "red_via_buffer_to_blue_region_blue_parked",
+  "poses": {
+    "blue": [
+      -0.22,
+      0.3,
+      0.02,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "red": [
+      -0.3432077893984895,
+      -0.20701345502206897,
+      0.02,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "prepared": 1790328488.2523103,
+  "program": [
+    [
+      "red",
+      "buffer"
+    ],
+    [
+      "red",
+      "red"
+    ]
+  ],
+  "robot_qpos": null,
+  "seed": 24093400,
+  "suite": "compose",
+  "task": "buffer_swap"
+}

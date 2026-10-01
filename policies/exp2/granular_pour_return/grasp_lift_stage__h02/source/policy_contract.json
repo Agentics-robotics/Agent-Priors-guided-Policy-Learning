@@ -1,0 +1,22 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "grasp_lift_stage__h02",
+  "skill_id": "grasp_lift_stage",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "source_object": {"type": "string", "enum": ["container"]},
+      "destination_object": {"type": "string", "enum": ["bowl"]}
+    },
+    "required": ["source_object", "destination_object"]
+  },
+  "parameter_semantics": "source_object and destination_object select the observed source and bowl poses used for causal relative-error features. Learned actions are local SE(3) targets relative to the freshly measured TCP and do not expose actuator parameters.",
+  "observation_dependencies": ["bowl_pose", "container_pose", "particle_positions", "qpos", "qvel", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 55]},
+  "action_dimension": 7,
+  "output_semantics": "Each slot is a one-step Cartesian TCP target relative to the fresh measured TCP at that slot: body-frame translation xyz in metres, body-frame rotation vector xyz in radians, and one native gripper scalar. The decoder exponentiates the rotation vector, right-composes the local transform with current world TCP pose, then calls panda_kinematics.solve_ik from freshly measured joints. Slots represent t-1 through t+14 and execution uses slots 1 through 8. Gripper values retain the native >=0 open, <0 close rule.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "For a demonstrated slot, compose its encoded local transform with that slot's measured TCP and compare FK of the IK output to the demonstrated commanded TCP in metres/radians; the gripper scalar is unchanged. Rotation-vector exp/log is exact on the observed small-step support."},
+  "cut_relation": "Uses every assigned [0,360) occurrence without trimming and preserves the full action-supervised [180,360) overlap. It refines the approved invocation contract into fresh-state local feedback rather than changing responsibility."
+}

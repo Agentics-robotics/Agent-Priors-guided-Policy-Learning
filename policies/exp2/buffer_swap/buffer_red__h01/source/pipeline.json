@@ -1,0 +1,10 @@
+{
+  "policy_id": "buffer_red__h01",
+  "skill_id": "buffer_red",
+  "heuristic_index": 1,
+  "prior_summary": "Red-anchored Cartesian diffusion makes approach, grasp alignment, lift and local held-object motion invariant by construction to a chunk-level displacement of observed red, while relational destination/successor features and robot state retain transport and reachability dependencies.",
+  "applicable_conditions": "Prefer when red is displaced from the demonstrated initial patch but is observed and plausibly reachable, from open approach through red release and the supervised blue-acquisition overlap.",
+  "termination_guidance": "Core termination is observed red stability near the supplied buffer with open fingers and clear TCP. A later handoff remains supported through blue closure and initial lift while red stays stationary.",
+  "limitations": "Not a collision or recovery controller. Stale red pose corrupts the action frame; arbitrary red shifts can make transport out of support or unreachable. Successful runs do not establish recovery after miss, drop or wrong contact.",
+  "config": {"action_frame": "chunk_start_red", "rotation_representation": "6d", "feature_dimension": 60, "action_dimension": 10, "backbone": "standard"}
+}

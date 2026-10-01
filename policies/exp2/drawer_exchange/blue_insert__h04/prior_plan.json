@@ -1,0 +1,76 @@
+{
+  "cut_plan_sha256": "a9fba2a55520353eef0f232a80fe6fefabff1f74b3712258fccdbe335cfa1dd8",
+  "priors": [
+    {
+      "applicability": "Prefer blue_insert__h04 when the drawer is open, red is on or being released over its pad, and translation of the free blue or a changed source-to-destination separation is the main risk. It remains callable throughout the full assigned overlap and later insertion. h02 remains the safer library choice for nominal or stable carried-blue states where destination anchoring dominates; h01 better covers a rotated source because h04 guarantees translation covariance only; h03 remains complementary for small fresh-TCP tracking deviations.",
+      "evidence": [
+        {
+          "indices": [
+            600,
+            620,
+            650,
+            700,
+            740,
+            780,
+            800,
+            810,
+            820,
+            830,
+            850,
+            870,
+            900,
+            930,
+            950,
+            970,
+            990,
+            1010,
+            1030,
+            1050,
+            1064
+          ],
+          "trajectory_id": "demo1000"
+        },
+        {
+          "indices": [
+            600,
+            620,
+            650,
+            700,
+            740,
+            780,
+            800,
+            810,
+            820,
+            830,
+            850,
+            870,
+            900,
+            930,
+            950,
+            970,
+            990,
+            1010,
+            1030,
+            1050,
+            1069
+          ],
+          "trajectory_id": "demo1005"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "drawer_position is strictly above 0.26 m; red is on or being released over the outside pad; blue is outside, approached, or carried; source_object resolves to observed blue_pose and destination_field resolves to blue_goal. At earliest entry, fingers may still be closed around red, so closure is not evidence of a blue grasp.",
+        "exit_conditions": "Use the unchanged simultaneous evaluator condition at one observation: drawer_position strictly above 0.26 m, red fully contained on its pad with center z in (0.014,0.031) m, and blue fully contained in the drawer cavity with center z in (0.053,0.074) m. Release and high retreat are demonstrated context, not additional success requirements.",
+        "failure_signatures": "Predicted progress alpha selects the wrong corridor anchor; a source displacement drags red-release targets toward blue; pickup is pulled toward the destination before a grasp; blue does not co-move after closure; reconstructed targets are unreachable or IK reports residual/limits; blue approaches a wall/lip; drawer closes to 0.26 m or below; red leaves the pad; or final blue containment/z fails.",
+        "overlap_role": "Preserve every action in every [600,stop) segment, including all 250 actions from 600 through 849 in each trajectory shared with red_transfer: 3,000 supervised overlap actions covering red lowering/release, retreat, transit, blue approach, closure, and lift. The corridor coordinate is trained over this overlap rather than only over final insertion.",
+        "successor_readiness": "There is no learned manipulation successor. Continue through insertion and the demonstrated release/retreat when appropriate, then defer to the unchanged framework success evaluator. If a stable carried blue is near the drawer and progress anchoring is uncertain, h02 is the preferred complementary continuation."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"blue\"]},\"destination_field\":{\"type\":\"string\",\"enum\":[\"blue_goal\"]}},\"required\":[\"source_object\",\"destination_field\"]},\"parameter_semantics\":\"source_object selects the causally observed blue_pose position b in world metres; destination_field selects the calibrated blue_goal g in world metres. Both are resolved and frozen at each chunk replan. They specify semantic frames only, not arbitrary coordinates, code, or actuator commands.\"}",
+      "limitations": "Translation covariance of decoded targets does not make shifted scenes reachable or collision-free and does not establish grasp/contact. World-frame orientation is not invariant to blue or drawer rotation. Alpha is predicted and can be wrong under unseen phase/contact states. Cross-track residuals are learned only from nominal paths. The observed blue reference is frozen for an eight-action chunk, so slip is incorporated at the next replan. Demonstrations contain no drops, re-grasps, wall impacts, or recovery.",
+      "pipeline_implications": "Use the unchanged DiffusionBackbone with a 106-value condition from two causal 53-D structured feature frames and an 11-D Cartesian action. Each slot is [alpha, residual_position_world_m(3), world_rotation_6d(6), gripper(1)]. Representation normalization is fitted only to valid transformed training labels. decode_action clips alpha to [0,1], reconstructs a world TCP pose, projects 6-D rotation to SO(3), and calls only panda_kinematics.solve_ik from fresh joints. No augmentation, future inference input, auxiliary head, recurrent state, or backbone change is needed.",
+      "rationale": "Observed validation was 10/12 for the full blue-frame h01, 12/12 for destination-frame h02, and 10/12 for fresh-TCP h03; failures always missed blue_inside while retaining drawer and red conditions. No OOD result exists. The new independent policy tests a different representational hypothesis: for each commanded target p, calculate alpha=clip(dot(p-b,g-b)/||g-b||^2,0,1), anchor=b+alpha(g-b), and residual=p-anchor, using causal chunk-start blue position b and goal g. Pickup targets near alpha=0 move exactly with source translation; insertion targets near alpha=1 remain goal anchored; intermediate carry targets warp continuously. Red-release targets that project toward the goal end avoid the full source translation that h01 applies to every phase. This combines source-displacement coverage with the destination anchoring associated with the strongest nominal validation, without claiming that result proves OOD benefit.",
+      "statement": "Learn world Cartesian TCP targets in a continuous source-to-destination corridor coordinate: diffuse a per-slot progress alpha, cross-track/vertical world residual, world 6-D orientation, and gripper scalar. This targets translated blue pickup by construction while preserving destination-relative insertion and reducing inappropriate source anchoring during predecessor red release.",
+      "training_bindings": "[{\"trajectory_id\":\"demo1000\",\"start\":600,\"stop\":1065,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence, including complete red-release-to-blue-lift overlap and corridor transport/insertion.\"},{\"trajectory_id\":\"demo1001\",\"start\":600,\"stop\":1077,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence with timing variation and complete supervised overlap.\"},{\"trajectory_id\":\"demo1002\",\"start\":600,\"stop\":1063,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"},{\"trajectory_id\":\"demo1003\",\"start\":600,\"stop\":1066,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"},{\"trajectory_id\":\"demo1004\",\"start\":600,\"stop\":1065,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"},{\"trajectory_id\":\"demo1005\",\"start\":600,\"stop\":1070,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full occurrence with elevated red entry and slower blue lift, retaining complete overlap.\"},{\"trajectory_id\":\"demo1006\",\"start\":600,\"stop\":1064,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"},{\"trajectory_id\":\"demo1007\",\"start\":600,\"stop\":1069,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"},{\"trajectory_id\":\"demo1008\",\"start\":600,\"stop\":1071,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence including final orientation variation.\"},{\"trajectory_id\":\"demo1009\",\"start\":600,\"stop\":1065,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"},{\"trajectory_id\":\"demo1010\",\"start\":600,\"stop\":1069,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence including pickup and final orientation variation.\"},{\"trajectory_id\":\"demo1011\",\"start\":600,\"stop\":1065,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"}]"
+    }
+  ],
+  "skill_id": "blue_insert"
+}

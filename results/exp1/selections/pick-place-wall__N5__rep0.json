@@ -1,0 +1,41 @@
+{
+  "instance": "pick-place-wall__N5__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A2",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A2",
+      "feedback_hash": "d60f35a7b7adfba982c084e4b7e9ae55d0e197caad2d62c52ea893a6f75aff8d",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3 under the frozen rule: A2 scores 0.5*0.95 + 0.5*0.55 = 0.75; A1 and A3 each score 0.5*0.45 + 0.5*0.05 = 0.25. These are equal-subcondition C/E means. All three are valid completed candidates, and A2 is the unique maximizer, so latency/parameter/ID tiebreakers are not needed. IID and training losses do not select. A4 will revise A2's successful frame/phase bias to address the remaining object-high E asymmetry; the aggregate feedback does not identify the precise failure stage.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "2dc738372eb5ae13ea2d88ba4d64a16232c52967afd5cf49ab01aaa0c4da7b4c",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4 under the frozen equal-subcondition rule: A4 has C=(0.8+1.0)/2=0.90 and E=(0.4+0.8+1.0+1.0)/4=0.80, hence score 0.5*0.90+0.5*0.80=0.85. A2 scores 0.75; A1 and A3 each score 0.25. All four are valid and completed their fixed 20,000 updates. A4 is the unique maximizer. Its higher measured latency (0.245205 s versus A2's 0.112517 s) and slightly larger parameter count do not override a strictly higher score; those are tie rules only. IID, training losses and hidden test do not select. Relative to A2, E HL improves 0/5 to 4/5 and E HH 1/5 to 2/5, with E LL/LH retained at 5/5 each and C decreasing 19/20 to 18/20. This is consistent with the targeted revision but does not establish its causal failure-stage explanation. All results, including remaining high-object failures and the C regression, remain recorded. No further edits or training.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "545c6e7b5d12d1de21e787aaf5147b64294d51272955b57a91cbeedfb01209a2",
+    "A2": "3b6b668289dee6bb2ad0378f292702b337cc611fc3545eb27a361b76f4aaede6",
+    "A3": "a607c9cc051b03cac4a1d59c8d708848333833e9a43657781aa2f6532e59ac68",
+    "A4": "06b320d8773f2c34f4eab868171e80b54e18c0903684283ab4870a5b390bfbc3"
+  },
+  "feedback_hashes": {
+    "initial": "437dc46639eda0357b515ba305421c9606196fb39eb22beca6d040a2743924d2",
+    "final": "ed02e75b171f0c3859c56a27f65427d4327d0117f414394c6ca5a4234129decc"
+  }
+}

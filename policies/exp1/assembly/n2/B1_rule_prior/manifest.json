@@ -1,0 +1,55 @@
+{
+  "task_id": "assembly",
+  "n_demos": 2,
+  "policy_id": "B1_rule_prior",
+  "instance_id": "assembly__N2__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/assembly/n2/B1_rule_prior/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/assembly/n2/B1_rule_prior/model.pt",
+    "sha256": "8388a45b8e3c8cde647726a6e92de6c48e8a836121355ea86308678e729d5232",
+    "source_sha256": "8388a45b8e3c8cde647726a6e92de6c48e8a836121355ea86308678e729d5232",
+    "size_bytes": 79489067,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/assembly/n2/B1_rule_prior/normalizer.json",
+  "config": "policies/exp1/assembly/n2/B1_rule_prior/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/assembly/n2/B1_rule_prior/complete.json",
+      "sha256": "3b48cf816cc122f732a9482a0d1c3be167344fd80e62fb3738349f7016fe64e7",
+      "source_sha256": "3b48cf816cc122f732a9482a0d1c3be167344fd80e62fb3738349f7016fe64e7",
+      "size_bytes": 1349,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n2/B1_rule_prior/config.json",
+      "sha256": "834273b77bbb495b727c325a03c4f0ab4266fb9a8a87f8c5912aa5eeace8d7f2",
+      "source_sha256": "834273b77bbb495b727c325a03c4f0ab4266fb9a8a87f8c5912aa5eeace8d7f2",
+      "size_bytes": 8210,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n2/B1_rule_prior/identity.json",
+      "sha256": "e62fe047bd34c101ae859f737514ebf8da8f4bdbae396aab37984760504180ed",
+      "source_sha256": "e62fe047bd34c101ae859f737514ebf8da8f4bdbae396aab37984760504180ed",
+      "size_bytes": 820,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n2/B1_rule_prior/latency.json",
+      "sha256": "b07e8ac60d6570a06e9af4877fdc166a64049cf15d568a1a6975aec5df376681",
+      "source_sha256": "b07e8ac60d6570a06e9af4877fdc166a64049cf15d568a1a6975aec5df376681",
+      "size_bytes": 769,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/assembly/n2/B1_rule_prior/normalizer.json",
+      "sha256": "301dacffc50228d4616e46e8ea688a7fdefb80565d825b47ad9b2819b4de5cfc",
+      "source_sha256": "301dacffc50228d4616e46e8ea688a7fdefb80565d825b47ad9b2819b4de5cfc",
+      "size_bytes": 2399,
+      "transformation": "none"
+    }
+  ]
+}

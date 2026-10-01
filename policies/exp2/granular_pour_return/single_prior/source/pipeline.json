@@ -1,0 +1,26 @@
+{
+  "policy_id": "single_prior_cartesian",
+  "skill_id": "full_task",
+  "heuristic_index": 1,
+  "prior_summary": "A single standard diffusion-policy backbone predicts Cartesian TCP targets in a continuous causal relational coordinate system. Position follows a source-relative anchor while the source is low, a bowl-relative anchor while the lifted source is handled and poured, and a marked-return-relative anchor only after observed particles have transferred and the source is nearly upright. TCP orientation is always relative to the observed container. This makes source approach/grasp, bowl-centered manipulation, and final placement translate with the corresponding observed object by construction without exposing a stage label or selecting a policy.",
+  "applicable_conditions": "Use from the normal full-task initial observation or causally observed intermediate states in which the declared container, bowl, particles, return target, TCP and Panda proprioception remain valid and the required Cartesian targets remain reachable. The policy itself receives no call arguments and decides only from two observed frames.",
+  "termination_guidance": "Evaluation termination remains the supplied success definition: at least ten of twelve particles are in the bowl and the source container is upright and returned within the marked region and height tolerance. Gripper opening, a geometric anchor weight or reaching the last demonstrated posture alone is not success.",
+  "limitations": "The prior provides coordinate equivariance, not a grasp guarantee, collision planner or proof of reachability. Large independent displacements can require paths absent from the demonstrations or yield IK limit contacts. Particle sensing errors, unusual spill patterns, a lost grasp, a high ungrasped container, changed bowl geometry or altered granular dynamics can make the causal relational anchor misleading. Training has source-position variation but a fixed bowl and return marker, so bowl/marker displacement benefits are construction-based and not empirically demonstrated path coverage.",
+  "config": {
+    "architecture": "standard_diffusion_backbone",
+    "condition_dimension": 282,
+    "action_dimension": 10,
+    "action_reference": "fresh_observation_continuous_container_bowl_return_anchor_with_container_relative_rotation",
+    "auxiliary_objective": "none",
+    "training_updates": 60000,
+    "batch_size": 128,
+    "learning_rate": 0.0001,
+    "denoising_train_steps": 100,
+    "denoising_inference_steps": 100,
+    "ema_decay": 0.999,
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "execution_steps": 8,
+    "control_hz": 20
+  }
+}

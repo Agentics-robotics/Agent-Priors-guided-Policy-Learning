@@ -1,0 +1,21 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "open_drawer__h04",
+  "skill_id": "open_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "open_stop_m": {"type": "number", "minimum": 0.25, "maximum": 0.35}
+    },
+    "required": ["open_stop_m"]
+  },
+  "parameter_semantics": "open_stop_m is the intended drawer travel/open stop in metres, bound to 0.300 m for every authorized occurrence. It normalizes observed drawer progress and sets a fixed causal blend: target-pose-relative commanded position through progress 0.90, smooth interpolation over 0.90 to 0.98, and fresh measured-TCP residual position from 0.98 onward. Observed poses use world metres and wxyz quaternions.",
+  "observation_dependencies": ["drawer_position", "drawer_velocity", "object_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 48]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [px_a,py_a,pz_a,dx_b,dy_b,dz_b,rx_b,ry_b,rz_b,g]. The first position is the commanded TCP origin in the fresh target_pose frame in metres. The second position and rotation vector are a local SE(3) correction from the fresh measured TCP, with metres and radians. At each executed slot, causal drawer progress smoothly blends the two reconstructed world positions; orientation is the measured TCP rotation right-multiplied by the body rotation correction. Both label branches reconstruct the same demonstrated Cartesian command. The resulting world TCP target is solved by shared Panda IK from freshly measured joints. Slots represent t-1 through t+14 and execution uses slots 1 through 8. g retains nonnegative-open/negative-close native gripper semantics.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "For labels, target_pose composed with the anchor-relative position and measured TCP composed with the body correction both reconstruct the demonstrated command from native-command FK. Their causal blend therefore reconstructs the same world position, and body rotation reconstructs command orientation before verified Panda IK. World TCP position, rotation angle and gripper scalar are compared; nonunique IK is allowed."},
+  "cut_relation": "Preserves actions 0:440 for all twelve assigned occurrences, including the complete 300:440 action-supervised successor overlap. It refines each command into two exact causal Cartesian coordinate descriptions without trimming phases, changing gripper labels, or adding scripted contact recovery."
+}

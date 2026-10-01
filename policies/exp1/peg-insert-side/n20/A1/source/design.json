@@ -1,0 +1,35 @@
+{
+  "title": "Two-site multiscale metric relational diffusion",
+  "coverage_gap": "The exact N20 support is 10 LL and 10 HH episodes; peg_y and box_y are correlated. LH/HL require independent reaching and transport corrections, and E extends both coordinates. Absolute-coordinate marginal normalization alone need not expose those separate errors.",
+  "reusable_regularity": "Represent hand-to-pegGrasp and pegHead-to-goal separately in world metric coordinates. Give the fixed U-Net linear signed errors for long-range extrapolation and tanh errors at a 3 cm scale for local alignment, plus observed motion and distances. The grasp and insertion sites have different physical roles. This is an action4-only deterministic representation, with neither stage gating nor an auxiliary objective.",
+  "dependencies_preserved": [
+    "World hand and goal coordinates scaled by 0.5 m retain robot reachability, the table/world placement and the box location; no whole-scene translation or rotation invariance is assumed.",
+    "Signed world x/y/z errors preserve the fixed box insertion axis and gravity. Goal-relative yz distance is only an added feature, not a controller or collision-free claim.",
+    "pegHead minus pegGrasp, both current/previous object quaternions, hand/object displacements, aperture and its change preserve tool geometry and causal grasp/slip information.",
+    "Native previous hand/object states are recoverable from current coordinates and differences. Object2 channels are omitted only because the public schema declares object2 absent with zeros."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact peg-insert-side__N20__rep0 support boundary and 20 episode identities."},
+    {"path": "task_materials.json", "use": "Source slices, pegGrasp vs pegHead semantics, absent object2, native world action4 and LL/HH versus C/E split."},
+    {"path": "support_summary.json", "use": "cell_counts=10 LL/10 HH; inspected demo_00 through demo_05 summaries show different peg and box coordinates and nearly constant object quaternion."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Actual frame shows separated peg, gripper, tabletop and side-opening box."},
+    {"path": "images/frame_02_demo_02_step_050.png", "use": "Actual frame shows acquisition at the peg rather than at the box goal."},
+    {"path": "images/frame_03_demo_03_step_072.png", "use": "Actual frame shows held peg directed toward the box opening."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 0:12,40:52,60:69; actions 0:24,34:59,59:77", "use": "Observed approach, aperture closure, tool transport and changing lateral/vertical corrections; initial head-grasp offset about [-0.13,0,-0.01] m."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 0:3", "use": "HH starts with a different hand-to-peg lateral sign while the box-to-peg lateral displacement remains negative."},
+    {"path": "PUBLIC_CONTRACT.md", "scope": "public", "use": "Frozen common DP, conditioning and action/mask interfaces."}
+  ],
+  "expected_failure_signature": [
+    "If separate metric errors are insufficient, missed grasps should depend less on box_y than transport failures, while reversed lateral-transfer C/E layouts can still fail because negative transfer errors dominate support.",
+    "The ungated U-Net may interpolate incompatible reach and carry actions near closure, producing premature translation or dropped pegs.",
+    "Fine tanh features saturate by design; if the network ignores their accompanying linear errors, far E layouts may stall. World coordinates remain available, so layout shortcuts are reduced in salience but not prohibited."
+  ],
+  "required_runtime_fields": {
+    "raw_history": "[B,2,42] from causal_context only; use current hand 0:3, gripper 3:4, pegGrasp 4:7, quaternion xyzw 7:11, previous hand 18:21, previous gripper 21:22, previous pegGrasp 22:25, previous quaternion 25:29, goal 36:39 and pegHead 39:42 in each of the two observations.",
+    "action_semantics": "Identity encode/decode. Channels 0:3 remain world dx/dy/dz with 0.01 m native scale and channel 3 remains the gripper scalar. The public executor alone clips to [-1,1], executing four of sixteen actions.",
+    "normalization": "Explicit physical metric scales, not fitted range clipping. No support statistics, extra runtime observations, clock, stage oracle or future labels. The host's normalized history is not used in this representation."
+  },
+  "training_only_targets": [],
+  "parents": [],
+  "change_summary": "Initial scientific design: 53 deterministic per-observation features, one unchanged common action4 U-Net, fixed common epsilon loss weight 1 with mask.sum()*4 denominator, no additional losses. No structural repairs or performance feedback at authoring."
+}

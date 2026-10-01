@@ -1,0 +1,390 @@
+{
+  "_path": "assets/exp2/tasks/constrained_retrieve_store/single_prior.json",
+  "api": {
+    "base_url": "https://api.openai.com/v1",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "service_tier": "default",
+    "timeout_seconds": 1800
+  },
+  "completion_contract": "assets/exp2/tasks/constrained_retrieve_store/completion_contract.json",
+  "dataset": "provenance/relocated/d408e76682d2e5a9",
+  "design": {
+    "max_api_calls": 43,
+    "max_checks": 5,
+    "max_output_tokens": 32768,
+    "max_tool_calls": 128
+  },
+  "devices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "engine_variant": "dynamic_observation_fields",
+  "episodes": [
+    {
+      "center": [
+        -0.44,
+        -0.4
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "e786df12d080e39e991ba88e88623a7e2152cf35ff3927fd8291d92cc7da5d0e",
+      "layout": {
+        "object": [
+          -0.43118284194181855,
+          -0.4146619159758398,
+          0.08
+        ]
+      },
+      "original_ood_layout": {
+        "object": [
+          -0.43036568388363705,
+          -0.42132383195167955,
+          0.08
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092800,
+      "task": "constrained_retrieve_store"
+    },
+    {
+      "center": [
+        -0.44,
+        -0.4
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "5ae1468245e673e8029e20f85dc84da57a29f141444a3404b6bc2fc213b83134",
+      "layout": {
+        "object": [
+          -0.42331063538589037,
+          -0.40891613345546923,
+          0.08
+        ]
+      },
+      "original_ood_layout": {
+        "object": [
+          -0.41462127077178074,
+          -0.40983226691093844,
+          0.08
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092801,
+      "task": "constrained_retrieve_store"
+    },
+    {
+      "center": [
+        -0.44,
+        -0.4
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "02fcbfbaeadd490aa1fcbf905e728d653e7a887666c612081b6ae33abe029757",
+      "layout": {
+        "object": [
+          -0.4249416094292004,
+          -0.40874073305328174,
+          0.08
+        ]
+      },
+      "original_ood_layout": {
+        "object": [
+          -0.4178832188584008,
+          -0.40948146610656344,
+          0.08
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092802,
+      "task": "constrained_retrieve_store"
+    },
+    {
+      "center": [
+        -0.44,
+        -0.4
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "9f70e1ba96d500ad45c55726b64d3ad8bce434c8fc956c8e0756293f4b258693",
+      "layout": {
+        "object": [
+          -0.4454876993586163,
+          -0.3840052007880773,
+          0.08
+        ]
+      },
+      "original_ood_layout": {
+        "object": [
+          -0.4454876993586163,
+          -0.3760104015761546,
+          0.08
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092803,
+      "task": "constrained_retrieve_store"
+    },
+    {
+      "center": [
+        -0.44,
+        -0.4
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "533372d8585bec7d64fa1d51ed7b01c4eb62146aada5e348fc02fe416f1204cf",
+      "layout": {
+        "object": [
+          -0.45560137104451465,
+          -0.39761687617221975,
+          0.08
+        ]
+      },
+      "original_ood_layout": {
+        "object": [
+          -0.4632027420890293,
+          -0.39761687617221975,
+          0.08
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092804,
+      "task": "constrained_retrieve_store"
+    },
+    {
+      "center": [
+        -0.44,
+        -0.4
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "772ec6c46750d2d07b7d8344a6e70659ca3b849f62f3bec778c9b29b851cb3c0",
+      "layout": {
+        "object": [
+          -0.42603314964408984,
+          -0.3931799545050214,
+          0.08
+        ]
+      },
+      "original_ood_layout": {
+        "object": [
+          -0.4200662992881796,
+          -0.3931799545050214,
+          0.08
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092805,
+      "task": "constrained_retrieve_store"
+    },
+    {
+      "center": [
+        -0.44,
+        -0.4
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "1aca0f9e291f227c7e9c8f17f43c4e63bfaedd2afde58fa4f7c223758c134763",
+      "layout": {
+        "object": [
+          -0.4550067233076087,
+          -0.400355541676293,
+          0.08
+        ]
+      },
+      "original_ood_layout": {
+        "object": [
+          -0.4620134466152175,
+          -0.400355541676293,
+          0.08
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092806,
+      "task": "constrained_retrieve_store"
+    },
+    {
+      "center": [
+        -0.44,
+        -0.4
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "9ceb5895fee7b300b0ac8e2336fc27d2d0f235d2f21a29632fcccba7373cf1a9",
+      "layout": {
+        "object": [
+          -0.4222480194415773,
+          -0.38316080936885766,
+          0.08
+        ]
+      },
+      "original_ood_layout": {
+        "object": [
+          -0.41249603888315456,
+          -0.37432161873771524,
+          0.08
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092807,
+      "task": "constrained_retrieve_store"
+    }
+  ],
+  "evaluation": {
+    "context_recent_turns": 6,
+    "diagnostic_seeds": [],
+    "feedback_protocol": "api_conditions_v1",
+    "hide_step_budget": true,
+    "max_api_calls": 128,
+    "max_invocation_steps": 300,
+    "max_steps": 5000,
+    "ood_seeds": [
+      24092800,
+      24092801,
+      24092802,
+      24092803,
+      24092804,
+      24092805,
+      24092806,
+      24092807
+    ],
+    "output": "provenance/relocated/2b03975fc5338f92",
+    "seeds": []
+  },
+  "experiment_version": "CartesianIK_new_SinglePrior_cartesian",
+  "framework_sha256": "8291cf0d32ec5d72f360920cd63180e9d73e16ae470218b765edb2048fb6a183",
+  "ik_revision": {
+    "invalid_v1_results": "provenance/relocated/93e949aa1d97cf6c",
+    "v1_configuration": "provenance/relocated/52af0877c4cee3c9",
+    "v1_output": "provenance/relocated/ce983f8fc5727f0a"
+  },
+  "interface_path": "assets/exp2/tasks/constrained_retrieve_store/interface.md",
+  "kinematics": {
+    "path": "provenance/relocated/c20785723756d92a",
+    "posture": {
+      "path": "provenance/relocated/94404b68fa81ea7a",
+      "sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774"
+    },
+    "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "version": "v2"
+  },
+  "method": "SinglePrior_cartesian",
+  "normalization": {
+    "directory": "provenance/relocated/766cd24f780ced3a",
+    "scope": "full_training_demonstrations",
+    "train_ids": [
+      "demo12100",
+      "demo12101",
+      "demo12102",
+      "demo12103",
+      "demo12104",
+      "demo12105",
+      "demo12106",
+      "demo12107",
+      "demo12108",
+      "demo12109",
+      "demo12110",
+      "demo12111"
+    ]
+  },
+  "output": "provenance/relocated/62e023c30c5c5e56",
+  "prompts": {
+    "train": "assets/exp2/tasks/constrained_retrieve_store/prompts/single_prior_train.md"
+  },
+  "public_context": "assets/exp2/tasks/constrained_retrieve_store/public_context.json",
+  "schema": "appl.flexible.sol.v1",
+  "segmentation": {
+    "max_api_calls": 64,
+    "max_output_tokens": 65536,
+    "max_plan_versions": 16,
+    "max_skills": 16,
+    "max_tool_calls": 160
+  },
+  "sources": {
+    "demo12100": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12100.json",
+      "sha256": "391a897312690daa7abf863f2708fc783c18975f8b6e5a358208033ffb8f1957"
+    },
+    "demo12101": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12101.json",
+      "sha256": "493d417d97f6c7ad95744837844bd6c4ae5865d62c56ac753277daa0ef37663e"
+    },
+    "demo12102": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12102.json",
+      "sha256": "3113517600968988726041c14c18f2a8f07f3b06f70887911beafbdb50fddcf6"
+    },
+    "demo12103": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12103.json",
+      "sha256": "02bab38901c57544525be9b29344ccf005563d4416ed167f66128b5a5cc81175"
+    },
+    "demo12104": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12104.json",
+      "sha256": "093692525af6e2ecae6406548c5baf4b761414df3f199d46ecb9f1bf9cbdcf59"
+    },
+    "demo12105": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12105.json",
+      "sha256": "171a227e85dbc24fdc02a5653b5f677ec9fa03f98b8c18bcd5d0fa89978c743d"
+    },
+    "demo12106": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12106.json",
+      "sha256": "e8d3a501485c37a1134c80025e27714a62eec64d3dc046ec3dad4b8d21edd786"
+    },
+    "demo12107": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12107.json",
+      "sha256": "54c168dfa58464cbe2d3cf6957c1b5ccb1bc087f1574e257907ca3716472fbef"
+    },
+    "demo12108": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12108.json",
+      "sha256": "563deff02e2d882b12ce7f02696248d76d7c8d11b568c455db1a3f49279bc655"
+    },
+    "demo12109": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12109.json",
+      "sha256": "3e6f6b1a656eaaa9ffad9f931d7137e7995671ae4000d59dd2313c72c62aa4ce"
+    },
+    "demo12110": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12110.json",
+      "sha256": "3e3a501cbb93d5f0e8b65b1850b5e257913d811ea29c3b7aa09063cbf45a7729"
+    },
+    "demo12111": {
+      "path": "assets/exp2/demonstrations/constrained_retrieve_store/demo12111.json",
+      "sha256": "f1079f7e5f2fa2b2ee03e8e6d480a28e03ea0ad78de362c753d5fa28ce890ed9"
+    }
+  },
+  "study_output": "provenance/relocated/4bfc2a390a82fa94",
+  "study_version": "CartesianIK_NewTask_Sol_20260924",
+  "task_id": "constrained_retrieve_store",
+  "task_spec": "assets/exp2/tasks/constrained_retrieve_store/task.json",
+  "training": {
+    "action_scale_floor": 0.01,
+    "batch_size": 128,
+    "checkpoint_every": 2000,
+    "clip_sample": true,
+    "denoising_inference_steps": 100,
+    "denoising_train_steps": 100,
+    "down_dims": [
+      128,
+      256,
+      512
+    ],
+    "ema_decay": 0.999,
+    "execution_steps": 8,
+    "groups": 8,
+    "horizon": 16,
+    "kernel_size": 5,
+    "learning_rate": 0.0001,
+    "lr_schedule": "cosine",
+    "max_grad_norm": 1,
+    "observation_normalization": "limits",
+    "observation_std_floor": 0.001,
+    "observation_steps": 2,
+    "quaternion_normalization": "unit_component_bounds",
+    "sampler": "ddpm",
+    "seeds": [
+      0
+    ],
+    "selection": "last EMA at predeclared budget",
+    "timestep_embed_dim": 128,
+    "updates": 60000,
+    "warmup_steps": 500,
+    "weight_decay": 1e-06
+  },
+  "training_details_path": "assets/exp2/tasks/constrained_retrieve_store/training_details.md"
+}

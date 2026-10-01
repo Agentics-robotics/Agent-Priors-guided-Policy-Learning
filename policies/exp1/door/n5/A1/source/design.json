@@ -1,0 +1,36 @@
+{
+  "title": "Cabinet-chart diffusion with an explicit world-context escape path",
+  "coverage_gap": "D_5 has 3 LL and 2 HH episodes and no crossed position/yaw cells; yaw extrapolation is roughly +/-35 degrees rather than the observed -6.17 to +7.63 degrees. A raw-state policy can associate cabinet translation, yaw and phase. Near-constant yaw cosine also has a very small support standard deviation.",
+  "reusable_regularity": "Hand-to-handle corrections and the handle-to-goal displacement can be described in the observed cabinet yaw frame. Use a direct, nonlearned 53-dimensional chart per observation and express translation actions in that same yaw frame. No fitted action rule or waypoint is added. Two rotation-matrix columns replace xyzw quaternions, removing antipodal ambiguity without losing physical attitude. Fixed metric scales avoid amplification of nearly constant support coordinates.",
+  "dependencies_preserved": [
+    "World hand, handle and goal positions, their previous positions, and cabinet sin/cos remain explicit. This is not full SE(2) invariance: fixed robot orientation, world action cube, table height and reachability can still matter.",
+    "Current and native-previous hand/handle relative vectors, full physical handle attitude, gripper apertures and causal finite differences are retained. The two whole input observations are encoded separately.",
+    "Cabinet placement and yaw plus handle pose retain the available cabinet/panel obstacle dependence. No unobserved collision geometry or hidden hinge state is queried. Object2 channels are omitted only because the schema declares them absent zeros."
+  ],
+  "evidence_refs": [
+    {"path":"bundle.json","detail":"Only the five listed support episodes; image-and-numeric evidence bundle."},
+    {"path":"task_materials.json","detail":"Raw41 slices, xyzw handle quaternion, observed yaw39:41, world displacement control and correlated layout distribution."},
+    {"path":"support_summary.json","detail":"3 LL/2 HH; 542 transitions; yaw cosine std about 0.00170; hand-to-interaction distances about 0.21-0.31m."},
+    {"path":"images/frame_00_demo_00_step_000.png","detail":"Initial robot/handle/cabinet arrangement, table and fixed gripper attitude."},
+    {"path":"images/frame_01_demo_00_step_036.png","detail":"Approach above handle before lowering."},
+    {"path":"images/frame_02_demo_00_step_073.png","detail":"Hand follows the moving handle as the panel opens."},
+    {"path":"images/frame_06_demo_01_step_112.png","detail":"Opened panel in the other training layout."},
+    {"path":"trajectories/demo_00.json","detail":"Read obs rows 0:4,33:38,50:56,73:76 and actions 0:4,50:56: causal motion and lowering/pulling geometry."},
+    {"path":"PUBLIC_CONTRACT.md","scope":"public","detail":"One unchanged common DP; causal chunk frame; no clipping inside design."}
+  ],
+  "expected_failure_signature": [
+    "If gripper/panel contact is not yaw-equivariant, initial approach may improve yet the hand can slip or collide during pulling, especially at the two yaw extremes.",
+    "The world escape path may still memorize the correlated training layouts: a persistent C gap despite canonical relative features falsifies the intended decorrelation benefit.",
+    "Without explicit phase supervision, lowering may occur too early or pulling may begin before contact. This should appear as a stationary handle with a moving hand rather than steady opening."
+  ],
+  "required_runtime_fields": {
+    "source":"causal_context.raw_history [B,2,41] and raw_current [B,41]; no additional runtime fields",
+    "slices":{"hand":"0:3 and 18:21","gripper":"3:4 and 21:22","handle":"4:7 and 22:25","handle_quaternion_xyzw":"7:11 and 25:29","goal":"36:39","cabinet_sin_cos":"39:41"},
+    "normalization":"Use raw values with contact scale 0.1m, span/world scale 0.5m, one-step motion scale 0.01m, unit attitude/yaw/aperture and 0.1 aperture-difference scale; common normalized history is deliberately replaced.",
+    "action_frame":"Encode action xyz as Rz(cabinet_yaw_at_chunk_start)^T times native xyz. Decode with Rz, retaining native 0.01m control units. All 16 steps use the same causal frame. Gripper is unchanged. No local clipping or rescaling; executor alone clips the decoded world cube and executes four steps."
+  },
+  "training_only_targets": [],
+  "support_fit":"None. Metric scales are representation choices, not estimates from other data.",
+  "parents": [],
+  "change_summary": "Initial scientific design: deterministic cabinet chart, sign-invariant attitude, direct geometric conditioning, orthogonal action mapping; factory U-Net and action epsilon loss are unchanged. No performance feedback used."
+}

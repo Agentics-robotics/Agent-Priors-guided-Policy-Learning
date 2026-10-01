@@ -1,0 +1,45 @@
+{
+  "title": "Goal-bearing joint action and contact-state diffusion",
+  "coverage_gap": "The N10 LL/HH support covers only a narrow set of horizontal pegHead-to-goal bearings and hand/peg/box alignments. Recombined and extrapolated y factors change both the sign and size of lateral transfer. An action-only world-coordinate model may memorize one bearing and may not learn that carrying requires maintaining grasp contact while reducing tip/goal error.",
+  "reusable_regularity": "Denoise a joint 11-channel trajectory: four encoded native controls, future hand-to-grasp gap (3), future tip-to-goal error (3), and future aperture (1). The auxiliary geometry encourages the same denoiser to represent approach versus carrying without scripted phases. A proper horizontal frame has its first axis along the measured chunk-start pegHead-to-goal bearing, second perpendicular in the plane, and third world up. All actions and relative geometry in the chunk use that one causal frame. During inference auxiliary state is generated jointly from noise, not provided as ground truth, and is discarded after sampling. This is learned diffusion, not a rollout model or planner.",
+  "dependencies_preserved": [
+    "the chunk frame orientation and absolute world hand coordinates remain in conditioning, so finite workspace, robot reach and fixed side-opening orientation are not treated as rotation invariant",
+    "current and previous peg orientation columns are rotated into the same frame; the physical pegHead-to-pegGrasp offset is retained separately",
+    "world z is never rotated away; hand, grasp, head and goal heights retain table and raised opening dependencies",
+    "the goal-to-hand edge exposes box proximity and can reconstruct the goal with the world hand anchor; the other contact edges reconstruct the distinct physical sites",
+    "step displacements, aperture/change and two whole observations remain causal; no runtime stage, simulator model or success signal is used",
+    "the action rotation is orthonormal and invertible, gripper is untouched, and only the native executor clips after world decoding"
+  ],
+  "evidence_refs": [
+    "bundle.json: exact current N10 support only and no development/test states",
+    "task_materials.json: independent peg_y/box_y distribution, raw pegHead channel, native world-delta action4 and fixed end-effector orientation",
+    "support_summary.json: LL=5 and HH=5; initial interaction-to-goal vectors in demo_00 and demo_01 have large negative x and smaller negative y components, not broad bearing coverage",
+    "images/frame_00_demo_00_step_000.png: separated tabletop peg and side-opening box",
+    "images/frame_01_demo_00_step_056.png: low-height peg contact",
+    "images/frame_03_demo_01_step_091.png and images/frame_06_demo_03_step_079.png: carried peg at the raised side opening",
+    "trajectories/demo_00.json: obs[0:4] gives distinct grasp/head sites; obs[48:54] shows contact and aperture change; obs[64:76] shows a persistent grasp gap while the head approaches goal height",
+    "trajectories/demo_00.json: actions[32:64] shows downward closing versus upward/lateral transport, motivating jointly learned contact evolution",
+    "PUBLIC_CONTRACT.md, contracts.py and learning.py: joint channels after action4, fixed chunk-start transforms, independent mask-normalized auxiliary epsilon objective"
+  ],
+  "expected_failure_signature": "A wrong learned joint trajectory may confidently imagine maintained contact after a missed grasp, producing empty-gripper transport; this is a testable failure even if reaching is good. Very large bearing changes can expose unseen relationships between the canonical bearing and fixed side-opening axis. Near zero horizontal goal distance the bearing can turn rapidly or use its fallback, so last-stage sideways oscillation is a specific risk. The auxiliary may compete with action fitting at N10. No improvement or measured performance is claimed.",
+  "required_runtime_fields": {
+    "conditioning_source": "causal_context.raw_history [B,2,42]; raw_current [B,42] fixes the frame for both history observations and the whole sixteen-action chunk",
+    "slices": {"hand": [0,3], "gripper": [3,4], "pegGrasp": [4,7], "peg_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_gripper": [21,22], "previous_pegGrasp": [22,25], "previous_peg_quaternion_xyzw": [25,29], "goal": [36,39], "pegHead": [39,42]},
+    "omitted": "Only declared absent object2 zero fields. No runtime auxiliary truth, stages, factor values, episode time, reset state or additional sensors.",
+    "frame_definition": "At chunk start, e1_xy=normalize(goal_xy-pegHead_xy), e2_xy=(-e1_y,e1_x), e3=world z. If the horizontal goal vector is at most 0.0001 m long, use normalize(pegHead_xy-pegGrasp_xy); if that too is degenerate use (-1,0). Both bases are proper rotations. The frame is recomputed only from the given causal chunk context, never from any future label or denoised auxiliary state.",
+    "action_frame": "encode computes local xyz=R^T*native_xyz; decode computes native_xyz=R*local_xyz. XYZ scale remains 0.01 m per native unit, with no translation of displacement actions. Gripper is the fourth unchanged scalar. Encoded coordinates may exceed the native component cube; no candidate clipping occurs. The executor alone clips decoded world action4 and executes the common four-action prefix."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_contact_world",
+      "shape": "[windows,16,7]",
+      "source_fields": "For each exact-support window (episode,t), u=min(t+k+1,T); use obs[u,4:7]-obs[u,0:3], obs[t,36:39]-obs[u,39:42], obs[u,3]. Only valid k with t+k<T enter the objective.",
+      "representation": "Both future vectors rotate with the same causal chunk-start R; divide contact gap by 0.1 m and goal error by 0.15 m. Aperture maps to 2*aperture-1. These append after encoded action4. Repeated terminal labels only fill padded positions and receive zero valid-mask weight.",
+      "loss": "0.15 times joint-channel epsilon squared error, sum over mask[...,None] divided by mask.sum()*7. Public action epsilon loss remains separately weight 1 with denominator mask.sum()*4. No clean-state or action loss replacement occurs.",
+      "inference_isolation": "All eleven channels are sampled by the one common U-Net and host diffusion RNG. Inference has no call to training_targets or diffusion_targets. Auxiliary predictions affect joint denoising internally but are never used as measured conditioning, a plan, or an alternative controller; only action4 is decoded."
+    }
+  ],
+  "support_fit": "None. Fixed metric scaling, no population statistics or pretraining beyond the host normalizer. There is no persistent training-label or episode cache on the deployment module.",
+  "parents": [],
+  "change_summary": "Initial pre-feedback design. Adds seven jointly diffused contact-state channels and their independently normalized epsilon objective, and applies an invertible causal goal-bearing yaw frame to translation controls and relational conditioning. Uses 48 direct features and one common U-Net; no learned stage router, secondary denoiser, simulator or planner."
+}

@@ -1,0 +1,39 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "close_drawer__h04",
+  "skill_id": "close_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "No high-level arguments. target_pose and object_pose are observed world poses in metres with wxyz quaternions, and drawer_position is metres. The executor supplies two causal observations and a fresh observation for each decoded slot. The adaptive interaction anchor is recomputed from those observations identically in training and deployment.",
+  "observation_dependencies": [
+    "drawer_position",
+    "drawer_velocity",
+    "object_pose",
+    "qpos",
+    "qvel",
+    "target_pose",
+    "tcp_pose"
+  ],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 42]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [adaptive-anchor xyz metres, adaptive-anchor relative rotation 6D, native gripper scalar]. The anchor orientation is target_pose orientation. Its world translation is p_target + g*(p_object-p_target), where g=clip((drawer_position-0.24)/0.04,0,1)*clip((0.16-||p_tcp-p_object||)/0.08,0,1). Labels use the corresponding slot's pre-action observation; decoding recomputes the anchor from the fresh current observation. The 6D pair is projected by Gram-Schmidt to SO(3), composed with the anchor to a world TCP target, and passed to panda_kinematics.solve_ik from fresh measured joints. Gripper >=0 opens and <0 closes. Slots represent t-1 through t+14; execution uses slots 1 through 8 beginning at current t.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "Using the same pre-action observation for the deterministic anchor, compare FK of decoded IK joints with the demonstrated commanded TCP target in metres/radians and compare the unchanged gripper scalar. Rotation 6D is deterministically projected to SO(3); unconverged IK is returned with explicit diagnostics rather than replaced."
+  },
+  "cut_relation": "Uses every assigned action in [900,1330) for all 12 trajectories. The complete [900,1160) action-supervised overlap with place_block_in_drawer is preserved; only causal coordinates and the Cartesian action reference frame are changed."
+}

@@ -1,0 +1,32 @@
+{
+  "title": "Cabinet-canonical relations with a world-anchor side channel",
+  "coverage_gap": "The exact ten demonstrations contain five LL and five HH layouts, but no LH or HL layouts. Extrapolation also requires yaw magnitudes of 33-37 degrees rather than 5-10. Raw coordinate normalization risks entangling cabinet translation, orientation, reach phase and opening progress.",
+  "reusable_regularity": "Express hand-minus-handle, handle-minus-goal, hand and handle finite differences, and sign-invariant handle orientation columns in the observed static cabinet yaw frame. Rotate the action translation into the same frame. This makes rigidly transformed local manipulation relations easier to reuse without assuming global robot equivariance. Metric feature scales, rather than small support yaw/height variances, prevent artificial amplification outside support. The 37-dimensional deterministic representation is the only addition to the frozen DP; no learned encoder or auxiliary objective is used.",
+  "dependencies_preserved": [
+    "World hand and goal xyz remain explicit, together with cabinet sin/cos yaw, so the world positions of the handle and prior hand/handle are recoverable from the relative features and motion differences.",
+    "Current and previous gripper aperture are retained. Fixed end-effector orientation is not rotated; cabinet yaw and world coordinates preserve its relation to the cabinet and workspace.",
+    "Two quaternion rotation columns encode full current orientation up to the irrelevant quaternion sign; their previous-to-current differences retain causal angular motion. Cabinet pose, goal-relative handle location and orientation continue to describe the door obstacle and its evolving sweep.",
+    "Only declared absent object2 zero channels are omitted. Both whole observations are independently represented. Native history reset repetition remains valid."
+  ],
+  "evidence_refs": [
+    {"path":"bundle.json","fact":"Current evidence is door__N10__rep0, exactly ten complete support episodes and sixteen real frames."},
+    {"path":"task_materials.json","fact":"Observed cabinet sin/cos yaw, handle geom center, xyzw quaternions, fixed native end-effector orientation and world action4 semantics; train LL/HH and C/E gaps."},
+    {"path":"support_summary.json","fact":"Five LL and five HH; examples demo_00 and demo_01 have distinct world reach and goal directions but the same 0.56054 m initial handle-to-goal distance. Gripper action is constant +1 in support but is still learned, not clamped."},
+    {"path":"images/frame_00_demo_00_step_000.png","fact":"Initial hand offset from closed cabinet and handle."},
+    {"path":"images/frame_01_demo_00_step_073.png","fact":"Hand near handle on a partly swung door; cabinet remains a physical obstacle."},
+    {"path":"images/frame_02_demo_01_step_041.png","fact":"Hand is approaching the handle from above on the other training layout."},
+    {"path":"images/frame_03_demo_01_step_114.png","fact":"Late opening configuration, not just translation toward a free-space point."},
+    {"path":"trajectories/demo_00.json","rows":"obs 0:4, 27:35, 46:54; actions 40:50","fact":"Hand first rises and descends while the handle is nearly stationary, followed by handle motion and changing orientation. Motivates relative height, separate hand/object differences and geometry-based rather than elapsed-time conditioning."},
+    {"path":"PUBLIC_CONTRACT.md","scope":"public","fact":"Single common DP, 2x37 conditioning, causal chunk-start reversible action mapping and unmodified public action epsilon loss."}
+  ],
+  "expected_failure_signature": [
+    "At large yaw the fixed-orientation fingers may require non-equivariant contact offsets not covered in support: a plausible approach followed by failure to engage or sustained handle slip would falsify sufficiency of the static canonical representation.",
+    "The static frame does not explicitly straighten the rotating handle trajectory. Wrong pull direction or early stopping after initial door motion would indicate unresolved articulation/stage ambiguity.",
+    "World side channels could still be used as spurious layout proxies; a strong LH versus HL asymmetry would be evidence of that limitation. These are predictions, not measured outcomes."
+  ],
+  "required_runtime_fields": {"source":"causal_context.raw_history [B,2,41] and raw_current [B,41] only","slices":{"current_hand":[0,3],"current_gripper":[3,4],"current_handle":[4,7],"current_handle_quaternion_xyzw":[7,11],"previous_hand":[18,21],"previous_gripper":[21,22],"previous_handle":[22,25],"previous_handle_quaternion_xyzw":[25,29],"goal":[36,39],"cabinet_sin_cos_yaw":[39,41]},"action_frame":"For all 16 steps, xyz_encoded=Rz(yaw_at_chunk_start)^T xyz_native. Decode with Rz(yaw_at_chunk_start). Native dimensionless xyz still scales by 0.01 m per control; no centering, scaling or rotation of gripper. No candidate clipping; host clips world action cube and executes four steps."},
+  "training_only_targets": [],
+  "support_fit": "None. Physical scales in config are design constants; no statistics from other demonstrations, evaluation states or future deployment observations.",
+  "parents": [],
+  "change_summary": "Initial scientific design: deterministic metric cabinet-frame relations and orthogonal action mapping, with explicit world dependencies. No predecessor, no measured feedback and no pretraining."
+}

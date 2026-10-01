@@ -1,0 +1,140 @@
+{
+  "task_id": "constrained_retrieve_store",
+  "policy_id": "single_prior",
+  "skill_id": "full_task",
+  "source": "policies/exp2/constrained_retrieve_store/single_prior/source",
+  "manifest": "policies/exp2/constrained_retrieve_store/single_prior/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "single_prior"
+  ],
+  "assignment": "policies/exp2/constrained_retrieve_store/single_prior/assignment.json",
+  "training_spec": "policies/exp2/constrained_retrieve_store/single_prior/training/spec.json",
+  "dataset": "assets/exp2/datasets/constrained_retrieve_store/full_task_single_prior/dataset.json",
+  "normalization": "assets/exp2/tasks/constrained_retrieve_store/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/constrained_retrieve_store/single_prior/model.pt",
+    "sha256": "c5abc0db760d8e76ad10f47d7fb7016bda7555aaa5cec634672df90702ad9d1f",
+    "source_sha256": "c5abc0db760d8e76ad10f47d7fb7016bda7555aaa5cec634672df90702ad9d1f",
+    "size_bytes": 344011846,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 1,
+    "demos": 12,
+    "in_distribution_success": "1/12",
+    "exit_rule": "standard task success (first occurrence)",
+    "guidance": "No final guidance recorded."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/assignment.json",
+      "sha256": "4c4f28fed259606eb0b62527ee3a1d1c3e7091caee4164be5816378078d24f21",
+      "source_sha256": "69204becf0e0d44683763c63fd6b82368c8a5127eb3b8b68243471fb5764d329",
+      "size_bytes": 3560,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/handoff_evidence.json",
+      "sha256": "2e47b66adc5cd330249dd8b7db8cdea6407ebc18de6dc35b60fd9832c179737e",
+      "source_sha256": "2e47b66adc5cd330249dd8b7db8cdea6407ebc18de6dc35b60fd9832c179737e",
+      "size_bytes": 40020,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/source/HANDOFF.json",
+      "sha256": "f3be2f90e7ddc801dda07c09e63ac34f976bb55752eba1642e24cfc56a2b6e33",
+      "source_sha256": "f3be2f90e7ddc801dda07c09e63ac34f976bb55752eba1642e24cfc56a2b6e33",
+      "size_bytes": 3426,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/source/PRIOR.md",
+      "sha256": "817cdc51ac3a28fbdeb278216867d452c0205e956cfbb8f7d9db44679c45b2c6",
+      "source_sha256": "817cdc51ac3a28fbdeb278216867d452c0205e956cfbb8f7d9db44679c45b2c6",
+      "size_bytes": 8779,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/source/adapters.py",
+      "sha256": "fd981a97395e1cd27030cf9ef30c8f215dcfc07073f17d70f7bdf48c9feb2682",
+      "source_sha256": "fd981a97395e1cd27030cf9ef30c8f215dcfc07073f17d70f7bdf48c9feb2682",
+      "size_bytes": 6917,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/source/panda_posture.py",
+      "sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "source_sha256": "2551b24c67a8f4f42a1503e0fc681e889e36338092b2174f1fc298112c206774",
+      "size_bytes": 903317,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/source/pipeline.json",
+      "sha256": "81c4bbca5d2938a5972893689cf3687a34f84c62e877494f2934ae9739fec6b1",
+      "source_sha256": "81c4bbca5d2938a5972893689cf3687a34f84c62e877494f2934ae9739fec6b1",
+      "size_bytes": 1726,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/source/policy.py",
+      "sha256": "323f45350e901d98e137ea229ded8e8bcf27ad00c1baef7f81dd5d8039a9fd31",
+      "source_sha256": "323f45350e901d98e137ea229ded8e8bcf27ad00c1baef7f81dd5d8039a9fd31",
+      "size_bytes": 1099,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/source/policy_contract.json",
+      "sha256": "392da644838249be7705c05aca346eff1db8ddc8fb01b2974088435da702c5b0",
+      "source_sha256": "392da644838249be7705c05aca346eff1db8ddc8fb01b2974088435da702c5b0",
+      "size_bytes": 2580,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/source/training_bindings.json",
+      "sha256": "6d47e5da942ad1d8d537efa64d74ebd24ff8662eabd53a04b8d2c8a61c23de64",
+      "source_sha256": "6d47e5da942ad1d8d537efa64d74ebd24ff8662eabd53a04b8d2c8a61c23de64",
+      "size_bytes": 2820,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/submission.json",
+      "sha256": "ee719a66ad837078ac4449d0eccfe096e19cccaf1a451cbed8ef9870705c297a",
+      "source_sha256": "a912ecb1a8e134cacc5b158205a6e6ac25cff686c06d28d9c524d3f8e1eaa447",
+      "size_bytes": 10873,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/training/adapter_checks.json",
+      "sha256": "bc70f1ae4a52310c75a013b0a4cdc920edc1ee5f6c06401921cfdb9f44fde7ca",
+      "source_sha256": "bc70f1ae4a52310c75a013b0a4cdc920edc1ee5f6c06401921cfdb9f44fde7ca",
+      "size_bytes": 195,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/training/result.json",
+      "sha256": "d58052d6a54c0f74d9fc29f2b03bd65ca3598abcac79296d5d60ac6db8ce013a",
+      "source_sha256": "d6c70bbdfff55a0f843f639a6ccf92cd8a97337ec417b434b97c7d0b65943d46",
+      "size_bytes": 4856,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/constrained_retrieve_store/single_prior/training/spec.json",
+      "sha256": "b958fc5f6607e9f1c552a3f102c1f201a6995b2364a5b4c4a08547ac42983b99",
+      "source_sha256": "b958fc5f6607e9f1c552a3f102c1f201a6995b2364a5b4c4a08547ac42983b99",
+      "size_bytes": 17081,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/constrained_retrieve_store/task.json",
+  "completion_contract": "assets/exp2/tasks/constrained_retrieve_store/completion_contract.json",
+  "public_context": "assets/exp2/tasks/constrained_retrieve_store/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/constrained_retrieve_store/prompts/hl.md"
+}

@@ -1,0 +1,152 @@
+{
+  "task_id": "drawer_exchange",
+  "policy_id": "red_transfer__h02",
+  "skill_id": "red_transfer",
+  "source": "policies/exp2/drawer_exchange/red_transfer__h02/source",
+  "manifest": "policies/exp2/drawer_exchange/red_transfer__h02/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/drawer_exchange/red_transfer__h02/assignment.json",
+  "training_spec": "policies/exp2/drawer_exchange/red_transfer__h02/training/spec.json",
+  "dataset": "assets/exp2/datasets/drawer_exchange/red_transfer/dataset.json",
+  "normalization": "assets/exp2/tasks/drawer_exchange/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/drawer_exchange/red_transfer__h02/model.pt",
+    "sha256": "56b9ef683154e2ca79065cdffad9261e4d8d0bba89eadbfd074851bf44f158d2",
+    "source_sha256": "56b9ef683154e2ca79065cdffad9261e4d8d0bba89eadbfd074851bf44f158d2",
+    "size_bytes": 341573830,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 10,
+    "demos": 12,
+    "in_distribution_success": "10/12",
+    "exit_rule": "red on the pad and drawer_position > 0.26 at the final state",
+    "guidance": "Preferred default among these policies when phase confidence is low and the state matches the demonstrated segment entry. It passed 10/12 in-distribution runs, with zero reported unconverged IK steps in all 12. Use with drawer_position >0.26 m, red visible and preferably acquired or in a demonstrated-style approach, and a current reachable red_goal. The destination-centered representation is intended for pad-relative placement; relocated-pad benefit is not validated. Avoid using it as the assumed solution to a far-displaced red pickup, blue displacement, obstruction, or unreachable goal. The two validation failures kept the drawer open (final 0.2935 and 0.2943 m) but left red off-pad, so an open drawer and clean IK are insufficient: monitor red support/containment, opening before support, red following retreat, and stale blue targeting. Handoff: confirm red is on the pad, no longer follows TCP, and drawer_position is still >0.26. Its supervised overlap can be handed to blue_insert while red is still held/touching because release context is included; established blue/TCP co-motion during initial lift is the least ambiguous nominal switch cue."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/assignment.json",
+      "sha256": "f813fd26a5b3a215fe93c07f070bba00a196d8f57fa7d094ca693d9c18acd900",
+      "source_sha256": "ef85f7ea16a6cbf9ae2b62f5d3cea3c03a0f34c4fe7a9c4dff8d5ec79cbebaa5",
+      "size_bytes": 12299,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/handoff_evidence.json",
+      "sha256": "c13c0e0611e4113f62496ace0d838345f6701d18d46dfaaf525d1a7be6732882",
+      "source_sha256": "c13c0e0611e4113f62496ace0d838345f6701d18d46dfaaf525d1a7be6732882",
+      "size_bytes": 125399,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/source/HANDOFF.json",
+      "sha256": "fff4f534b8f03ec04572fe91ad3d9ba71f6ef2f41b0b22f20c24b3a56cc099de",
+      "source_sha256": "fff4f534b8f03ec04572fe91ad3d9ba71f6ef2f41b0b22f20c24b3a56cc099de",
+      "size_bytes": 1827,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/source/PRIOR.md",
+      "sha256": "9ff4f6a5d6810e7ab482896c42317f6679ee9f9b094216662cf9fe6e69ae6813",
+      "source_sha256": "9ff4f6a5d6810e7ab482896c42317f6679ee9f9b094216662cf9fe6e69ae6813",
+      "size_bytes": 4280,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/source/adapters.py",
+      "sha256": "99a13da387a4b5de22f9f4ab30a0e624ac6337ca3102d31bc3f13d38bde7894e",
+      "source_sha256": "99a13da387a4b5de22f9f4ab30a0e624ac6337ca3102d31bc3f13d38bde7894e",
+      "size_bytes": 4763,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/source/panda_posture.py",
+      "sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "source_sha256": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "size_bytes": 718763,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/source/pipeline.json",
+      "sha256": "0dcd6d7dda7c6c90993cb52f3f4437677c8c375c5911b710639ecf1de750d684",
+      "source_sha256": "0dcd6d7dda7c6c90993cb52f3f4437677c8c375c5911b710639ecf1de750d684",
+      "size_bytes": 1187,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/source/policy.py",
+      "sha256": "f5602510429cbc4c26de69e19a0207f6f394d860371ba5c530770dab192421bf",
+      "source_sha256": "f5602510429cbc4c26de69e19a0207f6f394d860371ba5c530770dab192421bf",
+      "size_bytes": 1149,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/source/policy_contract.json",
+      "sha256": "699cd7430f89b68ec945a2565798a4cf1740c0fc6343d02d5c3bf5fa6c85d11b",
+      "source_sha256": "699cd7430f89b68ec945a2565798a4cf1740c0fc6343d02d5c3bf5fa6c85d11b",
+      "size_bytes": 2433,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/source/training_bindings.json",
+      "sha256": "60a035c92b003797a66e3ef0af688d174f269cb66d3e93a060111ba653c6ef69",
+      "source_sha256": "60a035c92b003797a66e3ef0af688d174f269cb66d3e93a060111ba653c6ef69",
+      "size_bytes": 2727,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/submission.json",
+      "sha256": "7b070a5fd513be561fe9ec4e793a5debc7f8a9f696259f2e9ac4bf6c8adc06a4",
+      "source_sha256": "f59955ae1d8b57eba4c2644ca09024e14392463b8a482271acbe3e149c83908e",
+      "size_bytes": 19808,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/training/adapter_checks.json",
+      "sha256": "d59b3bbf0b005f40654aca2ecac1d6c2e9f06360f006cb6ffb20d0aded23f492",
+      "source_sha256": "d59b3bbf0b005f40654aca2ecac1d6c2e9f06360f006cb6ffb20d0aded23f492",
+      "size_bytes": 194,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/training/result.json",
+      "sha256": "ef717f8837ed18ba6c7b2f7355fb26bb534cc3eadc749b942cafbb615862a3be",
+      "source_sha256": "87627eac31507ed1fbe4ea540371a91e3fb47e8759206c17cf233339c370463c",
+      "size_bytes": 5069,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/training/spec.json",
+      "sha256": "8b02ec55f8d53e5de4318e66d27774da0cbd03a713b1a08fd043bf78c3a48648",
+      "source_sha256": "8b02ec55f8d53e5de4318e66d27774da0cbd03a713b1a08fd043bf78c3a48648",
+      "size_bytes": 16512,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/drawer_exchange/red_transfer__h02/prior_plan.json",
+      "sha256": "6646d768c6520ef3b2c1af3270d45f7d9cf204f024b8f191142662079dda7198",
+      "source_sha256": "6646d768c6520ef3b2c1af3270d45f7d9cf204f024b8f191142662079dda7198",
+      "size_bytes": 37406,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/drawer_exchange/task.json",
+  "completion_contract": "assets/exp2/tasks/drawer_exchange/completion_contract.json",
+  "public_context": "assets/exp2/tasks/drawer_exchange/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/drawer_exchange/prompts/hl.md",
+  "prior_plan": "policies/exp2/drawer_exchange/red_transfer__h02/prior_plan.json"
+}

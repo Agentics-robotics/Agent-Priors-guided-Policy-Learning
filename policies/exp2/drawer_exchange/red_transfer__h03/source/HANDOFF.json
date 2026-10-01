@@ -1,0 +1,14 @@
+{
+  "policy_id": "red_transfer__h03",
+  "entry_conditions": "Drawer_position is above 0.26 m and phase is selected from the current observable responsibility. Two real causal frames continue across a skill switch; only episode-start history may be duplicated.",
+  "exit_conditions": "Terminate after red pad placement/release and, for the intended successor overlap, after blue is centered, fingers are closed, and blue/TCP co-motion indicates initial lift. Phase or closed fingers alone are not grasp certificates.",
+  "overlap_role": "Every action in [230,470) and [600,850) remains supervised. Coarse bindings include predecessor drawer release through red lift and successor red descent/release through blue approach, closure, and lift.",
+  "successor_readiness": "blue_insert may receive from 600 with predecessor-release context. Use red_grasp_transport_place during final supported descent if still held, red_release_to_blue after support/opening and through transit, and blue_pickup near blue approach. Clean readiness is established blue lift.",
+  "failure_signatures": "Caller phase disagrees with geometry; gripper closes on the wrong object; red lacks co-motion, is off-pad, or follows retreat; TCP revisits red after release; blue is not under TCP at closure; or IK reports an unreachable local target.",
+  "continuation_guidance": "Choose drawer_release_to_red before red contact, red_grasp_transport_place while closing/carrying/descending red, red_release_to_blue after supported release and during transit, and blue_pickup for blue approach/closure/lift. If phase cannot be determined, use a state-only complementary prior rather than guessing.",
+  "limitations": "Training phase ranges are coarse and include timing variation. Successful demonstrations do not establish unseen contact-error recovery, and a wrong caller phase can intentionally produce unsafe mode selection.",
+  "evidence": [
+    {"trajectory_id":"demo1000","indices":[230,240,280,400,445,470,600,604,608,610,700,790,800,810,830,849]},
+    {"trajectory_id":"demo1001","indices":[230,240,445,470,600,604,610,700,800,810,830,849]}
+  ]
+}

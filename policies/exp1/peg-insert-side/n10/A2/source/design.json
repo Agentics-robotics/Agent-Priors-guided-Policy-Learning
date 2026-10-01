@@ -1,0 +1,45 @@
+{
+  "title": "Weakly supervised causal skill routing with role-specific relational encoders",
+  "coverage_gap": "Only paired low/low and high/high layouts occur in N10. An unconstrained joint representation can couple where to grasp to where to insert, and can conflate closing, lifting and inserting because their relative hand/peg offsets are similar. Independent peg/box shifts require reusing skills without assuming the demonstrated timing or y correlation.",
+  "reusable_regularity": "Learn four soft representation branches for approach, contact/closing, transport and insertion. Approach/contact branches see peg-relative hand geometry rather than goal coordinates; transport/insertion branches see the pegHead-to-goal error and grasp contact. A causal router is trained with weak stage annotations made from support gripper/z commands and measured head height. At deployment it predicts solely from geometry, aperture and motion, without labels or a time clock. The DP consumes all soft-gated branches, a world-context encoder, an ungated metric safety skip and router logits (124 features per observation). Gates never prescribe native actions or plan a path.",
+  "dependencies_preserved": [
+    "all branches use signed world coordinates; reach and transport roles separate peg placement from goal placement",
+    "a 0.025 per-branch routing floor prevents any geometry branch from being completely discarded",
+    "the ungated grasp gap and pegHead-to-goal error keep robot/object/box relations accessible through stage uncertainty",
+    "an always-on world encoder receives absolute hand/goal, current orientation, orientation difference and hand/object motion, retaining finite-workspace, fixed box orientation and robot dependencies rather than claiming global translation or rotation symmetry",
+    "gripper aperture, gripper change, measured object movement and absolute heights distinguish approach, contact and carrying",
+    "the head-to-grasp offset remains explicit in transport encoders; the two sites are never substituted for one another"
+  ],
+  "evidence_refs": [
+    "bundle.json: ten current-support episode IDs, no development data or expert source",
+    "task_materials.json: LL/HH support, independent factor definitions, shared raw observation and native action semantics",
+    "support_summary.json: five support episodes per training cell; nonconstant gripper aperture and large vertical motion across demonstrations",
+    "images/frame_00_demo_00_step_000.png: initial open-hand approach to a tabletop peg",
+    "images/frame_02_demo_01_step_034.png: descending hand aligned over the peg, not yet inserting",
+    "images/frame_01_demo_00_step_056.png: low-height contact/early transport",
+    "images/frame_03_demo_01_step_091.png and images/frame_06_demo_03_step_079.png: raised peg at the side opening",
+    "trajectories/demo_00.json: actions[0:16] initially open with z positive then negative; actions[32:64] positive gripper with downward contact commands followed by upward/lateral transfer; obs[48:54] shows changing aperture and object movement",
+    "trajectories/demo_01.json: obs[34:37] shows approach/closing geometry while the head is still near table height",
+    "contracts.py and learning.py: learned modules registered in build_modules, training-only target path, valid-mask auxiliary normalization"
+  ],
+  "expected_failure_signature": "The key falsifiable risk is routing error under extrapolation: contact may be predicted too early before a secure grasp, or the transport branch may persist after height alignment. This would produce grasp misses or repeated rise/descend transitions despite reasonable initial reaching. Weak labels are not physical stage or success oracles; the 0.03 m height band can label a laterally misaligned peg as insertion, so large transverse E offsets may still cause premature insertion. Small N may also overfit the learned world branch. No performance claim is made.",
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,42] only",
+    "slices": {"hand": [0,3], "gripper": [3,4], "pegGrasp": [4,7], "peg_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_gripper": [21,22], "previous_pegGrasp": [22,25], "previous_peg_quaternion_xyzw": [25,29], "goal": [36,39], "pegHead": [39,42]},
+    "omitted": "Declared absent object2 zero fields only. No runtime stage, demonstration ID, reset factors, episode time, future state or action, or success label.",
+    "action_frame": "Identity world action4 encode/decode. XYZ remains native 0.01 m-per-unit world translation; the gripper coordinate is unchanged. No clipping or execution override exists in the candidate."
+  },
+  "training_only_targets": [
+    {
+      "name": "skill_stage",
+      "shape": "[windows,2], aligned to the two causal history timestamps, including repeated initial observation",
+      "source_fields": "Only this D_N: actions[u,3], actions[u,2], obs[u,41] (pegHead z), obs[u,38] (goal z), with u=max(0,t-1) or t",
+      "definition": "0 if gripper command is negative; otherwise 1 if head is more than 0.03 m below goal and z command is nonpositive; otherwise 2 if still below that band; otherwise 3. These are weak skill labels, not evaluator stages or success thresholds.",
+      "loss": "0.05 times cross-entropy of the causal router, separately normalized by mask[:,0].sum()*2. All class labels are on valid history points. Public action epsilon loss stays weight 1 and denominator mask.sum()*4.",
+      "inference_isolation": "Labels exist only in training_targets/training_loss. condition uses measured raw_history, and denoise exposes its router logits for the training loss. No teacher stage is concatenated at inference or training."
+    }
+  ],
+  "support_fit": "No fitted statistics, persistent episode cache or auxiliary pretraining. Learned encoders and router are registered in build_modules and optimized only jointly in the common fixed updates.",
+  "parents": [],
+  "change_summary": "Initial pre-feedback design with learned soft skill routing, four role-specific bounded MLP encoders, an always-on world encoder and a weak stage cross-entropy auxiliary. Unlike the deterministic contact-chain candidate, representation specialization is learned and stage-supervised. Common DP backbone and world action4 are unchanged."
+}

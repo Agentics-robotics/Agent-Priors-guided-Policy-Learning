@@ -1,0 +1,22 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "place_block_in_drawer__h01",
+  "skill_id": "place_block_in_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "manipulated_object_pose_field": {"type": "string", "enum": ["object_pose"]},
+      "destination_pose_field": {"type": "string", "enum": ["target_pose"]}
+    },
+    "required": ["manipulated_object_pose_field", "destination_pose_field"]
+  },
+  "parameter_semantics": "manipulated_object_pose_field selects the freshly observed world pose of the block that defines the Cartesian action frame. destination_pose_field selects the observed desired placement pose used as object-relative conditioning. Pose positions are metres and quaternions are wxyz; both fields are resolved in both causal frames, and the object field is resolved again for each executed action.",
+  "observation_dependencies": ["object_pose", "target_pose", "tcp_pose", "qpos", "qvel", "drawer_position", "drawer_velocity"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 38]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [object-frame TCP translation xyz in metres, object-frame TCP rotation represented by the first two rotation-matrix columns (6D), native gripper scalar]. At training slot k, the frame is object_pose in the pre-action observation for that same slot. At execution, slots 1..8 are decoded against the fresh current object_pose, not the chunk-start pose. Rotation 6D is Gram-Schmidt projected to SO(3); the resulting relative pose is left-multiplied by the live object world pose. panda_kinematics.solve_ik converts that world TCP target to seven absolute joint targets from freshly measured qpos; the gripper scalar is appended unchanged and the executor applies its declared binary sign rule.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "Compare FK of the IK-produced joint target with the demonstrated commanded TCP target after object-relative encode/decode, plus unchanged gripper scalar. Maximum position metres, rotation radians, and gripper error must be at most 0.005; nonunique joints are allowed. The only pose projection is 6D Gram-Schmidt, exact for encoded labels."},
+  "cut_relation": "Uses every assigned [680,1160) action from all twelve demonstrations. It preserves the 680:840 retrieval overlap and 900:1160 close-drawer overlap while changing only the learned Cartesian coordinates to a live object frame. The intended refinement is object-displacement equivariance during attached transport; the post-release tail remains supervised for handoff robustness."
+}

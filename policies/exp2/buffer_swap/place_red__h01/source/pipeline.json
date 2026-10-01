@@ -1,0 +1,10 @@
+{
+  "policy_id": "place_red__h01",
+  "skill_id": "place_red",
+  "heuristic_index": 1,
+  "prior_summary": "Manipulated-object-equivariant Cartesian targets use blue during predecessor release and red during approach, grasp, lift, carry, place and retreat, selected causally by nearest 3D TCP distance.",
+  "applicable_conditions": "Prefer when buffered red is displaced or yawed but remains observable, table-supported, collision-free and reachable. The early declared entry is supported when TCP is still nearer blue; typed arguments must identify red, red_goal and blue.",
+  "termination_guidance": "Use only the unchanged framework success expression red_at_goal AND blue_at_goal. Demonstrated open gripper and high TCP retreat are continuation guidance, not extra success requirements.",
+  "limitations": "Nearest-object switching can be discontinuous and does not infer contact. Pose noise, missed grasps, slips, unstable blue, unreachable displacement and unseen collisions are not solved; demonstrations do not establish recovery.",
+  "config": {"backbone":"standard_diffusion_backbone","feature_dimension":69,"action_dimension":10,"active_reference":"nearest_tcp_object_3d","rotation":"relative_6d","auxiliary_loss":false}
+}

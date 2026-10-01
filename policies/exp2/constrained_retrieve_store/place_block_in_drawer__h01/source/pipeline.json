@@ -1,0 +1,10 @@
+{
+  "policy_id": "place_block_in_drawer__h01",
+  "skill_id": "place_block_in_drawer",
+  "heuristic_index": 1,
+  "prior_summary": "Live object-frame Cartesian targets make the carry/descent commands move with the freshly observed block while retaining measured robot posture and object-to-destination geometry.",
+  "applicable_conditions": "Prefer for an open stable drawer and a plausibly held block whose entry pose is displaced from demonstrations, when two causal frames show the block and TCP moving together. Use primarily from the retrieval handoff through descent/opening.",
+  "termination_guidance": "Yield when the block is at drawer-floor height and no longer follows TCP, or after upward retreat begins. close_drawer must not move the drawer until settling/detachment is observed; a destination-frame policy is preferred for the fixed handle transition.",
+  "limitations": "Assumes a reliable object pose and attachment-like motion; does not prove contact or recover a dropped block. After release, an off-centre block shifts this policy's retreat/handle targets. Object-relative targets can still be unreachable or collide, and IK diagnostics must be honored.",
+  "config": {"action_frame": "live_object_pose", "orientation_encoding": "rotation_6d", "action_dimension": 10, "history_steps": 2, "horizon": 16, "execution_steps": 8}
+}

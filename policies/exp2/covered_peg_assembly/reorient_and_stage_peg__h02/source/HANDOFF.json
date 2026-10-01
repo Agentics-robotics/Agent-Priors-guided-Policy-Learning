@@ -1,0 +1,15 @@
+{
+  "policy_id": "reorient_and_stage_peg__h02",
+  "entry_conditions": "Require closed fingers and an approximately stable peg-to-TCP transform over both causal frames after retrieval has coupled the peg to the TCP. Entry may occur at the low lift or later in incoming overlap; visual stability is not proof of contact.",
+  "exit_conditions": "Continue through lift, reorientation and transport, then hand off once peg-to-hole geometry shows near axis alignment and lateral centering above the hole, or later during demonstrated descent/early insertion.",
+  "overlap_role": "The complete [1120,1500) action supervision is retained, including 150 actions [1120,1270) shared with retrieve_peg_from_box and 120 actions [1380,1500) shared with align_and_insert_peg.",
+  "successor_readiness": "Prefer align_and_insert_peg when the peg remains coupled, is approximately identity-oriented, and is centered above the hole with descent underway. If the destination moved substantially, prefer the hole-frame policy.",
+  "failure_signatures": "Peg and TCP motion decouple, peg-to-TCP offset drifts, fingers open, the displaced source creates an unreachable route, wall/lid clearance is lost, hole-relative error fails to shrink, or IK reports poor convergence/limits.",
+  "continuation_guidance": "Refresh the peg anchor on every 8-action replan, preserve causal history across switches, execute only slots 1-8, and monitor attachment geometry plus explicit IK diagnostics. Never invoke as dropped-peg reacquisition.",
+  "limitations": "The peg anchor assumes a valid held-object observation and stable grasp. If only the peg moves while the hole stays fixed, the endpoint changes in peg coordinates and still must be inferred from narrow demonstrated relative geometry. There is no collision or bad-grasp recovery evidence.",
+  "evidence": [
+    {"trajectory_id":"demo12200","indices":[1120,1180,1220,1240,1270,1300,1360]},
+    {"trajectory_id":"demo12205","indices":[1120,1180,1220,1240,1270,1300,1360]},
+    {"trajectory_id":"demo12208","indices":[1120,1180,1220,1240,1270,1300,1360]}
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "policy_id": "buffer_red__h03",
+  "entry_conditions": "Normal open/clear entry or a supervised held-red, carry or lower state. The supplied buffer must designate a reachable free tabletop pose; target_object is red and successor_object blue.",
+  "exit_conditions": "Core exit is red settled at the actual supplied buffer with open fingers and clear TCP. Later segment exit is blue closure and initial lift while red remains at that supplied destination.",
+  "overlap_role": "All red release, retreat, transit, blue approach, closure and initial lift actions remain action-supervised. Destination framing continues through overlap and successor features identify blue.",
+  "successor_readiness": "Switch when red is stable at the supplied destination and the gripper is open/clear; a later switch through blue lift is supported. Keep the two causal observations across handoff.",
+  "failure_signatures": "Red lies outside the supplied free region, stays elevated or follows TCP after opening, the buffer is occupied, IK reports material residual/limit contact, or blue moves before red settles.",
+  "continuation_guidance": "Replan with the actual buffer pose before each sampled chunk. If destination feasibility or occupancy is doubtful, do not rely on destination equivariance; request high-level replanning. Failed release or placement has no demonstrated recovery.",
+  "limitations": "Destination-relative actions do not make red acquisition invariant to red displacement. No collision/contact truth is available and successful labels do not prove recovery from misses, drops or occupied destinations.",
+  "evidence": [
+    {"trajectory_id":"demo10100","indices":[0,100,120,160,200,220,240,260,280,300,320,340,420,450,479]},
+    {"trajectory_id":"demo10103","indices":[0,100,120,160,200,220,240,260,280,300,320,340,420,440,460,479]},
+    {"trajectory_id":"demo10105","indices":[0,100,120,160,200,220,240,250,260,280,300,320,340,420,440,460,479]}
+  ]
+}

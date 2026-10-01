@@ -1,0 +1,123 @@
+{
+  "checkpoint": "provenance/relocated/df42b86f5220cb24",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "e6cc528c1fbf8159f8a2688f1a0a6cdc76f228d4c5fa66d7930fac85cf2e05ca",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 0,
+    "physical_gpu": 3,
+    "uuid": "GPU-211ca63e-6f90-7281-b43a-e1facc953f2b"
+  },
+  "effective_action_targets": 40381518,
+  "final_weights_sha256": "80aa729ee83e63bb82c80020266a463a2cb25bf4e6223d5fd48aeb09fa48c931",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.1945478916168213,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.284606456756592,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.379176378250122,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.31619831919670105,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "92f10520272259fd72ab6ddcf43d0b462ebf11cc289bad3fdc66bce95904eece",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5640,
+      "duplicated_actions": 0,
+      "unique_actions": 5640
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "desired_open_position_m": {
+            "exclusiveMinimum": 0.26,
+            "type": "number"
+          },
+          "drawer_orientation_wxyz": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "drawer_origin_world_m": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        },
+        "required": [
+          "drawer_origin_world_m",
+          "drawer_orientation_wxyz",
+          "desired_open_position_m"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For valid labels, drawer-frame encode/decode reconstructs the demonstrated commanded world TCP pose; shared IK is checked by FK position/rotation and the unchanged gripper scalar. Gram-Schmidt only projects sampled non-orthogonal 6D rotations.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "Covers every assigned action in each [0,470) segment. It retains approach, front acquisition, pull, release, retreat, red approach/closure and initial lift, including the full action-supervised 230:470 overlap with red_transfer.",
+      "input_shapes": {
+        "features": [
+          2,
+          39
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "red_pose",
+        "drawer_position",
+        "drawer_velocity"
+      ],
+      "output_semantics": "Each slot is an absolute TCP target expressed in the drawer frame computed at that slot's pre-action observation: relative position [3] in metres, relative rotation as the first two rotation-matrix columns [6], then native gripper scalar [1]. At execution, slots 1..8 correspond to current t..t+7. Every slot is transformed through the drawer frame recomputed from the fresh current drawer_position and caller calibration. Rotation 6D is projected by Gram-Schmidt, then the world target is passed to panda_kinematics.solve_ik from freshly measured qpos. The gripper scalar is appended unchanged and the common executor maps its sign to open/close.",
+      "parameter_semantics": "drawer_origin_world_m is the current world-frame origin in metres of the drawer at drawer_position=0. drawer_orientation_wxyz is its unit wxyz orientation and defines local -X opening translation. desired_open_position_m is the intended scalar opening in metres, bound to the demonstrated 0.300 m. Fresh drawer_position and measured robot/object state come from the executor.",
+      "policy_id": "open_drawer__h01",
+      "skill_id": "open_drawer",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "d3d98cebac105572e17dc7ad716438277c36a4f8c5211ffb79fc1d522f3a62b3",
+    "PRIOR.md": "064e5619f01aebc0be59798b94f3a8abfa38943d4d2ea6c8ecac6c4c32723645",
+    "adapters.py": "7af84865c4caaf2c4b84ec068e0cadb8197a1cf052263a12918563164cd81196",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "1e00f034883708d9ba3d8817bdbbf2a3789a6cc1b6067146b0bb6a0d3c3831a8",
+    "policy.py": "23e0449fced4c37fb86dced2e15bade7df4d0ddac82437bf8cc7e20d552c8442",
+    "policy_contract.json": "4e7f7f0ba5551ec4e2127c0e0ae5b9cd05cfa3297682317fa07c6a6fc4a09334",
+    "training_bindings.json": "3523876be9e3d67a224b3a6cf7595e710abdd6eed49a17078025b6f5a6e4ef2d"
+  },
+  "trainable_parameters": 16885514,
+  "training_elapsed_seconds": 701.0164685801137,
+  "weight_l2_change": 28.434372757246038
+}

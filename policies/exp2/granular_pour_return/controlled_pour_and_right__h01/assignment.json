@@ -1,0 +1,162 @@
+{
+  "dataset": "assets/exp2/datasets/granular_pour_return/controlled_pour_and_right/dataset.json",
+  "dataset_sha256": "eb11d933a32058d138609f6e60013ce5a1fed9f69423409fdacd4fc3db595c4f",
+  "experiment_version": "APPL_v4_cartesian_new_task",
+  "heuristic": {
+    "applicability": "Prefer when the bowl pose is reliable and displaced relative to the demonstrations, while the container is securely held and the observed container-to-TCP grasp is near the nominal support. It is also the default for a nominal complete carry-pour-right trajectory because it preserves absolute bowl clearance. The high-level agent should not invoke any pour policy for an open or uncertain grasp or a source below safe clearance.",
+    "evidence": [
+      {
+        "indices": [
+          180,
+          320,
+          360,
+          700,
+          800,
+          900,
+          1000,
+          1100,
+          1460,
+          1680,
+          1740
+        ],
+        "trajectory_id": "demo12300"
+      },
+      {
+        "indices": [
+          180,
+          320,
+          360,
+          700,
+          800,
+          900,
+          1000,
+          1100,
+          1460,
+          1680,
+          1740
+        ],
+        "trajectory_id": "demo12303"
+      },
+      {
+        "indices": [
+          180,
+          320,
+          360,
+          700,
+          900,
+          1000,
+          1100,
+          1460,
+          1680,
+          1740
+        ],
+        "trajectory_id": "demo12309"
+      }
+    ],
+    "handoff": {
+      "entry_conditions": "The source is visibly closed in the gripper and lifted clear of support, from the early-lift states represented at action 180 through the staged bowl-centered states near actions 320-360. Bowl pose must be observed and the target must be reachable from the measured Panda configuration.",
+      "exit_conditions": "At least ten particles are observed settled within the bowl, the source is approximately upright and still held, and outbound motion toward the return region has started. Nominal takeover support spans actions 1460-1740, with near-upright states around 1680.",
+      "failure_signatures": "Open or widening fingers, loss of the rigid source-to-TCP relationship, source below bowl-wall clearance, source or TCP target outside IK reach, particles outside the bowl, particles still in the source when righting begins, or an IK non-convergence diagnostic. Demonstrations do not establish recovery from spills, slips or collisions.",
+      "overlap_role": "Every binding retains action supervision [180,360) shared with grasp_lift_stage and [1460,1740) shared with return_place_release. The first overlap teaches lift/carry continuation; the second teaches late righting and outbound transport.",
+      "successor_readiness": "return_place_release is ready after observed transfer completion and near-upright source orientation, nominally around action 1680; the 280-step outgoing overlap supports earlier takeover during righting and later takeover during outbound travel."
+    },
+    "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{},\"required\":[]},\"parameter_semantics\":\"No caller parameters. The executor supplies two causal observed states. The policy resolves the current world bowl pose from each state and decodes each learned bowl-frame TCP target through the fresh observed bowl pose and measured Panda joints.\"}",
+    "limitations": "Bowl displacement invariance is structural for the TCP carry, pour and righting arc, but reachability, bowl-wall clearance and the independently fixed return target remain physical dependencies. The demonstrations keep the bowl fixed, so improved behavior under bowl displacement is an expected benefit, not observed evidence. Direct TCP targets do not compensate for a substantially different or slipping grasp; prefer the source-motion prior then. Particle outcomes in the demonstrations are nominal and do not prove recovery.",
+    "pipeline_implications": "This is the displacement specialist and nominal default. Route reliable bowl displacement here. If the state is phase-ambiguous because discharge is early, late or partial, route to the particle-set residual prior. If a secure but unusual container-to-TCP transform is observed, route to the source-motion prior. Terminate only from the unchanged task evidence, not from elapsed time alone.",
+    "rationale": "All inspected demonstrations first move the held source from variable early lift states near the pickup area to a high source pose around (-0.259, 0.224, 0.400) m over the bowl, then execute a tilt/right arc while remaining bowl-centered. The bowl itself is fixed in training, so a world-target policy can confound the demonstrated coordinates with the relationship. Learning commanded TCP poses as SE(3) targets in the observed bowl frame makes the carry, pour and righting geometry equivariant to bowl translation and rotation by construction. Inputs retain measured qpos/qvel and relative source, particle and return-target context, because task-space invariance does not remove reachability, grasp or outbound-goal dependencies. The unchanged standard diffusion backbone is sufficient.",
+    "statement": "Bowl-frame absolute TCP trajectory prior: diffuse each commanded Cartesian TCP target as bowl-relative position, continuous 6D orientation and gripper command, then compose it with the freshly observed bowl pose and solve IK from freshly measured joints.",
+    "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned supervision; preserves incoming [180,360) and outgoing [1460,1740) action overlap.\"},{\"trajectory_id\":\"demo12301\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned supervision; preserves incoming [180,360) and outgoing [1460,1740) action overlap.\"},{\"trajectory_id\":\"demo12302\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned supervision; preserves incoming [180,360) and outgoing [1460,1740) action overlap.\"},{\"trajectory_id\":\"demo12303\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned supervision; preserves incoming [180,360) and outgoing [1460,1740) action overlap.\"},{\"trajectory_id\":\"demo12304\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned supervision; preserves incoming [180,360) and outgoing [1460,1740) action overlap.\"},{\"trajectory_id\":\"demo12305\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned supervision; preserves incoming [180,360) and outgoing [1460,1740) action overlap.\"},{\"trajectory_id\":\"demo12306\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned supervision; preserves incoming [180,360) and outgoing [1460,1740) action overlap.\"},{\"trajectory_id\":\"demo12307\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned supervision; preserves incoming [180,360) and outgoing [1460,1740) action overlap.\"},{\"trajectory_id\":\"demo12308\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned supervision; preserves incoming [180,360) and outgoing [1460,1740) action overlap.\"},{\"trajectory_id\":\"demo12309\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned supervision; preserves incoming [180,360) and outgoing [1460,1740) action overlap.\"},{\"trajectory_id\":\"demo12310\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned supervision; preserves incoming [180,360) and outgoing [1460,1740) action overlap.\"},{\"trajectory_id\":\"demo12311\",\"start\":180,\"stop\":1740,\"context_start\":179,\"call_args\":{},\"rationale\":\"Full assigned supervision; preserves incoming [180,360) and outgoing [1460,1740) action overlap.\"}]"
+  },
+  "heuristic_index": 1,
+  "normalization": {
+    "path": "provenance/relocated/b3141fbf4dee2e06",
+    "sha256": "52a649835b92c470fb6692de6991ba7c8ccd357aa4bb4ad2c6069c971f630101"
+  },
+  "observation_fields": {
+    "bowl_pose": [
+      0,
+      7
+    ],
+    "container_pose": [
+      7,
+      14
+    ],
+    "particle_positions": [
+      14,
+      50
+    ],
+    "qpos": [
+      50,
+      59
+    ],
+    "qvel": [
+      59,
+      68
+    ],
+    "target_pose": [
+      68,
+      75
+    ],
+    "tcp_pose": [
+      75,
+      82
+    ]
+  },
+  "plan_hash": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+  "policy_id": "controlled_pour_and_right__h01",
+  "prior_plan_path": "policies/exp2/granular_pour_return/controlled_pour_and_right__h01/prior_plan.json",
+  "prior_plan_sha256": "3f37229577285c09d8f4a6bf34ca69f28ee3d5c1c15d40d40531e0ec45bdc526",
+  "skill_id": "controlled_pour_and_right",
+  "sources": {
+    "demo12300": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12300.json",
+      "sha256": "21e58673a2d41af543f449b6c1bac1ddbf07c90cd1b3768efebe3b218b3ee197"
+    },
+    "demo12301": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12301.json",
+      "sha256": "1c649d39da186987da23fd7a5747e0e55521fac9fd32b20ba073029707c89ef3"
+    },
+    "demo12302": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12302.json",
+      "sha256": "b7b05183c5c26cf55369fd8013ae041085f557a36ebf9a82c9b9916920766aa9"
+    },
+    "demo12303": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12303.json",
+      "sha256": "24c3aeca48398d027456f5e3577b77135dc1b2be53a9a2b3c57a78efc9b761e5"
+    },
+    "demo12304": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12304.json",
+      "sha256": "048c023f0839c4630bb8a8d104c6c149816d94ca47ce5cc79ee2ad30390a4268"
+    },
+    "demo12305": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12305.json",
+      "sha256": "1c4493143c0d144d4fd44267328d7599720c6f6dd95aec6149609f9c8ff44203"
+    },
+    "demo12306": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12306.json",
+      "sha256": "e6c8a2014257ee090527799729078620a59713086e606f831d45cfcba4b1c7a4"
+    },
+    "demo12307": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12307.json",
+      "sha256": "c5530ad3cb09b0118fc5b715af9e6f87caca9d776f81ba10adf224458278d793"
+    },
+    "demo12308": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12308.json",
+      "sha256": "c1945edb8ae947d2f27ea872462c6eca2419d48f993377584f907da7e121c69a"
+    },
+    "demo12309": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12309.json",
+      "sha256": "ead11ff403366336ff24d395ccc9f795108d9d8d23f34736fbba145119718243"
+    },
+    "demo12310": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12310.json",
+      "sha256": "907dd172d12814e6c2ad53331c17252a3b90cab83dfca74130dcca54109a5957"
+    },
+    "demo12311": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12311.json",
+      "sha256": "e9123001777c449f99e1b1e8a0f1d4e6244bd84c9ee1cfc0978e0b44e8eaf3a1"
+    }
+  },
+  "subgoal": "With the source continuously held, finish transport to a high bowl-centered pose, tilt it in the demonstrated controlled arc until at least ten of twelve particles are transferred into the bowl, then rotate it back toward upright and start moving away. Keep the gripper closed and the container above the bowl walls throughout. Approximate entry: securely grasped source, from early lift-off through staged upright pose. Approximate exit: emptied source approximately upright, still grasped, elevated and approaching the return region.",
+  "prior_plan_original_sha256": "3f37229577285c09d8f4a6bf34ca69f28ee3d5c1c15d40d40531e0ec45bdc526"
+}

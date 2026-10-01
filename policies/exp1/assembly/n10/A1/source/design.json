@@ -1,0 +1,34 @@
+{
+  "title": "Metric handle-grasp and ring-seating relations",
+  "coverage_gap": "This D_N contains five LL and five HH episodes, but no independently recombined nut_x and peg_goal_x. Absolute-coordinate correlations can substitute for the actual hand-to-handle and ring-to-peg errors. Extrapolation also creates larger lateral transport errors than the observed diagonal layouts.",
+  "reusable_regularity": "Grasping is controlled by the handle relative to the hand; seating is controlled by the physical ring center relative to the peg goal, not the handle site relative to the peg. Expose both relations in world-aligned metric coordinates and at a fine contact scale, while retaining a coarse absolute robot position. The 45-channel deterministic representation includes an information-preserving core plus smooth distances, planar proximities and a regularized seating direction. Fixed physical scales rather than small support variances avoid artificially magnifying nearly constant channels. No controller, waypoint, action residual or time-based stage rule is used.",
+  "dependencies_preserved": [
+    "World hand position and world axes retain workspace/robot kinematic dependence; vertical coordinates explicitly retain gravity and table/peg clearance dependence.",
+    "Handle minus hand, ring minus handle, and goal minus ring preserve the separate pickup and assembly constraints and the nonzero lever arm between handle and ring.",
+    "Native current and previous object wxyz quaternions, hand and handle increments, aperture and aperture change retain orientation, contact and recent motion information.",
+    "All non-absent raw fields can be reconstructed from the core features and fixed origin/scales; object2 channels are omitted only because task_materials declares them absent zeros. The visible peg is represented by goal_xyz; no additional obstacle or simulator channel is assumed."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "assembly__N10__rep0, the ten listed support episodes only"},
+    {"path": "task_materials.json", "detail": "World delta action4 at scale .01 m; handle-site object_xyz versus ring_center_xyz; absent object2; LL/HH support and C/E factor definitions"},
+    {"path": "support_summary.json", "detail": "cell_counts LL=5 HH=5; demo_00 and demo_01 have 87 and 92 transitions and different nut/goal factors"},
+    {"path": "trajectories/demo_00.json", "detail": "Read obs 0:3, 25:29, 38:43 and actions 26:31. At obs 0 handle x is .107814 while ring x is -.022186; near obs 28 hand is about .046 m above the handle, and subsequent ring height rises."},
+    {"path": "trajectories/demo_01.json", "detail": "Read obs 59:62 and 86:90: elevated transport followed by descent with ring near peg xy, while handle remains displaced from ring."},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Inspected initial nut, handle and upright peg on the tabletop"},
+    {"path": "images/frame_02_demo_01_step_031.png", "detail": "Inspected gripper at the handle"},
+    {"path": "images/frame_01_demo_00_step_060.png", "detail": "Inspected lifted ring during transport"},
+    {"path": "images/frame_03_demo_01_step_091.png", "detail": "Inspected final ring/peg arrangement"},
+    {"path": "PUBLIC_CONTRACT.md", "detail": "One common DP; fixed action epsilon objective; causal two-observation conditioning"}
+  ],
+  "expected_failure_signature": "Falsifiable: if geometry was the main confound, C should not collapse solely when nut and goal signs differ. Remaining failures should concentrate on premature lift, poor grasp contact, or lowering before planar ring alignment. E may still fail during long lateral transport because a fixed feature basis does not impose a compositional phase mechanism or directional action equivariance. This is a hypothesis, not measured performance.",
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,42] only; normalized history is intentionally replaced by a documented fixed-metric transform",
+    "slices": {"hand": [0,3], "aperture": [3,4], "handle": [4,7], "quaternion_wxyz": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_handle": [22,25], "previous_quaternion_wxyz": [25,29], "peg_goal": [36,39], "ring_center": [39,42]},
+    "action_frame": "Identity encode/decode: first three channels remain world_dx,world_dy,world_dz in native .01 m units; fourth is unchanged gripper. Only the host clips in the native action cube and executes four of sixteen steps."
+  },
+  "training_only_targets": [],
+  "support_fit_statistics": "None. All configured scales are explicit physical design constants, not fitted on any other data. The host still fits its common raw normalizer on exact D_N.",
+  "architecture": "One frozen common conditional 1D U-Net DP with condition_dim=45 and action_dim=4. No additional learned modules or auxiliary losses.",
+  "parents": [],
+  "change_summary": "Initial scientific design: deterministic multiscale relational representation, identity native actions. No performance feedback used; no structural repairs at creation."
+}

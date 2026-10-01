@@ -1,0 +1,123 @@
+{
+  "checkpoint": "weights/exp2/buffer_swap/place_red__h04/model.pt",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "5d1f8b5a5f43f7ba322c4acbb128dc687428ed57a3dc098c1bd8119471db9699",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 3,
+    "physical_gpu": 1,
+    "uuid": "GPU-98220a3d-407e-9de2-bdc8-c061c57a041c"
+  },
+  "effective_action_targets": 40349563,
+  "final_weights_sha256": "1c242394ba937cf0278174ad70bbb338efd047ad5b718c97dee07550c30f9baf",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.3915324211120605,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.204817771911621,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.202181339263916,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.1583651602268219,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "7866389f42350dd31c973f521d739a73dd85419d93b2aa7f1e4b07e4011e1144",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5312,
+      "duplicated_actions": 0,
+      "unique_actions": 5312
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination": {
+            "enum": [
+              "red_goal"
+            ],
+            "type": "string"
+          },
+          "handoff_object": {
+            "enum": [
+              "blue"
+            ],
+            "type": "string"
+          },
+          "target_object": {
+            "enum": [
+              "red"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "target_object",
+          "destination",
+          "handoff_object"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Compare decoded IK FK TCP with the demonstrated commanded TCP after subtracting and restoring the identical causal anchor translation. World rotation-6D is projected only by stable Gram-Schmidt; IK convergence, residuals and limit contacts are reported.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Supervises every action in all twelve assigned [start,stop) segments, including the full approximately 230-240 action place_blue overlap covering blue lower/open, retreat, transit, red acquisition and initial lift. No action or terminal responsibility is trimmed.",
+      "input_shapes": {
+        "features": [
+          2,
+          71
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "red_pose",
+        "blue_pose",
+        "red_goal",
+        "blue_goal"
+      ],
+      "output_semantics": "Each slot is [world-axis TCP position minus the causally selected anchor translation in metres, world TCP rotation-6D, native gripper scalar]. The selected anchor is blue_pose during nearest-blue predecessor handling, red_pose during nearest-red source acquisition before lift, and observed red_goal after red is lifted over 0.05 m above goal z or is within 0.12 m horizontally of goal. Decode resolves this rule from the fresh observation, adds the fresh anchor translation, projects 6D to SO(3), and uses supplied Panda IK from freshly measured qpos. Slot 0 represents t-1; execution uses slots 1..8 beginning at t. Gripper sign semantics are unchanged.",
+      "parameter_semantics": "target_object selects observed red_pose for source-side translation anchoring; destination selects observed red_goal in world metres for lifted transport, placement and retreat; handoff_object selects observed blue_pose and blue_goal for predecessor context. These are semantic scene identifiers, not actuator parameters. The fixed causal anchor rule uses destination if red is more than 0.05 m above destination z or within 0.12 m horizontally of destination, otherwise whichever of blue or red is nearer the TCP.",
+      "policy_id": "place_red__h04",
+      "skill_id": "place_red",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "74e80a64e6b16fce327341cb46f06425a0f3f5c4dc039be567b8dbae50300ba6",
+    "PRIOR.md": "787f82cebecf56287c0f2c62cdf70aaf4735d3eba029e62fa527ac390d245762",
+    "adapters.py": "7d8033c8902af248426a49405daa7825ceaf9de73252c7eead55673fa7b21e2c",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+    "pipeline.json": "034c9e731aaab4befa7c7953d616b07163e751562b98d8c4d83bcf4c54ba9c79",
+    "policy.py": "d8c7f19445c32817c71c5858055dcf41e9b3d34fce9f2bf74afb0a5fb2338be1",
+    "policy_contract.json": "831b91324caa3e4043078066f90680267585628e885ce0e272eea4d48ee552fc",
+    "training_bindings.json": "9658a81fdba38be16430d928a32609c73f9750522f376a88be8a8619e125e1f6"
+  },
+  "trainable_parameters": 17344266,
+  "training_elapsed_seconds": 618.3115869259927,
+  "weight_l2_change": 32.472191706337036
+}

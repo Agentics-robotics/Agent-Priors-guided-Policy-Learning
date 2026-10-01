@@ -1,0 +1,14 @@
+{
+  "policy_id": "buffer_red__h02",
+  "entry_conditions": "Any action-supervised red phase is allowed: clear/open approach, closed-finger red lift/carry, lowering at buffer, or release/retreat. Late entry is allowed when red is stable and continuation into blue overlap is intended.",
+  "exit_conditions": "Core exit is visibly stable buffered red with open/clear gripper. Segment exit can be blue closed on and beginning to lift while red stays stable. The predicted phase alone is never proof.",
+  "overlap_role": "The complete 210-230 action overlap per occurrence is retained. Diffusion supervises every overlap action and auxiliary phase supervision separates release/retreat from blue approach, closure and lift.",
+  "successor_readiness": "Use observed red stability, open/clear gripper and blue intent, not the auxiliary class alone. Preserve both causal frames; late switching through blue initial lift remains action-supervised.",
+  "failure_signatures": "Auxiliary phase conflicts with visible object motion; red remains elevated or follows after opening; closed fingers lack object co-motion; or decoded IK has material residual or limit contact.",
+  "continuation_guidance": "Reinvoke from a supervised intermediate state to refresh the TCP residual anchor. If geometry does not match a demonstrated phase or a grasp/drop failed, stop and request high-level reassessment rather than trusting the phase class.",
+  "limitations": "Four phase classes are hand-derived causal supervision, not contact labels. No demonstration establishes recovery from miss, collision, drop or wrong-object contact, and TCP residual labels are not target-displacement invariant.",
+  "evidence": [
+    {"trajectory_id":"demo10100","indices":[0,80,100,120,160,200,220,240,260,280,300,320,340,380,420,450,479]},
+    {"trajectory_id":"demo10105","indices":[0,80,100,120,160,200,220,240,250,260,280,300,320,340,400,420,440,460,479]}
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "checkpoint": "provenance/relocated/d69034df6135d33f",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "cc7465223e7d94bc6a65fe56bf52aaa4019c37938d88f907cbe89fc9554a0682",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 7,
+    "physical_gpu": 5,
+    "uuid": "GPU-13ce441a-9b9f-d327-08cf-e7e9f728b580"
+  },
+  "effective_action_targets": 39354553,
+  "final_weights_sha256": "3ebb6554b3845e4840fd0d13b24ccb459acb3dcef54d191044500b4b2a266c80",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.5535247325897217,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.4451098442077637,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.5866408348083496,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.5559892654418945,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "cefb720ce27cd64420bebed94f3578d3537eca35e417ff351808946227fe800e",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 2014,
+      "duplicated_actions": 0,
+      "unique_actions": 2014
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination_object": {
+            "enum": [
+              "hole"
+            ],
+            "type": "string"
+          },
+          "held_object": {
+            "enum": [
+              "peg"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "destination_object",
+          "held_object"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For valid demonstration labels, hole_T_tcp is reconstructed (with the 6D SO(3) projection), transformed by the matching observed world_T_hole, and solved by shared IK. Compare FK TCP position, rotation angle, and unchanged gripper scalar to the demonstrated commanded target; nonunique joints are allowed.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Uses all assigned [start,stop) actions for every trajectory, including the complete [1380,1500) incoming overlap, and changes only the Cartesian coordinate representation and causal conditioning.",
+      "input_shapes": {
+        "features": [
+          2,
+          63
+        ]
+      },
+      "observation_dependencies": [
+        "hole_pose",
+        "peg_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is an absolute TCP target expressed in the freshly observed destination/hole frame: translation xyz in metres, rotation as the first two columns of a relative rotation matrix (6D), then the native gripper scalar. The decoder projects 6D to SO(3), left-composes the current world_T_hole at that execution step, and invokes panda_kinematics.solve_ik from fresh measured qpos. Prediction slots are t-1 through t+14; execution uses slots 1 through 8. No scripted task motion is added.",
+      "parameter_semantics": "destination_object selects the currently observed hole_pose as the moving Cartesian reference. held_object selects the currently observed peg_pose for grasp and alignment features. Both are semantic scene identifiers, not actuator values.",
+      "policy_id": "align_and_insert_peg__h01",
+      "skill_id": "align_and_insert_peg",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "8c103def457e527b931bf8aa149ecdc6bc8b41020f1bcd7202a7a40bdd5fb334",
+    "PRIOR.md": "79f4636329369f068a7c553bca04c38d7f5aa4cd0d971c82d16ab55956e447e7",
+    "adapters.py": "2bcfcb4d0064d6d0c6caf9a27b7627a552d486cab8d3997da40533455654a7ce",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "0482125908d98da6b98d022519da3dfa7c1cdf4176cb10f00cd129ba962042f7",
+    "policy.py": "5748b71199b258736c7efc7a1eb979fbfd8968cb4fefce5a0fba1f0b6343b10a",
+    "policy_contract.json": "8186bf67cd217b3b1f706676ce0de9dc32240300c434e0734d2c80e00919c2a6",
+    "training_bindings.json": "b4de2f976d1faa162937f95a6adb7e2abe769978b98fe45e41868ade39bc27e0"
+  },
+  "trainable_parameters": 17229578,
+  "training_elapsed_seconds": 673.564434486907,
+  "weight_l2_change": 31.856271672188754
+}

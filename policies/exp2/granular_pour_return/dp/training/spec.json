@@ -1,0 +1,827 @@
+{
+  "candidate_config": {},
+  "contract": {
+    "action_dimension": 10,
+    "call_args_schema": {
+      "additionalProperties": false,
+      "properties": {},
+      "required": [],
+      "type": "object"
+    },
+    "conversion_check": {
+      "description": "Shared damped least-squares IK; converged tolerance 1e-4 m and 1e-3 rad.",
+      "mode": "task_space",
+      "tolerance": 0.005
+    },
+    "cut_relation": "No segmentation; complete original trajectories.",
+    "input_shapes": {
+      "features": [
+        2,
+        82
+      ]
+    },
+    "observation_dependencies": [
+      "bowl_pose",
+      "container_pose",
+      "particle_positions",
+      "qpos",
+      "qvel",
+      "target_pose",
+      "tcp_pose"
+    ],
+    "output_semantics": "Per slot: world TCP position xyz in metres (3), first and second columns of the world TCP rotation matrix (6), native gripper scalar (1). Labels are FK of the demonstrated seven-joint command. Decoding orthonormalizes the 6D rotation and applies the shared panda_kinematics.solve_ik from the measured joints; residuals are reported.",
+    "parameter_semantics": "No runtime semantic parameters; full-task ordinary Cartesian DP.",
+    "policy_id": "cartesian_dp",
+    "skill_id": "full_task",
+    "temporal": {
+      "control_hz": 20,
+      "execution_steps": 8,
+      "history_steps": 2,
+      "prediction_horizon": 16,
+      "prediction_start_offset": -1
+    },
+    "version": "appl.flexible.sol.v1"
+  },
+  "normalizer": {
+    "action_min": [
+      -0.23166877031326294,
+      -0.502354085445404,
+      -0.6208195090293884,
+      -2.806307554244995,
+      -0.256510466337204,
+      0.7422928214073181,
+      -0.2079142928123474,
+      -1.0
+    ],
+    "action_scale": [
+      0.458456352353096,
+      1.0786470174789429,
+      0.8322644531726837,
+      1.0564380884170532,
+      2.2976302802562714,
+      2.215395987033844,
+      1.4257156252861023,
+      2.0
+    ],
+    "fields": {
+      "bowl_pose": [
+        0,
+        7
+      ],
+      "container_pose": [
+        7,
+        14
+      ],
+      "particle_positions": [
+        14,
+        50
+      ],
+      "qpos": [
+        50,
+        59
+      ],
+      "qvel": [
+        59,
+        68
+      ],
+      "target_pose": [
+        68,
+        75
+      ],
+      "tcp_pose": [
+        75,
+        82
+      ]
+    },
+    "fit_ids": [
+      "demo12300",
+      "demo12301",
+      "demo12302",
+      "demo12303",
+      "demo12304",
+      "demo12305",
+      "demo12306",
+      "demo12307",
+      "demo12308",
+      "demo12309",
+      "demo12310",
+      "demo12311"
+    ],
+    "fit_samples": 23356,
+    "mean": [
+      -0.25999999046325684,
+      0.18000000715255737,
+      0.012000000104308128,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.3556072860956192,
+      -0.02890992909669876,
+      0.20128417760133743,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.3253854662179947,
+      0.008064530789852142,
+      0.21668231626972556,
+      -0.29790811985731125,
+      0.00173988938331604,
+      0.21632274286821485,
+      -0.289890892803669,
+      0.0038054808974266052,
+      0.2164057674817741,
+      -0.34896671772003174,
+      0.016562186181545258,
+      0.21686732256785035,
+      -0.29721175879240036,
+      0.017842836678028107,
+      0.21686026128008962,
+      -0.3177533373236656,
+      0.018402405083179474,
+      0.2177840694785118,
+      -0.3086993098258972,
+      0.0060422420501708984,
+      0.21678680507466197,
+      -0.356473907828331,
+      0.0013068988919258118,
+      0.21614586468786,
+      -0.28954482078552246,
+      -0.00040343403816223145,
+      0.21614795131608844,
+      -0.30877839028835297,
+      0.012529484927654266,
+      0.21664149686694145,
+      -0.30137764662504196,
+      0.012936830520629883,
+      0.21690027508884668,
+      -0.2901148274540901,
+      0.013096340000629425,
+      0.21867343364283442,
+      -0.002353489398956299,
+      0.03715991973876953,
+      -0.20409762114286423,
+      -2.2782976627349854,
+      0.8926381915807724,
+      1.8499789535999298,
+      0.5055363699793816,
+      0.025178481359034777,
+      0.025168692227452993,
+      -0.005567982792854309,
+      0.0036555230617523193,
+      -0.008294492959976196,
+      -0.004486903548240662,
+      0.001372799277305603,
+      0.004660859704017639,
+      -0.005953103303909302,
+      -0.062191545963287354,
+      -0.06220012158155441,
+      -0.46000000834465027,
+      -0.2800000011920929,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.43503981828689575,
+      -0.02807767689228058,
+      0.2555653750896454,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "observation_clipping": false,
+    "quaternion_normalization": "unit_component_bounds",
+    "raw_std": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.08531108370774385,
+      0.2033202629876486,
+      0.15255298869291128,
+      0.21804704427069052,
+      0.3552133457859516,
+      0.003039398912959496,
+      0.005409041109216736,
+      0.07746494186891385,
+      0.12640384675973806,
+      0.16809203819480478,
+      0.08009402202784055,
+      0.12759946884296275,
+      0.16707485608619216,
+      0.0734422937836018,
+      0.12744075005801989,
+      0.16842230472968586,
+      0.07295464164560354,
+      0.12246675317973765,
+      0.16875609110822834,
+      0.07978815425999865,
+      0.12311587867631679,
+      0.1698078763587686,
+      0.0698294461833846,
+      0.12303777566659839,
+      0.17013909645894298,
+      0.08562908257265686,
+      0.12789294683762287,
+      0.1669744022263585,
+      0.06823862877116449,
+      0.1277250828328418,
+      0.16664017846233645,
+      0.08444989918547932,
+      0.12839338288391478,
+      0.16718316418404905,
+      0.08078702682451801,
+      0.12380141170854198,
+      0.16785743667182007,
+      0.08400813218473693,
+      0.12325222095904387,
+      0.1675817793783066,
+      0.0702505978664322,
+      0.12378562342547941,
+      0.16942959796701848,
+      0.12673124350990542,
+      0.2525945748181919,
+      0.20493837103234475,
+      0.26743053356887914,
+      0.7665633050475673,
+      0.5518551980256206,
+      0.4253286976983719,
+      0.009754647175073464,
+      0.009766174246234521,
+      0.043720462167943154,
+      0.07672864540462353,
+      0.058502310960944805,
+      0.07249731645493888,
+      0.07973639779032667,
+      0.0883821822848327,
+      0.08449858378517303,
+      0.012689889820613635,
+      0.01289592172452587,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.07765737942923626,
+      0.18357208062487707,
+      0.11218122234206615,
+      0.3550087734172869,
+      0.21868398412226703,
+      0.004674391559028015,
+      0.00275865571218142
+    ],
+    "std": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.1148015707731247,
+      0.25534989684820175,
+      0.20128422230482101,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.15686781704425812,
+      0.2366783395409584,
+      0.20118969539180398,
+      0.16240812093019485,
+      0.23617957532405853,
+      0.20083568198606372,
+      0.15439089387655258,
+      0.23243089765310287,
+      0.2009078380651772,
+      0.12963756918907166,
+      0.22896524518728256,
+      0.20137188350781798,
+      0.16171175986528397,
+      0.22748393565416336,
+      0.20136717287823558,
+      0.12885219603776932,
+      0.22689495235681534,
+      0.2023063376545906,
+      0.1732003390789032,
+      0.23968671262264252,
+      0.2012873557396233,
+      0.12543828785419464,
+      0.23495882004499435,
+      0.20064611081033945,
+      0.15404903888702393,
+      0.23399516940116882,
+      0.20064828591421247,
+      0.17327813804149628,
+      0.232930488884449,
+      0.201157558709383,
+      0.16587764769792557,
+      0.23182564973831177,
+      0.20141361560672522,
+      0.15460392087697983,
+      0.2316848710179329,
+      0.20318895997479558,
+      0.22931547462940216,
+      0.5392277240753174,
+      0.41555125266313553,
+      0.5279877185821533,
+      1.1484894901514053,
+      1.107692927122116,
+      0.7122197821736336,
+      0.014821517746895552,
+      0.014831306878477335,
+      0.1751593053340912,
+      0.2816646099090576,
+      0.21905475854873657,
+      0.29590512812137604,
+      0.27844496071338654,
+      0.2828572243452072,
+      0.2750168740749359,
+      0.2422473430633545,
+      0.2422981634736061,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.11395853757858276,
+      0.2539628893136978,
+      0.2013097107410431,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "public_context": {
+    "capabilities": {
+      "automatic_ik_service": false,
+      "causal_history_across_switches": true,
+      "contact_truth": false,
+      "future_states": "training labels only",
+      "learned_images": false,
+      "parameter_budget": 64000000,
+      "public_robot_chain": true,
+      "typed_call_arguments": true,
+      "variable_learned_action_dimension": true
+    },
+    "geometry": {
+      "bowl_center": [
+        -0.26,
+        0.18
+      ],
+      "bowl_floor_top": 0.012,
+      "bowl_inner_half_xy": [
+        0.13,
+        0.12
+      ],
+      "bowl_wall_top": 0.08,
+      "contact_tolerance_m": 0.0003,
+      "container_bound_half_xy": [
+        0.078,
+        0.03
+      ],
+      "container_grasp_local": [
+        -0.07,
+        0,
+        0.052
+      ],
+      "container_half_xy": [
+        0.035,
+        0.03
+      ],
+      "container_handle_half": [
+        0.008,
+        0.012,
+        0.025
+      ],
+      "container_handle_local": [
+        -0.07,
+        0,
+        0.052
+      ],
+      "container_height": 0.085,
+      "control_hz": 20,
+      "description": "Lift the particle-filled container, pour at least ten of twelve rigid particles into the bowl, then return the source container upright to its marked region.",
+      "minimum_particles_in_bowl": 10,
+      "particle_count": 12,
+      "particle_radius": 0.0055,
+      "return_half_xy": [
+        0.12,
+        0.075
+      ],
+      "return_target": [
+        -0.46,
+        -0.28,
+        0.0
+      ],
+      "return_z_tolerance": 0.015,
+      "robot": "panda",
+      "task_id": "granular_pour_return",
+      "upright_cosine": 0.97,
+      "wall_thickness": 0.005
+    },
+    "native_action": {
+      "arm": "seven absolute Panda joint targets in radians",
+      "control_hz": 20,
+      "dimension": 8,
+      "gripper": "nonnegative opens (+1), negative closes (-1); common binary executor"
+    },
+    "observation_fields": {
+      "bowl_pose": [
+        0,
+        7
+      ],
+      "container_pose": [
+        7,
+        14
+      ],
+      "particle_positions": [
+        14,
+        50
+      ],
+      "qpos": [
+        50,
+        59
+      ],
+      "qvel": [
+        59,
+        68
+      ],
+      "target_pose": [
+        68,
+        75
+      ],
+      "tcp_pose": [
+        75,
+        82
+      ]
+    },
+    "observation_semantics": "Only declared observed vectors; positions in world metres, pose quaternions wxyz.",
+    "robot": {
+      "arm_joint_order": [
+        "panda_joint1",
+        "panda_joint2",
+        "panda_joint3",
+        "panda_joint4",
+        "panda_joint5",
+        "panda_joint6",
+        "panda_joint7"
+      ],
+      "base_link": "panda_link0",
+      "base_position_world": [
+        -0.85,
+        0.0,
+        0.0
+      ],
+      "base_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "frames": "URDF parent-origin then local joint rotation; world/base translation as supplied",
+      "tcp_chain": [
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link1",
+          "limits": {
+            "effort": 87.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.175
+          },
+          "name": "panda_joint1",
+          "parent": "panda_link0",
+          "q_index": 0,
+          "rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            0.0,
+            0.333
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link2",
+          "limits": {
+            "effort": 87.0,
+            "lower": -1.7628,
+            "upper": 1.7628,
+            "velocity": 2.175
+          },
+          "name": "panda_joint2",
+          "parent": "panda_link1",
+          "q_index": 1,
+          "rpy": [
+            -1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link3",
+          "limits": {
+            "effort": 87.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.175
+          },
+          "name": "panda_joint3",
+          "parent": "panda_link2",
+          "q_index": 2,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            -0.316,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link4",
+          "limits": {
+            "effort": 87.0,
+            "lower": -3.0718,
+            "upper": -0.0698,
+            "velocity": 2.175
+          },
+          "name": "panda_joint4",
+          "parent": "panda_link3",
+          "q_index": 3,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0825,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link5",
+          "limits": {
+            "effort": 12.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.61
+          },
+          "name": "panda_joint5",
+          "parent": "panda_link4",
+          "q_index": 4,
+          "rpy": [
+            -1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            -0.0825,
+            0.384,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link6",
+          "limits": {
+            "effort": 12.0,
+            "lower": -0.0175,
+            "upper": 3.7525,
+            "velocity": 2.61
+          },
+          "name": "panda_joint6",
+          "parent": "panda_link5",
+          "q_index": 5,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "child": "panda_link7",
+          "limits": {
+            "effort": 12.0,
+            "lower": -2.8973,
+            "upper": 2.8973,
+            "velocity": 2.61
+          },
+          "name": "panda_joint7",
+          "parent": "panda_link6",
+          "q_index": 6,
+          "rpy": [
+            1.5707963267948966,
+            0.0,
+            0.0
+          ],
+          "type": "revolute",
+          "xyz": [
+            0.088,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "child": "panda_link8",
+          "name": "panda_joint8",
+          "parent": "panda_link7",
+          "rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "type": "fixed",
+          "xyz": [
+            0.0,
+            0.0,
+            0.107
+          ]
+        },
+        {
+          "child": "panda_hand",
+          "name": "panda_hand_joint",
+          "parent": "panda_link8",
+          "rpy": [
+            0.0,
+            0.0,
+            -0.7853981633974483
+          ],
+          "type": "fixed",
+          "xyz": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "child": "panda_hand_tcp",
+          "name": "panda_hand_tcp_joint",
+          "parent": "panda_hand",
+          "rpy": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "type": "fixed",
+          "xyz": [
+            0.0,
+            0.0,
+            0.1034
+          ]
+        }
+      ],
+      "tcp_link": "panda_hand_tcp",
+      "urdf_sha256": "524c6986dbbabe244e05801f262862205e880834d01459b06ee273016d0579ba",
+      "urdf_source": "environments/exp2/.pixi/envs/default/lib/python3.11/site-packages/mani_skill/assets/robots/panda/panda_v2.urdf"
+    },
+    "scene_identifiers": {
+      "goals": [
+        "target_pose"
+      ],
+      "objects": [
+        "bowl",
+        "container"
+      ]
+    },
+    "schema": "appl.flexible.sol.v1",
+    "task_id": "granular_pour_return",
+    "temporal": {
+      "control_hz": 20,
+      "execution_steps": 8,
+      "history_steps": 2,
+      "prediction_horizon": 16,
+      "prediction_start_offset": -1
+    }
+  },
+  "representation_normalizer": {
+    "center": [
+      -0.43492376804351807,
+      -0.028283894062042236,
+      0.2556300163269043,
+      0.9990607500076294,
+      -0.018894825130701065,
+      0.004837914370000362,
+      -0.018801599740982056,
+      -0.09583288431167603,
+      -0.45381462574005127,
+      0.0
+    ],
+    "fit": "valid training labels only; midpoint/half-range, constant dimension scale 1",
+    "inference_used": false,
+    "scale": [
+      0.11393745243549347,
+      0.25399431586265564,
+      0.20163889229297638,
+      0.0009392499923706055,
+      0.04135056212544441,
+      0.02538323402404785,
+      0.04195589944720268,
+      0.904167115688324,
+      0.5461806654930115,
+      1.0
+    ],
+    "valid_labels": 372424
+  },
+  "skill_id": "full_task",
+  "training": {
+    "action_scale_floor": 0.01,
+    "batch_size": 128,
+    "checkpoint_every": 2000,
+    "clip_sample": true,
+    "denoising_inference_steps": 100,
+    "denoising_train_steps": 100,
+    "down_dims": [
+      128,
+      256,
+      512
+    ],
+    "ema_decay": 0.999,
+    "execution_steps": 8,
+    "groups": 8,
+    "horizon": 16,
+    "kernel_size": 5,
+    "learning_rate": 0.0001,
+    "lr_schedule": "cosine",
+    "max_grad_norm": 1,
+    "observation_normalization": "limits",
+    "observation_std_floor": 0.001,
+    "observation_steps": 2,
+    "quaternion_normalization": "unit_component_bounds",
+    "sampler": "ddpm",
+    "seeds": [
+      0
+    ],
+    "selection": "last EMA at predeclared budget",
+    "timestep_embed_dim": 128,
+    "updates": 60000,
+    "warmup_steps": 500,
+    "weight_decay": 1e-06
+  }
+}

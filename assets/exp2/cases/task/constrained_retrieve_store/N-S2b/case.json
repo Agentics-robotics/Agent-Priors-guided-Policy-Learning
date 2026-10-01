@@ -1,0 +1,102 @@
+{
+  "contract": {
+    "cavity_half_xy": [
+      0.172,
+      0.182
+    ],
+    "control_hz": 20,
+    "description": "Retrieve the block from the low tunnel, put it inside the drawer, and leave the drawer closed.",
+    "drawer_closed_threshold": 0.025,
+    "drawer_goal_local": [
+      -0.065,
+      0,
+      0.028
+    ],
+    "drawer_open_definition": "drawer_position strictly greater than drawer_open_m",
+    "drawer_open_m": 0.26,
+    "drawer_origin": [
+      0.19,
+      0.0,
+      0.035
+    ],
+    "drawer_travel": 0.3,
+    "object_half_m": 0.02,
+    "object_in_tunnel_definition": "block footprint inside tunnel_center +/- tunnel_half_xy, center z within 0.011 m of tunnel_floor_top + object_half_m",
+    "object_z_interval": [
+      0.053,
+      0.074
+    ],
+    "predicates": [
+      "object_inside",
+      "drawer_closed"
+    ],
+    "robot": "panda",
+    "schema": "appl.cartesian_ik.task_goals.v1",
+    "success_expression": "object_inside AND drawer_closed",
+    "task_id": "constrained_retrieve_store",
+    "tunnel_center": [
+      -0.37,
+      -0.4
+    ],
+    "tunnel_clear_height": 0.16,
+    "tunnel_floor_top": 0.06,
+    "tunnel_half_xy": [
+      0.1,
+      0.145
+    ],
+    "tunnel_wall_thickness": 0.008
+  },
+  "demo": "demo12110",
+  "drawer_position": 0.29989317059516907,
+  "expert_goals": {
+    "drawer_closed": true,
+    "object_inside": true,
+    "success": true
+  },
+  "expert_success": true,
+  "goal": "standard",
+  "id": "N-S2b",
+  "id_layout": {
+    "object": [
+      -0.4388498045752783,
+      -0.40697048892923116,
+      0.08
+    ]
+  },
+  "initial_goals": {
+    "drawer_closed": false,
+    "object_inside": true,
+    "success": false
+  },
+  "initial_sha256": "2ff14d91c4593b1e3301e176341d86dbfcc15e36847c2af3e09bdb64fa3a4b76",
+  "kind": "start",
+  "name": "block_already_stored_drawer_open",
+  "object": "demo",
+  "object_pose": [
+    -0.16980303823947906,
+    0.003788487985730171,
+    0.0629999041557312,
+    0.7064875960350037,
+    -0.029700366780161858,
+    0.7064780592918396,
+    0.02969825640320778
+  ],
+  "phase": "close_drawer",
+  "prepared": 1790263707.8204842,
+  "robot_qpos": [
+    -0.27770212292671204,
+    0.42371082305908203,
+    0.33720663189888,
+    -1.549566388130188,
+    -0.1468738466501236,
+    1.94831120967865,
+    0.8715081214904785,
+    0.039999980479478836,
+    0.03999997675418854
+  ],
+  "seed": 24092903,
+  "stages": [
+    "close"
+  ],
+  "task": "constrained_retrieve_store"
+}

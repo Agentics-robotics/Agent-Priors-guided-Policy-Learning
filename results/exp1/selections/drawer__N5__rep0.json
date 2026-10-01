@@ -1,0 +1,41 @@
+{
+  "instance": "drawer__N5__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A3",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A3",
+      "feedback_hash": "3874f04bd5b286a9fff8c62670891e9675a9475e3388a25e1fbb753bd72453d6",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: equal-cell development scoring gives A1=(1.00+0.25)/2=0.625, A2=(1.00+0.40)/2=0.700, and A3=(1.00+0.75)/2=0.875. All three are valid completed final-20000-update candidates. A3 uniquely maximizes the frozen score; latency and parameter tie-breaks are not needed. IID results and training losses are not selection criteria. A3's remaining development failures are the five E-LH episodes (0/5); E-HH, E-HL, E-LL and both C cells succeed throughout the provided samples. The revision will use A3 as parent without editing it.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "e52f9f6945efa8bcb183e02d6589b418288204adc9b9368f6472fd09143bf944",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: A4 uniquely maximizes the frozen equal-cell development criterion: 0.5*1.00 C + 0.5*1.00 E = 1.000, versus A3=0.875, A2=0.700, and A1=0.625. All are valid completed candidates trained for the same 20000 updates. A4 succeeds in 20/20 C episodes and 20/20 E episodes, including 5/5 in each E cell; the intended E-LH gap is closed on these development samples while the other cells remain successful. Its greater latency (0.113162079 s) and parameter count (5568154) do not override the strict score advantage; no tie-break is needed. IID, training losses and hidden tests do not select. These finite development results do not establish universal success or isolate a causal mechanism. Select the immutable A4 submission e53db24f0c062b12109e251ad319580d6e4ad0cfd118188383ed53b045b99098; no further edits or training.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "3ce37db543ae6bcf80a38c870abe55c123af8a6f5f3d0d8591848c7b942dc00b",
+    "A2": "7c5225225a0dcfac5f34646b5fd0181af8db47230cead8fae137ce3818fd373d",
+    "A3": "544b937da1136335bb57588f5cd2d9179870c10ef54d419d06358b92bfbc383b",
+    "A4": "e53db24f0c062b12109e251ad319580d6e4ad0cfd118188383ed53b045b99098"
+  },
+  "feedback_hashes": {
+    "initial": "73435d2afcad5203fa4f00bb699abef521fabf7d2c8e94990a5131c55b1295b5",
+    "final": "4bdc570437f1b9efa8a986dd1c2732e9e76b013c84ec6c9a5bda7d0f162c3ddb"
+  }
+}

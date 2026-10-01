@@ -1,0 +1,10 @@
+{
+  "policy_id": "place_block_in_drawer__h02",
+  "skill_id": "place_block_in_drawer",
+  "heuristic_index": 2,
+  "prior_summary": "Live destination-frame Cartesian targets rigidly follow the observed drawer placement goal, anchoring cavity alignment, lowering/release, retreat and the fixture-relative handle transition.",
+  "applicable_conditions": "Prefer when target_pose is reliable and the drawer is open, especially near cavity alignment, descent, release, retreat and handle approach, or when the drawer/destination is displaced. It is preferred after an off-centre valid deposit because targets do not follow the resting block.",
+  "termination_guidance": "Continue until the block is stationary at drawer-floor height and detached and the TCP has retreated to the handle approach. close_drawer may take over in 900:1160 but drawer motion waits for observed settling and detachment.",
+  "limitations": "Assumes target_pose is accurate and rigidly related to relevant drawer geometry. Large held-block displacement is not removed by construction. The policy does not prove attachment, recover a premature drop, guarantee cavity clearance, or guarantee shifted targets are reachable.",
+  "config": {"action_frame": "live_destination_pose", "orientation_encoding": "unit_quaternion_wxyz", "action_dimension": 8, "history_steps": 2, "horizon": 16, "execution_steps": 8}
+}

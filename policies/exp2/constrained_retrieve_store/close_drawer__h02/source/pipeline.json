@@ -1,0 +1,16 @@
+{
+  "policy_id": "close_drawer__h02",
+  "skill_id": "close_drawer",
+  "heuristic_index": 2,
+  "prior_summary": "Predict small SE(3) corrections in the current TCP frame and expose causal release/approach/closure cues, so each executed correction composes with the realized intermediate TCP rather than a nominal world path.",
+  "applicable_conditions": "Prefer for variable predecessor handoff or intermediate execution state when the block may be at a different release height, fingers/TCP differ from the nominal phase, or closure is partially executed, while global drawer displacement is modest and geometry remains reachable.",
+  "termination_guidance": "Use observed drawer position below 0.025, negligible drawer velocity, block retained inside, open fingers and a high clear TCP. Local motion magnitude or gripper sign is not a success predicate.",
+  "limitations": "TCP-local corrections can preserve accumulated global offset and do not establish a global handle or destination. There is no contact truth or recovery supervision for a miss, jam, obstruction, object outside the cavity, severe scene displacement or infeasible IK.",
+  "config": {
+    "action_frame": "fresh measured tcp_pose",
+    "action_representation": "local xyz plus rotation vector plus gripper",
+    "feature_dimension_per_frame": 44,
+    "phase_state": "two causal observations only; no recurrent state",
+    "ik": "panda_kinematics.solve_ik"
+  }
+}

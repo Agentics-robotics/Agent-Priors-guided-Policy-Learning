@@ -1,0 +1,15 @@
+{
+  "policy_id": "open_drawer__h02",
+  "entry_conditions": "Observed state is near a demonstrated approach, pull, release or departure phase: drawer state, TCP-to-drawer relation and fingers are compatible; small tracking or switch-induced TCP deviations are acceptable when IK is feasible.",
+  "exit_conditions": "Drawer is approximately 0.300 m open and stable, fingers are open, TCP has retreated safely and is moving toward/above the observed block, which remains undisturbed.",
+  "overlap_role": "All actions 300:440 are supervised in every trajectory, allowing this fresh-state correction policy or retrieve_tunnel_block to own post-release retreat, turn and early descent.",
+  "successor_readiness": "Switch after stable full opening, handle release and arm clearance. The framework must retain the two causal frames over the switch.",
+  "failure_signatures": "Increasing drawer/TCP error, open stop not reached, high drawer velocity, fingers inconsistent with phase, disturbed block, or IK residual/limit contact. Do not infer handle contact solely from closed fingers.",
+  "continuation_guidance": "Continue while local corrections stay near demonstrated scale and causal phase cues agree. Prefer drawer-frame or dual-anchor policies for large anchor displacement, and stop rather than claim recovery if the handle was missed.",
+  "limitations": "Guidance does not alter task success. Local corrections provide no demonstrated recovery guarantee and may be unsafe or unreachable when errors are large or phase order is unseen.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[140,160,180,220,260,280,300,340,420,439]},
+    {"trajectory_id":"demo12101","indices":[165,170,180,250,265,270,280,300,340,420]},
+    {"trajectory_id":"demo12102","indices":[165,180,250,265,270,280,300,340,420,439]}
+  ]
+}

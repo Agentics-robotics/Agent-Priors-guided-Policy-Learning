@@ -1,0 +1,15 @@
+{
+  "policy_id": "return_place_release__h04",
+  "skill_id": "return_place_release",
+  "heuristic_index": 4,
+  "prior_summary": "Fresh observed-source-frame SE(3) TCP targets make local grasp/righting/carry and source-relative clearance geometry move with a reliably tracked displaced container by construction.",
+  "applicable_conditions": "Prefer for a securely held, reliably observed source whose pose or source/TCP relation is displaced from the narrow demonstrated handoff cluster, at moderate tilt or during upright outbound travel. The destination and measured robot state must be reliable and the target reachable. Do not use after a lost grasp.",
+  "termination_guidance": "Continue through observed support, opening, and retreat. Terminate only when the source is upright and stationary inside the return region, fingers are open, and the TCP is clear; no represented action alone establishes success.",
+  "limitations": "Only successful nominal demonstrations exist and there is no contact truth or recovery supervision. Fresh source anchoring can chase a free or noisy object, cannot guarantee reachability or collision avoidance, and does not make the entire fixed-destination task invariant. Final placement still depends on learned destination-relative conditioning.",
+  "config": {
+    "reference_frame": "fresh observed container pose at every executed slot",
+    "action_encoding": "source-relative translation plus rotation_6d plus gripper",
+    "condition_features_per_frame": 63,
+    "backbone": "standard DiffusionBackbone"
+  }
+}

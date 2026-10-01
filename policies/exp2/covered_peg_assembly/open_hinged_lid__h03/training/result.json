@@ -1,0 +1,113 @@
+{
+  "checkpoint": "provenance/relocated/8b87089cb19f6631",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "f4d4297d10b74b1984cbc13df9276575065a2fb5318a92972f9ddc22dc0316fc",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 6,
+    "physical_gpu": 4,
+    "uuid": "GPU-29557089-826b-ddb5-4d55-d03f2009a879"
+  },
+  "effective_action_targets": 40674455,
+  "final_weights_sha256": "bc9cb533aca91e9fb082a2780ba68fd946fc449696bdd80f9588e8cdecb7fb1b",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.6278624534606934,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.749410390853882,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.75510573387146,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.1294587403535843,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "49ce5f3616683e37400cac11e1a1ba11ef7ae098ecbc83c516213746de05ac54",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 11400,
+      "duplicated_actions": 0,
+      "unique_actions": 11400
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "lid_pose_field": {
+            "enum": [
+              "lid_pose"
+            ],
+            "type": "string"
+          },
+          "release_angle_rad": {
+            "maximum": 1.85,
+            "minimum": 0.5,
+            "type": "number"
+          }
+        },
+        "required": [
+          "lid_pose_field",
+          "release_angle_rad"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "World pose labels come from public FK of demonstrated commands. Decoding reconstructs the same world target (the 6D SO(3) projection is exact for encoded matrices), then shared IK and FK must keep maximum position-metres, rotation-radians and gripper-scalar error within 0.005.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Uses every assigned action in each of the twelve [0,950) segments, retaining approach, closure, hinge pull, release and retreat. Auxiliary labels refine causal phase representation without changing the cut, and all [740,950) actions remain directly diffusion-supervised for overlap with retrieve_peg_from_box.",
+      "input_shapes": {
+        "features": [
+          2,
+          43
+        ]
+      },
+      "observation_dependencies": [
+        "lid_pose",
+        "lid_position",
+        "lid_velocity",
+        "tcp_pose",
+        "qpos",
+        "qvel"
+      ],
+      "output_semantics": "Each slot is an absolute world Cartesian TCP target [position xyz metres, world rotation as first two rotation-matrix columns (6D), native gripper scalar]. Slots correspond to t-1..t+14 and execution uses slots 1..8. The sampled 6D orientation is deterministically projected to SO(3), and panda_kinematics.solve_ik converts the resulting world target to seven joint targets from fresh measured qpos. The gripper scalar is preserved for >=0 open and <0 close. During training only, the auxiliary target is a masked [future lid_position/1.85, demonstrated gripper sign] sequence for all 16 slots; it is predicted from causal inputs by a registered head and is never substituted for observations or actions at inference.",
+      "parameter_semantics": "lid_pose_field selects the observed lid world pose used for handle-distance features. release_angle_rad is the high-level intended opening angle in radians (1.73 in the demonstrations); it is encoded directly and as observed angle-to-release, but never overrides learned Cartesian or gripper actions.",
+      "policy_id": "open_hinged_lid__h03",
+      "skill_id": "open_hinged_lid",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "fc18a34997dd2e5262d0b41ea64c3111b05fa6969e37f7be8fec22491a36164d",
+    "PRIOR.md": "b3d8be074cc368f832897a4f9b2e6ae7caca8d970997d7359a1c15d4d3e74ff2",
+    "adapters.py": "7e9c55f1cec25e1a26eb7cf608407fdc6ee7495d798eda23a2503496e3ffa5db",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "d6b32ad12399173c54b8ea317d6f2841001f5c230fa81ac7924c7464f1cf7b3c",
+    "policy.py": "73e680762cf670070c9b458e169c5815baa6bf5ca9a935c7a91410452f07dfbe",
+    "policy_contract.json": "0fa94ee1a43cb0db6fb64d189508991558f4f157daf4e5186e4472a8716f5dcd",
+    "training_bindings.json": "2b8222f9a6bc45deb52125d6329c8794994dee6435e23b9835a6f7634c4954b0"
+  },
+  "trainable_parameters": 18323498,
+  "training_elapsed_seconds": 687.5503847880755,
+  "weight_l2_change": 29.38465587567535
+}

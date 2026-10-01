@@ -1,0 +1,32 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "open_hinged_lid__h03",
+  "skill_id": "open_hinged_lid",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {
+      "lid_pose_field": {"type": "string", "enum": ["lid_pose"]},
+      "release_angle_rad": {"type": "number", "minimum": 0.5, "maximum": 1.85}
+    },
+    "required": ["lid_pose_field", "release_angle_rad"],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "lid_pose_field selects the observed lid world pose used for handle-distance features. release_angle_rad is the high-level intended opening angle in radians (1.73 in the demonstrations); it is encoded directly and as observed angle-to-release, but never overrides learned Cartesian or gripper actions.",
+  "observation_dependencies": ["lid_pose", "lid_position", "lid_velocity", "tcp_pose", "qpos", "qvel"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {"features": [2, 43]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an absolute world Cartesian TCP target [position xyz metres, world rotation as first two rotation-matrix columns (6D), native gripper scalar]. Slots correspond to t-1..t+14 and execution uses slots 1..8. The sampled 6D orientation is deterministically projected to SO(3), and panda_kinematics.solve_ik converts the resulting world target to seven joint targets from fresh measured qpos. The gripper scalar is preserved for >=0 open and <0 close. During training only, the auxiliary target is a masked [future lid_position/1.85, demonstrated gripper sign] sequence for all 16 slots; it is predicted from causal inputs by a registered head and is never substituted for observations or actions at inference.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "World pose labels come from public FK of demonstrated commands. Decoding reconstructs the same world target (the 6D SO(3) projection is exact for encoded matrices), then shared IK and FK must keep maximum position-metres, rotation-radians and gripper-scalar error within 0.005."
+  },
+  "cut_relation": "Uses every assigned action in each of the twelve [0,950) segments, retaining approach, closure, hinge pull, release and retreat. Auxiliary labels refine causal phase representation without changing the cut, and all [740,950) actions remain directly diffusion-supervised for overlap with retrieve_peg_from_box."
+}

@@ -1,0 +1,133 @@
+{
+  "task_id": "buffer_swap",
+  "policy_id": "dp",
+  "skill_id": "full_task",
+  "source": "policies/exp2/buffer_swap/dp/source",
+  "manifest": "policies/exp2/buffer_swap/dp/manifest.json",
+  "author": "RepositoryAgent",
+  "methods": [
+    "dp"
+  ],
+  "assignment": "policies/exp2/buffer_swap/dp/assignment.json",
+  "training_spec": "policies/exp2/buffer_swap/dp/training/spec.json",
+  "dataset": "assets/exp2/datasets/buffer_swap/full_task_dp/dataset.json",
+  "normalization": "assets/exp2/tasks/buffer_swap/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/buffer_swap/dp/model.pt",
+    "sha256": "82a35595329101b3f8192c8d468641cd755602527fb576cc8ee8a71db21335b8",
+    "source_sha256": "82a35595329101b3f8192c8d468641cd755602527fb576cc8ee8a71db21335b8",
+    "size_bytes": 340277702,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 1,
+    "demos": 12,
+    "in_distribution_success": "1/12",
+    "exit_rule": "standard task success (first occurrence)",
+    "guidance": "No final guidance recorded."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/buffer_swap/dp/assignment.json",
+      "sha256": "d68b020720bdba63d5aa74045e2b89644d2fe318b540c7fcddf980a88626c06f",
+      "source_sha256": "6ccda0951dd04c6831115a5c32c7c0873fba00c70d39182cf3c85ca00cccea21",
+      "size_bytes": 2966,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/source/HANDOFF.json",
+      "sha256": "c3523db0d24f1adc71014dc87913f33d99add60682143423d9db5005f9966dda",
+      "source_sha256": "c3523db0d24f1adc71014dc87913f33d99add60682143423d9db5005f9966dda",
+      "size_bytes": 1580,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/source/PRIOR.md",
+      "sha256": "ea31a37dc5469598e9d4f3adf1e5b4b05acf283ce7d3f4852753dcda324a1675",
+      "source_sha256": "ea31a37dc5469598e9d4f3adf1e5b4b05acf283ce7d3f4852753dcda324a1675",
+      "size_bytes": 950,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/source/adapters.py",
+      "sha256": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+      "source_sha256": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+      "size_bytes": 2083,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/source/panda_posture.py",
+      "sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+      "source_sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+      "size_bytes": 715015,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/source/pipeline.json",
+      "sha256": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+      "source_sha256": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+      "size_bytes": 328,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/source/policy.py",
+      "sha256": "a252e4e6c9fbf9b9b2300b43440ee2774544ee26d74c0b4a3de8ea28dc7b4ab1",
+      "source_sha256": "a252e4e6c9fbf9b9b2300b43440ee2774544ee26d74c0b4a3de8ea28dc7b4ab1",
+      "size_bytes": 743,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/source/policy_contract.json",
+      "sha256": "a8086fe72d0a9797e8252aeb7e2207c74044b231342c2833d1cd66c5bbc73bac",
+      "source_sha256": "a8086fe72d0a9797e8252aeb7e2207c74044b231342c2833d1cd66c5bbc73bac",
+      "size_bytes": 1357,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/source/training_bindings.json",
+      "sha256": "e44a5fe2924c09232d5cfc8881c32f486e56ece7a4c692f4a9a810cbfffe0100",
+      "source_sha256": "e44a5fe2924c09232d5cfc8881c32f486e56ece7a4c692f4a9a810cbfffe0100",
+      "size_bytes": 2307,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/submission.json",
+      "sha256": "04ae3614a2aaea5db419cef1bc220b756f30d60a4e5cef2ac3dec287eb5b820a",
+      "source_sha256": "0ad66a699a952ff24b0a7def4fc498780639e9143c27cef0ecdc51726cbecbba",
+      "size_bytes": 5477,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/training/adapter_checks.json",
+      "sha256": "489e717f81f90d061d3775d3642cf8e838f5055a13a1d44141f58a1024026783",
+      "source_sha256": "489e717f81f90d061d3775d3642cf8e838f5055a13a1d44141f58a1024026783",
+      "size_bytes": 196,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/training/result.json",
+      "sha256": "1594356e0c45ab7f322d7071ccb62803c8ddaaf1a99fe32871652521cffb6238",
+      "source_sha256": "cf2b4d648027de57d326b78222bf3190d39efd033fcec0b7028b7f0b73acb309",
+      "size_bytes": 3620,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/dp/training/spec.json",
+      "sha256": "001add19562c7b4920fadc656eceb30ef4d58a42c3b9a69e4cbfbac86777389d",
+      "source_sha256": "001add19562c7b4920fadc656eceb30ef4d58a42c3b9a69e4cbfbac86777389d",
+      "size_bytes": 15048,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/buffer_swap/task.json",
+  "completion_contract": "assets/exp2/tasks/buffer_swap/completion_contract.json",
+  "public_context": "assets/exp2/tasks/buffer_swap/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/buffer_swap/prompts/hl.md"
+}

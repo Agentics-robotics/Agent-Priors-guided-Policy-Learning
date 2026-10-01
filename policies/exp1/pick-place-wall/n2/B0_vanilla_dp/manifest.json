@@ -1,0 +1,55 @@
+{
+  "task_id": "pick-place-wall",
+  "n_demos": 2,
+  "policy_id": "B0_vanilla_dp",
+  "instance_id": "pick-place-wall__N2__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/pick-place-wall/n2/B0_vanilla_dp/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/pick-place-wall/n2/B0_vanilla_dp/model.pt",
+    "sha256": "0161aff76c44e3f9fb40eea2c703b56f8af3699fc43fa734510912cfe5e475a8",
+    "source_sha256": "0161aff76c44e3f9fb40eea2c703b56f8af3699fc43fa734510912cfe5e475a8",
+    "size_bytes": 76131011,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/pick-place-wall/n2/B0_vanilla_dp/normalizer.json",
+  "config": "policies/exp1/pick-place-wall/n2/B0_vanilla_dp/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/pick-place-wall/n2/B0_vanilla_dp/complete.json",
+      "sha256": "406320081874844e0b70a781b684aec06c3b624855dd2d624e06adc1aea3d904",
+      "source_sha256": "406320081874844e0b70a781b684aec06c3b624855dd2d624e06adc1aea3d904",
+      "size_bytes": 1391,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n2/B0_vanilla_dp/config.json",
+      "sha256": "a27cc728a3c59c92ec42a208b03046339f6ade19467c624de86e28bdb5eebc1b",
+      "source_sha256": "a27cc728a3c59c92ec42a208b03046339f6ade19467c624de86e28bdb5eebc1b",
+      "size_bytes": 8303,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n2/B0_vanilla_dp/identity.json",
+      "sha256": "1a0f89a1737980322fc65e042515a2d0cc68a6e92f403750dd256c1f706c0f6a",
+      "source_sha256": "1a0f89a1737980322fc65e042515a2d0cc68a6e92f403750dd256c1f706c0f6a",
+      "size_bytes": 862,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n2/B0_vanilla_dp/latency.json",
+      "sha256": "c5880082bf230caabc573cc91aa07e0a8d69788be1cfb7bc5374e9af4807505f",
+      "source_sha256": "c5880082bf230caabc573cc91aa07e0a8d69788be1cfb7bc5374e9af4807505f",
+      "size_bytes": 773,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/pick-place-wall/n2/B0_vanilla_dp/normalizer.json",
+      "sha256": "51d99a05572ab3445684149b2f61b34543a3d963a218840b079826c0c392f084",
+      "source_sha256": "51d99a05572ab3445684149b2f61b34543a3d963a218840b079826c0c392f084",
+      "size_bytes": 2590,
+      "transformation": "none"
+    }
+  ]
+}

@@ -1,0 +1,557 @@
+{
+  "_path": "assets/exp2/tasks/buffer_swap/single_prior.json",
+  "api": {
+    "base_url": "https://api.openai.com/v1",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "service_tier": "default",
+    "timeout_seconds": 1800
+  },
+  "completion_contract": "assets/exp2/tasks/buffer_swap/completion_contract.json",
+  "dataset": "provenance/relocated/d405c0c1bff43dac",
+  "design": {
+    "max_api_calls": 43,
+    "max_checks": 5,
+    "max_output_tokens": 32768,
+    "max_tool_calls": 128
+  },
+  "devices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "episodes": [
+    {
+      "centers": {
+        "blue": [
+          -0.35,
+          0.2,
+          0.02
+        ],
+        "red": [
+          -0.35,
+          -0.2,
+          0.02
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.012,
+        "red": 0.012
+      },
+      "initial_sha256": "7df1fd3138d9c9528bcce07dd1561efa1453a0e4616b967dbe77d23badff22f9",
+      "layout": {
+        "blue": [
+          -0.32789819739260884,
+          0.1752344457188812,
+          0.02
+        ],
+        "red": [
+          -0.37153440024185486,
+          -0.2243786304107594,
+          0.02
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.3177963947852177,
+          0.16246889143776236,
+          0.02
+        ],
+        "red": [
+          -0.3810688004837098,
+          -0.23675726082151877,
+          0.02
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092500,
+      "task": "buffer_swap"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.35,
+          0.2,
+          0.02
+        ],
+        "red": [
+          -0.35,
+          -0.2,
+          0.02
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.012,
+        "red": 0.012
+      },
+      "initial_sha256": "20a85877afc63b9055d91ba16164f6c55f032347d3b50a14dff4945848b93b3f",
+      "layout": {
+        "blue": [
+          -0.3412133194621145,
+          0.18068731298756036,
+          0.02
+        ],
+        "red": [
+          -0.3736724525099275,
+          -0.19258660031116606,
+          0.02
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.3412133194621145,
+          0.17337462597512068,
+          0.02
+        ],
+        "red": [
+          -0.385344905019855,
+          -0.19258660031116606,
+          0.02
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092501,
+      "task": "buffer_swap"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.35,
+          0.2,
+          0.02
+        ],
+        "red": [
+          -0.35,
+          -0.2,
+          0.02
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.012,
+        "red": 0.012
+      },
+      "initial_sha256": "279a3dbad2d57437b30b6e80fd710992a74dcb2f667e60886081fcec3cba8640",
+      "layout": {
+        "blue": [
+          -0.33970466033074137,
+          0.22232292888758562,
+          0.02
+        ],
+        "red": [
+          -0.37394951640002383,
+          -0.20042920749333484,
+          0.02
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.33970466033074137,
+          0.23264585777517122,
+          0.02
+        ],
+        "red": [
+          -0.38589903280004767,
+          -0.20042920749333484,
+          0.02
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092502,
+      "task": "buffer_swap"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.35,
+          0.2,
+          0.02
+        ],
+        "red": [
+          -0.35,
+          -0.2,
+          0.02
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.012,
+        "red": 0.012
+      },
+      "initial_sha256": "9a5d44900a0f0f32a68a86d40135fc77e73ad96263ae783909d0595589f89965",
+      "layout": {
+        "blue": [
+          -0.3253642944167674,
+          0.18712653775224625,
+          0.02
+        ],
+        "red": [
+          -0.3747933430517009,
+          -0.17764607436602445,
+          0.02
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.31272858883353477,
+          0.18625307550449247,
+          0.02
+        ],
+        "red": [
+          -0.38758668610340186,
+          -0.1672921487320489,
+          0.02
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092503,
+      "task": "buffer_swap"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.35,
+          0.2,
+          0.02
+        ],
+        "red": [
+          -0.35,
+          -0.2,
+          0.02
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.012,
+        "red": 0.012
+      },
+      "initial_sha256": "7bd7ee80fa1abdf4d8b15197029eeab50e516a12232c54bbb6e239275340bc2e",
+      "layout": {
+        "blue": [
+          -0.33780284504439195,
+          0.1777514079758974,
+          0.02
+        ],
+        "red": [
+          -0.362558589113145,
+          -0.2254398003957827,
+          0.02
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.33760569008878394,
+          0.16750281595179478,
+          0.02
+        ],
+        "red": [
+          -0.36311717822629,
+          -0.23887960079156542,
+          0.02
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092504,
+      "task": "buffer_swap"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.35,
+          0.2,
+          0.02
+        ],
+        "red": [
+          -0.35,
+          -0.2,
+          0.02
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.012,
+        "red": 0.012
+      },
+      "initial_sha256": "68a80fb5629c7c12f31c576de2d7be7f6265be384a6e72ef76d75792c09193bd",
+      "layout": {
+        "blue": [
+          -0.3685200690483723,
+          0.20307462464895232,
+          0.02
+        ],
+        "red": [
+          -0.3317467830746188,
+          -0.185999485416429,
+          0.02
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.3750401380967447,
+          0.20307462464895232,
+          0.02
+        ],
+        "red": [
+          -0.32549356614923763,
+          -0.183998970832858,
+          0.02
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092505,
+      "task": "buffer_swap"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.35,
+          0.2,
+          0.02
+        ],
+        "red": [
+          -0.35,
+          -0.2,
+          0.02
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.012,
+        "red": 0.012
+      },
+      "initial_sha256": "9e78d375f2062d801a41933216e8be077faf71593ba111fac592d119e0357e03",
+      "layout": {
+        "blue": [
+          -0.33219414910029754,
+          0.17832278298925988,
+          0.02
+        ],
+        "red": [
+          -0.3692955298697935,
+          -0.2243342781066218,
+          0.02
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.32638829820059506,
+          0.16864556597851973,
+          0.02
+        ],
+        "red": [
+          -0.3765910597395871,
+          -0.23666855621324356,
+          0.02
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092506,
+      "task": "buffer_swap"
+    },
+    {
+      "centers": {
+        "blue": [
+          -0.35,
+          0.2,
+          0.02
+        ],
+        "red": [
+          -0.35,
+          -0.2,
+          0.02
+        ]
+      },
+      "id_half_width_m": {
+        "blue": 0.012,
+        "red": 0.012
+      },
+      "initial_sha256": "9aa21e1c37da84c2a2dc6f24c205ee791f7ae7a8c3b9bf389d770cdad011d8cf",
+      "layout": {
+        "blue": [
+          -0.3257092172570036,
+          0.22596321827793087,
+          0.02
+        ],
+        "red": [
+          -0.3291478585174526,
+          -0.2157542593259407,
+          0.02
+        ]
+      },
+      "original_ood_layout": {
+        "blue": [
+          -0.3134184345140072,
+          0.2399264365558617,
+          0.02
+        ],
+        "red": [
+          -0.3202957170349052,
+          -0.21950851865188137,
+          0.02
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24092507,
+      "task": "buffer_swap"
+    }
+  ],
+  "evaluation": {
+    "context_recent_turns": 6,
+    "diagnostic_seeds": [],
+    "feedback_protocol": "api_conditions_v1",
+    "hide_step_budget": true,
+    "max_api_calls": 128,
+    "max_invocation_steps": 300,
+    "max_steps": 5000,
+    "ood_seeds": [
+      24092500,
+      24092501,
+      24092502,
+      24092503,
+      24092504,
+      24092505,
+      24092506,
+      24092507
+    ],
+    "output": "provenance/relocated/8f5b52ffebb2d749",
+    "seeds": []
+  },
+  "experiment_version": "CartesianIK_SinglePrior_cartesian",
+  "framework_sha256": "ee4591062262e537304cdd02bc553210ad4d889d998b5c0c551f596845101adf",
+  "ik_revision": {
+    "invalid_v1_results": "provenance/relocated/0de950aeee986712",
+    "v1_configuration": "provenance/relocated/2f97e44acdec33cd",
+    "v1_output": "provenance/relocated/f660f14ca2b43adc"
+  },
+  "interface_path": "assets/exp2/tasks/buffer_swap/interface.md",
+  "kinematics": {
+    "path": "provenance/relocated/d7b293b7ae55c77f",
+    "posture": {
+      "path": "provenance/relocated/47f555b485309a9a",
+      "sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0"
+    },
+    "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "version": "v2"
+  },
+  "method": "SinglePrior_cartesian",
+  "normalization": {
+    "directory": "data/exp2/scaleup/buffer_swap/demonstrations",
+    "scope": "full_training_demonstrations",
+    "train_ids": [
+      "demo10100",
+      "demo10101",
+      "demo10102",
+      "demo10103",
+      "demo10104",
+      "demo10105",
+      "demo10106",
+      "demo10107",
+      "demo10108",
+      "demo10109",
+      "demo10110",
+      "demo10111"
+    ]
+  },
+  "output": "provenance/relocated/eda1079391ba90f2",
+  "prompts": {
+    "train": "assets/exp2/tasks/buffer_swap/prompts/single_prior_train.md"
+  },
+  "public_context": "assets/exp2/tasks/buffer_swap/public_context.json",
+  "schema": "appl.flexible.sol.v1",
+  "segmentation": {
+    "max_api_calls": 64,
+    "max_output_tokens": 65536,
+    "max_plan_versions": 16,
+    "max_skills": 16,
+    "max_tool_calls": 160
+  },
+  "sources": {
+    "demo10100": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10100.json",
+      "sha256": "8143fbe3be71a1c631f5c7749d18b35e22bc92139fcfff7b5ebbf518d6fc335a"
+    },
+    "demo10101": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10101.json",
+      "sha256": "799625b2044bcc28a7a6eea51a4740935e9cf0d9f22b8374ff1e1fd6775609bf"
+    },
+    "demo10102": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10102.json",
+      "sha256": "fa8a632a17305449d85b05f19a29a04268ec6859c9c22eedc08f8a9e98a25917"
+    },
+    "demo10103": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10103.json",
+      "sha256": "bc5327538d11b7263aa843cfbf7cca57e277f228ab83827e6a6be39d17fb7359"
+    },
+    "demo10104": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10104.json",
+      "sha256": "ab4fdca4a826e13907c3634c17d0cedd822e5736cf37113947d7cd86e096a9a8"
+    },
+    "demo10105": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10105.json",
+      "sha256": "8dca03afe82b1247c339dba887d9f2bd2f2de158810338259d17bdcde391146f"
+    },
+    "demo10106": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10106.json",
+      "sha256": "835849cc15e004b22d320f6fdc36d9c0bcc18a5019712e0ea572dff0a4b0c51a"
+    },
+    "demo10107": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10107.json",
+      "sha256": "2ee06e92d7a0502499d2696e463e66a9bc5e58f2c9beab9b4819cfe9a6a4f7a0"
+    },
+    "demo10108": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10108.json",
+      "sha256": "a267623fe0603dff6f918dfd6f2d08e3da5b313580763e0a482af84e38ab43d6"
+    },
+    "demo10109": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10109.json",
+      "sha256": "5e77ab47c4b0b7e0c67997b120e9215fcf9a4473429c62e0207c5dee631be8a6"
+    },
+    "demo10110": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10110.json",
+      "sha256": "cd8edf45f317ef134effd4d03d206a23dba900ec9d39034ba19d0f51242e60a0"
+    },
+    "demo10111": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10111.json",
+      "sha256": "66f8244ef8020adfb90b028d50deb30d29f68dc21258d3981de4adebf3412646"
+    }
+  },
+  "study_output": "provenance/relocated/e7e49fc77ffb2f75",
+  "study_version": "CartesianIK_TwoTasks_Sol_20260924",
+  "task_id": "buffer_swap",
+  "training": {
+    "action_scale_floor": 0.01,
+    "batch_size": 128,
+    "checkpoint_every": 2000,
+    "clip_sample": true,
+    "denoising_inference_steps": 100,
+    "denoising_train_steps": 100,
+    "down_dims": [
+      128,
+      256,
+      512
+    ],
+    "ema_decay": 0.999,
+    "execution_steps": 8,
+    "groups": 8,
+    "horizon": 16,
+    "kernel_size": 5,
+    "learning_rate": 0.0001,
+    "lr_schedule": "cosine",
+    "max_grad_norm": 1,
+    "observation_normalization": "limits",
+    "observation_std_floor": 0.001,
+    "observation_steps": 2,
+    "quaternion_normalization": "unit_component_bounds",
+    "sampler": "ddpm",
+    "seeds": [
+      0
+    ],
+    "selection": "last EMA at predeclared budget",
+    "timestep_embed_dim": 128,
+    "updates": 60000,
+    "warmup_steps": 500,
+    "weight_decay": 1e-06
+  },
+  "training_details_path": "assets/exp2/tasks/buffer_swap/training_details.md",
+  "task_spec": "assets/exp2/tasks/buffer_swap/task.json"
+}

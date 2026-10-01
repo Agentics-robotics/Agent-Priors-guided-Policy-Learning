@@ -1,0 +1,152 @@
+{
+  "task_id": "covered_peg_assembly",
+  "policy_id": "retrieve_peg_from_box__h01",
+  "skill_id": "retrieve_peg_from_box",
+  "source": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/source",
+  "manifest": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/assignment.json",
+  "training_spec": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/training/spec.json",
+  "dataset": "assets/exp2/datasets/covered_peg_assembly/retrieve_peg_from_box/dataset.json",
+  "normalization": "assets/exp2/tasks/covered_peg_assembly/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/model.pt",
+    "sha256": "1d18777426f8fbb971cdc228312ddc1d6388b338e5a2a4031a8822d75f720db9",
+    "source_sha256": "1d18777426f8fbb971cdc228312ddc1d6388b338e5a2a4031a8822d75f720db9",
+    "size_bytes": 342865094,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 0,
+    "demos": 12,
+    "in_distribution_success": "0/12",
+    "exit_rule": "peg center at least 0.15 m high (or the peg inserted) and the cover still open (> 0.9 rad) at the final state",
+    "guidance": "Validated 0/12 under the fixed final-state exit rule; no reliable operating region was established, so do not select this policy by default. Its documented intended niche is after observed lid release, when a reachable peg displacement dominates, but that expected benefit is not confirmed by validation. Avoid early lid-held/phase-ambiguous states, large or wall-adjacent displacements, and any miss/drop/blocked-lift recovery. A first-pass event occurred transiently in 11/12 runs but was lost by the final state; all 12 finals had retrieve_peg_from_box=false, 8 retained an open cover and 4 ended closed, and 11/12 had IK-unconverged steps. Recognize failure from a low or stationary peg during lift, lack of stable peg/TCP co-motion, abrupt peg-to-TCP change, wall deflection, or repeated IK residual/limit contacts. Do not hand off on finger closure or a transient threshold crossing alone. Handoff to reorient_and_stage_peg only on closed fingers plus peg clearance and stable two-frame peg/TCP co-motion, with the scored terminal additionally requiring peg center >=0.15 m (or insertion) and cover >0.9 rad; no such final handoff was validated for this policy."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/assignment.json",
+      "sha256": "c68900e7d769f23735f747a9302fff691dbde0ac40f72b94497463537d0d72f7",
+      "source_sha256": "447c1c68ede48265df10542b5a4a1d59e0e42876c69b7a895681a49de156141a",
+      "size_bytes": 10951,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/handoff_evidence.json",
+      "sha256": "105c9d416b55f27f88dd3e496519b6abe91adef6365046af786bf4241b944c35",
+      "source_sha256": "105c9d416b55f27f88dd3e496519b6abe91adef6365046af786bf4241b944c35",
+      "size_bytes": 152790,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/source/HANDOFF.json",
+      "sha256": "cf2200d1ab1c72ec8f9e2f907886698a2936f8cf0669e07808bc0cd9bcf89bd0",
+      "source_sha256": "cf2200d1ab1c72ec8f9e2f907886698a2936f8cf0669e07808bc0cd9bcf89bd0",
+      "size_bytes": 2004,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/source/PRIOR.md",
+      "sha256": "d6feb92408f0dcdc6409e14dfdf951d0987caee4af37f1b507d2f61c0b51e318",
+      "source_sha256": "d6feb92408f0dcdc6409e14dfdf951d0987caee4af37f1b507d2f61c0b51e318",
+      "size_bytes": 4139,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/source/adapters.py",
+      "sha256": "24a9391f6a3b456db3af7c27b9554c24e15f0693f99aa1065cae1892a4c12a42",
+      "source_sha256": "24a9391f6a3b456db3af7c27b9554c24e15f0693f99aa1065cae1892a4c12a42",
+      "size_bytes": 4387,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/source/panda_posture.py",
+      "sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+      "source_sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+      "size_bytes": 1041625,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/source/pipeline.json",
+      "sha256": "22c3f1b66d87f311b2b5370b3761b6648dbc49a79564917ac2249c21f3dea8f0",
+      "source_sha256": "22c3f1b66d87f311b2b5370b3761b6648dbc49a79564917ac2249c21f3dea8f0",
+      "size_bytes": 1254,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/source/policy.py",
+      "sha256": "c25cf80da68c2040e3f238298b4c1c254f0fbd2c5b15f24a8394352d8b339497",
+      "source_sha256": "c25cf80da68c2040e3f238298b4c1c254f0fbd2c5b15f24a8394352d8b339497",
+      "size_bytes": 1160,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/source/policy_contract.json",
+      "sha256": "43cdcb146c49346137d6e97400f3c60cb7cdd5ace2232120bad3914b428fd04a",
+      "source_sha256": "43cdcb146c49346137d6e97400f3c60cb7cdd5ace2232120bad3914b428fd04a",
+      "size_bytes": 2154,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/source/training_bindings.json",
+      "sha256": "a3367749eca4ccdb9f9e5d4b6a7ec3a6f2692242c1b0dc16af00f920e30ce694",
+      "source_sha256": "a3367749eca4ccdb9f9e5d4b6a7ec3a6f2692242c1b0dc16af00f920e30ce694",
+      "size_bytes": 2215,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/submission.json",
+      "sha256": "acb031060fdf268731714e3f2aa92a53faad71d469480114c85cad224201dd49",
+      "source_sha256": "4e760382f6c52657a89ed48891ee71b16923d34ac0977596e94a17d7186436d6",
+      "size_bytes": 17886,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/training/adapter_checks.json",
+      "sha256": "601f8cba84aa2baf29976a1980d0acfd8cc96e86916034ea04f2542e461d6b99",
+      "source_sha256": "601f8cba84aa2baf29976a1980d0acfd8cc96e86916034ea04f2542e461d6b99",
+      "size_bytes": 194,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/training/result.json",
+      "sha256": "b0d76c1dda383c9c955048058d24b35a00faa2e17a335d4ad0bdba4c56bb1ae2",
+      "source_sha256": "90977c8bec8e824a227f61b98f4d78c309b5a6b1171bed807fffb61da9cb40d2",
+      "size_bytes": 4456,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/training/spec.json",
+      "sha256": "c078249272bca5146d76ba814fe44e11938bd2f03e9a377363090287307c3748",
+      "source_sha256": "c078249272bca5146d76ba814fe44e11938bd2f03e9a377363090287307c3748",
+      "size_bytes": 17744,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/prior_plan.json",
+      "sha256": "2bd8f7c73a51b62c800b619c33e0871c9fe1abf5e81e22c197af399dbd9d4ba2",
+      "source_sha256": "2bd8f7c73a51b62c800b619c33e0871c9fe1abf5e81e22c197af399dbd9d4ba2",
+      "size_bytes": 21728,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/covered_peg_assembly/task.json",
+  "completion_contract": "assets/exp2/tasks/covered_peg_assembly/completion_contract.json",
+  "public_context": "assets/exp2/tasks/covered_peg_assembly/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/covered_peg_assembly/prompts/hl.md",
+  "prior_plan": "policies/exp2/covered_peg_assembly/retrieve_peg_from_box__h01/prior_plan.json"
+}

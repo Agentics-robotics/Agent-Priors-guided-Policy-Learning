@@ -1,0 +1,55 @@
+{
+  "task_id": "drawer",
+  "n_demos": 2,
+  "policy_id": "B1_rule_prior",
+  "instance_id": "drawer__N2__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/drawer/n2/B1_rule_prior/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/drawer/n2/B1_rule_prior/model.pt",
+    "sha256": "900d5f5d64d17a63dc5fd94a287874e8c5bb674d6cd17d99866814396a8b86ac",
+    "source_sha256": "900d5f5d64d17a63dc5fd94a287874e8c5bb674d6cd17d99866814396a8b86ac",
+    "size_bytes": 79374123,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/drawer/n2/B1_rule_prior/normalizer.json",
+  "config": "policies/exp1/drawer/n2/B1_rule_prior/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/drawer/n2/B1_rule_prior/complete.json",
+      "sha256": "41cfe37e14a9443c6985f519df724a16e4983efb243f8f73c5110b6d70951891",
+      "source_sha256": "41cfe37e14a9443c6985f519df724a16e4983efb243f8f73c5110b6d70951891",
+      "size_bytes": 1338,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n2/B1_rule_prior/config.json",
+      "sha256": "97f871f54519f2affd7bfae1281c9017e18bccb91a667bc426a2aa24e66aa2c3",
+      "source_sha256": "97f871f54519f2affd7bfae1281c9017e18bccb91a667bc426a2aa24e66aa2c3",
+      "size_bytes": 7992,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n2/B1_rule_prior/identity.json",
+      "sha256": "4ada7d063ac8592667ab52b2fe58166dffc175c845dfcd9ba10a956accc252bc",
+      "source_sha256": "4ada7d063ac8592667ab52b2fe58166dffc175c845dfcd9ba10a956accc252bc",
+      "size_bytes": 808,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n2/B1_rule_prior/latency.json",
+      "sha256": "d60ab91ff5ca0f2f1ef3c46610d93da700f4842f9b37915cd49acf43e029c1d8",
+      "source_sha256": "d60ab91ff5ca0f2f1ef3c46610d93da700f4842f9b37915cd49acf43e029c1d8",
+      "size_bytes": 770,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/drawer/n2/B1_rule_prior/normalizer.json",
+      "sha256": "d1aa83aa8e6d743b1b6f28d559474f02c627028f7d3898a51b93f070bdeb7cc9",
+      "source_sha256": "d1aa83aa8e6d743b1b6f28d559474f02c627028f7d3898a51b93f070bdeb7cc9",
+      "size_bytes": 2265,
+      "transformation": "none"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "policy_id": "open_drawer__h04",
+  "entry_conditions": "Drawer closed or nearly closed, TCP high and free, gripper open, red supported inside the drawer and blue outside; or a physically coherent intermediate state represented by the retained approach, pull, release, retreat or red-pickup phases. Caller drawer calibration, red observation and active-frame gate parameters must be reliable.",
+  "exit_conditions": "Nominal switch cue: drawer_position is safely above the strict 0.26-m task threshold, drawer velocity is near zero, front contact has been relinquished, and closed fingers are accompanied by observable red/TCP upward co-motion. An earlier switch after opening and red exposure is represented by overlap.",
+  "overlap_role": "Actions 230:470 in all 12 trajectories are supervised by both open_drawer and red_transfer: 240 actions and 12.0 seconds per occurrence, 2,880 supervised actions total. This includes front release, retreat, the active-frame transition, red approach/descent, closure and initial lift.",
+  "successor_readiness": "red_transfer may receive once drawer_position exceeds 0.26 m and red is exposed because its overlap begins at 230 while the gripper is still releasing the front. The cleaner nominal handoff is near 470 when closed fingers and red/TCP upward co-motion are observed. The red-frame gate is not proof of successor readiness or grasp.",
+  "failure_signatures": "Drawer_position at or below 0.26 m; continuing drawer motion; repeated active-frame changes or a target jump near the gate; TCP returning toward or dragging the drawer front; red/TCP XY error not shrinking during descent; finger closure without subsequent red/TCP co-motion; red drop; or reported IK residual and limit contacts. Demonstrations do not establish recovery from these failures.",
+  "continuation_guidance": "If the drawer is open and stable but red pickup has not started, continue H04 only while the active-frame decision and red pose are reliable, or switch to red_transfer within the supervised overlap. Prefer open_drawer__h03 for nominal geometry when frame calibration or gate cues are unreliable. Stop and replan rather than treating a closed gripper or IK convergence as evidence of contact.",
+  "limitations": "Handoff evidence comes only from successful nominal demonstrations. No shifted/rotated cabinet, independently displaced red block, missed front, blocked pull, misgrasp, drop, collision or recovery is demonstrated. Relational targets can still be unreachable, and object-frame noise can corrupt the command.",
+  "evidence": [
+    {"trajectory_id": "demo1000", "indices": [200, 230, 240, 280, 300, 400, 445, 460]},
+    {"trajectory_id": "demo1001", "indices": [230, 240, 280, 300, 400, 445, 469]},
+    {"trajectory_id": "demo1005", "indices": [230, 240, 280, 300, 400, 445, 469]}
+  ]
+}

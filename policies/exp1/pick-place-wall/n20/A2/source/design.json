@@ -1,0 +1,35 @@
+{
+  "title": "Causal phase-factorized relational encoders with weak change-point supervision",
+  "coverage_gap": "The LL/HH-only support conflates lateral object approach with lateral goal transport. It also contains a sharp reversal from descent to lift, followed by forward carry and sometimes descent after crossing. A single unstructured condition can mix those modes when x factors are recombined.",
+  "reusable_regularity": "Grasping depends chiefly on hand/object coupling, whereas transport depends on the independent goal and obstacle. Four learned feature branches specialize in approach, lift, transport and settling; a learned causal router softly weights them. The approach branch has no goal inputs. The router has no absolute object_x or goal_x input, so correlated layout signs cannot directly become phase identifiers. Router supervision is a weak training-only proxy extracted from demonstrated action change points, not a supplied runtime stage. A 0.1 gate floor, ungated world branch and explicit relation skip prevent hard stage decisions from erasing essential dependencies. There is still just one action-generating common DP, not four controllers.",
+  "dependencies_preserved": [
+    "The ungated world encoder sees hand/object/goal relative to wall, wall absolute center, wall half sizes, all three heights, and current/previous object rotation. Fixed world axes retain gravity, gripper orientation and wall asymmetry.",
+    "The local branch sees current/native-previous hand/object motion and apertures. Lift additionally sees both wall-top clearances and wall geometry. Carry/settle see both goal errors, coupling, motion, orientation and all wall relations.",
+    "Nonzero soft-gate floor preserves every branch at every phase; explicit hand-object, goal-object and goal-hand vectors bypass learned encoders.",
+    "Only the explicitly absent object2 is omitted. No time, episode ID, fitted stage cache, simulator contact, success indicator or future state enters inference."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Only the twenty complete current support episodes are allowed."},
+    {"path": "task_materials.json", "detail": "Correlated x training cells, runtime history/geometry schema and fixed world action control."},
+    {"path": "images/frame_01_demo_01_step_027.png", "detail": "Gripper at tabletop object just before the observed lift action change."},
+    {"path": "images/frame_02_demo_02_step_050.png", "detail": "Object lifted on near side of wall."},
+    {"path": "images/frame_03_demo_03_step_075.png", "detail": "Carrying beyond the wall toward the goal."},
+    {"path": "trajectories/demo_01.json", "field": "actions", "rows": [20,35], "detail": "Descent actions through step 27 switch abruptly to world_dz=1 with gripper=0.9 at step 28."},
+    {"path": "trajectories/demo_01.json", "field": "obs", "rows": [20,27], "detail": "Aperture narrows while the hand approaches the still-tabletop object."},
+    {"path": "trajectories/demo_01.json", "field": "obs", "rows": [46,51], "detail": "Hand and object rise together with about 0.04 m vertical separation, motivating a separate lift/coupling representation."},
+    {"path": "trajectories/demo_01.json", "field": "obs", "rows": [76,83], "detail": "Object and hand descend after traversing beyond the far wall face."},
+    {"path": "trajectories/demo_00.json", "field": "obs", "rows": [60,65], "detail": "Carry motion is primarily forward with maintained height and grip."}
+  ],
+  "expected_failure_signature": "A successful factorization would separate accurate grasp from independently directed carry in crossed cells. Its falsifiable weakness is off-demonstration phase ambiguity: a missed grasp, slip, or weak action-change label may make the router emphasize lift or carry prematurely. That should appear as stable phase-like motion without object attachment or premature descent, rather than simply a wrong global x sign. Gate floors mitigate but do not eliminate this risk. No measured performance is asserted.",
+  "required_runtime_fields": [
+    {"source": "causal_context.raw_history [B,2,45]", "slices": {"hand": [0,3], "gripper": [3,4], "object": [4,7], "object_quaternion_xyzw": [7,11], "native_previous_hand": [18,21], "native_previous_gripper": [21,22], "native_previous_object": [22,25], "native_previous_quaternion_xyzw": [25,29], "goal": [36,39], "wall_center": [39,42], "wall_half_size": [42,45]}, "semantics": "Raw shared state only. Both conditioned observations are processed separately by the same encoders and router."}
+  ],
+  "action_frame_semantics": "Identity action encode/decode: first three channels remain native world translations at 0.01 m/unit and fourth remains native gripper. No candidate clipping, action override, hard stage controller or planner. Host alone executes the fixed four-action prefix.",
+  "training_only_targets": [
+    {"name": "stage_onehot", "shape": "[number_of_windows,4]", "source": "Exact D20 native actions and window (episode,t) indices, used only in training_targets.", "definition": "Within each support episode: first dz>0.5 with abs(dy)<0.2 is lift onset; first dy>0.5 at/after lift is carry onset; first dz<-0.1 at/after carry is settling onset. Missing cuts equal T. Label is number of cuts reached at chunk start t. These are weak action-mode labels, not simulator phase truth.", "loss": "0.05 times cross entropy of current causal router probabilities. Per-window labels use mask[:,0] and denominator mask[:,0].sum(), clamped to one for an empty mask. They do not label padded future steps or enter inference. Common action4 epsilon loss remains weight one with denominator mask.sum()*4."}
+  ],
+  "support_statistics": "No persistent candidate support statistics. Local action change points exist only while constructing training labels and are never stored in deployment state. Fixed metric feature scales are not fitted.",
+  "architecture": "Approach 21->64->24, lift 29->64->24, transport and settle independently 36->64->24, ungated world 26->64->24, all SiLU. Router 18->48->4 softmax. Condition is probabilities4 + four gated24 + world24 + relation skip9 =133. All learned modules are registered during build_modules and receive joint-loss gradients.",
+  "parents": [],
+  "change_summary": "Second initial, substantively independent design: learned factorized condition and training-only weak phase supervision, with native-world actions. No performance feedback used; no pre-check structural edits."
+}

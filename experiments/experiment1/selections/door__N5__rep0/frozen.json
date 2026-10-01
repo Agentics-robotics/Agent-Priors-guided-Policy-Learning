@@ -1,0 +1,41 @@
+{
+  "instance": "door__N5__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A1",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A1",
+      "feedback_hash": "1ec6c40874e56c84c5ce2905b0cafd97d2d4b75c7f91002c76b931685e0dd745",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: applying equal subcondition weights gives A1 C=1.00, E=1.00, score=1.000; A2 C=1.00, E=(1+1+0.6+0.8)/4=0.85, score=0.925; A3 C=1.00, E=(0.6+1+0.4+1)/4=0.75, score=0.875. All are eligible completed candidates. A1 uniquely maximizes the frozen score, so no latency/parameter/ID tie-break is needed; A3's slightly lower latency does not override lower success. IID and training losses do not select. All A1 C/E episodes succeeded, but each distribution has only 20 episodes, so this is not proof of universal success. A4 will test a smaller information-preserving chart derived from A1 rather than inventing a failure diagnosis or adding the less successful hinge/graph machinery.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "22bdba454a5bb83a016ad7bfd4d53da8148fc489b4cbacb7f216fce4e0ffd7eb",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: all four candidates are eligible and completed the fixed 20,000 updates. Equal-cell C/E scores are A1=0.5*1.00+0.5*1.00=1.000, A2=0.925, A3=0.875, A4=1.000. A1 and A4 each succeeded in both C cells (10/10 each) and all four E cells (5/5 each), so the primary score ties exactly. The first frozen tie-break selects A4: fixed-method latency 0.10023194899986265 seconds is lower than A1's 0.10343925000051968 seconds. A4 also has fewer complete-system parameters (4,660,804 vs 4,796,996), but that later tie-break is not needed. IID, training losses, training duration and hidden tests do not select. A4's compact A1-derived chart retained observed C/E success; this finite development result does not prove universal robustness or isolate the cause of the latency difference. A2/A3 truncation outcomes remain recorded. No further edits, checks, candidates or training are requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "97c97139f9a22b868eb726a63c0b4ef5a5c20e56594defc9bd76280e335bffec",
+    "A2": "e5e1134b3a61b3275c806f610180625c64000df31217019c3a703d768b37f469",
+    "A3": "240996e9a20a57b86d68a1e9f65237eb286a6557ce59d0a461df3d2aebe7ecab",
+    "A4": "ce731aee95f23d2b24e43bfa5900bfdbc56e18f8960c3e03612f934c9b6cb9e6"
+  },
+  "feedback_hashes": {
+    "initial": "b016708fa7975b73a4a02ea8aaa8f57be0904f3aaf18165131a56bcd4b09bd4a",
+    "final": "48821250269f7fe2425cbe733359781081058c8a877e11112b29fef4f221ee7b"
+  }
+}

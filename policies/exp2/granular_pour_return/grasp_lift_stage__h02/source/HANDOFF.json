@@ -1,0 +1,14 @@
+{
+  "policy_id": "grasp_lift_stage__h02",
+  "entry_conditions": "Two finite causal frames place the TCP locally near a demonstrated approach, grasp, lift, or carry relation. The source is upright and ungrasped or visibly co-moving with closed fingers, and measured joints can reach the local target.",
+  "exit_conditions": "Closed fingers and source/TCP co-motion are visible, the source is table-clear, and it is staged upright above the bowl near the demonstrated high handoff relation.",
+  "overlap_role": "Actions [180,360) remain action-supervised in this policy and controlled_pour_and_right, teaching local lift, upright carry, bowl staging, and the first small tilt.",
+  "successor_readiness": "The successor may receive after a closed, co-moving and clearly lifted source; nominal switching occurs at high bowl staging.",
+  "failure_signatures": "Repeated local motion without reducing handle error, open fingers at lift, source/TCP motion disagreement, particle separation before secure lift, IK nonconvergence, or joint-limit contact. None is a demonstrated recovery mode.",
+  "continuation_guidance": "Preserve two-frame history across switches and compose every represented slot with the fresh measured TCP. Monitor physical co-motion rather than treating closure as contact. Use the source-frame policy for large source displacement and the phase-aware policy when grasp/lift phase is ambiguous.",
+  "limitations": "The successful demonstrations do not establish correction from unseen perturbations. Body-frame increments can accumulate diffusion error, and reachability, collision clearance, contact, large source rotations, and slips remain unsupported.",
+  "evidence": [
+    {"trajectory_id":"demo12300","indices":[80,120,136,140,148,152,156,160,180,220,280,320,359]},
+    {"trajectory_id":"demo12303","indices":[120,128,132,136,140,148,160,180,220,280,320,340,359]}
+  ]
+}

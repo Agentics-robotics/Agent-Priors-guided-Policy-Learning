@@ -1,0 +1,139 @@
+{
+  "checkpoint": "weights/exp2/drawer_exchange/red_transfer__h04/model.pt",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "e54139079a0711b8fc79c8d9ff2da23b9ba50c401ef52cf1e134c7654d47ff81",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 3,
+    "physical_gpu": 1,
+    "uuid": "GPU-98220a3d-407e-9de2-bdc8-c061c57a041c"
+  },
+  "effective_action_targets": 38769150,
+  "final_weights_sha256": "99e4d55435ff0b417d397be4e9ac57ce5029f871d5b13caf74c66403c9d352e7",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.265353679656982,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.452419757843018,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.31579065322876,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.22708390653133392,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "bf24cd4c80fcaeeed6daba58e3777599df0f5bd82981cf96aa5182964162dc00",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 7440,
+      "duplicated_actions": 0,
+      "unique_actions": 7440
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination": {
+            "enum": [
+              "red_goal"
+            ],
+            "type": "string"
+          },
+          "phase": {
+            "enum": [
+              "drawer_clear",
+              "red_acquire",
+              "red_place_release",
+              "bridge_to_blue",
+              "blue_acquire"
+            ],
+            "type": "string"
+          },
+          "primary_object": {
+            "enum": [
+              "red"
+            ],
+            "type": "string"
+          },
+          "successor_object": {
+            "enum": [
+              "blue"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "phase",
+          "primary_object",
+          "destination",
+          "successor_object"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Encode FK of each demonstrated joint command as inverse(causal phase anchor) times commanded world TCP; decode by exact anchor composition, safe 6D Gram-Schmidt, and verified Panda IK from measured joints. Compare FK TCP position in metres, rotation angle in radians, and gripper scalar; nonunique joint solutions are judged in task space.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "Five contiguous bindings per demonstration cover [230,320), [320,500), [500,650), [650,700), and [700,850), so every assigned [230,850) action is supervised exactly once. Complete [230,470) action overlap with open_drawer and [600,850) action overlap with blue_insert is retained.",
+      "input_shapes": {
+        "features": [
+          2,
+          53
+        ],
+        "phase": [
+          5
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "red_pose",
+        "blue_pose",
+        "drawer_position",
+        "drawer_velocity",
+        "red_goal",
+        "blue_goal"
+      ],
+      "output_semantics": "Each slot is [x,y,z,r1x,r1y,r1z,r2x,r2y,r2z,gripper]. XYZ is TCP target translation in metres and the two 3-vectors are the first two target-rotation columns, all expressed in the phase-selected anchor frozen from the newest causal observation for the chunk. drawer_clear uses world; red_acquire uses red SE(3); red_place_release uses a red_goal-origin/world-axis frame; bridge_to_blue uses chunk-start TCP SE(3); blue_acquire uses blue SE(3). The decoder Gram-Schmidt projects rotation 6D, composes anchor*relative_target into a world TCP pose, and calls panda_kinematics.solve_ik from freshly measured joints. Gripper preserves the demonstrated scalar and common nonnegative=open, negative=close semantics. Slots represent t-1 through t+14; slots 1 through 8 execute from current t.",
+      "parameter_semantics": "phase is semantic intent inferred from observed physical relationships, not elapsed time. drawer_clear uses a fixed world anchor for gripper release and high drawer retreat; red_acquire uses current observed red SE(3); red_place_release uses current observed red_goal translation with world axes; bridge_to_blue uses the newest causal TCP SE(3); blue_acquire uses current observed blue SE(3). primary_object, destination and successor_object are closed selectors for red_pose, red_goal and blue_pose. Poses use world metres and wxyz quaternions.",
+      "policy_id": "red_transfer__h04",
+      "skill_id": "red_transfer",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "6018a84c3b2646d1892382b48bb06561b97e251a6d2a8d1dbaeeb99347a7af27",
+    "PRIOR.md": "666e9db7b1078d021ed3a9bd005a296b350c6cc6cbaf793ba0b011aafc28cefc",
+    "adapters.py": "4760ae3d67ed4ed225840fb80333d7e18d63653ff74d7b9020d39e05974cf68b",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+    "pipeline.json": "7067f5889bc8a64d9f176f598414792b2602f1ed574058f76907d6ebf51d90f7",
+    "policy.py": "6139664326b03f7b0ccde490f3663130f96f6c8911f6e0be1b14bb6c439a2f68",
+    "policy_contract.json": "2a5e2e1b83ed15b1b342ae7e9d52a5edb2c2efda0eddedf5d0366294957884a7",
+    "training_bindings.json": "ef2a50e8fc285f6a9bb96e2ed1ebfbc8eadccf4c487e5ea1d42c0b10d6c38681"
+  },
+  "trainable_parameters": 17122058,
+  "training_elapsed_seconds": 613.0863324259408,
+  "weight_l2_change": 33.753889488047136
+}

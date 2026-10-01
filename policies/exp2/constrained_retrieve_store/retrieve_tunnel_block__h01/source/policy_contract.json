@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "retrieve_tunnel_block__h01",
+  "skill_id": "retrieve_tunnel_block",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "object_pose_field": {"type": "string", "enum": ["object_pose"]},
+      "destination_pose_field": {"type": "string", "enum": ["target_pose"]},
+      "tunnel_clearance_m": {"type": "number", "minimum": 0.16, "maximum": 0.16}
+    },
+    "required": ["object_pose_field", "destination_pose_field", "tunnel_clearance_m"]
+  },
+  "parameter_semantics": "object_pose_field names the manipulated block world pose used as a fresh SE(3) action reference; destination_pose_field names the observed world destination pose used for conditioning; tunnel_clearance_m is the 0.16 m world-z roof clearance used in the signed input margin. Demonstration bindings use object_pose, target_pose and 0.16.",
+  "observation_dependencies": ["drawer_position", "drawer_velocity", "object_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 60]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [object-frame TCP x,y,z metres, object-frame TCP rotation 6D as first two columns, gripper scalar]. The reference is the observed block pose immediately before that slot; decode composes with the freshly observed block pose to form a world TCP target, Gram-Schmidt projects 6D rotation with a deterministic finite fallback, then calls panda_kinematics.solve_ik from freshly measured joints. Gripper >=0 opens and <0 closes. Slots represent t-1 through t+14; execution uses slots 1..8.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "Encode/decode must recover the demonstrated command FK TCP pose and gripper scalar within 0.01 maximum metres/radians/scalar; IK is initialized from the measured joints and its residuals are reported."},
+  "cut_relation": "Uses every assigned [300,840) action for all 12 demonstrations, preserving predecessor overlap [300,440) and successor overlap [680,840); only the Cartesian representation and causal conditioning are changed."
+}

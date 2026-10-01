@@ -1,0 +1,14 @@
+{
+  "policy_id": "open_hinged_lid__h02",
+  "entry_conditions": "TCP may be off the nominal world path but must be collision-free, with valid two-frame measured TCP, qpos/qvel and lid observations. The lid can be closed or partly open; the relative geometry must still identify a plausible handle approach or ongoing pull.",
+  "exit_conditions": "Fingers are observed open, TCP has established clear retreat from the lid, lid_position is stably above closed with small lid_velocity, and peg_pose remains stationary.",
+  "overlap_role": "All [740,950) actions in each trajectory remain supervised. Local corrections include final pull, release around 760 and post-release retreat, preserving 210 actions per trajectory of overlap with retrieve_peg_from_box.",
+  "successor_readiness": "Hand off after this policy has opened the fingers and physical observations show lid exposure and TCP clearance. Keep two-frame history across the switch so the receiver sees the release and retreat trend.",
+  "failure_signatures": "Incremental commands shrink to ineffective motion, orientation corrections oscillate, IK repeatedly reports nonconvergence or limit contacts, the gripper closes away from the handle, lid motion is not synchronized with the pull, or the peg moves.",
+  "continuation_guidance": "Continue while fresh local corrections reduce TCP-to-handle error or sustain smooth lid opening. Prefer h01 if a large lid displacement needs direct body-frame equivariance; prefer h03 if near-nominal close/pull/release phase is ambiguous. No option should infer grasp solely from finger closure.",
+  "limitations": "The demonstrations are successful nominal executions and contain no demonstrated recovery after lost contact. Re-anchoring makes the policy responsive but can accumulate bias or stall. IK, collisions, pose noise and joint limits remain physical dependencies.",
+  "evidence": [
+    {"trajectory_id":"demo12200","indices":[0,100,180,200,220,260,300,500,700,740,760,780,800,820,860,900,949]},
+    {"trajectory_id":"demo12208","indices":[180,220,300,620,740,760,800,820,900,949]}
+  ]
+}

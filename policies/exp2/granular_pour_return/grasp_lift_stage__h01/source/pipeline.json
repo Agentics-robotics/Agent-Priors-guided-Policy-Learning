@@ -1,0 +1,10 @@
+{
+  "policy_id": "grasp_lift_stage__h01",
+  "skill_id": "grasp_lift_stage",
+  "heuristic_index": 1,
+  "prior_summary": "Predict absolute Cartesian TCP poses in the source-container frame frozen at each chunk start, while conditioning on source-to-bowl geometry and Panda state.",
+  "applicable_conditions": "Prefer for an upright, observable source displaced from the narrow demonstrated table range, especially before handle acquisition. Source and destination must remain reachable and use the demonstrated handle geometry.",
+  "termination_guidance": "Terminate or hand off only after closed fingers, observable source/TCP co-motion, table clearance, and high staging above the bowl with only a small tilt; nominally hand off after staging, while [180,360) supports earlier switching after secure lift.",
+  "limitations": "Source anchoring directly protects acquisition against source translation but does not remove reachability, collision, grasp-contact, or fixed destination dependencies. No failed-grasp or slip recovery is demonstrated; large rotations and mid-chunk slips are unsupported.",
+  "config": {"action_frame": "chunk_start_source", "action_encoding": "xyz_rotation6d_gripper", "feature_dimension_per_frame": 51, "backbone": "standard_diffusion_backbone"}
+}

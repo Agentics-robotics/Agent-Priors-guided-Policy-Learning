@@ -1,0 +1,17 @@
+{
+  "policy_id": "single_prior_cartesian",
+  "skill_id": "full_task",
+  "heuristic_index": 1,
+  "prior_summary": "A single diffusion policy jointly predicts Cartesian TCP poses and a per-slot relational reference-frame selector. Position offsets are decoded from the fresh drawer/blue destination, red object, red pad, or blue object origin; a causal relational encoder and masked anchor-prediction auxiliary loss support selection across the long full task.",
+  "applicable_conditions": "Use with the observed Panda state and all structured drawer_exchange fields present. The mechanism targets translations of the drawer/blue destination, red and blue source objects, and red pad while retaining measured robot configuration and world orientation; shifted targets must remain collision-free and IK-reachable.",
+  "termination_guidance": "Do not change the supplied success rule: terminate only when one observation simultaneously has drawer_position strictly greater than 0.26 m, the red block fully contained on the outside pad at the specified height interval, and the blue block fully contained in the translated open drawer cavity at the specified height interval. Release, speed, clearance, or sustained-time conditions are not added.",
+  "limitations": "The demonstrations share one task order and narrow object orientations. A wrongly predicted reference score can create an observable target jump; lost grasps, large displacements, obstacles, changed drawer geometry, severe object rotations, or unreachable selected-origin offsets are not repaired by the representation. IK nonconvergence is reported but not hidden or replaced.",
+  "config": {
+    "condition_encoder_width": 256,
+    "anchor_classes": 4,
+    "anchor_auxiliary_weight": 0.05,
+    "input_feature_dimension_per_frame": 71,
+    "backbone": "standard_diffusion_backbone_unchanged",
+    "numerical_recipe": "assignment_default_unchanged"
+  }
+}

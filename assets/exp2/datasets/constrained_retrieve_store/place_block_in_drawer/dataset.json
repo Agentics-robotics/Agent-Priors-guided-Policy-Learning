@@ -1,0 +1,254 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        680,
+        700,
+        720,
+        780,
+        800,
+        820,
+        840,
+        860,
+        880,
+        900,
+        920,
+        940,
+        960,
+        1080,
+        1140,
+        1160
+      ],
+      "trajectory_id": "demo12100"
+    },
+    {
+      "indices": [
+        680,
+        700,
+        780,
+        820,
+        840,
+        860,
+        900,
+        920,
+        940,
+        1080,
+        1140,
+        1160
+      ],
+      "trajectory_id": "demo12101"
+    },
+    {
+      "indices": [
+        680,
+        700,
+        840,
+        900,
+        920,
+        1160
+      ],
+      "trajectory_id": "demo12102"
+    },
+    {
+      "indices": [
+        680,
+        700,
+        840,
+        900,
+        920,
+        1160
+      ],
+      "trajectory_id": "demo12103"
+    },
+    {
+      "indices": [
+        680,
+        700,
+        840,
+        900,
+        920,
+        1160
+      ],
+      "trajectory_id": "demo12104"
+    },
+    {
+      "indices": [
+        680,
+        700,
+        840,
+        900,
+        920,
+        1160
+      ],
+      "trajectory_id": "demo12105"
+    },
+    {
+      "indices": [
+        680,
+        700,
+        840,
+        900,
+        920,
+        1160
+      ],
+      "trajectory_id": "demo12106"
+    },
+    {
+      "indices": [
+        680,
+        700,
+        840,
+        900,
+        920,
+        1160
+      ],
+      "trajectory_id": "demo12107"
+    },
+    {
+      "indices": [
+        680,
+        700,
+        840,
+        900,
+        920,
+        1160
+      ],
+      "trajectory_id": "demo12108"
+    },
+    {
+      "indices": [
+        680,
+        700,
+        840,
+        900,
+        920,
+        1160
+      ],
+      "trajectory_id": "demo12109"
+    },
+    {
+      "indices": [
+        680,
+        700,
+        840,
+        900,
+        920,
+        1160
+      ],
+      "trajectory_id": "demo12110"
+    },
+    {
+      "indices": [
+        680,
+        700,
+        840,
+        900,
+        920,
+        1160
+      ],
+      "trajectory_id": "demo12111"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Drawer is open and stable; fingers are closed; object and TCP are moving together; object is already outside and above the tunnel, typically around z=0.29-0.31 at index 680.",
+    "exit_conditions": "Object is stationary on the open drawer floor near z=0.063, fingers are no longer holding it, TCP has retreated from above the cavity, and the arm has descended to the drawer-handle approach while drawer_position remains near 0.300.",
+    "failure_signatures": "Object ceases to follow the TCP before the cavity, settles outside the cavity, remains above floor height while the arm retreats, continues following the TCP after an open command, or the arm approaches the handle while still carrying the block. Demonstrations only show successful release/retreat, not recovery from an unseen drop.",
+    "overlap_role": "With retrieval, shared actions 680:840 total 160 actions or 8.0 s per trajectory and retain final lift plus transfer. With closing, shared actions 900:1160 total 260 actions or 13.0 s per trajectory and retain final lowering/opening, release confirmation by object settling, upward retreat, reorientation, and handle approach/grasp.",
+    "successor_readiness": "The close-drawer skill can receive early while the block is still being released in the shared region, but drawer motion should begin only after object_pose is at drawer-floor height and no longer follows TCP. At the late boundary the block is resting in the drawer and the gripper is at the handle."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Transport the block into the open drawer and release it",
+  "original_demonstration_count": 12,
+  "plan_hash": "388b2863018f5e4ec92a10a0b6a0efd22bb0182ef311ace074f29094ca4f82f2",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "Observed responsibility: actions 680:860 carry the held block to the drawer, about 860:920 lower and release it, and 920:1160 retreat and transition toward the handle. It is separate from extraction because the main constraints are cavity alignment, controlled descent, release, and collision-free retreat. The long post-release tail is retained to provide supervised handoff states to the drawer-closing skill; it does not imply recovery from an off-target drop.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Carry the block extracted from tunnel pose near (-0.4368, -0.4063) into the open drawer, release it, retreat, and approach the drawer handle.",
+      "start": 680,
+      "stop": 1160,
+      "trajectory_id": "demo12100"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Carry the block extracted from tunnel pose near (-0.4478, -0.4076) into the open drawer, release it, retreat, and approach the drawer handle.",
+      "start": 680,
+      "stop": 1160,
+      "trajectory_id": "demo12101"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Carry the block extracted from tunnel pose near (-0.4416, -0.3979) into the open drawer, release it, retreat, and approach the drawer handle.",
+      "start": 680,
+      "stop": 1160,
+      "trajectory_id": "demo12102"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Carry the block extracted from tunnel pose near (-0.4463, -0.3953) into the open drawer, release it, retreat, and approach the drawer handle.",
+      "start": 680,
+      "stop": 1160,
+      "trajectory_id": "demo12103"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Carry the block extracted from tunnel pose near (-0.4421, -0.3968) into the open drawer, release it, retreat, and approach the drawer handle.",
+      "start": 680,
+      "stop": 1160,
+      "trajectory_id": "demo12104"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Carry the block extracted from tunnel pose near (-0.4365, -0.3972) into the open drawer, release it, retreat, and approach the drawer handle.",
+      "start": 680,
+      "stop": 1160,
+      "trajectory_id": "demo12105"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Carry the block extracted from tunnel pose near (-0.4415, -0.4049) into the open drawer, release it, retreat, and approach the drawer handle.",
+      "start": 680,
+      "stop": 1160,
+      "trajectory_id": "demo12106"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Carry the block extracted from tunnel pose near (-0.4401, -0.3951) into the open drawer, release it, retreat, and approach the drawer handle.",
+      "start": 680,
+      "stop": 1160,
+      "trajectory_id": "demo12107"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Carry the block extracted from tunnel pose near (-0.4448, -0.3990) into the open drawer, release it, retreat, and approach the drawer handle.",
+      "start": 680,
+      "stop": 1160,
+      "trajectory_id": "demo12108"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Carry the block extracted from tunnel pose near (-0.4457, -0.3966) into the open drawer, release it, retreat, and approach the drawer handle.",
+      "start": 680,
+      "stop": 1160,
+      "trajectory_id": "demo12109"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Carry the block extracted from tunnel pose near (-0.4444, -0.4051) into the open drawer, release it, retreat, and approach the drawer handle.",
+      "start": 680,
+      "stop": 1160,
+      "trajectory_id": "demo12110"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Carry the block extracted from tunnel pose near (-0.4408, -0.4063) into the open drawer, release it, retreat, and approach the drawer handle.",
+      "start": 680,
+      "stop": 1160,
+      "trajectory_id": "demo12111"
+    }
+  ],
+  "skill_id": "place_block_in_drawer",
+  "subgoal": "Carry the extracted block from above the tunnel to the open drawer, align it over the cavity, descend, open the gripper to leave the block resting at drawer-floor height, then retreat without disturbing it and reorient toward the drawer handle. Contact is maintained with the block until release. Approximate entry: block held high outside the tunnel, drawer open. Approximate exit: block resting in the open drawer near z=0.063 and x about -0.166 to -0.177 in the open-drawer world pose, gripper free and at/near the handle approach."
+}

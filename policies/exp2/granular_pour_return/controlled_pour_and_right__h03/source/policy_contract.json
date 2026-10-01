@@ -1,0 +1,31 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "controlled_pour_and_right__h03",
+  "skill_id": "controlled_pour_and_right",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {},
+    "required": []
+  },
+  "parameter_semantics": "No caller parameters. The executor supplies two causal observations. Container, TCP, bowl and target poses use world metres and wxyz quaternions. The observed container-to-TCP transform is treated as a measured rigid grasp relation, not as proof of grasp.",
+  "observation_dependencies": ["bowl_pose", "container_pose", "particle_positions", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 130]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each slot is [desired source-container translation in metres in the current container frame, desired source increment orientation as 6D rotation columns, native gripper scalar]. Labels derive desired source pose from the commanded TCP and observed rigid container-to-TCP transform. At execution the source increment is composed with the fresh container pose and then with the fresh observed container-to-TCP transform to form a world TCP target. Safe Gram-Schmidt projects orientation, and solve_ik uses fresh measured joints. Slots are t-1 through t+14; slots 1-8 execute.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "For each label reconstruct desired source pose and then TCP through the same observed rigid grasp transform, solve IK, and compare FK position, rotation and gripper scalar with the demonstrated commanded TCP target."
+  },
+  "cut_relation": "Source-motion relabeling covers every assigned [180,1740) action in all twelve trajectories. It retains full action-supervised incoming [180,360) and outgoing [1460,1740) overlaps without changing responsibility."
+}

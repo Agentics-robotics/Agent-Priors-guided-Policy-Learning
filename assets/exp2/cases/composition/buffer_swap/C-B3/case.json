@@ -1,0 +1,146 @@
+{
+  "blue": "parked",
+  "composition": "reverses the demonstrated order: the red block is placed before the blue block, which is picked from a new position",
+  "contract": {
+    "coordinate_frame": "world",
+    "description": "Exchange the regions of the two blocks: the red block goes into the marked region where the blue block normally starts and the blue block into the marked region where the red block starts. The blue block has been set aside outside all marked regions. The task is complete when both blocks are in their goal regions.",
+    "drawer_channels": "No drawer in this task: drawer_position and drawer_velocity are fixed zero compatibility channels.",
+    "fixtures": [],
+    "full_rotated_xy_containment": true,
+    "gripper_release_required": false,
+    "half_xy_m": [
+      0.06,
+      0.06
+    ],
+    "object_half_m": 0.02,
+    "predicates": [
+      "red_at_goal",
+      "blue_at_goal"
+    ],
+    "required_observations": 1,
+    "schema": "appl.scaleup.goals.v1",
+    "success_expression": "red_at_goal AND blue_at_goal",
+    "sustained_hold_required": false,
+    "targets": {
+      "blue": [
+        -0.35,
+        -0.2,
+        0.02
+      ],
+      "red": [
+        -0.35,
+        0.2,
+        0.02
+      ]
+    },
+    "task_id": "buffer_swap",
+    "tcp_clearance_required": false,
+    "units": "metres",
+    "velocity_threshold_required": false,
+    "z_tolerance_m": 0.011
+  },
+  "description": "Exchange the regions of the two blocks: the red block goes into the marked region where the blue block normally starts and the blue block into the marked region where the red block starts. The blue block has been set aside outside all marked regions. The task is complete when both blocks are in their goal regions.",
+  "drawer_position": 0.0,
+  "env_goals": {
+    "blue": [
+      -0.35,
+      -0.2,
+      0.02
+    ],
+    "red": [
+      -0.35,
+      0.2,
+      0.02
+    ]
+  },
+  "expert_goals": {
+    "blue_at_goal": true,
+    "red_at_goal": true,
+    "success": true
+  },
+  "expert_planner_error": null,
+  "expert_success": true,
+  "goal": "C-B3",
+  "goals": {
+    "blue": "blue_goal",
+    "red": "red_goal"
+  },
+  "id": "C-B3",
+  "id_layout": {
+    "blue": [
+      -0.3617099394777942,
+      0.20453320762051877,
+      0.02
+    ],
+    "red": [
+      -0.345119366848079,
+      -0.1998083142447739,
+      0.02
+    ]
+  },
+  "initial_goals": {
+    "blue_at_goal": false,
+    "red_at_goal": false,
+    "success": false
+  },
+  "initial_sha256": "d82b641dd8f097160d04f3e823cd6718e3abadaf5a5ceb1af874be6cb04f579e",
+  "kind": "compose",
+  "layout_note": {
+    "id_layout": {
+      "blue": [
+        -0.3617099394777942,
+        0.20453320762051877,
+        0.02
+      ],
+      "red": [
+        -0.345119366848079,
+        -0.1998083142447739,
+        0.02
+      ]
+    },
+    "placement": {
+      "blue": "parked",
+      "red": "start"
+    }
+  },
+  "name": "blue_parked_place_red_first",
+  "poses": {
+    "blue": [
+      -0.22,
+      0.3,
+      0.02,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "red": [
+      -0.345119366848079,
+      -0.1998083142447739,
+      0.02,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "prepared": 1790328616.8830662,
+  "program": [
+    [
+      "red",
+      "buffer"
+    ],
+    [
+      "red",
+      "red"
+    ],
+    [
+      "blue",
+      "blue"
+    ]
+  ],
+  "robot_qpos": null,
+  "seed": 24093402,
+  "suite": "compose",
+  "task": "buffer_swap"
+}

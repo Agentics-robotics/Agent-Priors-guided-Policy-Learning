@@ -1,0 +1,39 @@
+{
+  "title": "Cabinet-frame kinematics with an explicit world side channel",
+  "coverage_gap": "D_5 has three LL and two HH episodes, no LH or HL, and only small cabinet yaw magnitudes. Cabinet x and yaw can therefore be mistaken for a single cause. Extrapolation also changes yaw to 33-37 degrees in magnitude. Standardizing nearly constant cosine or goal-y on this small support can amplify that change.",
+  "reusable_regularity": "A translating drawer has an oriented local axis. Hand-handle, goal-handle, and observed motion vectors expressed in that cabinet basis can reuse geometry across cabinet position and yaw. Apply the same orthonormal basis to the translational action channels, without treating gripper as a vector. Use physical feature scales instead of fitting tiny orientation variances. This is a representation prior, not a controller or a claimed exact symmetry of the whole robot.",
+  "dependencies_preserved": [
+    "Local hand-handle and goal-handle vectors for current and native previous states, plus goal-hand, retain approach geometry and remaining drawer displacement.",
+    "One-step hand and handle displacements retain causal movement and interaction information, including the initially repeated observation.",
+    "Current and previous absolute world hand/handle positions and world goal are retained at a lower feature gain to preserve robot reach, table height and workspace dependence.",
+    "Current and previous object xyzw quaternions and cabinet sin/cos retain fixed-world gripper versus cabinet orientation. No assertion that robot or collision geometry rotates with the cabinet.",
+    "Current and previous gripper aperture and aperture difference remain available. Object2 fields alone are omitted because this task explicitly declares that object absent. No obstacle oracle is assumed."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Identifies exactly the five support episodes and available evidence; no other support is used."},
+    {"path": "task_materials.json", "use": "Declares corrected handle point, yaw channel, absent object2, fixed end-effector orientation, native world displacement action semantics, and correlated versus extrapolated factor ranges."},
+    {"path": "support_summary.json", "use": "LL=3, HH=2; initial handle-goal separation approximately 0.128 m across all five layouts; gripper action mean -1 and standard deviation zero."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Visible cabinet, handle and robot establish that the cabinet is an oriented interaction object rather than an interchangeable world marker."},
+    {"path": "images/frame_01_demo_00_step_030.png", "use": "The hand is above the handle during approach; retaining vertical relative and absolute geometry matters."},
+    {"path": "images/frame_02_demo_00_step_060.png", "use": "Visible descent toward the handle, not just a straight initial-to-goal trajectory."},
+    {"path": "images/frame_06_demo_01_step_090.png", "use": "The drawer is visibly displaced with the hand near its handle at the end of this demonstration."},
+    {"path": "trajectories/demo_00.json", "field": "obs", "rows_inclusive": [58,65], "use": "Handle remains stationary while hand descends from z about .1255 to .1092; causal relative height and velocities are informative."},
+    {"path": "trajectories/demo_01.json", "field": "obs", "rows_inclusive": [70,75], "use": "Handle moves in both world x and y during opening, supporting a yaw-aware rather than world-y-only description."}
+  ],
+  "expected_failure_signature": [
+    "If the cabinet-frame prior dominates real fixed-gripper orientation effects, large-yaw episodes should approach the correct local area but fail to engage or retain the handle.",
+    "If diffusion memorizes the weak world side channel despite the relative representation, failures will still track the missing x/yaw sign combinations.",
+    "Without an explicit phase bottleneck, the raised-approach/descent transition may be smeared: oscillation above the handle or a premature pull is a falsifiable failure pattern. No success measurements have been made."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history[B,2,41] and chunk-start raw_current[B,41], all from the shared deployment observation",
+    "slices": {"hand": [0,3], "gripper": [3,4], "handle": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_gripper": [21,22], "previous_handle": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal": [36,39], "cabinet_sin_cos": [39,41]},
+    "condition": "49 features per each of the two whole observations: 21 local relations/motions, 3 aperture features, 15 scaled world positions, 8 raw quaternion components and 2 unit yaw components. No time, phase oracle, future state or support lookup at inference.",
+    "action_frame": "For the entire sixteen-step chunk use Rz(yaw_at_chunk_start)^T on native world action xyz; inverse Rz on decoding. Positive local y is cabinet +y, not relabeled as opening. Gripper is identical in both directions. No shift, per-step future frame, scaling or clipping of actions; host applies .01 m/native-unit and native cube clipping after decoding."
+  },
+  "training_only_targets": [],
+  "support_fit": "No learned or empirical support statistics beyond the host normalizer; the representation deliberately uses raw causal fields with fixed .1 m relation, .01 m per-step motion, and .5 m world scales. The host normalization and dataset are unmodified.",
+  "architecture": "Exactly one frozen common action4 DP with condition_dim=49; no extra learned modules or auxiliary loss. Fixed action epsilon objective and denominator mask.sum()*4 remain untouched.",
+  "parents": [],
+  "change_summary": "Initial independently specified cabinet-frame design. First implementation; no performance feedback or structural repair."
+}

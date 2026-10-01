@@ -1,0 +1,19 @@
+{
+  "policy_id": "blue_insert__h04",
+  "skill_id": "blue_insert",
+  "heuristic_index": 4,
+  "prior_summary": "A per-slot source-to-destination progress coordinate and world residual make pickup targets move with the observed blue, insertion targets remain anchored to blue_goal, and transport targets warp continuously between them.",
+  "applicable_conditions": "Prefer when drawer_position is strictly above 0.26 m, red is on or being released over its pad, and translation of the free blue or changed blue-to-goal separation is the main risk. source_object must be blue and destination_field must be blue_goal. The policy remains trained over the whole overlap, but h02 is preferred for nominal stable carry near the drawer.",
+  "termination_guidance": "Terminate only under the unchanged simultaneous evaluator condition: drawer open, red fully on its pad at valid z, and blue fully inside the drawer cavity at valid z in one observation. Release and high retreat are demonstrated continuation context, not added success requirements.",
+  "limitations": "Translation covariance does not guarantee reachability, collision avoidance or grasp success. World orientation does not adapt to blue/drawer rotation. Predicted progress can select the wrong anchor under phase or contact ambiguity. The blue and goal endpoints are frozen for each execution chunk, and no recovery behavior was demonstrated.",
+  "config": {
+    "action_frame": "source_destination_progress_with_world_residual",
+    "action_dimension": 11,
+    "rotation": "world_6d",
+    "progress_projection": "clipped_3d_segment",
+    "coincident_endpoint_squared_m": 0.0001,
+    "input_scaling": "fixed_physical",
+    "augmentation": "none",
+    "backbone": "standard"
+  }
+}

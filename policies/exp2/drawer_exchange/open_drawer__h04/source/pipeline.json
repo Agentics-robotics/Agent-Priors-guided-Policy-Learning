@@ -1,0 +1,17 @@
+{
+  "policy_id": "open_drawer__h04",
+  "skill_id": "open_drawer",
+  "heuristic_index": 4,
+  "prior_summary": "Use an observable phase-adaptive Cartesian target frame: the articulated drawer frame for approach, acquisition, pull, release and early retreat, then the observed red-block frame for approach, closure and initial lift. The same gate converts labels and fresh-state outputs, providing constructive equivariance to reachable drawer-anchor displacement early and independent red displacement late.",
+  "applicable_conditions": "Prefer when calibrated drawer zero-opening pose and observed red pose are reliable and reachable scene displacement is the dominant expected variation. The drawer should be closed or in a physically coherent demonstrated intermediate phase; local -X must be the opening direction. Prefer open_drawer__h03 for nominal geometry when frame estimates or the geometric switch cues are suspect.",
+  "termination_guidance": "The open-drawer responsibility is complete when drawer_position is safely above 0.26 m and stable with the front released. For the nominal robust handoff, also observe closed fingers and red/TCP upward co-motion near the retained segment end. These are switch cues and do not change the fixed task success definition.",
+  "limitations": "No shifted scene was demonstrated or validated. The hard active-frame gate can be wrong or change during an execution chunk; noisy frames, large shifts, unreachable poses, collisions, missed contact, blocked motion, misgrasp and drop recovery are not covered. Closed fingers and IK convergence are not proof of grasp or safe contact.",
+  "config": {
+    "backbone": "DiffusionBackbone",
+    "action_representation": "active_frame_absolute_position_rotation6d_gripper",
+    "feature_shape": [2, 49],
+    "action_dimension": 10,
+    "auxiliary_loss": false,
+    "synthetic_augmentation": false
+  }
+}

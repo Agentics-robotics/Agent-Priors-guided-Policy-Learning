@@ -1,0 +1,41 @@
+{
+  "title": "Joint action-and-relation diffusion in a lift-gated transport frame",
+  "coverage_gap": "The diagonal support offers little large lateral ring-to-peg transport. In unseen sign combinations and extrapolated x positions, world lateral actions may be much larger or of a different sign. Pure action imitation may also model contact switches poorly: the handle-to-hand relation becomes nearly constrained only after pickup, while ring-to-goal error evolves through lift, carry and descent.",
+  "reusable_regularity": "Model actions jointly with future grasp and insertion relations, making attachment and task progress part of the same stochastic sequence rather than using a stage classifier. During observed lift, smoothly rotate horizontal vector/action coordinates toward the currently observed ring-to-peg direction. This makes long transports more similar in local axes. Near the table the frame is nearly world-aligned; near the peg a finite forward regularizer prevents an ill-defined radial heading. These are coordinate operations, not a target controller, planner, simulator model or test-time optimization.",
+  "dependencies_preserved": [
+    "Both task edges remain separate: handle minus hand from 4:7 and 0:3, goal minus ring from 36:39 and 39:42. The current handle-ring offset and hand-ring relation preserve actual rigid geometry without equating handle with hole.",
+    "World hand and previous hand are retained as explicit coordinates; all hand, handle, ring and goal heights remain world z. Gravity/table and robot/workspace dependence are not removed by horizontal canonicalization.",
+    "Frame cosine and sine are supplied explicitly. Both current and native-previous orientation columns are rotated into this frame; this preserves object orientation relative to the fixed world gripper, rather than assuming the gripper rotates with the task.",
+    "Native previous hand/handle, aperture history and two whole ring observations preserve inertial, grasp and slip information. Goal geometry is retained as the peg dependency. There are no supplied object2 obstacles, and no hidden scene information is used."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exact assembly N20 support only"},
+    {"path": "task_materials.json", "detail": "LL/HH coverage; extrapolated nut_x and peg_goal_x intervals; native fixed gripper orientation and ring-center extra channel"},
+    {"path": "support_summary.json", "detail": "HH=10 LL=10; demo_00 and demo_01 have world y action maximum1 and vertical action extrema -1 and1. Temporal transport structure is supported by demo_00 actions below."},
+    {"path": "trajectories/demo_00.json", "detail": "obs 0-2 distinguish handle and ring; 26-29 show stationary ring at grasp; 45-47 show rising ring; 72-74 show lateral near-alignment before descent. actions 27-45 are vertical-only lift, then forward transport and descent."},
+    {"path": "trajectories/demo_18.json", "detail": "obs 57-59: ring near z 0.193-0.195 while handle stays roughly 0.045 m below hand; ring y approaches goal y 0.7806. These motion relations motivate joint future-edge targets."},
+    {"path": "images/frame_12_demo_16_step_000.png", "detail": "World table, upright peg and offset ring handle at reset"},
+    {"path": "images/frame_14_demo_18_step_057.png", "detail": "Grasped ring transported above the peg/table"},
+    {"path": "images/frame_03_demo_03_step_093.png", "detail": "Late alignment while holding the handle"}
+  ],
+  "expected_failure_signature": "If approximate heading canonicalization is insufficient, E cross-sign trials should pick up but accumulate lateral error, especially where native cube saturation differs from local coordinates. Heading changes across replans could produce lateral wobble close to insertion; the 0.05 m regularizer predicts less instability at small ring-goal distances than an unregularized radial frame, but this is unmeasured. Joint future-edge channels may instead harm control by modeling a plausible attached ring even after a failed grasp, or by spending capacity on predictable geometry rather than sharp action switches. These are falsifiable predictions, not results.",
+  "required_runtime_fields": {
+    "input": "context.raw_history [B,2,42] and context.raw_current [B,42], with no future truth, elapsed step, phase labels or training mask",
+    "slices": ["0:3 hand", "3:4 gripper", "4:7 handle", "7:11 wxyz", "18:21 previous hand", "21:22 previous gripper", "22:25 previous handle", "25:29 previous wxyz", "36:39 goal", "39:42 ring center"],
+    "frame_definition": "At chunk start let dx=goal_x-ring_x, dy=goal_y-ring_y, lift=sigmoid((ring_z-rest_height-0.04)/0.015), theta=lift*atan2(dx,sqrt(dy^2+0.05^2)). With c=cos(theta), s=sin(theta), basis columns are e_lateral=(c,-s,0), e_forward=(s,c,0), e_up=(0,0,1). Both history observations, every target vector and all sixteen actions use this one fixed start frame.",
+    "action_frame": "Encode native xyz by [c*ax-s*ay, s*ax+c*ay, az] and decode with the transpose inverse; native 0.01 m scale is not changed. Scalar gripper is copied exactly. No origin subtraction from actions, local clipping, scale fitting, future-dependent frame or auxiliary-channel execution. The public executor alone clips the decoded world native cube and executes four of sixteen actions."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_edges_world_m",
+      "source": "Exact support episode obs[t+k+1] for k=0..15 on valid actions: future_handle-future_hand and chunk_start_goal-future_ring. Source slices are 4:7, 0:3, 36:39 and 39:42. The final support obs[T] is used only as a next-state target for the last valid action.",
+      "transformation": "Rotate each vector into the same causal chunk-start frame and divide by 0.1 m. Concatenate these six channels AFTER encoded native action4, creating ten diffusion channels. First four are exactly the common encoded action target.",
+      "mask_and_loss": "Padded targets are zeros with a separate future_edge_valid mask. Auxiliary epsilon MSE uses mask*future_edge_valid and denominator 6*valid.sum(), clamped only for empty masks; multiply by 0.3. Common action4 epsilon weight remains1 with denominator mask.sum()*4, independent of auxiliary channel count.",
+      "inference_isolation": "No target tensors are cached on the design. Deployment samples all ten channels using the one unchanged common denoiser/scheduler from host noise, then discards the six generated auxiliary channels. No ground-truth future state or label conditions inference, and no generated future is used by a planner or postprocessing action correction."
+    }
+  ],
+  "support_fit": "Only median initial ring z from the exact current D_N is stored as rest_height_m, to center the smooth lift frame gate; JSON restoration occurs before build_modules. All other scales are finite physical design constants, not fitted using other support or evaluation data.",
+  "architecture": "Deterministic 56-channel geometry per observation, including transformed motion/orientation, unrotated robot/world skips, frame axes and fine proximity features. One common conditional U-Net with diffusion_action_dim10; no additional network, denoising iterations, schedules or control budget. All ten output channels participate in action plus auxiliary loss.",
+  "parents": [],
+  "change_summary": "Initial independent joint stochastic action/relation design with an orthonormal, causal, lift-gated action frame. Unlike deterministic world-action conditioning or supervised stage routing, it models geometric futures in the diffusion sample itself. No performance feedback used."
+}

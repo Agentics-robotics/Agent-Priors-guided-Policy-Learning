@@ -1,0 +1,151 @@
+{
+  "task_id": "granular_pour_return",
+  "policy_id": "grasp_lift_stage__h04",
+  "skill_id": "grasp_lift_stage",
+  "source": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/source",
+  "manifest": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4"
+  ],
+  "assignment": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/assignment.json",
+  "training_spec": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/training/spec.json",
+  "dataset": "assets/exp2/datasets/granular_pour_return/grasp_lift_stage/dataset.json",
+  "normalization": "assets/exp2/tasks/granular_pour_return/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/granular_pour_return/grasp_lift_stage__h04/model.pt",
+    "sha256": "3e02f78a3cced595075f4366de5855ebbce60f08cc10ac2005e0a4556580b061",
+    "source_sha256": "3e02f78a3cced595075f4366de5855ebbce60f08cc10ac2005e0a4556580b061",
+    "size_bytes": 349801926,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 11,
+    "demos": 12,
+    "in_distribution_success": "11/12",
+    "exit_rule": "container above the bowl and upright with no particle in the bowl at the final state",
+    "guidance": "**Primary/default candidate within the demonstrated entry distribution.** This dual-source/bowl-position, absolute-world-orientation policy satisfied the required final stage exit in 11/12 validation runs (91.7%). At the final state, all 12 runs were upright with zero particles in the bowl; 11/12 were also over the bowl. The sole failure remained upright and spill-free but did not reach the bowl footprint. All runs reported zero IK-unconverged steps.\n\nInvoke only with finite, trustworthy container and bowl poses; nominally with an upright, table-supported source and open fingers, or from a nearby closed/low/lifted state when source/TCP co-motion is plausible. Handle geometry must be unchanged and the target must be reachable with collision clearance. The prior is designed to combine source-relative acquisition, bowl-relative staging, and absolute orientation, but robustness to displaced objects or other out-of-distribution states was not tested.\n\nAvoid or stop for noisy/missing poses, changed geometry, large rotations, obstacles, unreachable configurations, grasp miss, slip/drop, or severe intermediate-state error. Recognize failure through closed fingers without source/TCP co-motion, failure to lift, abrupt or stalled transport, particle escape, loss of uprightness, staging outside the bowl footprint, IK nonconvergence, or joint-limit contact. Do not treat the internal destination/blend weight as proof of contact or phase.\n\nHand off to `controlled_pour_and_right` only when physical observations confirm closed fingers, source/TCP co-motion, table clearance, an upright container high over the bowl, and no particle in the bowl. If the container is upright but not over the bowl—as in the one validation failure—do not hand off; stop/escalate or reselect."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/assignment.json",
+      "sha256": "48cb7ee39a38916e8cb897beb0dd5579c469c11b4164f3120c76d75159d60d04",
+      "source_sha256": "58e4ee36a286ba2443bc17faab4741f4e74c70bda5b294761f8b9a445300b493",
+      "size_bytes": 14674,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/handoff_evidence.json",
+      "sha256": "02ad9f1d011e3f3598540307d561019e6ff837ad105f151120f896512dd3efa6",
+      "source_sha256": "02ad9f1d011e3f3598540307d561019e6ff837ad105f151120f896512dd3efa6",
+      "size_bytes": 143124,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/source/HANDOFF.json",
+      "sha256": "df07a0d69119403dc859e709b91cc65ebc1922760f2d63408e7e151940eebb6e",
+      "source_sha256": "df07a0d69119403dc859e709b91cc65ebc1922760f2d63408e7e151940eebb6e",
+      "size_bytes": 2430,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/source/PRIOR.md",
+      "sha256": "3dc5e3fbfff532bce5cf1113ef276ed23932013a51603dd3d3e8d3be3a4647d8",
+      "source_sha256": "3dc5e3fbfff532bce5cf1113ef276ed23932013a51603dd3d3e8d3be3a4647d8",
+      "size_bytes": 7662,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/source/adapters.py",
+      "sha256": "bc71229592c56b3dac6c3a5effaa9d79ebee308aa67fa36f5b549c9c5882e0d0",
+      "source_sha256": "bc71229592c56b3dac6c3a5effaa9d79ebee308aa67fa36f5b549c9c5882e0d0",
+      "size_bytes": 7821,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/source/panda_posture.py",
+      "sha256": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+      "source_sha256": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+      "size_bytes": 1309417,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/source/pipeline.json",
+      "sha256": "5abdd17b944c6e78fd5f103fd356541e7add596b95d9851ea28046440d5a7e2c",
+      "source_sha256": "5abdd17b944c6e78fd5f103fd356541e7add596b95d9851ea28046440d5a7e2c",
+      "size_bytes": 1633,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/source/policy.py",
+      "sha256": "892aa36f3013c31f1e867bf59842cc74576a93094f557d6705c99b380fda1c94",
+      "source_sha256": "892aa36f3013c31f1e867bf59842cc74576a93094f557d6705c99b380fda1c94",
+      "size_bytes": 991,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/source/policy_contract.json",
+      "sha256": "3542c02d9ed1dc755c6e0d6535e11cb4e23024a43ec5ecf6e0a252315e13d67f",
+      "source_sha256": "3542c02d9ed1dc755c6e0d6535e11cb4e23024a43ec5ecf6e0a252315e13d67f",
+      "size_bytes": 2695,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/source/training_bindings.json",
+      "sha256": "bcfd35e286a64f71dcc3be4d9ec0d6e93843dd826bc3d36d9e0b2b96d26f955f",
+      "source_sha256": "bcfd35e286a64f71dcc3be4d9ec0d6e93843dd826bc3d36d9e0b2b96d26f955f",
+      "size_bytes": 3168,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/submission.json",
+      "sha256": "a4961e06e52b1e252fefecd3a635e9e14349537a9190433bffff6056b3b7d025",
+      "source_sha256": "6ee43f0373caa0fe59c4e66bff5b3a322a7f7cf37860daf88ba2df27964f23a3",
+      "size_bytes": 21167,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/training/adapter_checks.json",
+      "sha256": "2d8aff6ebeaaa74d57937871d2a3ddda98ae787bd1a26e23b6599b282159aced",
+      "source_sha256": "2d8aff6ebeaaa74d57937871d2a3ddda98ae787bd1a26e23b6599b282159aced",
+      "size_bytes": 194,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/training/result.json",
+      "sha256": "311a187b2c147cd5fca4353857a3b4fe114a0bd3432c6f790ad513c6a2e517ca",
+      "source_sha256": "2882f068faaf9adc615da027fa1592d52440730db8e6f7c7d9712afbe2f34ea6",
+      "size_bytes": 5324,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/training/spec.json",
+      "sha256": "06b5d8d99031f66bb6f252a4164d32b424862b4c6dc495393ffc5cb0df4fcbe4",
+      "source_sha256": "06b5d8d99031f66bb6f252a4164d32b424862b4c6dc495393ffc5cb0df4fcbe4",
+      "size_bytes": 21029,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/prior_plan.json",
+      "sha256": "3273ceb29e2a24b045e2ed85eac8642d73a46e1b125e009b92c0d71c3af00926",
+      "source_sha256": "3273ceb29e2a24b045e2ed85eac8642d73a46e1b125e009b92c0d71c3af00926",
+      "size_bytes": 10891,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/granular_pour_return/task.json",
+  "completion_contract": "assets/exp2/tasks/granular_pour_return/completion_contract.json",
+  "public_context": "assets/exp2/tasks/granular_pour_return/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/granular_pour_return/prompts/hl.md",
+  "prior_plan": "policies/exp2/granular_pour_return/grasp_lift_stage__h04/prior_plan.json"
+}

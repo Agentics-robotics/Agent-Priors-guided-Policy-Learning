@@ -1,0 +1,173 @@
+{
+  "dataset": "assets/exp2/datasets/granular_pour_return/return_place_release/dataset.json",
+  "dataset_sha256": "1860220ef00ca7354a8e7a5cd8753c7e9f1e7764cb6377f5c8dcde434916006f",
+  "experiment_version": "APPL_v4_cartesian_new_task",
+  "heuristic": {
+    "applicability": "Prefer when the emptied source is securely held, already upright or nearly upright, and outbound transport, descent, placement, release, and retreat must follow a currently observed destination pose that may be translated or rotated relative to training. The target must remain reachable from the measured Panda configuration. This model is still supervised on the complete assigned cut, including the tilted shared entry, but its constructed displacement benefit is claimed for the upright target-directed part.",
+    "evidence": [
+      {
+        "indices": [
+          1460,
+          1600,
+          1680,
+          1700,
+          1740,
+          1760,
+          1780,
+          1800,
+          1820,
+          1840,
+          1850,
+          1860,
+          1880,
+          1900,
+          1920,
+          1940,
+          1952
+        ],
+        "trajectory_id": "demo12300"
+      },
+      {
+        "indices": [
+          1460,
+          1600,
+          1680,
+          1740,
+          1780,
+          1800,
+          1820,
+          1840,
+          1860,
+          1880,
+          1900,
+          1920,
+          1934
+        ],
+        "trajectory_id": "demo12303"
+      },
+      {
+        "indices": [
+          1460,
+          1600,
+          1680,
+          1740,
+          1780,
+          1800,
+          1820,
+          1840,
+          1860,
+          1880,
+          1900,
+          1920,
+          1943
+        ],
+        "trajectory_id": "demo12308"
+      }
+    ],
+    "handoff": {
+      "entry_conditions": "Particles are already settled in the bowl; the emptied source remains securely grasped above the bowl. Preference begins once source uprightness is close to the required orientation and the measured robot configuration admits a reachable outbound path to the observed target_pose.",
+      "exit_conditions": "The source is upright and stationary on the table inside the return region, the fingers are open, and the TCP has retreated clear to the demonstrated approximately 0.28 m height.",
+      "failure_signatures": "IK non-convergence or joint-limit contact, loss of the source, target outside reachable workspace, premature opening, source still elevated or moving after opening, or source tilt/height outside the unchanged success requirements. A strongly tilted entry under a target displacement is outside the claimed invariant portion.",
+      "overlap_role": "All actions [1460,1740) remain supervised, preserving the 280-action overlap with controlled_pour_and_right: late righting plus outbound travel. The destination-frame construction is expected to be most useful after righting, not to redefine the overlap.",
+      "successor_readiness": "Terminal skill; evaluate only after upright support in the marked region, open fingers, and collision-free clearance. No successor object is introduced."
+    },
+    "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"container\"]},\"destination\":{\"type\":\"string\",\"enum\":[\"target_pose\"]}},\"required\":[\"source_object\",\"destination\"]},\"parameter_semantics\":\"source_object names the observed emptied source pose (container_pose); destination names the observed return destination pose (target_pose). Both are symbolic scene identities, not actuator commands. The adapter resolves both from the fresh causal observations at every replan; poses are world-frame metres and wxyz quaternions.\"}",
+    "limitations": "Training has one nominal target pose and successful executions only. Equivariance is constructed, but there is no evidence for arbitrarily large destination shifts, changed obstacles, unreachable goals, a lost grasp, corrective repouring, or release recovery. Destination-relative output shifts early righting commands too, so use the current-TCP incremental prior for substantially tilted/off-nominal entry. No contact truth is available.",
+    "pipeline_implications": "The high-level selector should route upright, securely held, reachable target-displacement cases here; retain measured qpos/qvel and a world encoding of the goal so the model can account for robot reachability rather than treating the scene as free-floating. Replan every 8 executed steps and resolve target_pose again. If the source is still appreciably tilted or intermediate motion is off-trajectory, prefer the current-TCP incremental prior; near ambiguous setdown/release with a nominal target, prefer the phase-regularized world policy.",
+    "rationale": "Observed demonstrations right the source near the bowl, then move it toward the single target at (-0.46,-0.28,0), descend, release around 1840-1850, and retreat. The single demonstrated destination makes memorizing world coordinates a likely deployment failure. Learning each commanded Cartesian pose as inverse(target_pose) times commanded_TCP, with target-relative observation relations, and decoding by target_pose times the learned relative pose makes the upright transport/descent/place/retreat motion equivariant to destination displacement by construction. Rotation is continuous 6D; gripper remains the demonstrated scalar. Measured qpos/qvel and the world target pose retain configuration and reachability dependencies.",
+    "statement": "Destination-frame SE(3) return: learn absolute commanded TCP poses relative to the observed target_pose (3D translation, 6D rotation, gripper), while conditioning on target-relative scene relations plus measured robot state and world goal pose. This targets displacement of the approached return destination and covers upright transport through retreat by construction.",
+    "training_bindings": "[{\"trajectory_id\":\"demo12300\",\"start\":1460,\"stop\":1953,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; includes action-supervised [1460,1740) predecessor overlap and terminal hold.\"},{\"trajectory_id\":\"demo12301\",\"start\":1460,\"stop\":1945,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; retains shared righting/outbound actions.\"},{\"trajectory_id\":\"demo12302\",\"start\":1460,\"stop\":1952,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut; retains shared righting/outbound actions.\"},{\"trajectory_id\":\"demo12303\",\"start\":1460,\"stop\":1935,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including this run's earlier release and retreat.\"},{\"trajectory_id\":\"demo12304\",\"start\":1460,\"stop\":1947,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12305\",\"start\":1460,\"stop\":1949,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12306\",\"start\":1460,\"stop\":1935,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including late righting, release, and retreat.\"},{\"trajectory_id\":\"demo12307\",\"start\":1460,\"stop\":1946,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12308\",\"start\":1460,\"stop\":1944,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut including observed opening by index 1840 and retreat.\"},{\"trajectory_id\":\"demo12309\",\"start\":1460,\"stop\":1947,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut retaining this run's wrist/yaw variation.\"},{\"trajectory_id\":\"demo12310\",\"start\":1460,\"stop\":1950,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned return/place/release cut with overlap.\"},{\"trajectory_id\":\"demo12311\",\"start\":1460,\"stop\":1953,\"context_start\":1459,\"call_args\":{\"source_object\":\"container\",\"destination\":\"target_pose\"},\"rationale\":\"Complete assigned cut through stable terminal hold.\"}]"
+  },
+  "heuristic_index": 1,
+  "normalization": {
+    "path": "provenance/relocated/b3141fbf4dee2e06",
+    "sha256": "52a649835b92c470fb6692de6991ba7c8ccd357aa4bb4ad2c6069c971f630101"
+  },
+  "observation_fields": {
+    "bowl_pose": [
+      0,
+      7
+    ],
+    "container_pose": [
+      7,
+      14
+    ],
+    "particle_positions": [
+      14,
+      50
+    ],
+    "qpos": [
+      50,
+      59
+    ],
+    "qvel": [
+      59,
+      68
+    ],
+    "target_pose": [
+      68,
+      75
+    ],
+    "tcp_pose": [
+      75,
+      82
+    ]
+  },
+  "plan_hash": "e733ead3a9fcb005b08835e82be609b4319d7692c09f15fce512ff2fc4ac3557",
+  "policy_id": "return_place_release__h01",
+  "prior_plan_path": "policies/exp2/granular_pour_return/return_place_release__h01/prior_plan.json",
+  "prior_plan_sha256": "31602a2b11a37928aab71e1bb8de0364fd0b3d2c1919913fca04348cc80c1992",
+  "skill_id": "return_place_release",
+  "sources": {
+    "demo12300": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12300.json",
+      "sha256": "21e58673a2d41af543f449b6c1bac1ddbf07c90cd1b3768efebe3b218b3ee197"
+    },
+    "demo12301": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12301.json",
+      "sha256": "1c649d39da186987da23fd7a5747e0e55521fac9fd32b20ba073029707c89ef3"
+    },
+    "demo12302": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12302.json",
+      "sha256": "b7b05183c5c26cf55369fd8013ae041085f557a36ebf9a82c9b9916920766aa9"
+    },
+    "demo12303": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12303.json",
+      "sha256": "24c3aeca48398d027456f5e3577b77135dc1b2be53a9a2b3c57a78efc9b761e5"
+    },
+    "demo12304": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12304.json",
+      "sha256": "048c023f0839c4630bb8a8d104c6c149816d94ca47ce5cc79ee2ad30390a4268"
+    },
+    "demo12305": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12305.json",
+      "sha256": "1c4493143c0d144d4fd44267328d7599720c6f6dd95aec6149609f9c8ff44203"
+    },
+    "demo12306": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12306.json",
+      "sha256": "e6c8a2014257ee090527799729078620a59713086e606f831d45cfcba4b1c7a4"
+    },
+    "demo12307": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12307.json",
+      "sha256": "c5530ad3cb09b0118fc5b715af9e6f87caca9d776f81ba10adf224458278d793"
+    },
+    "demo12308": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12308.json",
+      "sha256": "c1945edb8ae947d2f27ea872462c6eca2419d48f993377584f907da7e121c69a"
+    },
+    "demo12309": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12309.json",
+      "sha256": "ead11ff403366336ff24d395ccc9f795108d9d8d23f34736fbba145119718243"
+    },
+    "demo12310": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12310.json",
+      "sha256": "907dd172d12814e6c2ad53331c17252a3b90cab83dfca74130dcca54109a5957"
+    },
+    "demo12311": {
+      "path": "assets/exp2/demonstrations/granular_pour_return/demo12311.json",
+      "sha256": "e9123001777c449f99e1b1e8a0f1d4e6244bd84c9ee1cfc0978e0b44e8eaf3a1"
+    }
+  },
+  "subgoal": "Finish righting the emptied source, carry it upright to the marked return region centered at target_pose, lower until supported, open the gripper only after placement, and retreat without recontact. Maintain the source grasp through transport and descent. Approximate entry: emptied source still grasped above the bowl, possibly moderately tilted. Approximate exit: source upright and stationary inside the return region near z=0, gripper open, TCP clear above the target.",
+  "prior_plan_original_sha256": "31602a2b11a37928aab71e1bb8de0364fd0b3d2c1919913fca04348cc80c1992"
+}

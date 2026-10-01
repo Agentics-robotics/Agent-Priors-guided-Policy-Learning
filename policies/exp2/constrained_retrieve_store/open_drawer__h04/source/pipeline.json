@@ -1,0 +1,18 @@
+{
+  "policy_id": "open_drawer__h04",
+  "skill_id": "open_drawer",
+  "heuristic_index": 4,
+  "prior_summary": "Diffuse redundant target-frame and fresh-TCP descriptions of commanded position, use target-frame displacement equivariance through approach and most of the pull, then smoothly favor local fresh-TCP residual position near the open stop; orientation is always a fresh-TCP body correction.",
+  "applicable_conditions": "Prefer when target_pose reliably tracks a translated or rotated drawer and the state is near a demonstrated approach, opening or departure phase. Use especially when early drawer displacement invariance and locally referenced near-stop continuation are both desired.",
+  "termination_guidance": "Hand off after drawer_position is near 0.300 m with low velocity, fingers are open, the TCP has cleared the drawer and is moving toward or above the unchanged block. Preserve causal history across the switch.",
+  "limitations": "Only early/pull position is drawer-frame equivariant; orientation remains TCP-relative and the late tail is not block-frame invariant. The progress blend has no hysteresis. No recovery, reachability, collision-clearance or contact guarantee follows from relative coordinates or in-distribution validation.",
+  "config": {
+    "action_layout": "target-frame position 3 + measured-TCP body translation 3 + body rotation vector 3 + gripper 1",
+    "position_blend_progress": [0.9, 0.98],
+    "input_feature_dimension_per_frame": 48,
+    "fresh_state_decode": true,
+    "standard_backbone_unchanged": true,
+    "augmentation": "none",
+    "auxiliary_loss": "none"
+  }
+}

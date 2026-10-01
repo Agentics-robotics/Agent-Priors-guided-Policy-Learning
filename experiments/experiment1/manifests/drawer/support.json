@@ -1,0 +1,1218 @@
+{
+  "cell_counts": {
+    "10": {
+      "HH": 5,
+      "LL": 5
+    },
+    "2": {
+      "HH": 1,
+      "LL": 1
+    },
+    "20": {
+      "HH": 10,
+      "LL": 10
+    },
+    "5": {
+      "HH": 2,
+      "LL": 3
+    }
+  },
+  "hash": "2ce810b99db1bbc754f8b5858be4f899352e1ddb3ec15fcd905c09e31031570c",
+  "phase": "support",
+  "records": [
+    {
+      "cell": "LL",
+      "episode_id": "r3_drawer_train_IID_000_31200000",
+      "factors": {
+        "a": -0.03203125541227749,
+        "b": -6.963876801717991
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1766216903924942,
+          "unit_direction": [
+            -0.32400810718536377,
+            0.7352774143218994,
+            -0.5953031778335571
+          ],
+          "vector_world_m": [
+            -0.05722685903310776,
+            0.12986594438552856,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12799999117851257,
+          "unit_direction": [
+            -0.12124353647232056,
+            -0.9926227331161499,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.015519171953201294,
+            -0.12705570459365845,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3046216815710068
+      },
+      "inference_seed": 201200000,
+      "initial_state_hash": "ee70bf627b9bf85e5174a748cf588fa2310db6e198c17bde4dcaf6801316c553",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_000_31200000.npz",
+      "seed": 31200000,
+      "sha256": "6c8a35c8a8183bd5ac0e0cda3529123ea2fa7ba75cf1f0ad34481e86af4cb36c",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          -0.03203125541227749,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": -6.963876801717991
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_drawer_train_IID_001_31200100",
+      "factors": {
+        "a": 0.03537946732485284,
+        "b": 8.932876254259149
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1772053837776184,
+          "unit_direction": [
+            0.3227463960647583,
+            0.7374141812324524,
+            -0.5933423638343811
+          ],
+          "vector_world_m": [
+            0.057192400097846985,
+            0.13067376613616943,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12799996137619019,
+          "unit_direction": [
+            0.1552773118019104,
+            -0.9878709316253662,
+            0.0
+          ],
+          "vector_world_m": [
+            0.01987548917531967,
+            -0.12644743919372559,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3052053451538086
+      },
+      "inference_seed": 201200100,
+      "initial_state_hash": "365ff61ac7875a7e6aa4b913ff9f487d079246b893c6667655fd5b425fbf044a",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_001_31200100.npz",
+      "seed": 31200100,
+      "sha256": "c33411e3677acfe450ebb5fdc788090ef999a41bb114227b67c79467f36fb0ab",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03537946732485284,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": 8.932876254259149
+      },
+      "transitions": 90
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_drawer_train_IID_002_31200200",
+      "factors": {
+        "a": -0.02400433515480427,
+        "b": -5.6776809743649865
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17283856868743896,
+          "unit_direction": [
+            -0.26271334290504456,
+            0.7489407658576965,
+            -0.6083332896232605
+          ],
+          "vector_world_m": [
+            -0.045406997203826904,
+            0.1294458508491516,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12800003588199615,
+          "unit_direction": [
+            -0.09893210232257843,
+            -0.9950941205024719,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.012663312256336212,
+            -0.12737208604812622,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3008386045694351
+      },
+      "inference_seed": 201200200,
+      "initial_state_hash": "648b1e9a720c9701dcd8e1bf9567ca1f7de41028de9a3ffd65450bb0d699b866",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_002_31200200.npz",
+      "seed": 31200200,
+      "sha256": "86c45e4442a95ff0077cb9fec5d45dd0976a5b912196cf1ca21d2fdf923431a2",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          -0.02400433515480427,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": -5.6776809743649865
+      },
+      "transitions": 89
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_drawer_train_IID_003_31200300",
+      "factors": {
+        "a": 0.02663517656203724,
+        "b": 8.538990809463264
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1741293966770172,
+          "unit_direction": [
+            0.2715968191623688,
+            0.749421238899231,
+            -0.603823721408844
+          ],
+          "vector_world_m": [
+            0.04729298874735832,
+            0.13049626350402832,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12800000607967377,
+          "unit_direction": [
+            0.14848241209983826,
+            -0.9889150261878967,
+            0.0
+          ],
+          "vector_world_m": [
+            0.019005749374628067,
+            -0.1265811324119568,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.302129402756691
+      },
+      "inference_seed": 201200300,
+      "initial_state_hash": "536e714e4c2d102dee9ed0d8e5d6821c6ee755a776e9ad4b119381954ca8265c",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_003_31200300.npz",
+      "seed": 31200300,
+      "sha256": "dca273f45c2810d93000663934971f3034edd5c252152688b6479e7636829587",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          0.02663517656203724,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": 8.538990809463264
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_drawer_train_IID_004_31200400",
+      "factors": {
+        "a": -0.03629113683493254,
+        "b": -9.84609874264684
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1820409744977951,
+          "unit_direction": [
+            -0.3842306435108185,
+            0.7202546000480652,
+            -0.5775812864303589
+          ],
+          "vector_world_m": [
+            -0.06994572281837463,
+            0.1311158537864685,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12800002098083496,
+          "unit_direction": [
+            -0.17100226879119873,
+            -0.9852706789970398,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.02188829332590103,
+            -0.12611466646194458,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.31004099547863007
+      },
+      "inference_seed": 201200400,
+      "initial_state_hash": "5cbd4d2c9e793548ccb47af0fa779641fea63c2a7bd0e4a441594f8c6dcad698",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_004_31200400.npz",
+      "seed": 31200400,
+      "sha256": "33802830b70e1879e8d66aaf2e4026dab1e2b397afc0b2a9eb767d5b99ed6046",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          -0.03629113683493254,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": -9.84609874264684
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_drawer_train_IID_005_31200500",
+      "factors": {
+        "a": 0.027421225108233884,
+        "b": 5.261700535829773
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1710483878850937,
+          "unit_direction": [
+            0.22465495765209198,
+            0.7560912370681763,
+            -0.6147000789642334
+          ],
+          "vector_world_m": [
+            0.03842686861753464,
+            0.129328191280365,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12800002098083496,
+          "unit_direction": [
+            0.09170496463775635,
+            -0.9957862496376038,
+            0.0
+          ],
+          "vector_world_m": [
+            0.011738236993551254,
+            -0.12746065855026245,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.29904840886592865
+      },
+      "inference_seed": 201200500,
+      "initial_state_hash": "6989721ae6fa3398bbffe0680f1b36156074c6574772e124965cc0f51c4a817b",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_005_31200500.npz",
+      "seed": 31200500,
+      "sha256": "20b6b8dae08f72cbf3001af799c151e457ee91bebed5194b6a9fe5452c143c64",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          0.027421225108233884,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": 5.261700535829773
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_drawer_train_IID_006_31200600",
+      "factors": {
+        "a": -0.031096492517777616,
+        "b": -7.991005998144778
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17759953439235687,
+          "unit_direction": [
+            -0.3339743912220001,
+            0.7334622740745544,
+            -0.5920255184173584
+          ],
+          "vector_world_m": [
+            -0.05931369587779045,
+            0.130262553691864,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12799997627735138,
+          "unit_direction": [
+            -0.13901764154434204,
+            -0.9902899265289307,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.017794255167245865,
+            -0.12675708532333374,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.30559951066970825
+      },
+      "inference_seed": 201200600,
+      "initial_state_hash": "c32b84b87a325749b89a17a62d83cfd61d2ffc8ead4795aad78cd513016b66bf",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_006_31200600.npz",
+      "seed": 31200600,
+      "sha256": "ec0dadf90cdd2a695a63421f483a0fd0867cf4271aac0b862918e82efd8ab6f5",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          -0.031096492517777616,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": -7.991005998144778
+      },
+      "transitions": 90
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_drawer_train_IID_007_31200700",
+      "factors": {
+        "a": 0.029851268778517875,
+        "b": 8.797097383162933
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17533621191978455,
+          "unit_direction": [
+            0.2923876941204071,
+            0.7449215054512024,
+            -0.5996676683425903
+          ],
+          "vector_world_m": [
+            0.051266148686409,
+            0.13061171770095825,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12800000607967377,
+          "unit_direction": [
+            0.15293578803539276,
+            -0.988236129283905,
+            0.0
+          ],
+          "vector_world_m": [
+            0.019575782120227814,
+            -0.12649422883987427,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3033362179994583
+      },
+      "inference_seed": 201200700,
+      "initial_state_hash": "5c74bbb58d2c4f2c9d55b3b44dfcc8c3b57dbc70948f672a6e5434bf28993359",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_007_31200700.npz",
+      "seed": 31200700,
+      "sha256": "fa41b4b64a2b9c7cb5083a65dbe516c84bea7c88052dc31ae6f36d8b51049cdd",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          0.029851268778517875,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": 8.797097383162933
+      },
+      "transitions": 90
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_drawer_train_IID_008_31200800",
+      "factors": {
+        "a": -0.03963533913596084,
+        "b": -6.143309152013387
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17816704511642456,
+          "unit_direction": [
+            -0.350301593542099,
+            0.7273402810096741,
+            -0.5901397466659546
+          ],
+          "vector_world_m": [
+            -0.06241219863295555,
+            0.1295880675315857,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12799997627735138,
+          "unit_direction": [
+            -0.1070157065987587,
+            -0.9942573308944702,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.01369800791144371,
+            -0.12726491689682007,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.30616702139377594
+      },
+      "inference_seed": 201200800,
+      "initial_state_hash": "748be76c394a35f497932af2045d375f098e15fa20cbe9d44658bbb34fa07f05",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_008_31200800.npz",
+      "seed": 31200800,
+      "sha256": "a2a3854a24c08bdd3dd5d896eed782e190096f8fff381ad5f01ab7fd6ee1cbcb",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          -0.03963533913596084,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": -6.143309152013387
+      },
+      "transitions": 89
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_drawer_train_IID_009_31200900",
+      "factors": {
+        "a": 0.03686974234769361,
+        "b": 9.459317851456337
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1783902496099472,
+          "unit_direction": [
+            0.3376001715660095,
+            0.7339156270027161,
+            -0.589401364326477
+          ],
+          "vector_world_m": [
+            0.06022457778453827,
+            0.13092339038848877,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12799999117851257,
+          "unit_direction": [
+            0.16434724628925323,
+            -0.9864024519920349,
+            0.0
+          ],
+          "vector_world_m": [
+            0.02103644609451294,
+            -0.12625950574874878,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3063902407884598
+      },
+      "inference_seed": 201200900,
+      "initial_state_hash": "f832c66bd793978dacab7e3b5c2a9724f61c0c8e490b75d282372e676e1423c2",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_009_31200900.npz",
+      "seed": 31200900,
+      "sha256": "4ea57e5cd8ef5dee9703cfbcc1a9b5ce0eaadc17e5a31c4505ccac409a8eede9",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03686974234769361,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": 9.459317851456337
+      },
+      "transitions": 89
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_drawer_train_IID_010_31201000",
+      "factors": {
+        "a": -0.028423968580044714,
+        "b": -9.884616604227848
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1792188137769699,
+          "unit_direction": [
+            -0.34701240062713623,
+            0.7317055463790894,
+            -0.5866764783859253
+          ],
+          "vector_world_m": [
+            -0.06219115108251572,
+            0.13113540410995483,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12799999117851257,
+          "unit_direction": [
+            -0.17166459560394287,
+            -0.9851554036140442,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.02197306603193283,
+            -0.12609988451004028,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3072188049554825
+      },
+      "inference_seed": 201201000,
+      "initial_state_hash": "a50cb2d64de5053f4a35c31b3e325aacf475a750ca0109292aeac8d0e0b059c1",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_010_31201000.npz",
+      "seed": 31201000,
+      "sha256": "95a03dcf2bfe1b931597a8966772085b6820e66b563a02dc8ff3108b0aa99340",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          -0.028423968580044714,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": -9.884616604227848
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_drawer_train_IID_011_31201100",
+      "factors": {
+        "a": 0.02727632281521202,
+        "b": 9.451296292560517
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17537446320056915,
+          "unit_direction": [
+            0.28856927156448364,
+            0.7465141415596008,
+            -0.5995368957519531
+          ],
+          "vector_world_m": [
+            0.05060768127441406,
+            0.13091951608657837,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12800002098083496,
+          "unit_direction": [
+            0.16420914232730865,
+            -0.986425518989563,
+            0.0
+          ],
+          "vector_world_m": [
+            0.021018773317337036,
+            -0.12626248598098755,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3033744841814041
+      },
+      "inference_seed": 201201100,
+      "initial_state_hash": "f0754ea2169942c70fa269a5ed2758aa1756c6cb033dce3dcb88ed7a9391f813",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_011_31201100.npz",
+      "seed": 31201100,
+      "sha256": "5511b8eb0dd4820ecf8ad112ba270b280c0b780503d8cb5fda909cc9afe6c462",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          0.02727632281521202,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": 9.451296292560517
+      },
+      "transitions": 89
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_drawer_train_IID_012_31201200",
+      "factors": {
+        "a": -0.026058413504742417,
+        "b": -7.361757561047142
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.1752340942621231,
+          "unit_direction": [
+            -0.29917317628860474,
+            0.741939902305603,
+            -0.6000171303749084
+          ],
+          "vector_world_m": [
+            -0.05242533981800079,
+            0.13001316785812378,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12800002098083496,
+          "unit_direction": [
+            -0.1281336098909378,
+            -0.9917568564414978,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.016401104629039764,
+            -0.126944899559021,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.30323411524295807
+      },
+      "inference_seed": 201201200,
+      "initial_state_hash": "110d3ff4cd48479fd8b25cff35922a83b64de2400d7203ce22cbaee093ac18eb",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_012_31201200.npz",
+      "seed": 31201200,
+      "sha256": "c5e8493cc6a81df11a2cc77be90a26792625098162f3c518123fddb0f61d5b3c",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          -0.026058413504742417,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": -7.361757561047142
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_drawer_train_IID_013_31201300",
+      "factors": {
+        "a": 0.03955453026161163,
+        "b": 5.130688687158844
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17403778433799744,
+          "unit_direction": [
+            0.28828826546669006,
+            0.7429016828536987,
+            -0.6041415333747864
+          ],
+          "vector_world_m": [
+            0.05017305165529251,
+            0.12929296493530273,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12799997627735138,
+          "unit_direction": [
+            0.08942782133817673,
+            -0.9959933161735535,
+            0.0
+          ],
+          "vector_world_m": [
+            0.011446759104728699,
+            -0.12748712301254272,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3020377606153488
+      },
+      "inference_seed": 201201300,
+      "initial_state_hash": "5b0c909ca01cda2814ca674e293a6fe7b7ac2bb6e001e04cacfe1a2c86b9b057",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_013_31201300.npz",
+      "seed": 31201300,
+      "sha256": "e9bd547a254355229c3399c441bbdd6984fcfa5ce63464eb8ea3c49fe6041d1a",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03955453026161163,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": 5.130688687158844
+      },
+      "transitions": 89
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_drawer_train_IID_014_31201400",
+      "factors": {
+        "a": -0.025201905475133148,
+        "b": -6.358860544497508
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17386674880981445,
+          "unit_direction": [
+            -0.279607892036438,
+            0.7457305192947388,
+            -0.6047358512878418
+          ],
+          "vector_world_m": [
+            -0.048614516854286194,
+            0.12965774536132812,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12800002098083496,
+          "unit_direction": [
+            -0.11075533926486969,
+            -0.993847668170929,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.014176685363054276,
+            -0.1272125244140625,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3018667697906494
+      },
+      "inference_seed": 201201400,
+      "initial_state_hash": "c5ac990381abca146b1de5e96baa526b43333bb6855d2f047072b64da7ca01ef",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_014_31201400.npz",
+      "seed": 31201400,
+      "sha256": "f162a8fac139df40d586a687e2420141a826790d60791a0f4f96c71bae69ec0a",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          -0.025201905475133148,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": -6.358860544497508
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_drawer_train_IID_015_31201500",
+      "factors": {
+        "a": 0.029334105459055987,
+        "b": 9.752176390720244
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17635536193847656,
+          "unit_direction": [
+            0.3036237955093384,
+            0.743206262588501,
+            -0.5962021946907043
+          ],
+          "vector_world_m": [
+            0.05354568362236023,
+            0.1310684084892273,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12800002098083496,
+          "unit_direction": [
+            0.16938693821430206,
+            -0.9855496287345886,
+            0.0
+          ],
+          "vector_world_m": [
+            0.0216815322637558,
+            -0.12615036964416504,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3043553829193115
+      },
+      "inference_seed": 201201500,
+      "initial_state_hash": "cd4f2bbd5cc5afb1373c7b88a43cf133ef84f1762f93408007cbefdde69432cc",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_015_31201500.npz",
+      "seed": 31201500,
+      "sha256": "0a8d0b6ece5d7ae08af39f4392e62128dc158d91053655fcf5b57995e4a43722",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          0.029334105459055987,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": 9.752176390720244
+      },
+      "transitions": 89
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_drawer_train_IID_016_31201600",
+      "factors": {
+        "a": -0.03347900339624059,
+        "b": -6.057489029995493
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17600426077842712,
+          "unit_direction": [
+            -0.3181892931461334,
+            0.7361242771148682,
+            -0.5973915457725525
+          ],
+          "vector_world_m": [
+            -0.056002672761678696,
+            0.12956100702285767,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12799999117851257,
+          "unit_direction": [
+            -0.10552627593278885,
+            -0.9944164752960205,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.013507362455129623,
+            -0.12728530168533325,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3040042519569397
+      },
+      "inference_seed": 201201600,
+      "initial_state_hash": "ff43c07ee6be71a414b47f213cd433d443425de9a8cd2d9cf2a220c4ea60ec95",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_016_31201600.npz",
+      "seed": 31201600,
+      "sha256": "e938f82d5fb8f10736befc3a0a635add2bd0f50659845bd04b5384c14a373fb0",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          -0.03347900339624059,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": -6.057489029995493
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_drawer_train_IID_017_31201700",
+      "factors": {
+        "a": 0.02535775105050789,
+        "b": 6.814534616689665
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17199714481830597,
+          "unit_direction": [
+            0.23805654048919678,
+            0.7547383308410645,
+            -0.6113093495368958
+          ],
+          "vector_world_m": [
+            0.04094504565000534,
+            0.1298128366470337,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12800002098083496,
+          "unit_direction": [
+            0.11865583062171936,
+            -0.9929354786872864,
+            0.0
+          ],
+          "vector_world_m": [
+            0.015187948942184448,
+            -0.1270957589149475,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.29999716579914093
+      },
+      "inference_seed": 201201700,
+      "initial_state_hash": "3324cbcaa092a52ea0ae86ef963749b40b0339c8658a46f6122542521f87ef57",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_017_31201700.npz",
+      "seed": 31201700,
+      "sha256": "a9a79ab30d9fb8bd7fc0802e7d52ffaca7f8a366991d13643fe29a9c202aa732",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          0.02535775105050789,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": 6.814534616689665
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "LL",
+      "episode_id": "r3_drawer_train_IID_018_31201800",
+      "factors": {
+        "a": -0.029418064101003394,
+        "b": -8.637346010090212
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17787623405456543,
+          "unit_direction": [
+            -0.334686815738678,
+            0.7338801622390747,
+            -0.5911045670509338
+          ],
+          "vector_world_m": [
+            -0.059532828629016876,
+            0.13053983449935913,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12799997627735138,
+          "unit_direction": [
+            -0.15017980337142944,
+            -0.9886587262153625,
+            0.0
+          ],
+          "vector_world_m": [
+            -0.019223012030124664,
+            -0.12654829025268555,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3058762103319168
+      },
+      "inference_seed": 201201800,
+      "initial_state_hash": "44ecbfa9c480eee64f1eb49a735614a3e1de8b10df8faa4ff0ebfe558d5f23ae",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_018_31201800.npz",
+      "seed": 31201800,
+      "sha256": "92d12feb94f28179e20edd950eda50a2aacee73cf0cca37dc5481cff1d353616",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          -0.029418064101003394,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": -8.637346010090212
+      },
+      "transitions": 88
+    },
+    {
+      "cell": "HH",
+      "episode_id": "r3_drawer_train_IID_019_31201900",
+      "factors": {
+        "a": 0.03225034370213291,
+        "b": 6.969277326541082
+      },
+      "geometry_descriptor": {
+        "collision_free_path_length_m": null,
+        "hand_to_interaction": {
+          "distance_m": 0.17393411695957184,
+          "unit_direction": [
+            0.2776537239551544,
+            0.7466500401496887,
+            -0.6045016050338745
+          ],
+          "vector_world_m": [
+            0.048293452709913254,
+            0.12986791133880615,
+            -0.1051434576511383
+          ]
+        },
+        "interaction_to_goal": {
+          "distance_m": 0.12800002098083496,
+          "unit_direction": [
+            0.12133707851171494,
+            -0.9926113486289978,
+            0.0
+          ],
+          "vector_world_m": [
+            0.015531148761510849,
+            -0.12705427408218384,
+            0.0
+          ]
+        },
+        "path_length_status": "No collision-free planner is used; straight segments are geometric descriptors only.",
+        "straight_segment_sum_m": 0.3019341379404068
+      },
+      "inference_seed": 201201900,
+      "initial_state_hash": "59dff3ba8a5cfbaa0258b0dd607e6f889b708973aecffeb40776a268645f7876",
+      "path": "assets/exp1/demonstrations/drawer/train20/r3_drawer_train_IID_019_31201900.npz",
+      "seed": 31201900,
+      "sha256": "2f1b7a58124b1f3b4c5dfd847c58e6e7415a47609ac6d691f8a284a615ab943a",
+      "split": "IID",
+      "stage": "train",
+      "task": "drawer",
+      "task_name": "drawer-open-v3",
+      "task_params": {
+        "base_position": [
+          0.03225034370213291,
+          0.9,
+          0.0
+        ],
+        "yaw_degrees": 6.969277326541082
+      },
+      "transitions": 90
+    }
+  ],
+  "schema_version": "experiment1.support.v1",
+  "source": {
+    "historical_exposure": "The support and task layouts were used in development; not unseen-task transfer.",
+    "published_from_sha256": "50ee65272c8b20a884ab89afee953a20b75304d770f7b91b10af6d4a9ad8cf8d",
+    "reuse": "Original successful demonstrations; bytes, episode IDs, subsets, seeds and ordering unchanged."
+  },
+  "subsets": {
+    "10": [
+      "r3_drawer_train_IID_000_31200000",
+      "r3_drawer_train_IID_001_31200100",
+      "r3_drawer_train_IID_002_31200200",
+      "r3_drawer_train_IID_003_31200300",
+      "r3_drawer_train_IID_004_31200400",
+      "r3_drawer_train_IID_005_31200500",
+      "r3_drawer_train_IID_006_31200600",
+      "r3_drawer_train_IID_007_31200700",
+      "r3_drawer_train_IID_008_31200800",
+      "r3_drawer_train_IID_009_31200900"
+    ],
+    "2": [
+      "r3_drawer_train_IID_000_31200000",
+      "r3_drawer_train_IID_001_31200100"
+    ],
+    "20": [
+      "r3_drawer_train_IID_000_31200000",
+      "r3_drawer_train_IID_001_31200100",
+      "r3_drawer_train_IID_002_31200200",
+      "r3_drawer_train_IID_003_31200300",
+      "r3_drawer_train_IID_004_31200400",
+      "r3_drawer_train_IID_005_31200500",
+      "r3_drawer_train_IID_006_31200600",
+      "r3_drawer_train_IID_007_31200700",
+      "r3_drawer_train_IID_008_31200800",
+      "r3_drawer_train_IID_009_31200900",
+      "r3_drawer_train_IID_010_31201000",
+      "r3_drawer_train_IID_011_31201100",
+      "r3_drawer_train_IID_012_31201200",
+      "r3_drawer_train_IID_013_31201300",
+      "r3_drawer_train_IID_014_31201400",
+      "r3_drawer_train_IID_015_31201500",
+      "r3_drawer_train_IID_016_31201600",
+      "r3_drawer_train_IID_017_31201700",
+      "r3_drawer_train_IID_018_31201800",
+      "r3_drawer_train_IID_019_31201900"
+    ],
+    "5": [
+      "r3_drawer_train_IID_000_31200000",
+      "r3_drawer_train_IID_001_31200100",
+      "r3_drawer_train_IID_002_31200200",
+      "r3_drawer_train_IID_003_31200300",
+      "r3_drawer_train_IID_004_31200400"
+    ]
+  },
+  "task": "drawer"
+}

@@ -1,0 +1,31 @@
+{
+  "title": "Metric interaction edges with a retained world anchor",
+  "coverage_gap": "D5 contains three LL and two HH episodes but no LH or HL. Stick x and goal y are confounded, and normalizing nearly fixed coordinates by tiny support standard deviations can magnify extrapolation. No failed grasp recovery is demonstrated.",
+  "reusable_regularity": "Expose signed hand-to-stick, stick-to-pushed-object, and pushed-object-to-goal edges directly in world axes. Use centimeter-scale motion and grasp features but decimeter-scale scene features, rather than forcing the denoiser to subtract independently standardized positions. Two full observations and each native previous pose are retained. This is an explicit nonlearned representation, not a controller or a phase rule.",
+  "dependencies_preserved": [
+    "World-aligned vectors, absolute heights, and stick position relative to a fixed support-fit world origin preserve table/gravity, workspace, and fixed native hand orientation dependencies; no rotational or translational task symmetry is assumed.",
+    "The origin is the mean initial object2_xyz across only these five support episodes, restored in deployment state. Given this origin and the edge vectors, all input point positions remain recoverable.",
+    "Current and previous hand, stick, and pushed-object motion, gripper aperture/change, and both object orientations are present. Zero object2 quaternion remains zero; only the physical quaternion double cover is canonicalized.",
+    "Goal is the declared goal_xyz, not an inferred reward location. Object2 is the declared insertion-site-plus-[0,.09,0] point; no unobserved contact location or obstacle state is substituted. Fixed scene dependencies are retained through absolute geometry."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exactly five current support episodes, images_and_numeric evidence."},
+    {"path": "task_materials.json", "detail": "39D observation sources, object COM/site conventions, 80Hz native world action4 and LL/HH coverage."},
+    {"path": "support_summary.json", "detail": "LL=3, HH=2; native action y variation is small compared with x/z; object2 quaternion channels are zero in support."},
+    {"path": "trajectories/demo_00.json", "detail": "Read obs 0:4, 23:29, 48:52, 72:75 and actions 0:20, 25:45, 45:60. Hand descends near the stick, aperture closes, stick rises, then object2 translates in +x."},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Visible initial robot, tabletop stick and pushed assembly."},
+    {"path": "images/frame_01_demo_00_step_025.png", "detail": "Visible low grasp posture."},
+    {"path": "images/frame_02_demo_00_step_050.png", "detail": "Visible lifted tool posture."},
+    {"path": "images/frame_03_demo_00_step_075.png", "detail": "Visible translated pushed assembly at late demonstration."},
+    {"path": "PUBLIC_CONTRACT.md", "detail": "Fixed factory/condition/action and mask contract; no change to common DP loss."}
+  ],
+  "expected_failure_signature": [
+    "If explicit metric edges do not break the support correlation, grasp alignment error will vary with target y even when stick pose is matched.",
+    "A representation-only model may average the abrupt descending-to-lifting transition, close or lift too soon, or continue a pushing motion after losing the tool. It has neither learned phase supervision nor future-effect consistency.",
+    "Orientation departures and contacts far beyond support may still fail; world dependencies are preserved, not modeled by a planner. These are predictions, not measured results."
+  ],
+  "required_runtime_fields": {"raw_history": "[B,2,39], every declared position/aperture/quaternion in current18 and previous18 plus goal_xyz", "raw_current": "Not additionally needed", "support_fit_state": "world_origin: mean of D5 obs[0,11:14] only", "action_frame": "Identity encode/decode: world_dx, world_dy, world_dz in native 0.01m action units and unchanged scalar gripper. Host-only native cube clipping; fixed chunk16/executed4."},
+  "training_only_targets": [],
+  "parents": [],
+  "change_summary": ["Initial A1 authored from this bundle: a 65D metric relational condition, one unchanged common U-Net, no learned side modules or auxiliary loss. No performance information was available."]
+}

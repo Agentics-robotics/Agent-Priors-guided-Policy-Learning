@@ -1,0 +1,140 @@
+{
+  "task_id": "granular_pour_return",
+  "policy_id": "single_prior",
+  "skill_id": "full_task",
+  "source": "policies/exp2/granular_pour_return/single_prior/source",
+  "manifest": "policies/exp2/granular_pour_return/single_prior/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "single_prior"
+  ],
+  "assignment": "policies/exp2/granular_pour_return/single_prior/assignment.json",
+  "training_spec": "policies/exp2/granular_pour_return/single_prior/training/spec.json",
+  "dataset": "assets/exp2/datasets/granular_pour_return/full_task_single_prior/dataset.json",
+  "normalization": "assets/exp2/tasks/granular_pour_return/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/granular_pour_return/single_prior/model.pt",
+    "sha256": "2faf055820015f8ec022a3711cbe0d2b3a4e5cb5bfa2ecf732c54f74a76cf85d",
+    "source_sha256": "2faf055820015f8ec022a3711cbe0d2b3a4e5cb5bfa2ecf732c54f74a76cf85d",
+    "size_bytes": 367238022,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 0,
+    "demos": 12,
+    "in_distribution_success": "0/12",
+    "exit_rule": "standard task success (first occurrence)",
+    "guidance": "No final guidance recorded."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/assignment.json",
+      "sha256": "6d7ab274e20edbd97a32ed826e7430bbbe9c3d8fba2aeea8a1c08758d9020f8a",
+      "source_sha256": "702073a3464fcbf4f0f810f41a95858a1c7b33bfa98f630474dec4bfd5515582",
+      "size_bytes": 3487,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/handoff_evidence.json",
+      "sha256": "9a402e651793056d35bdd6314aaeaae74a25a07ffe61715ad1972e721563e30d",
+      "source_sha256": "9a402e651793056d35bdd6314aaeaae74a25a07ffe61715ad1972e721563e30d",
+      "size_bytes": 76976,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/source/HANDOFF.json",
+      "sha256": "0d6d606ba7c38d26058df17b5948750909b6ce5138efe3ab608b93d98f474ea0",
+      "source_sha256": "0d6d606ba7c38d26058df17b5948750909b6ce5138efe3ab608b93d98f474ea0",
+      "size_bytes": 4788,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/source/PRIOR.md",
+      "sha256": "18a4471fbf3f9ca841b33ba63e9363f09a6a3a85effd4a5f2a29838cb69d960f",
+      "source_sha256": "18a4471fbf3f9ca841b33ba63e9363f09a6a3a85effd4a5f2a29838cb69d960f",
+      "size_bytes": 11929,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/source/adapters.py",
+      "sha256": "a84a5e9aeb06be3d00d3244f6b073a151c01202af9daf8fcaf3d8a5ea25371ae",
+      "source_sha256": "a84a5e9aeb06be3d00d3244f6b073a151c01202af9daf8fcaf3d8a5ea25371ae",
+      "size_bytes": 8479,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/source/panda_posture.py",
+      "sha256": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+      "source_sha256": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+      "size_bytes": 1309417,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/source/pipeline.json",
+      "sha256": "4b44ad1a40c7fcdfc9a819636cc48a9d7955c37a3413ab3d7421ce5409a17baf",
+      "source_sha256": "4b44ad1a40c7fcdfc9a819636cc48a9d7955c37a3413ab3d7421ce5409a17baf",
+      "size_bytes": 2654,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/source/policy.py",
+      "sha256": "74fc63c02fdbd6c48b1736ecb64c25b4763582fd79e0a6866d1087f251bfa718",
+      "source_sha256": "74fc63c02fdbd6c48b1736ecb64c25b4763582fd79e0a6866d1087f251bfa718",
+      "size_bytes": 908,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/source/policy_contract.json",
+      "sha256": "3bce7b932dea0fb215d15a974d21dec0775926084774b363fa3522d1aaf8bce7",
+      "source_sha256": "3bce7b932dea0fb215d15a974d21dec0775926084774b363fa3522d1aaf8bce7",
+      "size_bytes": 2668,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/source/training_bindings.json",
+      "sha256": "bc1004ce5bb5519797e7540c3a273e2983617671afedf48f1671e24d49e7b288",
+      "source_sha256": "bc1004ce5bb5519797e7540c3a273e2983617671afedf48f1671e24d49e7b288",
+      "size_bytes": 2944,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/submission.json",
+      "sha256": "1a56bf2eaed03286a60d4dafe0ec4bb0be7330685d17ae810bee6e0ed271be3d",
+      "source_sha256": "97b20e53d527331243d5f87dab8b65ef75eddf7f35ccf053ea990dfff0a6e4d5",
+      "size_bytes": 10887,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/training/adapter_checks.json",
+      "sha256": "4c19e3951694978b7e11793f8fc74d356aee2fed210290bb69d51760258edd13",
+      "source_sha256": "4c19e3951694978b7e11793f8fc74d356aee2fed210290bb69d51760258edd13",
+      "size_bytes": 196,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/training/result.json",
+      "sha256": "780f7a2bfc69f9c9be5e6c3ca3325a0aeeff8396d79a26d7f78e53c3672d2e22",
+      "source_sha256": "57c561d6c81045e036a341639334b2b394a9cc8123e0d9840c4d444dae6c8ae2",
+      "size_bytes": 4939,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/single_prior/training/spec.json",
+      "sha256": "bad920ce92a244095ac92db19af2b7a901eb435879647d7c7966470059bfb408",
+      "source_sha256": "bad920ce92a244095ac92db19af2b7a901eb435879647d7c7966470059bfb408",
+      "size_bytes": 20793,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/granular_pour_return/task.json",
+  "completion_contract": "assets/exp2/tasks/granular_pour_return/completion_contract.json",
+  "public_context": "assets/exp2/tasks/granular_pour_return/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/granular_pour_return/prompts/hl.md"
+}

@@ -1,0 +1,39 @@
+{
+  "title": "Typed interaction graph with joint tool-and-payload motion diffusion",
+  "coverage_gap": "Ten correlated LL/HH trajectories underspecify how the stick acquisition factor combines with the target factor. Observed object motion is initially zero and late payload motion is sparse. A flat action-only learner may fit position-time correlations without representing which body transmits motion to which other body.",
+  "reusable_regularity": "Model the observed scene as four distinct roles (hand, stick COM, pushed-object point, goal), with shared signed-displacement messages on the bidirectional hand--stick--payload--goal chain. Two learned message-passing rounds provide compositional interactions. Jointly denoising future stick and payload displacement makes the training signal describe tool-mediated motion as well as commands. These auxiliary channels are sampled, never observed, at deployment.",
+  "dependencies_preserved": [
+    "23 input channels per node include world position, hand-relative position, native per-step displacement, current quaternion and quaternion change, aperture and aperture change where meaningful, and a fixed role one-hot. The role order is preserved by readout, not permutation-averaged across hand and goal.",
+    "A 39-channel direct skip retains current hand world anchor, all three signed chain edges, both current and previous object quaternions, both apertures and three body displacements. All common physical state is recoverable; graph compression cannot erase the goal or world dependency.",
+    "Both entries of the common two-observation history are processed independently with the same graph weights. The node graph is a representation of interactions, not a planner or an assumed collision-free path.",
+    "Absolute gravity height, world axes, robot location and measured stick orientation remain available for the fixed-orientation robot and visible fixture constraints. object2 uses the exact insertion-site-plus-[0,.09,0] observation; no hidden tip or contact state is queried."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "observation": "Current D_N consists of exactly the ten listed trajectories."},
+    {"path": "task_materials.json", "observation": "Defines the two distinct objects, goal, native history, no runtime oracles and the missing crossed training cells."},
+    {"path": "support_summary.json", "observation": "Five LL and five HH demonstrations; low variability in y actions compared with x and z; no independent factor crossing in training."},
+    {"path": "images/frame_00_demo_00_step_000.png", "observation": "Real workspace shows tool and pushed fixture as separate scene elements."},
+    {"path": "images/frame_02_demo_01_step_023.png", "observation": "Real grasp-period frame motivates separating hand/tool relations from the pushed assembly."},
+    {"path": "images/frame_03_demo_01_step_073.png", "observation": "Real late frame shows the assembly moved following tool manipulation."},
+    {"path": "trajectories/demo_00.json", "rows": {"obs": [[21,25],[34,40],[50,53],[71,74]], "actions": [[40,69]]}, "observation": "Stick elevation and hand-stick co-motion precede payload displacement; at steps 50--53 payload is still fixed while stick moves; at 71--74 payload x moves with the stick."},
+    {"path": "trajectories/demo_01.json", "rows": {"obs": [[26,32]]}, "observation": "A second training cell also shows stick lift while the payload is stationary, supporting the same interaction-role decomposition."}
+  ],
+  "expected_failure_signature": "Falsifiable risks: the shared graph may oversmooth fine grasp offsets; the joint future-motion objective may overweight predictable zero payload motion and dilute action learning. Then grasp/push timing can worsen despite plausible generated displacement channels. The world-position skips still permit correlated-layout shortcuts. If familiar grasps work but crossed or extrapolated targets induce incorrect late pushes, the graph alone has not learned the intended factor composition. No measured gain is asserted.",
+  "required_runtime_fields": {
+    "source": "Only causal_context.raw_history [B,2,39] from the common observation",
+    "slices": {"current_hand": [0,3], "current_aperture": [3,4], "current_stick": [4,7], "current_stick_xyzw": [7,11], "current_payload": [11,14], "current_payload_xyzw": [14,18], "native_previous_state": [18,36], "goal": [36,39]},
+    "support_fit": "Hand xy origin from exactly the population of D_N obs[0:T]; serialized for fresh deployment. No fitted action model, cached episodes or additional statistics.",
+    "action_semantics": "Action channels 0:4 remain native world-frame dx,dy,dz,gripper with identity encode/decode. Auxiliary channels 4:10 are non-executed world-frame object displacements divided by 0.1 m. Host clips only decoded native actions and executes the fixed four-step prefix."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_object_motion",
+      "shape": "[number_of_windows,16,6]",
+      "source": "For valid offset k only, concatenate (obs[t+k+1,4:7]-obs[t,4:7]) and (obs[t+k+1,11:14]-obs[t,11:14]), divided by 0.1 m. This uses only the current D_N future support labels. Padded entries are zero and ignored by the valid mask.",
+      "loss": "Joint diffusion retains encoded native action4 first. Public action epsilon loss remains weight 1 with denominator mask.sum()*4. Additional nonnegative motion epsilon MSE has weight 0.2 and its own denominator mask.sum()*6 (zero-mask safe).",
+      "inference": "No labels or future state enter conditioning, encoding or decoding. The common denoiser generates all ten channels from its host-owned noise stream. Only the first four are decoded and executed."
+    }
+  ],
+  "parents": [],
+  "change_summary": "Initial independent design, not a revision of A1: learned 4-node typed graph, 48-wide states, two adjacency-restricted residual message rounds, 80-channel learned readout plus 39-channel geometric skip, and 10-channel joint action/motion diffusion with separately normalized auxiliary loss. All modules are registered in build_modules; U-Net and optimizer budget unchanged. No structural repairs at authoring time."
+}

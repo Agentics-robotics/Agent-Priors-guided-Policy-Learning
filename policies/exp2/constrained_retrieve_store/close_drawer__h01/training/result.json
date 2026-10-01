@@ -1,0 +1,99 @@
+{
+  "checkpoint": "provenance/relocated/bf8cb4697b2a1a38",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "167fe4607bc02ef18ae06f0aff4d511e3c8a507a810916b790a6b370dd87166c",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 1,
+    "physical_gpu": 2,
+    "uuid": "GPU-7a6705f2-1132-637d-000e-c94d37e2f0a2"
+  },
+  "effective_action_targets": 40330093,
+  "final_weights_sha256": "55b14c2e3457d0f6ae1c0fda7ad05c1a7b07cfb22d4b40a70f56673833c6ba95",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 2.8330705165863037,
+      "step": 1
+    },
+    {
+      "l2_norm": 2.8376994132995605,
+      "step": 2
+    },
+    {
+      "l2_norm": 2.921041250228882,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.17648981511592865,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "15c877afa4c2ea512e95b19bf9b0074e6698a286113fb4f101668b9573cc8008",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5160,
+      "duplicated_actions": 0,
+      "unique_actions": 5160
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Compare FK of decoded IK joints with the demonstrated commanded TCP target in metres/radians and compare the unmodified gripper scalar. Rotation 6D is deterministically projected to SO(3); unconverged IK is returned with diagnostics rather than replaced.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Uses every assigned action in [900,1330) for all 12 trajectories. The full [900,1160) action-supervised overlap with place_block_in_drawer is preserved; only Cartesian representation and causal coordinates are changed.",
+      "input_shapes": {
+        "features": [
+          2,
+          41
+        ]
+      },
+      "observation_dependencies": [
+        "drawer_position",
+        "drawer_velocity",
+        "object_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is [target-frame xyz metres, target-frame relative rotation 6D, native gripper scalar]. The frame is target_pose from that slot's action observation for labels and from the freshly measured current observation for decoding. The 6D pair is projected by Gram-Schmidt to SO(3), composed with target_pose to a world TCP target, and passed to panda_kinematics.solve_ik from fresh measured joints. Gripper >=0 opens and <0 closes. Slots represent t-1 through t+14; execution uses slots 1 through 8.",
+      "parameter_semantics": "No high-level arguments. target_pose is the observed moving drawer-attached frame in world metres with a wxyz quaternion. The executor supplies two causal observations and a fresh observation for each decoded slot.",
+      "policy_id": "close_drawer__h01",
+      "skill_id": "close_drawer",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "94da1b50b0a3347c520470cef1337b2282ec50285f40bc80e1cb10e4837a1b13",
+    "PRIOR.md": "35b86d3bfdc78482a734b61676df96aa96476202eb1f74234aa01c83641c0a2d",
+    "adapters.py": "d982ab2d472bec75ea86c3ba60f9378f487e0bcd3dc7b57f6d3e6e3e23b61e13",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "70b56bff42a32ab38ca505639ced275a34dd7679540ec42c109f35d890496a1d",
+    "policy.py": "0d94af688a7306a602d51fe35edc70292119bbf62abb853d981f2926fe8f5f5c",
+    "policy_contract.json": "ce46b629899ec27cf47c0bca935ee740aa1bae1620469431b9f5fd8a6efb2c8d",
+    "training_bindings.json": "586f5b612cbf5d0610c43d8058cdc35ce41e5b01f2dbe2e793b879b84137d19d"
+  },
+  "trainable_parameters": 16914186,
+  "training_elapsed_seconds": 667.3791329730302,
+  "weight_l2_change": 28.11476564494726
+}

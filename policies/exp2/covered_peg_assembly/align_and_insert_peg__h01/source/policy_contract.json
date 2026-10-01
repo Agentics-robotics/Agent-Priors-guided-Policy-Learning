@@ -1,0 +1,22 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "align_and_insert_peg__h01",
+  "skill_id": "align_and_insert_peg",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {
+      "destination_object": {"type": "string", "enum": ["hole"]},
+      "held_object": {"type": "string", "enum": ["peg"]}
+    },
+    "required": ["destination_object", "held_object"],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "destination_object selects the currently observed hole_pose as the moving Cartesian reference. held_object selects the currently observed peg_pose for grasp and alignment features. Both are semantic scene identifiers, not actuator values.",
+  "observation_dependencies": ["hole_pose", "peg_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 63]},
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an absolute TCP target expressed in the freshly observed destination/hole frame: translation xyz in metres, rotation as the first two columns of a relative rotation matrix (6D), then the native gripper scalar. The decoder projects 6D to SO(3), left-composes the current world_T_hole at that execution step, and invokes panda_kinematics.solve_ik from fresh measured qpos. Prediction slots are t-1 through t+14; execution uses slots 1 through 8. No scripted task motion is added.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "For valid demonstration labels, hole_T_tcp is reconstructed (with the 6D SO(3) projection), transformed by the matching observed world_T_hole, and solved by shared IK. Compare FK TCP position, rotation angle, and unchanged gripper scalar to the demonstrated commanded target; nonunique joints are allowed."},
+  "cut_relation": "Uses all assigned [start,stop) actions for every trajectory, including the complete [1380,1500) incoming overlap, and changes only the Cartesian coordinate representation and causal conditioning."
+}

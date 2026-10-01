@@ -1,0 +1,39 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "single_prior_cartesian",
+  "skill_id": "full_task",
+  "call_args_schema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "parameter_semantics": "No caller parameters are accepted: the sole binding call_args={} means execute the complete retrieve-store-close behavior. All intent is fixed by the task; observed object_pose and target_pose are world-frame metre/wxyz poses, and the policy resolves them causally at every chunk and decode.",
+  "observation_dependencies": [
+    "drawer_position",
+    "drawer_velocity",
+    "object_pose",
+    "qpos",
+    "qvel",
+    "target_pose",
+    "tcp_pose"
+  ],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 60]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each prediction slot contains [dx,dy,dz,r1x,r1y,r1z,r2x,r2y,r2z,g]. Position is metres relative to a causal smooth reference: a soft nearest-anchor blend of current object position and a drawer-handle anchor target_pose.xyz+[-0.270,0,0.065] m. The weight is sigmoid((distance(TCP,drawer_anchor)-distance(TCP,object))/0.040 m). The six rotation values are the first two columns of an absolute world-frame TCP rotation and are projected by Gram-Schmidt; g is the demonstrated native gripper scalar (nonnegative opens, negative closes). Slot 0 denotes t-1 and slots 1..8 denote executable targets t..t+7. At every executed slot, decode recomputes the reference from the fresh observation, adds the learned offset, projects rotation, and calls panda_kinematics.solve_ik from freshly measured joints. No Cartesian clipping or scripted completion is applied.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.01,
+    "description": "For encoded demonstrated targets, decode reconstructs the FK-commanded world TCP pose from the same causal reference, then shared IK is compared by maximum world position error in metres, rotation angle in radians, and gripper scalar error. Rotation is the continuous 6D projection; IK may choose a nonunique joint solution. The 0.01 bound accommodates independent IK while its nominal solver tolerances remain 1e-4 m and 1e-3 rad."
+  },
+  "cut_relation": "One model owns every action in all twelve complete demonstrations, with one call_args={} binding per trajectory and no segmentation, stage input, policy selection, or overlap with another runtime policy."
+}

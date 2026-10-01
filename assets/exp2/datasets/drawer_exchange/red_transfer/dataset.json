@@ -1,0 +1,298 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        230,
+        280,
+        400,
+        445,
+        470,
+        560,
+        600,
+        610,
+        700,
+        800,
+        850
+      ],
+      "trajectory_id": "demo1000"
+    },
+    {
+      "indices": [
+        230,
+        280,
+        400,
+        445,
+        470,
+        560,
+        600,
+        610,
+        700,
+        800,
+        850
+      ],
+      "trajectory_id": "demo1001"
+    },
+    {
+      "indices": [
+        230,
+        280,
+        400,
+        445,
+        470,
+        560,
+        600,
+        610,
+        700,
+        800,
+        850
+      ],
+      "trajectory_id": "demo1002"
+    },
+    {
+      "indices": [
+        230,
+        280,
+        400,
+        445,
+        470,
+        560,
+        600,
+        610,
+        700,
+        800,
+        850
+      ],
+      "trajectory_id": "demo1003"
+    },
+    {
+      "indices": [
+        230,
+        280,
+        400,
+        445,
+        470,
+        560,
+        600,
+        610,
+        700,
+        800,
+        850
+      ],
+      "trajectory_id": "demo1004"
+    },
+    {
+      "indices": [
+        230,
+        280,
+        400,
+        445,
+        470,
+        560,
+        600,
+        610,
+        700,
+        800,
+        850
+      ],
+      "trajectory_id": "demo1005"
+    },
+    {
+      "indices": [
+        230,
+        280,
+        400,
+        445,
+        470,
+        560,
+        600,
+        610,
+        700,
+        800,
+        850
+      ],
+      "trajectory_id": "demo1006"
+    },
+    {
+      "indices": [
+        230,
+        280,
+        400,
+        445,
+        470,
+        560,
+        600,
+        610,
+        700,
+        800,
+        850
+      ],
+      "trajectory_id": "demo1007"
+    },
+    {
+      "indices": [
+        230,
+        280,
+        400,
+        445,
+        470,
+        560,
+        600,
+        610,
+        700,
+        800,
+        850
+      ],
+      "trajectory_id": "demo1008"
+    },
+    {
+      "indices": [
+        230,
+        280,
+        400,
+        445,
+        470,
+        560,
+        600,
+        610,
+        700,
+        800,
+        850
+      ],
+      "trajectory_id": "demo1009"
+    },
+    {
+      "indices": [
+        230,
+        280,
+        400,
+        445,
+        470,
+        560,
+        600,
+        610,
+        700,
+        800,
+        850
+      ],
+      "trajectory_id": "demo1010"
+    },
+    {
+      "indices": [
+        230,
+        280,
+        400,
+        445,
+        470,
+        560,
+        600,
+        610,
+        700,
+        800,
+        850
+      ],
+      "trajectory_id": "demo1011"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Drawer_position is above 0.26 with the red block exposed. The earliest represented entry still has the gripper closed at the drawer front; later represented entries include open retreat, red pregrasp, red contact, and initial red lift.",
+    "exit_conditions": "Nominal switch cue: red center is on the outside pad at z about 0.020 m and no longer follows the TCP; drawer remains above 0.26; blue is aligned under the TCP, fingers are closed near 0.018 m, and blue/TCP co-motion shows an established initial lift. Release is an observed transition cue, not an added task-success requirement.",
+    "failure_signatures": "Red does not co-move after grasp; red is carried low into furniture; red center or rotated extent is outside the pad; red follows the TCP after intended release; TCP fails to clear red; approach is directed to red again instead of blue; blue is not under the TCP; or fingers close without blue/TCP co-motion. No demonstrated recovery supports unseen versions of these errors.",
+    "overlap_role": "With open_drawer, actions 230:470 are shared: 240 supervised actions, 12.0 s per occurrence, 2,880 total. With blue_insert, actions 600:850 are shared: 250 supervised actions, 12.5 s per occurrence, 3,000 total. The first overlap covers drawer release/retreat through red contact and lift. The second covers final red descent while still held, red release, retreat, transit to blue, blue approach/contact/closure, and initial lift. Thus the receiving blue skill sees the predecessor object being released rather than confusing that red object with its intended blue target.",
+    "successor_readiness": "blue_insert is ready from index 600 even though red is still held or touching the pad there; this is deliberate predecessor-release context. The intended object after release is blue. A clean nominal switch is available by observation 850 when red remains on the pad and blue is securely lifted."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Transfer red block to the outside pad and establish the blue pickup handoff",
+  "original_demonstration_count": 12,
+  "plan_hash": "a9fba2a55520353eef0f232a80fe6fefabff1f74b3712258fccdbe335cfa1dd8",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "Red pick-and-place is a rigid-object transport and placement responsibility distinct from drawer articulation and from blue insertion into a confined cavity. Each occurrence was separately bounded at the fully open drawer state and at established blue lift. The segment includes handle release through red pickup, red transport/release/retreat, and the full blue approach/contact/lift handoff.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Open drawer; transfer red from the exposed drawer area near (-0.197,-0.062) to the outside pad near (-0.176,-0.298), release it, then pick blue from about (-0.401,0.291) and lift it to z=0.191.",
+      "start": 230,
+      "stop": 850,
+      "trajectory_id": "demo1000"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Open drawer; transfer red from near (-0.195,-0.077) to the pad near (-0.177,-0.302), release it, then pick blue from about (-0.409,0.311) and begin lift to z=0.061.",
+      "start": 230,
+      "stop": 850,
+      "trajectory_id": "demo1001"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Open drawer; transfer red from near (-0.201,-0.068) to the pad near (-0.177,-0.302), release it, then pick blue from about (-0.393,0.297) and lift it to z=0.175.",
+      "start": 230,
+      "stop": 850,
+      "trajectory_id": "demo1002"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Open drawer; transfer red from near (-0.205,-0.071) to the pad near (-0.176,-0.298), release it, then pick blue from about (-0.400,0.305) and lift it to z=0.193.",
+      "start": 230,
+      "stop": 850,
+      "trajectory_id": "demo1003"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Open drawer; transfer red from near (-0.210,-0.074) to the pad near (-0.177,-0.304), release it, then pick blue from about (-0.411,0.296) and lift it to z=0.181.",
+      "start": 230,
+      "stop": 850,
+      "trajectory_id": "demo1004"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Open drawer; transfer red from near (-0.208,-0.055) to the pad near (-0.176,-0.298), release it, then pick blue from about (-0.406,0.304) and lift it to z=0.119.",
+      "start": 230,
+      "stop": 850,
+      "trajectory_id": "demo1005"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Open drawer; transfer red from near (-0.202,-0.063) to the pad near (-0.176,-0.298), release it, then pick blue from about (-0.406,0.292) and lift it to z=0.181.",
+      "start": 230,
+      "stop": 850,
+      "trajectory_id": "demo1006"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Open drawer; transfer red from near (-0.208,-0.057) to the pad near (-0.177,-0.304), release it, then pick blue from about (-0.396,0.291) and lift it to z=0.173.",
+      "start": 230,
+      "stop": 850,
+      "trajectory_id": "demo1007"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Open drawer; transfer red from near (-0.206,-0.057) to the pad near (-0.176,-0.298), release it, then pick blue from about (-0.408,0.315) and lift it to z=0.110.",
+      "start": 230,
+      "stop": 850,
+      "trajectory_id": "demo1008"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Open drawer; transfer red from near (-0.208,-0.069) to the pad near (-0.177,-0.304), release it, then pick blue from about (-0.414,0.293) and lift it to z=0.181.",
+      "start": 230,
+      "stop": 850,
+      "trajectory_id": "demo1009"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Open drawer; transfer red from near (-0.207,-0.064) to the pad near (-0.176,-0.298), release it, then pick blue from about (-0.387,0.314) and lift it to z=0.157.",
+      "start": 230,
+      "stop": 850,
+      "trajectory_id": "demo1010"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Open drawer; transfer red from near (-0.203,-0.063) to the pad near (-0.176,-0.298), release it, then pick blue from about (-0.409,0.287) and lift it to z=0.181.",
+      "start": 230,
+      "stop": 850,
+      "trajectory_id": "demo1011"
+    }
+  ],
+  "skill_id": "red_transfer",
+  "subgoal": "Primary responsibility: after the drawer is open, acquire the exposed red block, lift and carry it to the marked outside pad, lower it, release it, and retreat. The segment then intentionally continues through the approach, contact, grasp, and initial lift of the blue block for the next handoff. Observed contact/motion: the red block is pinched with fingers near 0.018 m, carried at roughly 0.30 m height, lowered to the pad, released as the fingers open, and left at z about 0.020 m; the TCP retreats before crossing to blue. Entry observation 230 has drawer_position 0.300, TCP still at the drawer front, and fingers near 0.007 m, so the skill is supervised to release/retract before acquiring red. At exit observation 850, red is already on the pad and blue is gripped with fingers near 0.018 m and lifted to z about 0.061-0.193 m, depending on occurrence. Examples: demo1000 indices 470/560/600/610 show red lift, carry, pad descent, and release; 700/800/850 show retreat, blue approach, and blue lift. Images at demo1000 indices 560, 610, 800, and 850 support the pad and blue-pickup interpretation. Purpose/expected benefit: this isolates red placement while retaining both adjacent transitions; overlap is expected to reduce sensitivity to switching before red grasp or before blue grasp, but it does not demonstrate recovery from an off-pad release."
+}

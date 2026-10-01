@@ -1,0 +1,139 @@
+{
+  "blue": "table",
+  "contract": {
+    "blue_at_start_definition": "blue footprint inside blue_start_center_world +/- blue_start_half_xy_m with red_center_z_open_interval_m",
+    "blue_cavity_half_xy_m": [
+      0.172,
+      0.182
+    ],
+    "blue_center_z_open_interval_m": [
+      0.053,
+      0.074
+    ],
+    "blue_start_center_world": [
+      -0.4094362608647378,
+      0.30422221485504636,
+      0.02
+    ],
+    "blue_start_half_xy_m": [
+      0.06,
+      0.06
+    ],
+    "coordinate_frame": "world",
+    "description": "The task is complete when the drawer is open, the red block is on the marked outside pad, and the blue block is inside the drawer at the same observation.",
+    "drawer_center_expression": "drawer_origin_world + [-drawer_position, 0, 0]",
+    "drawer_open_comparison": "strictly greater than",
+    "drawer_open_m": 0.26,
+    "drawer_origin_world": [
+      0.19,
+      0.0,
+      0.035
+    ],
+    "gripper_release_required": false,
+    "object_half_m": 0.02,
+    "object_velocity_threshold_required": false,
+    "orientation": "wxyz; use the rotated block's axis-aligned extents for full XY containment",
+    "predicates": [
+      "drawer_open",
+      "red_on_pad",
+      "blue_inside"
+    ],
+    "provenance": "The three task goals follow the user's 2026-09-16 clarification. Spatial thresholds and object geometry retain the existing evaluator definitions; release, clearance, speed and sustained-time conditions are not part of this run's completion rule.",
+    "red_center_z_open_interval_m": [
+      0.014,
+      0.031
+    ],
+    "red_inside_definition": "red center inside the drawer cavity with the blue_inside geometry and z interval",
+    "red_pad_center_world": [
+      -0.18,
+      -0.3,
+      0.02
+    ],
+    "red_pad_half_xy_m": [
+      0.06,
+      0.06
+    ],
+    "required_observations": 1,
+    "schema": "appl.cartesian_ik.task_goals.v1",
+    "scope": "Independent demonstration processing; no change to frozen M0 evaluation or historical results",
+    "segmentation_guidance": "Use this completion definition for the final task endpoint. Retain any additional transition context useful to a skill; explain omitted actions under this definition.",
+    "success_expression": "drawer_open AND red_on_pad AND blue_inside",
+    "sustained_hold_required": false,
+    "task": "drawer_exchange",
+    "tcp_clearance_required": false,
+    "units": "metres",
+    "xy_containment_comparison": "abs(object_center_xy - target_center_xy) + rotated_object_extent_xy <= target_half_xy"
+  },
+  "demo": "demo1006",
+  "drawer_position": 0.29737311601638794,
+  "env_goals": null,
+  "expert_goals": {
+    "blue_inside": true,
+    "drawer_open": true,
+    "red_on_pad": true,
+    "success": true
+  },
+  "expert_success": true,
+  "goal": "standard",
+  "id": "D-S2",
+  "id_layout": {
+    "blue": [
+      -0.4094362608647378,
+      0.30422221485504636,
+      0.02
+    ],
+    "red": [
+      0.097637254990195,
+      -0.06640032491095536,
+      0.063
+    ]
+  },
+  "initial_goals": {
+    "blue_inside": false,
+    "drawer_open": true,
+    "red_on_pad": true,
+    "success": false
+  },
+  "initial_sha256": "7d4daca9de2bd67317c5b2867e680388a86e22e3caa51fd2fa53fa465b886c95",
+  "kind": "start",
+  "name": "drawer_open_red_already_on_pad",
+  "poses": {
+    "blue": [
+      -0.4094362608647378,
+      0.30422221485504636,
+      0.02,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "red": [
+      -0.1761145442724228,
+      -0.29840314388275146,
+      0.01999991573393345,
+      0.9999862909317017,
+      6.637721980951028e-06,
+      -2.4044177280302392e-06,
+      0.0052374498918652534
+    ]
+  },
+  "prepared": 1790262227.7907581,
+  "red": "demo",
+  "robot_qpos": [
+    -0.24534033238887787,
+    0.6095302700996399,
+    -0.2511443793773651,
+    -1.2819302082061768,
+    0.14888353645801544,
+    1.8746998310089111,
+    -2.850083112716675,
+    0.03999996557831764,
+    0.03999995440244675
+  ],
+  "seed": 24092601,
+  "stages": [
+    "blue_in"
+  ],
+  "step": 660,
+  "task": "drawer_exchange"
+}

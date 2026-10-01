@@ -1,0 +1,14 @@
+{
+  "policy_id": "blue_insert__h03",
+  "entry_conditions": "drawer_position is strictly above 0.26 m; two-frame causal history remains available across the policy switch; red is being released or settled on its pad; blue is outside or already held; arguments select blue and blue_goal.",
+  "exit_conditions": "Only the unchanged one-observation expression drawer open AND red on pad AND blue inside ends the task. The auxiliary phase, open gripper and high retreat do not alter success.",
+  "overlap_role": "Every [600,stop) action is supervised, including 250 actions per trajectory in [600,850) shared with red_transfer. Local labels retain red lowering/release, transit, blue approach/closure and lift as actions, not observation-only context.",
+  "successor_readiness": "There is no learned successor. Continue nominal insertion/release/retreat, or hand to the destination-frame prior when a stable carried blue approaches the drawer. Framework evaluation alone determines completion.",
+  "failure_signatures": "Phase cues conflict with geometry; gripper closes without blue/TCP co-motion; local increments drift away from source or destination; IK fails/contacts limits; red leaves pad; drawer closes; or blue contacts lip/wall or misses final bounds.",
+  "continuation_guidance": "Prefer this policy for uncertain valid handoff timing and small feedback-like corrections. Use the blue-frame policy for large free-source displacement and destination-frame policy for final goal displacement. Abort or replan on suspected drop/collision rather than treating the phase head as recovery logic.",
+  "limitations": "Increment composition does not plan globally and may accumulate drift over eight executed slots. The phase target is a causal geometry heuristic, not contact truth. Large disturbances and re-grasp/recovery are not demonstrated.",
+  "evidence": [
+    {"trajectory_id":"demo1000","indices":[600,620,650,700,750,800,820,840,850,870,930,970,990,1010,1030,1050]},
+    {"trajectory_id":"demo1001","indices":[600,620,700,750,800,820,840,850,860,880,940,980,1000,1020,1040,1060]}
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "policy_id": "place_block_in_drawer__h03",
+  "entry_conditions": "Drawer is open/stable; observations and measured joints are valid; the block is plausibly attached for carry entry or visibly in the cavity/release corridor for mid-skill entry; the state is not an unseen drop recovery.",
+  "exit_conditions": "Causal geometry indicates a stationary drawer-floor-height block detached from TCP; TCP has retreated and preferably reached the handle approach for close_drawer.",
+  "overlap_role": "Every 680:1160 action is supervised. The 680:840 retrieval overlap admits predecessor intermediate states; 900:1160 explicitly covers opening, variable settling holds, retreat, reorientation, handle approach and re-closing.",
+  "successor_readiness": "Transfer to close_drawer only when actual object height and two-frame motion support deposited-retreat or handle-ready. The auxiliary class alone is insufficient. Keep two causal frames across the switch.",
+  "failure_signatures": "Predicted phase conflicts with object/TCP motion; object stops following before intended release; opening occurs outside the cavity; object continues following after opening; local increments repeatedly grow or drift; or IK reports nonconvergence/limits.",
+  "continuation_guidance": "Use this policy for locally perturbed or phase-ambiguous states near demonstrated geometry. Switch to place_block_in_drawer__h01 for a largely displaced plausibly attached block, or place_block_in_drawer__h02 for a displaced destination and fixture-anchored post-release motion.",
+  "limitations": "The four phase labels are coarse and derived from successful demonstration geometry/actions, not simulator contact. Current-TCP increments do not establish global displacement robustness and may accumulate error. No demonstration supports recovery from a dropped object.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[680,700,840,880,900,910,920,940,960,1080,1159]},
+    {"trajectory_id":"demo12102","indices":[680,840,880,890,900,905,910,920,940,960,1080,1159]},
+    {"trajectory_id":"demo12104","indices":[840,880,890,895,900,905,920,940,960,1080,1159]}
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "dataset": "assets/exp2/datasets/covered_peg_assembly/align_and_insert_peg/dataset.json",
+  "dataset_sha256": "9249213e5d1915185d1f90acd07fb9cb6482642ea69297a0fb798eadd92a13ec",
+  "experiment_version": "APPL_v4_cartesian_new_task",
+  "heuristic": {
+    "applicability": "Prefer when the hole is near the demonstrated world workspace but invocation phase is ambiguous: the predecessor may hand off high during descent, near the insertion line, after engagement, or already near stable completion. All object poses and robot state must remain within a plausible reachable, collision-free regime.",
+    "evidence": [
+      {
+        "indices": [
+          1380,
+          1400,
+          1420,
+          1440,
+          1450,
+          1460,
+          1470,
+          1480,
+          1490,
+          1500,
+          1510,
+          1520,
+          1530,
+          1540,
+          1554
+        ],
+        "trajectory_id": "demo12200"
+      },
+      {
+        "indices": [
+          1380,
+          1400,
+          1420,
+          1440,
+          1460,
+          1480,
+          1500,
+          1520,
+          1540,
+          1558
+        ],
+        "trajectory_id": "demo12205"
+      },
+      {
+        "indices": [
+          1380,
+          1500,
+          1539
+        ],
+        "trajectory_id": "demo12208"
+      }
+    ],
+    "handoff": {
+      "entry_conditions": "Peg is closed-grasped and visible; hole, target, peg, TCP, qpos, and qvel are finite. The hole should be near its demonstrated world pose because this model predicts world-frame targets. Entry can be early, during insertion, or late in the stable tail.",
+      "exit_conditions": "Only the supplied head-x interval, y/z tolerance, minimum axis alignment, and stable held pose define success. The inferred phase is guidance and never a success substitute.",
+      "failure_signatures": "Stage logits conflict with visible geometry; world targets do not follow a moved fixture; descent begins with lateral/axis error; insertion stalls; peg separates from TCP; or IK reports nonconvergence/limits. No class denotes jam recovery.",
+      "overlap_role": "The complete assigned segments are trained. The 1380-1500 overlap contains high alignment, descent, insertion-line settling, and initial +x motion, supplying multiple observable phases to both adjacent skills.",
+      "successor_readiness": "There is no learned successor. A hold phase should preserve the closed grasp, but the framework evaluates readiness only from unchanged task geometry and stability."
+    },
+    "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{\"destination_object\":{\"type\":\"string\",\"enum\":[\"hole\"]},\"held_object\":{\"type\":\"string\",\"enum\":[\"peg\"]},\"phase_strategy\":{\"type\":\"string\",\"enum\":[\"geometry_inferred\"]}},\"required\":[\"destination_object\",\"held_object\",\"phase_strategy\"],\"additionalProperties\":false},\"parameter_semantics\":\"destination_object and held_object select observed hole_pose and peg_pose for geometric progress features. phase_strategy requests the declared causal three-stage geometry classifier (approach/descend, insert, stabilize); it is intent metadata, not a supplied phase label or actuator command.\"}",
+    "limitations": "The auxiliary stages are deterministic labels from nominal geometric progress and do not establish contact. They may be wrong for collisions, jams, dropped pegs, or unusual approaches. World-frame absolute actions intentionally retain the demonstrated robot/workspace pattern and are not fixture-displacement invariant; the hole-frame prior covers that shift. Auxiliary supervision supports but does not replace diffusion.",
+    "pipeline_implications": "Use this model for uncertain switch timing near the nominal fixture pose. The trainable causal encoder and stage head must be registered, optimized, EMA-saved, and feed the diffusion condition; masked cross-entropy is auxiliary to active action diffusion. Route materially displaced holes to the hole-frame prior and local tracking perturbations to the fresh-TCP residual prior.",
+    "rationale": "A two-frame observation can occur in qualitatively different responsibilities: high descent, insertion-line advancement, or terminal hold. The trajectories show a z-dominant transition from about 0.42 m to 0.10 m, then +x insertion from peg center near -0.31 m to -0.182 m, followed by repeated stabilization targets. A causal phase auxiliary objective forces a learned encoder used by diffusion to preserve those distinctions, while absolute world Cartesian actions retain configuration/workspace regularities that the invariant policies may discard.",
+    "statement": "Causal phase-aware world-target prior: use a registered geometry encoder with an auxiliary approach/insert/stabilize head that conditions the diffusion backbone; diffuse absolute world TCP position, projected 6D rotation, and gripper command.",
+    "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":1380,\"stop\":1555,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\",\"phase_strategy\":\"geometry_inferred\"},\"rationale\":\"Full segment provides all three geometric phases, overlap, and hold.\"},{\"trajectory_id\":\"demo12201\",\"start\":1380,\"stop\":1552,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\",\"phase_strategy\":\"geometry_inferred\"},\"rationale\":\"Full segment and phase-diverse overlap remain supervised.\"},{\"trajectory_id\":\"demo12202\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\",\"phase_strategy\":\"geometry_inferred\"},\"rationale\":\"Full segment and phase-diverse overlap remain supervised.\"},{\"trajectory_id\":\"demo12203\",\"start\":1380,\"stop\":1552,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\",\"phase_strategy\":\"geometry_inferred\"},\"rationale\":\"Full segment and phase-diverse overlap remain supervised.\"},{\"trajectory_id\":\"demo12204\",\"start\":1380,\"stop\":1546,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\",\"phase_strategy\":\"geometry_inferred\"},\"rationale\":\"Full segment and phase-diverse overlap remain supervised.\"},{\"trajectory_id\":\"demo12205\",\"start\":1380,\"stop\":1559,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\",\"phase_strategy\":\"geometry_inferred\"},\"rationale\":\"Full segment includes extra incoming alignment variation and all phases.\"},{\"trajectory_id\":\"demo12206\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\",\"phase_strategy\":\"geometry_inferred\"},\"rationale\":\"Full segment and phase-diverse overlap remain supervised.\"},{\"trajectory_id\":\"demo12207\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\",\"phase_strategy\":\"geometry_inferred\"},\"rationale\":\"Full segment and phase-diverse overlap remain supervised.\"},{\"trajectory_id\":\"demo12208\",\"start\":1380,\"stop\":1539,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\",\"phase_strategy\":\"geometry_inferred\"},\"rationale\":\"Full segment and phase-diverse overlap remain supervised.\"},{\"trajectory_id\":\"demo12209\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\",\"phase_strategy\":\"geometry_inferred\"},\"rationale\":\"Full segment and phase-diverse overlap remain supervised.\"},{\"trajectory_id\":\"demo12210\",\"start\":1380,\"stop\":1545,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\",\"phase_strategy\":\"geometry_inferred\"},\"rationale\":\"Full segment and phase-diverse overlap remain supervised.\"},{\"trajectory_id\":\"demo12211\",\"start\":1380,\"stop\":1546,\"context_start\":1379,\"call_args\":{\"destination_object\":\"hole\",\"held_object\":\"peg\",\"phase_strategy\":\"geometry_inferred\"},\"rationale\":\"Full segment and phase-diverse overlap remain supervised.\"}]"
+  },
+  "heuristic_index": 3,
+  "normalization": {
+    "path": "provenance/relocated/b11807ac2cdb2323",
+    "sha256": "5d50ce2e025ef83183ac172a24c1b19ea7482f651c1c6fa09f34f83bd3887b24"
+  },
+  "observation_fields": {
+    "hole_pose": [
+      0,
+      7
+    ],
+    "lid_pose": [
+      7,
+      14
+    ],
+    "lid_position": [
+      14,
+      15
+    ],
+    "lid_velocity": [
+      15,
+      16
+    ],
+    "peg_pose": [
+      16,
+      23
+    ],
+    "qpos": [
+      23,
+      32
+    ],
+    "qvel": [
+      32,
+      41
+    ],
+    "target_pose": [
+      41,
+      48
+    ],
+    "tcp_pose": [
+      48,
+      55
+    ]
+  },
+  "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "policy_id": "align_and_insert_peg__h03",
+  "prior_plan_path": "policies/exp2/covered_peg_assembly/align_and_insert_peg__h03/prior_plan.json",
+  "prior_plan_sha256": "39b5878a672c573b9cb66da51aa9ccb1503f4789da1aa0bb40f14db750196cb2",
+  "skill_id": "align_and_insert_peg",
+  "sources": {
+    "demo12200": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12200.json",
+      "sha256": "e7ccc303ea6b6ddd3150e2336c6b06b3f89a66d478909e3f9555eb3d6ccc85f1"
+    },
+    "demo12201": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12201.json",
+      "sha256": "aa9e1f1d14f676f5b4c9fb52ee6bbbb5d86865d82adcc051e3256482461f1016"
+    },
+    "demo12202": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12202.json",
+      "sha256": "4ad5e3ce9117f56008597389c45a799aff1857f683091069d582e024a00b32a7"
+    },
+    "demo12203": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12203.json",
+      "sha256": "c43ecf548e80a87d465fbc947e98d191dffd25cc4966f83e2698dd7a8a2cf8af"
+    },
+    "demo12204": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12204.json",
+      "sha256": "35eea2d5c8fc6e02c992c923db4e580d473d5583edcd45cfee79e682782c5a09"
+    },
+    "demo12205": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12205.json",
+      "sha256": "b4b9855dac2b9f0e836ea063d38694af37abba89371fcae59fffa7d65c4dfb3c"
+    },
+    "demo12206": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12206.json",
+      "sha256": "6a64bcc76a39a6dc2f1119c5e5983a5686835cdf2ae5a0899ab8f39da92ef407"
+    },
+    "demo12207": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12207.json",
+      "sha256": "58410156c6edfad3658ce632cf8ebe122570c51412ba53f8631c9e78a14c5397"
+    },
+    "demo12208": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12208.json",
+      "sha256": "1522c1f09079f05ace6825ff5221ebf74ca8c45941a00050c53b579b43e84d5b"
+    },
+    "demo12209": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12209.json",
+      "sha256": "2a6dc540f7c4c6e6cb92c1fe50c106da8f71123c6b3ede06a790bf8ca0c3d31b"
+    },
+    "demo12210": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12210.json",
+      "sha256": "dd077218ff68ac6e93b28dc73234d21ac2a16c937de945465c9970deb9ad4ac4"
+    },
+    "demo12211": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12211.json",
+      "sha256": "0440e3242bad2dbcefe176eab207fd19647109b019c55702ff1906862c9e4b5d"
+    }
+  },
+  "subgoal": "Keep the peg grasped, complete axis/lateral alignment over the square hole, descend to the insertion line, drive the peg along +x until the supplied head-position and alignment criteria are met, and stabilize.",
+  "prior_plan_original_sha256": "39b5878a672c573b9cb66da51aa9ccb1503f4789da1aa0bb40f14db750196cb2"
+}

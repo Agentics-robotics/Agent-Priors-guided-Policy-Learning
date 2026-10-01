@@ -1,0 +1,122 @@
+{
+  "checkpoint": "provenance/relocated/1bc724f4ab892b40",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "7fc65ba16c9ac2cc14ffa3049743c9d2437826e83a3424f8e1e7e029e0bb26a2",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 6,
+    "physical_gpu": 4,
+    "uuid": "GPU-29557089-826b-ddb5-4d55-d03f2009a879"
+  },
+  "effective_action_targets": 40395171,
+  "final_weights_sha256": "a7dba3b046e420c3cc2aa4dfdf46a47f6ba90e9dae2548e0139b4a530065391c",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.998424053192139,
+      "step": 1
+    },
+    {
+      "l2_norm": 5.124741077423096,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.677056789398193,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.18747027218341827,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "f80a798f246fe674ece2092f6ab946201854c7098b26e2fc3c6ad3b9340bad83",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5760,
+      "duplicated_actions": 0,
+      "unique_actions": 5760
+    },
+    "contract": {
+      "action_dimension": 7,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination_pose_field": {
+            "enum": [
+              "target_pose"
+            ],
+            "type": "string"
+          },
+          "manipulated_object_pose_field": {
+            "enum": [
+              "object_pose"
+            ],
+            "type": "string"
+          },
+          "phase_vocabulary": {
+            "enum": [
+              "carry_release_retreat_handle"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "manipulated_object_pose_field",
+          "destination_pose_field",
+          "phase_vocabulary"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Compare FK of the IK target with the demonstrated commanded TCP pose after measured-current-TCP relative encode/decode, and compare unchanged gripper scalar. Maximum position metres, rotation radians and gripper error must be at most 0.005; rotation exp/log is exact on labels and nonunique IK joints are allowed.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Covers all twelve complete [680,1160) assigned slices and retains both action-supervised overlaps. It refines the cut with fresh-state local Cartesian correction and a causal phase auxiliary loss, without changing the assigned carry, release, retreat or handle-transition responsibility.",
+      "input_shapes": {
+        "features": [
+          2,
+          48
+        ]
+      },
+      "observation_dependencies": [
+        "object_pose",
+        "target_pose",
+        "tcp_pose",
+        "qpos",
+        "qvel",
+        "drawer_position",
+        "drawer_velocity"
+      ],
+      "output_semantics": "Each slot is [fresh-current-TCP-frame translation increment xyz in metres, fresh-current-TCP-frame rotation vector xyz in radians, native gripper scalar]. Training slot k uses inverse(measured TCP in that slot's pre-action observation) times the demonstrated commanded TCP pose. During sequential execution each of slots 1..8 is left-multiplied by the newly measured current world TCP pose, so increments are not accumulated open-loop from chunk start. panda_kinematics.solve_ik maps the resulting world TCP target to seven absolute joints from fresh qpos; the gripper scalar is appended unchanged. The four-class auxiliary head is training-only causal phase regularization and does not alter decoding or success criteria.",
+      "parameter_semantics": "The two pose-field arguments select the live observed block and drawer-goal world poses used for causal relative geometry, in metres and wxyz. phase_vocabulary selects the declared auxiliary classes: 0 carry/closed descent, 1 opening or settling, 2 deposited retreat, 3 handle-ready. The vocabulary is encoded in model input and is advisory rather than contact truth.",
+      "policy_id": "place_block_in_drawer__h03",
+      "skill_id": "place_block_in_drawer",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "6284db63487d86441154bda501f39446c9772957d3925e4a341d8f46d25db5d3",
+    "PRIOR.md": "519ab3de775b1a35cd4404966a035f2815ea1ec990451e823a99708fbcf2637f",
+    "adapters.py": "623cf450c125841e55efc1e9d45c22ebf64b567dcc74304cf3e7dd88dcd3d311",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "21ece1f48e80772724012f8e1365cb67f045d64515b9777a1c45427cd866b544",
+    "policy.py": "d0909c79d2d63a36d8f712b38ceb68a3bf537e4f0181a5e12287893b8ba045c9",
+    "policy_contract.json": "3c26302da693bc5c47c8e3e1cc214c4e9d8cfadab9dac5c105e768cd48db490e",
+    "training_bindings.json": "70dcdd03dbc76ecc6cba836ac447ad166f7195498e0df4000dee5600ec0fe592"
+  },
+  "trainable_parameters": 17299467,
+  "training_elapsed_seconds": 675.0586340089794,
+  "weight_l2_change": 28.036110375335884
+}

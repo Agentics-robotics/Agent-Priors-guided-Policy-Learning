@@ -1,0 +1,23 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "retrieve_tunnel_block__h04",
+  "skill_id": "retrieve_tunnel_block",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "object_pose_field": {"type": "string", "enum": ["object_pose"]},
+      "destination_pose_field": {"type": "string", "enum": ["target_pose"]},
+      "tunnel_clearance_m": {"type": "number", "minimum": 0.16, "maximum": 0.16}
+    },
+    "required": ["object_pose_field", "destination_pose_field", "tunnel_clearance_m"]
+  },
+  "parameter_semantics": "object_pose_field selects the observed manipulated block whose fresh world position anchors the low-motion translation candidate and supplies clearance; destination_pose_field selects the fresh observed SE(3) drawer destination for the post-clear candidate; tunnel_clearance_m is the fixed world-z tunnel roof height in metres. Bindings use object_pose, target_pose and 0.16.",
+  "observation_dependencies": ["drawer_position", "drawer_velocity", "object_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 72]},
+  "action_dimension": 19,
+  "output_semantics": "Each slot is [world-axis TCP translation offset from fresh object position in metres (3), absolute world TCP rotation 6D (6), destination-frame TCP translation in metres (3), destination-frame TCP rotation 6D (6), shared gripper scalar (1)]. Both branches represent the same demonstrated Cartesian command. decode reconstructs both from fresh object_pose and target_pose. Let c=object_center_z-object_half_m-tunnel_clearance_m; destination weight is clip(c/0.04,0,1). Positions are linearly blended and rotations are blended on SO(3) from the object candidate to the destination candidate. The world target is converted only by panda_kinematics.solve_ik from fresh measured joints. Gripper >=0 opens and <0 closes. Slots are t-1 through t+14 and execution uses slots 1 through 8.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.01, "description": "Both encoded candidates independently recover the demonstrated commanded FK TCP pose. Their clearance blend must therefore recover that same pose and shared gripper within 0.01 maximum metres/radians/scalar; nonunique IK is accepted only through the independent task-space comparison and diagnostics expose all residuals."},
+  "cut_relation": "Keeps every action in each [300,840) binding, including action-supervised predecessor overlap [300,440) and successor overlap [680,840). The analytic 0.04 m clearance blend changes only the reference used to decode learned Cartesian targets and adds no task waypoint or recovery script."
+}

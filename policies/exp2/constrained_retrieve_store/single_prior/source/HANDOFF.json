@@ -1,0 +1,32 @@
+{
+  "policy_id": "single_prior_cartesian",
+  "entry_conditions": "Full-task entry is the declared constrained_retrieve_store scene with a causally observed Panda state, TCP, block, target, and drawer. The demonstrations enter with the drawer closed, block resting in the low tunnel, fingers open, and robot near the common home posture. Causal re-entry at an intermediate state is only supported when it remains near the demonstrated open-drawer, tunnel-retrieval, transport, placement, or closure manifolds; this is documentation, not runtime stage selection.",
+  "exit_conditions": "Successful full-task exit keeps the supplied definition unchanged: the block has been retrieved from the tunnel and is inside the drawer, and drawer_position is below the 0.025 m closed threshold. Demonstrations additionally finish with open fingers and the TCP retreated above/in front of the closed drawer, but that retreat is not a replacement success condition.",
+  "overlap_role": "There is no runtime overlap or successor policy: this single learned policy owns every action from full-task entry through terminal retreat. The relational reference blends continuously inside the policy and is not a handoff between skills.",
+  "successor_readiness": "No successor is required. If an external monitor uses this document, readiness means the unchanged block-in-drawer and drawer-closed conditions are satisfied with a finite robot state; a closed gripper, reference weight, or apparent phase alone is insufficient.",
+  "failure_signatures": "Observable failure signatures are: fingers commanded closed while object_pose remains stationary; the block fails to follow TCP motion during pull/lift; TCP or joint progress stalls near the tunnel; the gripper opens with the block outside the target/drawer region; drawer_position stops at or above 0.025 m; repeated motion moves the block out of the cavity; or IK diagnostics report nonconvergence, limit contact, or elevated Cartesian residual.",
+  "continuation_guidance": "Replan this same policy from two fresh causal frames and execute only slots 1 through 8 while the state remains on supported geometry and the unchanged success condition is unmet. Stop on success or on an externally handled safety/failure condition; do not synthesize a stage jump, scripted recovery, or alternate policy from this document.",
+  "limitations": "The twelve demonstrations use one strategy and only modest initial block variation. Large translations can change the smooth nearest-anchor transition, violate tunnel clearance, or become unreachable. Arbitrary object rotation, altered drawer/target-to-handle geometry, topology changes, and severe contact disturbances are unsupported. Contact is inferred only from observed motion and fingers, never from contact truth.",
+  "evidence": [
+    {
+      "trajectory_id": "demo12100",
+      "indices": [0, 150, 260, 430, 530, 550, 600, 700, 800, 880, 900, 920, 950, 1060, 1120, 1150, 1170, 1240, 1270, 1330]
+    },
+    {
+      "trajectory_id": "demo12101",
+      "indices": [0, 179, 269, 358, 448, 538, 628, 717, 807, 897, 987, 1076, 1166, 1256]
+    },
+    {
+      "trajectory_id": "demo12103",
+      "indices": [0, 190, 381, 572, 763, 954, 1145]
+    },
+    {
+      "trajectory_id": "demo12108",
+      "indices": [0, 191, 382, 573, 764, 955, 1146]
+    },
+    {
+      "trajectory_id": "demo12111",
+      "indices": [0, 192, 385, 578, 771, 964, 1157]
+    }
+  ]
+}

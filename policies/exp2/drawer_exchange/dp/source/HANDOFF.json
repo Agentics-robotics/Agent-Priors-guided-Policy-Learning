@@ -1,0 +1,96 @@
+{
+  "continuation_guidance": "Replan every eight actions.",
+  "entry_conditions": "Episode reset.",
+  "evidence": [
+    {
+      "indices": [
+        0,
+        1065
+      ],
+      "trajectory_id": "demo1000"
+    },
+    {
+      "indices": [
+        0,
+        1077
+      ],
+      "trajectory_id": "demo1001"
+    },
+    {
+      "indices": [
+        0,
+        1063
+      ],
+      "trajectory_id": "demo1002"
+    },
+    {
+      "indices": [
+        0,
+        1066
+      ],
+      "trajectory_id": "demo1003"
+    },
+    {
+      "indices": [
+        0,
+        1065
+      ],
+      "trajectory_id": "demo1004"
+    },
+    {
+      "indices": [
+        0,
+        1070
+      ],
+      "trajectory_id": "demo1005"
+    },
+    {
+      "indices": [
+        0,
+        1064
+      ],
+      "trajectory_id": "demo1006"
+    },
+    {
+      "indices": [
+        0,
+        1069
+      ],
+      "trajectory_id": "demo1007"
+    },
+    {
+      "indices": [
+        0,
+        1071
+      ],
+      "trajectory_id": "demo1008"
+    },
+    {
+      "indices": [
+        0,
+        1065
+      ],
+      "trajectory_id": "demo1009"
+    },
+    {
+      "indices": [
+        0,
+        1069
+      ],
+      "trajectory_id": "demo1010"
+    },
+    {
+      "indices": [
+        0,
+        1065
+      ],
+      "trajectory_id": "demo1011"
+    }
+  ],
+  "exit_conditions": "Task evaluator.",
+  "failure_signatures": "No scripted failure detector.",
+  "limitations": "Learned full-task policy only.",
+  "overlap_role": "No segmentation.",
+  "policy_id": "cartesian_dp",
+  "successor_readiness": "No successor."
+}

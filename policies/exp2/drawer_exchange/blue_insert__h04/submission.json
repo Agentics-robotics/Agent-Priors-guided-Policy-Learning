@@ -1,0 +1,260 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/drawer_exchange/blue_insert/dataset.json",
+    "dataset_sha256": "c9a85f7745b0eefea3167f2f1bd085e31f3e17b83ef6aa14863e63425a763292",
+    "experiment_version": "APPL_v4_cartesian_validation_round",
+    "heuristic": {
+      "applicability": "Prefer blue_insert__h04 when the drawer is open, red is on or being released over its pad, and translation of the free blue or a changed source-to-destination separation is the main risk. It remains callable throughout the full assigned overlap and later insertion. h02 remains the safer library choice for nominal or stable carried-blue states where destination anchoring dominates; h01 better covers a rotated source because h04 guarantees translation covariance only; h03 remains complementary for small fresh-TCP tracking deviations.",
+      "evidence": [
+        {
+          "indices": [
+            600,
+            620,
+            650,
+            700,
+            740,
+            780,
+            800,
+            810,
+            820,
+            830,
+            850,
+            870,
+            900,
+            930,
+            950,
+            970,
+            990,
+            1010,
+            1030,
+            1050,
+            1064
+          ],
+          "trajectory_id": "demo1000"
+        },
+        {
+          "indices": [
+            600,
+            620,
+            650,
+            700,
+            740,
+            780,
+            800,
+            810,
+            820,
+            830,
+            850,
+            870,
+            900,
+            930,
+            950,
+            970,
+            990,
+            1010,
+            1030,
+            1050,
+            1069
+          ],
+          "trajectory_id": "demo1005"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "drawer_position is strictly above 0.26 m; red is on or being released over the outside pad; blue is outside, approached, or carried; source_object resolves to observed blue_pose and destination_field resolves to blue_goal. At earliest entry, fingers may still be closed around red, so closure is not evidence of a blue grasp.",
+        "exit_conditions": "Use the unchanged simultaneous evaluator condition at one observation: drawer_position strictly above 0.26 m, red fully contained on its pad with center z in (0.014,0.031) m, and blue fully contained in the drawer cavity with center z in (0.053,0.074) m. Release and high retreat are demonstrated context, not additional success requirements.",
+        "failure_signatures": "Predicted progress alpha selects the wrong corridor anchor; a source displacement drags red-release targets toward blue; pickup is pulled toward the destination before a grasp; blue does not co-move after closure; reconstructed targets are unreachable or IK reports residual/limits; blue approaches a wall/lip; drawer closes to 0.26 m or below; red leaves the pad; or final blue containment/z fails.",
+        "overlap_role": "Preserve every action in every [600,stop) segment, including all 250 actions from 600 through 849 in each trajectory shared with red_transfer: 3,000 supervised overlap actions covering red lowering/release, retreat, transit, blue approach, closure, and lift. The corridor coordinate is trained over this overlap rather than only over final insertion.",
+        "successor_readiness": "There is no learned manipulation successor. Continue through insertion and the demonstrated release/retreat when appropriate, then defer to the unchanged framework success evaluator. If a stable carried blue is near the drawer and progress anchoring is uncertain, h02 is the preferred complementary continuation."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"source_object\":{\"type\":\"string\",\"enum\":[\"blue\"]},\"destination_field\":{\"type\":\"string\",\"enum\":[\"blue_goal\"]}},\"required\":[\"source_object\",\"destination_field\"]},\"parameter_semantics\":\"source_object selects the causally observed blue_pose position b in world metres; destination_field selects the calibrated blue_goal g in world metres. Both are resolved and frozen at each chunk replan. They specify semantic frames only, not arbitrary coordinates, code, or actuator commands.\"}",
+      "limitations": "Translation covariance of decoded targets does not make shifted scenes reachable or collision-free and does not establish grasp/contact. World-frame orientation is not invariant to blue or drawer rotation. Alpha is predicted and can be wrong under unseen phase/contact states. Cross-track residuals are learned only from nominal paths. The observed blue reference is frozen for an eight-action chunk, so slip is incorporated at the next replan. Demonstrations contain no drops, re-grasps, wall impacts, or recovery.",
+      "pipeline_implications": "Use the unchanged DiffusionBackbone with a 106-value condition from two causal 53-D structured feature frames and an 11-D Cartesian action. Each slot is [alpha, residual_position_world_m(3), world_rotation_6d(6), gripper(1)]. Representation normalization is fitted only to valid transformed training labels. decode_action clips alpha to [0,1], reconstructs a world TCP pose, projects 6-D rotation to SO(3), and calls only panda_kinematics.solve_ik from fresh joints. No augmentation, future inference input, auxiliary head, recurrent state, or backbone change is needed.",
+      "rationale": "Observed validation was 10/12 for the full blue-frame h01, 12/12 for destination-frame h02, and 10/12 for fresh-TCP h03; failures always missed blue_inside while retaining drawer and red conditions. No OOD result exists. The new independent policy tests a different representational hypothesis: for each commanded target p, calculate alpha=clip(dot(p-b,g-b)/||g-b||^2,0,1), anchor=b+alpha(g-b), and residual=p-anchor, using causal chunk-start blue position b and goal g. Pickup targets near alpha=0 move exactly with source translation; insertion targets near alpha=1 remain goal anchored; intermediate carry targets warp continuously. Red-release targets that project toward the goal end avoid the full source translation that h01 applies to every phase. This combines source-displacement coverage with the destination anchoring associated with the strongest nominal validation, without claiming that result proves OOD benefit.",
+      "statement": "Learn world Cartesian TCP targets in a continuous source-to-destination corridor coordinate: diffuse a per-slot progress alpha, cross-track/vertical world residual, world 6-D orientation, and gripper scalar. This targets translated blue pickup by construction while preserving destination-relative insertion and reducing inappropriate source anchoring during predecessor red release.",
+      "training_bindings": "[{\"trajectory_id\":\"demo1000\",\"start\":600,\"stop\":1065,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence, including complete red-release-to-blue-lift overlap and corridor transport/insertion.\"},{\"trajectory_id\":\"demo1001\",\"start\":600,\"stop\":1077,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence with timing variation and complete supervised overlap.\"},{\"trajectory_id\":\"demo1002\",\"start\":600,\"stop\":1063,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"},{\"trajectory_id\":\"demo1003\",\"start\":600,\"stop\":1066,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"},{\"trajectory_id\":\"demo1004\",\"start\":600,\"stop\":1065,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"},{\"trajectory_id\":\"demo1005\",\"start\":600,\"stop\":1070,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full occurrence with elevated red entry and slower blue lift, retaining complete overlap.\"},{\"trajectory_id\":\"demo1006\",\"start\":600,\"stop\":1064,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"},{\"trajectory_id\":\"demo1007\",\"start\":600,\"stop\":1069,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"},{\"trajectory_id\":\"demo1008\",\"start\":600,\"stop\":1071,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence including final orientation variation.\"},{\"trajectory_id\":\"demo1009\",\"start\":600,\"stop\":1065,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"},{\"trajectory_id\":\"demo1010\",\"start\":600,\"stop\":1069,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence including pickup and final orientation variation.\"},{\"trajectory_id\":\"demo1011\",\"start\":600,\"stop\":1065,\"context_start\":599,\"call_args\":{\"source_object\":\"blue\",\"destination_field\":\"blue_goal\"},\"rationale\":\"Full assigned occurrence and complete supervised overlap.\"}]"
+    },
+    "heuristic_index": 4,
+    "normalization": {
+      "path": "provenance/relocated/68dd2044a32fec76",
+      "sha256": "09da5c68122b88287fce192f6dce0856ea77f97b3366ea93958af3e5b6b89c43"
+    },
+    "plan_hash": "a9fba2a55520353eef0f232a80fe6fefabff1f74b3712258fccdbe335cfa1dd8",
+    "policy_id": "blue_insert__h04",
+    "prior_plan_path": "provenance/relocated/84732058f50e52c2",
+    "prior_plan_sha256": "2215ae4be2658988f20c570b657070bb34de2f1e491dc6492f6ec97c002f4b15",
+    "skill_id": "blue_insert",
+    "sources": {
+      "demo1000": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1000.json",
+        "sha256": "58d911a45df1915e4a74c254caf6de4e202ead11d89ed69197de0b5f0c17fde5"
+      },
+      "demo1001": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1001.json",
+        "sha256": "165f93f38197cd75050488a557609072e12ca0006771c36b72b90e8cae68f956"
+      },
+      "demo1002": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1002.json",
+        "sha256": "8c43a8c1562f90c040f0570aa1dde013fad47bbef1f786ccf8ab2ba3d766136d"
+      },
+      "demo1003": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1003.json",
+        "sha256": "01c617c320a46f6c3862737aad218921effe677e1630ab85e7a43d80e1fe082a"
+      },
+      "demo1004": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1004.json",
+        "sha256": "bfa82b20e4971095967e9981400d145771890c2a55fff0568853e2d77acf3a22"
+      },
+      "demo1005": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1005.json",
+        "sha256": "71eacabcb7799f216f03bb1e582e6aec3a42e83850c569b001de3cbc4e26778a"
+      },
+      "demo1006": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1006.json",
+        "sha256": "4d2e5f38fd0c80ef267e9ae877f9d9e1b098325ac5da5aa769b0e9abeceef06b"
+      },
+      "demo1007": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1007.json",
+        "sha256": "410c02b19c7511f551f3c69e21c88c7e386b4067ebfebc6c169e9b44e94cc930"
+      },
+      "demo1008": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1008.json",
+        "sha256": "7c7641d622180d497137b4560cadf5a4497bf22c7ffb5a5aef785fe0a1f17cc3"
+      },
+      "demo1009": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1009.json",
+        "sha256": "9ff9137a991b6a81fa0f9330449d359eeeeed398e225b1dbe22a449ea7b84d93"
+      },
+      "demo1010": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1010.json",
+        "sha256": "867210d90fa09b282d5a6190209251c0b69d6e64b6cef2bcaea97951df57711f"
+      },
+      "demo1011": {
+        "path": "assets/exp2/demonstrations/drawer_exchange/demo1011.json",
+        "sha256": "126c98245881a8ba6dde2da8707d8396d32d946fa4bbd62535b29d5eecc94eb7"
+      }
+    },
+    "subgoal": "Primary responsibility: finish the predecessor red release/retreat context, acquire the blue block outside the drawer, lift and transport it to the open drawer cavity, lower it inside, release it, and retreat to a high clear pose. The intended object is blue; the red block visible at segment entry is only the predecessor object still being lowered/released. Observed contact/motion: at observation 600 red is still pinched near the pad at z about 0.032-0.037 m; by 700 red is settled at z about 0.020 m and the open gripper is retreating toward blue; around 800 the TCP descends over blue; by 850 blue is pinched and lifted; later it is carried to the drawer, lowered to z about 0.063 m, released, and the TCP retreats to z about 0.323 m. Final observations in all occurrences simultaneously show drawer_position about 0.297, red near (-0.176 to -0.177,-0.298 to -0.304,0.020), and blue near (-0.171 to -0.173,0.073 to 0.074,0.063), satisfying the supplied one-observation completion rule. The demo1000 final front image supports blue in the drawer, red on the outside pad, and the open drawer. Purpose/expected benefit: retaining the long release-to-pick overlap should make this independently trained insertion model usable from intermediate transition states; demonstrated success does not establish recovery from dropped blue blocks, drawer collisions, or unseen placements."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/de7842ac9a4a1433",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "a1ba3e8cba1230b7c5681e01f2b10809b57d1dd6fe76834f9e05c7381e9f5b48",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 2,
+      "physical_gpu": 0,
+      "uuid": "GPU-3a21dde0-fd97-6ab3-4abb-5c98696a4bc3"
+    },
+    "effective_action_targets": 4005,
+    "final_weights_sha256": "1529af79de34ea0cc896de862816ffb6a793204af714dffb1a87c1865e47b7ba",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 3.563053846359253,
+        "step": 1
+      },
+      {
+        "l2_norm": 2.5803277492523193,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "654789e6a881f54d9c9ec13948d5c53d18704363b6d542ff0d6bdae963225ec4",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 5609,
+        "duplicated_actions": 0,
+        "unique_actions": 5609
+      },
+      "contract": {
+        "action_dimension": 11,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "destination_field": {
+              "enum": [
+                "blue_goal"
+              ],
+              "type": "string"
+            },
+            "source_object": {
+              "enum": [
+                "blue"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "source_object",
+            "destination_field"
+          ],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "For encoded labels, clipped progress plus residual reconstructs the demonstrated commanded world TCP position exactly, including the near-coincident endpoint convention. Compare decoded FK position in metres, rotation angle in radians and gripper scalar to that commanded target. Joint nonuniqueness is allowed; sampled alpha is projected to [0,1] and sampled 6-D rotation to SO(3).",
+          "mode": "task_space",
+          "tolerance": 0.005
+        },
+        "cut_relation": "Covers every action in all twelve assigned [600,stop) segments without trimming. It preserves the complete 250-action [600,850) overlap per trajectory with red_transfer, totaling 3,000 supervised overlap actions through red release, transit, blue approach, closure and lift.",
+        "input_shapes": {
+          "features": [
+            2,
+            53
+          ]
+        },
+        "observation_dependencies": [
+          "qpos",
+          "qvel",
+          "tcp_pose",
+          "red_pose",
+          "blue_pose",
+          "drawer_position",
+          "drawer_velocity",
+          "red_goal",
+          "blue_goal"
+        ],
+        "output_semantics": "Each unnormalized slot is [alpha, residual_x_m, residual_y_m, residual_z_m, world_rotation_6d(6), gripper]. At chunk sampling, b is the selected causal blue position and g is blue_goal. The world TCP position is b + clip(alpha,0,1)*(g-b) + residual. Label alpha is the clipped 3-D orthogonal projection of the demonstrated commanded TCP position onto the b-to-g segment; when squared endpoint separation is at most 1e-4 m^2, alpha is defined as 1. Rotation is world aligned and projected from 6-D to SO(3). Gripper retains demonstrated scalar/sign semantics. Slot 0 is t-1 and execution uses slots 1..8 for t..t+7. decode_action calls panda_kinematics.solve_ik from freshly measured joints.",
+        "parameter_semantics": "source_object selects the causally observed blue_pose position b in world metres; destination_field selects the calibrated blue_goal position g in world metres. The selected endpoints are resolved and frozen at each chunk replan. They are semantic frame selectors, not arbitrary coordinates or actuator commands.",
+        "policy_id": "blue_insert__h04",
+        "skill_id": "blue_insert",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "a3db444e8bf9a173b6ed5f47bb77018a475f205f192bde70b23030fde96413c2",
+      "PRIOR.md": "f561399454a51516f4f31fc320e4a4d988ebac074948b978b1eab180c338374d",
+      "adapters.py": "d995f05136932e0d225c2ddcef18a4c3d1c317a9baae5e77dc739eb9dfcf6f70",
+      "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "panda_posture.py": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+      "pipeline.json": "d24f8d040329ea019d4f289b4b59076200ec83d6dfff090d4234ebb0ae625651",
+      "policy.py": "6b26bf61b6423d1fc31c4d5f2676d40d39ec87ff3e861cea8f5cff46ff2140f9",
+      "policy_contract.json": "1649907e1e61f840bc959a686dfb6d70a0349b847d5d3dbb2aa8ff62d52488d1",
+      "training_bindings.json": "9284f3060af967fc8e45fcce38d3b8f1dc5415e29c0f46972a902b47317dfbbb"
+    },
+    "trainable_parameters": 17087115,
+    "training_elapsed_seconds": 3.8387663080357015,
+    "weight_l2_change": 0.20519498069366152
+  },
+  "files": {
+    "HANDOFF.json": "a3db444e8bf9a173b6ed5f47bb77018a475f205f192bde70b23030fde96413c2",
+    "PRIOR.md": "f561399454a51516f4f31fc320e4a4d988ebac074948b978b1eab180c338374d",
+    "adapters.py": "d995f05136932e0d225c2ddcef18a4c3d1c317a9baae5e77dc739eb9dfcf6f70",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+    "pipeline.json": "d24f8d040329ea019d4f289b4b59076200ec83d6dfff090d4234ebb0ae625651",
+    "policy.py": "6b26bf61b6423d1fc31c4d5f2676d40d39ec87ff3e861cea8f5cff46ff2140f9",
+    "policy_contract.json": "1649907e1e61f840bc959a686dfb6d70a0349b847d5d3dbb2aa8ff62d52488d1",
+    "training_bindings.json": "9284f3060af967fc8e45fcce38d3b8f1dc5415e29c0f46972a902b47317dfbbb"
+  },
+  "version": "163d5e80830dcac7eedb8573f5df97b87615c08a077a98db363ca7bd6d99a41a"
+}

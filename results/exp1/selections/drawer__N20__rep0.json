@@ -1,0 +1,41 @@
+{
+  "instance": "drawer__N20__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A3",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A3",
+      "feedback_hash": "69a3817c2e7e5f312d3ab6c4fd66575818cdc0a537c740a0ec2094279285caed",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: all three candidates completed validly. Equal-subcondition C/E scores are A1 = 0.5*1.0 + 0.5*0.45 = 0.725, A2 = 0.5*1.0 + 0.5*0.30 = 0.650, and A3 = 0.5*1.0 + 0.5*0.75 = 0.875. Select A3 by the strict highest frozen score; no tie-break is needed. IID and training loss were not used for selection. A3's remaining development failures are all five E-LH episodes, with joint_violation the only non-success category; this motivates a revision of extrapolative conditioning rather than choosing a different checkpoint.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "252593e59a91521079659a0ce5194baf9864f8f603a4ebbc23b6902cc23c39b9",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: select A4 under the frozen equal-subcondition score. A1 scores 0.725, A2 0.650, A3 0.875, and A4 = 0.5*1.0 + 0.5*0.95 = 0.975. All candidates completed validly, and A4 is the unique score maximum, so no tie-break applies. A4 retains 20/20 C successes and increases E from A3's 15/20 to 19/20: E-LH improves from 0/5 to 4/5 while LL, HL and HH remain 5/5 each. One joint-violation failure remains, so the development result is not a joint-safety guarantee or proof of the proposed contact mechanism. IID success, training losses, and hidden test results were not used for selection. No code changes, additional candidates, or training are requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "11055ce3bc5c61fc28a3dab2ccef0e85f5093f312fde42dc6b6c592d3c6a92e8",
+    "A2": "d0d1c79815df12dea3c86f62eeff016b91f057fac2e0c10985bd008717bd35d9",
+    "A3": "97f74f8e2061f92e475d3333423f0ac907ae1b02c24ead761074c6d485fcf2bb",
+    "A4": "609ddac02c4ca3651a224e968303f95046c1fc3fe6b0d50cc13b0999c05eef1f"
+  },
+  "feedback_hashes": {
+    "initial": "a6772c19dab928f5c1035a7bc8c89bcbe8680d5f24851e82a2e395ea6352849e",
+    "final": "8c3f9494a9c3ec2f2a65ff42b0acbeadc624253cef19a64ebdf195cda102430b"
+  }
+}

@@ -1,0 +1,296 @@
+{
+  "assignment": {
+    "dataset": "assets/exp2/datasets/covered_peg_assembly/open_hinged_lid/dataset.json",
+    "dataset_sha256": "c7c17259f27d4ae8df2c1e98a410490e4a888dda468b77c2c6760a70b5d082d1",
+    "experiment_version": "APPL_v4_cartesian_new_task",
+    "heuristic": {
+      "applicability": "Prefer when the observed lid pose or handle is displaced or rigidly reoriented relative to training, and the lid is closed through opening/release. The high-level caller supplies which observed pose is the moving lid reference. Reachability still has to be checked from measured Panda joints.",
+      "evidence": [
+        {
+          "indices": [
+            0,
+            180,
+            200,
+            220,
+            240,
+            300,
+            500,
+            620,
+            700,
+            740,
+            750,
+            760,
+            770,
+            800,
+            820,
+            900,
+            940,
+            949
+          ],
+          "trajectory_id": "demo12200"
+        },
+        {
+          "indices": [
+            0,
+            200,
+            220,
+            500,
+            740,
+            760,
+            770,
+            820,
+            900,
+            949
+          ],
+          "trajectory_id": "demo12208"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Lid is observed closed or partly open, the peg is stationary in the box, and the TCP is free or plausibly aligned with the handle. Measured joints must admit IK to the relative targets.",
+        "exit_conditions": "Observed fingers are open, TCP is clear of the lid, lid_position remains well above closed and lid_velocity is small; peg pose remains unchanged.",
+        "failure_signatures": "IK residual or limit contacts grow after a large scene transform; fingers close without synchronized lid motion; lid angle stalls or reverses; or the post-release TCP follows a moving lid instead of clearing it.",
+        "overlap_role": "Retains all actions [740,950) in every demonstration, including final closed-gripper swing, opening/release, retreat and transit toward box access, for action-supervised overlap with retrieve_peg_from_box.",
+        "successor_readiness": "Prefer a later handoff after open fingers, clear TCP and low lid velocity. An earlier overlap takeover is possible once the box is exposed, but moving-panel clearance must be observed."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{\"lid_pose_field\":{\"type\":\"string\",\"enum\":[\"lid_pose\"]}},\"required\":[\"lid_pose_field\"],\"additionalProperties\":false},\"parameter_semantics\":\"lid_pose_field names the currently observed world pose [metres, unit wxyz] of the manipulated moving lid. It is resolved at every replan and again from the fresh current observation for every decoded action; training binds it to lid_pose.\"}",
+      "limitations": "Relative coordinates cannot make unreachable poses reachable and do not prove a handle grasp. Training has one hinge installation, near-identical approach starts, and successful executions only. The moving body frame can undesirably couple post-release retreat to panel settling, and unseen collision geometry or pose noise can break the expected benefit.",
+      "pipeline_implications": "This is the displacement-specialist option. Prefer it for reliable lid-pose estimates and displaced/reoriented assemblies; switch or defer to the phase-aware world policy when the lid is already released and moving, and to the TCP-increment policy for unusual robot entry configurations. Preserve two-frame history across switches and use observable release/clearance cues, not elapsed time.",
+      "rationale": "Observed: both inspected trajectories start with lid_position 0 and the same hinge pose; the TCP approaches the handle by 180-200, the gripper command changes to close at 220, lid motion is synchronized with the closed fingers from 220 through 750, release is commanded at 760, and retreat/clearance continues through 949 while the peg stays fixed. The demonstrations provide almost no lid-mount displacement. Decision: express every commanded TCP target as a full pose in the observed moving lid frame, with 3-D relative translation, 6-D relative rotation and gripper scalar, and decode against the fresh lid pose before shared IK. Condition the unchanged DP backbone on two-frame lid-relative geometry plus qpos/qvel. Expected benefit, not observed proof: approach, handle alignment and constrained pull should transform equivariantly with lid displacement and rigid orientation, while robot state retains reachability dependencies. Its likely post-release moving-frame error differs from the incremental and phase-aware alternatives.",
+      "statement": "Moving-lid SE(3) equivariance: learn Cartesian TCP targets in the observed lid body frame so approach, grasp alignment and hinge-contact motion are invariant by construction to rigid displacement of the manipulated lid assembly.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including [740,950) successor overlap; moving-lid relative labels preserve every assigned action.\"},{\"trajectory_id\":\"demo12201\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12202\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12203\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12204\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12205\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12206\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12207\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12208\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12209\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12210\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"},{\"trajectory_id\":\"demo12211\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\"},\"rationale\":\"Full lid operation including release and action-supervised successor overlap.\"}]"
+    },
+    "heuristic_index": 1,
+    "normalization": {
+      "path": "provenance/relocated/b11807ac2cdb2323",
+      "sha256": "5d50ce2e025ef83183ac172a24c1b19ea7482f651c1c6fa09f34f83bd3887b24"
+    },
+    "observation_fields": {
+      "hole_pose": [
+        0,
+        7
+      ],
+      "lid_pose": [
+        7,
+        14
+      ],
+      "lid_position": [
+        14,
+        15
+      ],
+      "lid_velocity": [
+        15,
+        16
+      ],
+      "peg_pose": [
+        16,
+        23
+      ],
+      "qpos": [
+        23,
+        32
+      ],
+      "qvel": [
+        32,
+        41
+      ],
+      "target_pose": [
+        41,
+        48
+      ],
+      "tcp_pose": [
+        48,
+        55
+      ]
+    },
+    "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+    "policy_id": "open_hinged_lid__h01",
+    "prior_plan_path": "assets/exp2/prior_plans/covered_peg_assembly/open_hinged_lid.json",
+    "prior_plan_sha256": "bbb077f205a8d1d6ef0f26a8ee39299597859f7cb201b01eba31c2ecdabec4cc",
+    "skill_id": "open_hinged_lid",
+    "sources": {
+      "demo12200": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12200.json",
+        "sha256": "e7ccc303ea6b6ddd3150e2336c6b06b3f89a66d478909e3f9555eb3d6ccc85f1"
+      },
+      "demo12201": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12201.json",
+        "sha256": "aa9e1f1d14f676f5b4c9fb52ee6bbbb5d86865d82adcc051e3256482461f1016"
+      },
+      "demo12202": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12202.json",
+        "sha256": "4ad5e3ce9117f56008597389c45a799aff1857f683091069d582e024a00b32a7"
+      },
+      "demo12203": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12203.json",
+        "sha256": "c43ecf548e80a87d465fbc947e98d191dffd25cc4966f83e2698dd7a8a2cf8af"
+      },
+      "demo12204": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12204.json",
+        "sha256": "35eea2d5c8fc6e02c992c923db4e580d473d5583edcd45cfee79e682782c5a09"
+      },
+      "demo12205": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12205.json",
+        "sha256": "b4b9855dac2b9f0e836ea063d38694af37abba89371fcae59fffa7d65c4dfb3c"
+      },
+      "demo12206": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12206.json",
+        "sha256": "6a64bcc76a39a6dc2f1119c5e5983a5686835cdf2ae5a0899ab8f39da92ef407"
+      },
+      "demo12207": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12207.json",
+        "sha256": "58410156c6edfad3658ce632cf8ebe122570c51412ba53f8631c9e78a14c5397"
+      },
+      "demo12208": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12208.json",
+        "sha256": "1522c1f09079f05ace6825ff5221ebf74ca8c45941a00050c53b579b43e84d5b"
+      },
+      "demo12209": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12209.json",
+        "sha256": "2a6dc540f7c4c6e6cb92c1fe50c106da8f71123c6b3ede06a790bf8ca0c3d31b"
+      },
+      "demo12210": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12210.json",
+        "sha256": "dd077218ff68ac6e93b28dc73234d21ac2a16c937de945465c9970deb9ad4ac4"
+      },
+      "demo12211": {
+        "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12211.json",
+        "sha256": "0440e3242bad2dbcefe176eab207fd19647109b019c55702ff1906862c9e4b5d"
+      }
+    },
+    "subgoal": "Expose the peg by approaching and grasping the lid handle, rotating the cover about its hinge, opening the fingers to release the lid, and retreating without disturbing the peg."
+  },
+  "check": {
+    "checkpoint": "provenance/relocated/f6088a41fbccd63b",
+    "checkpoint_selection": "last EMA at the declared update budget",
+    "checkpoint_sha256": "c270c1e81055b21a5d289ef703f4c409ee19f97cd29a40b93e5cf4f5e357c80e",
+    "device": {
+      "logical_gpu": 0,
+      "minor": 5,
+      "physical_gpu": 6,
+      "uuid": "GPU-283f4385-fbd4-b7ca-81ca-ba0fb6993fad"
+    },
+    "effective_action_targets": 4038,
+    "final_weights_sha256": "cd931ee1132c02fc062cce66349394f05f0612f5ed6f9795b1cc9c0a9fcc2cfa",
+    "finite_nonzero_gradient_checks": [
+      {
+        "l2_norm": 3.05352520942688,
+        "step": 1
+      },
+      {
+        "l2_norm": 1.959917664527893,
+        "step": 2
+      }
+    ],
+    "initial_weights_sha256": "286e66906761228bae98e5d572d95cb3cd3636a5a7ee185548e729a0788f14ba",
+    "interface_check": true,
+    "neural_training_verified": true,
+    "optimizer_steps": 2,
+    "policy_context": {
+      "binding_support": {
+        "bound_actions": 11400,
+        "duplicated_actions": 0,
+        "unique_actions": 11400
+      },
+      "contract": {
+        "action_dimension": 10,
+        "call_args_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "lid_pose_field": {
+              "enum": [
+                "lid_pose"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "lid_pose_field"
+          ],
+          "type": "object"
+        },
+        "conversion_check": {
+          "description": "For demonstration labels, lid-relative encode followed by decode with the matching pre-action lid observation reconstructs the commanded world TCP pose. The shared IK is then checked by FK; position metres, rotation radians and unchanged gripper scalar must have maximum error at most 0.005. SO(3) projection is exact for encoded rotation matrices and only regularizes sampled degenerate 6D values.",
+          "mode": "task_space",
+          "tolerance": 0.005
+        },
+        "cut_relation": "Uses every assigned action in all twelve [0,950) slices. It preserves the full approach, handle closure, hinge pull, release and retreat responsibility, including the complete action-supervised [740,950) overlap with retrieve_peg_from_box; only the Cartesian representation is changed to the observed lid frame.",
+        "input_shapes": {
+          "features": [
+            2,
+            38
+          ]
+        },
+        "observation_dependencies": [
+          "lid_pose",
+          "lid_position",
+          "lid_velocity",
+          "peg_pose",
+          "hole_pose",
+          "tcp_pose",
+          "qpos",
+          "qvel"
+        ],
+        "output_semantics": "Each slot is [lid-frame TCP translation xyz in metres, lid-frame TCP rotation as the first two rotation-matrix columns (6D), native gripper scalar]. At training slot s, the frame is the observed lid_pose before that demonstrated action. At execution, slots 1..8 (t..t+7) are each converted using the fresh current lid_pose, not a predicted future pose: T_world_tcp = T_world_lid_current * T_lid_tcp. The 6D value is projected to SO(3) by Gram-Schmidt with a deterministic finite fallback. The resulting world TCP target is passed only to panda_kinematics.solve_ik from freshly measured qpos. The returned gripper scalar preserves the executor rule >=0 open and <0 close.",
+        "parameter_semantics": "lid_pose_field names the currently observed world pose [metres, unit wxyz] of the manipulated moving lid. It is resolved at every replan and again from the fresh current observation for every decoded action; training binds it to lid_pose.",
+        "policy_id": "open_hinged_lid__h01",
+        "skill_id": "open_hinged_lid",
+        "temporal": {
+          "control_hz": 20,
+          "execution_steps": 8,
+          "history_steps": 2,
+          "prediction_horizon": 16,
+          "prediction_start_offset": -1
+        },
+        "version": "appl.flexible.sol.v1"
+      }
+    },
+    "reload_max_action_error": 0.0,
+    "sample_exposures": 256,
+    "source_hashes": {
+      "HANDOFF.json": "1c098e2e69522f058b0eecd4c8b6f0ec641c3d441e3f146080a0712b93f8b5c3",
+      "PRIOR.md": "2855e24c5b8a4f8d8c59867884b0c7f6d91c4317dfe07fce3f4897486e71156d",
+      "adapters.py": "00fa9670b4ea56cee67158f1a8c556463c9029ba70b0b5ff629ecdde1b0e3016",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "169f4fa47226363a145410487b80fab4f59ba88ba437462414aff8896d53b775",
+      "policy.py": "6d26b89ce0cbc6669afc2c7e24f0c3cb8ce75184030b81455cd490a15d0f04c6",
+      "policy_contract.json": "378867ef8e4ed43ec33e9c86cb19ffbf3ccf459989d2c29ceace87cea1a2fd1c",
+      "training_bindings.json": "7b00b8937fc015aefb0f168d9a2a381dba9c128899fbadbf67d21b989db393c4"
+    },
+    "trainable_parameters": 16871178,
+    "training_elapsed_seconds": 2.9616291287820786,
+    "weight_l2_change": 0.2041318619657414
+  },
+  "files": {
+    "HANDOFF.json": "1c098e2e69522f058b0eecd4c8b6f0ec641c3d441e3f146080a0712b93f8b5c3",
+    "PRIOR.md": "2855e24c5b8a4f8d8c59867884b0c7f6d91c4317dfe07fce3f4897486e71156d",
+    "adapters.py": "00fa9670b4ea56cee67158f1a8c556463c9029ba70b0b5ff629ecdde1b0e3016",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "pipeline.json": "169f4fa47226363a145410487b80fab4f59ba88ba437462414aff8896d53b775",
+    "policy.py": "6d26b89ce0cbc6669afc2c7e24f0c3cb8ce75184030b81455cd490a15d0f04c6",
+    "policy_contract.json": "378867ef8e4ed43ec33e9c86cb19ffbf3ccf459989d2c29ceace87cea1a2fd1c",
+    "training_bindings.json": "7b00b8937fc015aefb0f168d9a2a381dba9c128899fbadbf67d21b989db393c4"
+  },
+  "kinematics_revision": {
+    "added": "panda_posture.py",
+    "kinematics_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "posture_sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+    "reason": "v2 IK: redundancy resolved toward demonstrated postures; decode-only change",
+    "replaced": "panda_kinematics.py"
+  },
+  "v1": {
+    "files": {
+      "HANDOFF.json": "1c098e2e69522f058b0eecd4c8b6f0ec641c3d441e3f146080a0712b93f8b5c3",
+      "PRIOR.md": "2855e24c5b8a4f8d8c59867884b0c7f6d91c4317dfe07fce3f4897486e71156d",
+      "adapters.py": "00fa9670b4ea56cee67158f1a8c556463c9029ba70b0b5ff629ecdde1b0e3016",
+      "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+      "pipeline.json": "169f4fa47226363a145410487b80fab4f59ba88ba437462414aff8896d53b775",
+      "policy.py": "6d26b89ce0cbc6669afc2c7e24f0c3cb8ce75184030b81455cd490a15d0f04c6",
+      "policy_contract.json": "378867ef8e4ed43ec33e9c86cb19ffbf3ccf459989d2c29ceace87cea1a2fd1c",
+      "training_bindings.json": "7b00b8937fc015aefb0f168d9a2a381dba9c128899fbadbf67d21b989db393c4"
+    },
+    "folder": "provenance/relocated/19c4dad7f42b1f5b",
+    "version": "3c7a30e46140eaea16d049db6c488631e694a239e7400bdb811ad25dea43fd14"
+  },
+  "version": "fa56c7ce857f04ce6cfcdae414f3e7e5823d5a8861892afe437fc02f1d74e0a1"
+}

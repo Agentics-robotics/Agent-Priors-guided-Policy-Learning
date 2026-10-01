@@ -1,0 +1,133 @@
+{
+  "task_id": "granular_pour_return",
+  "policy_id": "dp",
+  "skill_id": "full_task",
+  "source": "policies/exp2/granular_pour_return/dp/source",
+  "manifest": "policies/exp2/granular_pour_return/dp/manifest.json",
+  "author": "RepositoryAgent",
+  "methods": [
+    "dp"
+  ],
+  "assignment": "policies/exp2/granular_pour_return/dp/assignment.json",
+  "training_spec": "policies/exp2/granular_pour_return/dp/training/spec.json",
+  "dataset": "assets/exp2/datasets/granular_pour_return/full_task_dp/dataset.json",
+  "normalization": "assets/exp2/tasks/granular_pour_return/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/granular_pour_return/dp/model.pt",
+    "sha256": "b5658016ccfbe9fe3926e62ab9def44b8c612ebef2a579e589a925cde020af6a",
+    "source_sha256": "b5658016ccfbe9fe3926e62ab9def44b8c612ebef2a579e589a925cde020af6a",
+    "size_bytes": 350315078,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 2,
+    "demos": 12,
+    "in_distribution_success": "2/12",
+    "exit_rule": "standard task success (first occurrence)",
+    "guidance": "No final guidance recorded."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/granular_pour_return/dp/assignment.json",
+      "sha256": "0e656baf308c96c6958ac29fb388904c1f2633ddbf8562036f2bb383184b9727",
+      "source_sha256": "8bb7cd823a7310145cd53adef18acaae70001cb6c6617810d98dc608d9c922af",
+      "size_bytes": 3444,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/source/HANDOFF.json",
+      "sha256": "d9315dabf90d50deae1c9a482df021b0014c61a02f9cc7ef53c048d08fef047c",
+      "source_sha256": "d9315dabf90d50deae1c9a482df021b0014c61a02f9cc7ef53c048d08fef047c",
+      "size_bytes": 1580,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/source/PRIOR.md",
+      "sha256": "34165c8194863bf13bf8619bd10dfc5deaffc86f1b79f619236eb9a63918249c",
+      "source_sha256": "34165c8194863bf13bf8619bd10dfc5deaffc86f1b79f619236eb9a63918249c",
+      "size_bytes": 969,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/source/adapters.py",
+      "sha256": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+      "source_sha256": "6b9a1bd380ab502a023c0ad4fbca1318e5675ba9976c746c9e6c71a93a42b374",
+      "size_bytes": 2083,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/source/panda_posture.py",
+      "sha256": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+      "source_sha256": "422cc9230161b8450f19402f84e58b383a3136778492e032dd476d689c0d1a40",
+      "size_bytes": 1309417,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/source/pipeline.json",
+      "sha256": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+      "source_sha256": "2dd8ea707f255dafcfb8197952e8cc5deceb2fc4ca6f43aef93b88848d98dd0d",
+      "size_bytes": 328,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/source/policy.py",
+      "sha256": "da9a594d200d69473ded51a6dde8ce4b7098a144ab66be4b79027a7cc975a527",
+      "source_sha256": "da9a594d200d69473ded51a6dde8ce4b7098a144ab66be4b79027a7cc975a527",
+      "size_bytes": 749,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/source/policy_contract.json",
+      "sha256": "6f17fb6c6e19354bc9efddedc86550331282b8756e0ce32eedb461d21394f936",
+      "source_sha256": "6f17fb6c6e19354bc9efddedc86550331282b8756e0ce32eedb461d21394f936",
+      "size_bytes": 1329,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/source/training_bindings.json",
+      "sha256": "62d0e48ce8328f4a374589508a0ab2cc8423d7a08fdd6dbd05ca9610cf042f2c",
+      "source_sha256": "62d0e48ce8328f4a374589508a0ab2cc8423d7a08fdd6dbd05ca9610cf042f2c",
+      "size_bytes": 2307,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/submission.json",
+      "sha256": "0ad8db8bbc19442110c92f2f2b11a7bef02025cb96443217413c08f15fdbf217",
+      "source_sha256": "34de4fc9c40617c14a3a1f3958a259437b7fc99212fbc3e2ba429df9954ffdce",
+      "size_bytes": 6015,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/training/adapter_checks.json",
+      "sha256": "b118197784a9a7e747c45971fd88185008593dd861df0ab4b2fa1f03fbedde7b",
+      "source_sha256": "b118197784a9a7e747c45971fd88185008593dd861df0ab4b2fa1f03fbedde7b",
+      "size_bytes": 196,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/training/result.json",
+      "sha256": "2648ae0a053ebb0e3853dfd2cdd7f2014d0f29da776305b8067aebff86323bcc",
+      "source_sha256": "a28b71590d4dd60b192f8de1bf40f2e6b7e0119045689ade0ad6ddcd98115ca1",
+      "size_bytes": 3586,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/granular_pour_return/dp/training/spec.json",
+      "sha256": "98676b42edcd135bfb90776ab0d4952961b1ef0f8f275420093a2808a0269821",
+      "source_sha256": "98676b42edcd135bfb90776ab0d4952961b1ef0f8f275420093a2808a0269821",
+      "size_bytes": 18888,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/granular_pour_return/task.json",
+  "completion_contract": "assets/exp2/tasks/granular_pour_return/completion_contract.json",
+  "public_context": "assets/exp2/tasks/granular_pour_return/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/granular_pour_return/prompts/hl.md"
+}

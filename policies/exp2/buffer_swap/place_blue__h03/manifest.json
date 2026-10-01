@@ -1,0 +1,152 @@
+{
+  "task_id": "buffer_swap",
+  "policy_id": "place_blue__h03",
+  "skill_id": "place_blue",
+  "source": "policies/exp2/buffer_swap/place_blue__h03/source",
+  "manifest": "policies/exp2/buffer_swap/place_blue__h03/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4",
+    "without_verification"
+  ],
+  "assignment": "policies/exp2/buffer_swap/place_blue__h03/assignment.json",
+  "training_spec": "policies/exp2/buffer_swap/place_blue__h03/training/spec.json",
+  "dataset": "assets/exp2/datasets/buffer_swap/place_blue/dataset.json",
+  "normalization": "assets/exp2/tasks/buffer_swap/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/buffer_swap/place_blue__h03/model.pt",
+    "sha256": "cc95093496a0113ed74427aab4a32297d4cf59e1ab8bfc293878cd601af962b5",
+    "source_sha256": "cc95093496a0113ed74427aab4a32297d4cf59e1ab8bfc293878cd601af962b5",
+    "size_bytes": 339656454,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 12,
+    "demos": 12,
+    "in_distribution_success": "12/12",
+    "exit_rule": "blue at its goal region and red still in the buffer at the final state",
+    "guidance": "**Validated reliability:** This is the default choice for entry states matching the validated distribution. It passed the complete final exit in 12/12 runs: blue at goal and red still buffered in every final state. First passage occurred at steps 312–395. This evidence is limited to replayed entry states from its own training segments; it does not establish perturbation recovery or out-of-distribution robustness.\n\n**When to use:** Call with `target_object=blue`, `destination_goal=blue_goal`, and `context_object=red` when two causal frames show a physically plausible phase from final red release through blue relocation, or the supervised red-pickup tail, with object identity, gripper width, and relative motion observable. Its fresh-TCP incremental prior is intended for modest intermediate or handoff offsets, but those offsets were not separately tested.\n\n**Avoid / detect failure:** Do not extrapolate this result to gross source displacement, large destination displacement, arbitrary large corrections, drops, collisions, wrong-object grasps, or disturbed red. Stop if local corrections leave demonstrated support, TCP/object geometry matches no represented phase, blue does not follow the gripper, red moves unexpectedly, goal release fails, or IK residuals/limit contacts persist. Compose every executed slot from the freshly measured TCP; do not advance history during denoising or accumulate predicted poses.\n\n**Handoff:** Switch to `place_red` when blue is visibly settled inside `blue_goal` and the gripper is open and TCP clear. If the successor is not ready, the policy may continue only through its supervised terminal overlap; the later valid cue is buffered red visibly moving upward with the closed gripper. A close command alone is not a grasp predicate. Preserve causal history across the switch."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/assignment.json",
+      "sha256": "be8283094181887533d23d1ead5b85bb0671a8fe4d21df5f26e2b723ec1d5bd6",
+      "source_sha256": "0402fe315c6f5de757441f9e78354ef94f0145543d26be7574f8594f1ae210f2",
+      "size_bytes": 12692,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/handoff_evidence.json",
+      "sha256": "92c0128cb9bdab1a3504744d63ce4bec76159b2cef1ba4a72026af9b3945ad61",
+      "source_sha256": "92c0128cb9bdab1a3504744d63ce4bec76159b2cef1ba4a72026af9b3945ad61",
+      "size_bytes": 142680,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/source/HANDOFF.json",
+      "sha256": "5a16a0eb8af05cdb62ebbc805697da89b6ed7645d6860845cd1efc10146c306e",
+      "source_sha256": "5a16a0eb8af05cdb62ebbc805697da89b6ed7645d6860845cd1efc10146c306e",
+      "size_bytes": 2028,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/source/PRIOR.md",
+      "sha256": "d71523f280b11895f039eae97eefbcb01a043a5c80b58ffc474ef493f1cea579",
+      "source_sha256": "d71523f280b11895f039eae97eefbcb01a043a5c80b58ffc474ef493f1cea579",
+      "size_bytes": 3363,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/source/adapters.py",
+      "sha256": "7517455de488d95b3d245534e21b626254ba3d494f0d5e37adafe124616bb2fd",
+      "source_sha256": "7517455de488d95b3d245534e21b626254ba3d494f0d5e37adafe124616bb2fd",
+      "size_bytes": 4098,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/source/panda_posture.py",
+      "sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+      "source_sha256": "000d766a30492b612a13e4c8cc49a3f8c251864bf0791dfa511b18a9f4f63de0",
+      "size_bytes": 715015,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/source/pipeline.json",
+      "sha256": "1e7b5257009bf6be8562b762ebce5bc81e41898c2a8602b9f8e8f2bacf39c726",
+      "source_sha256": "1e7b5257009bf6be8562b762ebce5bc81e41898c2a8602b9f8e8f2bacf39c726",
+      "size_bytes": 1340,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/source/policy.py",
+      "sha256": "6cecf7e0a2be0778031846c79a21c62f6f935cac9c8db506e13c93c864427d8d",
+      "source_sha256": "6cecf7e0a2be0778031846c79a21c62f6f935cac9c8db506e13c93c864427d8d",
+      "size_bytes": 889,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/source/policy_contract.json",
+      "sha256": "9f2c16ae438155c259fe44f29a3647a5a76169611a838ab72e87b574553c13bc",
+      "source_sha256": "9f2c16ae438155c259fe44f29a3647a5a76169611a838ab72e87b574553c13bc",
+      "size_bytes": 2137,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/source/training_bindings.json",
+      "sha256": "68b684a95e67225ad9cb168760eb34e173d5fc1de79aa4c6db2ab93e6472884c",
+      "source_sha256": "68b684a95e67225ad9cb168760eb34e173d5fc1de79aa4c6db2ab93e6472884c",
+      "size_bytes": 2946,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/submission.json",
+      "sha256": "cae61252e1cc418750813d598c3de9275b5d723bd4e7c833e0e510e5b41ab079",
+      "source_sha256": "826557a7ee196ab7dc765c10749ee8025cc178c63ec5b8b574eeb5329823ab15",
+      "size_bytes": 20022,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/training/adapter_checks.json",
+      "sha256": "608e598ff6e17323de030e2c5f6c8b31a2f19bc9ce74699349694c34e3e7965b",
+      "source_sha256": "608e598ff6e17323de030e2c5f6c8b31a2f19bc9ce74699349694c34e3e7965b",
+      "size_bytes": 193,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/training/result.json",
+      "sha256": "04f622c427479e9335a2650a9a7f616ff67bd3e0f3cef73240be563bf5c9189d",
+      "source_sha256": "27434cef660877e687c30e819d8760efb37cb7b3422399d81fe902529fda5dcc",
+      "size_bytes": 4873,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/training/spec.json",
+      "sha256": "cf172259a1440f7c3dd9c0b65e0e3a4fd98f4a2aa6c41dacced289d5243c812f",
+      "source_sha256": "cf172259a1440f7c3dd9c0b65e0e3a4fd98f4a2aa6c41dacced289d5243c812f",
+      "size_bytes": 16388,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/buffer_swap/place_blue__h03/prior_plan.json",
+      "sha256": "fdd5f9c2acca19dc2fba489f179e26d8b12e4b1f87f1516c4411997fec0cff2d",
+      "source_sha256": "fdd5f9c2acca19dc2fba489f179e26d8b12e4b1f87f1516c4411997fec0cff2d",
+      "size_bytes": 28224,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/buffer_swap/task.json",
+  "completion_contract": "assets/exp2/tasks/buffer_swap/completion_contract.json",
+  "public_context": "assets/exp2/tasks/buffer_swap/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/buffer_swap/prompts/hl.md",
+  "prior_plan": "policies/exp2/buffer_swap/place_blue__h03/prior_plan.json"
+}

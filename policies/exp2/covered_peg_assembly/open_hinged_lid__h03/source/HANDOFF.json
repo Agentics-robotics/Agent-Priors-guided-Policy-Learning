@@ -1,0 +1,14 @@
+{
+  "policy_id": "open_hinged_lid__h03",
+  "entry_conditions": "Observed lid pose/angle/velocity, fingers, TCP and measured joints are valid, the assembly remains near the demonstrated installation, and the caller's release_angle_rad is valid. Two-frame history should expose approach, pull or retreat trends.",
+  "exit_conditions": "The learned action has released the gripper and current observations show open fingers, clear TCP, low lid velocity, stable open lid and unmoved peg.",
+  "overlap_role": "The complete [740,950) interval is action-supervised in every trajectory. It contains final pull, release, lift/retreat and transit toward box access, providing 210 actions per demonstration of overlap with retrieve_peg_from_box.",
+  "successor_readiness": "Physical open fingers, box exposure, TCP clearance and low lid velocity authorize handoff. The auxiliary future prediction is never sufficient to establish contact, release or successor readiness.",
+  "failure_signatures": "Premature opening before adequate lid angle, fingers remaining closed after maximum opening, a mismatch between observed angle/finger trends and commanded phase, large IK residuals after scene displacement, lid reversal, or peg motion.",
+  "continuation_guidance": "Continue while phase cues are near nominal and the policy is progressing through approach, pull, release or clearance. Prefer h01 when lid displacement is the primary variation, and h02 when the robot/TCP entry is off path. Preserve two causal observations across a switch.",
+  "limitations": "The phase head is trained on successful futures, has no contact labels and is not a safety monitor. World Cartesian actions do not provide displacement invariance. The demonstrations do not support unseen-error recovery or arbitrary release angles.",
+  "evidence": [
+    {"trajectory_id":"demo12200","indices":[180,200,220,240,260,700,720,740,750,760,770,780,800,820,840,860,900,940,949]},
+    {"trajectory_id":"demo12208","indices":[200,220,240,700,740,750,760,770,800,820,840,900,949]}
+  ]
+}

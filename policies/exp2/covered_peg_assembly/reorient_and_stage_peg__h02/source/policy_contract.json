@@ -1,0 +1,31 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "reorient_and_stage_peg__h02",
+  "skill_id": "reorient_and_stage_peg",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {},
+    "required": []
+  },
+  "parameter_semantics": "No high-level numeric parameters. The caller passes an empty object. At each replan, the adapter resolves the newest observed peg_pose as the SE(3) action reference; this call is appropriate only after high-level selection judges the peg to be stably held.",
+  "observation_dependencies": ["hole_pose", "lid_pose", "lid_position", "lid_velocity", "peg_pose", "qpos", "qvel", "target_pose", "tcp_pose"],
+  "temporal": {
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1,
+    "execution_steps": 8,
+    "control_hz": 20
+  },
+  "input_shapes": {
+    "features": [2, 66]
+  },
+  "action_dimension": 10,
+  "output_semantics": "Each slot is an unnormalized Cartesian TCP target [p_peg(3 metres), R_peg_tcp first-two rotation-matrix columns(6), gripper(1)] relative to the newest causal peg_pose fixed for the sampled chunk. Slots denote t-1 through t+14; slots 1-8 execute. Decoding projects 6D orientation to SO(3), composes T_world_peg*T_peg_tcp, and calls panda_kinematics.solve_ik from freshly measured qpos. A deterministic orthogonal fallback handles only degenerate sampled 6D vectors. The native gripper scalar is passed through unchanged.",
+  "conversion_check": {
+    "mode": "task_space",
+    "tolerance": 0.005,
+    "description": "For demonstration labels, decoded IK FK must reproduce the commanded TCP in position/rotation and preserve the gripper scalar within maximum error 0.005. Rotation projection is exact for encoded rotations; joint nonuniqueness is allowed and all IK diagnostics are exposed."
+  },
+  "cut_relation": "All twelve assigned [1120,1500) action ranges are retained. This includes incoming retrieval overlap [1120,1270) and outgoing insertion overlap [1380,1500). Only the Cartesian label frame changes to the causal peg anchor."
+}

@@ -1,0 +1,24 @@
+{
+  "budget_factor": 1.5,
+  "demos": 12,
+  "exit_rule": "block outside the tunnel footprint with its bottom above the tunnel roof (or already inside the drawer) and drawer_position > 0.26 at the final state",
+  "passed": 12,
+  "per_demo": {
+    "demo12100": true,
+    "demo12101": true,
+    "demo12102": true,
+    "demo12103": true,
+    "demo12104": true,
+    "demo12105": true,
+    "demo12106": true,
+    "demo12107": true,
+    "demo12108": true,
+    "demo12109": true,
+    "demo12110": true,
+    "demo12111": true
+  },
+  "policy": "retrieve_tunnel_block__h03",
+  "skill": "retrieve_tunnel_block",
+  "success_rate": 1.0,
+  "task": "constrained_retrieve_store"
+}

@@ -1,0 +1,142 @@
+{
+  "composition": "the first skill is already done at reset; the later skills start from the home configuration",
+  "contract": {
+    "coordinate_frame": "world",
+    "description": "Exchange the red and blue blocks between the two marked regions. The red goal is the initially blue region and the blue goal is the initially red region. A free central area can be used temporarily.",
+    "drawer_channels": "No drawer in this task: drawer_position and drawer_velocity are fixed zero compatibility channels.",
+    "fixtures": [],
+    "full_rotated_xy_containment": true,
+    "gripper_release_required": false,
+    "half_xy_m": [
+      0.06,
+      0.06
+    ],
+    "object_half_m": 0.02,
+    "predicates": [
+      "red_at_goal",
+      "blue_at_goal"
+    ],
+    "required_observations": 1,
+    "schema": "appl.scaleup.goals.v1",
+    "success_expression": "red_at_goal AND blue_at_goal",
+    "sustained_hold_required": false,
+    "targets": {
+      "blue": [
+        -0.35,
+        -0.2,
+        0.02
+      ],
+      "red": [
+        -0.35,
+        0.2,
+        0.02
+      ]
+    },
+    "task_id": "buffer_swap",
+    "tcp_clearance_required": false,
+    "units": "metres",
+    "velocity_threshold_required": false,
+    "z_tolerance_m": 0.011
+  },
+  "description": null,
+  "drawer_position": 0.0,
+  "env_goals": {
+    "blue": [
+      -0.35,
+      -0.2,
+      0.02
+    ],
+    "red": [
+      -0.35,
+      0.2,
+      0.02
+    ]
+  },
+  "expert_goals": {
+    "blue_at_goal": true,
+    "red_at_goal": true,
+    "success": true
+  },
+  "expert_planner_error": null,
+  "expert_success": true,
+  "goal": "C-B2",
+  "goals": {
+    "blue": "blue_goal",
+    "red": "red_goal"
+  },
+  "id": "C-B2",
+  "id_layout": {
+    "blue": [
+      -0.3610932463561926,
+      0.20601310799321693,
+      0.02
+    ],
+    "red": [
+      -0.3471950017378707,
+      -0.2049392747023222,
+      0.02
+    ]
+  },
+  "initial_goals": {
+    "blue_at_goal": false,
+    "red_at_goal": false,
+    "success": false
+  },
+  "initial_sha256": "55af4fe8e16ae7648da80f4ba04ab63b41dd3a48244654b7c59c7df317d465d5",
+  "kind": "compose",
+  "layout_note": {
+    "id_layout": {
+      "blue": [
+        -0.3610932463561926,
+        0.20601310799321693,
+        0.02
+      ],
+      "red": [
+        -0.3471950017378707,
+        -0.2049392747023222,
+        0.02
+      ]
+    },
+    "placement": {
+      "blue": "start",
+      "red": "buffer"
+    }
+  },
+  "name": "red_already_in_buffer_robot_home",
+  "poses": {
+    "blue": [
+      -0.3610932463561926,
+      0.20601310799321693,
+      0.02,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "red": [
+      -0.18,
+      0,
+      0.02,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "prepared": 1790328494.3558505,
+  "program": [
+    [
+      "blue",
+      "blue"
+    ],
+    [
+      "red",
+      "red"
+    ]
+  ],
+  "red": "buffer",
+  "robot_qpos": null,
+  "seed": 24093401,
+  "suite": "compose",
+  "task": "buffer_swap"
+}

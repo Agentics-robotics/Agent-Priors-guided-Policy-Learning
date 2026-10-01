@@ -1,0 +1,99 @@
+{
+  "checkpoint": "provenance/relocated/2fad425b0b3df7c7",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "2faf055820015f8ec022a3711cbe0d2b3a4e5cb5bfa2ecf732c54f74a76cf85d",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 6,
+    "physical_gpu": 4,
+    "uuid": "GPU-29557089-826b-ddb5-4d55-d03f2009a879"
+  },
+  "effective_action_targets": 122463117,
+  "final_weights_sha256": "6df013984062ab82cfebfb28d3719e4029866d376f70fee5597ee2bfc2b2a02a",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.4418840408325195,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.037663459777832,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.155401229858398,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.1951753944158554,
+      "step": 60000
+    }
+  ],
+  "initial_weights_sha256": "b438306e425f5f2f4a3a9fc696ece76cb78bf42c90e00bb1e9c7117b55b3a6c1",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 60000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 23356,
+      "duplicated_actions": 0,
+      "unique_actions": 23356
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Encode uses FK of each demonstrated seven-joint command. Decode reconstructs the same world TCP translation and rotation before shared damped least-squares IK. The check takes the maximum of FK position error in metres, rotation angle in radians and gripper scalar error. Rotation 6D receives only the declared Gram-Schmidt projection; IK returns its best limit-respecting solution and reports convergence, residuals and limit contacts without silent substitution.",
+        "mode": "task_space",
+        "tolerance": 0.01
+      },
+      "cut_relation": "One policy and one empty-argument invocation contract cover every action [0,stop) of every complete original demonstration. There are no cuts, segment selectors, stage labels, policy switches or caller-selected objects.",
+      "input_shapes": {
+        "features": [
+          2,
+          141
+        ]
+      },
+      "observation_dependencies": [
+        "bowl_pose",
+        "container_pose",
+        "particle_positions",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each prediction slot is [dx,dy,dz,r1x,r1y,r1z,r2x,r2y,r2z,g]. Position is in world metres relative to a fresh-observation continuous relational anchor: a normalized blend of current container, bowl and marked-return origins. The blend is determined only from current container elevation/uprightness and observed particle geometry. The six rotation values are the first two columns of the desired TCP rotation in the current observed container frame and are projected by Gram-Schmidt; g preserves the demonstrated native gripper scalar. Slots represent t-1 through t+14 and execution uses slots 1 through 8. For every executed slot, the fresh current observation reconstructs a world TCP pose; panda_kinematics.solve_ik converts it from freshly measured qpos to seven absolute Panda joint targets. The relational anchor is a coordinate conversion, not a scripted action or stage controller.",
+      "parameter_semantics": "There are no caller parameters. The single binding means: execute the complete granular_pour_return task from causal observed state. Object, bowl and return poses are resolved from each observation in world metres with wxyz pose quaternions; no caller selects an object, stage or controller.",
+      "policy_id": "single_prior_cartesian",
+      "skill_id": "full_task",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 7680000,
+  "source_hashes": {
+    "HANDOFF.json": "0d6d606ba7c38d26058df17b5948750909b6ce5138efe3ab608b93d98f474ea0",
+    "PRIOR.md": "18a4471fbf3f9ca841b33ba63e9363f09a6a3a85effd4a5f2a29838cb69d960f",
+    "adapters.py": "a84a5e9aeb06be3d00d3244f6b073a151c01202af9daf8fcaf3d8a5ea25371ae",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "4b44ad1a40c7fcdfc9a819636cc48a9d7955c37a3413ab3d7421ce5409a17baf",
+    "policy.py": "74fc63c02fdbd6c48b1736ecb64c25b4763582fd79e0a6866d1087f251bfa718",
+    "policy_contract.json": "3bce7b932dea0fb215d15a974d21dec0775926084774b363fa3522d1aaf8bce7",
+    "training_bindings.json": "bc1004ce5bb5519797e7540c3a273e2983617671afedf48f1671e24d49e7b288"
+  },
+  "trainable_parameters": 18347786,
+  "training_elapsed_seconds": 1852.1092135380022,
+  "weight_l2_change": 71.0845526820461
+}

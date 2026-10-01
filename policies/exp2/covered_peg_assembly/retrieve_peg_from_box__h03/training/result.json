@@ -1,0 +1,99 @@
+{
+  "checkpoint": "provenance/relocated/e9fd07f9819bc2fa",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "ea99dd75c622c2978a400e53a16d677b82a2050b2d13297c2f97b279e9e43824",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 6,
+    "physical_gpu": 4,
+    "uuid": "GPU-29557089-826b-ddb5-4d55-d03f2009a879"
+  },
+  "effective_action_targets": 40449366,
+  "final_weights_sha256": "1c38da660f345c84b983807817bc292d92a59ffee640bf5f2a9cce100e2b024a",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 4.664762020111084,
+      "step": 1
+    },
+    {
+      "l2_norm": 4.5931782722473145,
+      "step": 2
+    },
+    {
+      "l2_norm": 4.734077453613281,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.18549838662147522,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "e759f339455c7cbd17237407d1331c2117f9ebd4899b6993c09dd3d1df732b49",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 6360,
+      "duplicated_actions": 0,
+      "unique_actions": 6360
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "Compare FK of decoded joints with the demonstrated commanded world TCP pose in metres/radians and compare the gripper scalar. Valid 6D labels round-trip; degenerate sampled rotations are deterministically projected. IK diagnostics are explicit.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "All twelve assigned [740,1270) segments are unchanged. This preserves every action in the 210-action incoming and 150-action outgoing overlaps while refining causal observations for lid-release, approach, closure, and lift phase discrimination.",
+      "input_shapes": {
+        "features": [
+          2,
+          72
+        ]
+      },
+      "observation_dependencies": [
+        "peg_pose",
+        "lid_pose",
+        "lid_position",
+        "lid_velocity",
+        "qpos",
+        "qvel",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is [world-frame TCP position xyz in metres, world-frame TCP rotation as first two rotation-matrix columns (6D), native gripper scalar]. Decode projects 6D rotation by safe Gram-Schmidt and calls panda_kinematics.solve_ik from freshly measured qpos. The action is intentionally world absolute to retain demonstrated world/reachability structure while the causal input exposes phase. Prediction slots are t-1 through t+14 and execution uses slots 1 through 8; gripper >=0 opens and <0 closes.",
+      "parameter_semantics": "No high-level parameters. Phase is inferred only from two causal observations, oldest first. The framework may duplicate the initial episode frame; no future state, contact truth, action history, or hidden phase variable is supplied.",
+      "policy_id": "retrieve_peg_from_box__h03",
+      "skill_id": "retrieve_peg_from_box",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "ba507631d39900fe5d810b6a73d4d9eadd50092fc170074212b2a21e915668c6",
+    "PRIOR.md": "b3209230bb21bfeedc962e03159f4c33cc52d8d83e256bc7cb3383d23a3e52c3",
+    "adapters.py": "f5ac2dcaf968fa174255f24a3e5ce578dd0e8a3710f22c80bc2240b7dabfae56",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "8155abdb03e76f065bce030a05e95b9d303a35af82b5a7c13fc30ca481c429fd",
+    "policy.py": "48e78bc7befa04233578c9ea669aababcb73c18cbc08e33483c988b36f169e33",
+    "policy_contract.json": "69188d987cfb3c3f0cac2d5675cc05187e5febdc0186160d3a994a7f4ab0bcb8",
+    "training_bindings.json": "05b5b39c6b9097420b545dfdf11e31eefc0cdf359fc76dabd4b3556d46cb00f9"
+  },
+  "trainable_parameters": 17358602,
+  "training_elapsed_seconds": 694.7414946060162,
+  "weight_l2_change": 28.4311430855245
+}

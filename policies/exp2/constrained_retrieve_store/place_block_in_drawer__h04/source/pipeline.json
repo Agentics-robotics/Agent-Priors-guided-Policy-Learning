@@ -1,0 +1,10 @@
+{
+  "policy_id": "place_block_in_drawer__h04",
+  "skill_id": "place_block_in_drawer",
+  "heuristic_index": 4,
+  "prior_summary": "A causal proximity-gated SE(3) reference is exactly the live block frame during close attached-like transport and smoothly becomes exactly the live destination frame after object/TCP separation.",
+  "applicable_conditions": "Prefer when the drawer is open and stable and a plausibly held block begins close to the TCP, especially for a displaced attached entry that must continue through release and retreat. Use h02 when the block is already separated or deposited, and h03 for near-nominal local release ambiguity. Proximity is guidance rather than contact truth.",
+  "termination_guidance": "Continue until two causal observations show the block stationary at drawer-floor height and separated from the TCP, and the free gripper has retreated to the handle approach. close_drawer may take over in the shared 900:1160 tail but must delay drawer motion until observed settling and detachment.",
+  "limitations": "Object/TCP distance can be a false attachment cue and pose noise can move the reference through its blend interval. The policy does not recover an unseen premature drop, prove contact, guarantee cavity clearance, or make displaced goals reachable. Expected displacement benefit follows from conversion structure and has no out-of-distribution validation.",
+  "config": {"action_frame": "live_proximity_hybrid_se3", "near_distance_m": 0.025, "far_distance_m": 0.055, "orientation_interpolation": "destination_to_object_so3_geodesic", "orientation_encoding": "unit_quaternion_wxyz", "action_dimension": 8, "history_steps": 2, "horizon": 16, "execution_steps": 8}
+}

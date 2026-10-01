@@ -1,0 +1,151 @@
+{
+  "task_id": "covered_peg_assembly",
+  "policy_id": "reorient_and_stage_peg__h04",
+  "skill_id": "reorient_and_stage_peg",
+  "source": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/source",
+  "manifest": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "appl",
+    "without_interface_information",
+    "without_prior_information",
+    "rule4"
+  ],
+  "assignment": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/assignment.json",
+  "training_spec": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/training/spec.json",
+  "dataset": "assets/exp2/datasets/covered_peg_assembly/reorient_and_stage_peg/dataset.json",
+  "normalization": "assets/exp2/tasks/covered_peg_assembly/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/model.pt",
+    "sha256": "1a4bb6288c04fc8e09f53237c68be58305912c77655c8b087237bdd763ac5995",
+    "source_sha256": "1a4bb6288c04fc8e09f53237c68be58305912c77655c8b087237bdd763ac5995",
+    "size_bytes": 348600006,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 2,
+    "demos": 12,
+    "in_distribution_success": "2/12",
+    "exit_rule": "peg axis aligned with the head within 0.01 m of the hole axis at x >= -0.21 m (or the peg inserted) and the cover still open (> 0.9 rad) at the final state",
+    "guidance": "**Specialized fallback only; 2/12 final passes (16.7%) in distribution.** This desired-peg-in-hole-frame policy is designed for reliable hole and peg poses, an open cover, closed fingers, and a rigid peg-to-TCP transform; its intended niche is a reachable moved fixture and/or changed but stable grasp offset. Neither change was validated OOD, and the current validation supersedes the document’s older statement that h04 had no result. Avoid it as the default, and avoid any use with slipping/dropped pegs, unreliable grasp geometry, lost clearance, collapsed cover, or unreachable IK. Its measured failures are not exposed by coarse checks: all 12 final states had an open cover, axis alignment, and zero IK-unconverged steps, yet 10/12 failed the complete staging rule. Therefore verify the head is within 0.01 m of the hole axis with required x progress (or valid insertion), not merely axis alignment, open lid, or healthy IK. All 12 runs reached a transient first-pass state but only two retained a final pass, favoring prompt transfer once the successor is ready. Hand off to `align_and_insert_peg` when coupling remains stable, hole-relative y/z error is small, orientation is near the hole axis, descent is near hole height, and IK remains healthy; if insertion/task success is already verified, terminate. Preserve both causal frames and refresh hole/grasp anchors after each eight executed actions."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/assignment.json",
+      "sha256": "8137aaf587e89b6ee81026e24f2831b89193b888aa184b5440764c9f3dfa6446",
+      "source_sha256": "ea8928aa5d552a74784cc6e710f81c7017339c9b130b51494ce0128849bf9009",
+      "size_bytes": 12586,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/handoff_evidence.json",
+      "sha256": "ac000638f906ad58304e2a7d961407ab125c7c2aa95ffbcc8de216e0da3e1ea9",
+      "source_sha256": "ac000638f906ad58304e2a7d961407ab125c7c2aa95ffbcc8de216e0da3e1ea9",
+      "size_bytes": 153401,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/source/HANDOFF.json",
+      "sha256": "61aaf0858d5d7a38ec1313ce7545373fac97fb2c5911cc8706207c5257f0a957",
+      "source_sha256": "61aaf0858d5d7a38ec1313ce7545373fac97fb2c5911cc8706207c5257f0a957",
+      "size_bytes": 2690,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/source/PRIOR.md",
+      "sha256": "b01355e61e26076e2939b9ccdae4ec98729f7e04396479943f0d5c09b4d0c238",
+      "source_sha256": "b01355e61e26076e2939b9ccdae4ec98729f7e04396479943f0d5c09b4d0c238",
+      "size_bytes": 7913,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/source/adapters.py",
+      "sha256": "04f451c5e671763cda88b411ed57fe3f8a20fce391b1807ee9780429057a4ef5",
+      "source_sha256": "04f451c5e671763cda88b411ed57fe3f8a20fce391b1807ee9780429057a4ef5",
+      "size_bytes": 6238,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/source/panda_posture.py",
+      "sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+      "source_sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+      "size_bytes": 1041625,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/source/pipeline.json",
+      "sha256": "3bc92f8cd93c82627a59fa3792c6441e3fa0e66c09e1800ef0ff54e162792151",
+      "source_sha256": "3bc92f8cd93c82627a59fa3792c6441e3fa0e66c09e1800ef0ff54e162792151",
+      "size_bytes": 1532,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/source/policy.py",
+      "sha256": "d142f4f9c986b6b671e7e874d2a90a19aff804589559f9345e2f9a4e8a4c6166",
+      "source_sha256": "d142f4f9c986b6b671e7e874d2a90a19aff804589559f9345e2f9a4e8a4c6166",
+      "size_bytes": 1225,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/source/policy_contract.json",
+      "sha256": "65f49f41d04e60b11ff0cc879891c0308fd2ac9957b0d437b77632bdc2f8f47e",
+      "source_sha256": "65f49f41d04e60b11ff0cc879891c0308fd2ac9957b0d437b77632bdc2f8f47e",
+      "size_bytes": 2451,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/source/training_bindings.json",
+      "sha256": "ea198a35c708573855b2913321c063f9b487a753553456c9ef4ce3b573980489",
+      "source_sha256": "ea198a35c708573855b2913321c063f9b487a753553456c9ef4ce3b573980489",
+      "size_bytes": 2752,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/submission.json",
+      "sha256": "cc569a141e3a01b1486eac6e2b19572ac313d46f1496b14c78d4c09a107abb6f",
+      "source_sha256": "8e799ed1a3dc31fcc615b761bb5177d8312449c2d3a5ce35d0f59aaff47ffec2",
+      "size_bytes": 18563,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/training/adapter_checks.json",
+      "sha256": "5f72a5c7e81ccd17b18f7ad1d95762e232f6f57d2cbec372f123a34293c34dc6",
+      "source_sha256": "5f72a5c7e81ccd17b18f7ad1d95762e232f6f57d2cbec372f123a34293c34dc6",
+      "size_bytes": 195,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/training/result.json",
+      "sha256": "a908759fa7429e21db611ab53a1fd27b1ecc7153bd7a0ceef611db748f3ea5d2",
+      "source_sha256": "55067ec7d111d391432a3e0e7be2c01a9c5b3c259236d7fb6fef7195815abaeb",
+      "size_bytes": 4852,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/training/spec.json",
+      "sha256": "891b7345468c61991494a3f45230daad8a05f7649cec8d7b4a67f73f65ce18cc",
+      "source_sha256": "891b7345468c61991494a3f45230daad8a05f7649cec8d7b4a67f73f65ce18cc",
+      "size_bytes": 18065,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/prior_plan.json",
+      "sha256": "289566519c3f5d4118da498c4d0e72972db27034c3065e3981370c20afdafbef",
+      "source_sha256": "289566519c3f5d4118da498c4d0e72972db27034c3065e3981370c20afdafbef",
+      "size_bytes": 9023,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/covered_peg_assembly/task.json",
+  "completion_contract": "assets/exp2/tasks/covered_peg_assembly/completion_contract.json",
+  "public_context": "assets/exp2/tasks/covered_peg_assembly/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/covered_peg_assembly/prompts/hl.md",
+  "prior_plan": "policies/exp2/covered_peg_assembly/reorient_and_stage_peg__h04/prior_plan.json"
+}

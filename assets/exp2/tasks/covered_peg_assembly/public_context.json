@@ -1,0 +1,411 @@
+{
+  "capabilities": {
+    "automatic_ik_service": false,
+    "causal_history_across_switches": true,
+    "contact_truth": false,
+    "future_states": "training labels only",
+    "learned_images": false,
+    "parameter_budget": 64000000,
+    "public_robot_chain": true,
+    "typed_call_arguments": true,
+    "variable_learned_action_dimension": true
+  },
+  "geometry": {
+    "box_center": [
+      -0.575,
+      -0.2
+    ],
+    "box_half_xy": [
+      0.125,
+      0.16
+    ],
+    "box_wall_top": 0.05,
+    "control_hz": 20,
+    "description": "Open the hinged cover, retrieve the peg, turn it to align with the square hole and insert it.",
+    "head_x_interval": [
+      -0.145,
+      -0.09
+    ],
+    "head_yz_tolerance": 0.009,
+    "hinge": [
+      -0.45,
+      -0.2,
+      0.066
+    ],
+    "hole_center": [
+      -0.12,
+      0.18,
+      0.1
+    ],
+    "hole_half_depth": 0.04,
+    "hole_half_width": 0.019,
+    "hole_outer_half": 0.065,
+    "lid_handle_local": [
+      -0.17,
+      0,
+      0.028
+    ],
+    "lid_hinge_axis": [
+      0,
+      1,
+      0
+    ],
+    "lid_max_angle": 1.85,
+    "minimum_axis_alignment": 0.985,
+    "peg_half": [
+      0.06,
+      0.014,
+      0.014
+    ],
+    "peg_initial_quaternion": [
+      0.7071067811865476,
+      0,
+      0,
+      0.7071067811865476
+    ],
+    "robot": "panda",
+    "target": [
+      -0.18,
+      0.18,
+      0.1
+    ],
+    "task_id": "covered_peg_assembly"
+  },
+  "native_action": {
+    "arm": "seven absolute Panda joint targets in radians",
+    "control_hz": 20,
+    "dimension": 8,
+    "gripper": "nonnegative opens (+1), negative closes (-1); common binary executor"
+  },
+  "observation_fields": {
+    "hole_pose": [
+      0,
+      7
+    ],
+    "lid_pose": [
+      7,
+      14
+    ],
+    "lid_position": [
+      14,
+      15
+    ],
+    "lid_velocity": [
+      15,
+      16
+    ],
+    "peg_pose": [
+      16,
+      23
+    ],
+    "qpos": [
+      23,
+      32
+    ],
+    "qvel": [
+      32,
+      41
+    ],
+    "target_pose": [
+      41,
+      48
+    ],
+    "tcp_pose": [
+      48,
+      55
+    ]
+  },
+  "observation_semantics": "Only declared observed vectors; positions in world metres, pose quaternions wxyz.",
+  "robot": {
+    "arm_joint_order": [
+      "panda_joint1",
+      "panda_joint2",
+      "panda_joint3",
+      "panda_joint4",
+      "panda_joint5",
+      "panda_joint6",
+      "panda_joint7"
+    ],
+    "base_link": "panda_link0",
+    "base_position_world": [
+      -0.85,
+      0.0,
+      0.0
+    ],
+    "base_quaternion_wxyz": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "frames": "URDF parent-origin then local joint rotation; world/base translation as supplied",
+    "tcp_chain": [
+      {
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "child": "panda_link1",
+        "limits": {
+          "effort": 87.0,
+          "lower": -2.8973,
+          "upper": 2.8973,
+          "velocity": 2.175
+        },
+        "name": "panda_joint1",
+        "parent": "panda_link0",
+        "q_index": 0,
+        "rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "type": "revolute",
+        "xyz": [
+          0.0,
+          0.0,
+          0.333
+        ]
+      },
+      {
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "child": "panda_link2",
+        "limits": {
+          "effort": 87.0,
+          "lower": -1.7628,
+          "upper": 1.7628,
+          "velocity": 2.175
+        },
+        "name": "panda_joint2",
+        "parent": "panda_link1",
+        "q_index": 1,
+        "rpy": [
+          -1.5707963267948966,
+          0.0,
+          0.0
+        ],
+        "type": "revolute",
+        "xyz": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "child": "panda_link3",
+        "limits": {
+          "effort": 87.0,
+          "lower": -2.8973,
+          "upper": 2.8973,
+          "velocity": 2.175
+        },
+        "name": "panda_joint3",
+        "parent": "panda_link2",
+        "q_index": 2,
+        "rpy": [
+          1.5707963267948966,
+          0.0,
+          0.0
+        ],
+        "type": "revolute",
+        "xyz": [
+          0.0,
+          -0.316,
+          0.0
+        ]
+      },
+      {
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "child": "panda_link4",
+        "limits": {
+          "effort": 87.0,
+          "lower": -3.0718,
+          "upper": -0.0698,
+          "velocity": 2.175
+        },
+        "name": "panda_joint4",
+        "parent": "panda_link3",
+        "q_index": 3,
+        "rpy": [
+          1.5707963267948966,
+          0.0,
+          0.0
+        ],
+        "type": "revolute",
+        "xyz": [
+          0.0825,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "child": "panda_link5",
+        "limits": {
+          "effort": 12.0,
+          "lower": -2.8973,
+          "upper": 2.8973,
+          "velocity": 2.61
+        },
+        "name": "panda_joint5",
+        "parent": "panda_link4",
+        "q_index": 4,
+        "rpy": [
+          -1.5707963267948966,
+          0.0,
+          0.0
+        ],
+        "type": "revolute",
+        "xyz": [
+          -0.0825,
+          0.384,
+          0.0
+        ]
+      },
+      {
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "child": "panda_link6",
+        "limits": {
+          "effort": 12.0,
+          "lower": -0.0175,
+          "upper": 3.7525,
+          "velocity": 2.61
+        },
+        "name": "panda_joint6",
+        "parent": "panda_link5",
+        "q_index": 5,
+        "rpy": [
+          1.5707963267948966,
+          0.0,
+          0.0
+        ],
+        "type": "revolute",
+        "xyz": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "child": "panda_link7",
+        "limits": {
+          "effort": 12.0,
+          "lower": -2.8973,
+          "upper": 2.8973,
+          "velocity": 2.61
+        },
+        "name": "panda_joint7",
+        "parent": "panda_link6",
+        "q_index": 6,
+        "rpy": [
+          1.5707963267948966,
+          0.0,
+          0.0
+        ],
+        "type": "revolute",
+        "xyz": [
+          0.088,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "child": "panda_link8",
+        "name": "panda_joint8",
+        "parent": "panda_link7",
+        "rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "type": "fixed",
+        "xyz": [
+          0.0,
+          0.0,
+          0.107
+        ]
+      },
+      {
+        "child": "panda_hand",
+        "name": "panda_hand_joint",
+        "parent": "panda_link8",
+        "rpy": [
+          0.0,
+          0.0,
+          -0.7853981633974483
+        ],
+        "type": "fixed",
+        "xyz": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "child": "panda_hand_tcp",
+        "name": "panda_hand_tcp_joint",
+        "parent": "panda_hand",
+        "rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "type": "fixed",
+        "xyz": [
+          0.0,
+          0.0,
+          0.1034
+        ]
+      }
+    ],
+    "tcp_link": "panda_hand_tcp",
+    "urdf_sha256": "524c6986dbbabe244e05801f262862205e880834d01459b06ee273016d0579ba",
+    "urdf_source": "environments/exp2/.pixi/envs/default/lib/python3.11/site-packages/mani_skill/assets/robots/panda/panda_v2.urdf"
+  },
+  "scene_identifiers": {
+    "goals": [
+      "target_pose"
+    ],
+    "objects": [
+      "hole",
+      "lid",
+      "peg"
+    ]
+  },
+  "schema": "appl.flexible.sol.v1",
+  "task_id": "covered_peg_assembly",
+  "temporal": {
+    "control_hz": 20,
+    "execution_steps": 8,
+    "history_steps": 2,
+    "prediction_horizon": 16,
+    "prediction_start_offset": -1
+  }
+}

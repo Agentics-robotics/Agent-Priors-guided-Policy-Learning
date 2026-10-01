@@ -1,0 +1,41 @@
+{
+  "instance": "peg-insert-side__N2__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A3",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A3",
+      "feedback_hash": "cc7f929314e0858ae2fc9c3e4b6ce39269e8013a359e2a06dfb5788f1a643d5d",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: All three initial candidates are eligible completed runs at the fixed 20,000 updates. Equal-cell scores are A1=0.5*0+0.5*0.5=0.25, A2=0.25, A3=0.5*1+0.5*0.55=0.775. A3 is the unique maximum; no tie-break is needed. IID success and training losses are not selection criteria. A3 solved both C cells (10/10 each) but E crossed cells remain weak (HL 0/5, LH 1/5), while E LL and HH are 5/5 each. These aggregate results motivate an A3-based revision focused on large relative layout changes; native_truncated alone does not identify a failure stage.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "7bd8236b7aba9cec09dcc970e8140097133f85363db4411baa1ea67228226185",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: Select eligible completed candidate A4 under the frozen equal-cell rule. Scores are A1=0.5*0+0.5*0.5=0.25, A2=0.25, A3=0.5*1+0.5*0.55=0.775, and A4=0.5*1+0.5*0.7=0.85. A4 is the unique maximum, so latency and parameter tie-breaks are not invoked. All candidates used the final fixed 20,000-update run; no IID result, intermediate checkpoint, training loss, baseline, or hidden-test result enters selection. A4 retains 10/10 success in each C cell and improves E-LH from A3's 1/5 to 4/5; E-HL remains 0/5, and E-LL/E-HH remain 5/5 each. The observed revision gain is 0.075 in selection score, with persistent E-HL failure and only five development episodes per E cell; aggregate results do not prove the proposed failure mechanism. All submissions remain frozen, with no further code edits or training.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "9091fe7a3805ce1fcd17b5042fa7bd4588e166c9363aaaaf2976ef17f9edb448",
+    "A2": "772d70ccfa9c092a14ef854f45a034a61988f1e056faaa51aef5b6154ac43a9b",
+    "A3": "ea8060cfcdf924b912e35c6584aa40e4c951e15817cca7b8aab89f1832b4e5cd",
+    "A4": "272e42c71685372135a3db6651cbf02f4dfa287a86e747d276bb9e644874eb45"
+  },
+  "feedback_hashes": {
+    "initial": "2a1f3da1502bed42b02db3f423065a93d027a94b11067e3c5ca606d1f4110821",
+    "final": "6bcd4b7beabcd948229bda5fc05545cbc02561de562972df1930f9ca2b3c42b9"
+  }
+}

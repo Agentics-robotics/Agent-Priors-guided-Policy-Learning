@@ -1,0 +1,30 @@
+{
+  "title": "Serial interaction geometry with world and motion anchors",
+  "coverage_gap": "The ten demonstrations cover five LL and five HH layouts only. Absolute stick_x and target_y are correlated; a small-data raw encoder can use that conjunction instead of the hand-to-stick, stick-to-payload and payload-to-goal dependencies needed in LH/HL and extrapolation.",
+  "reusable_regularity": "A manipulation chain can be described by signed relative displacements at its three links, while keeping the base/world anchor and gravity height. A1 exposes those displacements directly to the common U-Net without a learned bottleneck, phase thresholds, auxiliary objective or controller. Uniform physical units within each vector avoid inflating almost-constant target_x, table height and quaternion noise by tiny support variances.",
+  "dependencies_preserved": [
+    "Current and native-previous hand world position, aperture, stick position and xyzw quaternion, observed payload point and quaternion, and goal are all recoverable from the representation and stored xy origin. Goal is not confused with the stick or treated as a grasp target.",
+    "The payload point is exactly the common object2 observation: insertion site plus [0,.09,0]. No unobserved tip, contact force, obstacle map, body dimensions or simulator fields are introduced.",
+    "Both whole-observation history entries are encoded. Native per-step hand/stick/payload motion and aperture change are explicit; absolute z, world axes, robot location and quaternion orientation remain available.",
+    "The workspace fixtures seen in the images motivate retaining world context rather than asserting unconstrained SE(3) symmetry. No additional obstacle sensor is assumed."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "observation": "Exact ten-episode D_N membership; no development or test states."},
+    {"path": "task_materials.json", "observation": "LL/HH factor support, world action4, stick COM and object2 point semantics, 39-dimensional common state."},
+    {"path": "support_summary.json", "observation": "Five demonstrations per training cell; demo 00/01 payload starts at approximately [.2,.6,.132], and stick is first on the table then elevated."},
+    {"path": "images/frame_00_demo_00_step_000.png", "observation": "Real initial workspace includes the robot, separate tool and pushed fixture."},
+    {"path": "images/frame_01_demo_00_step_050.png", "observation": "Real mid-episode frame supports a tool-mediated rather than direct hand-to-goal interaction."},
+    {"path": "images/frame_03_demo_01_step_073.png", "observation": "Real late-episode frame shows the pushed assembly displaced relative to its initial location."},
+    {"path": "trajectories/demo_00.json", "rows": {"obs": [[0,3],[21,25],[34,40],[50,53],[71,74]], "actions": [[0,29],[40,69]]}, "observation": "Hand descends, stick subsequently rises and tracks the hand, payload moves late. The direct hand-to-goal vector alone cannot distinguish these dependencies."}
+  ],
+  "expected_failure_signature": "Falsifiable risks: without an explicit learned stage representation the denoiser may average the downward grasp and upward lift branches, producing hesitations or premature pushing at transitions. Identity world actions and retained world anchors also permit residual absolute-layout shortcutting. If extrapolated grasp offsets still fail while familiar grasps succeed, this coordinate-only bias is insufficient; no success improvement is claimed before evaluation.",
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,39], only the shared deployment observation",
+    "slices": {"current_hand": [0,3], "current_aperture": [3,4], "current_stick": [4,7], "current_stick_xyzw": [7,11], "current_payload": [11,14], "current_payload_xyzw": [14,18], "native_previous_state": [18,36], "goal": [36,39]},
+    "support_fit": "One world-xy centering constant is the population mean of hand xy from exactly D_N obs[0:T]; z origin remains zero. Serialized to deployment state. No action statistics, extra support or future inference context.",
+    "action_semantics": "Identity encode/decode of native [world_dx,world_dy,world_dz,gripper]. The public executor alone applies the native cube clip, 0.01 m xyz scaling and the fixed four-action prefix at 80 Hz."
+  },
+  "training_only_targets": [],
+  "parents": [],
+  "change_summary": "Initial independent design. Implemented a 55-dimensional deterministic conditioning representation: 21 current pose/chain channels, 21 native-previous channels, 10 motion channels and three link distances. One unchanged common action4 DP; no auxiliary modules or losses. No structural repairs at authoring time."
+}

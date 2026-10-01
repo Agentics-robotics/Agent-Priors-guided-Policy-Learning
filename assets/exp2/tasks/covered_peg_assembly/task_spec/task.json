@@ -1,0 +1,72 @@
+{
+  "box_center": [
+    -0.575,
+    -0.2
+  ],
+  "box_half_xy": [
+    0.125,
+    0.16
+  ],
+  "box_wall_top": 0.05,
+  "control_hz": 20,
+  "demonstrations": 12,
+  "description": "Open the hinged cover, retrieve the peg, turn it to align with the square hole and insert it.",
+  "evaluation_layouts": 15,
+  "head_x_interval": [
+    -0.145,
+    -0.09
+  ],
+  "head_yz_tolerance": 0.009,
+  "hinge": [
+    -0.45,
+    -0.2,
+    0.066
+  ],
+  "hole_center": [
+    -0.12,
+    0.18,
+    0.1
+  ],
+  "hole_half_depth": 0.04,
+  "hole_half_width": 0.019,
+  "hole_outer_half": 0.065,
+  "id_xy_half_width_m": 0.008,
+  "lid_handle_local": [
+    -0.17,
+    0,
+    0.028
+  ],
+  "lid_hinge_axis": [
+    0,
+    1,
+    0
+  ],
+  "lid_max_angle": 1.85,
+  "minimum_axis_alignment": 0.985,
+  "ood_xy_inner_m": 0.018,
+  "ood_xy_outer_m": 0.028,
+  "peg_half": [
+    0.06,
+    0.014,
+    0.014
+  ],
+  "peg_initial": [
+    -0.61,
+    -0.2,
+    0.026
+  ],
+  "peg_initial_quaternion": [
+    0.7071067811865476,
+    0,
+    0,
+    0.7071067811865476
+  ],
+  "position_ood_only": true,
+  "robot": "panda",
+  "target": [
+    -0.18,
+    0.18,
+    0.1
+  ],
+  "task_id": "covered_peg_assembly"
+}

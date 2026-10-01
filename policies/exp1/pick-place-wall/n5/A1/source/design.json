@@ -1,0 +1,36 @@
+{
+  "title": "World-axis relational geometry with finite-wall face coordinates",
+  "coverage_gap": "The exact five-episode support contains three LL and two HH layouts and no LH/HL layouts. Object-to-goal lateral displacements in support are small, so raw independent absolute coordinates may encourage a same-side shortcut. Extrapolation also widens hand-to-object error beyond these demonstrations.",
+  "reusable_regularity": "Represent approach by object minus hand, transport by goal minus object/hand, and obstruction by signed coordinates relative to all six faces of the finite axis-aligned wall. Native gravity and world axes remain explicit. Physical scales, rather than per-edge support standard deviations, keep previously tiny lateral goal errors numerically meaningful without huge off-support normalization. This is a representation bias only: the common U-Net learns the action sequence without hand-coded waypoints or control corrections.",
+  "dependencies_preserved": [
+    "Hand, object and goal world locations are reconstructible from wall center and relative vectors; absolute z channels preserve table/gravity dependence.",
+    "Wall center and all three half sizes are retained, including its asymmetric finite x footprint; it is not replaced with an infinite barrier or removed through translation invariance.",
+    "Current and native-previous object xyzw quaternions, aperture, aperture change, hand/object displacements and relative slip are retained. Absent object2 zero channels are omitted.",
+    "Two whole causal observations are independently represented, including the previous fields inside each observation. No episode time or phase oracle is used."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Defines the exact D5 evidence scope and episode identities."},
+    {"path": "task_materials.json", "use": "World-coordinate field slices, action4 semantics, diagonal training cells and finite wall channels."},
+    {"path": "support_summary.json", "use": "LL=3, HH=2; initial goal-object x differences roughly -0.006 to 0.005 m; wall center (0.10,0.75,0.06) and half sizes (0.12,0.01,0.06). These motivate relations but not deletion of absolute obstacle geometry."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Inspected actual frame: object below hand, finite wall between approach side and goal side."},
+    {"path": "images/frame_01_demo_00_step_028.png", "use": "Inspected actual near-grasp frame."},
+    {"path": "images/frame_02_demo_00_step_056.png", "use": "Inspected actual lifted-object frame."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 0:6 and 24:30; actions 20:36", "use": "Aperture closure and relative hand/object motion distinguish approach from lift without a clock; actions change from downward approach to vertical lift."},
+    {"path": "PUBLIC_CONTRACT.md", "scope": "public", "use": "Factory, causal observation and immutable common action-loss requirements."}
+  ],
+  "expected_failure_signature": [
+    "If explicit relations alone do not resolve the diagonal shortcut, grasping may generalize while object-goal lateral residual remains large in LH/HL and extrapolated opposite-side cells.",
+    "A single ungated denoiser may confuse late descent with early approach, or translate before lifting. Such errors should appear as low wall clearance or object-hand separation after closure.",
+    "The representation does not impose rotation equivariance or a collision-free planner; failures at finite wall edges would falsify the sufficiency of face features."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,45], identical shared observations; normalized history is intentionally not used",
+    "slices": {"hand": [0,3], "aperture": [3,4], "object": [4,7], "object_xyzw": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_object": [22,25], "previous_object_xyzw": [25,29], "goal": [36,39], "wall_center": [39,42], "wall_half_size": [42,45]},
+    "action_frame": "Identity native world_dx, world_dy, world_dz, gripper at all sixteen chunk positions. Native xyz unit is 0.01 m. Candidate performs no action clipping; public executor alone clips world action4 and executes four actions.",
+    "condition_dim_per_observation": 72
+  },
+  "training_only_targets": [],
+  "support_fit": "No fitted statistics or learned modules beyond the factory DP. Fixed dimensional scales are declared in config; no other data are used.",
+  "parents": [],
+  "change_summary": "Initial A1: fixed world-axis edge and wall-face representation, no auxiliary loss, no encoder, no action-frame change. No structural repairs at authorship."
+}

@@ -1,0 +1,24 @@
+{
+  "budget_factor": 1.5,
+  "demos": 12,
+  "exit_rule": "drawer_position >= 0.29 at the final state (the demonstrated open stop is 0.30)",
+  "passed": 2,
+  "per_demo": {
+    "demo1000": false,
+    "demo1001": false,
+    "demo1002": false,
+    "demo1003": false,
+    "demo1004": false,
+    "demo1005": false,
+    "demo1006": false,
+    "demo1007": false,
+    "demo1008": false,
+    "demo1009": true,
+    "demo1010": true,
+    "demo1011": false
+  },
+  "policy": "open_drawer__h04",
+  "skill": "open_drawer",
+  "success_rate": 0.16666666666666666,
+  "task": "drawer_exchange"
+}

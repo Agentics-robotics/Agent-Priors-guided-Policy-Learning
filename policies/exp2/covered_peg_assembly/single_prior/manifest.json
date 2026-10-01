@@ -1,0 +1,140 @@
+{
+  "task_id": "covered_peg_assembly",
+  "policy_id": "single_prior",
+  "skill_id": "full_task",
+  "source": "policies/exp2/covered_peg_assembly/single_prior/source",
+  "manifest": "policies/exp2/covered_peg_assembly/single_prior/manifest.json",
+  "author": "RuntimePriorAPI",
+  "methods": [
+    "single_prior"
+  ],
+  "assignment": "policies/exp2/covered_peg_assembly/single_prior/assignment.json",
+  "training_spec": "policies/exp2/covered_peg_assembly/single_prior/training/spec.json",
+  "dataset": "assets/exp2/datasets/covered_peg_assembly/full_task_single_prior/dataset.json",
+  "normalization": "assets/exp2/tasks/covered_peg_assembly/normalization.json",
+  "checkpoint": {
+    "path": "weights/exp2/covered_peg_assembly/single_prior/model.pt",
+    "sha256": "9a4f4c8c1fe122e58c9dde60c3e0cc760b635b63524a0e8f33574e94971025b5",
+    "source_sha256": "9a4f4c8c1fe122e58c9dde60c3e0cc760b635b63524a0e8f33574e94971025b5",
+    "size_bytes": 349747654,
+    "bundle": "exp2"
+  },
+  "validation": {
+    "passed": 4,
+    "demos": 12,
+    "in_distribution_success": "4/12",
+    "exit_rule": "standard task success (first occurrence)",
+    "guidance": "No final guidance recorded."
+  },
+  "files": [
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/assignment.json",
+      "sha256": "c8b5a1b0c15f4d80711b8937d1eb88aad68e8a67c1ce7490aa4e2667b1918d30",
+      "source_sha256": "aaffea66f3ff891555eea827d4e6f0b5e4bd060f1858b904cfdd1cfd89b64ef8",
+      "size_bytes": 3566,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/handoff_evidence.json",
+      "sha256": "1e0c04cc56a9c7680a14435069bcadb6154250a3eaeb3d4497b1477b6e2f4ba3",
+      "source_sha256": "1e0c04cc56a9c7680a14435069bcadb6154250a3eaeb3d4497b1477b6e2f4ba3",
+      "size_bytes": 52945,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/source/HANDOFF.json",
+      "sha256": "deb1f0d2150b7c52da2eadb0c610d5df051838b05068e183a89dfccdd4395cc3",
+      "source_sha256": "deb1f0d2150b7c52da2eadb0c610d5df051838b05068e183a89dfccdd4395cc3",
+      "size_bytes": 3927,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/source/PRIOR.md",
+      "sha256": "494c389ab21632d07f3c8e14c2fb133de1c35b38fc2879f73e2257b81d1c6350",
+      "source_sha256": "494c389ab21632d07f3c8e14c2fb133de1c35b38fc2879f73e2257b81d1c6350",
+      "size_bytes": 11357,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/source/adapters.py",
+      "sha256": "c7d9d97d00527bdfa39e2bcb52dc2dfb76b5ae637d469339fca1b26233cdbc18",
+      "source_sha256": "c7d9d97d00527bdfa39e2bcb52dc2dfb76b5ae637d469339fca1b26233cdbc18",
+      "size_bytes": 8786,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/source/panda_kinematics.py",
+      "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "source_sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+      "size_bytes": 15635,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/source/panda_posture.py",
+      "sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+      "source_sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac",
+      "size_bytes": 1041625,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/source/pipeline.json",
+      "sha256": "4929ea92d8a57edaf81dd394830f5ed1b393a73e119091a3dd3b5a6ac008cf49",
+      "source_sha256": "4929ea92d8a57edaf81dd394830f5ed1b393a73e119091a3dd3b5a6ac008cf49",
+      "size_bytes": 2259,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/source/policy.py",
+      "sha256": "d671e4216f99e27fd81d77b395f3d7696f1500888ca40e34c80a59e304379c7e",
+      "source_sha256": "d671e4216f99e27fd81d77b395f3d7696f1500888ca40e34c80a59e304379c7e",
+      "size_bytes": 1192,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/source/policy_contract.json",
+      "sha256": "22244c158b35de1a2ddd797294f61fc347ca937dee45a468c726393221d676c8",
+      "source_sha256": "22244c158b35de1a2ddd797294f61fc347ca937dee45a468c726393221d676c8",
+      "size_bytes": 2977,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/source/training_bindings.json",
+      "sha256": "c1069ee8eb3808e547a6ca5d32c310977f07920113588839cf113cd842a307e6",
+      "source_sha256": "c1069ee8eb3808e547a6ca5d32c310977f07920113588839cf113cd842a307e6",
+      "size_bytes": 2945,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/submission.json",
+      "sha256": "e337366779b3da266964c4b3bca8517dea5e252de9f30cba00d9b5934c73848f",
+      "source_sha256": "0a88980cb091c4c76ba088a16bf2e1ee64c18315eae464e03d09082c7d83fa06",
+      "size_bytes": 11303,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/training/adapter_checks.json",
+      "sha256": "f60123065a09aa4e21855205ea5b227b8367563f47b72bb78011719e1d3dce30",
+      "source_sha256": "f60123065a09aa4e21855205ea5b227b8367563f47b72bb78011719e1d3dce30",
+      "size_bytes": 196,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/training/result.json",
+      "sha256": "fb14deac576378ccb23bd22d9b73aea2918eba4e3415e74df3eeaf96ca6d2504",
+      "source_sha256": "5d9245c801c522ed424409d1b6a5cdf797aff5df77c634dfc774aa1726bda57d",
+      "size_bytes": 5260,
+      "transformation": "path_relocation_and_operational_redaction"
+    },
+    {
+      "path": "policies/exp2/covered_peg_assembly/single_prior/training/spec.json",
+      "sha256": "8c5b8045a0dd3075e3c052a948c8128b7b134914bbae7e671bc61d5eb22f63aa",
+      "source_sha256": "8c5b8045a0dd3075e3c052a948c8128b7b134914bbae7e671bc61d5eb22f63aa",
+      "size_bytes": 18892,
+      "transformation": "none"
+    }
+  ],
+  "task_spec": "assets/exp2/tasks/covered_peg_assembly/task.json",
+  "completion_contract": "assets/exp2/tasks/covered_peg_assembly/completion_contract.json",
+  "public_context": "assets/exp2/tasks/covered_peg_assembly/public_context.json",
+  "hl_prompt": "assets/exp2/tasks/covered_peg_assembly/prompts/hl.md"
+}

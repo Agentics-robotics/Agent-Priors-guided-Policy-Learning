@@ -1,0 +1,10 @@
+{
+  "policy_id": "align_and_insert_peg__h01",
+  "skill_id": "align_and_insert_peg",
+  "heuristic_index": 1,
+  "prior_summary": "Hole-frame SE(3) Cartesian diffusion makes alignment, descent, insertion, and hold targets equivariant to the currently observed hole pose while retaining robot reachability features.",
+  "applicable_conditions": "Prefer for a translated or rotated but reachable hole when the peg is securely closed-grasped, clear of the box, and already near axis alignment. Resolve the destination pose from the current observation at each replan and execution step.",
+  "termination_guidance": "Do not terminate from model diagnostics. Use the unchanged task success evaluator: supplied head-x interval, y/z tolerance, minimum axis alignment, and stable held pose.",
+  "limitations": "Equivariance does not imply reachability or collision freedom. Training has one fixture pose and nominal successes only, with no contact truth, drop recovery, jam retry, or large-error recovery.",
+  "config": {"action_frame":"observed_hole","translation_units":"metres","rotation_representation":"6d_projected","gripper":"native_scalar","backbone":"standard_diffusion_policy"}
+}

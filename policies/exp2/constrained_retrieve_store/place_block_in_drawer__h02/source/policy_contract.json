@@ -1,0 +1,22 @@
+{
+  "version": "appl.flexible.sol.v1",
+  "policy_id": "place_block_in_drawer__h02",
+  "skill_id": "place_block_in_drawer",
+  "call_args_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "destination_pose_field": {"type": "string", "enum": ["target_pose"]},
+      "manipulated_object_pose_field": {"type": "string", "enum": ["object_pose"]}
+    },
+    "required": ["destination_pose_field", "manipulated_object_pose_field"]
+  },
+  "parameter_semantics": "destination_pose_field selects the live observed world pose that defines the Cartesian action frame and is resolved in each causal and execution observation. manipulated_object_pose_field selects the live block world pose used for destination-relative conditioning and release evidence. Positions are metres and quaternions are wxyz.",
+  "observation_dependencies": ["target_pose", "object_pose", "tcp_pose", "qpos", "qvel", "drawer_position", "drawer_velocity"],
+  "temporal": {"history_steps": 2, "prediction_horizon": 16, "prediction_start_offset": -1, "execution_steps": 8, "control_hz": 20},
+  "input_shapes": {"features": [2, 38]},
+  "action_dimension": 8,
+  "output_semantics": "Each slot is [destination-frame TCP translation xyz in metres, destination-frame canonical unit quaternion wxyz, native gripper scalar]. At training slot k, the frame is target_pose in that slot's pre-action observation. At execution, slots 1..8 are decoded against the fresh current target_pose. The quaternion is normalized (identity only for a degenerate sampled quaternion); the relative pose is left-multiplied by the live destination world pose. panda_kinematics.solve_ik converts the resulting world TCP target to seven absolute joint targets from freshly measured qpos. The gripper scalar is unchanged and the executor applies its binary sign rule.",
+  "conversion_check": {"mode": "task_space", "tolerance": 0.005, "description": "Compare FK of the IK-produced target with the demonstrated commanded TCP pose after destination-frame encode/decode, and compare the unchanged gripper scalar. The maximum of position metres, rotation radians and gripper error must be at most 0.005. Quaternion normalization is exact for encoded unit labels; nonunique IK joints are allowed."},
+  "cut_relation": "Uses all twelve full [680,1160) assigned slices without trimming. The 680:840 retrieval overlap and 900:1160 closing overlap remain action-supervised. The refinement anchors transport convergence, cavity descent/release, retreat, and handle transition to the live destination frame."
+}

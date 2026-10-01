@@ -1,0 +1,51 @@
+{
+  "title": "Role-factored relation encoder with joint future-geometry diffusion",
+  "coverage_gap": "Two successful LL/HH trajectories confound absolute positions and provide little variation in grip failures or independent nut/peg placement. Action imitation alone may encode hand motion while neglecting whether the eccentric ring actually follows the hand and aligns with the peg.",
+  "reusable_regularity": "Represent four typed relations with a shared learned edge encoder: hand-to-handle acquisition, ring-to-handle rigid link, ring-to-peg alignment, and hand-to-peg proximity. Mix the ordered relation embeddings and retain a physical skip path. Jointly denoise actions and future ring-goal / handle-hand / aperture trajectories so the common temporal U-Net is trained to associate commanded motion with the object's relative evolution. This tests learned relational dynamics without prescribing phase thresholds or rotating actions.",
+  "dependencies_preserved": [
+    "The handle and ring are distinct nodes. The ring-to-handle edge and sign-invariant body orientation columns preserve eccentricity and tilt; hand-to-handle is not substituted for ring-to-peg alignment.",
+    "Signed world-axis edge vectors and a world hand anchor make every current node position reconstructible in the deterministic skip path, preventing a learned bottleneck from deleting necessary absolute reach information.",
+    "All four heights, the hand-to-peg edge and ring-to-peg edge preserve table/gravity, clearance and peg obstacle dependencies. The fixed native gripper and world-action axes are retained.",
+    "Shared raw two-observation history, native previous translational/aperture fields, measured hand/site/ring displacements and body axes allow the network to infer binding and motion. No time index or phase oracle is supplied.",
+    "Absent object2 fields and redundant native-previous quaternion are omitted. No simulator, collision model, reset factors, reward, success rules or test-time targets are accessed."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exact D_N is the two assembly support episodes listed here; all future training labels will come from these episodes only"},
+    {"path": "task_materials.json", "detail": "Common runtime hand, handle site, body quaternion, ring center and peg goal fields; two-row history and native world action4; independent development layout factors"},
+    {"path": "support_summary.json", "detail": "Only 179 transitions across one LL and one HH episode; substantial hand/ring height change and a small set of observed grip apertures"},
+    {"path": "trajectories/demo_00.json", "detail": "obs 0:3 distinguishes ring and handle by approximately 0.13 m in x; obs 22:28 is nearly stationary ring during descent, while obs 46:51 and 72:76 show carried ring/site motion. actions 0:40 and 42:87 expose different lift/transport/descent commands"},
+    {"path": "trajectories/demo_01.json", "detail": "obs 50:53 confirms the coupled handle/hand and ring evolution during second-episode carrying; actions 47:55 change lateral sign relative to demo_00"},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Ring, handle, hand and peg form distinct physical roles"},
+    {"path": "images/frame_02_demo_00_step_024.png", "detail": "Acquisition happens at the offset handle, supporting a separate grasp relation"},
+    {"path": "images/frame_04_demo_00_step_048.png", "detail": "Ring and grasped handle lift together"},
+    {"path": "images/frame_06_demo_00_step_072.png", "detail": "Carrier motion has brought the ring toward peg alignment"},
+    {"path": "images/frame_15_demo_01_step_092.png", "detail": "The final physical relation is ring over peg, not hand over peg"}
+  ],
+  "expected_failure_signature": [
+    "Joint diffusion can hallucinate successful future ring motion after a weak or missed grasp; the observable failure would be hand transport with a stationary or dropped ring despite learned geometry predictions.",
+    "A learned relation mixer may still overfit two layouts. If passive relative-coordinate models outperform this one on opposite-sign cells, the extra learned factorization/auxiliary task did not resolve the coverage gap.",
+    "Future-geometry channels may distract from sharp action switches at closure or descent; failures should appear as smeared phase transitions or hovering even when the correct geometry is observed.",
+    "No counterfactual physics is supplied. At far extrapolation, generated state and action trajectories may be mutually plausible under D_N but physically inconsistent under new reach and saturation demands."
+  ],
+  "required_runtime_fields": {
+    "source": "condition reads only causal_context.raw_history [B,2,42]; denoise reads only the common noisy joint sample, diffusion timestep and causal conditioning",
+    "slices": {"hand_xyz": [0,3], "gripper": [3,4], "handle_site_xyz": [4,7], "body_quaternion_wxyz": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_handle_site_xyz": [22,25], "goal_xyz": [36,39], "ring_center_xyz": [39,42]},
+    "representation": "Each of four edges has 21 inputs: signed displacement3, 3D range1, planar range1, source/target heights2, relative measured displacement3, role one-hot4, body axes6 and aperture1. Shared 21->64->24 SiLU encoder; concatenate four edge embeddings, mix 96->96->64. Append 36 direct physical features to yield [B,2,100]. Ring displacement is zero for the earlier history row and the observed two-row difference for the later row.",
+    "action_frame": "The first four diffusion channels are unchanged native world_dx, world_dy, world_dz and gripper. Identity encode/decode, native 0.01 m xyz scale, fixed end-effector orientation and untouched gripper semantics. Only the host clips the decoded native cube and executes its fixed prefix.",
+    "inference_auxiliaries": "Seven additional joint channels start as host-owned diffusion noise and are denoised jointly. They are generated internal outputs, discarded by the executor, never future ground-truth conditioning and never used for rollout, search or planning."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_relations",
+      "shape": "[number_of_windows,16,7]",
+      "source": "For each support episode and chunk start t, valid action k is paired with obs[t+k+1]. Channels 0:3=(future ring_center_xyz - obs[t,36:39])/0.1; 3:6=(future handle_site_xyz - future hand_xyz)/0.1; 6=2*(future gripper-0.5). This includes the final obs[T] only as a training target, not as normalization or deployment input.",
+      "padding": "Zero after the last real action; no labels from outside the episode. No target tensor or support episode is retained on the deployed module.",
+      "joint_mapping": "diffusion_targets concatenates encoded native action4 first, then these seven targets, yielding action_dim=11.",
+      "loss": "Additional nonnegative epsilon MSE over channels 4:11 only, normalized by mask.sum()*7 (clamped to one only for the all-invalid case), weight 0.2. Uses the common valid-action mask. The public action epsilon loss stays weight 1 with its own mask.sum()*4 denominator."
+    }
+  ],
+  "support_fit": "None; no fitted statistics, pretrained weights, extra demonstrations or cached trajectories. Physical feature and target scales are fixed constants. The common support normalizer is left unchanged.",
+  "architecture": "One unmodified common DP factory call, condition_dim=100 and diffusion_action_dim=11. All extra learned layers are registered during build_modules and receive gradients through joint action/auxiliary loss. No auxiliary controller, alternate optimizer, U-Net edits or additional updates.",
+  "parents": [],
+  "change_summary": ["Initial independent scientific design: learned shared role-relation encoding plus joint future-geometry denoising, using identity world action encoding and no prescribed soft stages. No development scores or performance-driven edits."]
+}

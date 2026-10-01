@@ -1,0 +1,41 @@
+{
+  "instance": "assembly__N20__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A2",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A2",
+      "feedback_hash": "6b8a00d83884209d4f6e632827dbf60e5db218aae21e98dd5d142f0c64c2172a",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3 under the frozen rule: A1 scores 0.5*0.70 + 0.5*0.25 = 0.475. A2 and A3 each score 0.5*1.00 + 0.5*0.50 = 0.75 using equal cell weights. Both are valid/completed. The first tie-break selects A2 because its fixed-method latency is 0.1260185620012635 s versus A3's 0.12643596850102767 s; A3's smaller parameter count is therefore not reached as a tie-break. IID success and training curves were not used to select.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "80c1a6bb0da711f91f7e6afa19548c4d28bdd99e6e91d34145cec2215f24d9f6",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: All four candidates are valid and completed. Using equal subcondition weights, A4 has C=(1.0+1.0)/2=1.0 and E=(1.0+0.8+0.0+0.8)/4=0.65, hence the frozen objective is 0.5*1.0+0.5*0.65=0.825. This strictly exceeds A2=0.75, A3=0.75 and A1=0.475. A4 is therefore selected despite higher latency (0.16887422499712557 s); no tie-break is needed. IID success, training losses and hidden test were not used to select. The E LH failure (0/5) remains recorded; the hybrid improves aggregate development success but does not close that coverage gap.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "4870e22a2ce632aaf5d62c50d35e6709a4142077f5d3dabfded7724944dd266b",
+    "A2": "b562bc6ca62d7c4b85f89c0e27aba596b2ca30df2e86aae7e45c9e89de27a58c",
+    "A3": "8772db14a6e29480986df07a2e65032bd8db7270c216f7038e1020bf11fa567f",
+    "A4": "bbb0579ff473ac2e68cb67674fc3e37a075402137dd41aafab892debe60fc1d5"
+  },
+  "feedback_hashes": {
+    "initial": "d44b7c00f2bd808f173bc3fccf6bec5f3fc7f8f2221155a783d95d649910137f",
+    "final": "d9232a06ba8274e89bac6ccd9d86df8fa630bc4ab993c49a1008749ea86ecf55"
+  }
+}

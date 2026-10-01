@@ -1,0 +1,168 @@
+{
+  "dataset": "assets/exp2/datasets/covered_peg_assembly/open_hinged_lid/dataset.json",
+  "dataset_sha256": "c7c17259f27d4ae8df2c1e98a410490e4a888dda468b77c2c6760a70b5d082d1",
+  "experiment_version": "APPL_v4_cartesian_validation_round",
+  "heuristic": {
+    "applicability": "Prefer open_hinged_lid__h04 when the manipulated lid assembly may be rigidly translated or reoriented from the demonstrated installation, lid_pose and lid_position are reliable and mutually consistent, and the transformed canonical path remains collision-free and reachable. It covers the complete skill: free-space handle approach, closure, hinge-constrained pull, learned release, lift/retreat and outgoing overlap. The stationary reconstructed root is especially intended for the release/settling interval where h01's moving-lid frame changes with the panel. Prefer h02 instead for a strongly off-path TCP or unusual robot entry that needs fresh local corrections. Near the nominal installation, h03 remains an alternative phase-focused model; h01 remains an alternative when direct moving-body contact geometry is more useful than post-release frame stability.",
+    "evidence": [
+      {
+        "indices": [
+          0,
+          180,
+          200,
+          219,
+          220,
+          240,
+          260,
+          700,
+          740,
+          750,
+          759,
+          760,
+          770,
+          790,
+          810,
+          850,
+          900,
+          949
+        ],
+        "trajectory_id": "demo12200"
+      },
+      {
+        "indices": [
+          0,
+          180,
+          200,
+          219,
+          220,
+          260,
+          700,
+          740,
+          750,
+          759,
+          760,
+          770,
+          790,
+          810,
+          850,
+          900,
+          949
+        ],
+        "trajectory_id": "demo12208"
+      }
+    ],
+    "handoff": {
+      "entry_conditions": "Observed lid_pose and lid_position must coherently describe a closed or partly open one-axis lid, the peg must remain in the box, and the TCP must be free or plausibly aligned with the handle. Two causal frames of TCP, lid, measured joints and velocities must be valid. The installation-frame transformed path must remain reachable and collision-free; a closed gripper alone does not establish contact.",
+      "exit_conditions": "Use physical observations: fingers are open, TCP is more than handle-contact distance and clear of the moving panel, lid_position remains well above closed with low lid_velocity, and peg_pose remains unchanged. A decoded open mode alone is not an exit signal.",
+      "failure_signatures": "The reconstructed root or decoded world target drifts with lid angle; TCP-to-handle error grows; fingers close without synchronized lid motion; opening stalls or reverses; the gripper opens too early or remains closed after maximum opening; IK reports repeated nonconvergence or limit contacts; the TCP fails to clear the panel; or the peg moves.",
+      "overlap_role": "Every action in [740,950) remains supervised in all twelve trajectories: 210 actions per trajectory and 2,520 total. The overlap includes the final closed-gripper pull, open command near 759, released-lid settling, lift/retreat and transit toward box access. The stationary root is used on both sides of release so the outgoing overlap is not tied to the moving panel frame.",
+      "successor_readiness": "retrieve_peg_from_box is ready only when observations show an open lid, open fingers, TCP clearance and low lid velocity with the peg still stationary. Preserve both causal frames across the switch. If the lid is still moving, prefer later takeover unless the successor can maintain panel clearance."
+    },
+    "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{\"lid_pose_field\":{\"type\":\"string\",\"enum\":[\"lid_pose\"]},\"lid_angle_field\":{\"type\":\"string\",\"enum\":[\"lid_position\"]},\"release_angle_rad\":{\"type\":\"number\",\"minimum\":1.5,\"maximum\":1.85}},\"required\":[\"lid_pose_field\",\"lid_angle_field\",\"release_angle_rad\"],\"additionalProperties\":false},\"parameter_semantics\":\"lid_pose_field names the observed world lid hinge/body pose [metres, unit wxyz]; lid_angle_field names its scalar positive opening angle [radians]. Together with public_context.geometry.lid_hinge_axis they reconstruct T_world_root = T_world_lid * Rot(axis,-angle) at every causal frame and fresh decode. release_angle_rad is the intended nominal open/release angle in radians; it is bound to 1.73 from the demonstrated release region and enters causal phase features and release-margin conditioning, but it is not a scripted actuator threshold.\"}",
+    "limitations": "The demonstrations contain one lid installation and essentially one initial arm state, no deliberate rigid scene displacement, no missed-grasp recovery and no lost-contact recovery. Equivariance is by coordinate construction, not validated performance. The method assumes lid_pose orientation and lid_position use the public local hinge axis consistently; perception disagreement directly corrupts the root frame. Absolute root-frame targets can be poor for an off-path robot entry, where h02 is the intended library alternative. Large scene transforms can violate reachability, joint limits or collision clearance. Open/close channels and extra diffusion weight do not guarantee correct timing and may reduce arm-pose fitting under the fixed budget. There is no contact truth, image input, collision model or decoder-side task script.",
+    "pipeline_implications": "Add h04 as an independent option, not a replacement for the validated originals. The high-level agent supplies lid_pose_field='lid_pose', lid_angle_field='lid_position' and release_angle_rad=1.73. Select h04 for reliable coherent lid state when rigid installation displacement or post-release frame stability is the primary concern; select h02 for local recovery from unusual TCP/joint entry, h03 for its world/phase mechanism near nominal placement, or h01 for direct moving-body equivariance during contact. Continue replanning with two causal frames and evaluate handoff from observed fingers, lid motion, TCP clearance and peg stationarity. Repeated IK residuals, incoherent reconstructed-root behavior or absent synchronized opening should trigger stop/switch logic rather than decoder correction.",
+    "rationale": "Validation establishes 7/12 for moving-lid-frame h01, 12/12 for fresh-TCP h02 (with 945 reported unconverged IK steps), and 10/12 for world/phase h03 under exact demonstrated entries; it provides no out-of-distribution result. In the demonstrations, lid_pose rotates about a fixed hinge position with lid_position, while release is a sparse mode transition near index 759 and retreat continues as the lid settles. H04 therefore uses a different compromise: remove the observed hinge rotation from lid_pose to reconstruct a stationary closed-lid installation frame, express the complete commanded TCP trajectory in that frame, and encode the gripper as two open/close score channels with modestly higher diffusion loss weight. The stationary frame makes rigid assembly displacement cancel from all arm labels while avoiding intentional post-release motion of h01's reference. Root-relative geometry plus qpos/qvel preserves phase and robot feasibility dependencies. The categorical mode representation exactly preserves demonstrated +/-1 commands on decode and emphasizes close/release labels without a hand-coded threshold. Benefits beyond the demonstrations remain unconfirmed.",
+    "statement": "Train one independent Diffusion Policy with absolute Cartesian TCP targets in a stationary, observation-reconstructed hinge installation frame and a two-channel learned gripper mode. For each state compute T_world_root = T_world_lid * Rot(public local hinge axis, -lid_position), encode commanded TCP as inverse(T_world_root)*T_world_tcp_command, and decode through the fresh reconstructed root before panda_kinematics.solve_ik. This makes approach, pull, release and retreat labels invariant by construction to a common rigid displacement/reorientation of the lid assembly, while the reference remains stationary as the lid itself moves. Two gripper channels encode [open,close] and decode by argmax to native +1/-1; they receive modest extra masked epsilon-loss weight to emphasize the sparse mode transitions. The standard backbone and fixed temporal/training recipe remain unchanged.",
+    "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"lid_angle_field\":\"lid_position\",\"release_angle_rad\":1.73},\"rationale\":\"Full demonstrated approach, handle closure, hinge pull, release and retreat; retains [740,950) outgoing overlap.\"},{\"trajectory_id\":\"demo12201\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"lid_angle_field\":\"lid_position\",\"release_angle_rad\":1.73},\"rationale\":\"Full demonstrated lid operation and complete release/retreat overlap in the same canonical semantics.\"},{\"trajectory_id\":\"demo12202\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"lid_angle_field\":\"lid_position\",\"release_angle_rad\":1.73},\"rationale\":\"Full demonstrated lid operation and complete release/retreat overlap in the same canonical semantics.\"},{\"trajectory_id\":\"demo12203\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"lid_angle_field\":\"lid_position\",\"release_angle_rad\":1.73},\"rationale\":\"Full demonstrated lid operation and complete release/retreat overlap in the same canonical semantics.\"},{\"trajectory_id\":\"demo12204\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"lid_angle_field\":\"lid_position\",\"release_angle_rad\":1.73},\"rationale\":\"Full demonstrated lid operation and complete release/retreat overlap in the same canonical semantics.\"},{\"trajectory_id\":\"demo12205\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"lid_angle_field\":\"lid_position\",\"release_angle_rad\":1.73},\"rationale\":\"Full demonstrated lid operation and complete release/retreat overlap in the same canonical semantics.\"},{\"trajectory_id\":\"demo12206\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"lid_angle_field\":\"lid_position\",\"release_angle_rad\":1.73},\"rationale\":\"Full demonstrated lid operation and complete release/retreat overlap in the same canonical semantics.\"},{\"trajectory_id\":\"demo12207\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"lid_angle_field\":\"lid_position\",\"release_angle_rad\":1.73},\"rationale\":\"Full demonstrated lid operation and complete release/retreat overlap in the same canonical semantics.\"},{\"trajectory_id\":\"demo12208\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"lid_angle_field\":\"lid_position\",\"release_angle_rad\":1.73},\"rationale\":\"Full demonstrated lid operation and complete release/retreat overlap in the same canonical semantics.\"},{\"trajectory_id\":\"demo12209\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"lid_angle_field\":\"lid_position\",\"release_angle_rad\":1.73},\"rationale\":\"Full demonstrated lid operation and complete release/retreat overlap in the same canonical semantics.\"},{\"trajectory_id\":\"demo12210\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"lid_angle_field\":\"lid_position\",\"release_angle_rad\":1.73},\"rationale\":\"Full demonstrated lid operation and complete release/retreat overlap in the same canonical semantics.\"},{\"trajectory_id\":\"demo12211\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"lid_angle_field\":\"lid_position\",\"release_angle_rad\":1.73},\"rationale\":\"Full demonstrated lid operation and complete release/retreat overlap in the same canonical semantics.\"}]"
+  },
+  "heuristic_index": 4,
+  "normalization": {
+    "path": "provenance/relocated/316f9fa4276b8c11",
+    "sha256": "5d50ce2e025ef83183ac172a24c1b19ea7482f651c1c6fa09f34f83bd3887b24"
+  },
+  "observation_fields": {
+    "hole_pose": [
+      0,
+      7
+    ],
+    "lid_pose": [
+      7,
+      14
+    ],
+    "lid_position": [
+      14,
+      15
+    ],
+    "lid_velocity": [
+      15,
+      16
+    ],
+    "peg_pose": [
+      16,
+      23
+    ],
+    "qpos": [
+      23,
+      32
+    ],
+    "qvel": [
+      32,
+      41
+    ],
+    "target_pose": [
+      41,
+      48
+    ],
+    "tcp_pose": [
+      48,
+      55
+    ]
+  },
+  "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "policy_id": "open_hinged_lid__h04",
+  "prior_plan_path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h04/prior_plan.json",
+  "prior_plan_sha256": "af39fe4104e2d5bcf50c001c75b9051373863ba13f2d55468d3c829f70dcb985",
+  "skill_id": "open_hinged_lid",
+  "sources": {
+    "demo12200": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12200.json",
+      "sha256": "e7ccc303ea6b6ddd3150e2336c6b06b3f89a66d478909e3f9555eb3d6ccc85f1"
+    },
+    "demo12201": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12201.json",
+      "sha256": "aa9e1f1d14f676f5b4c9fb52ee6bbbb5d86865d82adcc051e3256482461f1016"
+    },
+    "demo12202": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12202.json",
+      "sha256": "4ad5e3ce9117f56008597389c45a799aff1857f683091069d582e024a00b32a7"
+    },
+    "demo12203": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12203.json",
+      "sha256": "c43ecf548e80a87d465fbc947e98d191dffd25cc4966f83e2698dd7a8a2cf8af"
+    },
+    "demo12204": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12204.json",
+      "sha256": "35eea2d5c8fc6e02c992c923db4e580d473d5583edcd45cfee79e682782c5a09"
+    },
+    "demo12205": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12205.json",
+      "sha256": "b4b9855dac2b9f0e836ea063d38694af37abba89371fcae59fffa7d65c4dfb3c"
+    },
+    "demo12206": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12206.json",
+      "sha256": "6a64bcc76a39a6dc2f1119c5e5983a5686835cdf2ae5a0899ab8f39da92ef407"
+    },
+    "demo12207": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12207.json",
+      "sha256": "58410156c6edfad3658ce632cf8ebe122570c51412ba53f8631c9e78a14c5397"
+    },
+    "demo12208": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12208.json",
+      "sha256": "1522c1f09079f05ace6825ff5221ebf74ca8c45941a00050c53b579b43e84d5b"
+    },
+    "demo12209": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12209.json",
+      "sha256": "2a6dc540f7c4c6e6cb92c1fe50c106da8f71123c6b3ede06a790bf8ca0c3d31b"
+    },
+    "demo12210": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12210.json",
+      "sha256": "dd077218ff68ac6e93b28dc73234d21ac2a16c937de945465c9970deb9ad4ac4"
+    },
+    "demo12211": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12211.json",
+      "sha256": "0440e3242bad2dbcefe176eab207fd19647109b019c55702ff1906862c9e4b5d"
+    }
+  },
+  "subgoal": "Expose the peg by approaching and grasping the lid handle, rotating the cover about its hinge, opening the fingers to release the lid, and retreating without disturbing the peg.",
+  "prior_plan_original_sha256": "af39fe4104e2d5bcf50c001c75b9051373863ba13f2d55468d3c829f70dcb985"
+}

@@ -1,0 +1,76 @@
+{
+  "task_id": "door",
+  "n_demos": 20,
+  "policy_id": "A3",
+  "instance_id": "door__N20__rep0",
+  "author": "RuntimePriorAPI",
+  "manifest": "policies/exp1/door/n20/A3/manifest.json",
+  "source": "policies/exp1/door/n20/A3/source",
+  "checkpoint": {
+    "path": "weights/exp1/door/n20/A3/model.pt",
+    "sha256": "6051c8550c4465d22a7d89778b5458f45d7d2afafbaadd95f49bd2414f4f12c5",
+    "source_sha256": "6051c8550c4465d22a7d89778b5458f45d7d2afafbaadd95f49bd2414f4f12c5",
+    "size_bytes": 80993203,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/door/n20/A3/normalizer.json",
+  "config": "policies/exp1/door/n20/A3/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/door/n20/A3/complete.json",
+      "sha256": "cbc5a1585cdf5f21268a803a064acc1f625621bd6124f11dd28aa1a9ce4ad042",
+      "source_sha256": "cbc5a1585cdf5f21268a803a064acc1f625621bd6124f11dd28aa1a9ce4ad042",
+      "size_bytes": 3981,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n20/A3/config.json",
+      "sha256": "96927d0ab0dc09f8f63d78b3f84348ea91de74482bf03c5a36742c5ff25dfa54",
+      "source_sha256": "96927d0ab0dc09f8f63d78b3f84348ea91de74482bf03c5a36742c5ff25dfa54",
+      "size_bytes": 8251,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n20/A3/identity.json",
+      "sha256": "9d516ab41cb5786961a88e32a71c6af39b720485f3a870f980413c391ceaa486",
+      "source_sha256": "9d516ab41cb5786961a88e32a71c6af39b720485f3a870f980413c391ceaa486",
+      "size_bytes": 3379,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n20/A3/latency.json",
+      "sha256": "2d664a83ea5e2fc576550543633a3ec2cb19e9d917a5125131516f1ab6dd233f",
+      "source_sha256": "2d664a83ea5e2fc576550543633a3ec2cb19e9d917a5125131516f1ab6dd233f",
+      "size_bytes": 770,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n20/A3/normalizer.json",
+      "sha256": "439f42b56cb671dc0b3404f5ec9cedd513bfb5e0a0c6581ba25f145f407403dc",
+      "source_sha256": "439f42b56cb671dc0b3404f5ec9cedd513bfb5e0a0c6581ba25f145f407403dc",
+      "size_bytes": 4910,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n20/A3/source/candidate.py",
+      "sha256": "97129d815d2be2f0995474db5fcf3de2eae2a64d478a7a054c3b0726554a607c",
+      "source_sha256": "97129d815d2be2f0995474db5fcf3de2eae2a64d478a7a054c3b0726554a607c",
+      "size_bytes": 6791,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n20/A3/source/config.json",
+      "sha256": "f5635c2effe11acdff54899965e83e01893603b74791e8ac12b8ce7e8e885b32",
+      "source_sha256": "f5635c2effe11acdff54899965e83e01893603b74791e8ac12b8ce7e8e885b32",
+      "size_bytes": 235,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n20/A3/source/design.json",
+      "sha256": "f4665eae695f45a42c21001f64c84f41e7559487007353cfb1d55711e903e918",
+      "source_sha256": "f4665eae695f45a42c21001f64c84f41e7559487007353cfb1d55711e903e918",
+      "size_bytes": 8339,
+      "transformation": "none"
+    }
+  ]
+}

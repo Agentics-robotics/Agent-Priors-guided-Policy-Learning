@@ -1,0 +1,49 @@
+{
+  "title": "Causal transport-frame action and hand/peg-motion joint diffusion",
+  "coverage_gap": "The two demonstrations both transport the peg toward smaller world x and smaller y; evaluation explicitly recombines and extrapolates peg_y and box_y. World-axis diffusion must otherwise extrapolate lateral sign and movement length from a narrow range. The demonstrations also have very different peg motion before versus after closure: the hand moves while the peg rests, then hand and peg move together. These observations motivate a distinct frame-equivariant and generative-kinematic design rather than categorical mode routing.",
+  "reusable_regularity": "Use the observed horizontal pegHead-to-goal direction as the positive longitudinal coordinate for the entire chunk. Signed geometry and translational actions share this causal orthonormal frame. This can express transport toward either lateral side through a consistent forward component while retaining the peg shaft and world axes needed for final side insertion. Append six diffusion channels describing future hand and pegHead displacement from their chunk-start positions. Joint generation encourages temporally coherent object coupling without a separately learned planner or future-state input. At inference all ten channels are generated from the host diffusion noise; only the decoded first four are executed.",
+  "dependencies_preserved": [
+    "The same chunk-start horizontal basis is used for both whole observations, all sixteen action vectors, and all auxiliary motion targets. Gravity/world z is unchanged; gripper is never rotated.",
+    "The actual observed shaft vector pegHead-minus-pegGrasp is supplied in the transport frame, preserving the distinction between the insertion axis and the line of transport. Raw world xyzw quaternion and its native previous difference are also retained.",
+    "World basis direction (cos,sin), low-gain absolute world hand position, and hand/grasp/head/goal heights remain available. Thus the design does not assert full robot or box rotation symmetry. These world cues plus local signed relations reconstruct all present positions and the box goal.",
+    "Native previous hand and pegGrasp motion, aperture change, and outer-history pegHead motion preserve causal contact and momentum cues. The older history slot has no extra pegHead predecessor and uses zero for that difference.",
+    "The absent object2 zeros are omitted, not replaced with simulator geometry. No obstacle oracle, reward, contact state, expert source or time-indexed trajectory lookup is used."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Exactly two current-support episodes and sixteen available demonstration frames; no dev/test observations."},
+    {"path": "task_materials.json", "detail": "Independent layout factors; shared pegHead site field; world native action4 with fixed orientation and native-cube clipping after decoding."},
+    {"path": "support_summary.json", "detail": "Both initial interaction-to-goal y components are negative, with x motion dominant; LL and HH only."},
+    {"path": "trajectories/demo_00.json", "detail": "Read observations 0-4,31-34,48-53,64-68 and actions 0-76. Peg stays near fixed x/y through approach, moves with hand after closure, and pegHead differs from pegGrasp by about [-0.13,0,-0.01] m."},
+    {"path": "trajectories/demo_01.json", "detail": "Read observations 50-53 and 86-91. Held peg and hand move together late; side insertion keeps shaft nearly world -x despite changing position."},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Resting peg and raised box side opening are distinct physical features."},
+    {"path": "images/frame_06_demo_00_step_068.png", "detail": "Held peg reaches the opening; translation to the box is not identical to arbitrary rotational task symmetry."},
+    {"path": "images/frame_13_demo_01_step_068.png", "detail": "Lifted transport of peg to the different box layout."},
+    {"path": "images/frame_15_demo_01_step_091.png", "detail": "Late insertion geometry motivates preserving world and shaft directions."},
+    {"path": "PUBLIC_CONTRACT.md", "detail": "Public capability: joint diffusion may append channels after encoded action4; native cube clipping remains host-only."},
+    {"path": "learning.py", "detail": "Public capability: fixed action loss independently uses only first four channels; training-only targets are isolated from causal inference; candidate extra loss must be mask normalized."}
+  ],
+  "expected_failure_signature": [
+    "If the model overuses transport equivariance and underuses shaft/world context, it may steer diagonally into the box face before lateral alignment, especially at extreme opposite-sign source/destination offsets.",
+    "The moving frame depends on the current pegHead-to-goal line. Near horizontal coincidence it can turn rapidly; below 0.1 mm distance it deterministically falls back to world -x. Oscillation or action discontinuity near such coincidence is a falsifiable frame-specific failure.",
+    "Joint future displacement channels may diffuse implausible peg motion or consume too much learning capacity from two demonstrations, giving correct approach direction but delayed closure or failed pickup. They are predictions, not contact guarantees.",
+    "Before pickup, the frame depends on the box even though the hand is reaching the peg. Large unseen frame yaw may harm grasp approach despite retaining world basis cues."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,42] and raw_current [B,42], both provided from shared deployment observations",
+    "slices": {"hand": [0,3], "aperture": [3,4], "pegGrasp": [4,7], "peg_quaternion_xyzw": [7,11], "previous_hand": [18,21], "previous_aperture": [21,22], "previous_pegGrasp": [22,25], "previous_peg_quaternion_xyzw": [25,29], "goal": [36,39], "pegHead": [39,42]},
+    "normalization": "Fixed metric scales applied to raw fields. Common support normalization is not modified. Basis comes only from raw_current goal_xy minus pegHead_xy; there is no inferred future frame or persistent rollout state."
+  },
+  "action_frame_semantics": {
+    "basis": "e_long=(goal_xy-pegHead_xy)/norm at chunk start, e_trans=(-e_long_y,e_long_x), e_up=world z; use e_long=(-1,0) when horizontal norm<=0.0001 m.",
+    "encode": "a_local=[dot(e_long,a_world_xy),dot(e_trans,a_world_xy),a_world_z,gripper]. No position offsets, action rescaling, or clipping.",
+    "decode": "Apply exact inverse horizontal rotation to first three generated channels, pass gripper unchanged. One identical frame across the entire horizon. Rotated coordinates can exceed the unit cube; only the public executor clips after decoding to native world action4.",
+    "native_semantics": "World translation has 0.01 m native scale, gripper is scalar, horizon16 and executed prefix4 remain fixed. Auxiliary channels never command an actuator."
+  },
+  "training_only_targets": [
+    {"name": "motion_world_m", "shape": "[windows,16,6]", "source": "For each exact D_N window start t and valid action t+k, concatenate obs[t+k+1,0:3]-obs[t,0:3] and obs[t+k+1,39:42]-obs[t,39:42]. Terminal obs[T] may label its preceding valid transition. Invalid tail slots are zero.", "mapping": "Rotate both displacement vectors using the causal chunk-start action basis and divide by 0.1 m. Append after encoded action4 as diffusion channels4:10.", "inference": "Future truth is never supplied. All six channels are denoised jointly with actions from host-generated initial noise and then ignored by the native executor."}
+  ],
+  "loss_and_capacity": "46 deterministic condition channels per observation. Exactly one common DP with diffusion_action_dim10; no architecture mutation or added denoiser. Action epsilon loss remains weight1 divided by mask.sum()*4. Additional nonnegative motion epsilon MSE uses only channels4:10, weight0.15, and denominator6*mask.sum() (clamped for all-zero auxiliary masks). Valid motion transitions exactly match the common action mask. No parameters outside joint training loss.",
+  "support_fit": "No fitted statistics or support caches. Only training_targets accesses future support rows; base deployment state remains empty.",
+  "parents": [],
+  "change_summary": ["Independent initial design combining an invertible causal horizontal action frame with joint action/hand/pegHead motion diffusion; not an A1/A2 clone.", "No performance feedback, optimization, or rollouts used for design. No structural repairs before first check."]
+}

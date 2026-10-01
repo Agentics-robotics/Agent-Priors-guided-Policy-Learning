@@ -1,0 +1,160 @@
+{
+  "cut_plan_sha256": "388b2863018f5e4ec92a10a0b6a0efd22bb0182ef311ace074f29094ca4f82f2",
+  "priors": [
+    {
+      "applicability": "Use only when drawer_position is near open and stable, the gripper is initially open or the block is already plausibly held, object_pose is finite and reliable, and the translated object-relative targets remain collision-free and reachable. It covers approach/alignment, closing, low horizontal extraction, clearance lift, and the beginning of transfer. The object must still occupy a physically valid tunnel pose; translation invariance does not move the tunnel or robot.",
+      "evidence": [
+        {
+          "indices": [
+            420,
+            520,
+            540,
+            560,
+            600,
+            620,
+            640,
+            680,
+            700,
+            780,
+            820,
+            840
+          ],
+          "trajectory_id": "demo12100"
+        },
+        {
+          "indices": [
+            420,
+            520,
+            540,
+            560,
+            600,
+            640,
+            680,
+            700,
+            780,
+            820,
+            840
+          ],
+          "trajectory_id": "demo12101"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer is open near 0.300 and stable; gripper is open and free of the handle; block is low in the tunnel; object pose is reliable; arm is retreating from the drawer or approaching the tunnel.",
+        "exit_conditions": "Closed fingers remain near the block, object and TCP move together, block is outside the tunnel and above 0.16 m, and transfer toward the open drawer has started.",
+        "failure_signatures": "Object fails to follow TCP after closure, fingers remain open, object remains near the tunnel floor, lateral transfer starts before clearance, IK reports persistent nonconvergence/limit contacts, or object pose becomes unreliable.",
+        "overlap_role": "Train all actions 300:840. Actions 300:440 preserve 140 predecessor-overlap actions; actions 680:840 preserve 160 successor-overlap actions, including clearance, reorientation and early transfer.",
+        "successor_readiness": "Prefer switching to placement once the object/TCP relative transform is stable under closed fingers, object z is above 0.16 m, and motion has turned toward target_pose; 680:840 supplies action-supervised readiness overlap."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"object_pose_field\":{\"type\":\"string\",\"enum\":[\"object_pose\"]},\"destination_pose_field\":{\"type\":\"string\",\"enum\":[\"target_pose\"]},\"tunnel_clearance_m\":{\"type\":\"number\",\"minimum\":0.16,\"maximum\":0.16}},\"required\":[\"object_pose_field\",\"destination_pose_field\",\"tunnel_clearance_m\"]},\"parameter_semantics\":\"object_pose_field names the observed manipulated-block world pose used as the fresh SE(3) action reference; destination_pose_field names the observed world destination pose used in conditioning; tunnel_clearance_m is the 0.16 m world-z roof clearance used in input margins. Bindings use object_pose, target_pose and 0.16 respectively.\"}",
+      "limitations": "Object-frame equivariance does not guarantee IK reachability, wall clearance, or invariance to tunnel/drawer displacement; the measured joints and world/object features are retained for those dependencies. It is sensitive to object-pose noise and can follow a moving/dropped block reference. It has no contact truth and successful demonstrations do not establish failed-grasp recovery. When the object is near demonstrated support but predecessor TCP/configuration is the main variation, use the current-TCP delta prior; when premature transfer under the tunnel roof is the main concern, use the clearance-guarded destination-frame prior.",
+      "pipeline_implications": "Inputs are two causal frames of measured joints/velocities, drawer state, object pose, TCP pose, destination target_pose, object/TCP and destination/object transforms, and tunnel-clearance features. Learned actions are 10-D: object-frame TCP translation in metres, object-frame TCP rotation as the first two rotation-matrix columns, and the native-sign gripper scalar. encode_targets uses FK poses of native commands and each slot's pre-action object pose; decode_action composes the learned pose with the freshly observed object pose and invokes the verified IK from freshly measured joints. Standard DiffusionBackbone and fixed H2/16/8 timing are retained.",
+      "rationale": "The observed initial block positions differ (for example demo12100 is about (-0.4368,-0.4063,0.0800) at 300 and demo12101 is about (-0.4478,-0.4076,0.0800)), while their approach and grasp commands move with the block: at 540 the commanded TCP is about (-0.4367,-0.4019,0.0889) in demo12100 and (-0.4480,-0.4032,0.0888) in demo12101. The demonstrations then pull in -x at low height (600), lift above clearance (640:700), reorient (780), and transfer (820:840). Encoding each demonstrated command in the contemporaneously observed object frame makes approach, alignment, pull, and held-object lift/transfer feedback equivariant to a changed observed object pose by construction. Two-frame object/TCP relations plus measured joints retain phase, reachability, and robot configuration. This is an expected generalization benefit, not evidence for shifts outside the observed range.",
+      "statement": "Object-frame Cartesian target prior: diffuse commanded TCP poses as object-relative SE(3) targets (3-D translation, 6-D rotation, gripper) and resolve the observed block pose again at every executed slot. Prefer this policy when the block is displaced from demonstrated x/y but remains in the tunnel, its pose is reliable, the drawer is open, and the target is reachable.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12100\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve responsibility with predecessor 300:440 and successor 680:840 overlap.\"},{\"trajectory_id\":\"demo12101\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve responsibility and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12102\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve responsibility and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12103\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve responsibility and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12104\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve responsibility and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12105\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve responsibility and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12106\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve responsibility and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12107\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve responsibility and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12108\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve responsibility and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12109\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve responsibility and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12110\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve responsibility and both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12111\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve responsibility and both action-supervised overlaps.\"}]"
+    },
+    {
+      "applicability": "Prefer when drawer is open, block pose is near demonstrated valid tunnel support, and the HL agent starts at 300:440 overlap or restarts at an observed intermediate phase with a TCP pose/configuration offset but no known collision/contact failure. The object must be visible and the local correction must remain reachable. This policy is not a recovery guarantee.",
+      "evidence": [
+        {
+          "indices": [
+            300,
+            420,
+            440,
+            520,
+            540,
+            560,
+            600,
+            640,
+            680,
+            700,
+            780,
+            800,
+            820
+          ],
+          "trajectory_id": "demo12100"
+        },
+        {
+          "indices": [
+            300,
+            420,
+            440,
+            520,
+            540,
+            560,
+            600,
+            640,
+            680,
+            700,
+            780,
+            820
+          ],
+          "trajectory_id": "demo12101"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer is open/stable, block remains low in the tunnel, current TCP/configuration is finite and collision-free, gripper is open unless restarting after a plausible grasp, and two causal frames are available across a switch.",
+        "exit_conditions": "Block and TCP show coupled motion under closed fingers, block has cleared world z 0.16 outside the tunnel, and local corrections have turned toward the drawer destination.",
+        "failure_signatures": "Local increments drift away from object/destination, object does not follow a closed gripper, phase oscillates around closure/lift, block remains below clearance, or IK repeatedly fails/reaches limits.",
+        "overlap_role": "All 300:840 actions are supervised; 300:440 teaches continuation from predecessor retreat/approach states and 680:840 teaches continuation into successor clearance/reorientation/transfer states.",
+        "successor_readiness": "Switch when observed block/TCP coupling is stable, clearance is exceeded and the local motion points toward target_pose; the successor shares 680:840."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"object_pose_field\":{\"type\":\"string\",\"enum\":[\"object_pose\"]},\"destination_pose_field\":{\"type\":\"string\",\"enum\":[\"target_pose\"]},\"tunnel_clearance_m\":{\"type\":\"number\",\"minimum\":0.16,\"maximum\":0.16}},\"required\":[\"object_pose_field\",\"destination_pose_field\",\"tunnel_clearance_m\"]},\"parameter_semantics\":\"object_pose_field selects the observed block world pose used in causal relational inputs; destination_pose_field selects the observed destination world pose; tunnel_clearance_m is the 0.16 m world-z clearance used as a phase feature. The learned Cartesian displacement is always referenced to the freshly measured TCP, not supplied by HL.\"}",
+      "limitations": "Repeated local corrections can drift globally and a body delta is not invariant by construction to a large block displacement; the object-frame prior covers that case. It remains dependent on phase inference from only two frames and can be unsafe if contact/grasp status is misread; the destination-frame clearance-guarded prior is preferable when premature lateral transfer is the main risk. IK feasibility and collision freedom are not guaranteed. No contact truth or failed-grasp recovery appears in training.",
+      "pipeline_implications": "Inputs are two causal frames emphasizing qpos/qvel, world TCP, object/TCP transform, object/destination transform, finger width and clearance. Learned actions are 7-D: translation in the fresh current TCP frame (metres), relative rotation vector (radians), and gripper scalar. encode_targets forms inverse(pre-action measured TCP) times commanded FK pose per slot. decode_action composes the represented displacement with the newly measured TCP for that slot and calls verified IK from newly measured qpos. Standard DiffusionBackbone and fixed temporal/numerical recipe remain unchanged.",
+      "rationale": "Entry at 300 begins with the same nominal TCP in the inspected demonstrations, so deployment handoffs can be more variable than training. The assigned segment itself spans very different intermediate TCP/configuration states: high approach at 420, low alignment at 520:540, closed-gripper pull at 560:600, lift at 640:700, and reorientation/transfer at 780:820. Expressing every target as a fresh measured-TCP body displacement makes the commanded correction locally invariant to an offset entry TCP and avoids replaying a fixed world waypoint. Two causal frames and explicit object/TCP, destination/object, finger and clearance relations condition which correction is appropriate; measured qpos/qvel preserve redundancy, limits and reachability. Benefit for unseen handoff offsets is expected, because all demonstrations are successful nominal trajectories.",
+      "statement": "Fresh-TCP body-delta prior: diffuse each Cartesian command as an SE(3) displacement from the measured TCP immediately before that executed slot (body-frame translation, rotation vector, gripper). Prefer it for valid mid-skill restarts or predecessor handoffs whose arm/TCP configuration differs from the demonstrations while the block remains near demonstrated tunnel support.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12100\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full responsibility plus 300:440 predecessor and 680:840 successor overlap.\"},{\"trajectory_id\":\"demo12101\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full responsibility plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12102\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full responsibility plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12103\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full responsibility plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12104\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full responsibility plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12105\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full responsibility plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12106\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full responsibility plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12107\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full responsibility plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12108\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full responsibility plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12109\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full responsibility plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12110\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full responsibility plus both action-supervised overlaps.\"},{\"trajectory_id\":\"demo12111\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full responsibility plus both action-supervised overlaps.\"}]"
+    },
+    {
+      "applicability": "Prefer after approach when fingers are closing/closed and the agent is uncertain whether to keep extracting/lifting or begin transfer, provided object/world tunnel geometry is near training support and target_pose is the intended drawer destination. It is also valid from the shared 300:440 entry overlap, but its principal benefit is 540:840 ordering. Inputs must show finite object, TCP, finger and destination states.",
+      "evidence": [
+        {
+          "indices": [
+            520,
+            540,
+            560,
+            600,
+            620,
+            640,
+            680,
+            700,
+            780,
+            800,
+            820,
+            840
+          ],
+          "trajectory_id": "demo12100"
+        },
+        {
+          "indices": [
+            520,
+            540,
+            560,
+            600,
+            640,
+            680,
+            700,
+            780,
+            820,
+            840
+          ],
+          "trajectory_id": "demo12101"
+        }
+      ],
+      "handoff": {
+        "entry_conditions": "Drawer is open/stable; block is low in the tunnel; target_pose is the intended drawer destination; gripper is open at normal entry or closed only when TCP remains near a plausibly held block.",
+        "exit_conditions": "Observed object is outside the tunnel, above 0.16 m, moving with TCP under closed fingers, and destination-relative commands have begun transfer toward the open drawer.",
+        "failure_signatures": "Closed fingers without object/TCP coupling, guard repeatedly projecting requested +x motion while object remains low, object failing to rise, destination-relative drift, object drop, or persistent IK nonconvergence/limit contact.",
+        "overlap_role": "All actions 300:840 remain supervised. The 300:440 overlap supports starts during retreat/approach; 680:840 teaches the clearance/reorientation/transfer transition shared with placement.",
+        "successor_readiness": "Guard becomes inactive after observed clearance. Hand off during 680:840 once coupled object/TCP motion persists above clearance and destination-directed transfer has begun."
+      },
+      "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"object_pose_field\":{\"type\":\"string\",\"enum\":[\"object_pose\"]},\"destination_pose_field\":{\"type\":\"string\",\"enum\":[\"target_pose\"]},\"tunnel_clearance_m\":{\"type\":\"number\",\"minimum\":0.16,\"maximum\":0.16}},\"required\":[\"object_pose_field\",\"destination_pose_field\",\"tunnel_clearance_m\"]},\"parameter_semantics\":\"object_pose_field selects the observed manipulated block used for proximity, motion and clearance features; destination_pose_field selects the observed SE(3) frame for learned targets; tunnel_clearance_m is world z=0.16 m and enters both features and the conservative decoder guard. Bindings use object_pose, target_pose and 0.16.\"}",
+      "limitations": "The guard uses finger proximity/motion proxies because contact truth is unavailable; it can be fooled by a closed but empty gripper and cannot retry a failed grasp. It does not prove collision freedom or success. Destination anchoring is sensitive to large block displacement and changed tunnel pose; choose the object-frame prior for reliable displaced blocks. Absolute destination-frame targets can be brittle to unusual predecessor TCP configurations; choose the fresh-TCP delta prior for that case. The guard may reject a valid unseen maneuver that intentionally transfers below clearance.",
+      "pipeline_implications": "Inputs contain two causal frames of robot state, destination-relative and object-relative transforms, gripper width, object/TCP motion-coupling features, and signed tunnel/clearance margins. Learned actions are 10-D destination-frame translation (metres), destination-frame 6-D rotation, and gripper scalar. encode_targets composes inverse(pre-action target_pose) with commanded FK TCP. decode_action resolves the current target_pose, composes the world target, applies only the declared low-clearance guard, and calls verified IK from fresh qpos, reporting projection and IK diagnostics. The mature standard backbone and fixed recipe are unchanged.",
+      "rationale": "The successful sequence has a strict geometric ordering: align at low z near 0.089 (520:540), close and pull outward in -x while the object remains near z 0.08 (560:600), lift (620:700) past the 0.16 roof, then reorient and move toward the drawer (780:840). A two-frame input exposes finger width, object/TCP relative pose, object and TCP displacement coupling, tunnel margins and clearance margin rather than asking the backbone to infer all phase cues from raw state. Destination-relative absolute targets retain world tunnel/drawer structure and resist drift during the long transfer. The decoder guard only intervenes when fingers are closed, TCP is near the observed block, block z is below the supplied clearance, and a sample asks for premature +x drawer transfer; demonstrated low extraction is in -x, so labels remain valid. This aims at unsafe phase confusion, not failed-grasp recovery.",
+      "statement": "Destination-frame geometry and clearance prior: diffuse absolute TCP poses relative to target_pose, condition on explicit two-frame grasp/coupling and tunnel-margin features, and apply a narrow deterministic guard that forbids a closed-near-object command from transferring toward the drawer before the observed block clears z=0.16. Prefer it when closure/lift/transfer phase is ambiguous but block and tunnel remain near demonstrated world geometry.",
+      "training_bindings": "[{\"trajectory_id\":\"demo12100\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence; retain 300:440 and 680:840 action-supervised handoff overlap.\"},{\"trajectory_id\":\"demo12101\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12102\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12103\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12104\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12105\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12106\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12107\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12108\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12109\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12110\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"},{\"trajectory_id\":\"demo12111\",\"start\":300,\"stop\":840,\"context_start\":299,\"call_args\":{\"object_pose_field\":\"object_pose\",\"destination_pose_field\":\"target_pose\",\"tunnel_clearance_m\":0.16},\"rationale\":\"Full retrieve sequence and both overlaps.\"}]"
+    }
+  ],
+  "skill_id": "retrieve_tunnel_block"
+}

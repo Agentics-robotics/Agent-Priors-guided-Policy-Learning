@@ -1,0 +1,1854 @@
+{
+  "curves": [
+    {
+      "task": "pick-place-wall",
+      "split": "IID",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.45,
+        0.5,
+        0.95,
+        1.0
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "IID",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.85,
+        0.9,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "IID",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.5,
+        0.75,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "IID",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.8,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "IID",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.8,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "C",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.025,
+        0.44999999999999996,
+        0.325,
+        0.525
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "C",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.025,
+        0.05,
+        0.075,
+        0.075
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "C",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.15000000000000002,
+        0.4,
+        0.575,
+        0.85
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "C",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.75,
+        0.85,
+        0.875,
+        0.875
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "C",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.75,
+        0.875,
+        0.85,
+        0.875
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "E",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.0,
+        0.05,
+        0.15,
+        0.175
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "E",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.225,
+        0.25,
+        0.45,
+        0.45
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "E",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.2,
+        0.175,
+        0.5,
+        0.525
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "E",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.8,
+        0.625,
+        0.875,
+        0.9
+      ]
+    },
+    {
+      "task": "pick-place-wall",
+      "split": "E",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.8,
+        0.75,
+        0.9,
+        0.9
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "IID",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.65,
+        0.5,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "IID",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.6,
+        0.7,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "IID",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.55,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "IID",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.65,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "IID",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "C",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.2,
+        0.025,
+        0.0,
+        0.125
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "C",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.35,
+        0.1,
+        0.475,
+        0.5
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "C",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.425,
+        0.5,
+        0.5,
+        0.9
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "C",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.5,
+        0.525,
+        0.7749999999999999,
+        0.975
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "C",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "E",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.15000000000000002,
+        0.1,
+        0.3,
+        0.2
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "E",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.125,
+        0.175,
+        0.2,
+        0.225
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "E",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.25,
+        0.3,
+        0.25,
+        0.3
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "E",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.5,
+        0.3,
+        0.325,
+        0.5
+      ]
+    },
+    {
+      "task": "assembly",
+      "split": "E",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.45,
+        0.875,
+        0.45,
+        0.675
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "IID",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.75,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "IID",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "IID",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "IID",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "IID",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "C",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.525,
+        0.675,
+        0.7,
+        0.825
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "C",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.7,
+        0.975,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "C",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "C",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "C",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "E",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "E",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.0,
+        0.0,
+        0.175,
+        0.0
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "E",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.5,
+        0.25,
+        0.575,
+        0.4
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "E",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.5,
+        0.725,
+        1.0,
+        0.725
+      ]
+    },
+    {
+      "task": "drawer",
+      "split": "E",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        0.975,
+        1.0,
+        0.95
+      ]
+    },
+    {
+      "task": "door",
+      "split": "IID",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "IID",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "IID",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "IID",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "IID",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "C",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "C",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "C",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "C",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "C",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "E",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "E",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "E",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "E",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "door",
+      "split": "E",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        0.925
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "IID",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.55,
+        0.95,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "IID",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.7,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "IID",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "IID",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "IID",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "C",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.075,
+        0.19999999999999998,
+        0.375,
+        0.675
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "C",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.175,
+        0.125,
+        0.425,
+        1.0
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "C",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.0,
+        0.5,
+        0.775,
+        0.975
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "C",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        0.95
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "C",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "E",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.0,
+        0.4,
+        0.375,
+        0.4
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "E",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.25,
+        0.475,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "E",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.5,
+        0.5,
+        0.625,
+        0.5
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "E",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.55,
+        0.75,
+        1.0,
+        0.75
+      ]
+    },
+    {
+      "task": "peg-insert-side",
+      "split": "E",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.75,
+        0.75,
+        1.0,
+        0.85
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "IID",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "IID",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "IID",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "IID",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "IID",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "C",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.975,
+        0.975,
+        0.875,
+        0.925
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "C",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "C",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "C",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "C",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "E",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.525,
+        0.6000000000000001,
+        0.5249999999999999,
+        0.75
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "E",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.7,
+        0.975,
+        0.975,
+        1.0
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "E",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.7000000000000001,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "E",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "stick-push",
+      "split": "E",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "IID",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.7333333333333334,
+        0.8250000000000001,
+        0.9750000000000001,
+        1.0
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "IID",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.8583333333333334,
+        0.9333333333333332,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "IID",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.8416666666666667,
+        0.9583333333333334,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "IID",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.9083333333333333,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "IID",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.9666666666666667,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "C",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.4666666666666666,
+        0.5541666666666667,
+        0.5458333333333333,
+        0.6791666666666667
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "C",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.5416666666666666,
+        0.5416666666666666,
+        0.6625,
+        0.7625000000000001
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "C",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.5958333333333333,
+        0.7333333333333334,
+        0.8083333333333332,
+        0.9541666666666666
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "C",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.875,
+        0.8958333333333334,
+        0.9416666666666668,
+        0.9666666666666667
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "C",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.9583333333333334,
+        0.9791666666666666,
+        0.975,
+        0.9791666666666666
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "E",
+      "system": "B0_vanilla_dp",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.1125,
+        0.19166666666666668,
+        0.22499999999999998,
+        0.25416666666666665
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "E",
+      "system": "B1_rule_prior",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.21666666666666665,
+        0.3125,
+        0.3833333333333333,
+        0.3625
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "E",
+      "system": "API_q1",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.525,
+        0.5375,
+        0.6583333333333333,
+        0.6208333333333333
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "E",
+      "system": "API_q3",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.725,
+        0.7333333333333334,
+        0.8666666666666667,
+        0.8125
+      ]
+    },
+    {
+      "task": "six_task_macro",
+      "split": "E",
+      "system": "API_q4",
+      "n": [
+        2,
+        5,
+        10,
+        20
+      ],
+      "success_rates": [
+        0.8333333333333334,
+        0.8916666666666666,
+        0.8916666666666666,
+        0.8833333333333333
+      ]
+    }
+  ],
+  "revision_test_OOD_pp": [
+    0.0,
+    7.499999999999996,
+    0.0,
+    0.0,
+    22.499999999999996,
+    52.5,
+    17.500000000000004,
+    9.999999999999998,
+    25.0,
+    12.5,
+    0.0,
+    11.249999999999993,
+    0.0,
+    0.0,
+    0.0,
+    -3.749999999999998,
+    9.999999999999998,
+    0.0,
+    0.0,
+    7.500000000000007,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "task_tier_q4_minus_B1_test_OOD_pp": [
+    [
+      65.0,
+      66.25,
+      61.25000000000001,
+      62.5
+    ],
+    [
+      48.75,
+      80.0,
+      38.74999999999999,
+      47.5
+    ],
+    [
+      65.0,
+      50.0,
+      41.25,
+      47.5
+    ],
+    [
+      50.0,
+      50.0,
+      50.0,
+      46.25
+    ],
+    [
+      66.25,
+      57.49999999999999,
+      53.75,
+      17.500000000000004
+    ],
+    [
+      15.000000000000002,
+      1.2499999999999956,
+      1.2499999999999956,
+      0.0
+    ]
+  ],
+  "aggregation": "C/E equal weighting; six-task macro requires all six tasks; no imputation of missing measurements"
+}

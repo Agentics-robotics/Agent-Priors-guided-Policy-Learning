@@ -1,0 +1,14 @@
+{
+  "policy_id": "retrieve_tunnel_block__h03",
+  "entry_conditions": "Drawer is open and stable; block is low in the tunnel; target_pose is the intended drawer destination; gripper is open at normal entry or closed only when TCP remains near a plausibly held block.",
+  "exit_conditions": "Observed object is outside the tunnel, above world z 0.16 m, moving with TCP under closed fingers, and destination-relative commands have begun transfer toward the open drawer.",
+  "overlap_role": "All actions 300:840 remain supervised. The 300:440 overlap supports starts during retreat/approach; 680:840 covers clearance, reorientation and transfer shared with placement.",
+  "successor_readiness": "The guard is inactive after observed clearance. Hand off during 680:840 once object/TCP coupling persists above 0.16 m and destination-directed transfer has begun; closed fingers alone are insufficient.",
+  "failure_signatures": "Closed fingers without object/TCP coupling, guard repeatedly projecting requested +x motion while the block remains low, failure to rise, object drop, destination drift, or persistent IK nonconvergence/limits.",
+  "continuation_guidance": "Continue low negative-x extraction and lift before destination transfer. If the block itself is reliably displaced, prefer h01; if a valid unusual predecessor TCP is the main issue, prefer h02.",
+  "limitations": "No contact truth or demonstrated retry supports failed-grasp recovery. The conservative guard is proxy-based, does not prove collision freedom, and may reject an unseen but valid below-clearance maneuver.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[520,540,560,600,620,640,680,700,780,800,820,840]},
+    {"trajectory_id":"demo12101","indices":[520,540,560,600,640,680,700,780,820,840]}
+  ]
+}

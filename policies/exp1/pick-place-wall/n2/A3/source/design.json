@@ -1,0 +1,44 @@
+{
+  "title": "Typed shared-edge encoder with joint action and motion diffusion",
+  "coverage_gap": "Two short successful episodes couple object_x and goal_x and do not identify all causal stage transitions from raw marginals. The same nearby hand-object configuration can occur while approaching or lifting, and the dataset has little lateral goal-relative action variation. There is enough within-episode motion to supervise whether hand and object move together, without acquiring extra demonstrations.",
+  "reusable_regularity": "A shared small MLP encodes four typed directed relations separately: hand-to-object, object-to-goal, hand-to-wall, object-to-wall. It sees relative displacement, distance, relative motion, aperture and native obstacle clearances. The acquisition edge has no goal endpoint; the transport edge explicitly uses the independent current goal. Concatenated role-specific embeddings let the single DP compose these relations. Jointly diffusing future hand displacement, object displacement and aperture with action4 encourages a latent contact/motion structure without hand-written stage gates. It is a learned relational and predictive-supervision prior, not the action chart of A2 or the fixed feature-only policy of A1.",
+  "dependencies_preserved": [
+    "31 ungated metric bypass channels retain world wall center, size, hand/object/goal wall-relative positions, both object xyzw quaternions, current/previous aperture and hand/object increments. All relevant current/previous physical poses remain reconstructible; only absent object2 channels are omitted.",
+    "The edge coordinates and actions remain in native world axes. World gravity, finite wall dimensions, signed native box-face offsets and top clearances remain explicit. No obstacle-independent rotational or reflection invariance is assumed.",
+    "The four edge roles remain distinct after a weight-shared encoder, rather than being pooled into an unordered average. The common U-Net learns their interactions and temporal behavior.",
+    "Inference condition receives only raw causal history. Auxiliary future channels are jointly generated diffusion variables, never future observations supplied to the inference condition. No predicted trajectory is passed to a planner or analytic controller; auxiliary channels are discarded by the public action decoder path."
+  ],
+  "evidence_refs": [
+    "bundle.json: current D_2 membership only",
+    "task_materials.json: native observation slices, object2 absence, native world action4 semantics, training/C/E factor splits",
+    "support_summary.json: 163 transitions; initial object-to-goal vectors and action marginal variability",
+    "trajectories/demo_00.json: obs rows 0-7 and 23-30 demonstrate stationary object during approach then object motion as the hand closes and lifts; actions rows 0-78 show multiple motion regimes",
+    "trajectories/demo_00.json: obs rows 48-51 show hand/object co-motion approaching the transport transition",
+    "trajectories/demo_01.json: obs rows 47-52 show simultaneous hand and object lift with nearly fixed separation",
+    "images/frame_00_demo_00_step_000.png",
+    "images/frame_03_demo_00_step_033.png",
+    "images/frame_04_demo_00_step_044.png",
+    "images/frame_06_demo_00_step_066.png",
+    "images/frame_15_demo_01_step_084.png",
+    "PUBLIC_CONTRACT.md, contracts.py, learning.py, diffusion_policy.py, language_policy.json and training_recipe.json"
+  ],
+  "expected_failure_signature": "If extra predicted-motion channels mostly memorize the two trajectories, the model may produce plausible lifts without the required lateral goal correction on C/E. If the auxiliary objective competes with action precision, grasp timing or closing may degrade despite plausible hand/object co-motion predictions. A learned encoder may overfit aperture or orientation traces rather than actual contact. These signatures are hypotheses, not observed outcomes.",
+  "required_runtime_fields": {
+    "input": "causal_context.raw_history [B,2,45], using hand 0:3 and 18:21, aperture 3:4 and 21:22, object 4:7 and 22:25, xyzw quaternions 7:11 and 25:29, goal 36:39, wall center 39:42 and wall half size 42:45",
+    "conditioning": "127 dimensions per observation: four 24-dimensional learned edge embeddings plus a 31-dimensional metric bypass. Each edge starts with 24 deterministic values including its four-way role. Shared MLP 24->64->24 with SiLU and LayerNorm. Every learned module is registered only in build_modules and participates in the joint optimizer loss.",
+    "action_frame": "Identity native world action4 is the first four diffusion channels. World xyz is measured in native 0.01 m/action units; gripper is unchanged. Host alone clips the decoded native cube and executes the fixed four-step prefix.",
+    "deployment_state": "No fitted statistics, label caches or training episode data are retained. The edge-role identity matrix is a registered checkpoint buffer. Common normalizer and optimizer settings are untouched; representation uses physical scales rather than support marginal normalization."
+  },
+  "training_only_targets": [
+    {
+      "name": "future_motion",
+      "source": "Only exact D_N support episodes passed to training_targets. For window (episode,t), valid step k uses obs[t+k+1,0:3], obs[t+k+1,4:7], obs[t+k+1,3] and chunk-start obs[t]. No reward, success, expert source or environment internals.",
+      "shape": "[windows,16,7]",
+      "meaning": "First three channels: future hand minus chunk-start hand in world meters / 0.10. Next three: future object minus chunk-start object / 0.10. Last: 2*(future aperture-0.5). Invalid padded future slots are zeros, not repeated terminal truth.",
+      "use": "Appended after unmodified encoded action4, producing diffusion_action_dim=11. Host-owned diffusion noise and the single common U-Net jointly model all channels. During inference all eleven channels are sampled/denoised without any future label lookup; only the first four are decoded as actions.",
+      "loss": "Additional 0.20 times auxiliary epsilon squared error, multiplied by the common valid transition mask and divided by 7*mask.sum() (safe denominator floor 1 for an empty mask). This normalization is separate from, and cannot change, the public weight-1 action epsilon loss denominator 4*mask.sum()."
+    }
+  ],
+  "parents": [],
+  "change_summary": "Initial pre-feedback design. Introduces weight-shared learned typed-edge embeddings and seven joint motion/aperture diffusion channels with a separately normalized nonnegative auxiliary loss. Keeps native action frame, one unmodified factory U-Net, fixed action loss, history/horizon/execution prefix and all common training budgets. No explicit phase thresholds, support fitting, action prior controller, planner, pretrained encoder or extra demonstrations."
+}

@@ -1,0 +1,53 @@
+[workspace]
+name = "appl-exp2"
+version = "0.1.0"
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = "3.11.*"
+
+[pypi-dependencies]
+agent-priors-policy-learning = { path = "../..", editable = true }
+pydantic = "==2.11.7"
+jsonschema = "==4.25.1"
+pytest = "==8.4.1"
+pillow = "==11.3.0"
+mujoco = "==3.3.0"
+viser = "==1.0.0"
+h5py = "==3.14.0"
+
+[feature.maniskill.pypi-dependencies]
+torch = "==2.14.0"
+mani-skill = "==3.0.1"
+diffusers = "==0.35.1"
+einops = "==0.8.1"
+numpy = "==1.26.4"
+opencv-python = "==4.11.0.86"
+
+[feature.numpy2.pypi-dependencies]
+numpy = "==2.2.6"
+
+[feature.format.pypi-dependencies]
+ruff = "==0.12.12"
+
+[activation.env]
+PYTHONPATH = "$PIXI_PROJECT_ROOT/../../src"
+PYTHONNOUSERSITE = "1"
+PYTHONDONTWRITEBYTECODE = "1"
+OMP_NUM_THREADS = "1"
+OPENBLAS_NUM_THREADS = "1"
+MKL_NUM_THREADS = "1"
+MUJOCO_GL = "egl"
+
+[tasks]
+exp2 = "python -m appl"
+test = "python -m pytest -q ../../tests/exp2 ../../tests/release"
+verify = "python -m appl_release verify"
+audit = "python -m appl_release audit"
+tables = "python -m appl_release tables"
+
+[environments]
+default = { features = ["maniskill"] }
+maniskill = { features = ["maniskill"] }
+format = { features = ["numpy2", "format"] }

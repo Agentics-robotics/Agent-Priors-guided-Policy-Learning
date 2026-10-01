@@ -1,0 +1,118 @@
+{
+  "checkpoint": "weights/exp2/drawer_exchange/blue_insert__h04/model.pt",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "be09ae8c6c72bb305841e7f7f37663c92f1aece65e3cc26f611595d51918b402",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 7,
+    "physical_gpu": 5,
+    "uuid": "GPU-13ce441a-9b9f-d327-08cf-e7e9f728b580"
+  },
+  "effective_action_targets": 40376986,
+  "final_weights_sha256": "7e21010cd27adcc866e2b306b1c622a7a95c7142dcb4143d976c154c829a114d",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.563053846359253,
+      "step": 1
+    },
+    {
+      "l2_norm": 3.52656888961792,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.853323221206665,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.26671984791755676,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "654789e6a881f54d9c9ec13948d5c53d18704363b6d542ff0d6bdae963225ec4",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 5609,
+      "duplicated_actions": 0,
+      "unique_actions": 5609
+    },
+    "contract": {
+      "action_dimension": 11,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "destination_field": {
+            "enum": [
+              "blue_goal"
+            ],
+            "type": "string"
+          },
+          "source_object": {
+            "enum": [
+              "blue"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_object",
+          "destination_field"
+        ],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For encoded labels, clipped progress plus residual reconstructs the demonstrated commanded world TCP position exactly, including the near-coincident endpoint convention. Compare decoded FK position in metres, rotation angle in radians and gripper scalar to that commanded target. Joint nonuniqueness is allowed; sampled alpha is projected to [0,1] and sampled 6-D rotation to SO(3).",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Covers every action in all twelve assigned [600,stop) segments without trimming. It preserves the complete 250-action [600,850) overlap per trajectory with red_transfer, totaling 3,000 supervised overlap actions through red release, transit, blue approach, closure and lift.",
+      "input_shapes": {
+        "features": [
+          2,
+          53
+        ]
+      },
+      "observation_dependencies": [
+        "qpos",
+        "qvel",
+        "tcp_pose",
+        "red_pose",
+        "blue_pose",
+        "drawer_position",
+        "drawer_velocity",
+        "red_goal",
+        "blue_goal"
+      ],
+      "output_semantics": "Each unnormalized slot is [alpha, residual_x_m, residual_y_m, residual_z_m, world_rotation_6d(6), gripper]. At chunk sampling, b is the selected causal blue position and g is blue_goal. The world TCP position is b + clip(alpha,0,1)*(g-b) + residual. Label alpha is the clipped 3-D orthogonal projection of the demonstrated commanded TCP position onto the b-to-g segment; when squared endpoint separation is at most 1e-4 m^2, alpha is defined as 1. Rotation is world aligned and projected from 6-D to SO(3). Gripper retains demonstrated scalar/sign semantics. Slot 0 is t-1 and execution uses slots 1..8 for t..t+7. decode_action calls panda_kinematics.solve_ik from freshly measured joints.",
+      "parameter_semantics": "source_object selects the causally observed blue_pose position b in world metres; destination_field selects the calibrated blue_goal position g in world metres. The selected endpoints are resolved and frozen at each chunk replan. They are semantic frame selectors, not arbitrary coordinates or actuator commands.",
+      "policy_id": "blue_insert__h04",
+      "skill_id": "blue_insert",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "a3db444e8bf9a173b6ed5f47bb77018a475f205f192bde70b23030fde96413c2",
+    "PRIOR.md": "f561399454a51516f4f31fc320e4a4d988ebac074948b978b1eab180c338374d",
+    "adapters.py": "d995f05136932e0d225c2ddcef18a4c3d1c317a9baae5e77dc739eb9dfcf6f70",
+    "panda_kinematics.py": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "panda_posture.py": "1450a8844f9a774005a35f8fa7b51125943c61cae91474ee9daafbda00ec04ff",
+    "pipeline.json": "d24f8d040329ea019d4f289b4b59076200ec83d6dfff090d4234ebb0ae625651",
+    "policy.py": "6b26bf61b6423d1fc31c4d5f2676d40d39ec87ff3e861cea8f5cff46ff2140f9",
+    "policy_contract.json": "1649907e1e61f840bc959a686dfb6d70a0349b847d5d3dbb2aa8ff62d52488d1",
+    "training_bindings.json": "9284f3060af967fc8e45fcce38d3b8f1dc5415e29c0f46972a902b47317dfbbb"
+  },
+  "trainable_parameters": 17087115,
+  "training_elapsed_seconds": 527.0643579589669,
+  "weight_l2_change": 31.020383792659494
+}

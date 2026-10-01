@@ -1,0 +1,12 @@
+{
+  "representation": "causal_soft_phase_factorized_encoders",
+  "branch_width": 24,
+  "branch_hidden": 64,
+  "router_hidden": 48,
+  "gate_floor": 0.1,
+  "stage_loss_weight": 0.05,
+  "condition_dim": 133,
+  "action_frame": "identity_native_world",
+  "phase_labels": "training_only_action_change_points",
+  "support_fit_statistics": "none"
+}

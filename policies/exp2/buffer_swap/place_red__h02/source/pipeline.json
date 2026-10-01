@@ -1,0 +1,10 @@
+{
+  "policy_id": "place_red__h02",
+  "skill_id": "place_red",
+  "heuristic_index": 2,
+  "prior_summary": "Destination-anchored Cartesian targets subtract the observed red_goal translation, making red carry, lowering, release and retreat translation-equivariant to destination displacement.",
+  "applicable_conditions": "Prefer once red is plausibly attached/lifted or when observed red_goal translation is the dominant variation and the source-to-goal path remains reachable. The complete early entry is trained, but strong unheld-source displacement favors the object-equivariant policy.",
+  "termination_guidance": "Use only red_at_goal AND blue_at_goal. Open gripper and a high retreated TCP describe demonstrated terminal continuation, not additional predicates.",
+  "limitations": "Destination anchoring does not solve source displacement, missed grasp, slip, unstable blue, collision or unreachable translated goals. Goal rotation is unavailable and world orientation is retained; early blue actions rely on learned conditioning.",
+  "config": {"backbone":"standard_diffusion_backbone","feature_dimension":62,"action_dimension":10,"reference_frame":"observed_red_goal_translation","rotation":"world_6d","auxiliary_loss":false}
+}

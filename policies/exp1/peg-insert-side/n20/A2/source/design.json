@@ -1,0 +1,48 @@
+{
+  "title": "Causal role-sharing encoder with softly supervised control phases",
+  "coverage_gap": "Only diagonal LL/HH demonstrations couple peg and box positions. A monolithic representation can use box_y as a proxy for where to grasp and peg_y as a proxy for where to transport. Acquisition and insertion also occupy different observation/action regimes despite continuous raw coordinates.",
+  "reusable_regularity": "One learned edge encoder is shared between hand-to-pegGrasp and pegHead-to-goal relations, with explicit role tags. A small causal four-phase classifier softly gates the two relation embeddings and their direct metric errors. It learns open approach, closure, transport and lateral/vertical alignment proxies from the same demonstrations. A separate world encoder and direct world skips preserve constraints outside local relations. This is a learned conditional representation, not an expert switch or multi-policy controller: all actions still come from one common action4 diffusion U-Net.",
+  "dependencies_preserved": [
+    "World hand and goal positions remain direct conditioning channels as well as inputs to the world encoder; box placement, robot workspace and gravity are retained.",
+    "No coordinate rotation is imposed: signed xyz edge vectors, source/target heights and yz alignment preserve the fixed insertion axis.",
+    "Both role streams remain nonzero (gate floor 0.15), including during uncertain closure, so box/obstacle context is not removed in an early stage.",
+    "Aperture and previous aperture, current/previous xyzw object quaternions, observed hand/peg displacements and the head-grasp offset retain temporal/contact/tool dependencies. Carry-edge source motion uses pegGrasp displacement as a translation proxy; the two actual pegHead history positions and orientation information remain in conditioning through the two relation inputs.",
+    "Object2 is omitted because the public schema declares it absent. There is no inferred box simulator state or runtime contact flag."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Exact N20 source boundary, with no other support or evaluation states."},
+    {"path": "task_materials.json", "use": "LL/HH versus C/E coverage, world action/control semantics, site names and state slices."},
+    {"path": "support_summary.json", "use": "10 LL/10 HH support; inspected episode summaries show aperture minima around 0.293 and gripper action extremes -1 and +0.6."},
+    {"path": "images/frame_01_demo_01_step_032.png", "use": "Actual frame shows the gripper approaching the peg away from the box."},
+    {"path": "images/frame_02_demo_02_step_050.png", "use": "Actual frame shows the low acquisition configuration, distinct from insertion."},
+    {"path": "images/frame_11_demo_14_step_046.png", "use": "Another actual support frame shows the gripper at the tabletop peg."},
+    {"path": "images/frame_15_demo_19_step_077.png", "use": "Actual support frame shows the peg held near the side opening."},
+    {"path": "trajectories/demo_00.json", "rows": "obs 40:52,60:69; actions 34:59,59:77", "use": "Aperture declines from 0.825 at t40 to 0.346 at t51; transport actions begin near t51, followed by yz alignment. This motivates a coarse 0.36 aperture proxy, not a contact/success threshold."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 0:3", "use": "Different hand-to-peg lateral relation in HH despite the same reset hand."},
+    {"path": "contracts.py", "scope": "public", "use": "Learned modules in build_modules; future/label isolation and auxiliary interface."},
+    {"path": "learning.py", "scope": "public", "use": "Training-only named targets, current-window mask and unchanged action epsilon objective."}
+  ],
+  "expected_failure_signature": [
+    "If aperture is an unreliable holding proxy off support, predicted carry probability may rise for an empty grasp; expected result is transport without the peg or a premature retreat from acquisition.",
+    "If the learned phase classifier uses correlated goal position instead of local closure geometry, closure timing will change across C cells even at a similar hand-to-peg state.",
+    "The soft gate may still blend acquisition and transport near a transition; early box motion or delayed insertion is the falsifiable boundary failure.",
+    "World skips deliberately prevent false invariance but can retain layout shortcuts. Edge-weight sharing may underfit the role-specific distinction between grasp approach and side insertion."
+  ],
+  "required_runtime_fields": {
+    "raw_history": "[B,2,42] causal_context raw_history. Each row uses hand 0:3, aperture 3:4, pegGrasp 4:7, quaternion xyzw 7:11, previous hand 18:21, previous aperture 21:22, previous pegGrasp 22:25, previous quaternion 25:29, goal 36:39 and pegHead 39:42.",
+    "causal_stage": "All four logits and probabilities are predicted solely from each causal observation's geometry, finite differences and aperture. No labels, episode ID, time index, masks or future states enter condition/denoise.",
+    "action_semantics": "Identity encode/decode: world dx/dy/dz with 0.01 m native scale plus untouched scalar gripper; public clipping and four-of-sixteen execution only.",
+    "normalization": "Fixed 0.1 m relation/height and 0.5 m world scales; displacements divided by native 0.01 m. No support-fitted deployment state or weights outside the joint optimizer."
+  },
+  "training_only_targets": [
+    {
+      "name": "control_phase",
+      "source": "For each (episode,t) from exact D_N, native actions[t,3] and obs[t] only: class0 if gripper command<0; otherwise class1 if aperture>0.36; otherwise class2 if norm(goal_yz-pegHead_yz)>0.035 m; otherwise class3. These are coarse control-phase proxy labels, not successful-contact or evaluator-success ground truth.",
+      "shape": "One integer label per chunk-start window.",
+      "loss": "0.15 times cross entropy on predicted current-observation phase logits, reduction none, multiplied by batch mask[:,0], divided by its valid-start sum clamped to one. Nonnegative and separately normalized. No new loss on the action predictions and no action reweighting.",
+      "inference": "No label cache and no training mask at runtime; predicted phases alone condition the DP."
+    }
+  ],
+  "parents": [],
+  "change_summary": "Initial independent scientific design: shared 21->64->32 relation MLP, 18->48->16 world MLP, 21->48->4 causal phase MLP, 119-dimensional per-observation conditioning and one unchanged common action4 U-Net. Add only masked phase cross entropy; common epsilon action loss remains weight 1 / (mask.sum()*4). No structural repairs or performance feedback at authoring."
+}

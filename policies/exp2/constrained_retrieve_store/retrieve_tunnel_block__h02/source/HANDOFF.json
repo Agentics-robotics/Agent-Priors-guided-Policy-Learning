@@ -1,0 +1,14 @@
+{
+  "policy_id": "retrieve_tunnel_block__h02",
+  "entry_conditions": "Drawer is open and stable, block remains low in a valid tunnel pose, current TCP/configuration is finite and collision-free, gripper is open unless restarting after a plausible grasp, and two causal frames persist across the policy switch.",
+  "exit_conditions": "Closed fingers remain near the block, object and TCP show coupled motion, object is outside the tunnel above world z 0.16 m, and local body-frame corrections have turned toward the drawer destination.",
+  "overlap_role": "The complete 300:840 segment is supervised. Actions 300:440 teach continuation from predecessor retreat/approach; 680:840 teach clearance, reorientation and transfer shared with placement.",
+  "successor_readiness": "Switch in the shared tail after persistent observed object/TCP coupling, clearance above 0.16 m and destination-directed motion. A closed command by itself is not sufficient.",
+  "failure_signatures": "Local corrections drift away from object or destination, object fails to follow closed fingers, phase oscillates near closure/lift, object remains low, or IK repeatedly reports nonconvergence or limits.",
+  "continuation_guidance": "Resolve every action against the fresh TCP rather than accumulating predicted deltas. Prefer h01 if reliable block displacement is the principal variation; prefer h03 if premature low transfer is the dominant concern.",
+  "limitations": "The successful demonstrations do not show unusual handoffs or recovery, so handoff robustness is expected rather than established. No contact truth, collision checker or failed-grasp retry is available.",
+  "evidence": [
+    {"trajectory_id":"demo12100","indices":[300,420,440,520,540,560,600,640,680,700,780,800,820]},
+    {"trajectory_id":"demo12101","indices":[300,420,440,520,540,560,600,640,680,700,780,820]}
+  ]
+}

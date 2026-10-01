@@ -1,0 +1,36 @@
+{
+  "title": "Chunk-fixed tool-axis action and effect diffusion",
+  "coverage_gap": "D5 has correlated initial stick x and goal y and only successful short acquisition-to-push sequences. It contains no examples of recovery after losing the tool, and few transitions where the pushed object actually begins to move. Action-only imitation does not explicitly require representing which bodies should move together.",
+  "reusable_regularity": "Jointly denoise native action4 and ten motion-effect channels: cumulative displacements of the hand, stick, and pushed-object observation point, plus aperture change, relative to the chunk start. This encourages the one denoiser to model the changing coupling of robot, carried tool, and pushed object. Express vector channels in a single causal horizontal tool-axis frame for each chunk, while retaining world position, orientation and vertical geometry in conditioning. The generated effects are not used for planning or action correction.",
+  "dependencies_preserved": [
+    "The frame is computed only from raw_current[7:11], the observed stick xyzw quaternion. Its body x axis is projected into world xy and normalized; a degenerate horizontal projection falls back to the world axes. World z is unchanged. All sixteen action/effect timesteps use the exact same chunk-start basis.",
+    "Action xyz is an orthogonal coordinate change in native action units, with no origin subtraction, rescaling, clipping, or gripper rotation. Decode uses the inverse rotation and the host alone clips in the native cube. Thus this does not presume that rotation of the whole task preserves robot or collision behavior.",
+    "The 58D condition includes local hand-stick, stick-object2, and object2-goal vectors for current and previous native poses, both quaternions and apertures, all three observed motions, explicit heights, world stick positions relative to a restored fixed world origin, and the frame cos/sin. Original physical point positions are recoverable. Absolute robot/table dependencies are retained rather than discarded under a symmetry claim.",
+    "Effect sources use exactly object_xyz (stick COM) and object2_xyz (declared insertion-site offset), not hidden contact sites. No simulator body state, contact flag, planner or runtime oracle is requested."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "detail": "Only this exact five-episode support can supply effect targets."},
+    {"path": "task_materials.json", "detail": "xyzw stick orientation, fixed native hand orientation, world action .01m units, goal and object2 source conventions."},
+    {"path": "support_summary.json", "detail": "LL=3/HH=2, stick orientations near identity, object2 initially fixed and displaced late in each support episode. Action y is much smaller than x/z."},
+    {"path": "trajectories/demo_00.json", "detail": "Read obs 0:4 (stick and object2 nearly stationary), 23:29 (hand descends and stick begins responding), 48:52 (hand/stick move together while object2 stays fixed), 72:75 (object2 x increases). These motivate distinct motion channels instead of a single progress target."},
+    {"path": "images/frame_00_demo_00_step_000.png", "detail": "Initial tabletop tool and pushed assembly."},
+    {"path": "images/frame_01_demo_00_step_025.png", "detail": "Tool acquisition posture."},
+    {"path": "images/frame_02_demo_00_step_050.png", "detail": "Lifted tool posture prior to the late object translation."},
+    {"path": "images/frame_03_demo_00_step_075.png", "detail": "Translated pushed assembly, consistent with numeric object2 motion."},
+    {"path": "PUBLIC_CONTRACT.md", "detail": "Joint diffusion may append auxiliary channels while retaining encoded native action4 first."},
+    {"path": "learning.py", "detail": "Host separates fixed action epsilon loss from auxiliary loss, and deployment jointly samples all channels but decodes only the first four."}
+  ],
+  "expected_failure_signature": [
+    "If the auxiliary predicts demonstration-time motion rather than physical coupling, the model can generate plausible tool effects even after a missed grasp and continue pushing without the tool. Generated effects are not a verified dynamics model.",
+    "Ten extra noisy channels may dilute the action-learning signal at a fixed update budget. A failure would appear as broadly worse action precision or noisier gripper/vertical motion, not necessarily a specific layout cell.",
+    "The tool frame may help small orientation changes but has little orientation coverage in these demonstrations. Near-vertical tools trigger the documented basis fallback, which can cause discontinuity; large departures from support remain untested.",
+    "Late pushed-object motion is sparse, so the joint model may over-predict stationary object2 effects or delay forward transfer. These are prospective signatures, not measured results."
+  ],
+  "required_runtime_fields": {"raw_history": "[B,2,39], all declared causal pose/aperture/goal fields", "raw_current": "Observed current stick quaternion defines the one horizontal chunk frame", "support_fit_state": "Mean initial object2_xyz from D5 as fixed world origin; JSON-restored, no trajectories cached", "action_frame": "Encode [c*dx+s*dy, -s*dx+c*dy, dz, gripper]; decode [c*ux-s*uy, s*ux+c*uy, uz, gripper]. c/s from observed chunk-start stick body x projection. No local clipping; host native-world clipping only, horizon16/executed4."},
+  "training_only_targets": [
+    {"name": "effect_world", "source": "For support window (episode,t), obs[t+k+1] minus obs[t] in hand_xyz[0:3], stick_xyz[4:7], object2_xyz[11:14] and aperture[3:4] for valid k=0..15. Terminal obs[T] is used only for the valid final transition; padding is zero and masked out.", "shape": "[windows,16,10]", "diffusion_mapping": "First nine channels rotated in groups of three into the causal chunk-start horizontal tool frame and divided by .10m; aperture difference divided by .50. Appended after the exact encoded action4. No target-dependent frame.", "loss": "0.15 * sum(mask[...,None]*(epsilon_aux-noise_aux)^2)/(mask.sum()*10), denominator floor 1. Common action epsilon loss remains weight 1 with mask.sum()*4, unaffected by the auxiliary channel count.", "inference": "No future state is read. Host starts all fourteen channels from diffusion noise, jointly denoises them, discards generated effect channels, and decodes only action4."
+    }
+  ],
+  "parents": [],
+  "change_summary": ["Initial A3: one 14-channel common U-Net with explicit action/effect joint diffusion, a 58D causal metric tool-frame condition, and invertible planar action encoding. No stage encoder or phase labels; no performance feedback informed this design."]
+}

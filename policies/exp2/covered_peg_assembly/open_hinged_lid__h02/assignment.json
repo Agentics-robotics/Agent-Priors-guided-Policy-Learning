@@ -1,0 +1,160 @@
+{
+  "dataset": "assets/exp2/datasets/covered_peg_assembly/open_hinged_lid/dataset.json",
+  "dataset_sha256": "c7c17259f27d4ae8df2c1e98a410490e4a888dda468b77c2c6760a70b5d082d1",
+  "experiment_version": "APPL_v4_cartesian_new_task",
+  "heuristic": {
+    "applicability": "Prefer for entries or replans whose measured TCP/joints differ from the demonstrated nominal path, including takeover at a partly open lid, provided the current relative correction remains locally reachable and the observed lid/handle relation still identifies the intended phase.",
+    "evidence": [
+      {
+        "indices": [
+          0,
+          100,
+          180,
+          200,
+          220,
+          260,
+          300,
+          500,
+          700,
+          740,
+          760,
+          780,
+          800,
+          820,
+          860,
+          900,
+          949
+        ],
+        "trajectory_id": "demo12200"
+      },
+      {
+        "indices": [
+          180,
+          220,
+          300,
+          620,
+          740,
+          760,
+          800,
+          820,
+          900,
+          949
+        ],
+        "trajectory_id": "demo12208"
+      }
+    ],
+    "handoff": {
+      "entry_conditions": "TCP may be off the nominal world path but must be collision-free, with valid two-frame measured TCP, qpos/qvel and lid observations. The lid can be closed or partly open; no recovery from a lost grasp is established.",
+      "exit_conditions": "Fingers are open, TCP has accumulated a clear retreat from the lid, lid is stably open and peg remains stationary.",
+      "failure_signatures": "Incremental commands shrink to ineffective motion, orientation increments oscillate, IK repeatedly fails, the gripper closes away from the handle, or lid motion is not synchronized with commanded pull.",
+      "overlap_role": "All [740,950) actions remain supervised. Relative increments cover release at about 760 and the subsequent retreat, providing the same 210-action overlap with retrieve_peg_from_box.",
+      "successor_readiness": "Hand off after the incremental policy has opened its fingers and established observed clearance; preserve causal history so the receiver sees the release and retreat trend."
+    },
+    "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"properties\":{\"lid_pose_field\":{\"type\":\"string\",\"enum\":[\"lid_pose\"]},\"max_open_angle_rad\":{\"type\":\"number\",\"exclusiveMinimum\":0.0,\"maximum\":3.141592653589793}},\"required\":[\"lid_pose_field\",\"max_open_angle_rad\"],\"additionalProperties\":false},\"parameter_semantics\":\"lid_pose_field selects the observed moving lid pose used to compute lid/handle geometry. max_open_angle_rad is the physical hinge travel scale in radians (1.85 in this task), used to nondimensionalize observed lid position and phase features; it is not an actuator command.\"}",
+    "limitations": "One-step relative targets do not demonstrate recovery after a missed handle or lost contact. Small local increments can accumulate error or stall and a 16-slot sequence of future local corrections is decoded against later measured TCPs, so large discontinuous moves and poor state estimates can be problematic. IK, collisions and joint limits remain configuration dependent.",
+    "pipeline_implications": "This is the intermediate-state/entry specialist. Prefer it when TCP or joints are off the nominal path but local geometry is trustworthy. Use the moving-lid SE(3) policy for large assembly displacement and the phase-aware world policy when release timing dominates. Replan every eight controls and retain the two causal observations through switches.",
+    "rationale": "Observed: the nominal demonstrations share the same initial qpos and essentially the same commanded arm path, while deployment may enter from preceding-skill or interrupted states. The commanded targets progress through free-space approach (0-200), close/contact (220 onward), long pull (260-750), release (760) and retreat (780-949). Decision: learn each target as inv(current measured TCP) times commanded TCP, encoded by local translation, rotation vector and gripper scalar; decode each executed slot from the fresh measured TCP, then solve IK from fresh qpos. Two-frame inputs expose TCP-to-handle geometry, lid angle/velocity, finger width, qpos/qvel and temporal change. Expected benefit: closed-loop local corrections should be less tied to the demonstrated absolute robot path and more tolerant of intermediate-state offsets. Its likely accumulated drift/stalling differs from the body-frame and phase-aware policies.",
+    "statement": "Fresh-TCP incremental correction: learn local SE(3) corrections from each measured TCP so replans can continue from shifted robot configurations and intermediate execution states instead of replaying an absolute path.",
+    "training_bindings": "[{\"trajectory_id\":\"demo12200\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full assigned operation and [740,950) overlap; local TCP corrections are computed for every action.\"},{\"trajectory_id\":\"demo12201\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12202\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12203\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12204\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12205\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12206\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12207\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12208\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12209\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12210\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"},{\"trajectory_id\":\"demo12211\",\"start\":0,\"stop\":950,\"context_start\":0,\"call_args\":{\"lid_pose_field\":\"lid_pose\",\"max_open_angle_rad\":1.85},\"rationale\":\"Full operation including action-supervised release/retreat overlap.\"}]"
+  },
+  "heuristic_index": 2,
+  "normalization": {
+    "path": "provenance/relocated/b11807ac2cdb2323",
+    "sha256": "5d50ce2e025ef83183ac172a24c1b19ea7482f651c1c6fa09f34f83bd3887b24"
+  },
+  "observation_fields": {
+    "hole_pose": [
+      0,
+      7
+    ],
+    "lid_pose": [
+      7,
+      14
+    ],
+    "lid_position": [
+      14,
+      15
+    ],
+    "lid_velocity": [
+      15,
+      16
+    ],
+    "peg_pose": [
+      16,
+      23
+    ],
+    "qpos": [
+      23,
+      32
+    ],
+    "qvel": [
+      32,
+      41
+    ],
+    "target_pose": [
+      41,
+      48
+    ],
+    "tcp_pose": [
+      48,
+      55
+    ]
+  },
+  "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "policy_id": "open_hinged_lid__h02",
+  "prior_plan_path": "policies/exp2/covered_peg_assembly/open_hinged_lid__h02/prior_plan.json",
+  "prior_plan_sha256": "bbb077f205a8d1d6ef0f26a8ee39299597859f7cb201b01eba31c2ecdabec4cc",
+  "skill_id": "open_hinged_lid",
+  "sources": {
+    "demo12200": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12200.json",
+      "sha256": "e7ccc303ea6b6ddd3150e2336c6b06b3f89a66d478909e3f9555eb3d6ccc85f1"
+    },
+    "demo12201": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12201.json",
+      "sha256": "aa9e1f1d14f676f5b4c9fb52ee6bbbb5d86865d82adcc051e3256482461f1016"
+    },
+    "demo12202": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12202.json",
+      "sha256": "4ad5e3ce9117f56008597389c45a799aff1857f683091069d582e024a00b32a7"
+    },
+    "demo12203": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12203.json",
+      "sha256": "c43ecf548e80a87d465fbc947e98d191dffd25cc4966f83e2698dd7a8a2cf8af"
+    },
+    "demo12204": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12204.json",
+      "sha256": "35eea2d5c8fc6e02c992c923db4e580d473d5583edcd45cfee79e682782c5a09"
+    },
+    "demo12205": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12205.json",
+      "sha256": "b4b9855dac2b9f0e836ea063d38694af37abba89371fcae59fffa7d65c4dfb3c"
+    },
+    "demo12206": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12206.json",
+      "sha256": "6a64bcc76a39a6dc2f1119c5e5983a5686835cdf2ae5a0899ab8f39da92ef407"
+    },
+    "demo12207": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12207.json",
+      "sha256": "58410156c6edfad3658ce632cf8ebe122570c51412ba53f8631c9e78a14c5397"
+    },
+    "demo12208": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12208.json",
+      "sha256": "1522c1f09079f05ace6825ff5221ebf74ca8c45941a00050c53b579b43e84d5b"
+    },
+    "demo12209": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12209.json",
+      "sha256": "2a6dc540f7c4c6e6cb92c1fe50c106da8f71123c6b3ede06a790bf8ca0c3d31b"
+    },
+    "demo12210": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12210.json",
+      "sha256": "dd077218ff68ac6e93b28dc73234d21ac2a16c937de945465c9970deb9ad4ac4"
+    },
+    "demo12211": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12211.json",
+      "sha256": "0440e3242bad2dbcefe176eab207fd19647109b019c55702ff1906862c9e4b5d"
+    }
+  },
+  "subgoal": "Expose the peg by approaching and grasping the lid handle, rotating the cover about its hinge, opening the fingers to release the lid, and retreating without disturbing the peg.",
+  "prior_plan_original_sha256": "bbb077f205a8d1d6ef0f26a8ee39299597859f7cb201b01eba31c2ecdabec4cc"
+}

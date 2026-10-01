@@ -1,0 +1,59 @@
+{
+  "buffer": [
+    -0.18,
+    0,
+    0.02
+  ],
+  "control_hz": 20,
+  "description": "Exchange the red and blue blocks between the two marked regions. The red goal is the initially blue region and the blue goal is the initially red region. A free central area can be used temporarily.",
+  "fixtures": [],
+  "goal_half_xy_m": [
+    0.06,
+    0.06
+  ],
+  "goal_z_tolerance_m": 0.011,
+  "goals": {
+    "blue": [
+      -0.35,
+      -0.2,
+      0.02
+    ],
+    "red": [
+      -0.35,
+      0.2,
+      0.02
+    ]
+  },
+  "id_half_width_m": 0.012,
+  "initial": {
+    "blue": [
+      -0.35,
+      0.2,
+      0.02
+    ],
+    "red": [
+      -0.35,
+      -0.2,
+      0.02
+    ]
+  },
+  "object_half_m": 0.02,
+  "ood_inner_m": 0.022,
+  "ood_outer_m": 0.04,
+  "program": [
+    [
+      "red",
+      "buffer"
+    ],
+    [
+      "blue",
+      "blue"
+    ],
+    [
+      "red",
+      "red"
+    ]
+  ],
+  "shared_xy": false,
+  "task_id": "buffer_swap"
+}

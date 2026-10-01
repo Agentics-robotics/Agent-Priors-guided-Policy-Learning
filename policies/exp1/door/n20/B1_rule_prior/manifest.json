@@ -1,0 +1,55 @@
+{
+  "task_id": "door",
+  "n_demos": 20,
+  "policy_id": "B1_rule_prior",
+  "instance_id": "door__N20__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/door/n20/B1_rule_prior/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/door/n20/B1_rule_prior/model.pt",
+    "sha256": "9522323fe8715428c67c50710f5cfc3f8628778221845d890b105eee5ee8accf",
+    "source_sha256": "9522323fe8715428c67c50710f5cfc3f8628778221845d890b105eee5ee8accf",
+    "size_bytes": 79376363,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/door/n20/B1_rule_prior/normalizer.json",
+  "config": "policies/exp1/door/n20/B1_rule_prior/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/door/n20/B1_rule_prior/complete.json",
+      "sha256": "25f8c8a8df0b1573a7e536152fff6aad43de37eeb718f751590e5f12df0e2fe2",
+      "source_sha256": "25f8c8a8df0b1573a7e536152fff6aad43de37eeb718f751590e5f12df0e2fe2",
+      "size_bytes": 3991,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n20/B1_rule_prior/config.json",
+      "sha256": "7a4ee17061c2127c57f55fbb5df3534a99af93c35dfae8a86f86227004dd73f0",
+      "source_sha256": "7a4ee17061c2127c57f55fbb5df3534a99af93c35dfae8a86f86227004dd73f0",
+      "size_bytes": 8001,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n20/B1_rule_prior/identity.json",
+      "sha256": "dfca0fe5cbb47df789f37a3e7a17f6882581856a7e5a9ad0c3bd3c4e6c2ee1ce",
+      "source_sha256": "dfca0fe5cbb47df789f37a3e7a17f6882581856a7e5a9ad0c3bd3c4e6c2ee1ce",
+      "size_bytes": 3390,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n20/B1_rule_prior/latency.json",
+      "sha256": "cc081c2b84c30c57bdd70ec0e32ca5f14ab7d911680b8da39b1fb44ff9a80fcf",
+      "source_sha256": "cc081c2b84c30c57bdd70ec0e32ca5f14ab7d911680b8da39b1fb44ff9a80fcf",
+      "size_bytes": 773,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n20/B1_rule_prior/normalizer.json",
+      "sha256": "439f42b56cb671dc0b3404f5ec9cedd513bfb5e0a0c6581ba25f145f407403dc",
+      "source_sha256": "439f42b56cb671dc0b3404f5ec9cedd513bfb5e0a0c6581ba25f145f407403dc",
+      "size_bytes": 4910,
+      "transformation": "none"
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "checkpoint": "provenance/relocated/0ad2f26f82a80ef0",
+  "checkpoint_selection": "last EMA at the declared update budget",
+  "checkpoint_sha256": "cd7843d60aa3f9111438030651cc38bb3849d78bc596c913369ed0c09cf727f6",
+  "device": {
+    "logical_gpu": 0,
+    "minor": 0,
+    "physical_gpu": 3,
+    "uuid": "GPU-211ca63e-6f90-7281-b43a-e1facc953f2b"
+  },
+  "effective_action_targets": 40245853,
+  "final_weights_sha256": "302b9438f2228e222ad77bedf1478ba05b4fb81e491462b793dda8346a6c00e8",
+  "finite_nonzero_gradient_checks": [
+    {
+      "l2_norm": 3.178645610809326,
+      "step": 1
+    },
+    {
+      "l2_norm": 2.939190626144409,
+      "step": 2
+    },
+    {
+      "l2_norm": 3.0172955989837646,
+      "step": 3
+    },
+    {
+      "l2_norm": 0.24100333452224731,
+      "step": 20000
+    }
+  ],
+  "initial_weights_sha256": "29d1453466d7e83e1e1d1bc4e8f4e080d3c6e3b176cc1ae0d6dc4f67469189f8",
+  "interface_check": false,
+  "neural_training_verified": true,
+  "optimizer_steps": 20000,
+  "policy_context": {
+    "binding_support": {
+      "bound_actions": 4560,
+      "duplicated_actions": 0,
+      "unique_actions": 4560
+    },
+    "contract": {
+      "action_dimension": 10,
+      "call_args_schema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "conversion_check": {
+        "description": "For valid demonstration labels, compare decoded IK FK against the commanded TCP pose in metres/radians and compare the unchanged gripper scalar; the maximum must be at most 0.005. Rotation 6D projection is exact on encoded labels, while nonunique joints are allowed. IK convergence, residuals, iterations and limit contacts are reported.",
+        "mode": "task_space",
+        "tolerance": 0.005
+      },
+      "cut_relation": "Uses every assigned action in all twelve [1120,1500) slices, including incoming [1120,1270) and outgoing [1380,1500) overlap. The implementation changes only coordinates: labels are FK TCP commands expressed in the causal hole frame, not trimmed or relabeled native actions.",
+      "input_shapes": {
+        "features": [
+          2,
+          57
+        ]
+      },
+      "observation_dependencies": [
+        "hole_pose",
+        "lid_pose",
+        "lid_position",
+        "lid_velocity",
+        "peg_pose",
+        "qpos",
+        "qvel",
+        "target_pose",
+        "tcp_pose"
+      ],
+      "output_semantics": "Each slot is an unnormalized Cartesian TCP target [p_hole(3 metres), R_hole_tcp first-two rotation-matrix columns(6), gripper(1)] relative to the newest causal hole_pose fixed for the sampled chunk. Slots denote t-1 through t+14 and the host executes slots 1 through 8. Decoding Gram-Schmidt projects the 6D orientation to SO(3), composes T_world_hole*T_hole_tcp, and calls panda_kinematics.solve_ik from freshly measured qpos. A deterministic orthogonal fallback is used only for a degenerate sampled 6D pair. The gripper scalar is passed through and the executor applies its declared binary sign rule.",
+      "parameter_semantics": "No high-level numeric parameters. The caller passes an empty object. At each replan, the adapter resolves the newest observed hole_pose as the SE(3) reference; positions are world metres and observed quaternions are wxyz.",
+      "policy_id": "reorient_and_stage_peg__h01",
+      "skill_id": "reorient_and_stage_peg",
+      "temporal": {
+        "control_hz": 20,
+        "execution_steps": 8,
+        "history_steps": 2,
+        "prediction_horizon": 16,
+        "prediction_start_offset": -1
+      },
+      "version": "appl.flexible.sol.v1"
+    }
+  },
+  "reload_max_action_error": 0.0,
+  "sample_exposures": 2560000,
+  "source_hashes": {
+    "HANDOFF.json": "45b7c0ec9f0274382a849f784c7fbd569312fe6c8595dad55231ed28c3cdb2fc",
+    "PRIOR.md": "04aa71fd20970b8f785b5ef13c60e73568a99bb15d6233fd918551ab5364ae31",
+    "adapters.py": "242258ad19802443129cc08240d32b05f994fb365595ca34134420238f6b4372",
+    "panda_kinematics.py": "28a8c856359459abfb7a7511a068049557eee1fd616d7de15e14ddad65047f5c",
+    "pipeline.json": "090e47ad323f415cef392b99b18ccc024d1f11398f2c4ef52528e97cb5c5a26d",
+    "policy.py": "9bba77db5fa2398bdb2e12bf43197eb9e8ef449040bdc6bbacafbd90804b1ac8",
+    "policy_contract.json": "7e25b217d320c2dc27cc49ab96d7198673ac6dfe0b92c62f681cb8a040b61add",
+    "training_bindings.json": "355820aee88cf7a7b1461917e2cc4408f8893345fea2456b92b998fb8fa27d72"
+  },
+  "trainable_parameters": 17143562,
+  "training_elapsed_seconds": 691.3715513651259,
+  "weight_l2_change": 24.587981741680423
+}

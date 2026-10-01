@@ -1,0 +1,39 @@
+{
+  "title": "Causal manipulation-stage features in a chunk-fixed stick-yaw frame",
+  "coverage_gap": "The small LL/HH support ties initial tool position to the target location, and the same nearby hand/stick configuration can occur during downward acquisition and upward lift. A monolithic representation may encode an episode clock or layout-dependent stage boundary instead of composing reusable acquisition, lift and drive behavior.",
+  "reusable_regularity": "Use four soft representation experts for open approach, closing descent, lift/alignment and drive. The learned gate receives only present/past local geometry, heights, aperture and motion, not time, future labels or goal coordinates. Training-only action-pattern labels disambiguate those modes. Local approach experts exclude the goal, whereas the drive expert explicitly receives payload-to-goal error. All commands still come from one common diffusion U-Net; there is no expert action controller or hard state machine. The observed stick orientation also defines a chunk-fixed orthonormal planar action frame.",
+  "dependencies_preserved": [
+    "A 41-dimensional direct path retains current hand/world position, the three scene-link vectors, hand/stick/payload per-step displacements, both apertures, current and native-previous stick/payload quaternions, and the two components of the action-frame axis. With the serialized xy origin, all common physical state can be recovered.",
+    "The 20-dimensional gate excludes absolute xy and goal to discourage factor shortcuts but keeps hand-stick and stick-payload geometry, absolute hand/payload height, stick elevation above its support-estimated rest height, aperture, aperture change and body motion. A nonzero expert gate floor avoids irrevocable hard routing.",
+    "World z is never rotated. World orientation, robot base-relative position and the scene frame remain available, so the representation does not assume gravity/fixtures or fixed robot orientation are invariant to arbitrary rotations.",
+    "The tool is the observed stick COM, and payload is the observed insertion site plus [0,.09,0]. No inferred hidden tip, contact flag, planner, reward, simulator state or task progress oracle is used."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "observation": "Defines exactly the current ten-episode training support."},
+    {"path": "task_materials.json", "observation": "World action4, xyzw orientation convention, native previous state, two-observation DP history, and crossed/extrapolated layouts."},
+    {"path": "trajectories/demo_00.json", "rows": {"actions": [[0,29],[40,69]], "obs": [[21,25],[34,40],[50,53],[71,74]]}, "observation": "Open approach actions precede positive gripper commands; downward acquisition changes to upward lift around action 26; strong positive x drive starts at action 45. Observed stick orientation changes modestly after acquisition. Labels are descriptive action-pattern surrogates, not asserted ground-truth contact states."},
+    {"path": "trajectories/demo_01.json", "rows": {"obs": [[26,32]]}, "observation": "Stick starts rising while the aperture closes and the payload stays fixed in the other training cell; supports causal geometric stage cues."},
+    {"path": "trajectories/demo_09.json", "rows": {"actions": [[36,47]]}, "observation": "Lift-to-positive-x-drive switch occurs at action 42, not the same absolute step as demo 00; motivates inferred stage instead of an episode clock."},
+    {"path": "images/frame_02_demo_01_step_023.png", "observation": "Real grasp-period frame provides visual evidence of the acquisition configuration."},
+    {"path": "images/frame_14_demo_09_step_020.png", "observation": "Real early frame again shows the acquisition configuration near the original fixture position."},
+    {"path": "images/frame_15_demo_09_step_070.png", "observation": "Real late frame shows displacement of the pushed assembly, distinct from acquisition."}
+  ],
+  "expected_failure_signature": "Falsifiable risks: action-pattern stage labels may fit the demonstrator's switching convention rather than physical grasp success, causing a high-confidence lift/drive gate after a missed grasp. The planar stick-axis projection is poorly supported for near-vertical or strongly rotated tools; a deterministic world-x fallback is used only at projection degeneracy, not as a controller. Expert routing may still mistime the descent/lift transition in extrapolated layouts. Such failures would argue against this stage/frame bias even if individual local regressions are accurate; no performance gains are claimed.",
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,39] and raw_current [B,39] from the common causal observation only",
+    "slices": {"current_hand": [0,3], "current_aperture": [3,4], "current_stick": [4,7], "current_stick_xyzw": [7,11], "current_payload": [11,14], "current_payload_xyzw": [14,18], "native_previous_state": [18,36], "goal": [36,39]},
+    "support_fit": "Hand xy population mean uses only D_N obs[0:T]; nominal stick rest z is the mean of the ten initial observed COM heights. These constants alone are serialized; no support actions or stage labels are stored for inference.",
+    "action_semantics": "Normalize chunk-start stick xyzw quaternion and take the xy projection of its rotated local x axis. Let (c,s) be the resulting unit vector. Encode [ax,ay,az,g] as [c*ax+s*ay,-s*ax+c*ay,az,g]; decode with the transpose inverse. Use world x if projection length is <=1e-4. One frame from raw_current is shared by all sixteen actions and both conditioning observations. Neither action normalization nor candidate clipping is applied. Public native cube clipping, 0.01 m xyz control scaling and four-action execution are unchanged. Gripper is a scalar, not rotated."
+  },
+  "training_only_targets": [
+    {
+      "name": "support_stage",
+      "shape": "[number_of_windows,2] int64",
+      "source": "Use only D_N native actions at max(t-1,0) and t. Label 0 when gripper<0; otherwise label 3 when world_dx>0.4; otherwise label 1 when world_dz<-0.1; otherwise label 2. No environment state machine or reward source. Thresholds are pre-feedback coarse separators motivated by inspected action ranges.",
+      "loss": "Additional nonnegative negative-log-likelihood on the four learned causal gate probabilities, weight 0.1. For each window, mask[:,0] marks both history labels valid; normalize separately by the sum of these two-history weights. Empty-mask safe. The public action epsilon objective retains weight 1 and denominator mask.sum()*4.",
+      "inference": "Labels and native actions are unavailable to the gate at deployment. The probability vectors are predicted from causal observations, concatenated into conditioning, and softly weight feature encoders. No auxiliary future target is supplied to denoise, encode or decode."
+    }
+  ],
+  "parents": [],
+  "change_summary": "Initial independent design: four differently scoped 24-channel skill feature encoders, learned causal four-way gate with training-only mode supervision, direct 41-channel physical skip, and orthonormal chunk-fixed planar action transform. Total conditioning dimension 141; unchanged action4 common U-Net. This is neither a coordinate-only model nor a joint object-motion diffusion graph. All modules are built once in build_modules. No structural repairs at authoring time."
+}

@@ -1,0 +1,55 @@
+{
+  "task_id": "stick-push",
+  "n_demos": 20,
+  "policy_id": "B1_rule_prior",
+  "instance_id": "stick-push__N20__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/stick-push/n20/B1_rule_prior/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/stick-push/n20/B1_rule_prior/model.pt",
+    "sha256": "819cab7fadda87c29d95ba56c3c5926c0c54b3bbf9e1d332c5f6f67b50be446b",
+    "source_sha256": "819cab7fadda87c29d95ba56c3c5926c0c54b3bbf9e1d332c5f6f67b50be446b",
+    "size_bytes": 79147179,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/stick-push/n20/B1_rule_prior/normalizer.json",
+  "config": "policies/exp1/stick-push/n20/B1_rule_prior/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/stick-push/n20/B1_rule_prior/complete.json",
+      "sha256": "67edef0e3f998720286f8dd93cef97ca4aa55176840dde5e974dc217c82abe8a",
+      "source_sha256": "67edef0e3f998720286f8dd93cef97ca4aa55176840dde5e974dc217c82abe8a",
+      "size_bytes": 4243,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/stick-push/n20/B1_rule_prior/config.json",
+      "sha256": "03bce60cb88f51e49b875503aecce7413d68ab9c202af5ab733ffc7617449026",
+      "source_sha256": "03bce60cb88f51e49b875503aecce7413d68ab9c202af5ab733ffc7617449026",
+      "size_bytes": 8069,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/stick-push/n20/B1_rule_prior/identity.json",
+      "sha256": "48e01566606c2c078851c135f85be5f718be643b6ff3a4c08c1b24cee3f565e1",
+      "source_sha256": "48e01566606c2c078851c135f85be5f718be643b6ff3a4c08c1b24cee3f565e1",
+      "size_bytes": 3642,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/stick-push/n20/B1_rule_prior/latency.json",
+      "sha256": "2bf6c7a79aab2dbfc38c213789463f7002c955fb9099bc72603499bbf4614e48",
+      "source_sha256": "2bf6c7a79aab2dbfc38c213789463f7002c955fb9099bc72603499bbf4614e48",
+      "size_bytes": 773,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/stick-push/n20/B1_rule_prior/normalizer.json",
+      "sha256": "ec847b1acf92f7c528b795ffd06614dd9d53c6cde44bff88bf8a45db98af505b",
+      "source_sha256": "ec847b1acf92f7c528b795ffd06614dd9d53c6cde44bff88bf8a45db98af505b",
+      "size_bytes": 5171,
+      "transformation": "none"
+    }
+  ]
+}

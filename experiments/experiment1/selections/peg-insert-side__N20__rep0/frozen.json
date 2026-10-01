@@ -1,0 +1,41 @@
+{
+  "instance": "peg-insert-side__N20__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A3",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A3",
+      "feedback_hash": "877d4898f2d40995d4cbc494199d72cfa909657987aaacce4150f49e4ddd74cd",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3 uses only the frozen equal-cell C/E objective. A1 scores 0.5*1.0+0.5*0.5=0.750; A2 scores 0.5*1.0+0.5*0.65=0.825; A3 scores 0.5*1.0+0.5*0.75=0.875. All are valid completed 20,000-update candidates, so A3 is the unique maximizer and no tie-break is needed. IID and training-curve checkpoint values do not select. For the one revision, the salient remaining gap is A3's E-LH 0/5 versus E-HL, E-LL and E-HH each 5/5; all C cells are 10/10. Failure records only say native_truncated, so I will treat a lateral-sign/generalization issue as a hypothesis, not as an observed stage or collision diagnosis.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "d6d4acb9e2ecde7b83117fa3a8ac8beed6f232b1013c3c0bc65be21d26892f4d",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4 selects A4 by the frozen equal-cell objective: A1=0.5*1.0+0.5*0.50=0.750; A2=0.825; A3=0.875; A4=0.5*1.0+0.5*0.80=0.900. For A4, C cells are both 10/10 and E equal-cell success is (1.0+0.2+1.0+1.0)/4=0.8. All four candidates are valid and completed the fixed 20,000 updates. A4 is the unique score maximizer, so A3's lower latency and slightly fewer parameters do not invoke a tie-break. IID, training losses and hidden tests were not used to select. The revision result is mixed and remains recorded: versus A3, E-LH improves from 0/5 to 5/5 but E-HL regresses from 5/5 to 1/5, yielding only one net additional E success. No claim of uniform improvement or established failure mechanism is warranted. Select frozen A4 submission b3a52c6ebd5cb51634ef11cd9c18e36bd99dc61942279af5258809223971d76b; no further edits, designs or training.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "ee173213d41c7150b70e32ff79d842fcd29774b0616d3386ebc2d4dc63ca962b",
+    "A2": "7da797545ce70742c3769c9b879a12dc7d383c8210c1ce60b2c6b7f3b3b4c8b9",
+    "A3": "0f5cb157628cf0023080a1fd168bb277f97f19800cc7ab7f0a0e3212fc51ea71",
+    "A4": "b3a52c6ebd5cb51634ef11cd9c18e36bd99dc61942279af5258809223971d76b"
+  },
+  "feedback_hashes": {
+    "initial": "3777eaa1fdd033cb47963280c12bb89fd4a15aa513b46e67037cddc10790578a",
+    "final": "674314aeafab0ae78c14af1e2443fa4fd1947688f19c89b6f0c04678b44dbab3"
+  }
+}

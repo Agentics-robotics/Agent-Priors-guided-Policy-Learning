@@ -1,0 +1,55 @@
+{
+  "task_id": "door",
+  "n_demos": 5,
+  "policy_id": "B0_vanilla_dp",
+  "instance_id": "door__N5__rep0",
+  "author": "RepositoryAgent",
+  "manifest": "policies/exp1/door/n5/B0_vanilla_dp/manifest.json",
+  "source": null,
+  "checkpoint": {
+    "path": "weights/exp1/door/n5/B0_vanilla_dp/model.pt",
+    "sha256": "f279e05a2ddf2c3ce290b4f28b3c6b0ffd190383b6268402cd22d2170c2b3a97",
+    "source_sha256": "f279e05a2ddf2c3ce290b4f28b3c6b0ffd190383b6268402cd22d2170c2b3a97",
+    "size_bytes": 75672323,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/door/n5/B0_vanilla_dp/normalizer.json",
+  "config": "policies/exp1/door/n5/B0_vanilla_dp/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/door/n5/B0_vanilla_dp/complete.json",
+      "sha256": "646125231f079329eb3e1f3be35f959f04d937b33de37f834b5198163e159c42",
+      "source_sha256": "646125231f079329eb3e1f3be35f959f04d937b33de37f834b5198163e159c42",
+      "size_bytes": 1769,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n5/B0_vanilla_dp/config.json",
+      "sha256": "7a4ee17061c2127c57f55fbb5df3534a99af93c35dfae8a86f86227004dd73f0",
+      "source_sha256": "7a4ee17061c2127c57f55fbb5df3534a99af93c35dfae8a86f86227004dd73f0",
+      "size_bytes": 8001,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n5/B0_vanilla_dp/identity.json",
+      "sha256": "4aa02c8c9e7a0b7ace97d453be7a8c93e91a3c6e2b239982d61c6dfa132ff032",
+      "source_sha256": "4aa02c8c9e7a0b7ace97d453be7a8c93e91a3c6e2b239982d61c6dfa132ff032",
+      "size_bytes": 1228,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n5/B0_vanilla_dp/latency.json",
+      "sha256": "cb827f4f1e85f6b4c0a46f8969988a16e0ce49367e2a8254ff5a7619e13dc2b3",
+      "source_sha256": "cb827f4f1e85f6b4c0a46f8969988a16e0ce49367e2a8254ff5a7619e13dc2b3",
+      "size_bytes": 775,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/door/n5/B0_vanilla_dp/normalizer.json",
+      "sha256": "f53d24be340d81cdd4d186180677b344c473a50b64fe989d4f036a649aff99ea",
+      "source_sha256": "f53d24be340d81cdd4d186180677b344c473a50b64fe989d4f036a649aff99ea",
+      "size_bytes": 2743,
+      "transformation": "none"
+    }
+  ]
+}

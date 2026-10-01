@@ -1,0 +1,24 @@
+{
+  "budget_factor": 1.5,
+  "demos": 12,
+  "exit_rule": "drawer_position >= 0.29 and the block moved < 1 cm from its entry position at the final state",
+  "passed": 7,
+  "per_demo": {
+    "demo12100": false,
+    "demo12101": false,
+    "demo12102": true,
+    "demo12103": false,
+    "demo12104": false,
+    "demo12105": true,
+    "demo12106": true,
+    "demo12107": true,
+    "demo12108": false,
+    "demo12109": true,
+    "demo12110": true,
+    "demo12111": true
+  },
+  "policy": "open_drawer__h04",
+  "skill": "open_drawer",
+  "success_rate": 0.5833333333333334,
+  "task": "constrained_retrieve_store"
+}

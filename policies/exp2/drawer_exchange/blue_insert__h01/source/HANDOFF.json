@@ -1,0 +1,14 @@
+{
+  "policy_id": "blue_insert__h01",
+  "entry_conditions": "drawer_position is strictly above 0.26 m; red is held/touching down at the outside pad or has just been released; blue is observed outside and is the intended source; arguments select blue and blue_goal.",
+  "exit_conditions": "Use the unchanged evaluator condition: drawer open, red fully on its outside pad with valid z, and blue fully inside the drawer cavity with valid z in one observation. High retreat and open fingers are not added requirements.",
+  "overlap_role": "Every [600,stop) action is supervised. The shared [600,850) interval contributes 250 actions per occurrence and includes red lowering/release, retreat, transit, blue approach/descent, closure and lift.",
+  "successor_readiness": "There is no learned successor. Hand to framework evaluation on true task completion. If blue is held near the drawer and source-frame anchoring is no longer preferable, the destination-frame blue_insert policy is ready to continue.",
+  "failure_signatures": "IK non-convergence or limit contact; blue/TCP fail to co-move after closure; blue changes pose within a sampled chunk; TCP returns to red instead of blue; red leaves its pad; blue/TCP approach the drawer lip/wall; or final cavity/z bounds are not met.",
+  "continuation_guidance": "Use this policy through pickup and early carry when source displacement is dominant. Replan every execution chunk from the newly observed blue frame. Switch to destination anchoring for confined final alignment, or stop/abort rather than assume recovery from an unobserved drop or collision.",
+  "limitations": "Proximity and gripper state are not contact truth. Displacements can be unreachable, no collision-free planner is added, the chunk frame is frozen for eight executed slots, and demonstrations do not establish recovery.",
+  "evidence": [
+    {"trajectory_id":"demo1000","indices":[600,700,750,800,820,840,850,930,970,990,1030,1050]},
+    {"trajectory_id":"demo1001","indices":[600,700,750,800,820,840,850,880,940,980,1000,1040]}
+  ]
+}

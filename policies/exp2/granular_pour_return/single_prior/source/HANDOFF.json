@@ -1,0 +1,60 @@
+{
+  "policy_id": "single_prior_cartesian",
+  "entry_conditions": "Full-task entry is a valid two-frame causal observation (the framework duplicates the initial observation) with the Panda in a reachable configuration, the particle-filled source container present, the bowl and marked return pose observed, and the gripper initially able to approach the handle. The only invocation is call_args={}; this is descriptive handoff documentation, not a runtime gate.",
+  "exit_conditions": "Exit only on the unchanged task success condition: at least ten particles are in the bowl, and the source container is upright with its base inside the marked return region and return height tolerance. The demonstrations additionally end with an open gripper and TCP retracted above the marker, but that posture is supporting evidence rather than a replacement success test.",
+  "overlap_role": "There is no segment boundary, policy overlap, policy selector or successor. Every action of every demonstration supervises this one full-task model once; the two-frame history remains causal throughout the task.",
+  "successor_readiness": "No successor policy exists. A terminal state is ready for framework evaluation only when observed particle placement and upright returned-container geometry satisfy the supplied completion contract; gripper state or inferred progress alone is insufficient.",
+  "failure_signatures": "Observable failure signatures include: TCP-container error fails to shrink during handle approach; fingers close while the handle is not between them; the container remains low after closure or moves independently of the TCP; the container is high but the relational anchor shifts toward the bowl despite no grasp; fewer than ten observed particles enter the bowl or particles settle outside its inner bounds; the container remains tilted after pouring; the returned base lies outside the marker or above the height tolerance; repeated IK diagnostics report converged=false, growing position/rotation residual, or joint-limit contacts; and orientation-6D fallback projection repeats. A lost grasp is especially visible as increasing TCP-to-container relative-pose error and fingers no longer straddling the handle, but no contact-truth signal is available.",
+  "continuation_guidance": "Continue replanning the same policy at the fixed 20 Hz interface using fresh causal observations and execute slots 1 through 8. Do not switch policies, inject a stage, advance hidden phase memory, or declare success from the anchor weights. If the source, particles or IK diagnostics show a failure state outside demonstration support, the framework should treat it as a limitation rather than invoke an undocumented recovery controller.",
+  "limitations": "The relational representation exactly targets translations of the low source approach, the lifted bowl-centered manipulation, and the near-upright return, but it does not guarantee collision-free paths between widely displaced objects. Its smooth coordinate weights use observed elevation, particle geometry and uprightness; severe observation noise, premature spills, a lifted-but-ungrasped source or a dropped source can therefore select an unhelpful coordinate blend. The orientation target is container-relative, which transfers initial container rotation but can make a dropped container attract the TCP. There is no true contact input, no image input and no scripted retry. The demonstrations vary initial source position only modestly, keep bowl/marker fixed, and share one long pour timing, so major geometry, dynamics, timing and reachability changes remain out of support.",
+  "evidence": [
+    {
+      "trajectory_id": "demo12300",
+      "indices": [0, 110, 145, 175, 250, 310, 780, 820, 1000, 1550, 1650, 1700, 1760, 1840, 1870, 1910]
+    },
+    {
+      "trajectory_id": "demo12301",
+      "indices": [0, 277, 555, 833, 1111, 1389, 1667, 1944]
+    },
+    {
+      "trajectory_id": "demo12302",
+      "indices": [0, 650, 1301, 1951]
+    },
+    {
+      "trajectory_id": "demo12303",
+      "indices": [0, 645, 1290, 1934]
+    },
+    {
+      "trajectory_id": "demo12304",
+      "indices": [0, 649, 1298, 1946]
+    },
+    {
+      "trajectory_id": "demo12305",
+      "indices": [0, 649, 1299, 1948]
+    },
+    {
+      "trajectory_id": "demo12306",
+      "indices": [0, 645, 1290, 1934]
+    },
+    {
+      "trajectory_id": "demo12307",
+      "indices": [0, 648, 1297, 1945]
+    },
+    {
+      "trajectory_id": "demo12308",
+      "indices": [0, 648, 1296, 1943]
+    },
+    {
+      "trajectory_id": "demo12309",
+      "indices": [0, 649, 1298, 1946]
+    },
+    {
+      "trajectory_id": "demo12310",
+      "indices": [0, 650, 1300, 1949]
+    },
+    {
+      "trajectory_id": "demo12311",
+      "indices": [0, 651, 1302, 1952]
+    }
+  ]
+}

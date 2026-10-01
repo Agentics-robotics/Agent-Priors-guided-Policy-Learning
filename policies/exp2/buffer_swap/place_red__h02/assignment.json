@@ -1,0 +1,115 @@
+{
+  "dataset": "assets/exp2/datasets/buffer_swap/place_red/dataset.json",
+  "dataset_sha256": "e84b54ab549c5d36768a857ab1f030f359415e7a448456090d59d6ac1513270a",
+  "experiment_version": "APPL_v4_cartesian",
+  "heuristic": {
+    "applicability": "Prefer once red is plausibly attached and lifted, or whenever the red destination differs from its demonstrated world position while source-to-destination transport remains reachable. It can enter at the declared early overlap and is trained on the complete segment, but the high-level agent should prefer the manipulated-object prior for a strongly displaced, unheld source and the TCP-residual prior for uncertain predecessor completion.",
+    "evidence": [
+      {
+        "indices": [
+          860,
+          880,
+          900,
+          920,
+          940,
+          960,
+          980,
+          1000,
+          1020,
+          1040
+        ],
+        "trajectory_id": "demo10100"
+      },
+      {
+        "indices": [
+          850,
+          860,
+          880,
+          900,
+          920,
+          940,
+          960,
+          980,
+          1020,
+          1056
+        ],
+        "trajectory_id": "demo10104"
+      }
+    ],
+    "handoff": {
+      "entry_conditions": "Same declared skill entry: blue low over or settled in its goal, red visible in the central buffer, and current state finite. Prefer this policy later, after red motion is consistent with attachment, or when destination translation is the principal variation; no observation is treated as contact truth.",
+      "exit_conditions": "The supplied red_at_goal AND blue_at_goal expression remains the only success definition. An open gripper and high retreat are demonstrated continuation guidance, not added predicates.",
+      "failure_signatures": "Red fails to track TCP after closure, destination-relative IK is unconverged, red center is not fully contained after opening, blue moves from its goal, or retreat disturbs either block.",
+      "overlap_role": "All assigned actions are supervised, including the 230-240 action predecessor overlap of blue lower/open, retreat, red approach/closure, and initial lift. The destination representation does not shorten the cut even though its strongest invariant applies to the latter carry/place portion.",
+      "successor_readiness": "Terminal skill; no successor. Continue/replan until the unchanged framework predicate is observed, while avoiding unnecessary post-success motion."
+    },
+    "invocation_contract": "{\"call_args_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"target_object\":{\"type\":\"string\",\"enum\":[\"red\"]},\"destination\":{\"type\":\"string\",\"enum\":[\"red_goal\"]},\"handoff_object\":{\"type\":\"string\",\"enum\":[\"blue\"]}},\"required\":[\"target_object\",\"destination\",\"handoff_object\"]},\"parameter_semantics\":\"target_object selects red_pose for source and held-object relational inputs; destination selects the currently observed red_goal translation in world metres and is the Cartesian action reference; handoff_object selects blue_pose for predecessor context. Scene identifiers are causal intent, not actuator parameters.\"}",
+    "limitations": "Destination anchoring does not by itself solve a displaced source, missed grasp, slip, or unstable blue. Translating the goal may make the Cartesian target unreachable or introduce collisions not represented in demonstrations. The action orientation remains world-referenced, so large unseen goal rotation is not covered; tabletop goals provide only position. Early blue-release actions are represented relative to red_goal and thus rely on learned relational conditioning rather than an exact blue-frame invariant. The manipulated-object prior covers source displacement; the TCP-residual prior covers moderate intermediate tracking offsets. No recovery is established.",
+    "pipeline_implications": "Use a separate standard DiffusionBackbone with the same fixed temporal recipe. build_inputs resolves target_object, destination, and handoff_object from typed arguments and builds causal relational features. encode_targets uses FK of native commands and subtracts the slot's observed red_goal position; orientation remains continuous 6D in world axes. decode_action adds the fresh observed goal translation, projects 6D to SO(3), calls the supplied IK from current qpos, and preserves binary gripper semantics. This has no auxiliary loss or backbone modification. Valid-label-only normalization and all full segments/overlaps are retained.",
+    "rationale": "Observed: after red lift, demo10100 carries red from near (-0.181,-0.005,0.273) at 860 to the goal vicinity by 920, lowers through 940-960, opens by 980, and retreats through 1000-1040. demo10104 shows the same destination-centered sequence at 850-1056. Final red centers are tightly concentrated near x=-0.351 and y=0.195-0.196 while red_goal is fixed at (-0.35,0.20,0.02), so raw world actions can overfit one marker location. Expected benefit: if the observed destination marker translates while remaining reachable, destination-relative labels preserve the demonstrated approach height, lowering, release offset, and retreat geometry. This is a predictable coordinate transformation, not evidence that displaced-goal execution succeeded.",
+    "statement": "Destination-anchored placement Diffusion Policy. Express every demonstrated Cartesian target as [TCP position relative to the observed red_goal translation frame (m), world TCP rotation 6D, native gripper scalar]. Condition on two-frame target/destination/TCP relations plus qpos/qvel and blue state. The fixed axis-aligned destination frame makes the terminal carry, lowering, release, and retreat path translation-equivariant to an observed red-goal displacement, while explicit source-to-goal geometry lets the model condition the preceding pickup/carry. This representation is intentionally destination rather than manipulated-object referenced.",
+    "training_bindings": "[{\"trajectory_id\":\"demo10100\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10101\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10102\",\"start\":620,\"stop\":1060,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10103\",\"start\":620,\"stop\":1065,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10104\",\"start\":610,\"stop\":1057,\"context_start\":609,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Earlier overlap entry and complete destination placement.\"},{\"trajectory_id\":\"demo10105\",\"start\":610,\"stop\":1056,\"context_start\":609,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Earlier overlap entry and complete destination placement.\"},{\"trajectory_id\":\"demo10106\",\"start\":620,\"stop\":1059,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10107\",\"start\":630,\"stop\":1071,\"context_start\":629,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Later overlap entry and complete destination placement.\"},{\"trajectory_id\":\"demo10108\",\"start\":620,\"stop\":1058,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10109\",\"start\":620,\"stop\":1063,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10110\",\"start\":620,\"stop\":1064,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"},{\"trajectory_id\":\"demo10111\",\"start\":620,\"stop\":1061,\"context_start\":619,\"call_args\":{\"target_object\":\"red\",\"destination\":\"red_goal\",\"handoff_object\":\"blue\"},\"rationale\":\"Complete terminal sequence with action-supervised predecessor overlap.\"}]"
+  },
+  "heuristic_index": 2,
+  "normalization": {
+    "path": "provenance/relocated/8ca68e5f0699c3f4",
+    "sha256": "a7b3cf25f71119bff5e5dbff8a8e733b5142452226e64786554479dc9eb9d9c6"
+  },
+  "plan_hash": "6ff90d860db25d097efcfc9bbe61fa3421abe180b8b3d234811997a8e283064a",
+  "policy_id": "place_red__h02",
+  "prior_plan_path": "policies/exp2/buffer_swap/place_red__h02/prior_plan.json",
+  "prior_plan_sha256": "bffe3099c16add9c75e9b8aac8fe313c18ab9b323232356b67029cae42831bf0",
+  "skill_id": "place_red",
+  "sources": {
+    "demo10100": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10100.json",
+      "sha256": "8143fbe3be71a1c631f5c7749d18b35e22bc92139fcfff7b5ebbf518d6fc335a"
+    },
+    "demo10101": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10101.json",
+      "sha256": "799625b2044bcc28a7a6eea51a4740935e9cf0d9f22b8374ff1e1fd6775609bf"
+    },
+    "demo10102": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10102.json",
+      "sha256": "fa8a632a17305449d85b05f19a29a04268ec6859c9c22eedc08f8a9e98a25917"
+    },
+    "demo10103": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10103.json",
+      "sha256": "bc5327538d11b7263aa843cfbf7cca57e277f228ab83827e6a6be39d17fb7359"
+    },
+    "demo10104": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10104.json",
+      "sha256": "ab4fdca4a826e13907c3634c17d0cedd822e5736cf37113947d7cd86e096a9a8"
+    },
+    "demo10105": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10105.json",
+      "sha256": "8dca03afe82b1247c339dba887d9f2bd2f2de158810338259d17bdcde391146f"
+    },
+    "demo10106": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10106.json",
+      "sha256": "835849cc15e004b22d320f6fdc36d9c0bcc18a5019712e0ea572dff0a4b0c51a"
+    },
+    "demo10107": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10107.json",
+      "sha256": "2ee06e92d7a0502499d2696e463e66a9bc5e58f2c9beab9b4819cfe9a6a4f7a0"
+    },
+    "demo10108": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10108.json",
+      "sha256": "a267623fe0603dff6f918dfd6f2d08e3da5b313580763e0a482af84e38ab43d6"
+    },
+    "demo10109": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10109.json",
+      "sha256": "5e77ab47c4b0b7e0c67997b120e9215fcf9a4473429c62e0207c5dee631be8a6"
+    },
+    "demo10110": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10110.json",
+      "sha256": "cd8edf45f317ef134effd4d03d206a23dba900ec9d39034ba19d0f51242e60a0"
+    },
+    "demo10111": {
+      "path": "assets/exp2/demonstrations/buffer_swap/demo10111.json",
+      "sha256": "66f8244ef8020adfb90b028d50deb30d29f68dc21258d3981de4adebf3412646"
+    }
+  },
+  "subgoal": "Accept the scene while blue is finishing its goal release, ensure the gripper retreats clear, approach the red block in the central buffer, close from above, lift and carry red to the red goal near (-0.35,+0.20), lower it, open, and retreat. This terminal responsibility completes the unchanged success condition red_at_goal AND blue_at_goal.",
+  "prior_plan_original_sha256": "bffe3099c16add9c75e9b8aac8fe313c18ab9b323232356b67029cae42831bf0"
+}

@@ -1,0 +1,398 @@
+{
+  "_path": "assets/exp2/tasks/covered_peg_assembly/single_prior.json",
+  "api": {
+    "base_url": "https://api.openai.com/v1",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "service_tier": "default",
+    "timeout_seconds": 1800
+  },
+  "completion_contract": "assets/exp2/tasks/covered_peg_assembly/completion_contract.json",
+  "dataset": "provenance/relocated/50b485239ed5b4d2",
+  "design": {
+    "max_api_calls": 43,
+    "max_checks": 5,
+    "max_output_tokens": 32768,
+    "max_tool_calls": 128
+  },
+  "devices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "engine_variant": "dynamic_observation_fields",
+  "episodes": [
+    {
+      "center": [
+        -0.61,
+        -0.2
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "9a8ed528fb9a2be38e35a9ac8e88a9efd1924ee25a16a6886e044c3cd9e76959",
+      "layout": {
+        "peg": [
+          -0.5962514051012742,
+          -0.1881984099741124,
+          0.026
+        ]
+      },
+      "moved_body": "peg",
+      "original_ood_layout": {
+        "peg": [
+          -0.5905028102025484,
+          -0.1843968199482248,
+          0.026
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093000,
+      "task": "covered_peg_assembly"
+    },
+    {
+      "center": [
+        -0.61,
+        -0.2
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "c02283044336f726e59735b9039abc6aae21052bda35be1993ac9139eb5c25c0",
+      "layout": {
+        "peg": [
+          -0.6204568260003134,
+          -0.182501937453727,
+          0.026
+        ]
+      },
+      "moved_body": "peg",
+      "original_ood_layout": {
+        "peg": [
+          -0.6229136520006269,
+          -0.17300387490745398,
+          0.026
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093001,
+      "task": "covered_peg_assembly"
+    },
+    {
+      "center": [
+        -0.61,
+        -0.2
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "5b5e9b18a886ca024b298c1a87c62ffabbece7e37672fda78b0913ed887baa0f",
+      "layout": {
+        "peg": [
+          -0.5952006681837171,
+          -0.21359908925448537,
+          0.026
+        ]
+      },
+      "moved_body": "peg",
+      "original_ood_layout": {
+        "peg": [
+          -0.5884013363674342,
+          -0.21919817850897075,
+          0.026
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093002,
+      "task": "covered_peg_assembly"
+    },
+    {
+      "center": [
+        -0.61,
+        -0.2
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "da836af115b935346fc6302614fbe07551e871ce7883baa758070354bd09a214",
+      "layout": {
+        "peg": [
+          -0.624314799928105,
+          -0.19383304960688297,
+          0.026
+        ]
+      },
+      "moved_body": "peg",
+      "original_ood_layout": {
+        "peg": [
+          -0.63062959985621,
+          -0.19383304960688297,
+          0.026
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093003,
+      "task": "covered_peg_assembly"
+    },
+    {
+      "center": [
+        -0.61,
+        -0.2
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "55c3e5d3e532ffb210c0da27e0e9d1c7049ed660e095dc016d5bc15d1287ab3d",
+      "layout": {
+        "peg": [
+          -0.6271037216339436,
+          -0.2178289910645028,
+          0.026
+        ]
+      },
+      "moved_body": "peg",
+      "original_ood_layout": {
+        "peg": [
+          -0.6362074432678873,
+          -0.22765798212900556,
+          0.026
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093004,
+      "task": "covered_peg_assembly"
+    },
+    {
+      "center": [
+        -0.61,
+        -0.2
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "80bbea0c845981f75a880959cbfd0c8c080181185623467b3e7694675bd746f7",
+      "layout": {
+        "peg": [
+          -0.6243426964001794,
+          -0.21664408999879772,
+          0.026
+        ]
+      },
+      "moved_body": "peg",
+      "original_ood_layout": {
+        "peg": [
+          -0.6306853928003586,
+          -0.22528817999759543,
+          0.026
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093005,
+      "task": "covered_peg_assembly"
+    },
+    {
+      "center": [
+        -0.61,
+        -0.2
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "ca08f917e638eae6cc97ef16fe09037e2ee21378ca28fcaf19e53095ffdc326c",
+      "layout": {
+        "peg": [
+          -0.6186543242375057,
+          -0.21714399743015061,
+          0.026
+        ]
+      },
+      "moved_body": "peg",
+      "original_ood_layout": {
+        "peg": [
+          -0.6193086484750114,
+          -0.2262879948603012,
+          0.026
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093006,
+      "task": "covered_peg_assembly"
+    },
+    {
+      "center": [
+        -0.61,
+        -0.2
+      ],
+      "id_half_width_m": 0.008,
+      "initial_sha256": "4b54fc374507d43fae75f8a8533dcdcb27cf6aa786f6fbb2ab6d6a2fe65c83d6",
+      "layout": {
+        "peg": [
+          -0.5960861319759271,
+          -0.1857597594390165,
+          0.026
+        ]
+      },
+      "moved_body": "peg",
+      "original_ood_layout": {
+        "peg": [
+          -0.5901722639518543,
+          -0.17951951887803294,
+          0.026
+        ]
+      },
+      "outside_id_distance_factor": 0.5,
+      "seed": 24093007,
+      "task": "covered_peg_assembly"
+    }
+  ],
+  "evaluation": {
+    "context_recent_turns": 6,
+    "diagnostic_seeds": [],
+    "feedback_protocol": "api_conditions_v1",
+    "hide_step_budget": true,
+    "max_api_calls": 128,
+    "max_invocation_steps": 300,
+    "max_steps": 5000,
+    "ood_seeds": [
+      24093000,
+      24093001,
+      24093002,
+      24093003,
+      24093004,
+      24093005,
+      24093006,
+      24093007
+    ],
+    "output": "provenance/relocated/4e4035fc352973af",
+    "seeds": []
+  },
+  "experiment_version": "CartesianIK_peg_SinglePrior_cartesian",
+  "framework_sha256": "8291cf0d32ec5d72f360920cd63180e9d73e16ae470218b765edb2048fb6a183",
+  "ik_revision": {
+    "invalid_v1_results": "provenance/relocated/37e0108a9f8c36e3",
+    "v1_configuration": "provenance/relocated/21118acf04ab91e6",
+    "v1_output": "provenance/relocated/c881d929b2b3c70e"
+  },
+  "interface_path": "assets/exp2/tasks/covered_peg_assembly/interface.md",
+  "kinematics": {
+    "path": "provenance/relocated/2d1816cabaf08d5f",
+    "posture": {
+      "path": "provenance/relocated/2dc859551f0e3a5d",
+      "sha256": "29a1943db6d9aa9cae675dcfc35968277aecb20ac3beb9f8e3737f28f5ff27ac"
+    },
+    "sha256": "6500f428b8c24174958e7eb9aeeaf284a25b511a7dbab7236c631f4e5b2c612c",
+    "version": "v2"
+  },
+  "method": "SinglePrior_cartesian",
+  "normalization": {
+    "directory": "provenance/relocated/1338e3fa7888f219",
+    "scope": "full_training_demonstrations",
+    "train_ids": [
+      "demo12200",
+      "demo12201",
+      "demo12202",
+      "demo12203",
+      "demo12204",
+      "demo12205",
+      "demo12206",
+      "demo12207",
+      "demo12208",
+      "demo12209",
+      "demo12210",
+      "demo12211"
+    ]
+  },
+  "output": "provenance/relocated/87765b5d934d2e85",
+  "prompts": {
+    "train": "assets/exp2/tasks/covered_peg_assembly/prompts/single_prior_train.md"
+  },
+  "public_context": "assets/exp2/tasks/covered_peg_assembly/public_context.json",
+  "schema": "appl.flexible.sol.v1",
+  "segmentation": {
+    "max_api_calls": 64,
+    "max_output_tokens": 65536,
+    "max_plan_versions": 16,
+    "max_skills": 16,
+    "max_tool_calls": 160
+  },
+  "sources": {
+    "demo12200": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12200.json",
+      "sha256": "e7ccc303ea6b6ddd3150e2336c6b06b3f89a66d478909e3f9555eb3d6ccc85f1"
+    },
+    "demo12201": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12201.json",
+      "sha256": "aa9e1f1d14f676f5b4c9fb52ee6bbbb5d86865d82adcc051e3256482461f1016"
+    },
+    "demo12202": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12202.json",
+      "sha256": "4ad5e3ce9117f56008597389c45a799aff1857f683091069d582e024a00b32a7"
+    },
+    "demo12203": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12203.json",
+      "sha256": "c43ecf548e80a87d465fbc947e98d191dffd25cc4966f83e2698dd7a8a2cf8af"
+    },
+    "demo12204": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12204.json",
+      "sha256": "35eea2d5c8fc6e02c992c923db4e580d473d5583edcd45cfee79e682782c5a09"
+    },
+    "demo12205": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12205.json",
+      "sha256": "b4b9855dac2b9f0e836ea063d38694af37abba89371fcae59fffa7d65c4dfb3c"
+    },
+    "demo12206": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12206.json",
+      "sha256": "6a64bcc76a39a6dc2f1119c5e5983a5686835cdf2ae5a0899ab8f39da92ef407"
+    },
+    "demo12207": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12207.json",
+      "sha256": "58410156c6edfad3658ce632cf8ebe122570c51412ba53f8631c9e78a14c5397"
+    },
+    "demo12208": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12208.json",
+      "sha256": "1522c1f09079f05ace6825ff5221ebf74ca8c45941a00050c53b579b43e84d5b"
+    },
+    "demo12209": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12209.json",
+      "sha256": "2a6dc540f7c4c6e6cb92c1fe50c106da8f71123c6b3ede06a790bf8ca0c3d31b"
+    },
+    "demo12210": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12210.json",
+      "sha256": "dd077218ff68ac6e93b28dc73234d21ac2a16c937de945465c9970deb9ad4ac4"
+    },
+    "demo12211": {
+      "path": "assets/exp2/demonstrations/covered_peg_assembly/demo12211.json",
+      "sha256": "0440e3242bad2dbcefe176eab207fd19647109b019c55702ff1906862c9e4b5d"
+    }
+  },
+  "study_output": "provenance/relocated/474bd45a859dd93b",
+  "study_version": "CartesianIK_Peg_Sol_20260925",
+  "task_id": "covered_peg_assembly",
+  "task_spec": "assets/exp2/tasks/covered_peg_assembly/task.json",
+  "training": {
+    "action_scale_floor": 0.01,
+    "batch_size": 128,
+    "checkpoint_every": 2000,
+    "clip_sample": true,
+    "denoising_inference_steps": 100,
+    "denoising_train_steps": 100,
+    "down_dims": [
+      128,
+      256,
+      512
+    ],
+    "ema_decay": 0.999,
+    "execution_steps": 8,
+    "groups": 8,
+    "horizon": 16,
+    "kernel_size": 5,
+    "learning_rate": 0.0001,
+    "lr_schedule": "cosine",
+    "max_grad_norm": 1,
+    "observation_normalization": "limits",
+    "observation_std_floor": 0.001,
+    "observation_steps": 2,
+    "quaternion_normalization": "unit_component_bounds",
+    "sampler": "ddpm",
+    "seeds": [
+      0
+    ],
+    "selection": "last EMA at predeclared budget",
+    "timestep_embed_dim": 128,
+    "updates": 60000,
+    "warmup_steps": 500,
+    "weight_decay": 1e-06
+  },
+  "training_details_path": "assets/exp2/tasks/covered_peg_assembly/training_details.md"
+}

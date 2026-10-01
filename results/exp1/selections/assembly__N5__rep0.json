@@ -1,0 +1,41 @@
+{
+  "instance": "assembly__N5__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A2",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A2",
+      "feedback_hash": "24f7ed1c5258816b088b3dc676980c8d79d8c8bc0c1f0777444bcafbabbd6a5f",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3: A2 is the unique eligible maximum under the frozen equal-distribution/equal-cell rule: 0.5*0.60 + 0.5*0.25 = 0.425, versus 0.375 for A1 and A3. No tie-break is needed; IID success and training losses did not select. A2 succeeds in all 10 C-LH episodes but only 2/10 C-HL, whereas A1/A3 show the reverse C-cell asymmetry. All three succeed only in E-HH (5/5) among E cells, with remaining failures reported as native truncations. These aggregates motivate investigating coordinate/stage entanglement, but do not identify an observed failure stage. A1–A3 remain frozen.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "022a38826981ebf9371c3f0777bebef4521a48a1f8ba2c863cf0e774ef6f9ffc",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4: Select A4, the unique eligible maximum under the frozen rule. Its equal-cell C success is (1.0+1.0)/2=1.0, and equal-cell E success is (1.0+1.0+0.6+0.8)/4=0.85, giving 0.5*1.0+0.5*0.85=0.925. A2 scores 0.425; A1 and A3 each score 0.375. No tie-break is needed, and IID success, training losses, and hidden tests did not select. A4 completed the fixed 20000 updates, has 4,782,660 complete-system parameters, and fixed-method inference latency 0.21639796950330492 s. Development results are C 20/20 and E 17/20; the remaining three E failures are two in LH and one in LL, all native truncations. The revision improved observed C-cell balance and E transfer, but aggregate feedback does not establish which structural change caused the improvement or localize residual failure stages. All four immutable designs and their results, including negative results, remain recorded; no further code edits or training are requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "2bcaebf94254bb03fcb62e5b98d13a1da03f1dc6a11679e631d8d8744c5458e1",
+    "A2": "17f5ecefe69571fd9e42031c38d4aebbc520deb142d5d4a42ff8d3458446ec3d",
+    "A3": "bd2214f773706cded826d1aa943ed52c3d4baaec6b3e6320f8d754403c6d508a",
+    "A4": "604291a92563260b59751960bd1fb37fe9a8e87505249ccf4129df9508eb5d78"
+  },
+  "feedback_hashes": {
+    "initial": "b2d5cfba1427daa0a1b22fa668511d65eeed411b00eeeede79dc9a97f24f5a24",
+    "final": "b174ea199dc3d2902d89e73f15cc2ce9af70b1b7fb6eedd2e1b931515c60bcd5"
+  }
+}

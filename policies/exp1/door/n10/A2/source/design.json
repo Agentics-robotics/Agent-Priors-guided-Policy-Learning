@@ -1,0 +1,34 @@
+{
+  "title": "Support-fitted radial/tangent frame with soft causal manipulation stages",
+  "coverage_gap": "Only LL/HH are demonstrated. The missing combinations and large yaw extrapolations require transferring both contact acquisition and a rotating constrained pull. The hand-to-handle vector is insufficient to distinguish being above a stationary handle from pulling an already moving handle.",
+  "reusable_regularity": "A hinged handle traces a planar circle. Fit its center in cabinet-canonical, goal-relative coordinates from the exact support. At runtime compute the observed handle radius direction and its orthogonal tangent; predict translation in that moving frame, held fixed over the chunk. Represent radial residual and opening sin/cos, full relative geometry, causal motion and orientation. Three small learned encoders are smoothly weighted by planar hand alignment and relative height (approach, descent, contact/pull). This is a learned conditional prior, not a scripted action controller or planner. The unmodified DP receives 42 direct features, three soft stage weights and a 32-dimensional mixed learned encoding.",
+  "dependencies_preserved": [
+    "The fitted center is not an oracle or a runtime hinge field: it is a constant relation estimated only from observed support handle/goal positions and cabinet yaw. Runtime handle, goal and cabinet yaw determine each current frame.",
+    "World hand and goal coordinates, cabinet yaw and moving-frame world direction remain explicit. Robot workspace constraints and fixed end-effector orientation can therefore break nominal rotational symmetry.",
+    "Current and previous aperture, sign-invariant orientation columns, hand motion and handle motion are retained. Door orientation, residual radius, opening progress and goal relation preserve the moving obstacle/contact dependencies.",
+    "Stages are soft, nonexclusive and recomputed from each causal observation. They neither depend on elapsed time nor disable the direct geometry path. Both whole observations are independently represented. Only absent object2 zero fields are removed."
+  ],
+  "evidence_refs": [
+    {"path":"bundle.json","fact":"Exactly ten current support episodes; no dev or test states."},
+    {"path":"task_materials.json","fact":"Handle geom center, xyzw orientation, goal xyz and static cabinet sin/cos yaw are observed; cabinet translation/yaw are the factors. Native xyz actions are world deltas and end-effector rotation is fixed."},
+    {"path":"support_summary.json","fact":"Five LL/five HH. Demo_00 and demo_01 have the same initial handle-goal distance despite different world directions; support gripper action +1 is not used as a hard-coded output."},
+    {"path":"trajectories/demo_00.json","rows":"obs 0:4, 27:35, 46:54, 72:75, 103:106; actions 40:50","fact":"Handle height remains approximately 0.150036 while xy and quaternion change through opening; hand descends from above a nearly stationary handle, and pull action begins around 45. Late handle y first decreases then increases, consistent with a curved rather than straight trajectory."},
+    {"path":"trajectories/demo_01.json","rows":"obs 0:2","fact":"Different world handle/goal positions and cabinet yaw in HH; motivates fitting geometry only after removing the observed rigid transform."},
+    {"path":"images/frame_00_demo_00_step_000.png","fact":"Closed cabinet and initially offset hand."},
+    {"path":"images/frame_01_demo_00_step_073.png","fact":"Partly rotated door with hand at the handle."},
+    {"path":"images/frame_02_demo_01_step_041.png","fact":"Above-handle acquisition geometry differs from late pulling."},
+    {"path":"images/frame_03_demo_01_step_114.png","fact":"Large visible door swing motivates an articulated frame."},
+    {"path":"contracts.py","scope":"public","fact":"Support fitting and JSON restoration precede build_modules; action frames must be reversible and frozen at chunk start."}
+  ],
+  "expected_failure_signature": [
+    "A noncircular handle path or a changed hinge-goal relation would give large radius residual and wrong tangent actions; approach may work while the pull pushes radially or slips.",
+    "At large yaw the fixed fingers may need contact geometry not captured by a soft proximity stage. Oscillation between descent and contact, or pulling before engagement, would falsify the adequacy of these stage variables.",
+    "A circle-canonical representation can extrapolate mechanics without extrapolating robot reachability; errors concentrated at workspace-extreme layouts would expose this limitation despite retained world channels.",
+    "The frame is fixed for sixteen predicted steps, not recomputed with future truth. Rapid rotation within the four executed steps may induce late-pull lag. These signatures are unmeasured predictions."
+  ],
+  "required_runtime_fields": {"source":"Only causal_context.raw_history and raw_current plus restored support geometry constants","slices":{"hand":[0,3],"gripper":[3,4],"handle":[4,7],"handle_quaternion_xyzw":[7,11],"previous_hand":[18,21],"previous_gripper":[21,22],"previous_handle":[22,25],"previous_quaternion_xyzw":[25,29],"goal":[36,39],"cabinet_sin_cos_yaw":[39,41]},"action_frame":"Infer center_world=goal+Rz(cabinet_yaw)*center_local. Frame x is the observed horizontal handle-minus-center unit vector, y is its counterclockwise tangent, z is world up. Encode xyz by frame transpose; decode by frame. The frame is from raw_current at chunk start for all sixteen actions. Gripper stays native, xyz retains native 0.01 m scale; only the executor clips world action4 and executes four steps. Degenerate radius uses cabinet x rather than any future observation."},
+  "training_only_targets": [],
+  "support_fit": {"scope":"Only this D_N obs[0:T] and initial obs[0]","algorithm":"For p=Rz(yaw)^T(handle-goal), least-squares fit [2*p_x,2*p_y,1] dot [c_x,c_y,k]=p_x^2+p_y^2 over all support rows. Radius=sqrt(k+c_x^2+c_y^2); z center is mean p_z. Closed direction is mean normalized initial p_xy-center. Store these JSON constants, observation count and radial RMS residual, then register geometry buffers in build_modules. No action labels, expert source, success rules, rewards or simulator internals are needed.","normalization":"Fixed physical feature scales, not support standard deviations; no future truth used to update deployed geometry."},
+  "parents": [],
+  "change_summary": "Initial independent design: data-fitted articulated frame and causally gated learned stage encoding, in contrast to a static cabinet-coordinate representation. Uses only the common action epsilon objective; no auxiliary loss or postprocessing controller. No performance feedback has been used."
+}

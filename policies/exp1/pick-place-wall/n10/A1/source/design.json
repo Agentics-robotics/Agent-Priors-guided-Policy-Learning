@@ -1,0 +1,38 @@
+{
+  "title": "Metric edge and signed-wall-distance diffusion",
+  "coverage_gap": "This D10 has five LL and five HH episodes but no LH/HL. Goal minus object x is consequently small in support, even though initial hand-to-object x varies in sign. Per-coordinate support standardization can make a new cross-sign relation extreme. A raw global encoder can also confuse goal x with object x. This candidate exposes their differences explicitly at a fixed physical scale, without estimating the narrow goal-object x variance.",
+  "reusable_regularity": "Manipulation is organized by hand-object and object-goal differences, while a finite obstacle requires signed distances to its faces rather than an assumption of free-space translation symmetry. A fixed 64-feature representation supplies both displacement vectors and axis-aligned box features. All metric relations share a 0.1 m scale; current-minus-native-previous displacements use the public 0.01 m action scale. These are unit choices, not fitted controller gains. Only the common conditional U-Net is learned; there is no stage switch, controller, planner, or extra loss.",
+  "dependencies_preserved": [
+    "Robot/world position: absolute hand and wall centers at 0.5 m scale preserve the world origin and fixed robot workspace. Other current and previous positions can be recovered from these and the supplied edges/increments.",
+    "Object interaction: hand-object vector, previous hand-object vector, horizontal and 3D separation, aperture and aperture difference, both object xyzw quaternions, and both hand/object causal increments.",
+    "Goal: goal-object, goal-hand and goal-wall vectors retain all three coordinates, including varying goal height.",
+    "Obstacle: observed wall center and all three half-sizes, six signed inside-face distances for both hand and object, and both box signed-distance scalars. No collision-free path is computed.",
+    "Fixed world axes and native gripper anisotropy are not quotiented away. Only object2 channels declared absent zeros are omitted."
+  ],
+  "evidence_refs": [
+    {"path": "bundle.json", "use": "Establishes exactly ten current support episodes and no development/test evidence."},
+    {"path": "task_materials.json", "use": "LL/HH training versus cross-sign C and larger-magnitude E; runtime fields, world action semantics, fixed orientation."},
+    {"path": "support_summary.json", "use": "Five episodes per training cell; examples demo_00 and demo_01 show very small initial goal-object x difference and different goal heights. Wall center (0.1,0.75,0.06) and half-size (0.12,0.01,0.06) require preserving finite wall geometry."},
+    {"path": "images/frame_00_demo_00_step_000.png", "use": "Actual initial hand/object/goal and finite wall layout inspected."},
+    {"path": "images/frame_01_demo_00_step_055.png", "use": "Actual raised grasp before crossing inspected."},
+    {"path": "images/frame_02_demo_01_step_029.png", "use": "Actual low hand/object interaction inspected."},
+    {"path": "images/frame_03_demo_01_step_084.png", "use": "Actual transported object near elevated goal inspected."},
+    {"path": "trajectories/demo_01.json", "rows": "obs 26:32, obs 54:59, actions 23:37 and 48:72", "use": "Causal aperture and hand-object vertical offset distinguish descent/grasp and ascent. Vertical lift is followed by horizontal transport while retaining grip. This motivates preserving temporal increments and wall clearance rather than just endpoint differences."},
+    {"path": "PUBLIC_CONTRACT.md", "scope": "public", "use": "64 features per each of two observations; unchanged common DP, action loss, execution and deployment interface."}
+  ],
+  "expected_failure_signature": [
+    "If explicit metric edges do not prevent shortcut learning, LH/HL failures should exhibit lateral transport remaining near initial object x instead of following goal x, despite successful grasp/lift.",
+    "Without an explicit stage latent, slow closure or missed grasps may be followed by premature lift/transport. Aperture and vertical increments are available but not hard-coded as a controller.",
+    "Signed point-box distances do not model finger/object swept volumes. Near-wall or edge contacts can persist even when point clearance is positive. Larger displacements remain an unmeasured extrapolation challenge."
+  ],
+  "required_runtime_fields": {
+    "source": "causal_context.raw_history [B,2,45] only; each whole observation includes its native previous state",
+    "slices": {"hand_xyz": [0,3], "gripper": [3,4], "object_xyz": [4,7], "object_quaternion_xyzw": [7,11], "previous_hand_xyz": [18,21], "previous_gripper": [21,22], "previous_object_xyz": [22,25], "previous_object_quaternion_xyzw": [25,29], "goal_xyz": [36,39], "wall_center_xyz": [39,42], "wall_half_size_xyz": [42,45]},
+    "not_used": "Absent object2 channels, IDs, time, future labels, success flags, environment handles and normalized raw history. All necessary present physical state is retained through the representation.",
+    "action_frame": "Identity encode/decode: first three outputs remain native world_dx/world_dy/world_dz with 0.01 m scale, fourth remains native gripper controlling [g,-g]. No candidate clipping. Host alone clips decoded native actions and executes four of sixteen."
+  },
+  "training_only_targets": [],
+  "support_fit": "None. No fitted state or cached support labels at deployment.",
+  "parents": [],
+  "change_summary": "Initial scientific design, not a clone or performance-driven revision. Fixed metric relational representation plus finite-wall signed geometry; single unchanged four-channel common diffusion model. No structural repairs as authored."
+}

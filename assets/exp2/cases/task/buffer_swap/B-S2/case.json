@@ -1,0 +1,125 @@
+{
+  "blue": "demo",
+  "contract": {
+    "coordinate_frame": "world",
+    "description": "Exchange the red and blue blocks between the two marked regions. The red goal is the initially blue region and the blue goal is the initially red region. A free central area can be used temporarily.",
+    "drawer_channels": "No drawer in this task: drawer_position and drawer_velocity are fixed zero compatibility channels.",
+    "fixtures": [],
+    "full_rotated_xy_containment": true,
+    "gripper_release_required": false,
+    "half_xy_m": [
+      0.06,
+      0.06
+    ],
+    "object_half_m": 0.02,
+    "predicates": [
+      "red_at_goal",
+      "blue_at_goal"
+    ],
+    "required_observations": 1,
+    "schema": "appl.scaleup.goals.v1",
+    "success_expression": "red_at_goal AND blue_at_goal",
+    "sustained_hold_required": false,
+    "targets": {
+      "blue": [
+        -0.35,
+        -0.2,
+        0.02
+      ],
+      "red": [
+        -0.35,
+        0.2,
+        0.02
+      ]
+    },
+    "task_id": "buffer_swap",
+    "tcp_clearance_required": false,
+    "units": "metres",
+    "velocity_threshold_required": false,
+    "z_tolerance_m": 0.011
+  },
+  "demo": "demo10103",
+  "drawer_position": 0.0,
+  "env_goals": {
+    "blue": [
+      -0.35,
+      -0.2,
+      0.02
+    ],
+    "red": [
+      -0.35,
+      0.2,
+      0.02
+    ]
+  },
+  "expert_goals": {
+    "blue_at_goal": true,
+    "red_at_goal": true,
+    "success": true
+  },
+  "expert_success": true,
+  "goal": "standard",
+  "id": "B-S2",
+  "id_layout": {
+    "blue": [
+      -0.35289331566633064,
+      0.20740689073486274,
+      0.02
+    ],
+    "red": [
+      -0.35472680993121003,
+      -0.20477447319521555,
+      0.02
+    ]
+  },
+  "initial_goals": {
+    "blue_at_goal": true,
+    "red_at_goal": false,
+    "success": false
+  },
+  "initial_sha256": "c8ed49caffb59ee36d7e873e725fb2cda07daec25228144cc5e3ad29ee4d69a4",
+  "kind": "start",
+  "name": "red_in_buffer_blue_already_placed",
+  "phase": "2_red_pick",
+  "poses": {
+    "blue": [
+      -0.3503490686416626,
+      -0.19914761185646057,
+      0.019999919459223747,
+      0.999998152256012,
+      6.707822194584878e-06,
+      -2.231864755231072e-06,
+      -0.0019199203234165907
+    ],
+    "red": [
+      -0.18100348114967346,
+      -0.0011569163762032986,
+      0.019999921321868896,
+      0.9999989867210388,
+      6.7629221121023875e-06,
+      -2.3055897599988384e-06,
+      0.0014440437080338597
+    ]
+  },
+  "prepared": 1790262230.0488117,
+  "program": [
+    [
+      "red",
+      "red"
+    ]
+  ],
+  "red": "demo",
+  "robot_qpos": [
+    -0.02426234260201454,
+    -0.026088276877999306,
+    -0.3608017861843109,
+    -2.174067735671997,
+    -0.016963882371783257,
+    2.148306131362915,
+    0.41764310002326965,
+    0.03999996930360794,
+    0.03999996557831764
+  ],
+  "seed": 24092702,
+  "task": "buffer_swap"
+}

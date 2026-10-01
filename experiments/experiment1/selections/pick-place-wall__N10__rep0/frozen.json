@@ -1,0 +1,41 @@
+{
+  "instance": "pick-place-wall__N10__rep0",
+  "selections": {
+    "1": {
+      "budget": 1,
+      "candidate_id": "A1",
+      "provenance": "pre_feedback_first_rank",
+      "training_reused": true
+    },
+    "3": {
+      "api_candidate_id": "A2",
+      "api_selection_noncompliant": false,
+      "budget": 3,
+      "candidate_id": "A2",
+      "feedback_hash": "dda2afa7c462a9fe270277f3192424fb1a4a2008592ea0c472caf56c34d28381",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q3 under the frozen rule: A2 has 0.5*0.9 + 0.5*0.9 = 0.900, exceeding A3's 0.775 and A1's 0.525. Within C and E the reported rates are equal-weight cell averages. All three completed and are eligible, so no tie-break is needed. IID results and training losses do not select. A2's remaining development failures are confined to HL (C 8/10, E 3/5), but only native truncation categories were supplied; their physical causes are not established.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    },
+    "4": {
+      "api_candidate_id": "A4",
+      "api_selection_noncompliant": false,
+      "budget": 4,
+      "candidate_id": "A4",
+      "feedback_hash": "25d2e27ce3e4013e2989134785e06c2b920819aab791b3556536a7ef471bf2d0",
+      "provenance": "RuntimePriorAPI",
+      "rationale": "q4 under the frozen rule: eligible A4 has score 0.5*0.90 + 0.5*0.95 = 0.925, above A2 0.900, A3 0.775 and A1 0.525. C averages HL 0.8 and LH 1.0 equally; E averages HH 1.0, HL 0.8, LH 1.0 and LL 1.0 equally. There is no score tie, so A4's higher fixed-method latency (0.219135764 s versus A2 0.106574961 s) and parameter count (5,467,911 versus 5,453,575) do not override its higher score. The observed gain over A2 is one additional E-HL success (4/5 versus 3/5); C is unchanged. This small development difference is not evidence of a statistically established or hidden-test gain. All negative results remain recorded; IID, training curves and hidden test do not select. No additional edits or training requested.",
+      "rule": "Maximize 0.5*dev_C_success + 0.5*dev_E_success; within each distribution use equal subcondition weights. Ties: lower fixed-method inference latency, fewer complete-system parameters, smaller candidate ID. Invalid candidates are ineligible. No eligible candidate means null. IID and hidden test do not select."
+    }
+  },
+  "submissions": {
+    "A1": "bad435b2120ec6d80afb061849765cf7d9cee4096ec56edea66704a004775f1a",
+    "A2": "56b3cdc453352cb8e75a611d441699755e4e1bc742b8042dff05c82e45f144d4",
+    "A3": "2a892bde2f598380e3eca5bba6210bba27d339e8a92762122ce38e75bfe25be8",
+    "A4": "103d65a93f3132ac7958bdde401adaa942d9c78b6bd1275e08a9b83b8af8019e"
+  },
+  "feedback_hashes": {
+    "initial": "258002d8c832186e06af89253dbe4585892da1d98a6156b0ea73483e2889f111",
+    "final": "da0d5cf0090b7250fd5e1b7cb143417c526a8473bc0426747602bb59b9b8a908"
+  }
+}

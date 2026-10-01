@@ -1,0 +1,15 @@
+{
+  "policy_id": "controlled_pour_and_right__h01",
+  "entry_conditions": "The source is visibly closed in the gripper and lifted clear of support. Supported entry extends from early lift/carry around action 180 through staged bowl-centered states around actions 320-360. The bowl pose must be reliable and the Cartesian target reachable from measured joints.",
+  "exit_conditions": "At least ten particles are observed settled within the bowl, the source is approximately upright and still held, and outbound motion toward the return region has started. Nominal exit support lies in actions 1460-1740.",
+  "overlap_role": "Every demonstration supervises incoming actions [180,360), shared with grasp_lift_stage, and outgoing actions [1460,1740), shared with return_place_release. These are action labels, not context-only overlap.",
+  "successor_readiness": "return_place_release can take over after observed transfer completion and near-upright source orientation, nominally near action 1680. The 280-step outgoing overlap permits earlier takeover while righting or later takeover during outbound transport.",
+  "failure_signatures": "Open or widening fingers, changing source-to-TCP relation, inadequate wall clearance, unreachable or non-converged IK, bowl collision, particles outside the bowl, particles remaining when righting starts, or failure to become upright. Nominal demonstrations do not establish recovery.",
+  "continuation_guidance": "Continue while the source is rigidly held and the bowl-frame arc remains reachable. Prefer h02 for ambiguous partial discharge or unexpected intermediate phase, and h03 for an unusual but rigid grasp transform. Abort rather than continue after grasp loss, spill or collision.",
+  "limitations": "A closed finger width is not proof of grasp. Bowl-relative targets do not eliminate robot-base reachability, wall clearance, contact dynamics or return-target dependencies. Bowl displacement was not demonstrated, and no unseen-error recovery is claimed.",
+  "evidence": [
+    {"trajectory_id":"demo12300","indices":[180,320,360,700,800,900,1000,1100,1460,1680,1740]},
+    {"trajectory_id":"demo12303","indices":[180,320,360,700,800,900,1000,1100,1460,1680,1740]},
+    {"trajectory_id":"demo12309","indices":[180,320,360,700,900,1000,1100,1460,1680,1740]}
+  ]
+}

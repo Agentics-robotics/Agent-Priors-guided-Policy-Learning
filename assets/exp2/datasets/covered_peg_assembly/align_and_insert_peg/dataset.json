@@ -1,0 +1,212 @@
+{
+  "evidence": [
+    {
+      "indices": [
+        1380,
+        1400,
+        1420,
+        1440,
+        1460,
+        1480,
+        1500,
+        1520,
+        1540,
+        1555
+      ],
+      "trajectory_id": "demo12200"
+    },
+    {
+      "indices": [
+        1380,
+        1400,
+        1480,
+        1500,
+        1520,
+        1552
+      ],
+      "trajectory_id": "demo12201"
+    },
+    {
+      "indices": [
+        1380,
+        1500,
+        1545
+      ],
+      "trajectory_id": "demo12202"
+    },
+    {
+      "indices": [
+        1380,
+        1500,
+        1552
+      ],
+      "trajectory_id": "demo12203"
+    },
+    {
+      "indices": [
+        1380,
+        1500,
+        1546
+      ],
+      "trajectory_id": "demo12204"
+    },
+    {
+      "indices": [
+        1380,
+        1500,
+        1559
+      ],
+      "trajectory_id": "demo12205"
+    },
+    {
+      "indices": [
+        1380,
+        1500,
+        1545
+      ],
+      "trajectory_id": "demo12206"
+    },
+    {
+      "indices": [
+        1380,
+        1500,
+        1545
+      ],
+      "trajectory_id": "demo12207"
+    },
+    {
+      "indices": [
+        1380,
+        1500,
+        1539
+      ],
+      "trajectory_id": "demo12208"
+    },
+    {
+      "indices": [
+        1380,
+        1500,
+        1545
+      ],
+      "trajectory_id": "demo12209"
+    },
+    {
+      "indices": [
+        1380,
+        1500,
+        1545
+      ],
+      "trajectory_id": "demo12210"
+    },
+    {
+      "indices": [
+        1380,
+        1500,
+        1546
+      ],
+      "trajectory_id": "demo12211"
+    }
+  ],
+  "handoff": {
+    "entry_conditions": "Observable entry cue: the peg is securely closed-grasped and clear of the box, its quaternion is close to identity/axis aligned, and it is above or approaching the hole. At index 1380 peg z is about 0.420-0.428 m; most y values are near 0.18 m, while demo12205 at about 0.160 m provides observed final-alignment variation. Required motion is final y/z/orientation correction, controlled descent, and +x insertion without opening the gripper.",
+    "exit_conditions": "Use the unchanged task success definition. At every terminal observation the peg center is about x -0.182, y 0.1767-0.1769, z 0.0982-0.0983 m with quaternion nearly identity. Given peg_half x = 0.06 m, the +x head is about -0.122 m, inside [-0.145,-0.09]; y/z errors are within 0.009 m and axis alignment exceeds 0.985. The peg is held stably at the inserted pose.",
+    "failure_signatures": "Peg axis is not aligned before fixture approach; y/z error remains outside the square-hole tolerance; z descends while laterally offset; x motion stalls before the head interval; peg pose separates from TCP; or orientation/pose changes indicate fixture collision. These trajectories show only nominal successful insertion, not jam recovery or retry behavior.",
+    "overlap_role": "Incoming action-supervised overlap with reorient_and_stage_peg is [1380,1500), 120 actions/6.0 s per trajectory (1,440 total). It includes final turn/lateral alignment, high-to-low descent, and initial +x engagement, allowing this precision skill to receive well before contact or after insertion has already begun.",
+    "successor_readiness": "There is no learned successor. The framework may evaluate completion only when the supplied head-x, y/z, and axis-alignment criteria are met and the terminal pose is stable. Holding actions at the end are retained to teach stabilization rather than premature release."
+  },
+  "media_paths_relative_to": "dataset_directory",
+  "name": "Align and insert peg into square hole",
+  "original_demonstration_count": 12,
+  "plan_hash": "2ae5a2895d6b7907c7d8b047a04c9ef42fbea4ce995788b0fd08dd7ccdcaea88",
+  "schema": "appl.cut_only_dataset.v3",
+  "segment_count": 12,
+  "segmentation_rationale": "This is the precision fixture-interaction responsibility. It starts at 1380 while the peg is high but nearly aligned, so it learns final correction and approach rather than only the contact instant. In demo12200, the peg is above the target at 1380-1400, descends from z 0.420 to 0.103 through 1420-1460, then advances along +x from center x about -0.308/-0.233 toward -0.182 by 1520-1555. Front images at 1380 and 1500 show the aligned above-hole state and active insertion. All terminal observations satisfy the supplied definition. The overlap is expected to reduce sensitivity to switch timing; no claim is made for unseen jamming recovery.",
+  "segments": [
+    {
+      "file": "segment_00000.json",
+      "occurrence_context": "Square-hole insertion in demo12200: accept the aligned grasped peg above the fixture, finish centering/descent, insert along +x, and stabilize at the successful terminal pose.",
+      "start": 1380,
+      "stop": 1555,
+      "trajectory_id": "demo12200"
+    },
+    {
+      "file": "segment_00001.json",
+      "occurrence_context": "Square-hole insertion in demo12201: perform final alignment above the hole, descend to z near 0.10 m, advance the peg head into the square opening, and hold success.",
+      "start": 1380,
+      "stop": 1552,
+      "trajectory_id": "demo12201"
+    },
+    {
+      "file": "segment_00002.json",
+      "occurrence_context": "Square-hole insertion in demo12202: take the high aligned peg, lower and engage the opening, continue +x insertion, and stabilize at the contract-satisfying pose.",
+      "start": 1380,
+      "stop": 1545,
+      "trajectory_id": "demo12202"
+    },
+    {
+      "file": "segment_00003.json",
+      "occurrence_context": "Square-hole insertion in demo12203: execute final centering/orientation correction, controlled descent and horizontal insertion, ending in the successful hole pose.",
+      "start": 1380,
+      "stop": 1552,
+      "trajectory_id": "demo12203"
+    },
+    {
+      "file": "segment_00004.json",
+      "occurrence_context": "Square-hole insertion in demo12204: align and lower the grasped peg over the square hole, insert along +x, and retain terminal stabilization actions.",
+      "start": 1380,
+      "stop": 1546,
+      "trajectory_id": "demo12204"
+    },
+    {
+      "file": "segment_00005.json",
+      "occurrence_context": "Square-hole insertion in demo12205: begin with additional observed y correction, align above the fixture, descend, insert along +x, and hold the successful pose.",
+      "start": 1380,
+      "stop": 1559,
+      "trajectory_id": "demo12205"
+    },
+    {
+      "file": "segment_00006.json",
+      "occurrence_context": "Square-hole insertion in demo12206: receive the axis-aligned peg high above the target, descend and engage, complete +x insertion, and stabilize.",
+      "start": 1380,
+      "stop": 1545,
+      "trajectory_id": "demo12206"
+    },
+    {
+      "file": "segment_00007.json",
+      "occurrence_context": "Square-hole insertion in demo12207: perform final target alignment, lower the peg to hole height, insert horizontally, and hold the terminal successful state.",
+      "start": 1380,
+      "stop": 1545,
+      "trajectory_id": "demo12207"
+    },
+    {
+      "file": "segment_00008.json",
+      "occurrence_context": "Square-hole insertion in demo12208: accept the aligned peg above the fixture, descend and insert along +x, then retain the stable successful tail.",
+      "start": 1380,
+      "stop": 1539,
+      "trajectory_id": "demo12208"
+    },
+    {
+      "file": "segment_00009.json",
+      "occurrence_context": "Square-hole insertion in demo12209: complete high-level alignment and descent, drive the peg into the square opening, and stabilize at success.",
+      "start": 1380,
+      "stop": 1545,
+      "trajectory_id": "demo12209"
+    },
+    {
+      "file": "segment_00010.json",
+      "occurrence_context": "Square-hole insertion in demo12210: align above the target, lower to insertion height, advance +x until the head lies in the required interval, and hold.",
+      "start": 1380,
+      "stop": 1545,
+      "trajectory_id": "demo12210"
+    },
+    {
+      "file": "segment_00011.json",
+      "occurrence_context": "Square-hole insertion in demo12211: finish alignment, descend into the square-hole approach, insert horizontally, and stabilize at the successful terminal pose.",
+      "start": 1380,
+      "stop": 1546,
+      "trajectory_id": "demo12211"
+    }
+  ],
+  "skill_id": "align_and_insert_peg",
+  "subgoal": "Keep the peg grasped, complete axis/lateral alignment over the square hole, descend to the insertion line, drive the peg along +x until the supplied head-position and alignment criteria are met, and stabilize."
+}

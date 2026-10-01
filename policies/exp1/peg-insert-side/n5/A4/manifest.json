@@ -1,0 +1,76 @@
+{
+  "task_id": "peg-insert-side",
+  "n_demos": 5,
+  "policy_id": "A4",
+  "instance_id": "peg-insert-side__N5__rep0",
+  "author": "RuntimePriorAPI",
+  "manifest": "policies/exp1/peg-insert-side/n5/A4/manifest.json",
+  "source": "policies/exp1/peg-insert-side/n5/A4/source",
+  "checkpoint": {
+    "path": "weights/exp1/peg-insert-side/n5/A4/model.pt",
+    "sha256": "c1b6de1820230c76b636c20e6fe712fb22da791d3ef915c74100ad9b4a8e4788",
+    "source_sha256": "c1b6de1820230c76b636c20e6fe712fb22da791d3ef915c74100ad9b4a8e4788",
+    "size_bytes": 84677395,
+    "bundle": "exp1"
+  },
+  "normalizer": "policies/exp1/peg-insert-side/n5/A4/normalizer.json",
+  "config": "policies/exp1/peg-insert-side/n5/A4/config.json",
+  "files": [
+    {
+      "path": "policies/exp1/peg-insert-side/n5/A4/complete.json",
+      "sha256": "cf036ac8a96155e60659f0cb5502755ed9836a150cddbe39e52f7882ddb88278",
+      "source_sha256": "cf036ac8a96155e60659f0cb5502755ed9836a150cddbe39e52f7882ddb88278",
+      "size_bytes": 1891,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n5/A4/config.json",
+      "sha256": "5d52edf2916e1d82a99a1fa9fb5477f9d002b8703dce5d181d45a1f5962908e2",
+      "source_sha256": "5d52edf2916e1d82a99a1fa9fb5477f9d002b8703dce5d181d45a1f5962908e2",
+      "size_bytes": 8436,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n5/A4/identity.json",
+      "sha256": "c7eddb7bb028e8fa9099187ea5e1d1a65efcc0286f778fad876ac31848bfead0",
+      "source_sha256": "c7eddb7bb028e8fa9099187ea5e1d1a65efcc0286f778fad876ac31848bfead0",
+      "size_bytes": 1349,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n5/A4/latency.json",
+      "sha256": "603754240b288e6790dae438b8442c73fb9fe82e6947422353e2faa19f6cadb7",
+      "source_sha256": "603754240b288e6790dae438b8442c73fb9fe82e6947422353e2faa19f6cadb7",
+      "size_bytes": 773,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n5/A4/normalizer.json",
+      "sha256": "e3cadfe9bac27db7fd88305cedeff36dee16d55ddd2a66167d08a5b88647eee6",
+      "source_sha256": "e3cadfe9bac27db7fd88305cedeff36dee16d55ddd2a66167d08a5b88647eee6",
+      "size_bytes": 2915,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n5/A4/source/candidate.py",
+      "sha256": "34c1309931aea935bc94c7f5b8ddcc148b4f91f11b1051e297381ab092025e03",
+      "source_sha256": "34c1309931aea935bc94c7f5b8ddcc148b4f91f11b1051e297381ab092025e03",
+      "size_bytes": 8005,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n5/A4/source/config.json",
+      "sha256": "5fb966de5c5771675d165c0fba774a600c092ecdc7c79417b278b8f402b930f8",
+      "source_sha256": "5fb966de5c5771675d165c0fba774a600c092ecdc7c79417b278b8f402b930f8",
+      "size_bytes": 317,
+      "transformation": "none"
+    },
+    {
+      "path": "policies/exp1/peg-insert-side/n5/A4/source/design.json",
+      "sha256": "433a65790c75b507d3f9b1d8ed0a982af06710f5b4f6d31c85d64e02071fdf8b",
+      "source_sha256": "433a65790c75b507d3f9b1d8ed0a982af06710f5b4f6d31c85d64e02071fdf8b",
+      "size_bytes": 10460,
+      "transformation": "none"
+    }
+  ]
+}
