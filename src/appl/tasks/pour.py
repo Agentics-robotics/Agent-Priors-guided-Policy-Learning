@@ -3,7 +3,7 @@ import numpy as np
 TASK_GOALS = "appl.cartesian_ik.task_goals.v1"
 
 def measure(state, contract):
-    from .scenes import measure as original
+    from .contact_metrics import measure as original
     if contract.get('schema') != TASK_GOALS:
         return original(state, contract)
     c = contract

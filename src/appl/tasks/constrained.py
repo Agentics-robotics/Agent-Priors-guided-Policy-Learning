@@ -4,7 +4,7 @@ TASK_GOALS = "appl.cartesian_ik.task_goals.v1"
 
 def measure(state, contract):
     if contract.get('schema') != TASK_GOALS:
-        from .scenes import measure as original
+        from .contact_metrics import measure as original
         return original(state, contract)
     from appl.envs.evaluator import extent_wxyz
     c = contract

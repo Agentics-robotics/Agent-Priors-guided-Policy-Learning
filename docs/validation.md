@@ -9,12 +9,22 @@ Both independent Pixi environments were installed from their unchanged scientifi
 dependency locks in a separate checkout. Both lock consistency checks passed.
 CI and local validation use Pixi 0.80.0, and both manifests declare that minimum
 version so an incompatible installer fails with an explicit requirement.
-The root environment's test task passed 288 tests with two optional platform
+The root environment's test task passed 289 tests with two optional platform
 checks skipped (CUDA compilation and an opt-in simulator interface check).
 Upstream Matplotlib emitted 14 deprecation warnings.
-The Exp2 environment's complete test task passed 44 tests, including construction,
+The Exp2 environment's complete test task passed 49 tests, including construction,
 generated-library deployment, and shared release-tool checks. The package wheel
 also built successfully.
+
+Both test tasks passed with `--no-simulator-imports`, which rejects imports of
+MuJoCo, MetaWorld, ManiSkill, SAPIEN, PyOpenGL and GLFW before test collection.
+CI uses this mode so local graphics drivers cannot hide an offline dependency.
+Exp1 data/schema/hash checks load the simulator only when constructing or using
+a physical environment. Exp2 goal metrics and rule subgoals share pure numerical
+functions with the simulator, preserving the original predicates and thresholds.
+Fresh-process regressions cover all 900 Exp1 reset snapshots, 96 Exp1 candidate
+packages and 96 Exp2 cases. The optional MetaWorld interface check was also run
+separately with the real simulator and passed (one test).
 
 All 96 Exp1 submitted candidate packages and all 78 Exp2 policy packages passed
 their source and contract checks. All 900 Exp1 evaluation reset snapshots passed
@@ -58,8 +68,8 @@ future changes cannot introduce sensitive content.
 ## Repeat the checks
 
 ```bash
-pixi run --locked test
-pixi run --manifest-path environments/exp2/pixi.toml --locked test
+pixi run --locked test --no-simulator-imports
+pixi run --manifest-path environments/exp2/pixi.toml --locked test --no-simulator-imports
 pixi run --locked verify
 pixi run --locked tables
 pixi run --locked audit

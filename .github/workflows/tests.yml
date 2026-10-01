@@ -30,7 +30,7 @@ jobs:
       - name: Install locked environment
         run: pixi install --manifest-path "${{ matrix.manifest }}" --locked
       - name: Offline contracts
-        run: pixi run --manifest-path "${{ matrix.manifest }}" --locked test
+        run: pixi run --manifest-path "${{ matrix.manifest }}" --locked test --no-simulator-imports
       - name: Verify released artifacts
         run: pixi run --manifest-path "${{ matrix.manifest }}" --locked verify
       - name: Recompute paper tables

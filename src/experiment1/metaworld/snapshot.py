@@ -15,7 +15,6 @@ import pickle
 from pathlib import Path
 from typing import Any
 
-import mujoco
 import numpy as np
 
 from relative_dp.representation import OBS_DIM
@@ -61,6 +60,7 @@ def get_base_position(env) -> np.ndarray:
 
 
 def reset_from_record(env, record: dict[str, Any]) -> tuple[np.ndarray, dict]:
+    import mujoco
     from metaworld.types import Task
 
     params = record["task_params"]
@@ -99,6 +99,8 @@ def snapshot_initial_state(env, obs: np.ndarray) -> dict[str, np.ndarray]:
 The supported restore route is canonical Task+seed reset, proved against these
 snapshots and short action replay; qpos/qvel alone are never used as a restore.
 """
+    import mujoco
+
     state_spec = mujoco.mjtState.mjSTATE_INTEGRATION
     state = np.empty(mujoco.mj_stateSize(env.model, state_spec), dtype=np.float64)
     mujoco.mj_getState(env.model, env.data, state, state_spec)

@@ -62,7 +62,7 @@
     },
     {
       "published": "src/appl/benchmark/rules.py",
-      "published_sha256": "8f223defdafe402a00d45bfdafae706980326acba50829dbae72f20f5f81ba64",
+      "published_sha256": "edd89eb6900c02098a9d25b8f8525baf77acce19fc31c53d9b41400d863a530a",
       "source": "experiments/exp2/six_tasks/cartesian_ik_rule/evaluate.py",
       "source_sha256": "ea1982591068d4b4b9547632702a3cab878f0040fddd8c446b216612381139d6",
       "symbols": [
@@ -254,6 +254,17 @@
       "published_sha256": "08b6538de7c7c9d3053701f4d24b48da92d3c160ecbc4d0c02b0790397c40d13"
     },
     {
+      "published": "src/appl/tasks/articulated_metrics.py",
+      "published_sha256": "1e6789e2ad647c9c0eb7c359a82dd0c05e58530928cd80828a3dadbc3e8567cd",
+      "source": "experiments/exp2/six_tasks/articulated_scenes.py",
+      "source_sha256": "b25f1dd17d509922408a8caa995c91559525dc99b03c5fadb75aacec967d4515",
+      "symbols": [
+        "rotation",
+        "measure"
+      ],
+      "transformation": "Pure measurement functions extracted without changing mathematical operations, thresholds, or result fields."
+    },
+    {
       "published": "src/appl/tasks/articulated_reset.py",
       "published_sha256": "764d488d71781ffa1ab008aa6eb15c91510e54fecd902d8dca32edfaab6bdaad",
       "source": "experiments/exp2/six_tasks/cartesian_ik_peg/articulated.py",
@@ -265,19 +276,29 @@
     },
     {
       "published": "src/appl/tasks/articulated_scenes.py",
-      "published_sha256": "b25f1dd17d509922408a8caa995c91559525dc99b03c5fadb75aacec967d4515",
+      "published_sha256": "e540de3cfea5f74e248a0043bed759e135cbdd9621c8e025cf955a244a1b44ac",
       "source": "experiments/exp2/six_tasks/articulated_scenes.py",
       "source_sha256": "b25f1dd17d509922408a8caa995c91559525dc99b03c5fadb75aacec967d4515"
     },
     {
       "published": "src/appl/tasks/constrained.py",
-      "published_sha256": "afd483f6625a857c12bc719d8114db2fe9576276aff9c9c9e433caab753c4ff3",
+      "published_sha256": "f94a2bbe0678ab5438bc3201944c47d1a2ef50b27a5327af42c1a94a74536a9f",
       "source": "experiments/exp2/six_tasks/cartesian_ik_new_task/cases.py",
       "source_sha256": "bd3749a389a551b6666490955d6bdca0b2ec6b41ffc47e1063aa124fbcad0bff",
       "symbols": [
         "measure",
         "environment"
       ]
+    },
+    {
+      "published": "src/appl/tasks/contact_metrics.py",
+      "published_sha256": "0370b846267cd023319503a6d243539a5eb4cd3697487f5a116d48217a8c018d",
+      "source": "experiments/exp2/six_tasks/scenes.py",
+      "source_sha256": "2b72100e15a86512c5c503362416023db246d9219946b3c33a5eb89eeb391acc",
+      "symbols": [
+        "measure"
+      ],
+      "transformation": "Pure measurement functions extracted without changing mathematical operations, thresholds, or result fields."
     },
     {
       "published": "src/appl/tasks/drawer.py",
@@ -299,7 +320,7 @@
     },
     {
       "published": "src/appl/tasks/peg.py",
-      "published_sha256": "8fab0bc6f3140016b1de85e5c0e444ce671f249e7983599ff6d9b70b198c3de1",
+      "published_sha256": "3d4ab196fd5af92f8dd8eb2e4bb8ae1f4831f5862b56260f374b7d748a572ad7",
       "source": "experiments/exp2/six_tasks/cartesian_ik_peg_task/cases.py",
       "source_sha256": "3301bcdec84e02e916f65c717d0da76bba1ce600710d23c456aa50a91dbfd32d",
       "symbols": [
@@ -309,7 +330,7 @@
     },
     {
       "published": "src/appl/tasks/pour.py",
-      "published_sha256": "bbb8578ca0ea33c806b78f6ca05778b27a888f5ba34705a11b8dd634c3321c2d",
+      "published_sha256": "e2a307af88cf4f5884e6688ee38bc2c6aebb5b436228c10ec7077048f90f8595",
       "source": "experiments/exp2/six_tasks/cartesian_ik_pour_task/cases.py",
       "source_sha256": "3baeb6429a56f74c59f329e76e4eece7871a480e6eee65ca8ca419e4d1057caf",
       "symbols": [
@@ -319,7 +340,7 @@
     },
     {
       "published": "src/appl/tasks/scenes.py",
-      "published_sha256": "2b72100e15a86512c5c503362416023db246d9219946b3c33a5eb89eeb391acc",
+      "published_sha256": "ffc8c307f49a80e1a9ca51897d5d7d64f5c696e891152feebb1fd2fd80452524",
       "source": "experiments/exp2/six_tasks/scenes.py",
       "source_sha256": "2b72100e15a86512c5c503362416023db246d9219946b3c33a5eb89eeb391acc"
     },

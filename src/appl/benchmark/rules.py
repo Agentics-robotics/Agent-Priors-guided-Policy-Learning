@@ -45,7 +45,7 @@ def variants(skills, argument_sets):
 def constrained_subgoals(state, contract):
     """Geometric completion of each skill with the standard task regions."""
     from appl.envs.evaluator import extent_wxyz
-    from appl.tasks.scenes import measure
+    from appl.tasks.contact_metrics import measure
     k = dict(contract=contract, drawer_open_m=.26,
              roof_top=contract['tunnel_floor_top']+contract['tunnel_clear_height']+2*contract['tunnel_wall_thickness'])
     c = k['contract']
@@ -61,7 +61,7 @@ def constrained_subgoals(state, contract):
 
 def peg_subgoals(state, contract):
     """Geometric completion of each skill with the standard task regions."""
-    from appl.tasks.scenes import measure
+    from appl.tasks.contact_metrics import measure
     k = dict(contract=contract, cover_open_rad=.9, peg_lifted_m=.15,
              staged_axis_m=.01, staged_head_x_m=-.21, released_m=.10)
     c = k['contract']
@@ -87,7 +87,7 @@ def peg_subgoals(state, contract):
 
 def pour_subgoals(state, contract):
     """Geometric completion of each skill with the standard task regions."""
-    from appl.tasks.scenes import measure
+    from appl.tasks.contact_metrics import measure
     c = contract
     standard = measure(state, c)
     p = np.asarray(state['container_pose'][:3])

@@ -3,16 +3,19 @@ from __future__ import annotations
 import pickle
 import importlib
 from pathlib import Path
-import mujoco
 import numpy as np
 from .snapshot import snapshot_initial_state
-from .geometry import GeometryEnv, CanonicalExpert
 from .tasks import NATIVE_IDS,SOURCE_FILES
 
 class TaskEnv:
     def __init__(self,task,render_mode=None):
+        # Schema, support-data and result verification also run on machines
+        # without a graphics stack. Load the simulator only for a real scene.
+        import mujoco
+
         self.task=task
         if task in ('drawer','door'):
+            from .geometry import GeometryEnv
             self.geometry=GeometryEnv(task,render_mode)
             self.native=self.geometry.native
         else:
@@ -40,6 +43,8 @@ class TaskEnv:
         return obs.copy()
 
     def reset(self,record):
+        import mujoco
+
         self.steps=0
         if self.geometry:
             rec=dict(record,task_name=self.task)
@@ -109,7 +114,11 @@ class NativeExpert:
         self.policy=getattr(importlib.import_module('metaworld.policies.'+name),cls)()
     def action(self,obs):return np.clip(self.policy.get_action(obs[:39].copy()),-1.,1.).astype(np.float32)
 
-def make_expert(env):return CanonicalExpert(env.geometry) if env.geometry else NativeExpert(env)
+def make_expert(env):
+    if env.geometry:
+        from .geometry import CanonicalExpert
+        return CanonicalExpert(env.geometry)
+    return NativeExpert(env)
 
 def observation_schema(task):
     fields=[]

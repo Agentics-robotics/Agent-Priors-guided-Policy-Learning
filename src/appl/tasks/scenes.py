@@ -15,7 +15,7 @@ from mani_skill.utils.registration import register_env
 from appl.envs import scene as cad
 from appl.envs.native import add_box
 from appl.envs.adapter import state_from_obs
-from appl.envs.evaluator import extent_wxyz
+from .contact_metrics import measure
 
 NAMES=('tool_retrieve_pack','constrained_retrieve_store')
 
@@ -57,21 +57,6 @@ def initial_layout(spec,seed,condition):
         if key+'_initial' in spec:
             p=np.asarray(spec[key+'_initial'],float);p[:2]+=offset();result[key]=p.tolist()
     return result
-
-
-def measure(state,spec):
-    if spec['task_id'] in ('covered_peg_assembly','granular_pour_return'):
-        from .articulated_scenes import measure as additional
-        return additional(state,spec)
-    p=np.asarray(state['object_pose'][:3]);ext=extent_wxyz(state['object_pose'][3:],spec['object_half_m'])
-    if spec['task_id']=='tool_retrieve_pack':
-        g=np.asarray(spec['target'])
-        inside=bool(np.all(np.abs(p[:2]-g[:2])+ext[:2]<=spec['target_half_xy']) and abs(p[2]-g[2])<spec['target_z_tolerance'])
-        return dict(object_in_tray=inside,success=inside)
-    q=float(state['drawer_position'][0]);center=np.asarray(spec['drawer_origin'])+[-q,0,0]
-    inside=bool(np.all(np.abs(p[:2]-center[:2])+ext[:2]<=spec['cavity_half_xy']) and spec['object_z_interval'][0]<p[2]<spec['object_z_interval'][1])
-    closed=q<spec['drawer_closed_threshold']
-    return dict(object_inside=inside,drawer_closed=closed,success=inside and closed)
 
 
 @register_env('APPLSixTaskContact-v1',max_episode_steps=5000)
